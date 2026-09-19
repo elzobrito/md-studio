@@ -7,11 +7,11 @@
     "run": {
       "run_id": "RUN-0001",
       "status": "success",
-      "last_event_seq": 1775,
-      "projection_hash_sha256": "26997cc481ba23f0eceed6c388f600a2ca21b0e8bfc6c6ee713adb7c592595d6",
+      "last_event_seq": 1784,
+      "projection_hash_sha256": "d06b8c310318d73fef2d8ea1450d690898aa224bb020d3b139d1a38788f40d5c",
       "verify_status": "ok"
     },
-    "updated_at": "2026-09-19T22:08:02Z"
+    "updated_at": "2026-09-19T22:15:08Z"
   },
   "project": {
     "name": "MD Studio",
@@ -5412,7 +5412,7 @@
       "task_kind": "spec",
       "title": "Onda3: Governança v1 + consolidar Onda 2 no Git",
       "description": "# Onda 3 — Backlinks v3.1 | MD-BACKLINK-000\n**Executor externo.** Claim → implement → prove → complete.\n**WBS:** `docs/onda3/WBS-ONDA-3-BACKLINKS-v3.1.md`\n**Repo:** `/home/elzobrito/desenvolvimento/md-studio`\n**Proibido:** grafo, segundo watcher, status `collision`, campo `column`, persistência própria do índice, alterar Onda 2 resolver.\n\n## Regras globais\n1. Confirmar paths com `rg`/`find` (OutgoingLinksPanel, wiki_resolve, ReindexEngine).\n2. Só indexar `Resolved`; excluir self-links; Ambiguous/Unresolved fora.\n3. Contexto sob demanda; falha → context null.\n4. Não misturar commit Onda 2 com código de backlinks.\n5. Done = AC + verify + evidência quando aplicável.\n\n\n## Objetivo\nEmendar norma v1 e consolidar Onda 2 no Git. **Bloqueante** — sem isto, 001+ não elegíveis.\n\n## Trabalho\n1. Emendar `PROJETO.md`: backlinks de Wiki Links internos **entram** na v1; Knowledge Graph **fora** da v1 (Onda 4).\n2. Emendar `docs/spec/G01-contrato-do-produto-e-conjunto-de-prds.md` com a mesma decisão (remover backlinks da lista de exclusões da v1; manter grafo excluído).\n3. Revisar working tree da Onda 2; incluir `docs/qa/onda2-wiki-links.md` se ainda não commitado.\n4. Commit **exclusivo** Onda 2 (não misturar backlinks). Push conforme política do repo.\n5. Registrar hash do commit em `docs/onda3/onda2-commit-gate.md`.\n6. `git status` pós-consolidação documentado.\n\n## Fora\nImplementar backlinks; mudar comportamento wiki.\n\n## AC\n- [ ] PROJETO + G01 coerentes (backlinks in, grafo out)\n- [ ] Onda 2 em commit próprio; hash registrado\n- [ ] Sem código de backlink neste commit\n- [ ] Status inspecionado antes da 001\n\n**Verify:** `md_backlink_000_governance_pass`\n\n\nCópia local: docs/onda3/MD-BACKLINK-000-FULL.md",
-      "status": "todo",
+      "status": "done",
       "depends_on": [],
       "targets": [
         "MD-BACKLINK-000",
@@ -5443,7 +5443,15 @@
         "Sem código de backlink no commit 000",
         "Verify: md_backlink_000_governance_pass"
       ],
-      "required_review_mode": "governance"
+      "required_review_mode": "governance",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-19T22:14:44Z",
+      "verification": {
+        "checks": [
+          "md_backlink_000_governance_pass"
+        ]
+      },
+      "completed_at": "2026-09-19T22:15:07Z"
     },
     {
       "task_id": "MD-BACKLINK-001",
@@ -5812,8 +5820,8 @@
   ],
   "indexes": {
     "by_status": {
-      "done": 148,
-      "todo": 9
+      "done": 149,
+      "todo": 8
     },
     "by_kind": {
       "impl": 102,

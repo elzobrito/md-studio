@@ -10,9 +10,10 @@ Congelar o contrato executável da v1 do MD Studio sem decisões pendentes de pr
 - Persistência explícita (Ctrl+S), hash de versão, conflitos e rascunho de recuperação fora da fonte.
 - Export HTML autossuficiente + impressão/PDF via sistema.
 - Linux-first, offline, single-user, sem telemetria.
+- Wiki Links internos (Onda 2) e Backlinks internos sob demanda (Onda 3).
 
 ## Fora de escopo v1
-WYSIWYG, colaboração, cloud sync, plugins JS, Obsidian completo, Pandoc, BibTeX, backlinks, grafo, abas multi-documento.
+WYSIWYG, colaboração, cloud sync, plugins JS, Obsidian completo, Pandoc, BibTeX, grafo de conhecimento / Knowledge Graph (Onda 4), abas multi-documento.
 
 ## PRDs canônicos
 | PRD | Responsabilidade |

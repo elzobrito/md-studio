@@ -29,9 +29,10 @@ documentos a serviços externos.
 
 ## Limites da v1
 
-A v1 é local, Linux-first e não inclui WYSIWYG, colaboração, autenticação,
-backend remoto, sincronização em nuvem, plugins JavaScript, backlinks, grafo de
-documentos, compatibilidade Obsidian completa, Pandoc ou BibTeX.
+A v1 é local, Linux-first e inclui backlinks de Wiki Links internos. Não inclui
+WYSIWYG, colaboração, autenticação, backend remoto, sincronização em nuvem,
+plugins JavaScript, grafo de documentos / Knowledge Graph (previsto para a Onda 4),
+compatibilidade Obsidian completa, Pandoc ou BibTeX.
 
 ## Política de entrega
 
