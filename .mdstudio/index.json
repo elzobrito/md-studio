@@ -1,0 +1,5439 @@
+{
+  "documents": {
+    "docs/onda2/MD-WIKI-006-FULL.md": {
+      "path": "docs/onda2/MD-WIKI-006-FULL.md",
+      "title": "Onda 2 — Wiki Links | MD-WIKI-006",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "Onda 2 — Wiki Links | MD-WIKI-006",
+          "anchor": "onda-2-wiki-links-md-wiki-006"
+        },
+        {
+          "depth": 2,
+          "text": "Regras",
+          "anchor": "regras"
+        },
+        {
+          "depth": 2,
+          "text": "Objetivo",
+          "anchor": "objetivo"
+        },
+        {
+          "depth": 2,
+          "text": "Depende",
+          "anchor": "depende"
+        },
+        {
+          "depth": 2,
+          "text": "Trabalho",
+          "anchor": "trabalho"
+        },
+        {
+          "depth": 2,
+          "text": "Artefatos",
+          "anchor": "artefatos"
+        },
+        {
+          "depth": 2,
+          "text": "Fora",
+          "anchor": "fora"
+        },
+        {
+          "depth": 2,
+          "text": "AC",
+          "anchor": "ac"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 191,
+      "lineCount": 40,
+      "lastModified": 1789851742
+    },
+    "docs/onda0b/MD-GM-007-FULL.md": {
+      "path": "docs/onda0b/MD-GM-007-FULL.md",
+      "title": "WBS-GM-007",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "WBS-GM-007",
+          "anchor": "wbs-gm-007"
+        },
+        {
+          "depth": 1,
+          "text": "Table Editor Assistido",
+          "anchor": "table-editor-assistido"
+        },
+        {
+          "depth": 2,
+          "text": "WBS-GM-007.01",
+          "anchor": "wbs-gm-00701"
+        },
+        {
+          "depth": 2,
+          "text": "WBS-GM-007.02",
+          "anchor": "wbs-gm-00702"
+        },
+        {
+          "depth": 2,
+          "text": "WBS-GM-007.03",
+          "anchor": "wbs-gm-00703"
+        },
+        {
+          "depth": 2,
+          "text": "WBS-GM-007.04",
+          "anchor": "wbs-gm-00704"
+        },
+        {
+          "depth": 2,
+          "text": "Critérios de Aceitação — WBS-GM-007",
+          "anchor": "criterios-de-aceitacao-wbs-gm-007"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 761,
+      "lineCount": 251,
+      "lastModified": 1789845568
+    },
+    "docs/spec/G13-renderizador-de-codigo-e-recursos-de-bloco.md": {
+      "path": "docs/spec/G13-renderizador-de-codigo-e-recursos-de-bloco.md",
+      "title": "G13 — Código",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "G13 — Código",
+          "anchor": "g13-codigo"
+        },
+        {
+          "depth": 2,
+          "text": "Objetivo",
+          "anchor": "objetivo"
+        },
+        {
+          "depth": 2,
+          "text": "Requisitos",
+          "anchor": "requisitos"
+        },
+        {
+          "depth": 2,
+          "text": "Aceite",
+          "anchor": "aceite"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 63,
+      "lineCount": 14,
+      "lastModified": 1783692162
+    },
+    "docs/onda2/MD-WIKI-002-FULL.md": {
+      "path": "docs/onda2/MD-WIKI-002-FULL.md",
+      "title": "Onda 2 — Wiki Links | MD-WIKI-002",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "Onda 2 — Wiki Links | MD-WIKI-002",
+          "anchor": "onda-2-wiki-links-md-wiki-002"
+        },
+        {
+          "depth": 2,
+          "text": "Regras",
+          "anchor": "regras"
+        },
+        {
+          "depth": 2,
+          "text": "Objetivo",
+          "anchor": "objetivo"
+        },
+        {
+          "depth": 2,
+          "text": "Depende",
+          "anchor": "depende"
+        },
+        {
+          "depth": 2,
+          "text": "Trabalho",
+          "anchor": "trabalho"
+        },
+        {
+          "depth": 2,
+          "text": "Artefatos",
+          "anchor": "artefatos"
+        },
+        {
+          "depth": 2,
+          "text": "AC",
+          "anchor": "ac"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 194,
+      "lineCount": 39,
+      "lastModified": 1789851742
+    },
+    "docs/spec/G18-sessao-preferencias-temas-e-acessibilidade.md": {
+      "path": "docs/spec/G18-sessao-preferencias-temas-e-acessibilidade.md",
+      "title": "G18 — Sessão",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "G18 — Sessão",
+          "anchor": "g18-sessao"
+        },
+        {
+          "depth": 2,
+          "text": "Objetivo",
+          "anchor": "objetivo"
+        },
+        {
+          "depth": 2,
+          "text": "Requisitos",
+          "anchor": "requisitos"
+        },
+        {
+          "depth": 2,
+          "text": "Aceite",
+          "anchor": "aceite"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 64,
+      "lineCount": 14,
+      "lastModified": 1783692180
+    },
+    "docs/onda3/EXECUTOR-BRIEF.md": {
+      "path": "docs/onda3/EXECUTOR-BRIEF.md",
+      "title": "Onda 3 — EXECUTOR BRIEF (Backlinks v3.1)",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "Onda 3 — EXECUTOR BRIEF (Backlinks v3.1)",
+          "anchor": "onda-3-executor-brief-backlinks-v31"
+        },
+        {
+          "depth": 2,
+          "text": "Missão",
+          "anchor": "missao"
+        },
+        {
+          "depth": 2,
+          "text": "Ordem obrigatória",
+          "anchor": "ordem-obrigatoria"
+        },
+        {
+          "depth": 2,
+          "text": "Âncoras reais (confirmar com rg)",
+          "anchor": "ancoras-reais-confirmar-com-rg"
+        },
+        {
+          "depth": 2,
+          "text": "Proibido",
+          "anchor": "proibido"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 125,
+      "lineCount": 32,
+      "lastModified": 1789854637
+    },
+    "docs/spec/G22-suite-adversarial-de-filesystem-conteudo-e-integridade.md": {
+      "path": "docs/spec/G22-suite-adversarial-de-filesystem-conteudo-e-integridade.md",
+      "title": "G22 — Security suite",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "G22 — Security suite",
+          "anchor": "g22-security-suite"
+        },
+        {
+          "depth": 2,
+          "text": "Objetivo",
+          "anchor": "objetivo"
+        },
+        {
+          "depth": 2,
+          "text": "Requisitos",
+          "anchor": "requisitos"
+        },
+        {
+          "depth": 2,
+          "text": "Aceite",
+          "anchor": "aceite"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 64,
+      "lineCount": 14,
+      "lastModified": 1783692194
+    },
+    "tests/security/filesystem/README.md": {
+      "path": "tests/security/filesystem/README.md",
+      "title": "Filesystem adversarial cases",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "Filesystem adversarial cases",
+          "anchor": "filesystem-adversarial-cases"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 17,
+      "lineCount": 6,
+      "lastModified": 1783692195
+    },
+    "docs/onda3/WBS-ONDA-3-BACKLINKS-v3.1.md": {
+      "path": "docs/onda3/WBS-ONDA-3-BACKLINKS-v3.1.md",
+      "title": "WBS-ONDA-3-BACKLINKS v3.1",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "WBS-ONDA-3-BACKLINKS v3.1",
+          "anchor": "wbs-onda-3-backlinks-v31"
+        },
+        {
+          "depth": 2,
+          "text": "MD Studio — Backlinks e Índice Reverso",
+          "anchor": "md-studio-backlinks-e-indice-reverso"
+        },
+        {
+          "depth": 3,
+          "text": "Decisões fechadas",
+          "anchor": "decisoes-fechadas"
+        },
+        {
+          "depth": 3,
+          "text": "Tasks",
+          "anchor": "tasks"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 1,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 242,
+      "lineCount": 32,
+      "lastModified": 1789854637
+    },
+    "tests/security/adversarial/xss.md": {
+      "path": "tests/security/adversarial/xss.md",
+      "title": "XSS fixtures",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "XSS fixtures",
+          "anchor": "xss-fixtures"
+        }
+      ],
+      "links": [
+        {
+          "text": "x",
+          "url": "javascript:alert(1",
+          "isInternal": true,
+          "line": 5
+        }
+      ],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 8,
+      "lineCount": 7,
+      "lastModified": 1783692195
+    },
+    "docs/qa/G11-front-matter-notas-alertas-e-diretivas.md": {
+      "path": "docs/qa/G11-front-matter-notas-alertas-e-diretivas.md",
+      "title": "QA G11 — Extensões",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "QA G11 — Extensões",
+          "anchor": "qa-g11-extensoes"
+        },
+        {
+          "depth": 2,
+          "text": "Escopo da validação",
+          "anchor": "escopo-da-validacao"
+        },
+        {
+          "depth": 2,
+          "text": "Evidências",
+          "anchor": "evidencias"
+        },
+        {
+          "depth": 2,
+          "text": "Resultado",
+          "anchor": "resultado"
+        },
+        {
+          "depth": 2,
+          "text": "Checklist",
+          "anchor": "checklist"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 82,
+      "lineCount": 17,
+      "lastModified": 1783692158
+    },
+    "docs/onda0c/MD-UI-SIDEBAR-001-QA.md": {
+      "path": "docs/onda0c/MD-UI-SIDEBAR-001-QA.md",
+      "title": "QA: MD-UI-SIDEBAR-001 (Sidebar Hierarchy & Shared Button Component)",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "QA: MD-UI-SIDEBAR-001 (Sidebar Hierarchy & Shared Button Component)",
+          "anchor": "qa-md-ui-sidebar-001-sidebar-hierarchy-shared-button-component"
+        },
+        {
+          "depth": 2,
+          "text": "Escopo",
+          "anchor": "escopo"
+        },
+        {
+          "depth": 2,
+          "text": "Verificação",
+          "anchor": "verificacao"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 120,
+      "lineCount": 17,
+      "lastModified": 1789850687
+    },
+    "docs/release/README.md": {
+      "path": "docs/release/README.md",
+      "title": "Release candidata MD Studio 0.1.0",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "Release candidata MD Studio 0.1.0",
+          "anchor": "release-candidata-md-studio-010"
+        },
+        {
+          "depth": 2,
+          "text": "Pacotes",
+          "anchor": "pacotes"
+        },
+        {
+          "depth": 2,
+          "text": "Gates",
+          "anchor": "gates"
+        },
+        {
+          "depth": 2,
+          "text": "Produto",
+          "anchor": "produto"
+        }
+      ],
+      "links": [
+        {
+          "text": "PACKAGING.md",
+          "url": "./PACKAGING.md",
+          "isInternal": true,
+          "line": 5
+        }
+      ],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 81,
+      "lineCount": 19,
+      "lastModified": 1789841892
+    },
+    "docs/spec/G11-front-matter-notas-alertas-e-diretivas.md": {
+      "path": "docs/spec/G11-front-matter-notas-alertas-e-diretivas.md",
+      "title": "G11 — Extensões",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "G11 — Extensões",
+          "anchor": "g11-extensoes"
+        },
+        {
+          "depth": 2,
+          "text": "Objetivo",
+          "anchor": "objetivo"
+        },
+        {
+          "depth": 2,
+          "text": "Requisitos",
+          "anchor": "requisitos"
+        },
+        {
+          "depth": 2,
+          "text": "Aceite",
+          "anchor": "aceite"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 64,
+      "lineCount": 14,
+      "lastModified": 1783692155
+    },
+    "docs/qa/G02-contrato-arquitetural-ipc-e-tipos-publicos.md": {
+      "path": "docs/qa/G02-contrato-arquitetural-ipc-e-tipos-publicos.md",
+      "title": "QA G02 — Arquitetura, IPC e tipos públicos",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "QA G02 — Arquitetura, IPC e tipos públicos",
+          "anchor": "qa-g02-arquitetura-ipc-e-tipos-publicos"
+        },
+        {
+          "depth": 2,
+          "text": "Escopo da validação",
+          "anchor": "escopo-da-validacao"
+        },
+        {
+          "depth": 2,
+          "text": "Evidências",
+          "anchor": "evidencias"
+        },
+        {
+          "depth": 2,
+          "text": "Resultado",
+          "anchor": "resultado"
+        },
+        {
+          "depth": 2,
+          "text": "Checklist",
+          "anchor": "checklist"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 89,
+      "lineCount": 17,
+      "lastModified": 1783692118
+    },
+    "tests/accessibility/README.md": {
+      "path": "tests/accessibility/README.md",
+      "title": "Accessibility checks",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "Accessibility checks",
+          "anchor": "accessibility-checks"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 12,
+      "lineCount": 3,
+      "lastModified": 1783692181
+    },
+    "docs/spec/G21-suite-de-conformidade-markdown-e-renderizadores.md": {
+      "path": "docs/spec/G21-suite-de-conformidade-markdown-e-renderizadores.md",
+      "title": "G21 — Conformidade",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "G21 — Conformidade",
+          "anchor": "g21-conformidade"
+        },
+        {
+          "depth": 2,
+          "text": "Objetivo",
+          "anchor": "objetivo"
+        },
+        {
+          "depth": 2,
+          "text": "Requisitos",
+          "anchor": "requisitos"
+        },
+        {
+          "depth": 2,
+          "text": "Aceite",
+          "anchor": "aceite"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 61,
+      "lineCount": 14,
+      "lastModified": 1783692190
+    },
+    "docs/qa/G01-contrato-do-produto-e-conjunto-de-prds.md": {
+      "path": "docs/qa/G01-contrato-do-produto-e-conjunto-de-prds.md",
+      "title": "QA G01 — Contrato do produto",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "QA G01 — Contrato do produto",
+          "anchor": "qa-g01-contrato-do-produto"
+        },
+        {
+          "depth": 2,
+          "text": "Validação",
+          "anchor": "validacao"
+        },
+        {
+          "depth": 2,
+          "text": "Resultado",
+          "anchor": "resultado"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 33,
+      "lineCount": 9,
+      "lastModified": 1783692100
+    },
+    "docs/qa/hotfix-editor-cursor.md": {
+      "path": "docs/qa/hotfix-editor-cursor.md",
+      "title": "QA — Hotfix do cursor do editor",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "QA — Hotfix do cursor do editor",
+          "anchor": "qa-hotfix-do-cursor-do-editor"
+        },
+        {
+          "depth": 2,
+          "text": "Causa",
+          "anchor": "causa"
+        },
+        {
+          "depth": 2,
+          "text": "Correção",
+          "anchor": "correcao"
+        },
+        {
+          "depth": 2,
+          "text": "Evidência",
+          "anchor": "evidencia"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 226,
+      "lineCount": 36,
+      "lastModified": 1789854071
+    },
+    "docs/onda3/ESAA-TASKS-HANDOFF.md": {
+      "path": "docs/onda3/ESAA-TASKS-HANDOFF.md",
+      "title": "Onda 3 — EXECUTOR BRIEF (Backlinks v3.1)",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "Onda 3 — EXECUTOR BRIEF (Backlinks v3.1)",
+          "anchor": "onda-3-executor-brief-backlinks-v31"
+        },
+        {
+          "depth": 2,
+          "text": "Missão",
+          "anchor": "missao"
+        },
+        {
+          "depth": 2,
+          "text": "Ordem obrigatória",
+          "anchor": "ordem-obrigatoria"
+        },
+        {
+          "depth": 2,
+          "text": "Âncoras reais (confirmar com rg)",
+          "anchor": "ancoras-reais-confirmar-com-rg"
+        },
+        {
+          "depth": 2,
+          "text": "Proibido",
+          "anchor": "proibido"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 127,
+      "lineCount": 35,
+      "lastModified": 1789854637
+    },
+    "docs/onda0b/MD-GM-004-FULL.md": {
+      "path": "docs/onda0b/MD-GM-004-FULL.md",
+      "title": "WBS-GM-004",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "WBS-GM-004",
+          "anchor": "wbs-gm-004"
+        },
+        {
+          "depth": 1,
+          "text": "Document Templates",
+          "anchor": "document-templates"
+        },
+        {
+          "depth": 2,
+          "text": "Contexto",
+          "anchor": "contexto"
+        },
+        {
+          "depth": 2,
+          "text": "WBS-GM-004.01",
+          "anchor": "wbs-gm-00401"
+        },
+        {
+          "depth": 2,
+          "text": "WBS-GM-004.02",
+          "anchor": "wbs-gm-00402"
+        },
+        {
+          "depth": 2,
+          "text": "WBS-GM-004.03",
+          "anchor": "wbs-gm-00403"
+        },
+        {
+          "depth": 2,
+          "text": "WBS-GM-004.04",
+          "anchor": "wbs-gm-00404"
+        },
+        {
+          "depth": 2,
+          "text": "WBS-GM-004.05",
+          "anchor": "wbs-gm-00405"
+        },
+        {
+          "depth": 2,
+          "text": "Critérios de Aceitação — WBS-GM-004",
+          "anchor": "criterios-de-aceitacao-wbs-gm-004"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 997,
+      "lineCount": 413,
+      "lastModified": 1789845567
+    },
+    "docs/qa/G06-fronteira-segura-do-workspace-e-politica-de-caminhos.md": {
+      "path": "docs/qa/G06-fronteira-segura-do-workspace-e-politica-de-caminhos.md",
+      "title": "QA G06 — Workspace seguro",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "QA G06 — Workspace seguro",
+          "anchor": "qa-g06-workspace-seguro"
+        },
+        {
+          "depth": 2,
+          "text": "Escopo da validação",
+          "anchor": "escopo-da-validacao"
+        },
+        {
+          "depth": 2,
+          "text": "Evidências",
+          "anchor": "evidencias"
+        },
+        {
+          "depth": 2,
+          "text": "Resultado",
+          "anchor": "resultado"
+        },
+        {
+          "depth": 2,
+          "text": "Checklist",
+          "anchor": "checklist"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 86,
+      "lineCount": 17,
+      "lastModified": 1783692141
+    },
+    "docs/onda0c/EXECUTOR-BRIEF.md": {
+      "path": "docs/onda0c/EXECUTOR-BRIEF.md",
+      "title": "Onda 0C — Pacote de execução para o agente",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "Onda 0C — Pacote de execução para o agente",
+          "anchor": "onda-0c-pacote-de-execucao-para-o-agente"
+        },
+        {
+          "depth": 2,
+          "text": "Contexto",
+          "anchor": "contexto"
+        },
+        {
+          "depth": 2,
+          "text": "Ordem",
+          "anchor": "ordem"
+        },
+        {
+          "depth": 2,
+          "text": "Protocolo ESAA (obrigatório)",
+          "anchor": "protocolo-esaa-obrigatorio"
+        },
+        {
+          "depth": 2,
+          "text": "Tasks (resumo)",
+          "anchor": "tasks-resumo"
+        },
+        {
+          "depth": 2,
+          "text": "Paths âncora (reais)",
+          "anchor": "paths-ancora-reais"
+        },
+        {
+          "depth": 2,
+          "text": "Definition of done da onda",
+          "anchor": "definition-of-done-da-onda"
+        },
+        {
+          "depth": 2,
+          "text": "Proibido",
+          "anchor": "proibido"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 1,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 320,
+      "lineCount": 60,
+      "lastModified": 1789850202
+    },
+    "docs/spec/G14-renderizador-matematico-katex.md": {
+      "path": "docs/spec/G14-renderizador-matematico-katex.md",
+      "title": "G14 — KaTeX",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "G14 — KaTeX",
+          "anchor": "g14-katex"
+        },
+        {
+          "depth": 2,
+          "text": "Objetivo",
+          "anchor": "objetivo"
+        },
+        {
+          "depth": 2,
+          "text": "Requisitos",
+          "anchor": "requisitos"
+        },
+        {
+          "depth": 2,
+          "text": "Aceite",
+          "anchor": "aceite"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 62,
+      "lineCount": 14,
+      "lastModified": 1783692166
+    },
+    "docs/onda2/MD-WIKI-001-FULL.md": {
+      "path": "docs/onda2/MD-WIKI-001-FULL.md",
+      "title": "Onda 2 — Wiki Links | MD-WIKI-001",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "Onda 2 — Wiki Links | MD-WIKI-001",
+          "anchor": "onda-2-wiki-links-md-wiki-001"
+        },
+        {
+          "depth": 2,
+          "text": "Regras",
+          "anchor": "regras"
+        },
+        {
+          "depth": 2,
+          "text": "Objetivo",
+          "anchor": "objetivo"
+        },
+        {
+          "depth": 2,
+          "text": "Trabalho",
+          "anchor": "trabalho"
+        },
+        {
+          "depth": 2,
+          "text": "Artefatos",
+          "anchor": "artefatos"
+        },
+        {
+          "depth": 2,
+          "text": "Fora",
+          "anchor": "fora"
+        },
+        {
+          "depth": 2,
+          "text": "AC",
+          "anchor": "ac"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 247,
+      "lineCount": 39,
+      "lastModified": 1789851742
+    },
+    "docs/onda2/MD-WIKI-008-FULL.md": {
+      "path": "docs/onda2/MD-WIKI-008-FULL.md",
+      "title": "Onda 2 — Wiki Links | MD-WIKI-008",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "Onda 2 — Wiki Links | MD-WIKI-008",
+          "anchor": "onda-2-wiki-links-md-wiki-008"
+        },
+        {
+          "depth": 2,
+          "text": "Regras",
+          "anchor": "regras"
+        },
+        {
+          "depth": 2,
+          "text": "Objetivo",
+          "anchor": "objetivo"
+        },
+        {
+          "depth": 2,
+          "text": "Depende",
+          "anchor": "depende"
+        },
+        {
+          "depth": 2,
+          "text": "Checklist",
+          "anchor": "checklist"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 170,
+      "lineCount": 33,
+      "lastModified": 1789851742
+    },
+    "docs/qa/ci-pnpm-fix-20260919.md": {
+      "path": "docs/qa/ci-pnpm-fix-20260919.md",
+      "title": "QA Report: Fix pnpm/action-setup@v4 Version Mismatch",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "QA Report: Fix pnpm/action-setup@v4 Version Mismatch",
+          "anchor": "qa-report-fix-pnpmaction-setupv4-version-mismatch"
+        },
+        {
+          "depth": 2,
+          "text": "Context",
+          "anchor": "context"
+        },
+        {
+          "depth": 2,
+          "text": "Solution",
+          "anchor": "solution"
+        },
+        {
+          "depth": 2,
+          "text": "Verification",
+          "anchor": "verification"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 110,
+      "lineCount": 22,
+      "lastModified": 1789848166
+    },
+    "docs/qa/G18-sessao-preferencias-temas-e-acessibilidade.md": {
+      "path": "docs/qa/G18-sessao-preferencias-temas-e-acessibilidade.md",
+      "title": "QA G18 — Sessão",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "QA G18 — Sessão",
+          "anchor": "qa-g18-sessao"
+        },
+        {
+          "depth": 2,
+          "text": "Escopo da validação",
+          "anchor": "escopo-da-validacao"
+        },
+        {
+          "depth": 2,
+          "text": "Evidências",
+          "anchor": "evidencias"
+        },
+        {
+          "depth": 2,
+          "text": "Resultado",
+          "anchor": "resultado"
+        },
+        {
+          "depth": 2,
+          "text": "Checklist",
+          "anchor": "checklist"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 82,
+      "lineCount": 17,
+      "lastModified": 1783692182
+    },
+    "docs/qa/G05-comandos-tauri-capabilities-e-eventos-tipados.md": {
+      "path": "docs/qa/G05-comandos-tauri-capabilities-e-eventos-tipados.md",
+      "title": "QA G05 — IPC tipado",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "QA G05 — IPC tipado",
+          "anchor": "qa-g05-ipc-tipado"
+        },
+        {
+          "depth": 2,
+          "text": "Escopo da validação",
+          "anchor": "escopo-da-validacao"
+        },
+        {
+          "depth": 2,
+          "text": "Evidências",
+          "anchor": "evidencias"
+        },
+        {
+          "depth": 2,
+          "text": "Resultado",
+          "anchor": "resultado"
+        },
+        {
+          "depth": 2,
+          "text": "Checklist",
+          "anchor": "checklist"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 83,
+      "lineCount": 17,
+      "lastModified": 1783692138
+    },
+    "docs/quality/accessibility-matrix.md": {
+      "path": "docs/quality/accessibility-matrix.md",
+      "title": "Accessibility matrix (v1)",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "Accessibility matrix (v1)",
+          "anchor": "accessibility-matrix-v1"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 1,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 56,
+      "lineCount": 9,
+      "lastModified": 1783691922
+    },
+    "docs/quality/non-functional-budgets.md": {
+      "path": "docs/quality/non-functional-budgets.md",
+      "title": "Non-functional budgets",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "Non-functional budgets",
+          "anchor": "non-functional-budgets"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 1,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 69,
+      "lineCount": 9,
+      "lastModified": 1783691922
+    },
+    "docs/onda3/MD-BACKLINK-006-FULL.md": {
+      "path": "docs/onda3/MD-BACKLINK-006-FULL.md",
+      "title": "Onda 3 — Backlinks v3.1 | MD-BACKLINK-006",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "Onda 3 — Backlinks v3.1 | MD-BACKLINK-006",
+          "anchor": "onda-3-backlinks-v31-md-backlink-006"
+        },
+        {
+          "depth": 2,
+          "text": "Regras globais",
+          "anchor": "regras-globais"
+        },
+        {
+          "depth": 2,
+          "text": "Objetivo",
+          "anchor": "objetivo"
+        },
+        {
+          "depth": 2,
+          "text": "Depende",
+          "anchor": "depende"
+        },
+        {
+          "depth": 2,
+          "text": "Trabalho",
+          "anchor": "trabalho"
+        },
+        {
+          "depth": 2,
+          "text": "AC",
+          "anchor": "ac"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 158,
+      "lineCount": 32,
+      "lastModified": 1789854637
+    },
+    "app/_indice-prd.md": {
+      "path": "app/_indice-prd.md",
+      "title": "Índice de requisitos — MD Studio v1",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "Índice de requisitos — MD Studio v1",
+          "anchor": "indice-de-requisitos-md-studio-v1"
+        },
+        {
+          "depth": 2,
+          "text": "Regra de cobertura",
+          "anchor": "regra-de-cobertura"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 1,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 219,
+      "lineCount": 23,
+      "lastModified": 1783691192
+    },
+    "docs/spec/G23-e2e-desempenho-pacotes-linux-e-release-candidata.md": {
+      "path": "docs/spec/G23-e2e-desempenho-pacotes-linux-e-release-candidata.md",
+      "title": "G23 — Release",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "G23 — Release",
+          "anchor": "g23-release"
+        },
+        {
+          "depth": 2,
+          "text": "Objetivo",
+          "anchor": "objetivo"
+        },
+        {
+          "depth": 2,
+          "text": "Requisitos",
+          "anchor": "requisitos"
+        },
+        {
+          "depth": 2,
+          "text": "Aceite",
+          "anchor": "aceite"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 62,
+      "lineCount": 14,
+      "lastModified": 1783692197
+    },
+    "docs/onda3/MD-BACKLINK-002-FULL.md": {
+      "path": "docs/onda3/MD-BACKLINK-002-FULL.md",
+      "title": "Onda 3 — Backlinks v3.1 | MD-BACKLINK-002",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "Onda 3 — Backlinks v3.1 | MD-BACKLINK-002",
+          "anchor": "onda-3-backlinks-v31-md-backlink-002"
+        },
+        {
+          "depth": 2,
+          "text": "Regras globais",
+          "anchor": "regras-globais"
+        },
+        {
+          "depth": 2,
+          "text": "Objetivo",
+          "anchor": "objetivo"
+        },
+        {
+          "depth": 2,
+          "text": "Depende",
+          "anchor": "depende"
+        },
+        {
+          "depth": 2,
+          "text": "Trabalho",
+          "anchor": "trabalho"
+        },
+        {
+          "depth": 2,
+          "text": "AC",
+          "anchor": "ac"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 180,
+      "lineCount": 33,
+      "lastModified": 1789854637
+    },
+    "docs/qa/G21-suite-de-conformidade-markdown-e-renderizadores.md": {
+      "path": "docs/qa/G21-suite-de-conformidade-markdown-e-renderizadores.md",
+      "title": "QA G21 — Conformidade",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "QA G21 — Conformidade",
+          "anchor": "qa-g21-conformidade"
+        },
+        {
+          "depth": 2,
+          "text": "Escopo da validação",
+          "anchor": "escopo-da-validacao"
+        },
+        {
+          "depth": 2,
+          "text": "Evidências",
+          "anchor": "evidencias"
+        },
+        {
+          "depth": 2,
+          "text": "Resultado",
+          "anchor": "resultado"
+        },
+        {
+          "depth": 2,
+          "text": "Checklist",
+          "anchor": "checklist"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 79,
+      "lineCount": 17,
+      "lastModified": 1783692193
+    },
+    "docs/qa/G14-renderizador-matematico-katex.md": {
+      "path": "docs/qa/G14-renderizador-matematico-katex.md",
+      "title": "QA G14 — KaTeX",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "QA G14 — KaTeX",
+          "anchor": "qa-g14-katex"
+        },
+        {
+          "depth": 2,
+          "text": "Escopo da validação",
+          "anchor": "escopo-da-validacao"
+        },
+        {
+          "depth": 2,
+          "text": "Evidências",
+          "anchor": "evidencias"
+        },
+        {
+          "depth": 2,
+          "text": "Resultado",
+          "anchor": "resultado"
+        },
+        {
+          "depth": 2,
+          "text": "Checklist",
+          "anchor": "checklist"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 80,
+      "lineCount": 17,
+      "lastModified": 1783692168
+    },
+    "docs/qa/onda2-wiki-links.md": {
+      "path": "docs/qa/onda2-wiki-links.md",
+      "title": "QA — Onda 2 Wiki Links",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "QA — Onda 2 Wiki Links",
+          "anchor": "qa-onda-2-wiki-links"
+        },
+        {
+          "depth": 2,
+          "text": "Resultado",
+          "anchor": "resultado"
+        },
+        {
+          "depth": 2,
+          "text": "Evidência automatizada",
+          "anchor": "evidencia-automatizada"
+        },
+        {
+          "depth": 2,
+          "text": "Evidência visual local",
+          "anchor": "evidencia-visual-local"
+        },
+        {
+          "depth": 2,
+          "text": "Critérios da WBS",
+          "anchor": "criterios-da-wbs"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 383,
+      "lineCount": 63,
+      "lastModified": 1789853375
+    },
+    "docs/onda0c/ESAA-TASKS-HANDOFF.md": {
+      "path": "docs/onda0c/ESAA-TASKS-HANDOFF.md",
+      "title": "Onda 0C — Pacote de execução para o agente",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "Onda 0C — Pacote de execução para o agente",
+          "anchor": "onda-0c-pacote-de-execucao-para-o-agente"
+        },
+        {
+          "depth": 2,
+          "text": "Contexto",
+          "anchor": "contexto"
+        },
+        {
+          "depth": 2,
+          "text": "Ordem",
+          "anchor": "ordem"
+        },
+        {
+          "depth": 2,
+          "text": "Protocolo ESAA (obrigatório)",
+          "anchor": "protocolo-esaa-obrigatorio"
+        },
+        {
+          "depth": 2,
+          "text": "Tasks (resumo)",
+          "anchor": "tasks-resumo"
+        },
+        {
+          "depth": 2,
+          "text": "Paths âncora (reais)",
+          "anchor": "paths-ancora-reais"
+        },
+        {
+          "depth": 2,
+          "text": "Definition of done da onda",
+          "anchor": "definition-of-done-da-onda"
+        },
+        {
+          "depth": 2,
+          "text": "Proibido",
+          "anchor": "proibido"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 1,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 326,
+      "lineCount": 63,
+      "lastModified": 1789850202
+    },
+    "docs/qa/G09-busca-no-workspace-e-observacao-de-mudancas-externas.md": {
+      "path": "docs/qa/G09-busca-no-workspace-e-observacao-de-mudancas-externas.md",
+      "title": "QA G09 — Busca e watcher",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "QA G09 — Busca e watcher",
+          "anchor": "qa-g09-busca-e-watcher"
+        },
+        {
+          "depth": 2,
+          "text": "Escopo da validação",
+          "anchor": "escopo-da-validacao"
+        },
+        {
+          "depth": 2,
+          "text": "Evidências",
+          "anchor": "evidencias"
+        },
+        {
+          "depth": 2,
+          "text": "Resultado",
+          "anchor": "resultado"
+        },
+        {
+          "depth": 2,
+          "text": "Checklist",
+          "anchor": "checklist"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 84,
+      "lineCount": 17,
+      "lastModified": 1783692151
+    },
+    "docs/ANALISE_ESTADO_ATUAL_V2.md": {
+      "path": "docs/ANALISE_ESTADO_ATUAL_V2.md",
+      "title": "Análise de Estado Atual — MD Studio V2",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "Análise de Estado Atual — MD Studio V2",
+          "anchor": "analise-de-estado-atual-md-studio-v2"
+        },
+        {
+          "depth": 2,
+          "text": "1. Sumário Executivo",
+          "anchor": "1-sumario-executivo"
+        },
+        {
+          "depth": 2,
+          "text": "2. Visão Geral da Arquitetura Entregue",
+          "anchor": "2-visao-geral-da-arquitetura-entregue"
+        },
+        {
+          "depth": 2,
+          "text": "3. Módulos Implementados e Prontos",
+          "anchor": "3-modulos-implementados-e-prontos"
+        },
+        {
+          "depth": 3,
+          "text": "3.1. Experiência de Escrita e Autoria (Authoring Flow)",
+          "anchor": "31-experiencia-de-escrita-e-autoria-authoring-flow"
+        },
+        {
+          "depth": 3,
+          "text": "3.2. Layout Geral e Painéis Redimensionáveis",
+          "anchor": "32-layout-geral-e-paineis-redimensionaveis"
+        },
+        {
+          "depth": 3,
+          "text": "3.3. Modais e Ferramentas Interativas",
+          "anchor": "33-modais-e-ferramentas-interativas"
+        },
+        {
+          "depth": 3,
+          "text": "3.4. Pipeline de Processamento Markdown",
+          "anchor": "34-pipeline-de-processamento-markdown"
+        },
+        {
+          "depth": 3,
+          "text": "3.5. Segurança e Garantias Locais",
+          "anchor": "35-seguranca-e-garantias-locais"
+        },
+        {
+          "depth": 3,
+          "text": "3.6. Identidade Visual e Integração com o Sistema Operacional",
+          "anchor": "36-identidade-visual-e-integracao-com-o-sistema-operacional"
+        },
+        {
+          "depth": 2,
+          "text": "4. Matriz de Cobertura de Testes Automatizados",
+          "anchor": "4-matriz-de-cobertura-de-testes-automatizados"
+        },
+        {
+          "depth": 2,
+          "text": "5. Próximos Passos Sugeridos (Backlog Futuro)",
+          "anchor": "5-proximos-passos-sugeridos-backlog-futuro"
+        },
+        {
+          "depth": 2,
+          "text": "6. Conclusão",
+          "anchor": "6-conclusao"
+        }
+      ],
+      "links": [
+        {
+          "text": "github.com/elzobrito/md-studio",
+          "url": "https://github.com/elzobrito/md-studio",
+          "isInternal": false,
+          "line": 5
+        },
+        {
+          "text": "elzobrito/md-studio",
+          "url": "https://github.com/elzobrito/md-studio",
+          "isInternal": false,
+          "line": 174
+        }
+      ],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 1,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 1608,
+      "lineCount": 174,
+      "lastModified": 1789841891
+    },
+    "docs/onda0b/MD-GM-002-FULL.md": {
+      "path": "docs/onda0b/MD-GM-002-FULL.md",
+      "title": "WBS-GM-002",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "WBS-GM-002",
+          "anchor": "wbs-gm-002"
+        },
+        {
+          "depth": 1,
+          "text": "Slash Commands",
+          "anchor": "slash-commands"
+        },
+        {
+          "depth": 2,
+          "text": "Contexto",
+          "anchor": "contexto"
+        },
+        {
+          "depth": 2,
+          "text": "WBS-GM-002.01",
+          "anchor": "wbs-gm-00201"
+        },
+        {
+          "depth": 2,
+          "text": "WBS-GM-002.02",
+          "anchor": "wbs-gm-00202"
+        },
+        {
+          "depth": 2,
+          "text": "WBS-GM-002.03",
+          "anchor": "wbs-gm-00203"
+        },
+        {
+          "depth": 2,
+          "text": "WBS-GM-002.04",
+          "anchor": "wbs-gm-00204"
+        },
+        {
+          "depth": 2,
+          "text": "WBS-GM-002.05",
+          "anchor": "wbs-gm-00205"
+        },
+        {
+          "depth": 2,
+          "text": "WBS-GM-002.06",
+          "anchor": "wbs-gm-00206"
+        },
+        {
+          "depth": 2,
+          "text": "WBS-GM-002.07",
+          "anchor": "wbs-gm-00207"
+        },
+        {
+          "depth": 2,
+          "text": "Critérios de Aceitação — WBS-GM-002",
+          "anchor": "criterios-de-aceitacao-wbs-gm-002"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 1056,
+      "lineCount": 413,
+      "lastModified": 1789845566
+    },
+    "docs/onda3/MD-BACKLINK-005-FULL.md": {
+      "path": "docs/onda3/MD-BACKLINK-005-FULL.md",
+      "title": "Onda 3 — Backlinks v3.1 | MD-BACKLINK-005",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "Onda 3 — Backlinks v3.1 | MD-BACKLINK-005",
+          "anchor": "onda-3-backlinks-v31-md-backlink-005"
+        },
+        {
+          "depth": 2,
+          "text": "Regras globais",
+          "anchor": "regras-globais"
+        },
+        {
+          "depth": 2,
+          "text": "Objetivo",
+          "anchor": "objetivo"
+        },
+        {
+          "depth": 2,
+          "text": "Depende",
+          "anchor": "depende"
+        },
+        {
+          "depth": 2,
+          "text": "Trabalho",
+          "anchor": "trabalho"
+        },
+        {
+          "depth": 2,
+          "text": "AC",
+          "anchor": "ac"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 175,
+      "lineCount": 33,
+      "lastModified": 1789854637
+    },
+    "docs/spec/G05-comandos-tauri-capabilities-e-eventos-tipados.md": {
+      "path": "docs/spec/G05-comandos-tauri-capabilities-e-eventos-tipados.md",
+      "title": "G05 — IPC tipado",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "G05 — IPC tipado",
+          "anchor": "g05-ipc-tipado"
+        },
+        {
+          "depth": 2,
+          "text": "Objetivo",
+          "anchor": "objetivo"
+        },
+        {
+          "depth": 2,
+          "text": "Requisitos",
+          "anchor": "requisitos"
+        },
+        {
+          "depth": 2,
+          "text": "Aceite",
+          "anchor": "aceite"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 65,
+      "lineCount": 14,
+      "lastModified": 1783692136
+    },
+    "docs/qa/onda0c-ui-polish.md": {
+      "path": "docs/qa/onda0c-ui-polish.md",
+      "title": "Onda 0C — UI Polish QA Gate Encerramento",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "Onda 0C — UI Polish QA Gate Encerramento",
+          "anchor": "onda-0c-ui-polish-qa-gate-encerramento"
+        },
+        {
+          "depth": 2,
+          "text": "1. Verificação do Checklist Obrigatório",
+          "anchor": "1-verificacao-do-checklist-obrigatorio"
+        },
+        {
+          "depth": 3,
+          "text": "Empty State & Welcome Screen (`MD-UI-EMPTY-001`)",
+          "anchor": "empty-state-welcome-screen-md-ui-empty-001"
+        },
+        {
+          "depth": 3,
+          "text": "Painel Direito Colapsável (`MD-UI-PANEL-001`)",
+          "anchor": "painel-direito-colapsavel-md-ui-panel-001"
+        },
+        {
+          "depth": 3,
+          "text": "Hierarquia da Sidebar & Design System Button (`MD-UI-SIDEBAR-001` & `MD-UI-BUTTONS-001`)",
+          "anchor": "hierarquia-da-sidebar-design-system-button-md-ui-sidebar-001-md-ui-buttons-001"
+        },
+        {
+          "depth": 3,
+          "text": "Header Interno & Título Nativo Dinâmico (`MD-UI-HEADER-001`)",
+          "anchor": "header-interno-titulo-nativo-dinamico-md-ui-header-001"
+        },
+        {
+          "depth": 2,
+          "text": "2. Testes de Regressão",
+          "anchor": "2-testes-de-regressao"
+        },
+        {
+          "depth": 2,
+          "text": "3. Resultados de Execução Automatizada",
+          "anchor": "3-resultados-de-execucao-automatizada"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 707,
+      "lineCount": 104,
+      "lastModified": 1789851056
+    },
+    "docs/operations/tauri-toolchain.md": {
+      "path": "docs/operations/tauri-toolchain.md",
+      "title": "Tauri toolchain — MD Studio",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "Tauri toolchain — MD Studio",
+          "anchor": "tauri-toolchain-md-studio"
+        },
+        {
+          "depth": 2,
+          "text": "Host (Linux)",
+          "anchor": "host-linux"
+        },
+        {
+          "depth": 3,
+          "text": "Runtime packages present, -dev missing on host",
+          "anchor": "runtime-packages-present-dev-missing-on-host"
+        },
+        {
+          "depth": 3,
+          "text": "Install (requires sudo)",
+          "anchor": "install-requires-sudo"
+        },
+        {
+          "depth": 2,
+          "text": "Green paths without host sudo",
+          "anchor": "green-paths-without-host-sudo"
+        },
+        {
+          "depth": 3,
+          "text": "Unit tests (host)",
+          "anchor": "unit-tests-host"
+        },
+        {
+          "depth": 3,
+          "text": "Full Tauri build (Docker)",
+          "anchor": "full-tauri-build-docker"
+        },
+        {
+          "depth": 2,
+          "text": "Fixes applied under G24",
+          "anchor": "fixes-applied-under-g24"
+        },
+        {
+          "depth": 2,
+          "text": "Host native path (G25)",
+          "anchor": "host-native-path-g25"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 1,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 221,
+      "lineCount": 71,
+      "lastModified": 1783694885
+    },
+    "docs/onda2/MD-WIKI-005-FULL.md": {
+      "path": "docs/onda2/MD-WIKI-005-FULL.md",
+      "title": "Onda 2 — Wiki Links | MD-WIKI-005",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "Onda 2 — Wiki Links | MD-WIKI-005",
+          "anchor": "onda-2-wiki-links-md-wiki-005"
+        },
+        {
+          "depth": 2,
+          "text": "Regras",
+          "anchor": "regras"
+        },
+        {
+          "depth": 2,
+          "text": "Objetivo",
+          "anchor": "objetivo"
+        },
+        {
+          "depth": 2,
+          "text": "Depende",
+          "anchor": "depende"
+        },
+        {
+          "depth": 2,
+          "text": "Trabalho",
+          "anchor": "trabalho"
+        },
+        {
+          "depth": 2,
+          "text": "Artefatos",
+          "anchor": "artefatos"
+        },
+        {
+          "depth": 2,
+          "text": "AC",
+          "anchor": "ac"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 193,
+      "lineCount": 37,
+      "lastModified": 1789851742
+    },
+    "docs/onda3/MD-BACKLINK-003-FULL.md": {
+      "path": "docs/onda3/MD-BACKLINK-003-FULL.md",
+      "title": "Onda 3 — Backlinks v3.1 | MD-BACKLINK-003",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "Onda 3 — Backlinks v3.1 | MD-BACKLINK-003",
+          "anchor": "onda-3-backlinks-v31-md-backlink-003"
+        },
+        {
+          "depth": 2,
+          "text": "Regras globais",
+          "anchor": "regras-globais"
+        },
+        {
+          "depth": 2,
+          "text": "Objetivo",
+          "anchor": "objetivo"
+        },
+        {
+          "depth": 2,
+          "text": "Depende",
+          "anchor": "depende"
+        },
+        {
+          "depth": 2,
+          "text": "Trabalho",
+          "anchor": "trabalho"
+        },
+        {
+          "depth": 2,
+          "text": "AC",
+          "anchor": "ac"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 175,
+      "lineCount": 34,
+      "lastModified": 1789854637
+    },
+    "docs/qa/G03-contrato-de-seguranca-integridade-desempenho-e-acessibilidade.md": {
+      "path": "docs/qa/G03-contrato-de-seguranca-integridade-desempenho-e-acessibilidade.md",
+      "title": "QA G03 — NFR de segurança e qualidade",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "QA G03 — NFR de segurança e qualidade",
+          "anchor": "qa-g03-nfr-de-seguranca-e-qualidade"
+        },
+        {
+          "depth": 2,
+          "text": "Escopo da validação",
+          "anchor": "escopo-da-validacao"
+        },
+        {
+          "depth": 2,
+          "text": "Evidências",
+          "anchor": "evidencias"
+        },
+        {
+          "depth": 2,
+          "text": "Resultado",
+          "anchor": "resultado"
+        },
+        {
+          "depth": 2,
+          "text": "Checklist",
+          "anchor": "checklist"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 88,
+      "lineCount": 17,
+      "lastModified": 1783692121
+    },
+    "docs/spec/G03-contrato-de-seguranca-integridade-desempenho-e-acessibilidade.md": {
+      "path": "docs/spec/G03-contrato-de-seguranca-integridade-desempenho-e-acessibilidade.md",
+      "title": "G03 — NFR de segurança e qualidade",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "G03 — NFR de segurança e qualidade",
+          "anchor": "g03-nfr-de-seguranca-e-qualidade"
+        },
+        {
+          "depth": 2,
+          "text": "Objetivo",
+          "anchor": "objetivo"
+        },
+        {
+          "depth": 2,
+          "text": "Requisitos",
+          "anchor": "requisitos"
+        },
+        {
+          "depth": 2,
+          "text": "Aceite",
+          "anchor": "aceite"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 70,
+      "lineCount": 14,
+      "lastModified": 1783692119
+    },
+    "docs/onda0c/WBS-ONDA-0C-UI-POLISH-v2.1.md": {
+      "path": "docs/onda0c/WBS-ONDA-0C-UI-POLISH-v2.1.md",
+      "title": "WBS-ONDA-0C-UI-POLISH v2.1",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "WBS-ONDA-0C-UI-POLISH v2.1",
+          "anchor": "wbs-onda-0c-ui-polish-v21"
+        },
+        {
+          "depth": 2,
+          "text": "MD Studio — UI Polish (delta sobre o repo pós-0B)",
+          "anchor": "md-studio-ui-polish-delta-sobre-o-repo-pos-0b"
+        },
+        {
+          "depth": 2,
+          "text": "0. Estado atual do repo (fatos — não aspiração)",
+          "anchor": "0-estado-atual-do-repo-fatos-nao-aspiracao"
+        },
+        {
+          "depth": 3,
+          "text": "O que já existe (não reinventar)",
+          "anchor": "o-que-ja-existe-nao-reinventar"
+        },
+        {
+          "depth": 3,
+          "text": "Paths reais (remap vs WBS 2.0)",
+          "anchor": "paths-reais-remap-vs-wbs-20"
+        },
+        {
+          "depth": 2,
+          "text": "1. Objetivo da onda",
+          "anchor": "1-objetivo-da-onda"
+        },
+        {
+          "depth": 2,
+          "text": "2. Escopo agregado (6 tasks ESAA — não 33)",
+          "anchor": "2-escopo-agregado-6-tasks-esaa-nao-33"
+        },
+        {
+          "depth": 2,
+          "text": "3. Fora de escopo",
+          "anchor": "3-fora-de-escopo"
+        },
+        {
+          "depth": 2,
+          "text": "4. Critério de encerramento",
+          "anchor": "4-criterio-de-encerramento"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 3,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 521,
+      "lineCount": 98,
+      "lastModified": 1789850107
+    },
+    "docs/qa/G24-toolchain-tauri-cargo-test-e-build.md": {
+      "path": "docs/qa/G24-toolchain-tauri-cargo-test-e-build.md",
+      "title": "QA G24 — Toolchain Tauri",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "QA G24 — Toolchain Tauri",
+          "anchor": "qa-g24-toolchain-tauri"
+        },
+        {
+          "depth": 2,
+          "text": "Evidências",
+          "anchor": "evidencias"
+        },
+        {
+          "depth": 2,
+          "text": "Artefatos",
+          "anchor": "artefatos"
+        },
+        {
+          "depth": 2,
+          "text": "Resultado",
+          "anchor": "resultado"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 1,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 112,
+      "lineCount": 22,
+      "lastModified": 1783694195
+    },
+    "docs/qa/G17-preview-sumario-rolagem-e-navegacao-interna.md": {
+      "path": "docs/qa/G17-preview-sumario-rolagem-e-navegacao-interna.md",
+      "title": "QA G17 — Preview",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "QA G17 — Preview",
+          "anchor": "qa-g17-preview"
+        },
+        {
+          "depth": 2,
+          "text": "Escopo da validação",
+          "anchor": "escopo-da-validacao"
+        },
+        {
+          "depth": 2,
+          "text": "Evidências",
+          "anchor": "evidencias"
+        },
+        {
+          "depth": 2,
+          "text": "Resultado",
+          "anchor": "resultado"
+        },
+        {
+          "depth": 2,
+          "text": "Checklist",
+          "anchor": "checklist"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 81,
+      "lineCount": 17,
+      "lastModified": 1783692178
+    },
+    "docs/onda0c/MD-UI-PANEL-001-FULL.md": {
+      "path": "docs/onda0c/MD-UI-PANEL-001-FULL.md",
+      "title": "Onda 0C — UI Polish | MD-UI-PANEL-001",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "Onda 0C — UI Polish | MD-UI-PANEL-001",
+          "anchor": "onda-0c-ui-polish-md-ui-panel-001"
+        },
+        {
+          "depth": 2,
+          "text": "Regras de execução",
+          "anchor": "regras-de-execucao"
+        },
+        {
+          "depth": 2,
+          "text": "Objetivo",
+          "anchor": "objetivo"
+        },
+        {
+          "depth": 2,
+          "text": "Estado atual",
+          "anchor": "estado-atual"
+        },
+        {
+          "depth": 2,
+          "text": "Trabalho",
+          "anchor": "trabalho"
+        },
+        {
+          "depth": 2,
+          "text": "Artefatos",
+          "anchor": "artefatos"
+        },
+        {
+          "depth": 2,
+          "text": "Fora",
+          "anchor": "fora"
+        },
+        {
+          "depth": 2,
+          "text": "Acceptance criteria",
+          "anchor": "acceptance-criteria"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 331,
+      "lineCount": 49,
+      "lastModified": 1789850202
+    },
+    "docs/spec/G15-renderizador-mermaid-isolado-e-exportavel.md": {
+      "path": "docs/spec/G15-renderizador-mermaid-isolado-e-exportavel.md",
+      "title": "G15 — Mermaid",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "G15 — Mermaid",
+          "anchor": "g15-mermaid"
+        },
+        {
+          "depth": 2,
+          "text": "Objetivo",
+          "anchor": "objetivo"
+        },
+        {
+          "depth": 2,
+          "text": "Requisitos",
+          "anchor": "requisitos"
+        },
+        {
+          "depth": 2,
+          "text": "Aceite",
+          "anchor": "aceite"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 63,
+      "lineCount": 14,
+      "lastModified": 1783692169
+    },
+    "docs/onda2/WBS-ONDA-2-WIKI-LINKS-v1.0.md": {
+      "path": "docs/onda2/WBS-ONDA-2-WIKI-LINKS-v1.0.md",
+      "title": "WBS-ONDA-2-WIKI-LINKS v1.0",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "WBS-ONDA-2-WIKI-LINKS v1.0",
+          "anchor": "wbs-onda-2-wiki-links-v10"
+        },
+        {
+          "depth": 2,
+          "text": "MD Studio — Wiki Links (produto sobre a Knowledge Foundation)",
+          "anchor": "md-studio-wiki-links-produto-sobre-a-knowledge-foundation"
+        },
+        {
+          "depth": 2,
+          "text": "0. Contexto e limites (ler antes de codar)",
+          "anchor": "0-contexto-e-limites-ler-antes-de-codar"
+        },
+        {
+          "depth": 3,
+          "text": "Já existe (Onda 1) — NÃO reinventar",
+          "anchor": "ja-existe-onda-1-nao-reinventar"
+        },
+        {
+          "depth": 3,
+          "text": "Ainda NÃO existe (esta onda)",
+          "anchor": "ainda-nao-existe-esta-onda"
+        },
+        {
+          "depth": 3,
+          "text": "Explicitamente FORA (v1 / G01 / PROJETO.md)",
+          "anchor": "explicitamente-fora-v1-g01-projetomd"
+        },
+        {
+          "depth": 2,
+          "text": "1. Objetivo",
+          "anchor": "1-objetivo"
+        },
+        {
+          "depth": 2,
+          "text": "2. Tasks agregadas (8)",
+          "anchor": "2-tasks-agregadas-8"
+        },
+        {
+          "depth": 2,
+          "text": "3. Paths reais (âncora)",
+          "anchor": "3-paths-reais-ancora"
+        },
+        {
+          "depth": 2,
+          "text": "4. Critério de encerramento",
+          "anchor": "4-criterio-de-encerramento"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 1,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 491,
+      "lineCount": 93,
+      "lastModified": 1789851742
+    },
+    "docs/qa/splash-boot.md": {
+      "path": "docs/qa/splash-boot.md",
+      "title": "QA & Design: Splash Screen no Boot (MD-UI-SPLASH-001)",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "QA & Design: Splash Screen no Boot (MD-UI-SPLASH-001)",
+          "anchor": "qa-design-splash-screen-no-boot-md-ui-splash-001"
+        },
+        {
+          "depth": 2,
+          "text": "Resumo",
+          "anchor": "resumo"
+        },
+        {
+          "depth": 2,
+          "text": "Arquitetura Implementada",
+          "anchor": "arquitetura-implementada"
+        },
+        {
+          "depth": 3,
+          "text": "1. Configuração de Janelas Tauri 2 (`src-tauri/tauri.conf.json`)",
+          "anchor": "1-configuracao-de-janelas-tauri-2-src-tauritauriconfjson"
+        },
+        {
+          "depth": 3,
+          "text": "2. Splash Screen Estática (`splashscreen.html` e `public/splashscreen.html`)",
+          "anchor": "2-splash-screen-estatica-splashscreenhtml-e-publicsplashscreenhtml"
+        },
+        {
+          "depth": 3,
+          "text": "3. Comunicação e Transição (`src-tauri/src/lib.rs`)",
+          "anchor": "3-comunicacao-e-transicao-src-taurisrclibrs"
+        },
+        {
+          "depth": 3,
+          "text": "4. Mecanismos de Confiabilidade e Resiliência",
+          "anchor": "4-mecanismos-de-confiabilidade-e-resiliencia"
+        },
+        {
+          "depth": 2,
+          "text": "Verificação e Critérios de Aceitação",
+          "anchor": "verificacao-e-criterios-de-aceitacao"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 417,
+      "lineCount": 55,
+      "lastModified": 1789849202
+    },
+    "docs/onda0c/MD-UI-HEADER-001-FULL.md": {
+      "path": "docs/onda0c/MD-UI-HEADER-001-FULL.md",
+      "title": "Onda 0C — UI Polish | MD-UI-HEADER-001",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "Onda 0C — UI Polish | MD-UI-HEADER-001",
+          "anchor": "onda-0c-ui-polish-md-ui-header-001"
+        },
+        {
+          "depth": 2,
+          "text": "Regras de execução",
+          "anchor": "regras-de-execucao"
+        },
+        {
+          "depth": 2,
+          "text": "Objetivo",
+          "anchor": "objetivo"
+        },
+        {
+          "depth": 2,
+          "text": "Dependência",
+          "anchor": "dependencia"
+        },
+        {
+          "depth": 2,
+          "text": "Estado atual",
+          "anchor": "estado-atual"
+        },
+        {
+          "depth": 2,
+          "text": "Trabalho",
+          "anchor": "trabalho"
+        },
+        {
+          "depth": 2,
+          "text": "Artefatos",
+          "anchor": "artefatos"
+        },
+        {
+          "depth": 2,
+          "text": "Fora",
+          "anchor": "fora"
+        },
+        {
+          "depth": 2,
+          "text": "Acceptance criteria",
+          "anchor": "acceptance-criteria"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 301,
+      "lineCount": 49,
+      "lastModified": 1789850202
+    },
+    "docs/onda0b/MD-GM-001-FULL.md": {
+      "path": "docs/onda0b/MD-GM-001-FULL.md",
+      "title": "WBS-GM-001",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "WBS-GM-001",
+          "anchor": "wbs-gm-001"
+        },
+        {
+          "depth": 1,
+          "text": "Formatting Toolbar",
+          "anchor": "formatting-toolbar"
+        },
+        {
+          "depth": 2,
+          "text": "Contexto",
+          "anchor": "contexto"
+        },
+        {
+          "depth": 2,
+          "text": "WBS-GM-001.01",
+          "anchor": "wbs-gm-00101"
+        },
+        {
+          "depth": 2,
+          "text": "WBS-GM-001.02",
+          "anchor": "wbs-gm-00102"
+        },
+        {
+          "depth": 2,
+          "text": "WBS-GM-001.03",
+          "anchor": "wbs-gm-00103"
+        },
+        {
+          "depth": 2,
+          "text": "WBS-GM-001.04",
+          "anchor": "wbs-gm-00104"
+        },
+        {
+          "depth": 2,
+          "text": "WBS-GM-001.05",
+          "anchor": "wbs-gm-00105"
+        },
+        {
+          "depth": 2,
+          "text": "WBS-GM-001.06",
+          "anchor": "wbs-gm-00106"
+        },
+        {
+          "depth": 2,
+          "text": "WBS-GM-001.07",
+          "anchor": "wbs-gm-00107"
+        },
+        {
+          "depth": 2,
+          "text": "WBS-GM-001.08",
+          "anchor": "wbs-gm-00108"
+        },
+        {
+          "depth": 2,
+          "text": "Critérios de Aceitação — WBS-GM-001",
+          "anchor": "criterios-de-aceitacao-wbs-gm-001"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 1287,
+      "lineCount": 460,
+      "lastModified": 1789845565
+    },
+    "tests/toolchain/README.md": {
+      "path": "tests/toolchain/README.md",
+      "title": "Toolchain evidence (G24/G25)",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "Toolchain evidence (G24/G25)",
+          "anchor": "toolchain-evidence-g24g25"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 40,
+      "lineCount": 5,
+      "lastModified": 1783694885
+    },
+    "e2e/smoke.md": {
+      "path": "e2e/smoke.md",
+      "title": "E2E smoke (WebDriverIO / manual)",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "E2E smoke (WebDriverIO / manual)",
+          "anchor": "e2e-smoke-webdriverio-manual"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 25,
+      "lineCount": 8,
+      "lastModified": 1783692057
+    },
+    "docs/qa/G22-suite-adversarial-de-filesystem-conteudo-e-integridade.md": {
+      "path": "docs/qa/G22-suite-adversarial-de-filesystem-conteudo-e-integridade.md",
+      "title": "QA G22 — Security suite",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "QA G22 — Security suite",
+          "anchor": "qa-g22-security-suite"
+        },
+        {
+          "depth": 2,
+          "text": "Escopo da validação",
+          "anchor": "escopo-da-validacao"
+        },
+        {
+          "depth": 2,
+          "text": "Evidências",
+          "anchor": "evidencias"
+        },
+        {
+          "depth": 2,
+          "text": "Resultado",
+          "anchor": "resultado"
+        },
+        {
+          "depth": 2,
+          "text": "Checklist",
+          "anchor": "checklist"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 82,
+      "lineCount": 17,
+      "lastModified": 1783692196
+    },
+    "docs/onda0c/MD-UI-SIDEBAR-001-FULL.md": {
+      "path": "docs/onda0c/MD-UI-SIDEBAR-001-FULL.md",
+      "title": "Onda 0C — UI Polish | MD-UI-SIDEBAR-001",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "Onda 0C — UI Polish | MD-UI-SIDEBAR-001",
+          "anchor": "onda-0c-ui-polish-md-ui-sidebar-001"
+        },
+        {
+          "depth": 2,
+          "text": "Regras de execução",
+          "anchor": "regras-de-execucao"
+        },
+        {
+          "depth": 2,
+          "text": "Objetivo",
+          "anchor": "objetivo"
+        },
+        {
+          "depth": 2,
+          "text": "Estado atual",
+          "anchor": "estado-atual"
+        },
+        {
+          "depth": 2,
+          "text": "Trabalho",
+          "anchor": "trabalho"
+        },
+        {
+          "depth": 2,
+          "text": "Artefatos",
+          "anchor": "artefatos"
+        },
+        {
+          "depth": 2,
+          "text": "Fora",
+          "anchor": "fora"
+        },
+        {
+          "depth": 2,
+          "text": "Acceptance criteria",
+          "anchor": "acceptance-criteria"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 327,
+      "lineCount": 49,
+      "lastModified": 1789850202
+    },
+    "docs/qa/G10-pipeline-ast-commonmark-e-gfm.md": {
+      "path": "docs/qa/G10-pipeline-ast-commonmark-e-gfm.md",
+      "title": "QA G10 — Pipeline Markdown",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "QA G10 — Pipeline Markdown",
+          "anchor": "qa-g10-pipeline-markdown"
+        },
+        {
+          "depth": 2,
+          "text": "Escopo da validação",
+          "anchor": "escopo-da-validacao"
+        },
+        {
+          "depth": 2,
+          "text": "Evidências",
+          "anchor": "evidencias"
+        },
+        {
+          "depth": 2,
+          "text": "Resultado",
+          "anchor": "resultado"
+        },
+        {
+          "depth": 2,
+          "text": "Checklist",
+          "anchor": "checklist"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 83,
+      "lineCount": 17,
+      "lastModified": 1783692154
+    },
+    "docs/onda0b/MD-GM-003-FULL.md": {
+      "path": "docs/onda0b/MD-GM-003-FULL.md",
+      "title": "WBS-GM-003",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "WBS-GM-003",
+          "anchor": "wbs-gm-003"
+        },
+        {
+          "depth": 1,
+          "text": "Smart Paste",
+          "anchor": "smart-paste"
+        },
+        {
+          "depth": 2,
+          "text": "Contexto",
+          "anchor": "contexto"
+        },
+        {
+          "depth": 2,
+          "text": "WBS-GM-003.01",
+          "anchor": "wbs-gm-00301"
+        },
+        {
+          "depth": 2,
+          "text": "WBS-GM-003.02",
+          "anchor": "wbs-gm-00302"
+        },
+        {
+          "depth": 2,
+          "text": "WBS-GM-003.03",
+          "anchor": "wbs-gm-00303"
+        },
+        {
+          "depth": 2,
+          "text": "WBS-GM-003.04",
+          "anchor": "wbs-gm-00304"
+        },
+        {
+          "depth": 2,
+          "text": "WBS-GM-003.05",
+          "anchor": "wbs-gm-00305"
+        },
+        {
+          "depth": 2,
+          "text": "Critérios de Aceitação — WBS-GM-003",
+          "anchor": "criterios-de-aceitacao-wbs-gm-003"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 819,
+      "lineCount": 266,
+      "lastModified": 1789845567
+    },
+    "docs/spec/G02-contrato-arquitetural-ipc-e-tipos-publicos.md": {
+      "path": "docs/spec/G02-contrato-arquitetural-ipc-e-tipos-publicos.md",
+      "title": "G02 — Arquitetura, IPC e tipos públicos",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "G02 — Arquitetura, IPC e tipos públicos",
+          "anchor": "g02-arquitetura-ipc-e-tipos-publicos"
+        },
+        {
+          "depth": 2,
+          "text": "Objetivo",
+          "anchor": "objetivo"
+        },
+        {
+          "depth": 2,
+          "text": "Requisitos",
+          "anchor": "requisitos"
+        },
+        {
+          "depth": 2,
+          "text": "Aceite",
+          "anchor": "aceite"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 71,
+      "lineCount": 14,
+      "lastModified": 1783692101
+    },
+    "docs/qa/G08-arvore-de-arquivos-e-resolucao-de-assets-locais.md": {
+      "path": "docs/qa/G08-arvore-de-arquivos-e-resolucao-de-assets-locais.md",
+      "title": "QA G08 — Files e assets",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "QA G08 — Files e assets",
+          "anchor": "qa-g08-files-e-assets"
+        },
+        {
+          "depth": 2,
+          "text": "Escopo da validação",
+          "anchor": "escopo-da-validacao"
+        },
+        {
+          "depth": 2,
+          "text": "Evidências",
+          "anchor": "evidencias"
+        },
+        {
+          "depth": 2,
+          "text": "Resultado",
+          "anchor": "resultado"
+        },
+        {
+          "depth": 2,
+          "text": "Checklist",
+          "anchor": "checklist"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 85,
+      "lineCount": 17,
+      "lastModified": 1783692148
+    },
+    "docs/onda2/MD-WIKI-003-FULL.md": {
+      "path": "docs/onda2/MD-WIKI-003-FULL.md",
+      "title": "Onda 2 — Wiki Links | MD-WIKI-003",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "Onda 2 — Wiki Links | MD-WIKI-003",
+          "anchor": "onda-2-wiki-links-md-wiki-003"
+        },
+        {
+          "depth": 2,
+          "text": "Regras",
+          "anchor": "regras"
+        },
+        {
+          "depth": 2,
+          "text": "Objetivo",
+          "anchor": "objetivo"
+        },
+        {
+          "depth": 2,
+          "text": "Depende",
+          "anchor": "depende"
+        },
+        {
+          "depth": 2,
+          "text": "Trabalho",
+          "anchor": "trabalho"
+        },
+        {
+          "depth": 2,
+          "text": "Artefatos",
+          "anchor": "artefatos"
+        },
+        {
+          "depth": 2,
+          "text": "AC",
+          "anchor": "ac"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 205,
+      "lineCount": 36,
+      "lastModified": 1789851742
+    },
+    "docs/onda0b/ESAA-TASKS-HANDOFF.md": {
+      "path": "docs/onda0b/ESAA-TASKS-HANDOFF.md",
+      "title": "Onda 0B — Guided Markdown — Handoff ESAA",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "Onda 0B — Guided Markdown — Handoff ESAA",
+          "anchor": "onda-0b-guided-markdown-handoff-esaa"
+        },
+        {
+          "depth": 2,
+          "text": "Tasks (todo)",
+          "anchor": "tasks-todo"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 1,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 146,
+      "lineCount": 26,
+      "lastModified": 1789845582
+    },
+    "docs/onda0b/MD-GM-006-FULL.md": {
+      "path": "docs/onda0b/MD-GM-006-FULL.md",
+      "title": "WBS-GM-006",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "WBS-GM-006",
+          "anchor": "wbs-gm-006"
+        },
+        {
+          "depth": 1,
+          "text": "Markdown Hints",
+          "anchor": "markdown-hints"
+        },
+        {
+          "depth": 2,
+          "text": "WBS-GM-006.01",
+          "anchor": "wbs-gm-00601"
+        },
+        {
+          "depth": 2,
+          "text": "WBS-GM-006.02",
+          "anchor": "wbs-gm-00602"
+        },
+        {
+          "depth": 2,
+          "text": "WBS-GM-006.03",
+          "anchor": "wbs-gm-00603"
+        },
+        {
+          "depth": 2,
+          "text": "WBS-GM-006.04",
+          "anchor": "wbs-gm-00604"
+        },
+        {
+          "depth": 2,
+          "text": "Critérios de Aceitação — WBS-GM-006",
+          "anchor": "criterios-de-aceitacao-wbs-gm-006"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 435,
+      "lineCount": 165,
+      "lastModified": 1789845568
+    },
+    "docs/qa/G23-e2e-desempenho-pacotes-linux-e-release-candidata.md": {
+      "path": "docs/qa/G23-e2e-desempenho-pacotes-linux-e-release-candidata.md",
+      "title": "QA G23 — Release",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "QA G23 — Release",
+          "anchor": "qa-g23-release"
+        },
+        {
+          "depth": 2,
+          "text": "Escopo da validação",
+          "anchor": "escopo-da-validacao"
+        },
+        {
+          "depth": 2,
+          "text": "Evidências",
+          "anchor": "evidencias"
+        },
+        {
+          "depth": 2,
+          "text": "Resultado",
+          "anchor": "resultado"
+        },
+        {
+          "depth": 2,
+          "text": "Checklist",
+          "anchor": "checklist"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 80,
+      "lineCount": 17,
+      "lastModified": 1783692200
+    },
+    "docs/onda2/MD-WIKI-004-FULL.md": {
+      "path": "docs/onda2/MD-WIKI-004-FULL.md",
+      "title": "Onda 2 — Wiki Links | MD-WIKI-004",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "Onda 2 — Wiki Links | MD-WIKI-004",
+          "anchor": "onda-2-wiki-links-md-wiki-004"
+        },
+        {
+          "depth": 2,
+          "text": "Regras",
+          "anchor": "regras"
+        },
+        {
+          "depth": 2,
+          "text": "Objetivo",
+          "anchor": "objetivo"
+        },
+        {
+          "depth": 2,
+          "text": "Depende",
+          "anchor": "depende"
+        },
+        {
+          "depth": 2,
+          "text": "Trabalho",
+          "anchor": "trabalho"
+        },
+        {
+          "depth": 2,
+          "text": "Artefatos",
+          "anchor": "artefatos"
+        },
+        {
+          "depth": 2,
+          "text": "AC",
+          "anchor": "ac"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 189,
+      "lineCount": 35,
+      "lastModified": 1789851742
+    },
+    "docs/spec/G04-shell-desktop-tauri-e-react.md": {
+      "path": "docs/spec/G04-shell-desktop-tauri-e-react.md",
+      "title": "G04 — Shell desktop",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "G04 — Shell desktop",
+          "anchor": "g04-shell-desktop"
+        },
+        {
+          "depth": 2,
+          "text": "Objetivo",
+          "anchor": "objetivo"
+        },
+        {
+          "depth": 2,
+          "text": "Requisitos",
+          "anchor": "requisitos"
+        },
+        {
+          "depth": 2,
+          "text": "Aceite",
+          "anchor": "aceite"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 70,
+      "lineCount": 14,
+      "lastModified": 1783692122
+    },
+    "docs/spec/G12-html-seguro-urls-svg-e-conteudo-remoto.md": {
+      "path": "docs/spec/G12-html-seguro-urls-svg-e-conteudo-remoto.md",
+      "title": "G12 — Sanitização",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "G12 — Sanitização",
+          "anchor": "g12-sanitizacao"
+        },
+        {
+          "depth": 2,
+          "text": "Objetivo",
+          "anchor": "objetivo"
+        },
+        {
+          "depth": 2,
+          "text": "Requisitos",
+          "anchor": "requisitos"
+        },
+        {
+          "depth": 2,
+          "text": "Aceite",
+          "anchor": "aceite"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 63,
+      "lineCount": 14,
+      "lastModified": 1783692159
+    },
+    "docs/onda3/MD-BACKLINK-000-FULL.md": {
+      "path": "docs/onda3/MD-BACKLINK-000-FULL.md",
+      "title": "Onda 3 — Backlinks v3.1 | MD-BACKLINK-000",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "Onda 3 — Backlinks v3.1 | MD-BACKLINK-000",
+          "anchor": "onda-3-backlinks-v31-md-backlink-000"
+        },
+        {
+          "depth": 2,
+          "text": "Regras globais",
+          "anchor": "regras-globais"
+        },
+        {
+          "depth": 2,
+          "text": "Objetivo",
+          "anchor": "objetivo"
+        },
+        {
+          "depth": 2,
+          "text": "Trabalho",
+          "anchor": "trabalho"
+        },
+        {
+          "depth": 2,
+          "text": "Fora",
+          "anchor": "fora"
+        },
+        {
+          "depth": 2,
+          "text": "AC",
+          "anchor": "ac"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 227,
+      "lineCount": 35,
+      "lastModified": 1789854637
+    },
+    "docs/onda3/MD-BACKLINK-007-FULL.md": {
+      "path": "docs/onda3/MD-BACKLINK-007-FULL.md",
+      "title": "Onda 3 — Backlinks v3.1 | MD-BACKLINK-007",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "Onda 3 — Backlinks v3.1 | MD-BACKLINK-007",
+          "anchor": "onda-3-backlinks-v31-md-backlink-007"
+        },
+        {
+          "depth": 2,
+          "text": "Regras globais",
+          "anchor": "regras-globais"
+        },
+        {
+          "depth": 2,
+          "text": "Objetivo",
+          "anchor": "objetivo"
+        },
+        {
+          "depth": 2,
+          "text": "Depende",
+          "anchor": "depende"
+        },
+        {
+          "depth": 2,
+          "text": "Trabalho",
+          "anchor": "trabalho"
+        },
+        {
+          "depth": 2,
+          "text": "AC",
+          "anchor": "ac"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 132,
+      "lineCount": 29,
+      "lastModified": 1789854637
+    },
+    "docs/onda2/resolve-rules.md": {
+      "path": "docs/onda2/resolve-rules.md",
+      "title": "Regras de resolução de wiki links",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "Regras de resolução de wiki links",
+          "anchor": "regras-de-resolucao-de-wiki-links"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 112,
+      "lineCount": 16,
+      "lastModified": 1789852603
+    },
+    "docs/release/PACKAGING.md": {
+      "path": "docs/release/PACKAGING.md",
+      "title": "Empacotamento MD Studio (Linux)",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "Empacotamento MD Studio (Linux)",
+          "anchor": "empacotamento-md-studio-linux"
+        },
+        {
+          "depth": 2,
+          "text": "Alvos",
+          "anchor": "alvos"
+        },
+        {
+          "depth": 2,
+          "text": "Dependências de build (Ubuntu/Debian)",
+          "anchor": "dependencias-de-build-ubuntudebian"
+        },
+        {
+          "depth": 2,
+          "text": "Build",
+          "anchor": "build"
+        },
+        {
+          "depth": 2,
+          "text": "Instalação rápida (.deb)",
+          "anchor": "instalacao-rapida-deb"
+        },
+        {
+          "depth": 2,
+          "text": "AppImage",
+          "anchor": "appimage"
+        },
+        {
+          "depth": 2,
+          "text": "Notas",
+          "anchor": "notas"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 1,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 146,
+      "lineCount": 48,
+      "lastModified": 1789845202
+    },
+    "docs/spec/G10-pipeline-ast-commonmark-e-gfm.md": {
+      "path": "docs/spec/G10-pipeline-ast-commonmark-e-gfm.md",
+      "title": "G10 — Pipeline Markdown",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "G10 — Pipeline Markdown",
+          "anchor": "g10-pipeline-markdown"
+        },
+        {
+          "depth": 2,
+          "text": "Objetivo",
+          "anchor": "objetivo"
+        },
+        {
+          "depth": 2,
+          "text": "Requisitos",
+          "anchor": "requisitos"
+        },
+        {
+          "depth": 2,
+          "text": "Aceite",
+          "anchor": "aceite"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 65,
+      "lineCount": 14,
+      "lastModified": 1783692152
+    },
+    "docs/architecture/desktop-boundaries.md": {
+      "path": "docs/architecture/desktop-boundaries.md",
+      "title": "Desktop boundaries — MD Studio",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "Desktop boundaries — MD Studio",
+          "anchor": "desktop-boundaries-md-studio"
+        },
+        {
+          "depth": 2,
+          "text": "Trust zones",
+          "anchor": "trust-zones"
+        },
+        {
+          "depth": 2,
+          "text": "IPC contract",
+          "anchor": "ipc-contract"
+        },
+        {
+          "depth": 2,
+          "text": "DocumentSnapshot",
+          "anchor": "documentsnapshot"
+        },
+        {
+          "depth": 2,
+          "text": "Save",
+          "anchor": "save"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 90,
+      "lineCount": 16,
+      "lastModified": 1783691922
+    },
+    "docs/qa/hotfix-desktop-ubuntu.md": {
+      "path": "docs/qa/hotfix-desktop-ubuntu.md",
+      "title": "Hotfix Ubuntu desktop — cursor e controles da janela",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "Hotfix Ubuntu desktop — cursor e controles da janela",
+          "anchor": "hotfix-ubuntu-desktop-cursor-e-controles-da-janela"
+        },
+        {
+          "depth": 2,
+          "text": "Sintomas confirmados",
+          "anchor": "sintomas-confirmados"
+        },
+        {
+          "depth": 2,
+          "text": "Correção",
+          "anchor": "correcao"
+        },
+        {
+          "depth": 2,
+          "text": "Evidências de verificação",
+          "anchor": "evidencias-de-verificacao"
+        },
+        {
+          "depth": 2,
+          "text": "Limite da automação",
+          "anchor": "limite-da-automacao"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 364,
+      "lineCount": 61,
+      "lastModified": 1789855644
+    },
+    "docs/qa/G16-editor-de-fonte-e-comandos-de-salvamento.md": {
+      "path": "docs/qa/G16-editor-de-fonte-e-comandos-de-salvamento.md",
+      "title": "QA G16 — Editor",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "QA G16 — Editor",
+          "anchor": "qa-g16-editor"
+        },
+        {
+          "depth": 2,
+          "text": "Escopo da validação",
+          "anchor": "escopo-da-validacao"
+        },
+        {
+          "depth": 2,
+          "text": "Evidências",
+          "anchor": "evidencias"
+        },
+        {
+          "depth": 2,
+          "text": "Resultado",
+          "anchor": "resultado"
+        },
+        {
+          "depth": 2,
+          "text": "Checklist",
+          "anchor": "checklist"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 81,
+      "lineCount": 17,
+      "lastModified": 1783692175
+    },
+    "docs/qa/onda0c-empty.md": {
+      "path": "docs/qa/onda0c-empty.md",
+      "title": "QA: MD-UI-EMPTY-001 (Empty State & Welcome Screen Polish)",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "QA: MD-UI-EMPTY-001 (Empty State & Welcome Screen Polish)",
+          "anchor": "qa-md-ui-empty-001-empty-state-welcome-screen-polish"
+        },
+        {
+          "depth": 2,
+          "text": "Escopo",
+          "anchor": "escopo"
+        },
+        {
+          "depth": 2,
+          "text": "Verificação",
+          "anchor": "verificacao"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 126,
+      "lineCount": 18,
+      "lastModified": 1789850399
+    },
+    "docs/qa/G19-exportacao-html-impressao-pdf-e-diagramas.md": {
+      "path": "docs/qa/G19-exportacao-html-impressao-pdf-e-diagramas.md",
+      "title": "QA G19 — Export",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "QA G19 — Export",
+          "anchor": "qa-g19-export"
+        },
+        {
+          "depth": 2,
+          "text": "Escopo da validação",
+          "anchor": "escopo-da-validacao"
+        },
+        {
+          "depth": 2,
+          "text": "Evidências",
+          "anchor": "evidencias"
+        },
+        {
+          "depth": 2,
+          "text": "Resultado",
+          "anchor": "resultado"
+        },
+        {
+          "depth": 2,
+          "text": "Checklist",
+          "anchor": "checklist"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 80,
+      "lineCount": 17,
+      "lastModified": 1783692186
+    },
+    "docs/onda0b/MD-GM-008-FULL.md": {
+      "path": "docs/onda0b/MD-GM-008-FULL.md",
+      "title": "WBS-GM-008",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "WBS-GM-008",
+          "anchor": "wbs-gm-008"
+        },
+        {
+          "depth": 1,
+          "text": "QA Guided Markdown",
+          "anchor": "qa-guided-markdown"
+        },
+        {
+          "depth": 2,
+          "text": "WBS-GM-008.01",
+          "anchor": "wbs-gm-00801"
+        },
+        {
+          "depth": 2,
+          "text": "WBS-GM-008.02",
+          "anchor": "wbs-gm-00802"
+        },
+        {
+          "depth": 2,
+          "text": "WBS-GM-008.03",
+          "anchor": "wbs-gm-00803"
+        },
+        {
+          "depth": 2,
+          "text": "WBS-GM-008.04",
+          "anchor": "wbs-gm-00804"
+        },
+        {
+          "depth": 2,
+          "text": "WBS-GM-008.05",
+          "anchor": "wbs-gm-00805"
+        },
+        {
+          "depth": 2,
+          "text": "WBS-GM-008.06",
+          "anchor": "wbs-gm-00806"
+        },
+        {
+          "depth": 2,
+          "text": "WBS-GM-008.07",
+          "anchor": "wbs-gm-00807"
+        },
+        {
+          "depth": 2,
+          "text": "WBS-GM-008.08",
+          "anchor": "wbs-gm-00808"
+        },
+        {
+          "depth": 2,
+          "text": "Critérios de Aceitação — WBS-GM-008",
+          "anchor": "criterios-de-aceitacao-wbs-gm-008"
+        },
+        {
+          "depth": 1,
+          "text": "SUMÁRIO FINAL",
+          "anchor": "sumario-final"
+        },
+        {
+          "depth": 2,
+          "text": "Contagem de subtarefas",
+          "anchor": "contagem-de-subtarefas"
+        },
+        {
+          "depth": 2,
+          "text": "Artefatos novos",
+          "anchor": "artefatos-novos"
+        },
+        {
+          "depth": 2,
+          "text": "Posição no Roadmap Global",
+          "anchor": "posicao-no-roadmap-global"
+        },
+        {
+          "depth": 2,
+          "text": "Critério de Encerramento da Onda 0B",
+          "anchor": "criterio-de-encerramento-da-onda-0b"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 1081,
+      "lineCount": 348,
+      "lastModified": 1789845569
+    },
+    "app/PRD-MD-STUDIO-EXTENSIONS.md": {
+      "path": "app/PRD-MD-STUDIO-EXTENSIONS.md",
+      "title": "PRD — Markdown e extensões",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "PRD — Markdown e extensões",
+          "anchor": "prd-markdown-e-extensoes"
+        },
+        {
+          "depth": 2,
+          "text": "RF-03 — Perfil Markdown",
+          "anchor": "rf-03-perfil-markdown"
+        },
+        {
+          "depth": 2,
+          "text": "RF-04 — Renderizadores especializados",
+          "anchor": "rf-04-renderizadores-especializados"
+        },
+        {
+          "depth": 3,
+          "text": "Código",
+          "anchor": "codigo"
+        },
+        {
+          "depth": 3,
+          "text": "Matemática",
+          "anchor": "matematica"
+        },
+        {
+          "depth": 3,
+          "text": "Mermaid",
+          "anchor": "mermaid"
+        },
+        {
+          "depth": 2,
+          "text": "Contrato de renderização",
+          "anchor": "contrato-de-renderizacao"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 304,
+      "lineCount": 47,
+      "lastModified": 1783691192
+    },
+    "docs/qa/G12-html-seguro-urls-svg-e-conteudo-remoto.md": {
+      "path": "docs/qa/G12-html-seguro-urls-svg-e-conteudo-remoto.md",
+      "title": "QA G12 — Sanitização",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "QA G12 — Sanitização",
+          "anchor": "qa-g12-sanitizacao"
+        },
+        {
+          "depth": 2,
+          "text": "Escopo da validação",
+          "anchor": "escopo-da-validacao"
+        },
+        {
+          "depth": 2,
+          "text": "Evidências",
+          "anchor": "evidencias"
+        },
+        {
+          "depth": 2,
+          "text": "Resultado",
+          "anchor": "resultado"
+        },
+        {
+          "depth": 2,
+          "text": "Checklist",
+          "anchor": "checklist"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 81,
+      "lineCount": 17,
+      "lastModified": 1783692161
+    },
+    "docs/onda0c/design-system-audit.md": {
+      "path": "docs/onda0c/design-system-audit.md",
+      "title": "Design System Audit — Botões MD Studio",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "Design System Audit — Botões MD Studio",
+          "anchor": "design-system-audit-botoes-md-studio"
+        },
+        {
+          "depth": 2,
+          "text": "Objetivo",
+          "anchor": "objetivo"
+        },
+        {
+          "depth": 2,
+          "text": "Tabela de Migração de Hotspots",
+          "anchor": "tabela-de-migracao-de-hotspots"
+        },
+        {
+          "depth": 2,
+          "text": "Tokens Visuais e Consistência",
+          "anchor": "tokens-visuais-e-consistencia"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 1,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 278,
+      "lineCount": 28,
+      "lastModified": 1789850875
+    },
+    "tests/security/integrity/README.md": {
+      "path": "tests/security/integrity/README.md",
+      "title": "Integrity cases",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "Integrity cases",
+          "anchor": "integrity-cases"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 11,
+      "lineCount": 4,
+      "lastModified": 1783692195
+    },
+    "docs/security/threat-model.md": {
+      "path": "docs/security/threat-model.md",
+      "title": "Threat model — MD Studio v1",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "Threat model — MD Studio v1",
+          "anchor": "threat-model-md-studio-v1"
+        },
+        {
+          "depth": 2,
+          "text": "Assets",
+          "anchor": "assets"
+        },
+        {
+          "depth": 2,
+          "text": "Threats",
+          "anchor": "threats"
+        },
+        {
+          "depth": 2,
+          "text": "Trust assumptions",
+          "anchor": "trust-assumptions"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 1,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 112,
+      "lineCount": 19,
+      "lastModified": 1783691922
+    },
+    "docs/spec/G09-busca-no-workspace-e-observacao-de-mudancas-externas.md": {
+      "path": "docs/spec/G09-busca-no-workspace-e-observacao-de-mudancas-externas.md",
+      "title": "G09 — Busca e watcher",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "G09 — Busca e watcher",
+          "anchor": "g09-busca-e-watcher"
+        },
+        {
+          "depth": 2,
+          "text": "Objetivo",
+          "anchor": "objetivo"
+        },
+        {
+          "depth": 2,
+          "text": "Requisitos",
+          "anchor": "requisitos"
+        },
+        {
+          "depth": 2,
+          "text": "Aceite",
+          "anchor": "aceite"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 66,
+      "lineCount": 14,
+      "lastModified": 1783692149
+    },
+    "docs/onda3/MD-BACKLINK-008-FULL.md": {
+      "path": "docs/onda3/MD-BACKLINK-008-FULL.md",
+      "title": "Onda 3 — Backlinks v3.1 | MD-BACKLINK-008",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "Onda 3 — Backlinks v3.1 | MD-BACKLINK-008",
+          "anchor": "onda-3-backlinks-v31-md-backlink-008"
+        },
+        {
+          "depth": 2,
+          "text": "Regras globais",
+          "anchor": "regras-globais"
+        },
+        {
+          "depth": 2,
+          "text": "Objetivo",
+          "anchor": "objetivo"
+        },
+        {
+          "depth": 2,
+          "text": "Depende",
+          "anchor": "depende"
+        },
+        {
+          "depth": 2,
+          "text": "Trabalho",
+          "anchor": "trabalho"
+        },
+        {
+          "depth": 2,
+          "text": "AC",
+          "anchor": "ac"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 161,
+      "lineCount": 33,
+      "lastModified": 1789854637
+    },
+    "docs/qa/G13-renderizador-de-codigo-e-recursos-de-bloco.md": {
+      "path": "docs/qa/G13-renderizador-de-codigo-e-recursos-de-bloco.md",
+      "title": "QA G13 — Código",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "QA G13 — Código",
+          "anchor": "qa-g13-codigo"
+        },
+        {
+          "depth": 2,
+          "text": "Escopo da validação",
+          "anchor": "escopo-da-validacao"
+        },
+        {
+          "depth": 2,
+          "text": "Evidências",
+          "anchor": "evidencias"
+        },
+        {
+          "depth": 2,
+          "text": "Resultado",
+          "anchor": "resultado"
+        },
+        {
+          "depth": 2,
+          "text": "Checklist",
+          "anchor": "checklist"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 81,
+      "lineCount": 17,
+      "lastModified": 1783692164
+    },
+    "docs/onda0b/MD-GM-005-FULL.md": {
+      "path": "docs/onda0b/MD-GM-005-FULL.md",
+      "title": "WBS-GM-005",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "WBS-GM-005",
+          "anchor": "wbs-gm-005"
+        },
+        {
+          "depth": 1,
+          "text": "Markdown Cheatsheet",
+          "anchor": "markdown-cheatsheet"
+        },
+        {
+          "depth": 2,
+          "text": "WBS-GM-005.01",
+          "anchor": "wbs-gm-00501"
+        },
+        {
+          "depth": 2,
+          "text": "WBS-GM-005.02",
+          "anchor": "wbs-gm-00502"
+        },
+        {
+          "depth": 2,
+          "text": "WBS-GM-005.03",
+          "anchor": "wbs-gm-00503"
+        },
+        {
+          "depth": 2,
+          "text": "WBS-GM-005.04",
+          "anchor": "wbs-gm-00504"
+        },
+        {
+          "depth": 2,
+          "text": "Critérios de Aceitação — WBS-GM-005",
+          "anchor": "criterios-de-aceitacao-wbs-gm-005"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 674,
+      "lineCount": 161,
+      "lastModified": 1789845567
+    },
+    "docs/qa/G04-shell-desktop-tauri-e-react.md": {
+      "path": "docs/qa/G04-shell-desktop-tauri-e-react.md",
+      "title": "QA G04 — Shell desktop",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "QA G04 — Shell desktop",
+          "anchor": "qa-g04-shell-desktop"
+        },
+        {
+          "depth": 2,
+          "text": "Escopo da validação",
+          "anchor": "escopo-da-validacao"
+        },
+        {
+          "depth": 2,
+          "text": "Evidências",
+          "anchor": "evidencias"
+        },
+        {
+          "depth": 2,
+          "text": "Resultado",
+          "anchor": "resultado"
+        },
+        {
+          "depth": 2,
+          "text": "Checklist",
+          "anchor": "checklist"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 88,
+      "lineCount": 17,
+      "lastModified": 1783692135
+    },
+    "docs/onda0c/MD-UI-EMPTY-001-FULL.md": {
+      "path": "docs/onda0c/MD-UI-EMPTY-001-FULL.md",
+      "title": "Onda 0C — UI Polish | MD-UI-EMPTY-001",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "Onda 0C — UI Polish | MD-UI-EMPTY-001",
+          "anchor": "onda-0c-ui-polish-md-ui-empty-001"
+        },
+        {
+          "depth": 2,
+          "text": "Regras de execução",
+          "anchor": "regras-de-execucao"
+        },
+        {
+          "depth": 2,
+          "text": "Objetivo",
+          "anchor": "objetivo"
+        },
+        {
+          "depth": 2,
+          "text": "Estado atual (já no código)",
+          "anchor": "estado-atual-ja-no-codigo"
+        },
+        {
+          "depth": 2,
+          "text": "Trabalho",
+          "anchor": "trabalho"
+        },
+        {
+          "depth": 2,
+          "text": "Artefatos",
+          "anchor": "artefatos"
+        },
+        {
+          "depth": 2,
+          "text": "Fora de escopo",
+          "anchor": "fora-de-escopo"
+        },
+        {
+          "depth": 2,
+          "text": "Acceptance criteria",
+          "anchor": "acceptance-criteria"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 364,
+      "lineCount": 52,
+      "lastModified": 1789850202
+    },
+    "docs/operations/diagnostics.md": {
+      "path": "docs/operations/diagnostics.md",
+      "title": "Diagnósticos operacionais",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "Diagnósticos operacionais",
+          "anchor": "diagnosticos-operacionais"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 30,
+      "lineCount": 5,
+      "lastModified": 1783692057
+    },
+    "docs/spec/G07-persistencia-atomica-conflitos-e-recuperacao-de-rascunhos.md": {
+      "path": "docs/spec/G07-persistencia-atomica-conflitos-e-recuperacao-de-rascunhos.md",
+      "title": "G07 — Save atômico",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "G07 — Save atômico",
+          "anchor": "g07-save-atomico"
+        },
+        {
+          "depth": 2,
+          "text": "Objetivo",
+          "anchor": "objetivo"
+        },
+        {
+          "depth": 2,
+          "text": "Requisitos",
+          "anchor": "requisitos"
+        },
+        {
+          "depth": 2,
+          "text": "Aceite",
+          "anchor": "aceite"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 66,
+      "lineCount": 14,
+      "lastModified": 1783692142
+    },
+    "PROJETO.md": {
+      "path": "PROJETO.md",
+      "title": "MD Studio",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "MD Studio",
+          "anchor": "md-studio"
+        },
+        {
+          "depth": 2,
+          "text": "Objetivo",
+          "anchor": "objetivo"
+        },
+        {
+          "depth": 2,
+          "text": "Público",
+          "anchor": "publico"
+        },
+        {
+          "depth": 2,
+          "text": "Eixo PRD",
+          "anchor": "eixo-prd"
+        },
+        {
+          "depth": 2,
+          "text": "Stack aprovada",
+          "anchor": "stack-aprovada"
+        },
+        {
+          "depth": 2,
+          "text": "Limites da v1",
+          "anchor": "limites-da-v1"
+        },
+        {
+          "depth": 2,
+          "text": "Política de entrega",
+          "anchor": "politica-de-entrega"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 215,
+      "lineCount": 41,
+      "lastModified": 1789856088
+    },
+    "docs/spec/G08-arvore-de-arquivos-e-resolucao-de-assets-locais.md": {
+      "path": "docs/spec/G08-arvore-de-arquivos-e-resolucao-de-assets-locais.md",
+      "title": "G08 — Files e assets",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "G08 — Files e assets",
+          "anchor": "g08-files-e-assets"
+        },
+        {
+          "depth": 2,
+          "text": "Objetivo",
+          "anchor": "objetivo"
+        },
+        {
+          "depth": 2,
+          "text": "Requisitos",
+          "anchor": "requisitos"
+        },
+        {
+          "depth": 2,
+          "text": "Aceite",
+          "anchor": "aceite"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 67,
+      "lineCount": 14,
+      "lastModified": 1783692146
+    },
+    "docs/spec/G01-contrato-do-produto-e-conjunto-de-prds.md": {
+      "path": "docs/spec/G01-contrato-do-produto-e-conjunto-de-prds.md",
+      "title": "G01 — Contrato do produto e conjunto de PRDs",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "G01 — Contrato do produto e conjunto de PRDs",
+          "anchor": "g01-contrato-do-produto-e-conjunto-de-prds"
+        },
+        {
+          "depth": 2,
+          "text": "Objetivo",
+          "anchor": "objetivo"
+        },
+        {
+          "depth": 2,
+          "text": "Escopo v1",
+          "anchor": "escopo-v1"
+        },
+        {
+          "depth": 2,
+          "text": "Fora de escopo v1",
+          "anchor": "fora-de-escopo-v1"
+        },
+        {
+          "depth": 2,
+          "text": "PRDs canônicos",
+          "anchor": "prds-canonicos"
+        },
+        {
+          "depth": 2,
+          "text": "Critérios de aceite G01",
+          "anchor": "criterios-de-aceite-g01"
+        },
+        {
+          "depth": 2,
+          "text": "Decisões fechadas",
+          "anchor": "decisoes-fechadas"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 1,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 256,
+      "lineCount": 37,
+      "lastModified": 1789856094
+    },
+    "docs/spec/G20-diagnosticos-e-tratamento-seguro-de-falhas.md": {
+      "path": "docs/spec/G20-diagnosticos-e-tratamento-seguro-de-falhas.md",
+      "title": "G20 — Diagnósticos",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "G20 — Diagnósticos",
+          "anchor": "g20-diagnosticos"
+        },
+        {
+          "depth": 2,
+          "text": "Objetivo",
+          "anchor": "objetivo"
+        },
+        {
+          "depth": 2,
+          "text": "Requisitos",
+          "anchor": "requisitos"
+        },
+        {
+          "depth": 2,
+          "text": "Aceite",
+          "anchor": "aceite"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 65,
+      "lineCount": 14,
+      "lastModified": 1783692187
+    },
+    "docs/qa/G07-persistencia-atomica-conflitos-e-recuperacao-de-rascunhos.md": {
+      "path": "docs/qa/G07-persistencia-atomica-conflitos-e-recuperacao-de-rascunhos.md",
+      "title": "QA G07 — Save atômico",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "QA G07 — Save atômico",
+          "anchor": "qa-g07-save-atomico"
+        },
+        {
+          "depth": 2,
+          "text": "Escopo da validação",
+          "anchor": "escopo-da-validacao"
+        },
+        {
+          "depth": 2,
+          "text": "Evidências",
+          "anchor": "evidencias"
+        },
+        {
+          "depth": 2,
+          "text": "Resultado",
+          "anchor": "resultado"
+        },
+        {
+          "depth": 2,
+          "text": "Checklist",
+          "anchor": "checklist"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 84,
+      "lineCount": 17,
+      "lastModified": 1783692144
+    },
+    "docs/qa/G20-diagnosticos-e-tratamento-seguro-de-falhas.md": {
+      "path": "docs/qa/G20-diagnosticos-e-tratamento-seguro-de-falhas.md",
+      "title": "QA G20 — Diagnósticos",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "QA G20 — Diagnósticos",
+          "anchor": "qa-g20-diagnosticos"
+        },
+        {
+          "depth": 2,
+          "text": "Escopo da validação",
+          "anchor": "escopo-da-validacao"
+        },
+        {
+          "depth": 2,
+          "text": "Evidências",
+          "anchor": "evidencias"
+        },
+        {
+          "depth": 2,
+          "text": "Resultado",
+          "anchor": "resultado"
+        },
+        {
+          "depth": 2,
+          "text": "Checklist",
+          "anchor": "checklist"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 83,
+      "lineCount": 17,
+      "lastModified": 1783692189
+    },
+    "docs/onda2/ESAA-TASKS-HANDOFF.md": {
+      "path": "docs/onda2/ESAA-TASKS-HANDOFF.md",
+      "title": "Onda 2 — Pacote para o agente executor",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "Onda 2 — Pacote para o agente executor",
+          "anchor": "onda-2-pacote-para-o-agente-executor"
+        },
+        {
+          "depth": 2,
+          "text": "Missão",
+          "anchor": "missao"
+        },
+        {
+          "depth": 2,
+          "text": "Ordem",
+          "anchor": "ordem"
+        },
+        {
+          "depth": 2,
+          "text": "Protocolo",
+          "anchor": "protocolo"
+        },
+        {
+          "depth": 2,
+          "text": "Âncoras",
+          "anchor": "ancoras"
+        },
+        {
+          "depth": 2,
+          "text": "Done da onda",
+          "anchor": "done-da-onda"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 127,
+      "lineCount": 33,
+      "lastModified": 1789851742
+    },
+    "AGENTS.md": {
+      "path": "AGENTS.md",
+      "title": "AGENTS.md — Contrato operacional ESAA",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "AGENTS.md — Contrato operacional ESAA",
+          "anchor": "agentsmd-contrato-operacional-esaa"
+        },
+        {
+          "depth": 2,
+          "text": "Autoridade",
+          "anchor": "autoridade"
+        },
+        {
+          "depth": 2,
+          "text": "CLI",
+          "anchor": "cli"
+        },
+        {
+          "depth": 2,
+          "text": "Governança obrigatória (política do operador — 2026-07-10)",
+          "anchor": "governanca-obrigatoria-politica-do-operador-2026-07-10"
+        },
+        {
+          "depth": 2,
+          "text": "Regras para agentes",
+          "anchor": "regras-para-agentes"
+        },
+        {
+          "depth": 2,
+          "text": "Ciclo",
+          "anchor": "ciclo"
+        },
+        {
+          "depth": 2,
+          "text": "Lessons baseline",
+          "anchor": "lessons-baseline"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 384,
+      "lineCount": 82,
+      "lastModified": 1783704005
+    },
+    "docs/onda1/ESAA-TASKS-HANDOFF.md": {
+      "path": "docs/onda1/ESAA-TASKS-HANDOFF.md",
+      "title": "Onda 1 — Handoff ESAA (Knowledge Foundation)",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "Onda 1 — Handoff ESAA (Knowledge Foundation)",
+          "anchor": "onda-1-handoff-esaa-knowledge-foundation"
+        },
+        {
+          "depth": 2,
+          "text": "Tasks criadas (ordem)",
+          "anchor": "tasks-criadas-ordem"
+        },
+        {
+          "depth": 2,
+          "text": "Complementar (já done)",
+          "anchor": "complementar-ja-done"
+        },
+        {
+          "depth": 2,
+          "text": "Paths reais (obrigatório)",
+          "anchor": "paths-reais-obrigatorio"
+        },
+        {
+          "depth": 2,
+          "text": "Princípios",
+          "anchor": "principios"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [
+        "2"
+      ],
+      "images": [],
+      "tables": 1,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 213,
+      "lineCount": 41,
+      "lastModified": 1789842875
+    },
+    "docs/onda3/MD-BACKLINK-001-FULL.md": {
+      "path": "docs/onda3/MD-BACKLINK-001-FULL.md",
+      "title": "Onda 3 — Backlinks v3.1 | MD-BACKLINK-001",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "Onda 3 — Backlinks v3.1 | MD-BACKLINK-001",
+          "anchor": "onda-3-backlinks-v31-md-backlink-001"
+        },
+        {
+          "depth": 2,
+          "text": "Regras globais",
+          "anchor": "regras-globais"
+        },
+        {
+          "depth": 2,
+          "text": "Objetivo",
+          "anchor": "objetivo"
+        },
+        {
+          "depth": 2,
+          "text": "Depende",
+          "anchor": "depende"
+        },
+        {
+          "depth": 2,
+          "text": "Trabalho",
+          "anchor": "trabalho"
+        },
+        {
+          "depth": 2,
+          "text": "AC",
+          "anchor": "ac"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 189,
+      "lineCount": 31,
+      "lastModified": 1789854637
+    },
+    "README.md": {
+      "path": "README.md",
+      "title": "MD Studio",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "MD Studio",
+          "anchor": "md-studio"
+        },
+        {
+          "depth": 2,
+          "text": "Requisitos",
+          "anchor": "requisitos"
+        },
+        {
+          "depth": 2,
+          "text": "Desenvolvimento",
+          "anchor": "desenvolvimento"
+        },
+        {
+          "depth": 2,
+          "text": "Funcionalidades (v0.1)",
+          "anchor": "funcionalidades-v01"
+        },
+        {
+          "depth": 2,
+          "text": "Empacotamento Linux",
+          "anchor": "empacotamento-linux"
+        },
+        {
+          "depth": 2,
+          "text": "Segurança",
+          "anchor": "seguranca"
+        },
+        {
+          "depth": 2,
+          "text": "Licença",
+          "anchor": "licenca"
+        }
+      ],
+      "links": [
+        {
+          "text": "docs/release/PACKAGING.md",
+          "url": "docs/release/PACKAGING.md",
+          "isInternal": true,
+          "line": 12
+        },
+        {
+          "text": "docs/release/PACKAGING.md",
+          "url": "docs/release/PACKAGING.md",
+          "isInternal": true,
+          "line": 42
+        }
+      ],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 256,
+      "lineCount": 52,
+      "lastModified": 1789841892
+    },
+    "docs/qa/onda0c-panel.md": {
+      "path": "docs/qa/onda0c-panel.md",
+      "title": "QA: MD-UI-PANEL-001 (Collapsible Right Panel & Status Bar)",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "QA: MD-UI-PANEL-001 (Collapsible Right Panel & Status Bar)",
+          "anchor": "qa-md-ui-panel-001-collapsible-right-panel-status-bar"
+        },
+        {
+          "depth": 2,
+          "text": "Escopo",
+          "anchor": "escopo"
+        },
+        {
+          "depth": 2,
+          "text": "Verificação",
+          "anchor": "verificacao"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 137,
+      "lineCount": 18,
+      "lastModified": 1789850544
+    },
+    "docs/onda3/MD-BACKLINK-004-FULL.md": {
+      "path": "docs/onda3/MD-BACKLINK-004-FULL.md",
+      "title": "Onda 3 — Backlinks v3.1 | MD-BACKLINK-004",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "Onda 3 — Backlinks v3.1 | MD-BACKLINK-004",
+          "anchor": "onda-3-backlinks-v31-md-backlink-004"
+        },
+        {
+          "depth": 2,
+          "text": "Regras globais",
+          "anchor": "regras-globais"
+        },
+        {
+          "depth": 2,
+          "text": "Objetivo",
+          "anchor": "objetivo"
+        },
+        {
+          "depth": 2,
+          "text": "Depende",
+          "anchor": "depende"
+        },
+        {
+          "depth": 2,
+          "text": "Trabalho",
+          "anchor": "trabalho"
+        },
+        {
+          "depth": 2,
+          "text": "AC",
+          "anchor": "ac"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 180,
+      "lineCount": 34,
+      "lastModified": 1789854637
+    },
+    "docs/spec/G16-editor-de-fonte-e-comandos-de-salvamento.md": {
+      "path": "docs/spec/G16-editor-de-fonte-e-comandos-de-salvamento.md",
+      "title": "G16 — Editor",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "G16 — Editor",
+          "anchor": "g16-editor"
+        },
+        {
+          "depth": 2,
+          "text": "Objetivo",
+          "anchor": "objetivo"
+        },
+        {
+          "depth": 2,
+          "text": "Requisitos",
+          "anchor": "requisitos"
+        },
+        {
+          "depth": 2,
+          "text": "Aceite",
+          "anchor": "aceite"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 63,
+      "lineCount": 14,
+      "lastModified": 1783692173
+    },
+    "docs/onda2/EXECUTOR-BRIEF.md": {
+      "path": "docs/onda2/EXECUTOR-BRIEF.md",
+      "title": "Onda 2 — Pacote para o agente executor",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "Onda 2 — Pacote para o agente executor",
+          "anchor": "onda-2-pacote-para-o-agente-executor"
+        },
+        {
+          "depth": 2,
+          "text": "Missão",
+          "anchor": "missao"
+        },
+        {
+          "depth": 2,
+          "text": "Ordem",
+          "anchor": "ordem"
+        },
+        {
+          "depth": 2,
+          "text": "Protocolo",
+          "anchor": "protocolo"
+        },
+        {
+          "depth": 2,
+          "text": "Âncoras",
+          "anchor": "ancoras"
+        },
+        {
+          "depth": 2,
+          "text": "Done da onda",
+          "anchor": "done-da-onda"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 125,
+      "lineCount": 30,
+      "lastModified": 1789851742
+    },
+    "docs/spec/G17-preview-sumario-rolagem-e-navegacao-interna.md": {
+      "path": "docs/spec/G17-preview-sumario-rolagem-e-navegacao-interna.md",
+      "title": "G17 — Preview",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "G17 — Preview",
+          "anchor": "g17-preview"
+        },
+        {
+          "depth": 2,
+          "text": "Objetivo",
+          "anchor": "objetivo"
+        },
+        {
+          "depth": 2,
+          "text": "Requisitos",
+          "anchor": "requisitos"
+        },
+        {
+          "depth": 2,
+          "text": "Aceite",
+          "anchor": "aceite"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 63,
+      "lineCount": 14,
+      "lastModified": 1783692176
+    },
+    "docs/qa/G15-renderizador-mermaid-isolado-e-exportavel.md": {
+      "path": "docs/qa/G15-renderizador-mermaid-isolado-e-exportavel.md",
+      "title": "QA G15 — Mermaid",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "QA G15 — Mermaid",
+          "anchor": "qa-g15-mermaid"
+        },
+        {
+          "depth": 2,
+          "text": "Escopo da validação",
+          "anchor": "escopo-da-validacao"
+        },
+        {
+          "depth": 2,
+          "text": "Evidências",
+          "anchor": "evidencias"
+        },
+        {
+          "depth": 2,
+          "text": "Resultado",
+          "anchor": "resultado"
+        },
+        {
+          "depth": 2,
+          "text": "Checklist",
+          "anchor": "checklist"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 81,
+      "lineCount": 17,
+      "lastModified": 1783692171
+    },
+    "docs/onda0c/MD-UI-BUTTONS-001-FULL.md": {
+      "path": "docs/onda0c/MD-UI-BUTTONS-001-FULL.md",
+      "title": "Onda 0C — UI Polish | MD-UI-BUTTONS-001",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "Onda 0C — UI Polish | MD-UI-BUTTONS-001",
+          "anchor": "onda-0c-ui-polish-md-ui-buttons-001"
+        },
+        {
+          "depth": 2,
+          "text": "Regras de execução",
+          "anchor": "regras-de-execucao"
+        },
+        {
+          "depth": 2,
+          "text": "Objetivo",
+          "anchor": "objetivo"
+        },
+        {
+          "depth": 2,
+          "text": "Dependência",
+          "anchor": "dependencia"
+        },
+        {
+          "depth": 2,
+          "text": "Trabalho",
+          "anchor": "trabalho"
+        },
+        {
+          "depth": 2,
+          "text": "Artefatos",
+          "anchor": "artefatos"
+        },
+        {
+          "depth": 2,
+          "text": "Fora",
+          "anchor": "fora"
+        },
+        {
+          "depth": 2,
+          "text": "Acceptance criteria",
+          "anchor": "acceptance-criteria"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 274,
+      "lineCount": 47,
+      "lastModified": 1789850202
+    },
+    "tests/conformance/renderers/README.md": {
+      "path": "tests/conformance/renderers/README.md",
+      "title": "Renderer conformance notes",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "Renderer conformance notes",
+          "anchor": "renderer-conformance-notes"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 10,
+      "lineCount": 3,
+      "lastModified": 1783692192
+    },
+    "docs/onda0c/MD-UI-QA-001-FULL.md": {
+      "path": "docs/onda0c/MD-UI-QA-001-FULL.md",
+      "title": "Onda 0C — UI Polish | MD-UI-QA-001",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "Onda 0C — UI Polish | MD-UI-QA-001",
+          "anchor": "onda-0c-ui-polish-md-ui-qa-001"
+        },
+        {
+          "depth": 2,
+          "text": "Regras de execução",
+          "anchor": "regras-de-execucao"
+        },
+        {
+          "depth": 2,
+          "text": "Objetivo",
+          "anchor": "objetivo"
+        },
+        {
+          "depth": 2,
+          "text": "Checklist obrigatório",
+          "anchor": "checklist-obrigatorio"
+        },
+        {
+          "depth": 3,
+          "text": "Empty",
+          "anchor": "empty"
+        },
+        {
+          "depth": 3,
+          "text": "Panel",
+          "anchor": "panel"
+        },
+        {
+          "depth": 3,
+          "text": "Sidebar",
+          "anchor": "sidebar"
+        },
+        {
+          "depth": 3,
+          "text": "Header / buttons",
+          "anchor": "header-buttons"
+        },
+        {
+          "depth": 3,
+          "text": "Regressão",
+          "anchor": "regressao"
+        },
+        {
+          "depth": 3,
+          "text": "Automatizado",
+          "anchor": "automatizado"
+        },
+        {
+          "depth": 2,
+          "text": "Artefatos",
+          "anchor": "artefatos"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 258,
+      "lineCount": 38,
+      "lastModified": 1789850202
+    },
+    "app/PRD-MD-STUDIO-QUALITY.md": {
+      "path": "app/PRD-MD-STUDIO-QUALITY.md",
+      "title": "PRD — Qualidade, segurança e distribuição",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "PRD — Qualidade, segurança e distribuição",
+          "anchor": "prd-qualidade-seguranca-e-distribuicao"
+        },
+        {
+          "depth": 2,
+          "text": "RF-07 — Publicação",
+          "anchor": "rf-07-publicacao"
+        },
+        {
+          "depth": 2,
+          "text": "RNF-SEC-01 — Segurança",
+          "anchor": "rnf-sec-01-seguranca"
+        },
+        {
+          "depth": 2,
+          "text": "RNF-DATA-01 — Integridade",
+          "anchor": "rnf-data-01-integridade"
+        },
+        {
+          "depth": 2,
+          "text": "RNF-PERF-01 — Desempenho",
+          "anchor": "rnf-perf-01-desempenho"
+        },
+        {
+          "depth": 2,
+          "text": "RNF-A11Y-01 — Acessibilidade",
+          "anchor": "rnf-a11y-01-acessibilidade"
+        },
+        {
+          "depth": 2,
+          "text": "RNF-PORT-01 — Plataforma e release",
+          "anchor": "rnf-port-01-plataforma-e-release"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 387,
+      "lineCount": 57,
+      "lastModified": 1783691192
+    },
+    "docs/onda3/onda2-commit-gate.md": {
+      "path": "docs/onda3/onda2-commit-gate.md",
+      "title": "Onda 2 Commit Gate",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "Onda 2 Commit Gate",
+          "anchor": "onda-2-commit-gate"
+        },
+        {
+          "depth": 2,
+          "text": "Status do Gate: APROVADO",
+          "anchor": "status-do-gate-aprovado"
+        },
+        {
+          "depth": 2,
+          "text": "Informações do Commit",
+          "anchor": "informacoes-do-commit"
+        },
+        {
+          "depth": 2,
+          "text": "Conteúdo Consolidado",
+          "anchor": "conteudo-consolidado"
+        },
+        {
+          "depth": 2,
+          "text": "Inspeção Pós-Consolidação (git status)",
+          "anchor": "inspecao-pos-consolidacao-git-status"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 268,
+      "lineCount": 44,
+      "lastModified": 1789856097
+    },
+    "docs/onda0c/MD-UI-HEADER-001-QA.md": {
+      "path": "docs/onda0c/MD-UI-HEADER-001-QA.md",
+      "title": "QA: MD-UI-HEADER-001 (Header Polish & Dynamic Window Title)",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "QA: MD-UI-HEADER-001 (Header Polish & Dynamic Window Title)",
+          "anchor": "qa-md-ui-header-001-header-polish-dynamic-window-title"
+        },
+        {
+          "depth": 2,
+          "text": "Escopo",
+          "anchor": "escopo"
+        },
+        {
+          "depth": 2,
+          "text": "Verificação",
+          "anchor": "verificacao"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 135,
+      "lineCount": 17,
+      "lastModified": 1789850811
+    },
+    "tests/conformance/gfm/table.md": {
+      "path": "tests/conformance/gfm/table.md",
+      "title": "table",
+      "headings": [],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 1,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 15,
+      "lineCount": 3,
+      "lastModified": 1783692192
+    },
+    "app/PRD-MD-STUDIO-CORE.md": {
+      "path": "app/PRD-MD-STUDIO-CORE.md",
+      "title": "PRD — MD Studio Core",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "PRD — MD Studio Core",
+          "anchor": "prd-md-studio-core"
+        },
+        {
+          "depth": 2,
+          "text": "Resultado esperado",
+          "anchor": "resultado-esperado"
+        },
+        {
+          "depth": 2,
+          "text": "RF-01 — Workspace local",
+          "anchor": "rf-01-workspace-local"
+        },
+        {
+          "depth": 2,
+          "text": "RF-02 — Edição e persistência",
+          "anchor": "rf-02-edicao-e-persistencia"
+        },
+        {
+          "depth": 2,
+          "text": "RF-05 — Assets e navegação",
+          "anchor": "rf-05-assets-e-navegacao"
+        },
+        {
+          "depth": 2,
+          "text": "RF-06 — Descoberta e sessão",
+          "anchor": "rf-06-descoberta-e-sessao"
+        },
+        {
+          "depth": 2,
+          "text": "Interfaces públicas mínimas",
+          "anchor": "interfaces-publicas-minimas"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 461,
+      "lineCount": 67,
+      "lastModified": 1783691192
+    },
+    "docs/spec/G19-exportacao-html-impressao-pdf-e-diagramas.md": {
+      "path": "docs/spec/G19-exportacao-html-impressao-pdf-e-diagramas.md",
+      "title": "G19 — Export",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "G19 — Export",
+          "anchor": "g19-export"
+        },
+        {
+          "depth": 2,
+          "text": "Objetivo",
+          "anchor": "objetivo"
+        },
+        {
+          "depth": 2,
+          "text": "Requisitos",
+          "anchor": "requisitos"
+        },
+        {
+          "depth": 2,
+          "text": "Aceite",
+          "anchor": "aceite"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 62,
+      "lineCount": 14,
+      "lastModified": 1783692183
+    },
+    "docs/spec/G06-fronteira-segura-do-workspace-e-politica-de-caminhos.md": {
+      "path": "docs/spec/G06-fronteira-segura-do-workspace-e-politica-de-caminhos.md",
+      "title": "G06 — Workspace seguro",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "G06 — Workspace seguro",
+          "anchor": "g06-workspace-seguro"
+        },
+        {
+          "depth": 2,
+          "text": "Objetivo",
+          "anchor": "objetivo"
+        },
+        {
+          "depth": 2,
+          "text": "Requisitos",
+          "anchor": "requisitos"
+        },
+        {
+          "depth": 2,
+          "text": "Aceite",
+          "anchor": "aceite"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 68,
+      "lineCount": 14,
+      "lastModified": 1783692139
+    },
+    "docs/onda2/MD-WIKI-007-FULL.md": {
+      "path": "docs/onda2/MD-WIKI-007-FULL.md",
+      "title": "Onda 2 — Wiki Links | MD-WIKI-007",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "Onda 2 — Wiki Links | MD-WIKI-007",
+          "anchor": "onda-2-wiki-links-md-wiki-007"
+        },
+        {
+          "depth": 2,
+          "text": "Regras",
+          "anchor": "regras"
+        },
+        {
+          "depth": 2,
+          "text": "Objetivo",
+          "anchor": "objetivo"
+        },
+        {
+          "depth": 2,
+          "text": "Depende",
+          "anchor": "depende"
+        },
+        {
+          "depth": 2,
+          "text": "Trabalho",
+          "anchor": "trabalho"
+        },
+        {
+          "depth": 2,
+          "text": "Segurança",
+          "anchor": "seguranca"
+        },
+        {
+          "depth": 2,
+          "text": "AC",
+          "anchor": "ac"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 210,
+      "lineCount": 36,
+      "lastModified": 1789851742
+    },
+    "tests/conformance/commonmark/basic.md": {
+      "path": "tests/conformance/commonmark/basic.md",
+      "title": "Heading",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "Heading",
+          "anchor": "heading"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 9,
+      "lineCount": 5,
+      "lastModified": 1783692192
+    }
+  },
+  "version": 1,
+  "indexedAt": 1789856277
+}

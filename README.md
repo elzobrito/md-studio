@@ -63,4 +63,4 @@ Detalhes: [docs/release/PACKAGING.md](docs/release/PACKAGING.md).
 
 ## Licença
 
-Ver repositório do autor. Roadmap interno pode usar ESAA; este README descreve o produto MD Studio.
+MIT — Livre para uso, adaptação e redistribuição.
