@@ -1,0 +1,215 @@
+[
+  {
+    "id": "MD-GM-001",
+    "title": "Onda0B: Formatting Toolbar (CM6)",
+    "kind": "impl",
+    "typ": "feature",
+    "review": "functional",
+    "depends": [],
+    "sprint": "GM-A",
+    "verify": "formatting_toolbar_pass",
+    "outputs": [
+      "src/components/editor/FormattingToolbar.tsx",
+      "src/editor/formatting/index.ts",
+      "src/components/MarkdownEditor.tsx"
+    ],
+    "grants": [
+      "src/components/**",
+      "src/editor/**",
+      "src/styles/**",
+      "tests/**"
+    ],
+    "acs": [
+      "Toolbar visível em source/split e oculta em preview",
+      "Toggle bold/italic/strike/headings/listas/link/code conforme WBS-GM-001",
+      "Atalhos CM6 registrados; toggle de visibilidade em settings",
+      "Verify: formatting_toolbar_pass; subtarefas 001.01–001.08"
+    ]
+  },
+  {
+    "id": "MD-GM-002",
+    "title": "Onda0B: Slash Commands",
+    "kind": "impl",
+    "typ": "feature",
+    "review": "functional",
+    "depends": [],
+    "sprint": "GM-B",
+    "verify": "slash_commands_pass",
+    "outputs": [
+      "src/components/editor/SlashMenu.tsx",
+      "src/editor/slash/slash-plugin.ts",
+      "src/editor/slash/slash-items.ts"
+    ],
+    "grants": [
+      "src/components/**",
+      "src/editor/**",
+      "src/styles/**",
+      "tests/**"
+    ],
+    "acs": [
+      "/ em linha vazia abre menu; meio de texto não",
+      "Filtro fuzzy + Enter/ESC/setas; 17 itens inserem templates",
+      "Cursor posicionado; / removido após seleção",
+      "Verify: slash_commands_pass; subtarefas 002.01–002.07"
+    ]
+  },
+  {
+    "id": "MD-GM-003",
+    "title": "Onda0B: Smart Paste HTML to MD",
+    "kind": "impl",
+    "typ": "feature",
+    "review": "security",
+    "depends": [],
+    "sprint": "GM-B",
+    "verify": "smart_paste_pass",
+    "outputs": [
+      "src/editor/paste/html-to-md.ts",
+      "src/editor/paste/paste-plugin.ts"
+    ],
+    "grants": [
+      "src/editor/**",
+      "src/state/**",
+      "src/components/**",
+      "tests/**"
+    ],
+    "acs": [
+      "HTML clipboard para Markdown limpo; plain text inalterado",
+      "Ctrl+Shift+V cola sem conversão; toggle settings",
+      "Headings/lists/links/code/images cobertos em testes",
+      "Verify: smart_paste_pass; subtarefas 003.01–003.05"
+    ]
+  },
+  {
+    "id": "MD-GM-004",
+    "title": "Onda0B: Document Templates Ctrl+N",
+    "kind": "impl",
+    "typ": "feature",
+    "review": "functional",
+    "depends": [
+      "MD-GM-001"
+    ],
+    "sprint": "GM-C",
+    "verify": "document_templates_pass",
+    "outputs": [
+      "src/components/editor/NewDocumentModal.tsx",
+      "src/templates/index.ts"
+    ],
+    "grants": [
+      "src/components/**",
+      "src/templates/**",
+      "src/styles/**",
+      "tests/**"
+    ],
+    "acs": [
+      "Ctrl+N abre modal com 7 templates + em branco",
+      "Variável data substituída; cursor no 1º campo; ESC cancela",
+      "Verify: document_templates_pass; subtarefas 004.01–004.05"
+    ]
+  },
+  {
+    "id": "MD-GM-005",
+    "title": "Onda0B: Markdown Cheatsheet",
+    "kind": "impl",
+    "typ": "feature",
+    "review": "docs",
+    "depends": [],
+    "sprint": "GM-A",
+    "verify": "markdown_cheatsheet_pass",
+    "outputs": [
+      "src/components/help/MarkdownCheatsheet.tsx"
+    ],
+    "grants": [
+      "src/components/help/**",
+      "src/styles/**",
+      "tests/**"
+    ],
+    "acs": [
+      "Ctrl+Shift+H e botão ajuda abrem cheatsheet",
+      "Sintaxe e resultado; Copiar por linha; ESC fecha",
+      "Verify: markdown_cheatsheet_pass; subtarefas 005.01–005.04"
+    ]
+  },
+  {
+    "id": "MD-GM-006",
+    "title": "Onda0B: Markdown Hints tooltips",
+    "kind": "impl",
+    "typ": "feature",
+    "review": "functional",
+    "depends": [],
+    "sprint": "GM-A",
+    "verify": "markdown_hints_pass",
+    "outputs": [
+      "src/editor/hints/hint-plugin.ts",
+      "src/editor/hints/markdown-hints.ts"
+    ],
+    "grants": [
+      "src/editor/**",
+      "src/styles/**",
+      "src/state/**",
+      "tests/**"
+    ],
+    "acs": [
+      "Tooltips em elementos MD sem atrapalhar digitação",
+      "Desligável em settings; wiki deep-link pós Onda1/2 se necessário",
+      "Verify: markdown_hints_pass; subtarefas 006.01–006.04"
+    ]
+  },
+  {
+    "id": "MD-GM-007",
+    "title": "Onda0B: Table Editor assistido",
+    "kind": "impl",
+    "typ": "feature",
+    "review": "functional",
+    "depends": [
+      "MD-GM-001",
+      "MD-GM-002"
+    ],
+    "sprint": "GM-C",
+    "verify": "table_editor_pass",
+    "outputs": [
+      "src/editor/table/table-plugin.ts",
+      "src/components/editor/TableToolbar.tsx"
+    ],
+    "grants": [
+      "src/editor/**",
+      "src/components/editor/**",
+      "src/styles/**",
+      "tests/**"
+    ],
+    "acs": [
+      "Tab/Shift+Tab/Enter na tabela; toolbar contextual",
+      "+/- linha/coluna e alinhamento",
+      "Verify: table_editor_pass; subtarefas 007.01–007.04"
+    ]
+  },
+  {
+    "id": "MD-GM-008",
+    "title": "Onda0B: QA Guided Markdown + regressão",
+    "kind": "qa",
+    "typ": "audit",
+    "review": "regression",
+    "depends": [
+      "MD-GM-001",
+      "MD-GM-002",
+      "MD-GM-003",
+      "MD-GM-004",
+      "MD-GM-005",
+      "MD-GM-006",
+      "MD-GM-007"
+    ],
+    "sprint": "GM-D",
+    "verify": "qa_guided_markdown_pass",
+    "outputs": [
+      "tests/guided-markdown/"
+    ],
+    "grants": [
+      "tests/**",
+      "src/**"
+    ],
+    "acs": [
+      "Suítes 008.01–008.08 passando",
+      "Zero regressão Onda 0 (40 testes) + open-file-from-OS",
+      "Verify: qa_guided_markdown_pass / onda_0b_complete"
+    ]
+  }
+]

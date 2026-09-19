@@ -16,17 +16,36 @@ pub struct AppState {
     pub workspaces: Arc<Mutex<WorkspaceRegistry>>,
     pub watcher: Arc<WatcherHub>,
     pub metadata_engine: Arc<Mutex<Option<md_studio_core::index::ReindexEngine>>>,
+    pub launch_path: Arc<Mutex<Option<String>>>,
 }
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
+    let launch_path = md_studio_core::first_existing_markdown_path(std::env::args().skip(1))
+        .map(|p| p.to_string_lossy().into_owned());
+
+    let launch_path_state = Arc::new(Mutex::new(launch_path));
+
     let state = AppState {
         workspaces: Arc::new(Mutex::new(WorkspaceRegistry::default())),
         watcher: Arc::new(WatcherHub::default()),
         metadata_engine: Arc::new(Mutex::new(None)),
+        launch_path: launch_path_state.clone(),
     };
 
     tauri::Builder::default()
+        .plugin(tauri_plugin_single_instance::init(|app, args, _cwd| {
+            use tauri::{Emitter, Manager};
+            if let Some(path) = md_studio_core::first_existing_markdown_path(args.iter().skip(1)) {
+                let path_str = path.to_string_lossy().into_owned();
+                let _ = app.emit("app://open-file", serde_json::json!({ "path": path_str }));
+            }
+            if let Some(w) = app.get_webview_window("main") {
+                let _ = w.unminimize();
+                let _ = w.show();
+                let _ = w.set_focus();
+            }
+        }))
         .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_opener::init())
         .manage(state)
@@ -37,6 +56,7 @@ pub fn run() {
             commands::save_document,
             commands::search_workspace,
             commands::export_html,
+            commands::get_launch_path,
             commands::metadata::get_workspace_stats,
             commands::metadata::get_document_metadata,
             commands::metadata::get_all_documents,

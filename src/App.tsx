@@ -101,7 +101,7 @@ export function App() {
       }
       const target = items[targetIndex];
       if (target) {
-        void doc.openRelative(target.path);
+        void doc.openRecent(target.path);
       }
     },
     [doc],
@@ -439,6 +439,10 @@ export function App() {
                 void doc.openRelative(path);
                 setIsWriting(true);
               }}
+              onOpenRecent={(path) => {
+                void doc.openRecent(path);
+                setIsWriting(true);
+              }}
               onOpenFolder={doc.openFolder}
               onOpenFile={doc.openFile}
               onWorkspaceReady={doc.onWorkspaceReady}
@@ -456,7 +460,7 @@ export function App() {
                 onOpenFolder={() => void handleOpenFolderFromWelcome()}
                 onOpenFile={() => void handleOpenFileFromWelcome()}
                 onOpenRecent={(path) => {
-                  void doc.openRelative(path);
+                  void doc.openRecent(path);
                   setIsWriting(true);
                 }}
                 onNewDocument={() => {
@@ -537,7 +541,10 @@ export function App() {
         onToggleSyncScroll={scrollSync.toggleSync}
         onGoToLine={() => setGoToLineOpen(true)}
       />
-      <CommandPalette onOpenFile={(p) => void doc.openRelative(p)} />
+      <CommandPalette onOpenFile={(p) => {
+        void doc.openRecent(p);
+        setIsWriting(true);
+      }} />
       <ShortcutsModal
         isOpen={shortcutsModalOpen}
         onClose={() => setShortcutsModalOpen(false)}

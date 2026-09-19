@@ -22,6 +22,7 @@ function isMarkdownName(name: string): boolean {
 export function FileExplorer(props: {
   workspace: WorkspaceDescriptor | null;
   onOpenRelative: (path: string) => void | Promise<unknown>;
+  onOpenRecent?: (path: string) => void | Promise<unknown>;
   onOpenFolder: (absolutePath: string) => Promise<unknown>;
   onOpenFile: (absolutePath: string) => Promise<unknown>;
   onWorkspaceReady: () => Promise<unknown>;
@@ -250,7 +251,8 @@ export function FileExplorer(props: {
             </div>
             <RecentFiles
               onOpenFile={(path) => {
-                void Promise.resolve(props.onOpenRelative(path)).catch((err) => {
+                const handler = props.onOpenRecent ?? props.onOpenRelative;
+                void Promise.resolve(handler(path)).catch((err) => {
                   setHint(err instanceof Error ? err.message : "Falha ao abrir arquivo");
                 });
               }}
@@ -273,7 +275,8 @@ export function FileExplorer(props: {
             />
             <RecentFiles
               onOpenFile={(path) => {
-                void Promise.resolve(props.onOpenRelative(path)).catch((err) => {
+                const handler = props.onOpenRecent ?? props.onOpenRelative;
+                void Promise.resolve(handler(path)).catch((err) => {
                   setHint(err instanceof Error ? err.message : "Falha ao abrir arquivo");
                 });
               }}

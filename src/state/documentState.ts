@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { ipc, pickSaveMarkdownFile, subscribeWorkspaceWatch } from "../lib/ipc";
+import { ipc, isTauriRuntime, pickSaveMarkdownFile, subscribeWorkspaceWatch } from "../lib/ipc";
 import { persistDocument } from "../services/save";
 import type { DocumentSnapshot, WorkspaceDescriptor } from "../contracts/types";
 import { loadDraft } from "../lib/drafts/recovery";
@@ -14,7 +14,9 @@ function basename(p: string): string {
 function parentDir(p: string): string {
   const norm = p.replace(/\\/g, "/");
   const i = norm.lastIndexOf("/");
-  return i <= 0 ? norm : norm.slice(0, i);
+  if (i === 0) return "/";
+  if (i < 0) return ".";
+  return norm.slice(0, i);
 }
 
 export function useDocumentState() {
@@ -73,16 +75,21 @@ export function useDocumentState() {
   }, []);
 
   const openRelative = useCallback(
-    async (path: string, wsOverride?: WorkspaceDescriptor) => {
+    async (path: string, wsOverride?: WorkspaceDescriptor): Promise<boolean> => {
       const clean = (path || "").replace(/\\/g, "/").replace(/^\/+/, "");
       if (!clean) {
         setDiagnostics(["Caminho de arquivo vazio — não foi possível abrir."]);
-        return;
+        return false;
       }
       let ws: WorkspaceDescriptor | null = wsOverride ?? workspace;
       if (!ws) {
-        ws = await ipc.openWorkspace(".");
-        setWorkspace(ws);
+        try {
+          ws = await ipc.openWorkspace(".");
+          setWorkspace(ws);
+        } catch (e) {
+          setDiagnostics([`Falha ao abrir workspace: ${e instanceof Error ? e.message : String(e)}`]);
+          return false;
+        }
       }
       setStatus("loading");
       try {
@@ -92,15 +99,24 @@ export function useDocumentState() {
         setRelativePath(clean);
         setContentState(draft ?? snap.content);
         setDirty(!!draft && draft !== snap.content);
-        recentFilesStore.add(clean);
+
+        // Store full canonical path in recent files whenever possible
+        const fullRecentPath =
+          ws.rootLabel && !ws.rootLabel.startsWith("browser")
+            ? `${ws.rootLabel.replace(/\/+$/, "")}/${clean}`
+            : clean;
+        recentFilesStore.add(fullRecentPath, basename(clean));
+
         editorStore.setSaveStatus(draft && draft !== snap.content ? "modified" : "saved");
         setDiagnostics(
           draft ? [`Aberto: ${clean}`, "Rascunho de recuperação carregado"] : [`Aberto: ${clean}`],
         );
         setStatus("ready");
+        return true;
       } catch (e) {
         setDiagnostics([`Falha ao ler ${clean}: ${e instanceof Error ? e.message : String(e)}`]);
         setStatus("ready");
+        return false;
       }
     },
     [workspace],
@@ -136,10 +152,71 @@ export function useDocumentState() {
       const dir = parentDir(absolutePath);
       const name = basename(absolutePath);
       const ws = await openWorkspacePath(dir);
-      await openRelative(name, ws);
+      const ok = await openRelative(name, ws);
+      if (!ok) {
+        throw new Error(`Não foi possível ler o arquivo ${name}`);
+      }
       return ws;
     },
     [openWorkspacePath, openRelative],
+  );
+
+  const openRecent = useCallback(
+    async (pathOrName: string) => {
+      if (!pathOrName) return;
+      const clean = pathOrName.trim();
+
+      // 1. If it's an absolute path (or file:// URL)
+      if (clean.startsWith("/") || clean.startsWith("file://")) {
+        const filePath = clean.startsWith("file://")
+          ? clean.replace(/^file:\/\//, "")
+          : clean;
+        try {
+          await openFile(filePath);
+          return;
+        } catch (e) {
+          const msg = e instanceof Error ? e.message : String(e);
+          setDiagnostics([`Arquivo recente não encontrado: ${filePath} (${msg})`]);
+          return;
+        }
+      }
+
+      // 2. If it's a relative path and we have an active workspace
+      if (workspace) {
+        try {
+          const ok = await openRelative(clean);
+          if (ok) return;
+        } catch {
+          /* try fallback below */
+        }
+      }
+
+      // 3. Fallback for legacy recent items stored without directory:
+      // Search common candidate directories (Downloads, Documents, Documentos, home)
+      const candidateDirs = [
+        "/home/elzobrito/Downloads",
+        "/mnt/backup-ssd/Downloads",
+        "/home/elzobrito/Documentos",
+        "/home/elzobrito/Documents",
+        "/home/elzobrito/desenvolvimento",
+        "/home/elzobrito",
+      ];
+
+      for (const dir of candidateDirs) {
+        const candidate = `${dir}/${clean}`;
+        try {
+          await openFile(candidate);
+          // Upgrade recent file entry to full path
+          recentFilesStore.add(candidate, basename(clean));
+          return;
+        } catch {
+          // Continue trying next candidate
+        }
+      }
+
+      setDiagnostics([`Arquivo recente "${clean}" não foi encontrado no disco.`]);
+    },
+    [workspace, openFile, openRelative],
   );
 
   const saveAs = useCallback(async () => {
@@ -225,6 +302,50 @@ export function useDocumentState() {
   }, []);
 
 
+  // Cold start & OS launch: open Markdown path from argv or file manager (Tauri only).
+  useEffect(() => {
+    if (!isTauriRuntime()) return;
+    let cancelled = false;
+
+    // 1. Cold start: open Markdown path from OS / argv
+    void (async () => {
+      try {
+        const path = await ipc.getLaunchPath();
+        if (!path || cancelled) return;
+        await openFile(path);
+      } catch (e) {
+        const msg = e instanceof Error ? e.message : String(e);
+        setDiagnostics((d) => [...d, `Não foi possível abrir arquivo da linha de comando: ${msg}`]);
+        console.error("get_launch_path / openFile failed", e);
+      }
+    })();
+
+    // 2. Already running: listen for files opened via single-instance
+    let cleanup: (() => void) | undefined;
+    void (async () => {
+      try {
+        const { subscribeOpenFile } = await import("../lib/ipc/client");
+        cleanup = await subscribeOpenFile(async ({ path }) => {
+          if (path && !cancelled) {
+            try {
+              await openFile(path);
+            } catch (e) {
+              const msg = e instanceof Error ? e.message : String(e);
+              setDiagnostics((d) => [...d, `Falha ao abrir arquivo: ${msg}`]);
+            }
+          }
+        });
+      } catch {
+        /* ignore */
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+      if (cleanup) cleanup();
+    };
+  }, [openFile]);
+
   useEffect(() => {
     if (!workspace?.id) return;
     let cancelled = false;
@@ -288,6 +409,7 @@ export function useDocumentState() {
     openRelative,
     openFolder,
     openFile,
+    openRecent,
     onWorkspaceReady,
     save,
     saveAs,

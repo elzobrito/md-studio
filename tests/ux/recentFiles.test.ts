@@ -44,4 +44,24 @@ describe("recentFilesStore", () => {
 
     expect(recentFilesStore.getAll()).toHaveLength(0);
   });
+
+  it("stores full absolute path and extracts folder and name correctly", () => {
+    recentFilesStore.add("/home/user/documents/notes.md");
+
+    const files = recentFilesStore.getAll();
+    expect(files).toHaveLength(1);
+    expect(files[0].path).toBe("/home/user/documents/notes.md");
+    expect(files[0].name).toBe("notes.md");
+    expect(files[0].folder).toBe("/home/user/documents");
+  });
+
+  it("normalizes windows backslashes to forward slashes", () => {
+    recentFilesStore.add("C:\\Users\\User\\Documents\\todo.md");
+
+    const files = recentFilesStore.getAll();
+    expect(files).toHaveLength(1);
+    expect(files[0].path).toBe("C:/Users/User/Documents/todo.md");
+    expect(files[0].name).toBe("todo.md");
+    expect(files[0].folder).toBe("C:/Users/User/Documents");
+  });
 });

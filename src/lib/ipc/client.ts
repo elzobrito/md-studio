@@ -126,6 +126,11 @@ export const ipc = {
     invoke<void>("export_html", { html, destination, overwrite }),
   startWatching: (workspaceId: string) => invoke<void>("start_watching", { workspaceId }),
   stopWatching: () => invoke<void>("stop_watching"),
+  /** Absolute Markdown path from process argv on cold start (consumed once). */
+  getLaunchPath: async () => {
+    const raw = await invoke<string | null>("get_launch_path");
+    return typeof raw === "string" && raw.length > 0 ? raw : null;
+  },
 };
 
 export type PickFolderResult =
@@ -262,10 +267,27 @@ async function browserInvoke<T>(cmd: string, args?: Record<string, unknown>): Pr
 
   if (cmd === "search_workspace") return [] as T;
   if (cmd === "export_html") return undefined as T;
+  if (cmd === "get_launch_path") return null as T;
   throw new Error(`browser IPC missing: ${cmd}`);
 }
 
 export type { WatchEvent };
+
+/** Subscribe to single-instance open file events (`app://open-file`). No-op outside Tauri. */
+export async function subscribeOpenFile(
+  handler: (payload: { path: string }) => void,
+): Promise<() => void> {
+  if (!isTauriRuntime()) return () => {};
+  const { listen } = await import("@tauri-apps/api/event");
+  const un = await listen<{ path: string }>("app://open-file", (event) => {
+    if (event.payload?.path) {
+      handler(event.payload);
+    }
+  });
+  return () => {
+    void un();
+  };
+}
 
 
 /** Subscribe to Rust notify events (`workspace://change`). No-op outside Tauri. */
