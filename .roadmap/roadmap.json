@@ -7,11 +7,11 @@
     "run": {
       "run_id": "RUN-0001",
       "status": "success",
-      "last_event_seq": 1283,
-      "projection_hash_sha256": "1857cba49767e3914e226a534516b3ea1d071880c540554da608dca35753d0fb",
+      "last_event_seq": 1289,
+      "projection_hash_sha256": "41a1c51ad6399b1de03c09aa21db6a3acf5be06f7f4d470efb290e3ec7b2bb42",
       "verify_status": "ok"
     },
-    "updated_at": "2026-09-19T18:27:56Z"
+    "updated_at": "2026-09-19T18:30:43Z"
   },
   "project": {
     "name": "MD Studio",
@@ -3747,7 +3747,7 @@
       "task_kind": "impl",
       "title": "Abrir .md via OS (argv / .desktop)",
       "description": "Cold start: se argv tiver path(s) .md existentes (absolutos), abrir workspace no parent e carregar o documento. Preferir o primeiro .md. Paths inválidos não crasham. Atualizar bundle .desktop com MimeType + %F. Teste do helper de parse. Single-instance: follow-up se custoso.",
-      "status": "in_progress",
+      "status": "done",
       "depends_on": [],
       "targets": [
         "RF-01 open file from OS"
@@ -3778,13 +3778,23 @@
       ],
       "required_review_mode": "functional",
       "assigned_to": "agent-impl",
-      "started_at": "2026-09-19T18:27:56Z"
+      "started_at": "2026-09-19T18:27:56Z",
+      "verification": {
+        "checks": [
+          "cargo test --manifest-path src-tauri/crates/md-studio-core/Cargo.toml: 5 launch + core tests PASS",
+          "pnpm test: 40 passed",
+          "pnpm typecheck: PASS",
+          "get_launch_path + openFile wired; first existing absolute .md preferred",
+          "tauri.conf fileAssociations + linux/md-studio.desktop Exec=%F MimeType",
+          "docs/followups/single-instance-open-path.md (deferred)"
+        ]
+      },
+      "completed_at": "2026-09-19T18:30:43Z"
     }
   ],
   "indexes": {
     "by_status": {
-      "done": 111,
-      "in_progress": 1
+      "done": 112
     },
     "by_kind": {
       "impl": 64,
