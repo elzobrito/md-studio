@@ -8,24 +8,18 @@
 }
 
 .app-toolbar {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
+  display: flex;
   align-items: center;
-  padding: 6px 14px;
+  justify-content: space-between;
+  padding: 4px 12px;
   gap: 12px;
-  min-height: 42px;
+  min-height: 38px;
 }
 
 .app-toolbar-left {
   display: flex;
   align-items: center;
   gap: 10px;
-}
-
-.app-toolbar-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .app-toolbar-right {

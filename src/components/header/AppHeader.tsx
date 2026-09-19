@@ -54,15 +54,6 @@ export function AppHeader({
           >
             ≡
           </button>
-          <div className="brand">
-            <span className="brand-mark" aria-hidden>
-              📝
-            </span>
-            <strong>MD Studio</strong>
-          </div>
-        </div>
-
-        <div className="app-toolbar-center">
           <ViewModeToggle current={viewMode} onChange={onViewModeChange} />
         </div>
 

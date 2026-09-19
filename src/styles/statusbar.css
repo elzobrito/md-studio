@@ -91,3 +91,13 @@
   color: var(--color-accent, #89b4fa);
 }
 
+.status-bar-summary-btn {
+  font-weight: 500;
+  color: var(--color-accent, #89b4fa);
+}
+
+.status-bar-summary-btn:hover {
+  background: var(--bg-hover, rgba(255, 255, 255, 0.12));
+  color: var(--text-primary, #ffffff);
+}
+

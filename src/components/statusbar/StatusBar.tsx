@@ -1,4 +1,6 @@
+import { useEffect, useState } from "react";
 import type { ViewMode } from "../../state/session";
+import { uiStore } from "../../state/ui";
 import { CursorPosition } from "./CursorPosition";
 import { WordCount } from "./WordCount";
 import { SaveStatusBadge } from "./SaveStatus";
@@ -12,6 +14,8 @@ interface Props {
   syncScroll?: boolean;
   onToggleSyncScroll?: () => void;
   onGoToLine?: () => void;
+  rightOpen?: boolean;
+  onToggleRight?: () => void;
 }
 
 const VIEW_LABELS: Record<ViewMode, string> = {
@@ -28,7 +32,27 @@ export function StatusBar({
   syncScroll,
   onToggleSyncScroll,
   onGoToLine,
+  rightOpen,
+  onToggleRight,
 }: Props) {
+  const [storeRightOpen, setStoreRightOpen] = useState(() => uiStore.getState().rightPanelVisible);
+
+  useEffect(() => {
+    return uiStore.subscribe(() => {
+      setStoreRightOpen(uiStore.getState().rightPanelVisible);
+    });
+  }, []);
+
+  const isRightOpen = rightOpen ?? storeRightOpen;
+
+  const handleOpenRight = () => {
+    if (onToggleRight) {
+      onToggleRight();
+    } else {
+      uiStore.setRight(true);
+    }
+  };
+
   return (
     <footer className="status-bar" role="status" aria-label="Barra de status">
       <div className="status-bar-left">
@@ -68,6 +92,22 @@ export function StatusBar({
           │
         </span>
         <SaveStatusBadge fileName={fileName} />
+        {!isRightOpen && (
+          <>
+            <span className="status-bar-separator" aria-hidden="true">
+              │
+            </span>
+            <button
+              type="button"
+              className="status-bar-btn status-bar-summary-btn"
+              onClick={handleOpenRight}
+              title="Abrir sumário e preferências (Ctrl+Shift+\)"
+              aria-label="Abrir sumário"
+            >
+              [sumário]
+            </button>
+          </>
+        )}
       </div>
     </footer>
   );

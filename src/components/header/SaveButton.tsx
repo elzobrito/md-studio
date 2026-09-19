@@ -1,4 +1,5 @@
 import type { SaveStatus } from "../../state/editor";
+import { Button } from "../ui/Button";
 
 interface Props {
   status: SaveStatus;
@@ -30,18 +31,21 @@ export function SaveButton({ status, onSave, disabled, errorMessage }: Props) {
         : "Documento salvo";
 
   return (
-    <button
-      type="button"
+    <Button
+      variant={status === "modified" ? "primary" : "secondary"}
+      size="sm"
       className={`save-btn ${status}`}
       onClick={onSave}
       disabled={disabled || status === "saving"}
       title={title}
       aria-label={label}
+      icon={
+        <span className="save-btn-icon" aria-hidden="true">
+          {icon}
+        </span>
+      }
     >
-      <span className="save-btn-icon" aria-hidden="true">
-        {icon}
-      </span>
       <span>{label}</span>
-    </button>
+    </Button>
   );
 }

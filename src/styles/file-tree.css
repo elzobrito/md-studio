@@ -127,7 +127,38 @@
 
 .file-list-wrap .recent-files-section {
   border-top: 1px solid var(--border, #313244);
-  padding: 12px 10px 8px;
-  margin-top: 8px;
+  padding: 12px 6px 8px;
+  margin-top: 12px;
 }
+
+.file-list-wrap .recent-files-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary, #a6adc8);
+  margin: 0 0 6px 4px;
+}
+
+.file-list-wrap .recent-files-title::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background-color: var(--border, #313244);
+}
+
+.file-list-wrap .recent-file-btn {
+  padding: 4px 6px;
+  font-size: 12px;
+  opacity: 0.85;
+  border-radius: var(--radius-btn, 6px);
+}
+
+.file-list-wrap .recent-file-btn:hover {
+  opacity: 1;
+}
+
 

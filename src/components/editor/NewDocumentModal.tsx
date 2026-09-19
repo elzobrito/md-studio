@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { TEMPLATES, type Template } from "../../templates";
 import { TemplateCard } from "./TemplateCard";
+import { Button } from "../ui/Button";
 import "../../styles/new-document-modal.css";
 
 export interface NewDocumentModalProps {
@@ -34,6 +35,14 @@ export function NewDocumentModal({
   }, [isOpen, onClose]);
 
   if (!isOpen) return null;
+
+  const handleConfirm = () => {
+    const tpl = TEMPLATES.find((t) => t.id === selectedId) || TEMPLATES[0];
+    if (tpl) {
+      onSelectTemplate(tpl);
+      onClose();
+    }
+  };
 
   return createPortal(
     <div
@@ -72,6 +81,25 @@ export function NewDocumentModal({
             />
           ))}
         </div>
+
+        <footer
+          className="new-doc-modal-footer"
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            gap: "8px",
+            marginTop: "16px",
+            paddingTop: "12px",
+            borderTop: "1px solid var(--border, #313244)",
+          }}
+        >
+          <Button variant="secondary" size="md" onClick={onClose}>
+            Cancelar
+          </Button>
+          <Button variant="primary" size="md" onClick={handleConfirm}>
+            Criar Documento
+          </Button>
+        </footer>
       </div>
     </div>,
     document.body

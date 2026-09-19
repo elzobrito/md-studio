@@ -1,10 +1,12 @@
+@import "./button.css";
+
 .resizable-panel {
   position: relative;
   display: flex;
   flex-direction: column;
   min-height: 0;
   overflow: visible !important;
-  transition: width 200ms ease, opacity 200ms ease;
+  transition: width 180ms ease, opacity 180ms ease;
 }
 
 .resizable-panel-content {

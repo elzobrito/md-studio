@@ -67,6 +67,19 @@
   background-color: var(--color-hover, #2a2a3c);
 }
 
+.empty-state-btn.tertiary,
+.empty-state-btn.ghost {
+  background-color: transparent;
+  border-color: transparent;
+  color: var(--text-secondary, #a6adc8);
+}
+
+.empty-state-btn.tertiary:hover,
+.empty-state-btn.ghost:hover {
+  background-color: var(--color-hover, #2a2a3c);
+  color: var(--text-primary, #cdd6f4);
+}
+
 .empty-state-shortcut-hint {
   display: inline-block;
   padding: 3px 6px;

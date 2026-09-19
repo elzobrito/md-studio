@@ -1,4 +1,5 @@
 import { RecentFiles } from "../explorer/RecentFiles";
+import { Button } from "../ui/Button";
 import "../../styles/empty-state.css";
 
 interface Props {
@@ -22,32 +23,38 @@ export function WelcomeScreen({ onOpenFolder, onOpenFile, onOpenRecent, onNewDoc
       </p>
 
       <div className="empty-state-actions">
-        {onNewDocument && (
-          <button
-            type="button"
-            className="empty-state-btn primary"
-            onClick={onNewDocument}
-            aria-label="Novo Documento"
-          >
-            <span>✍️</span> Novo Documento
-          </button>
-        )}
-        <button
-          type="button"
-          className={`empty-state-btn ${onNewDocument ? "secondary" : "primary"}`}
+        <Button
+          variant="primary"
+          size="md"
+          className="empty-state-btn primary"
           onClick={onOpenFolder}
           aria-label="Abrir Pasta"
+          icon={<span>📁</span>}
         >
-          <span>📁</span> Abrir Pasta
-        </button>
-        <button
-          type="button"
+          Abrir Pasta
+        </Button>
+        <Button
+          variant="secondary"
+          size="md"
           className="empty-state-btn secondary"
           onClick={onOpenFile}
           aria-label="Abrir Arquivo"
+          icon={<span>📄</span>}
         >
-          <span>📄</span> Abrir Arquivo
-        </button>
+          Abrir Arquivo
+        </Button>
+        {onNewDocument && (
+          <Button
+            variant="ghost"
+            size="md"
+            className="empty-state-btn ghost"
+            onClick={onNewDocument}
+            aria-label="Novo Documento"
+            icon={<span>✍️</span>}
+          >
+            Novo Documento
+          </Button>
+        )}
       </div>
 
       <div className="empty-state-recent-box">

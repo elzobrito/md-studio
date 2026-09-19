@@ -57,7 +57,7 @@ export function App() {
   const [shortcutsModalOpen, setShortcutsModalOpen] = useState(false);
   const [goToLineOpen, setGoToLineOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
-  const [isWriting, setIsWriting] = useState(true);
+  const [isWriting, setIsWriting] = useState(false);
   const scrollSync = useScrollSync({ enabled: view === "split" });
 
   useEffect(() => {
@@ -75,7 +75,7 @@ export function App() {
       } else {
         await doc.onWorkspaceReady();
       }
-      setIsWriting(true);
+      setIsWriting(false);
     }
   }, [doc]);
 
@@ -477,6 +477,11 @@ export function App() {
               />
             ) : (
               <EmptyState
+                onQuickSwitch={() => {
+                  window.dispatchEvent(
+                    new KeyboardEvent("keydown", { key: "p", ctrlKey: true, bubbles: true })
+                  );
+                }}
                 onNewDocument={() => {
                   doc.newDocument();
                   setIsWriting(true);

@@ -6,6 +6,7 @@ import { FileTree } from "./explorer/FileTree";
 import { WorkspaceHeader } from "./explorer/WorkspaceHeader";
 import { TreeSearch } from "./explorer/TreeSearch";
 import { RecentFiles } from "./explorer/RecentFiles";
+import { Button } from "./ui/Button";
 import { useFileTree } from "../hooks/useFileTree";
 import { useTreeSearch } from "../hooks/useTreeSearch";
 
@@ -185,30 +186,28 @@ export function FileExplorer(props: {
 
       {!props.workspace && (
         <div className="open-actions">
-          <button
-            type="button"
-            className="btn btn-primary"
+          <Button
+            variant="primary"
+            size="md"
+            fullWidth
+            icon={<span>📁</span>}
             onClick={() => void handleOpenFolder()}
             disabled={busy}
             aria-label="Abrir pasta"
           >
-            <span className="btn-icon" aria-hidden>
-              📁
-            </span>
             Abrir pasta
-          </button>
-          <button
-            type="button"
-            className="btn btn-secondary"
+          </Button>
+          <Button
+            variant="secondary"
+            size="md"
+            fullWidth
+            icon={<span>📄</span>}
             onClick={() => void handleOpenFile()}
             disabled={busy}
             aria-label="Abrir arquivo Markdown"
           >
-            <span className="btn-icon" aria-hidden>
-              📄
-            </span>
             Abrir arquivo
-          </button>
+          </Button>
         </div>
       )}
 
@@ -243,22 +242,15 @@ export function FileExplorer(props: {
 
       <div className="file-list-wrap">
         {!props.workspace && (
-          <>
-            <div className="empty-state" style={{ padding: "12px 8px", textAlign: "left" }}>
-              <p style={{ margin: "0 0 6px 0", fontSize: "13px", color: "var(--text-secondary)" }}>
-                Nenhum workspace aberto.
-              </p>
-            </div>
-            <RecentFiles
-              onOpenFile={(path) => {
-                const handler = props.onOpenRecent ?? props.onOpenRelative;
-                void Promise.resolve(handler(path)).catch((err) => {
-                  setHint(err instanceof Error ? err.message : "Falha ao abrir arquivo");
-                });
-              }}
-              max={5}
-            />
-          </>
+          <RecentFiles
+            onOpenFile={(path) => {
+              const handler = props.onOpenRecent ?? props.onOpenRelative;
+              void Promise.resolve(handler(path)).catch((err) => {
+                setHint(err instanceof Error ? err.message : "Falha ao abrir arquivo");
+              });
+            }}
+            max={5}
+          />
         )}
         {props.workspace && (
           <>

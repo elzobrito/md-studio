@@ -2,14 +2,16 @@ import { useMemo, useState } from "react";
 import { extractOutline } from "../services/navigation";
 import { OutlineItem } from "./outline/OutlineItem";
 import { useScrollTracking } from "../hooks/useScrollTracking";
+import { uiStore } from "../state/ui";
 import "../styles/outline.css";
 
 interface Props {
   content: string;
   onNavigate: (slug: string) => void;
+  onClose?: () => void;
 }
 
-export function DocumentOutline({ content, onNavigate }: Props) {
+export function DocumentOutline({ content, onNavigate, onClose }: Props) {
   const [filter, setFilter] = useState("");
   const [collapsedIds, setCollapsedIds] = useState<Set<string>>(new Set());
 
@@ -51,25 +53,44 @@ export function DocumentOutline({ content, onNavigate }: Props) {
     });
   }, [filteredItems, allItems, collapsedIds]);
 
+  const handleClose = () => {
+    if (onClose) {
+      onClose();
+    } else {
+      uiStore.setRight(false);
+    }
+  };
+
   return (
     <nav className="outline outline-container" aria-label="Sumário">
       <div className="outline-header">
         <h2 className="outline-title">Sumário</h2>
-        <button
-          type="button"
-          className="outline-collapse-all-btn"
-          onClick={() => {
-            if (collapsedIds.size > 0) {
-              setCollapsedIds(new Set());
-            } else {
-              setCollapsedIds(new Set(allItems.map((i) => i.id)));
-            }
-          }}
-          title={collapsedIds.size > 0 ? "Expandir seções" : "Colapsar seções"}
-          aria-label="Alternar colapso de seções"
-        >
-          ≡
-        </button>
+        <div className="outline-header-actions">
+          <button
+            type="button"
+            className="outline-collapse-all-btn"
+            onClick={() => {
+              if (collapsedIds.size > 0) {
+                setCollapsedIds(new Set());
+              } else {
+                setCollapsedIds(new Set(allItems.map((i) => i.id)));
+              }
+            }}
+            title={collapsedIds.size > 0 ? "Expandir seções" : "Colapsar seções"}
+            aria-label="Alternar colapso de seções"
+          >
+            ≡
+          </button>
+          <button
+            type="button"
+            className="outline-close-btn"
+            onClick={handleClose}
+            title="Fechar painel (Ctrl+Shift+\)"
+            aria-label="Fechar painel"
+          >
+            ×
+          </button>
+        </div>
       </div>
 
       {allItems.length > 3 && (

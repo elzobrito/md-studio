@@ -1,4 +1,5 @@
 import type { ViewMode } from "../../state/session";
+import { Button } from "../ui/Button";
 
 interface Props {
   current: ViewMode;
@@ -14,18 +15,22 @@ const OPTIONS: { id: ViewMode; label: string; title: string }[] = [
 export function ViewModeToggle({ current, onChange }: Props) {
   return (
     <div className="view-mode-toggle" role="group" aria-label="Modo de visualização">
-      {OPTIONS.map((opt) => (
-        <button
-          key={opt.id}
-          type="button"
-          className={`view-mode-btn${current === opt.id ? " is-active" : ""}`}
-          title={opt.title}
-          aria-pressed={current === opt.id}
-          onClick={() => onChange(opt.id)}
-        >
-          {opt.label}
-        </button>
-      ))}
+      {OPTIONS.map((opt) => {
+        const isActive = current === opt.id;
+        return (
+          <Button
+            key={opt.id}
+            variant={isActive ? "primary" : "ghost"}
+            size="sm"
+            className={`view-mode-btn${isActive ? " is-active" : ""}`}
+            title={opt.title}
+            aria-pressed={isActive}
+            onClick={() => onChange(opt.id)}
+          >
+            {opt.label}
+          </Button>
+        );
+      })}
     </div>
   );
 }

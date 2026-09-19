@@ -119,6 +119,12 @@
   width: 14px;
 }
 
+.outline-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
 .outline-collapse-all-btn {
   background: transparent;
   border: 1px solid var(--border, #313244);
@@ -132,6 +138,24 @@
 }
 
 .outline-collapse-all-btn:hover {
+  background-color: var(--color-hover, #2a2a3c);
+  color: var(--text-primary, #cdd6f4);
+  border-color: var(--color-accent, #89b4fa);
+}
+
+.outline-close-btn {
+  background: transparent;
+  border: 1px solid var(--border, #313244);
+  color: var(--text-secondary, #a6adc8);
+  border-radius: 4px;
+  padding: 2px 7px;
+  font-size: 13px;
+  cursor: pointer;
+  line-height: 1;
+  transition: all 150ms ease;
+}
+
+.outline-close-btn:hover {
   background-color: var(--color-hover, #2a2a3c);
   color: var(--text-primary, #cdd6f4);
   border-color: var(--color-accent, #89b4fa);

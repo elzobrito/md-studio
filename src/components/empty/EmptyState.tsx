@@ -1,3 +1,4 @@
+import { Button } from "../ui/Button";
 import "../../styles/empty-state.css";
 
 interface Props {
@@ -15,7 +16,7 @@ export function EmptyState({ onQuickSwitch, onNewDocument }: Props) {
       <div className="empty-state-icon" aria-hidden="true">
         📄
       </div>
-      <h2 className="empty-state-title">Selecione um arquivo para editar</h2>
+      <h2 className="empty-state-title">Selecione um arquivo na árvore</h2>
       <p className="empty-state-subtitle">
         ou use{" "}
         <button
@@ -30,14 +31,16 @@ export function EmptyState({ onQuickSwitch, onNewDocument }: Props) {
       </p>
       {onNewDocument && (
         <div style={{ marginTop: "16px" }}>
-          <button
-            type="button"
-            className="empty-state-btn primary"
+          <Button
+            variant="secondary"
+            size="md"
+            className="empty-state-btn secondary"
             onClick={onNewDocument}
             aria-label="Escrever novo documento"
+            icon={<span>✍️</span>}
           >
-            <span>✍️</span> Escrever Novo Documento
-          </button>
+            Escrever Novo Documento
+          </Button>
         </div>
       )}
     </div>

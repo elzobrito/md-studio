@@ -7,11 +7,11 @@
     "run": {
       "run_id": "RUN-0001",
       "status": "success",
-      "last_event_seq": 1529,
-      "projection_hash_sha256": "8f1d5b6ad74814669ef511ff5d05821ca8871a8a4f56be30422cc6a0c0662241",
+      "last_event_seq": 1619,
+      "projection_hash_sha256": "4c238497ba2b4773112f7d0e800fcd7b51aabe0658e8fafb55b851e5e96fa1cc",
       "verify_status": "ok"
     },
-    "updated_at": "2026-09-19T20:21:31Z"
+    "updated_at": "2026-09-19T20:51:08Z"
   },
   "project": {
     "name": "MD Studio",
@@ -4669,15 +4669,309 @@
         ]
       },
       "completed_at": "2026-09-19T20:21:31Z"
+    },
+    {
+      "task_id": "MD-UI-EMPTY-001",
+      "task_kind": "impl",
+      "title": "Onda0C: Empty state — hierarquia CTAs (delta)",
+      "description": "# Onda 0C — UI Polish | MD-UI-EMPTY-001\n**Para o agente executor.** Cadastro ESAA já existe (`todo`). Implementar até done com prova.\n**WBS:** `docs/onda0c/WBS-ONDA-0C-UI-POLISH-v2.1.md`\n**Repo:** `/home/elzobrito/desenvolvimento/md-studio` (branch `main`)\n**Pré-condição:** Onda 0B (`MD-GM-001`…`008`) e splash (`MD-UI-SPLASH-001`) já **done**. NÃO reabrir splash. NÃO reinventar o que já existe — só o delta desta task.\n\n## Regras de execução\n1. `claim` → implementar → provar → `complete` com evidência → pedir review.\n2. Paths abaixo são os **reais** do tree. Não criar arquivos paralelos com nomes do WBS 2.0 antigo.\n3. Não quebrar vitest da 0B, open `.md` pelo SO, nem single-instance.\n4. Temas dark e light.\n5. Done = critério de aceite + verify id abaixo com prova (comando/log/screenshot em `docs/qa/`).\n\n\n## Objetivo\nCorrigir a **hierarquia visual** do empty/welcome. Não redesenhar do zero.\n\n## Estado atual (já no código)\n- `src/components/empty/WelcomeScreen.tsx` — ícone 📝 (não `?`), 3 botões, hint Ctrl+P, recentes.\n- Bug: se `onNewDocument` existe, \"Novo Documento\" fica `primary` e \"Abrir Pasta\" vira `secondary`.\n- `src/components/empty/EmptyState.tsx` — workspace sem arquivo já simples.\n- CSS: `src/styles/empty-state.css` (NÃO criar `welcome-screen.css`).\n\n## Trabalho\n1. Hierarquia obrigatória dos CTAs no WelcomeScreen:\n   - **primary** = Abrir pasta\n   - **secondary** = Abrir arquivo\n   - **ghost/terciário** = Criar novo .md (se callback existir)\n2. Manter hint Ctrl+P; manter recentes no welcome.\n3. EmptyState: copy curta (\"Selecione um arquivo na árvore\" / Ctrl+P); sem título \"MD Studio\"; sem `?`.\n4. Conferir orquestração em `src/App.tsx`: sem workspace → Welcome; workspace sem arquivo → EmptyState; com arquivo → editor.\n5. Dark/light via tokens já usados em `empty-state.css`.\n\n## Artefatos\n- MOD: `src/components/empty/WelcomeScreen.tsx`\n- MOD: `src/components/empty/EmptyState.tsx`\n- MOD: `src/styles/empty-state.css` (só se preciso)\n- MOD: `src/App.tsx` (só se a troca de estados estiver errada)\n- QA note: `docs/qa/onda0c-empty.md` (opcional nesta task; obrigatório no QA-001)\n\n## Fora de escopo\nSplash, painel direito, Button global, header.\n\n## Acceptance criteria\n- [ ] Abrir pasta é o botão visualmente dominante\n- [ ] Abrir arquivo = secondary; Criar novo = menos destaque\n- [ ] Sem ícone `?`\n- [ ] Hint Ctrl+P visível no welcome\n- [ ] Três estados (sem WS / WS sem arq / com arq) corretos\n- [ ] Dark e light OK\n\n**Verify:** `empty_state_polish_pass`\n\nCópia local: docs/onda0c/MD-UI-EMPTY-001-FULL.md",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "MD-UI-EMPTY-001",
+        "onda0c",
+        "0C-1",
+        "empty_state_polish_pass"
+      ],
+      "outputs": {
+        "files": [
+          "src/components/empty/WelcomeScreen.tsx",
+          "src/components/empty/EmptyState.tsx",
+          "src/styles/empty-state.css"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src/components/empty/**",
+        "src/styles/empty-state.css",
+        "src/App.tsx",
+        "tests/**",
+        "docs/onda0c/**",
+        "docs/qa/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Abrir pasta é primary; Abrir arquivo secondary; Criar novo terciário/ghost",
+        "Sem ícone de interrogação; hint Ctrl+P visível",
+        "Estados sem-workspace / sem-arquivo / com-arquivo corretos",
+        "Verify: empty_state_polish_pass"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-19T20:38:34Z",
+      "verification": {
+        "checks": [
+          "empty_state_polish_pass"
+        ]
+      },
+      "completed_at": "2026-09-19T20:40:08Z"
+    },
+    {
+      "task_id": "MD-UI-PANEL-001",
+      "task_kind": "impl",
+      "title": "Onda0C: Painel direito colapsável (UX + status bar)",
+      "description": "# Onda 0C — UI Polish | MD-UI-PANEL-001\n**Para o agente executor.** Cadastro ESAA já existe (`todo`). Implementar até done com prova.\n**WBS:** `docs/onda0c/WBS-ONDA-0C-UI-POLISH-v2.1.md`\n**Repo:** `/home/elzobrito/desenvolvimento/md-studio` (branch `main`)\n**Pré-condição:** Onda 0B (`MD-GM-001`…`008`) e splash (`MD-UI-SPLASH-001`) já **done**. NÃO reabrir splash. NÃO reinventar o que já existe — só o delta desta task.\n\n## Regras de execução\n1. `claim` → implementar → provar → `complete` com evidência → pedir review.\n2. Paths abaixo são os **reais** do tree. Não criar arquivos paralelos com nomes do WBS 2.0 antigo.\n3. Não quebrar vitest da 0B, open `.md` pelo SO, nem single-instance.\n4. Temas dark e light.\n5. Done = critério de aceite + verify id abaixo com prova (comando/log/screenshot em `docs/qa/`).\n\n\n## Objetivo\nTornar o painel direito (sumário) **obviamente** colapsável. O store já existe — não reescrever.\n\n## Estado atual\n- `src/state/ui.ts` — `rightPanelVisible` + `localStorage` + set/toggle.\n- `AppHeader` / PanelControls — toggle `Ctrl+Shift+\\` já existe.\n- `StatusBar` — **não** tem botão `[sumário]` para reabrir.\n- `DocumentOutline.tsx` — falta × claro no cabeçalho do painel.\n\n## Trabalho\n1. Cabeçalho do painel: título SUMÁRIO + botão × (`aria-label=\"Fechar painel\"`, tooltip, chama API do `ui` store para fechar).\n2. `StatusBar`: se `!rightPanelVisible`, mostrar botão `[sumário]` à direita que reabre.\n3. CSS (~180ms): painel colapsado width 0; editor expande; sem layout jump feio.\n4. Provar persistência: fechar painel → reiniciar app → continua fechado.\n5. Confirmar atalho `Ctrl+Shift+\\` ainda alterna.\n\n## Artefatos\n- MOD: `src/components/DocumentOutline.tsx`\n- MOD: `src/components/statusbar/StatusBar.tsx`\n- MOD: `src/styles/layout.css` e/ou `outline.css` / `statusbar.css`\n- USAR (não reescrever): `src/state/ui.ts`\n- Alinhar props: `App.tsx` / header se precisar passar `rightOpen` + callbacks à StatusBar\n\n## Fora\nSplash; empty; redesign do conteúdo do outline.\n\n## Acceptance criteria\n- [ ] × fecha o painel com transição\n- [ ] Editor ocupa o espaço liberado\n- [ ] Estado persiste no relaunch\n- [ ] `[sumário]` na status bar quando fechado; reabre ao clicar\n- [ ] `Ctrl+Shift+\\` toggle OK\n- [ ] Dark/light OK\n\n**Verify:** `collapsible_panel_pass`\n\nCópia local: docs/onda0c/MD-UI-PANEL-001-FULL.md",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "MD-UI-PANEL-001",
+        "onda0c",
+        "0C-1",
+        "collapsible_panel_pass"
+      ],
+      "outputs": {
+        "files": [
+          "src/components/DocumentOutline.tsx",
+          "src/components/statusbar/StatusBar.tsx",
+          "src/styles/layout.css"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src/state/ui.ts",
+        "src/components/DocumentOutline.tsx",
+        "src/components/outline/**",
+        "src/components/statusbar/**",
+        "src/components/header/**",
+        "src/styles/**",
+        "src/hooks/**",
+        "tests/**",
+        "docs/onda0c/**",
+        "docs/qa/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Botão × no cabeçalho fecha o painel com transição",
+        "Estado rightPanelVisible persiste (store existente)",
+        "[sumário] na status bar reabre quando fechado",
+        "Ctrl+Shift+\\ toggle; editor expande",
+        "Verify: collapsible_panel_pass"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-19T20:40:57Z",
+      "verification": {
+        "checks": [
+          "collapsible_panel_pass"
+        ]
+      },
+      "completed_at": "2026-09-19T20:42:34Z"
+    },
+    {
+      "task_id": "MD-UI-SIDEBAR-001",
+      "task_kind": "impl",
+      "title": "Onda0C: Hierarquia sidebar + Button component",
+      "description": "# Onda 0C — UI Polish | MD-UI-SIDEBAR-001\n**Para o agente executor.** Cadastro ESAA já existe (`todo`). Implementar até done com prova.\n**WBS:** `docs/onda0c/WBS-ONDA-0C-UI-POLISH-v2.1.md`\n**Repo:** `/home/elzobrito/desenvolvimento/md-studio` (branch `main`)\n**Pré-condição:** Onda 0B (`MD-GM-001`…`008`) e splash (`MD-UI-SPLASH-001`) já **done**. NÃO reabrir splash. NÃO reinventar o que já existe — só o delta desta task.\n\n## Regras de execução\n1. `claim` → implementar → provar → `complete` com evidência → pedir review.\n2. Paths abaixo são os **reais** do tree. Não criar arquivos paralelos com nomes do WBS 2.0 antigo.\n3. Não quebrar vitest da 0B, open `.md` pelo SO, nem single-instance.\n4. Temas dark e light.\n5. Done = critério de aceite + verify id abaixo com prova (comando/log/screenshot em `docs/qa/`).\n\n\n## Objetivo\nHierarquia clara na sidebar: **ações de abrir > recentes**. Criar `Button` compartilhado (base do design system).\n\n## Estado atual\n- Sem workspace: botões \"Abrir pasta\" / \"Abrir arquivo\" em `src/components/FileExplorer.tsx`.\n- Recentes: `src/components/explorer/RecentFiles.tsx`.\n- Não existe `src/components/ui/Button.tsx`.\n\n## Trabalho\n1. **Criar** `src/components/ui/Button.tsx` + `src/styles/button.css`\n   - variants: `primary` | `secondary` | `ghost`\n   - sizes: `sm` | `md`\n   - props: `fullWidth`, `icon?`, disabled, type=button\n2. Sidebar vazia: Abrir pasta = `primary`; Abrir arquivo = `secondary` (mesmo radius/padding).\n3. Separador visual \"Recentes\" (label menor + linhas); itens compactos (peso secundário).\n4. Remover mensagem solta \"Nenhum workspace…\" da sidebar se ainda existir (empty fica no centro).\n5. Exportar Button de forma fácil de importar nas tasks HEADER/BUTTONS.\n\n## Artefatos\n- NEW: `src/components/ui/Button.tsx`\n- NEW: `src/styles/button.css` (+ import no CSS entry)\n- MOD: `src/components/FileExplorer.tsx`\n- MOD: `src/components/explorer/RecentFiles.tsx`\n- MOD: estilos explorer / file-tree conforme necessário\n\n## Fora\nMigrar todos os botões da app (task BUTTONS-001). Welcome CTAs (EMPTY-001 pode continuar com classes empty-state até BUTTONS migrar).\n\n## Acceptance criteria\n- [ ] Button component existe e é usado na sidebar\n- [ ] Abrir pasta primary; Abrir arquivo secondary; mesmo border-radius\n- [ ] Recentes visualmente secundários + separador\n- [ ] Sem copy \"nenhum workspace\" solta na sidebar\n\n**Verify:** `sidebar_hierarchy_pass`\n\nCópia local: docs/onda0c/MD-UI-SIDEBAR-001-FULL.md",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "MD-UI-SIDEBAR-001",
+        "onda0c",
+        "0C-1",
+        "sidebar_hierarchy_pass"
+      ],
+      "outputs": {
+        "files": [
+          "src/components/ui/Button.tsx",
+          "src/styles/button.css",
+          "src/components/FileExplorer.tsx"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src/components/ui/**",
+        "src/components/FileExplorer.tsx",
+        "src/components/explorer/**",
+        "src/styles/**",
+        "tests/**",
+        "docs/onda0c/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Button primary/secondary/ghost criado e usado na sidebar",
+        "Abrir pasta primary e Abrir arquivo secondary com mesmo radius",
+        "Recentes com peso visual secundário e separador",
+        "Verify: sidebar_hierarchy_pass"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-19T20:42:50Z",
+      "verification": {
+        "checks": [
+          "sidebar_hierarchy_pass"
+        ]
+      },
+      "completed_at": "2026-09-19T20:45:20Z"
+    },
+    {
+      "task_id": "MD-UI-HEADER-001",
+      "task_kind": "impl",
+      "title": "Onda0C: Header sem título duplicado + window title",
+      "description": "# Onda 0C — UI Polish | MD-UI-HEADER-001\n**Para o agente executor.** Cadastro ESAA já existe (`todo`). Implementar até done com prova.\n**WBS:** `docs/onda0c/WBS-ONDA-0C-UI-POLISH-v2.1.md`\n**Repo:** `/home/elzobrito/desenvolvimento/md-studio` (branch `main`)\n**Pré-condição:** Onda 0B (`MD-GM-001`…`008`) e splash (`MD-UI-SPLASH-001`) já **done**. NÃO reabrir splash. NÃO reinventar o que já existe — só o delta desta task.\n\n## Regras de execução\n1. `claim` → implementar → provar → `complete` com evidência → pedir review.\n2. Paths abaixo são os **reais** do tree. Não criar arquivos paralelos com nomes do WBS 2.0 antigo.\n3. Não quebrar vitest da 0B, open `.md` pelo SO, nem single-instance.\n4. Temas dark e light.\n5. Done = critério de aceite + verify id abaixo com prova (comando/log/screenshot em `docs/qa/`).\n\n\n## Objetivo\nRemover título duplicado no chrome interno; título nativo da janela dinâmico.\n\n## Dependência\n`MD-UI-SIDEBAR-001` (reusar `Button` se possível no view mode / icon buttons).\n\n## Estado atual\n- `src/components/header/AppHeader.tsx` ~L61: `<strong>MD Studio</strong>` → ruído com title da janela OS.\n\n## Trabalho\n1. Remover logo/texto \"MD Studio\" do header interno.\n2. Window title via Tauri:\n   - sem arquivo: `MD Studio`\n   - com arquivo: `MD Studio — nome.md`\n   - dirty: `MD Studio — ● nome.md`\n3. Layout: esquerda = toggle sidebar + view mode; direita = novo + settings + salvar.\n4. ViewModeToggle: preferir Button ghost + estado active.\n5. Manter Ctrl+, / atalhos existentes.\n\n## Artefatos\n- MOD: `src/components/header/AppHeader.tsx`\n- MOD: `src/components/header/ViewModeToggle.tsx` (se aplicável)\n- MOD: `src/styles/header.css`\n- Hook/util de title: próximo de `useSaveStatus` / session — onde já houver dirty flag\n\n## Fora\nAuditoria completa de botões (BUTTONS-001). Splash.\n\n## Acceptance criteria\n- [ ] Sem \"MD Studio\" duplicado no header interno\n- [ ] Title nativo dinâmico (inclui dirty)\n- [ ] Novo / settings / salvar / view mode OK\n- [ ] Header mais compacto\n\n**Verify:** `top_bar_polish_pass`\n\nCópia local: docs/onda0c/MD-UI-HEADER-001-FULL.md",
+      "status": "done",
+      "depends_on": [
+        "MD-UI-SIDEBAR-001"
+      ],
+      "targets": [
+        "MD-UI-HEADER-001",
+        "onda0c",
+        "0C-2",
+        "top_bar_polish_pass"
+      ],
+      "outputs": {
+        "files": [
+          "src/components/header/AppHeader.tsx",
+          "src/styles/header.css"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src/components/header/**",
+        "src/hooks/**",
+        "src/styles/header.css",
+        "tests/**",
+        "docs/onda0c/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Removido strong MD Studio do header interno",
+        "Window title dinâmico com dirty indicator",
+        "View mode / save / settings intactos",
+        "Verify: top_bar_polish_pass"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-19T20:45:38Z",
+      "verification": {
+        "checks": [
+          "top_bar_polish_pass"
+        ]
+      },
+      "completed_at": "2026-09-19T20:47:19Z"
+    },
+    {
+      "task_id": "MD-UI-BUTTONS-001",
+      "task_kind": "impl",
+      "title": "Onda0C: Design system — migrar botões hotspots",
+      "description": "# Onda 0C — UI Polish | MD-UI-BUTTONS-001\n**Para o agente executor.** Cadastro ESAA já existe (`todo`). Implementar até done com prova.\n**WBS:** `docs/onda0c/WBS-ONDA-0C-UI-POLISH-v2.1.md`\n**Repo:** `/home/elzobrito/desenvolvimento/md-studio` (branch `main`)\n**Pré-condição:** Onda 0B (`MD-GM-001`…`008`) e splash (`MD-UI-SPLASH-001`) já **done**. NÃO reabrir splash. NÃO reinventar o que já existe — só o delta desta task.\n\n## Regras de execução\n1. `claim` → implementar → provar → `complete` com evidência → pedir review.\n2. Paths abaixo são os **reais** do tree. Não criar arquivos paralelos com nomes do WBS 2.0 antigo.\n3. Não quebrar vitest da 0B, open `.md` pelo SO, nem single-instance.\n4. Temas dark e light.\n5. Done = critério de aceite + verify id abaixo com prova (comando/log/screenshot em `docs/qa/`).\n\n\n## Objetivo\nUma família visual de botões nos hotspots da UI chrome (não na toolbar CM6 da 0B, salvo se trivial e sem regressão).\n\n## Dependência\n`MD-UI-SIDEBAR-001` (`Button` já criado).\n\n## Trabalho\n1. Criar `docs/onda0c/design-system-audit.md` — tabela: componente | botão | variant atual | variant alvo.\n2. Migrar hotspots para `Button`:\n   - WelcomeScreen / EmptyState CTAs\n   - FileExplorer open buttons (se ainda não)\n   - AppHeader icon/save (onde couber)\n   - ViewModeToggle\n   - NewDocumentModal ações principais\n3. Tokens: `--radius-btn: 6px` (ou equivalente) em `button.css` / theme tokens.\n4. Conferir dark/light.\n\n## Artefatos\n- NEW: `docs/onda0c/design-system-audit.md`\n- MOD: componentes da auditoria\n- MOD: `src/components/ui/Button.tsx` / `button.css` se precisar estender (icon-only, active)\n\n## Fora\n- Não regressar FormattingToolbar / SlashMenu da Onda 0B\n- Micro-animação da status bar (backlog 0C.1)\n\n## Acceptance criteria\n- [ ] Auditoria commitada\n- [ ] Hotspots migrados\n- [ ] Radius/padding consistentes\n- [ ] Dark/light OK; sem regressão 0B óbvia\n\n**Verify:** `design_system_pass`\n\nCópia local: docs/onda0c/MD-UI-BUTTONS-001-FULL.md",
+      "status": "done",
+      "depends_on": [
+        "MD-UI-SIDEBAR-001"
+      ],
+      "targets": [
+        "MD-UI-BUTTONS-001",
+        "onda0c",
+        "0C-2",
+        "design_system_pass"
+      ],
+      "outputs": {
+        "files": [
+          "docs/onda0c/design-system-audit.md",
+          "src/components/ui/Button.tsx"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src/components/**",
+        "src/styles/**",
+        "docs/onda0c/**",
+        "tests/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Auditoria em docs/onda0c/design-system-audit.md",
+        "Hotspots migrados para Button",
+        "Radius/padding consistentes dark/light",
+        "Verify: design_system_pass"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-19T20:47:38Z",
+      "verification": {
+        "checks": [
+          "design_system_pass"
+        ]
+      },
+      "completed_at": "2026-09-19T20:50:01Z"
+    },
+    {
+      "task_id": "MD-UI-QA-001",
+      "task_kind": "qa",
+      "title": "Onda0C: QA polish + regressão 0B/splash",
+      "description": "# Onda 0C — UI Polish | MD-UI-QA-001\n**Para o agente executor.** Cadastro ESAA já existe (`todo`). Implementar até done com prova.\n**WBS:** `docs/onda0c/WBS-ONDA-0C-UI-POLISH-v2.1.md`\n**Repo:** `/home/elzobrito/desenvolvimento/md-studio` (branch `main`)\n**Pré-condição:** Onda 0B (`MD-GM-001`…`008`) e splash (`MD-UI-SPLASH-001`) já **done**. NÃO reabrir splash. NÃO reinventar o que já existe — só o delta desta task.\n\n## Regras de execução\n1. `claim` → implementar → provar → `complete` com evidência → pedir review.\n2. Paths abaixo são os **reais** do tree. Não criar arquivos paralelos com nomes do WBS 2.0 antigo.\n3. Não quebrar vitest da 0B, open `.md` pelo SO, nem single-instance.\n4. Temas dark e light.\n5. Done = critério de aceite + verify id abaixo com prova (comando/log/screenshot em `docs/qa/`).\n\n\n## Objetivo\nFechar a Onda 0C com prova. Depende de EMPTY, PANEL, SIDEBAR, HEADER, BUTTONS.\n\n## Checklist obrigatório\n### Empty\n- [ ] 3 CTAs; primary=Abrir pasta; sem `?`; Ctrl+P hint\n### Panel\n- [ ] × fecha; persistência; [sumário] reabre; Ctrl+Shift+\\; editor expande\n### Sidebar\n- [ ] ações > recentes; Button em uso\n### Header / buttons\n- [ ] sem título interno duplicado; title dinâmico; hotspots migrados\n### Regressão\n- [ ] Onda 0B (toolbar, slash, paste, templates, cheatsheet, hints, tables)\n- [ ] Splash boot ainda OK (não reimplementar)\n- [ ] Abrir `.md` pelo SO + single-instance\n### Automatizado\n- [ ] `pnpm test` (ou script do repo) — 0 falhas na suíte relevante\n- [ ] Evidência escrita em `docs/qa/onda0c-ui-polish.md`\n\n## Artefatos\n- NEW: `docs/qa/onda0c-ui-polish.md` (pass/fail + comandos + notas manuais)\n\n**Verify:** `onda_0c_ui_polish_complete`\n\nCópia local: docs/onda0c/MD-UI-QA-001-FULL.md",
+      "status": "done",
+      "depends_on": [
+        "MD-UI-EMPTY-001",
+        "MD-UI-PANEL-001",
+        "MD-UI-SIDEBAR-001",
+        "MD-UI-HEADER-001",
+        "MD-UI-BUTTONS-001"
+      ],
+      "targets": [
+        "MD-UI-QA-001",
+        "onda0c",
+        "0C-3",
+        "onda_0c_ui_polish_complete"
+      ],
+      "outputs": {
+        "files": [
+          "docs/qa/onda0c-ui-polish.md"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "docs/qa/**",
+        "docs/onda0c/**",
+        "tests/**",
+        "src/**"
+      ],
+      "task_type": "audit",
+      "acceptance_criteria": [
+        "Checklists empty/panel/sidebar/header/buttons passando",
+        "Regressão Onda 0B + splash + open-file-from-OS OK",
+        "Suíte de testes relevante verde; evidência em docs/qa",
+        "Verify: onda_0c_ui_polish_complete"
+      ],
+      "required_review_mode": "regression",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-19T20:50:22Z",
+      "verification": {
+        "checks": [
+          "onda_0c_ui_polish_complete"
+        ]
+      },
+      "completed_at": "2026-09-19T20:51:08Z"
     }
   ],
   "indexes": {
     "by_status": {
-      "done": 132
+      "done": 138
     },
     "by_kind": {
-      "impl": 82,
-      "qa": 27,
+      "impl": 87,
+      "qa": 28,
       "spec": 23
     }
   }
