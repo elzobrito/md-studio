@@ -2,7 +2,19 @@
 
 Editor Markdown **local-first** para Linux, empacotado com **Tauri 2** (Rust + React/TypeScript).
 
-Documentos permanecem no seu disco. Preview, exportação HTML e diagramas Mermaid usam um pipeline sanitizado no frontend — o mesmo para tela e export.
+Os documentos ficam no seu disco. Preview, wiki links, backlinks e exportação HTML usam o mesmo pipeline sanitizado — na tela e no arquivo exportado.
+
+![Tela inicial do MD Studio](docs/screenshots/welcome.png)
+
+## Capturas
+
+Editor e preview lado a lado, com sumário, wiki links e backlinks no painel direito:
+
+![Editor e preview lado a lado](docs/screenshots/editor-split.png)
+
+Preview formatado (GFM, matemática, código e wiki links):
+
+![Preview formatado](docs/screenshots/preview.png)
 
 ## Requisitos
 
@@ -25,6 +37,8 @@ cargo test --manifest-path src-tauri/crates/md-studio-core/Cargo.toml
 
 - Workspace local (pasta ou arquivo) com path fence no Rust
 - Editor CodeMirror 6 + preview (GFM, math, highlight, Mermaid)
+- Wiki links `[[alvo]]` / `[[alvo|rótulo]]` com resolução, autocomplete e criação de nota
+- Backlinks no painel direito (índice reverso só de links resolvidos)
 - Salvamento atômico com detecção de conflito por hash
 - **Watcher FS (notify)** com debounce; se o arquivo aberto estiver *dirty* e mudar no disco → diálogo Recarregar / Manter / Salvar como (sem sobrescrita silenciosa)
 - **Export HTML** pelo mesmo pipeline sanitizado do preview + escrita atômica; confirma sobrescrita

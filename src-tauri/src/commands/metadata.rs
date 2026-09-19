@@ -1,11 +1,14 @@
 use std::collections::HashSet;
-use std::path::PathBuf;
+use std::fs;
+use std::path::{Path, PathBuf};
 use serde::{Deserialize, Serialize};
 use tauri::State;
 
 use md_studio_core::index::{
-    save_index, DocumentMetadata, ReindexEngine, ReindexReport, ResolvedWikiLink, WikiLink,
+    save_index, BacklinkResult, DocumentMetadata, ReindexEngine, ReindexReport, ResolvedWikiLink,
+    WikiLink,
 };
+use md_studio_core::workspace::resolve_within;
 use crate::AppState;
 
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
@@ -186,4 +189,109 @@ pub async fn get_tags(
     let mut sorted: Vec<String> = tags.into_iter().collect();
     sorted.sort();
     Ok(sorted)
+}
+
+fn empty_backlinks(path: &str) -> BacklinkResult {
+    BacklinkResult {
+        target_path: PathBuf::from(path),
+        document_count: 0,
+        occurrence_count: 0,
+        groups: vec![],
+    }
+}
+
+fn fence_backlink_target(root: &Path, path: &str) -> Result<PathBuf, String> {
+    let trimmed = path.trim();
+    if trimmed.is_empty() {
+        return Err("invalid path".to_string());
+    }
+    resolve_within(root, trimmed).map_err(|err| err.to_string())
+}
+
+fn read_source_line(root: &Path, source: &Path, line: usize) -> Option<String> {
+    if line == 0 {
+        return None;
+    }
+    let relative = source.to_string_lossy();
+    let full = resolve_within(root, relative.as_ref()).ok()?;
+    let content = fs::read_to_string(full).ok()?;
+    content
+        .lines()
+        .nth(line - 1)
+        .map(|text| text.trim().to_string())
+}
+
+fn enrich_backlink_context(root: &Path, result: &mut BacklinkResult) {
+    for group in &mut result.groups {
+        for occurrence in &mut group.occurrences {
+            occurrence.context = read_source_line(root, &occurrence.source_path, occurrence.line);
+        }
+    }
+}
+
+#[tauri::command]
+pub async fn get_backlinks(
+    path: String,
+    state: State<'_, AppState>,
+) -> Result<BacklinkResult, String> {
+    let engine = match get_engine(&state) {
+        Some(engine) => engine,
+        None => return Ok(empty_backlinks(&path)),
+    };
+    fence_backlink_target(&engine.root, &path)?;
+    let mut result = engine.backlinks_for(Path::new(path.trim()))?;
+    enrich_backlink_context(&engine.root, &mut result);
+    Ok(result)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use md_studio_core::index::{BacklinkGroup, BacklinkOccurrence};
+    use std::fs;
+    use tempfile::TempDir;
+
+    #[test]
+    fn fence_rejects_parent_and_absolute_paths() {
+        let dir = TempDir::new().unwrap();
+        assert!(fence_backlink_target(dir.path(), "../escape.md").is_err());
+        assert!(fence_backlink_target(dir.path(), "/tmp/x.md").is_err());
+        assert!(fence_backlink_target(dir.path(), "   ").is_err());
+        assert!(fence_backlink_target(dir.path(), "notes/ok.md").is_ok());
+    }
+
+    #[test]
+    fn context_failure_keeps_occurrence() {
+        let dir = TempDir::new().unwrap();
+        fs::write(dir.path().join("src.md"), "alpha\n[[target]] extra\n").unwrap();
+        let mut result = BacklinkResult {
+            target_path: PathBuf::from("target.md"),
+            document_count: 1,
+            occurrence_count: 2,
+            groups: vec![BacklinkGroup {
+                source_path: PathBuf::from("src.md"),
+                source_title: Some("Src".into()),
+                occurrences: vec![
+                    BacklinkOccurrence {
+                        source_path: PathBuf::from("src.md"),
+                        line: 2,
+                        context: None,
+                    },
+                    BacklinkOccurrence {
+                        source_path: PathBuf::from("src.md"),
+                        line: 99,
+                        context: None,
+                    },
+                ],
+            }],
+        };
+        enrich_backlink_context(dir.path(), &mut result);
+        assert_eq!(result.occurrence_count, 2);
+        assert_eq!(result.groups[0].occurrences.len(), 2);
+        assert_eq!(
+            result.groups[0].occurrences[0].context.as_deref(),
+            Some("[[target]] extra")
+        );
+        assert_eq!(result.groups[0].occurrences[1].context, None);
+    }
 }

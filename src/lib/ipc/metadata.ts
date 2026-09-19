@@ -5,7 +5,15 @@ import type {
   WikiLink,
   ResolvedWikiLink,
   ReindexReport,
+  BacklinkResult,
 } from "../../types/metadata";
+
+export const emptyBacklinks = (path = ""): BacklinkResult => ({
+  targetPath: path,
+  documentCount: 0,
+  occurrenceCount: 0,
+  groups: [],
+});
 
 const isTauri = () => typeof window !== "undefined" && "__TAURI_INTERNALS__" in window;
 
@@ -62,4 +70,9 @@ export const getResolvedWikiLinksFor = async (path: string): Promise<ResolvedWik
 export const getTags = async (): Promise<string[]> => {
   if (!isTauri()) return [];
   return invoke("get_tags");
+};
+
+export const getBacklinks = async (path: string): Promise<BacklinkResult> => {
+  if (!isTauri()) return emptyBacklinks(path);
+  return invoke("get_backlinks", { path });
 };

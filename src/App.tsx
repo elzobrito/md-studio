@@ -27,9 +27,11 @@ import { settingsStore } from "./state/settings";
 import { useSettings } from "./hooks/useSettings";
 import { SettingsPanel } from "./components/settings/SettingsPanel";
 import { editorStore } from "./state/editor";
+import { queueGoToLine } from "./editor/line-highlight";
 import { recentFilesStore } from "./state/recent-files";
 import { useMetadata } from "./hooks/useMetadata";
 import { OutgoingLinksPanel } from "./components/wiki/OutgoingLinksPanel";
+import { BacklinksPanel } from "./components/wiki/BacklinksPanel";
 import { CreateNoteFromWiki } from "./components/wiki/CreateNoteFromWiki";
 
 const VIEW_OPTIONS: { id: ViewMode; label: string; title: string }[] = [
@@ -552,6 +554,24 @@ export function App() {
                 if (opened) setIsWriting(true);
               }}
               onUnresolved={setUnresolvedWikiTarget}
+            />
+            <BacklinksPanel
+              result={metadata.backlinks}
+              loading={metadata.loading}
+              error={metadata.error}
+              onRetry={() => {
+                void metadata.reindex();
+              }}
+              onOpenOccurrence={async (path, line) => {
+                const opened = await doc.openRelative(path);
+                if (!opened) return;
+                setIsWriting(true);
+                if (session.viewMode === "preview") {
+                  session.setViewMode("split");
+                }
+                queueGoToLine(line);
+                editorStore.goToLine(line);
+              }}
             />
             <Settings session={session} />
             <section className="card" aria-label="Diagnósticos">

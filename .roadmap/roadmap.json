@@ -7,11 +7,11 @@
     "run": {
       "run_id": "RUN-0001",
       "status": "success",
-      "last_event_seq": 1784,
-      "projection_hash_sha256": "d06b8c310318d73fef2d8ea1450d690898aa224bb020d3b139d1a38788f40d5c",
+      "last_event_seq": 1877,
+      "projection_hash_sha256": "baa94a77aa7aa30b73bb5aa4e3f4a5239485c6c3c0d3488d2a061f1ad56d3a0d",
       "verify_status": "ok"
     },
-    "updated_at": "2026-09-19T22:15:08Z"
+    "updated_at": "2026-09-19T23:37:03Z"
   },
   "project": {
     "name": "MD Studio",
@@ -5458,7 +5458,7 @@
       "task_kind": "spec",
       "title": "Onda3: Contrato Backlinks + mapa do repositório",
       "description": "# Onda 3 — Backlinks v3.1 | MD-BACKLINK-001\n**Executor externo.** Claim → implement → prove → complete.\n**WBS:** `docs/onda3/WBS-ONDA-3-BACKLINKS-v3.1.md`\n**Repo:** `/home/elzobrito/desenvolvimento/md-studio`\n**Proibido:** grafo, segundo watcher, status `collision`, campo `column`, persistência própria do índice, alterar Onda 2 resolver.\n\n## Regras globais\n1. Confirmar paths com `rg`/`find` (OutgoingLinksPanel, wiki_resolve, ReindexEngine).\n2. Só indexar `Resolved`; excluir self-links; Ambiguous/Unresolved fora.\n3. Contexto sob demanda; falha → context null.\n4. Não misturar commit Onda 2 com código de backlinks.\n5. Done = AC + verify + evidência quando aplicável.\n\n\n## Objetivo\nMapear paths reais e congelar contrato em `docs/architecture/backlinks-contract.md`.\n\n## Depende\nMD-BACKLINK-000\n\n## Trabalho\n1. Mapear: WikiLink, WikiLinkStatus, wiki_resolve, MetadataIndex, ReindexEngine, save_document, watcher, IPC wiki, TS types/hooks, OutgoingLinksPanel, painel direito, go-to-line, testes Onda 2.\n2. Contrato: Resolved only; Unresolved/Ambiguous out; self-link excluído; sem column; line base 1 pública; context Option + read-on-demand; sem persistência própria; ordenação grupos title CI / path, ocorrências line ASC; segundo watcher proibido.\n3. Tipos Rust/TS alinhados ao WBS §9.\n\n## AC\n- [ ] Paths reais no contrato\n- [ ] Todas decisões §5 do WBS 3.1 escritas\n- [ ] Sem módulos paralelos criados nesta task\n\n**Verify:** `md_backlink_001_contract_pass`\n\n\nCópia local: docs/onda3/MD-BACKLINK-001-FULL.md",
-      "status": "todo",
+      "status": "done",
       "depends_on": [
         "MD-BACKLINK-000"
       ],
@@ -5487,14 +5487,25 @@
         "Context on-demand; sem column; sem 2º watcher",
         "Verify: md_backlink_001_contract_pass"
       ],
-      "required_review_mode": "docs"
+      "required_review_mode": "docs",
+      "assigned_to": "agent-spec",
+      "started_at": "2026-09-19T22:27:39Z",
+      "verification": {
+        "checks": [
+          "md_backlink_001_contract_pass",
+          "rg confirmou WikiLink, WikiLinkStatus, MetadataIndex, ReindexEngine, save_document, watcher, OutgoingLinksPanel, goToLine, tipos TS",
+          "contrato cobre Resolved-only, sem column, context on-demand, self-link excluído, sem persistência própria, sem 2o watcher, ordenação title CI/path e line ASC",
+          "nenhum backlink_index.rs / BacklinksPanel / types/backlinks.ts criado nesta spec"
+        ]
+      },
+      "completed_at": "2026-09-19T22:33:07Z"
     },
     {
       "task_id": "MD-BACKLINK-002",
       "task_kind": "impl",
       "title": "Onda3: Reverse Link Index (só Resolved)",
       "description": "# Onda 3 — Backlinks v3.1 | MD-BACKLINK-002\n**Executor externo.** Claim → implement → prove → complete.\n**WBS:** `docs/onda3/WBS-ONDA-3-BACKLINKS-v3.1.md`\n**Repo:** `/home/elzobrito/desenvolvimento/md-studio`\n**Proibido:** grafo, segundo watcher, status `collision`, campo `column`, persistência própria do índice, alterar Onda 2 resolver.\n\n## Regras globais\n1. Confirmar paths com `rg`/`find` (OutgoingLinksPanel, wiki_resolve, ReindexEngine).\n2. Só indexar `Resolved`; excluir self-links; Ambiguous/Unresolved fora.\n3. Contexto sob demanda; falha → context null.\n4. Não misturar commit Onda 2 com código de backlinks.\n5. Done = AC + verify + evidência quando aplicável.\n\n\n## Objetivo\nReverse Link Index no core Rust; só Resolved; sem armazenar context.\n\n## Depende\nMD-BACKLINK-001\n\n## Trabalho\n1. `BacklinkIndex` com rebuild, backlinks_for, replace_source (idempotente), remove_source.\n2. Reusar `MetadataIndex::resolve_*` — não duplicar regras.\n3. Self-link detectado e descartado antes do store público.\n4. Testes Rust listados no WBS (alias, ambiguous, unresolved, unicode, empty, idempotência, path fence via integração existente).\n\n## AC\n- [ ] Só Resolved indexado; self-links fora\n- [ ] replace_source remove arestas antigas antes de inserir\n- [ ] Sem column / sem collision enum\n- [ ] Testes Rust verdes\n\n**Verify:** `md_backlink_002_index_pass`\n\n\nCópia local: docs/onda3/MD-BACKLINK-002-FULL.md",
-      "status": "todo",
+      "status": "done",
       "depends_on": [
         "MD-BACKLINK-001"
       ],
@@ -5523,14 +5534,24 @@
         "Testes Rust do WBS verdes",
         "Verify: md_backlink_002_index_pass"
       ],
-      "required_review_mode": "functional"
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-19T22:58:45Z",
+      "verification": {
+        "checks": [
+          "md_backlink_002_index_pass",
+          "cargo test --manifest-path src-tauri/crates/md-studio-core/Cargo.toml: 38 unit + 8 integration passed (8 testes novos de backlink: alias, ambiguous/unresolved/unsafe, unicode, empty, idempotência, self-link, ordenação)",
+          "git diff --check: pass"
+        ]
+      },
+      "completed_at": "2026-09-19T23:02:22Z"
     },
     {
       "task_id": "MD-BACKLINK-003",
       "task_kind": "impl",
       "title": "Onda3: Incremental via reindex/save/watcher existentes",
       "description": "# Onda 3 — Backlinks v3.1 | MD-BACKLINK-003\n**Executor externo.** Claim → implement → prove → complete.\n**WBS:** `docs/onda3/WBS-ONDA-3-BACKLINKS-v3.1.md`\n**Repo:** `/home/elzobrito/desenvolvimento/md-studio`\n**Proibido:** grafo, segundo watcher, status `collision`, campo `column`, persistência própria do índice, alterar Onda 2 resolver.\n\n## Regras globais\n1. Confirmar paths com `rg`/`find` (OutgoingLinksPanel, wiki_resolve, ReindexEngine).\n2. Só indexar `Resolved`; excluir self-links; Ambiguous/Unresolved fora.\n3. Contexto sob demanda; falha → context null.\n4. Não misturar commit Onda 2 com código de backlinks.\n5. Done = AC + verify + evidência quando aplicável.\n\n\n## Objetivo\nPendurar BacklinkIndex em load/rebuild, reindex_file, save_document e watcher **existentes**.\n\n## Depende\nMD-BACKLINK-002\n\n## Trabalho\n1. Após metadata atualizar → `replace_source` / `remove_source`.\n2. Criação de nota unresolved → atualiza relação.\n3. Erro de backlink não bloqueia save; log sem panic.\n4. Sem segundo watcher / segundo pipeline.\n5. Testes: add/remove link+save, retarget A→B, create unresolved target, external delete, no dupes, rebuild≡incremental.\n\n## AC\n- [ ] Hooks reais usados\n- [ ] Sem watcher duplicado\n- [ ] Idempotente sob multi-save\n- [ ] Testes incrementais verdes\n\n**Verify:** `md_backlink_003_incremental_pass`\n\n\nCópia local: docs/onda3/MD-BACKLINK-003-FULL.md",
-      "status": "todo",
+      "status": "done",
       "depends_on": [
         "MD-BACKLINK-002"
       ],
@@ -5560,14 +5581,25 @@
         "Sem duplicar sob multi-save; erro não bloqueia save",
         "Verify: md_backlink_003_incremental_pass"
       ],
-      "required_review_mode": "functional"
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-19T23:03:15Z",
+      "verification": {
+        "checks": [
+          "md_backlink_003_incremental_pass",
+          "cargo test md-studio-core: 43 unit + 8 integration passed (add/remove, retarget, unresolved-create, delete, no dupes, rebuild≡incremental)",
+          "cargo test src-tauri --lib: 6 passed; um único RecommendedWatcher permanece",
+          "git diff --check: pass"
+        ]
+      },
+      "completed_at": "2026-09-19T23:06:50Z"
     },
     {
       "task_id": "MD-BACKLINK-004",
       "task_kind": "impl",
       "title": "Onda3: IPC get_backlinks + contexto sob demanda",
       "description": "# Onda 3 — Backlinks v3.1 | MD-BACKLINK-004\n**Executor externo.** Claim → implement → prove → complete.\n**WBS:** `docs/onda3/WBS-ONDA-3-BACKLINKS-v3.1.md`\n**Repo:** `/home/elzobrito/desenvolvimento/md-studio`\n**Proibido:** grafo, segundo watcher, status `collision`, campo `column`, persistência própria do índice, alterar Onda 2 resolver.\n\n## Regras globais\n1. Confirmar paths com `rg`/`find` (OutgoingLinksPanel, wiki_resolve, ReindexEngine).\n2. Só indexar `Resolved`; excluir self-links; Ambiguous/Unresolved fora.\n3. Contexto sob demanda; falha → context null.\n4. Não misturar commit Onda 2 com código de backlinks.\n5. Done = AC + verify + evidência quando aplicável.\n\n\n## Objetivo\nIPC `get_backlinks` + contexto sob demanda + tipos/hook FE.\n\n## Depende\nMD-BACKLINK-002, MD-BACKLINK-003\n\n## Trabalho\n1. Comando tipado; path fence no target.\n2. Enriquecer context lendo só lines dos sources indexados; falha → null.\n3. TS interfaces conforme WBS; hook atualiza ao trocar doc.\n4. Sem endpoint summary redundante se BacklinkResult já traz contagens.\n5. Testes IPC / mocks.\n\n## AC\n- [ ] camelCase; empty válido; Ambiguous ausente\n- [ ] context on-demand; null não remove ocorrência\n- [ ] path fora do workspace rejeitado\n- [ ] Hook FE ok\n\n**Verify:** `md_backlink_004_ipc_pass`\n\n\nCópia local: docs/onda3/MD-BACKLINK-004-FULL.md",
-      "status": "todo",
+      "status": "done",
       "depends_on": [
         "MD-BACKLINK-002",
         "MD-BACKLINK-003"
@@ -5602,14 +5634,25 @@
         "Tipos FE alinhados; hook ok",
         "Verify: md_backlink_004_ipc_pass"
       ],
-      "required_review_mode": "security"
+      "required_review_mode": "security",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-19T23:07:37Z",
+      "verification": {
+        "checks": [
+          "md_backlink_004_ipc_pass",
+          "cargo test src-tauri --lib commands::metadata: fence rejeita ../ e absoluto; context null preserva ocorrência",
+          "pnpm typecheck: pass",
+          "git diff --check: pass"
+        ]
+      },
+      "completed_at": "2026-09-19T23:08:48Z"
     },
     {
       "task_id": "MD-BACKLINK-005",
       "task_kind": "impl",
       "title": "Onda3: Painel Backlinks no painel direito",
       "description": "# Onda 3 — Backlinks v3.1 | MD-BACKLINK-005\n**Executor externo.** Claim → implement → prove → complete.\n**WBS:** `docs/onda3/WBS-ONDA-3-BACKLINKS-v3.1.md`\n**Repo:** `/home/elzobrito/desenvolvimento/md-studio`\n**Proibido:** grafo, segundo watcher, status `collision`, campo `column`, persistência própria do índice, alterar Onda 2 resolver.\n\n## Regras globais\n1. Confirmar paths com `rg`/`find` (OutgoingLinksPanel, wiki_resolve, ReindexEngine).\n2. Só indexar `Resolved`; excluir self-links; Ambiguous/Unresolved fora.\n3. Contexto sob demanda; falha → context null.\n4. Não misturar commit Onda 2 com código de backlinks.\n5. Done = AC + verify + evidência quando aplicável.\n\n\n## Objetivo\nAba/seção Backlinks no painel direito (junto Sumário / Links). Sem sidebar nova.\n\n## Depende\nMD-BACKLINK-004\n\n## Trabalho\n1. Estender shell do painel que já hospeda OutgoingLinksPanel + DocumentOutline.\n2. Header: `N documentos · M referências`; grupos por source; line + context.\n3. Estados loading / empty / error+retry; colapso 0C; dark/light; Button compartilhado.\n4. Ordenação = backend.\n\n## AC\n- [ ] Integrado ao painel direito\n- [ ] Contagens distintas docs vs ocorrências\n- [ ] context null não quebra\n- [ ] Sem segunda sidebar\n\n**Verify:** `md_backlink_005_panel_pass`\n\n\nCópia local: docs/onda3/MD-BACKLINK-005-FULL.md",
-      "status": "todo",
+      "status": "done",
       "depends_on": [
         "MD-BACKLINK-004"
       ],
@@ -5640,14 +5683,25 @@
         "Dark/light + colapso 0C",
         "Verify: md_backlink_005_panel_pass"
       ],
-      "required_review_mode": "functional"
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-19T23:09:22Z",
+      "verification": {
+        "checks": [
+          "md_backlink_005_panel_pass",
+          "BacklinksPanel hospedado em App.tsx no ResizablePanel direito; sem sidebar nova",
+          "pnpm typecheck: pass",
+          "git diff --check: pass"
+        ]
+      },
+      "completed_at": "2026-09-19T23:10:40Z"
     },
     {
       "task_id": "MD-BACKLINK-006",
       "task_kind": "impl",
       "title": "Onda3: Navegação para source + line",
       "description": "# Onda 3 — Backlinks v3.1 | MD-BACKLINK-006\n**Executor externo.** Claim → implement → prove → complete.\n**WBS:** `docs/onda3/WBS-ONDA-3-BACKLINKS-v3.1.md`\n**Repo:** `/home/elzobrito/desenvolvimento/md-studio`\n**Proibido:** grafo, segundo watcher, status `collision`, campo `column`, persistência própria do índice, alterar Onda 2 resolver.\n\n## Regras globais\n1. Confirmar paths com `rg`/`find` (OutgoingLinksPanel, wiki_resolve, ReindexEngine).\n2. Só indexar `Resolved`; excluir self-links; Ambiguous/Unresolved fora.\n3. Contexto sob demanda; falha → context null.\n4. Não misturar commit Onda 2 com código de backlinks.\n5. Done = AC + verify + evidência quando aplicável.\n\n\n## Objetivo\nClique → abrir source + go-to-line (base 1) + highlight temporário + recent files.\n\n## Depende\nMD-BACKLINK-005\n\n## Trabalho\n1. Compor open-file + go-to-line **existentes** — sem segunda implementação.\n2. Path fence; arquivo ausente → erro seguro; dirty policy existente.\n3. Sem column.\n\n## AC\n- [ ] Line correta; highlight temporário\n- [ ] Recent files atualizado\n- [ ] Ausente/inválido tratados\n- [ ] Source e split ok\n\n**Verify:** `md_backlink_006_navigation_pass`\n\n\nCópia local: docs/onda3/MD-BACKLINK-006-FULL.md",
-      "status": "todo",
+      "status": "done",
       "depends_on": [
         "MD-BACKLINK-005"
       ],
@@ -5678,14 +5732,25 @@
         "Ausente/inválido seguros",
         "Verify: md_backlink_006_navigation_pass"
       ],
-      "required_review_mode": "functional"
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-19T23:10:47Z",
+      "verification": {
+        "checks": [
+          "md_backlink_006_navigation_pass",
+          "onOpenOccurrence chama openRelative (recent files + dirty policy) e goToLine; sem column",
+          "pnpm typecheck + pnpm test: 31 files, 178 passed",
+          "git diff --check: pass"
+        ]
+      },
+      "completed_at": "2026-09-19T23:12:37Z"
     },
     {
       "task_id": "MD-BACKLINK-007",
       "task_kind": "impl",
       "title": "Onda3: A11y e estados do painel Backlinks",
       "description": "# Onda 3 — Backlinks v3.1 | MD-BACKLINK-007\n**Executor externo.** Claim → implement → prove → complete.\n**WBS:** `docs/onda3/WBS-ONDA-3-BACKLINKS-v3.1.md`\n**Repo:** `/home/elzobrito/desenvolvimento/md-studio`\n**Proibido:** grafo, segundo watcher, status `collision`, campo `column`, persistência própria do índice, alterar Onda 2 resolver.\n\n## Regras globais\n1. Confirmar paths com `rg`/`find` (OutgoingLinksPanel, wiki_resolve, ReindexEngine).\n2. Só indexar `Resolved`; excluir self-links; Ambiguous/Unresolved fora.\n3. Contexto sob demanda; falha → context null.\n4. Não misturar commit Onda 2 com código de backlinks.\n5. Done = AC + verify + evidência quando aplicável.\n\n\n## Objetivo\nA11y + consistência visual.\n\n## Depende\nMD-BACKLINK-005, MD-BACKLINK-006\n\n## Trabalho\nTabs/grupos/ocorrências com teclado, aria-selected/expanded, foco visível, contagens em texto, tokens tema, singular/plural.\n\n## AC\n- [ ] Navegação só teclado\n- [ ] Nomes acessíveis conforme WBS\n- [ ] Dark/light + design system\n\n**Verify:** `md_backlink_007_ux_pass`\n\n\nCópia local: docs/onda3/MD-BACKLINK-007-FULL.md",
-      "status": "todo",
+      "status": "done",
       "depends_on": [
         "MD-BACKLINK-005",
         "MD-BACKLINK-006"
@@ -5715,14 +5780,25 @@
         "Contagens em texto; design system",
         "Verify: md_backlink_007_ux_pass"
       ],
-      "required_review_mode": "functional"
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-19T23:12:44Z",
+      "verification": {
+        "checks": [
+          "md_backlink_007_ux_pass",
+          "role=tree/treeitem, aria-expanded/selected, navegação por setas",
+          "pnpm typecheck: pass",
+          "git diff --check: pass"
+        ]
+      },
+      "completed_at": "2026-09-19T23:13:39Z"
     },
     {
       "task_id": "MD-BACKLINK-008",
       "task_kind": "qa",
       "title": "Onda3: QA Backlinks + regressão Onda 2",
       "description": "# Onda 3 — Backlinks v3.1 | MD-BACKLINK-008\n**Executor externo.** Claim → implement → prove → complete.\n**WBS:** `docs/onda3/WBS-ONDA-3-BACKLINKS-v3.1.md`\n**Repo:** `/home/elzobrito/desenvolvimento/md-studio`\n**Proibido:** grafo, segundo watcher, status `collision`, campo `column`, persistência própria do índice, alterar Onda 2 resolver.\n\n## Regras globais\n1. Confirmar paths com `rg`/`find` (OutgoingLinksPanel, wiki_resolve, ReindexEngine).\n2. Só indexar `Resolved`; excluir self-links; Ambiguous/Unresolved fora.\n3. Contexto sob demanda; falha → context null.\n4. Não misturar commit Onda 2 com código de backlinks.\n5. Done = AC + verify + evidência quando aplicável.\n\n\n## Objetivo\nQA + regressão Onda 2 + relatório `docs/qa/onda3-backlinks.md`.\n\n## Depende\n000–007\n\n## Trabalho\n1. Suites Rust/FE do WBS § MD-BACKLINK-008.\n2. Regressão wiki Onda 2 completa.\n3. pnpm test/typecheck/build + cargo tests + git diff --check.\n4. Visual checklist; documentar limite se sem Tauri desktop interativo.\n5. Confirmar: sem grafo.\n\n## AC\n- [ ] Todas 000–008 done\n- [ ] Relatório QA criado; limites honestos\n- [ ] verify ok; gate `onda_3_backlinks_v3_1_complete`\n\n**Verify:** `md_backlink_008_qa_pass`\n\n\nCópia local: docs/onda3/MD-BACKLINK-008-FULL.md",
-      "status": "todo",
+      "status": "done",
       "depends_on": [
         "MD-BACKLINK-000",
         "MD-BACKLINK-001",
@@ -5761,7 +5837,19 @@
         "Sem grafo; limites honestos",
         "Verify: md_backlink_008_qa_pass / onda_3_backlinks_v3_1_complete"
       ],
-      "required_review_mode": "regression"
+      "required_review_mode": "regression",
+      "assigned_to": "agent-qa",
+      "started_at": "2026-09-19T23:13:49Z",
+      "verification": {
+        "checks": [
+          "md_backlink_008_qa_pass",
+          "onda_3_backlinks_v3_1_complete",
+          "pnpm test: 32 files, 183 passed; pnpm typecheck e pnpm build: pass",
+          "cargo test md-studio-core: 43 unit + 8 integration; src-tauri --lib: 8 passed",
+          "git diff --check: pass; um RecommendedWatcher; visual preview Backlinks empty state em dark/light"
+        ]
+      },
+      "completed_at": "2026-09-19T23:17:16Z"
     },
     {
       "task_id": "MD-HOTFIX-DESKTOP-002",
@@ -5816,15 +5904,54 @@
         ]
       },
       "completed_at": "2026-09-19T22:08:02Z"
+    },
+    {
+      "task_id": "MD-README-SHOTS-001",
+      "task_kind": "impl",
+      "title": "README com prints reais do aplicativo",
+      "description": "Atualizar README.md com apresentação do produto e screenshots reais do MD Studio (welcome, editor/preview, painel). Imagens em docs/screenshots/. Sem mudar comportamento do app.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "MD-README-SHOTS-001"
+      ],
+      "outputs": {
+        "files": [
+          "README.md"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "README.md",
+        "docs/screenshots/**"
+      ],
+      "task_type": "maintenance",
+      "acceptance_criteria": [
+        "README descreve o produto e aponta screenshots reais",
+        "Imagens em docs/screenshots/ renderizam no README",
+        "Sem mudança de comportamento do app"
+      ],
+      "required_review_mode": "docs",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-19T23:34:40Z",
+      "verification": {
+        "checks": [
+          "README.md referencia docs/screenshots/welcome.png, editor-split.png e preview.png",
+          "três PNGs reais presentes em docs/screenshots/ (welcome 141K, editor-split 232K, preview 161K)",
+          "sem alteração de src/ nem do comportamento do app"
+        ]
+      },
+      "completed_at": "2026-09-19T23:37:03Z"
     }
   ],
   "indexes": {
     "by_status": {
-      "done": 149,
-      "todo": 8
+      "done": 158
     },
     "by_kind": {
-      "impl": 102,
+      "impl": 103,
       "qa": 30,
       "spec": 25
     }

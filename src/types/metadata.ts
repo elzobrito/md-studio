@@ -57,3 +57,22 @@ export interface ReindexReport {
   skipped: number;
   errors: string[];
 }
+
+export interface BacklinkOccurrence {
+  sourcePath: string;
+  line: number;
+  context: string | null;
+}
+
+export interface BacklinkGroup {
+  sourcePath: string;
+  sourceTitle: string | null;
+  occurrences: BacklinkOccurrence[];
+}
+
+export interface BacklinkResult {
+  targetPath: string;
+  documentCount: number;
+  occurrenceCount: number;
+  groups: BacklinkGroup[];
+}

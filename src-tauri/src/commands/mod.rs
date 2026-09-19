@@ -38,6 +38,7 @@ pub fn open_workspace(path: String, state: State<'_, AppState>) -> Result<Worksp
         if let Ok(mut idx) = engine.index.lock() {
             *idx = persisted;
         }
+        engine.rebuild_backlinks();
     } else {
         let _ = engine.full_reindex();
         if let Ok(idx) = engine.index.lock() {

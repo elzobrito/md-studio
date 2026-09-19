@@ -1,0 +1,13 @@
+{
+  "after_sha256": "a57749eb2b50f368c23c00275c2c3946b45284e994ac23dd5b7f99419480dcf1",
+  "artifact_id": "ART-a57749eb2b50f368c23c00275c2c3946b45284e994ac23dd5b7f99419480dcf1",
+  "artifact_sha256": "fcc85c5987f8452aaf78403606346c3033ee248f8c90894f70af86aaf9ef25b8",
+  "before_sha256": "a57749eb2b50f368c23c00275c2c3946b45284e994ac23dd5b7f99419480dcf1",
+  "bytes": 1852,
+  "content": "import { StateEffect, StateField } from \"@codemirror/state\";\nimport { Decoration, EditorView, type DecorationSet } from \"@codemirror/view\";\n\nconst setHighlight = StateEffect.define<number | null>();\nconst highlightMark = Decoration.line({ class: \"cm-backlink-line\" });\n\nexport const backlinkLineHighlight = StateField.define<DecorationSet>({\n  create() {\n    return Decoration.none;\n  },\n  update(deco, tr) {\n    for (const effect of tr.effects) {\n      if (effect.is(setHighlight)) {\n        if (effect.value == null) return Decoration.none;\n        const lineNo = Math.max(1, Math.min(effect.value, tr.state.doc.lines));\n        const line = tr.state.doc.line(lineNo);\n        return Decoration.set([highlightMark.range(line.from)]);\n      }\n    }\n    return deco.map(tr.changes);\n  },\n  provide: (field) => EditorView.decorations.from(field),\n});\n\nexport const backlinkLineTheme = EditorView.theme({\n  \".cm-backlink-line\": {\n    backgroundColor: \"var(--accent-soft)\",\n  },\n});\n\nlet pendingLine: number | null = null;\nlet highlightTimer: number | null = null;\n\nexport function queueGoToLine(line: number) {\n  pendingLine = line;\n}\n\nexport function consumeQueuedGoToLine(): number | null {\n  const line = pendingLine;\n  pendingLine = null;\n  return line;\n}\n\nexport function goToLineWithHighlight(view: EditorView, line: number) {\n  const valid = Math.max(1, Math.min(line, view.state.doc.lines));\n  const info = view.state.doc.line(valid);\n  pendingLine = null;\n  view.dispatch({\n    selection: { anchor: info.from },\n    effects: [setHighlight.of(valid), EditorView.scrollIntoView(info.from)],\n    scrollIntoView: true,\n  });\n  view.focus();\n  if (highlightTimer != null) window.clearTimeout(highlightTimer);\n  highlightTimer = window.setTimeout(() => {\n    view.dispatch({ effects: setHighlight.of(null) });\n    highlightTimer = null;\n  }, 1200);\n}\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "src/editor/line-highlight.ts",
+  "source_path": "src/editor/line-highlight.ts",
+  "ts": "2026-09-19T23:12:29Z"
+}

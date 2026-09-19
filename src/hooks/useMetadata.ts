@@ -5,6 +5,7 @@ import type {
   WikiLink,
   ResolvedWikiLink,
   ReindexReport,
+  BacklinkResult,
 } from "../types/metadata";
 import * as metadataIpc from "../lib/ipc/metadata";
 
@@ -15,6 +16,7 @@ export function useMetadata(currentPath?: string) {
   const [tags, setTags] = useState<string[]>([]);
   const [wikiLinks, setWikiLinks] = useState<WikiLink[]>([]);
   const [resolvedWikiLinks, setResolvedWikiLinks] = useState<ResolvedWikiLink[]>([]);
+  const [backlinks, setBacklinks] = useState<BacklinkResult>(metadataIpc.emptyBacklinks());
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -53,6 +55,8 @@ export function useMetadata(currentPath?: string) {
       setWikiLinks(links);
       const resolvedLinks = await metadataIpc.getResolvedWikiLinksFor(path);
       setResolvedWikiLinks(resolvedLinks);
+      const incoming = await metadataIpc.getBacklinks(path);
+      setBacklinks(incoming);
     } catch (e) {
       setError(e instanceof Error ? e.message : String(e));
     }
@@ -92,6 +96,7 @@ export function useMetadata(currentPath?: string) {
       setCurrentDocMetadata(null);
       setWikiLinks([]);
       setResolvedWikiLinks([]);
+      setBacklinks(metadataIpc.emptyBacklinks());
     }
   }, [currentPath, refreshCurrentDoc]);
 
@@ -102,6 +107,7 @@ export function useMetadata(currentPath?: string) {
     tags,
     wikiLinks,
     resolvedWikiLinks,
+    backlinks,
     loading,
     error,
     refreshStats,

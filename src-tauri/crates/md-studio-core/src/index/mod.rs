@@ -1,3 +1,4 @@
+pub mod backlink_index;
 pub mod document_metadata;
 pub mod index_persistence;
 pub mod metadata_extractor;
@@ -6,6 +7,7 @@ pub mod reindex_engine;
 pub mod workspace_scanner;
 pub mod wiki_resolve;
 
+pub use backlink_index::{BacklinkGroup, BacklinkIndex, BacklinkOccurrence, BacklinkResult};
 pub use document_metadata::{DocumentMetadata, Heading, Link, WikiLink};
 pub use index_persistence::{clear_index, index_path, load_index, save_index, INDEX_DIR, INDEX_FILE};
 pub use metadata_extractor::{extract_metadata, extract_metadata_from_str, slugify};

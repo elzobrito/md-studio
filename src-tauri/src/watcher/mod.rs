@@ -12,7 +12,7 @@ use std::sync::mpsc;
 use std::sync::Arc;
 use std::thread;
 use std::time::{Duration, Instant};
-use tauri::{AppHandle, Emitter, State};
+use tauri::{AppHandle, Emitter, Manager, State};
 
 use crate::AppState;
 
@@ -156,6 +156,7 @@ fn spawn_watcher(
                     let batch: Vec<_> = pending.drain().map(|(_, v)| v).collect();
                     last_push = Instant::now();
                     for dto in batch {
+                        apply_watch_to_engine(&app, &dto);
                         let _ = app.emit(WATCH_EVENT, dto);
                     }
                 }
@@ -163,12 +164,28 @@ fn spawn_watcher(
 
             // flush remaining
             for (_, dto) in pending.drain() {
+                apply_watch_to_engine(&app, &dto);
                 let _ = app.emit(WATCH_EVENT, dto);
             }
         })
         .map_err(|e| e.to_string())?;
 
     Ok(())
+}
+
+fn apply_watch_to_engine(app: &AppHandle, dto: &WatchEventDto) {
+    let Some(state) = app.try_state::<crate::AppState>() else {
+        return;
+    };
+    let engine = state.metadata_engine.lock().as_ref().cloned();
+    let Some(engine) = engine else {
+        return;
+    };
+    engine.apply_external_change(
+        &dto.r#type,
+        Path::new(&dto.relative_path),
+        dto.from.as_deref().map(Path::new),
+    );
 }
 
 #[tauri::command]

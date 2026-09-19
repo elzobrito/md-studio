@@ -111,3 +111,62 @@
   color: var(--danger);
   font-size: 0.8rem;
 }
+
+.backlinks-error {
+  display: grid;
+  gap: 0.5rem;
+  justify-items: start;
+}
+
+.backlinks-groups {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0.65rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.backlinks-group ul {
+  display: grid;
+  gap: 0.2rem;
+  margin: 0.25rem 0 0;
+  padding: 0 0 0 0.35rem;
+  list-style: none;
+}
+
+.backlinks-group-toggle,
+.backlinks-group button {
+  display: flex;
+  width: 100%;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.4rem 0.5rem;
+  border: 0;
+  border-radius: 0.35rem;
+  color: var(--fg);
+  background: transparent;
+  text-align: left;
+}
+
+.backlinks-group-toggle:hover,
+.backlinks-group-toggle:focus-visible,
+.backlinks-group button:hover,
+.backlinks-group button:focus-visible {
+  background: var(--accent-soft);
+  outline: none;
+}
+
+.backlinks-group-toggle:focus-visible,
+.backlinks-group button:focus-visible {
+  box-shadow: 0 0 0 2px var(--accent);
+}
+
+.backlinks-context {
+  display: block;
+  overflow: hidden;
+  color: var(--fg-muted);
+  font-size: 0.75rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

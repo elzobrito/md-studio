@@ -27,6 +27,12 @@ import {
   type WikiDocumentCandidate,
 } from "../editor/wiki/wiki-completion";
 import { WikiCompletionMenu } from "./editor/WikiCompletionMenu";
+import {
+  backlinkLineHighlight,
+  backlinkLineTheme,
+  consumeQueuedGoToLine,
+  goToLineWithHighlight,
+} from "../editor/line-highlight";
 
 export const editorCursorExtensions = [
   drawSelection({ cursorBlinkRate: 1200 }),
@@ -76,6 +82,8 @@ export function MarkdownEditor(props: {
         highlightSelectionMatches(),
         EditorView.lineWrapping,
         ...editorCursorExtensions,
+        backlinkLineHighlight,
+        backlinkLineTheme,
         keymap.of([
           ...defaultKeymap,
           ...historyKeymap,
@@ -146,15 +154,12 @@ export function MarkdownEditor(props: {
     editorStore.setTotalLines(view.state.doc.lines);
 
     const unregisterGoToLine = editorStore.registerGoToLine((targetLine: number) => {
-      const doc = view.state.doc;
-      const validLine = Math.max(1, Math.min(targetLine, doc.lines));
-      const line = doc.line(validLine);
-      view.dispatch({
-        selection: { anchor: line.from },
-        scrollIntoView: true,
-      });
-      view.focus();
+      goToLineWithHighlight(view, targetLine);
     });
+    const queued = consumeQueuedGoToLine();
+    if (queued != null) {
+      goToLineWithHighlight(view, queued);
+    }
 
     onScroller?.(view.scrollDOM);
     return () => {
