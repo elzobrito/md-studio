@@ -46,3 +46,13 @@ chmod +x src-tauri/target/release/bundle/appimage/*.AppImage
 
 - Ícones em `src-tauri/icons/`
 - CSP e capabilities mínimas em `src-tauri/capabilities/default.json` (inclui `dialog:allow-ask` para confirmação de sobrescrita)
+
+## Associação de arquivos Markdown
+
+O bundle declara `fileAssociations` para `.md` / `.markdown` / `.mdx` e usa o template
+`src-tauri/linux/md-studio.desktop` com `Exec=… %F` e `MimeType=…` para o `.desktop`
+gerado no `.deb` / AppImage.
+
+Após instalar, abrir um `.md` pelo gerenciador de arquivos (ou `md-studio /caminho/abs/arquivo.md`)
+deve carregar o arquivo no editor (cold start). Encaminhamento com a app já aberta:
+ver `docs/followups/single-instance-open-path.md`.

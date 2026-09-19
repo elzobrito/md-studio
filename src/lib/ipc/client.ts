@@ -126,6 +126,11 @@ export const ipc = {
     invoke<void>("export_html", { html, destination, overwrite }),
   startWatching: (workspaceId: string) => invoke<void>("start_watching", { workspaceId }),
   stopWatching: () => invoke<void>("stop_watching"),
+  /** Absolute Markdown path from process argv on cold start (consumed once). */
+  getLaunchPath: async () => {
+    const raw = await invoke<string | null>("get_launch_path");
+    return typeof raw === "string" && raw.length > 0 ? raw : null;
+  },
 };
 
 export type PickFolderResult =
@@ -262,6 +267,7 @@ async function browserInvoke<T>(cmd: string, args?: Record<string, unknown>): Pr
 
   if (cmd === "search_workspace") return [] as T;
   if (cmd === "export_html") return undefined as T;
+  if (cmd === "get_launch_path") return null as T;
   throw new Error(`browser IPC missing: ${cmd}`);
 }
 

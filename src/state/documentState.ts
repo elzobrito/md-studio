@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { ipc, pickSaveMarkdownFile, subscribeWorkspaceWatch } from "../lib/ipc";
+import { ipc, isTauriRuntime, pickSaveMarkdownFile, subscribeWorkspaceWatch } from "../lib/ipc";
 import { persistDocument } from "../services/save";
 import type { DocumentSnapshot, WorkspaceDescriptor } from "../contracts/types";
 import { loadDraft } from "../lib/drafts/recovery";
@@ -224,6 +224,27 @@ export function useDocumentState() {
     editorStore.setSaveStatus("saved");
   }, []);
 
+
+
+  // Cold start: open Markdown path from OS / argv (Tauri only).
+  useEffect(() => {
+    if (!isTauriRuntime()) return;
+    let cancelled = false;
+    void (async () => {
+      try {
+        const path = await ipc.getLaunchPath();
+        if (!path || cancelled) return;
+        await openFile(path);
+      } catch (e) {
+        const msg = e instanceof Error ? e.message : String(e);
+        setDiagnostics((d) => [...d, `Não foi possível abrir arquivo da linha de comando: ${msg}`]);
+        console.error("get_launch_path / openFile failed", e);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [openFile]);
 
   useEffect(() => {
     if (!workspace?.id) return;
