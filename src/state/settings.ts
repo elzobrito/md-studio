@@ -10,6 +10,8 @@ export interface SettingsState {
   previewFontFamily: string;
   lineWrapping: boolean;
   lineNumbers: boolean;
+  smartPaste: boolean;
+  markdownHints: boolean;
 }
 
 const STORAGE_KEY = "md-studio-settings-v2";
@@ -66,6 +68,8 @@ export const DEFAULT_SETTINGS: SettingsState = {
   previewFontFamily: PREVIEW_FONT_FAMILY_OPTIONS[0].value,
   lineWrapping: true,
   lineNumbers: true,
+  smartPaste: true,
+  markdownHints: true,
 };
 
 
@@ -154,6 +158,20 @@ class SettingsStore {
   public setLineNumbers(lineNumbers: boolean) {
     if (this.state.lineNumbers === lineNumbers) return;
     this.state = { ...this.state, lineNumbers };
+    this.save();
+    this.notify();
+  }
+
+  public setSmartPaste(smartPaste: boolean) {
+    if (this.state.smartPaste === smartPaste) return;
+    this.state = { ...this.state, smartPaste };
+    this.save();
+    this.notify();
+  }
+
+  public setMarkdownHints(markdownHints: boolean) {
+    if (this.state.markdownHints === markdownHints) return;
+    this.state = { ...this.state, markdownHints };
     this.save();
     this.notify();
   }

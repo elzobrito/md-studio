@@ -40,6 +40,9 @@ pub fn run() {
                 let path_str = path.to_string_lossy().into_owned();
                 let _ = app.emit("app://open-file", serde_json::json!({ "path": path_str }));
             }
+            if let Some(splash) = app.get_webview_window("splashscreen") {
+                let _ = splash.close();
+            }
             if let Some(w) = app.get_webview_window("main") {
                 let _ = w.unminimize();
                 let _ = w.show();
@@ -49,6 +52,21 @@ pub fn run() {
         .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_opener::init())
         .manage(state)
+        .setup(|app| {
+            use tauri::Manager;
+            let handle = app.handle().clone();
+            std::thread::spawn(move || {
+                std::thread::sleep(std::time::Duration::from_secs(6));
+                if let Some(splash) = handle.get_webview_window("splashscreen") {
+                    let _ = splash.close();
+                }
+                if let Some(main) = handle.get_webview_window("main") {
+                    let _ = main.show();
+                    let _ = main.set_focus();
+                }
+            });
+            Ok(())
+        })
         .invoke_handler(tauri::generate_handler![
             commands::open_workspace,
             commands::list_entries,
@@ -63,6 +81,7 @@ pub fn run() {
             commands::metadata::trigger_reindex,
             commands::metadata::get_wiki_links_for,
             commands::metadata::get_tags,
+            commands::close_splash,
             watcher::start_watching,
             watcher::stop_watching,
         ])

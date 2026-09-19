@@ -1,10 +1,26 @@
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { EditorState } from "@codemirror/state";
 import { EditorView, keymap, lineNumbers } from "@codemirror/view";
 import { defaultKeymap, history, historyKeymap } from "@codemirror/commands";
 import { searchKeymap, highlightSelectionMatches } from "@codemirror/search";
 import { markdown } from "@codemirror/lang-markdown";
 import { editorStore } from "../state/editor";
+import { FormattingToolbar } from "./editor/FormattingToolbar";
+import { SlashMenu } from "./editor/SlashMenu";
+import {
+  createSlashPlugin,
+  executeSlashItem,
+  type SlashState,
+} from "../editor/slash/slash-plugin";
+import { smartPasteExtension } from "../editor/paste/paste-plugin";
+import type { SlashItem } from "../editor/slash/slash-items";
+import {
+  toggleBold,
+  toggleItalic,
+  toggleStrikethrough,
+  insertLink,
+  toggleCode,
+} from "../editor/formatting";
 
 export function MarkdownEditor(props: {
   value: string;
@@ -15,7 +31,20 @@ export function MarkdownEditor(props: {
 }) {
   const parent = useRef<HTMLDivElement>(null);
   const viewRef = useRef<EditorView | null>(null);
+  const [editorView, setEditorView] = useState<EditorView | null>(null);
+  const [slashState, setSlashState] = useState<SlashState | null>(null);
   const onScroller = props.onScroller;
+
+  const handleSelectSlashItem = useCallback((item: SlashItem) => {
+    const view = viewRef.current;
+    if (!view || !slashState) return;
+    executeSlashItem(view, item, slashState);
+    setSlashState(null);
+  }, [slashState]);
+
+  const handleCloseSlashMenu = useCallback(() => {
+    setSlashState(null);
+  }, []);
 
   useEffect(() => {
     if (!parent.current) return;
@@ -31,6 +60,41 @@ export function MarkdownEditor(props: {
           ...defaultKeymap,
           ...historyKeymap,
           ...searchKeymap,
+          {
+            key: "Mod-b",
+            run: (v) => {
+              toggleBold(v);
+              return true;
+            },
+          },
+          {
+            key: "Mod-i",
+            run: (v) => {
+              toggleItalic(v);
+              return true;
+            },
+          },
+          {
+            key: "Mod-Shift-s",
+            run: (v) => {
+              toggleStrikethrough(v);
+              return true;
+            },
+          },
+          {
+            key: "Mod-k",
+            run: (v) => {
+              insertLink(v);
+              return true;
+            },
+          },
+          {
+            key: "Mod-e",
+            run: (v) => {
+              toggleCode(v);
+              return true;
+            },
+          },
           {
             key: "Mod-s",
             run: () => {
@@ -51,10 +115,13 @@ export function MarkdownEditor(props: {
             editorStore.setCursor(line.number, col);
           }
         }),
+        createSlashPlugin(setSlashState),
+        smartPasteExtension,
       ],
     });
     const view = new EditorView({ state, parent: parent.current });
     viewRef.current = view;
+    setEditorView(view);
     editorStore.setTotalLines(view.state.doc.lines);
 
     const unregisterGoToLine = editorStore.registerGoToLine((targetLine: number) => {
@@ -72,6 +139,7 @@ export function MarkdownEditor(props: {
     return () => {
       unregisterGoToLine();
       onScroller?.(null);
+      setEditorView(null);
       view.destroy();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -95,7 +163,13 @@ export function MarkdownEditor(props: {
           Salvar
         </button>
       </header>
+      <FormattingToolbar view={editorView} />
       <div ref={parent} className="editor-host" />
+      <SlashMenu
+        slashState={slashState}
+        onSelect={handleSelectSlashItem}
+        onClose={handleCloseSlashMenu}
+      />
     </section>
   );
 }

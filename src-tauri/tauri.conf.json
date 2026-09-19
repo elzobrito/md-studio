@@ -12,10 +12,24 @@
   "app": {
     "windows": [
       {
+        "label": "main",
         "title": "MD Studio",
         "width": 1280,
         "height": 800,
-        "resizable": true
+        "resizable": true,
+        "visible": false
+      },
+      {
+        "label": "splashscreen",
+        "title": "MD Studio",
+        "url": "splashscreen.html",
+        "width": 420,
+        "height": 280,
+        "resizable": false,
+        "decorations": false,
+        "center": true,
+        "visible": true,
+        "alwaysOnTop": true
       }
     ],
     "security": {

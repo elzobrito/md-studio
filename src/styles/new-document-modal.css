@@ -1,0 +1,115 @@
+.new-doc-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1100;
+  backdrop-filter: blur(2px);
+}
+
+.new-doc-modal {
+  width: 620px;
+  max-width: 90vw;
+  background: var(--bg-secondary, #252526);
+  border: 1px solid var(--border, #3e3e42);
+  border-radius: 10px;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  animation: new-doc-modal-appear 0.15s ease-out;
+}
+
+@keyframes new-doc-modal-appear {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.new-doc-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border, #3e3e42);
+}
+
+.new-doc-modal-header h2 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+  color: var(--text-primary, #ffffff);
+}
+
+.new-doc-modal-close {
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  color: var(--text-secondary, #858585);
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  line-height: 1;
+}
+
+.new-doc-modal-close:hover {
+  background: var(--color-hover, rgba(255, 255, 255, 0.1));
+  color: var(--text-primary, #ffffff);
+}
+
+.new-doc-modal-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  padding: 20px;
+}
+
+.template-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 14px;
+  background: var(--bg-primary, #1e1e1e);
+  border: 1px solid var(--border, #333333);
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s ease;
+  width: 100%;
+}
+
+.template-card:hover {
+  border-color: var(--color-accent, #007acc);
+  background: var(--color-hover, rgba(255, 255, 255, 0.05));
+  transform: translateY(-1px);
+}
+
+.template-card.selected {
+  border-color: var(--color-accent, #007acc);
+  box-shadow: 0 0 0 1px var(--color-accent, #007acc);
+}
+
+.template-card-icon {
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+.template-card-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary, #cccccc);
+  margin-bottom: 4px;
+}
+
+.template-card-desc {
+  font-size: 11px;
+  color: var(--text-secondary, #858585);
+  line-height: 1.3;
+}

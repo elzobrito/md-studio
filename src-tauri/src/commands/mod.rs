@@ -277,3 +277,16 @@ pub fn get_launch_path(state: State<'_, AppState>) -> Option<String> {
     state.launch_path.lock().take()
 }
 
+#[tauri::command]
+pub async fn close_splash(app: tauri::AppHandle) -> Result<(), String> {
+    use tauri::Manager;
+    if let Some(splash) = app.get_webview_window("splashscreen") {
+        let _ = splash.close();
+    }
+    if let Some(main) = app.get_webview_window("main") {
+        let _ = main.show();
+        let _ = main.set_focus();
+    }
+    Ok(())
+}
+

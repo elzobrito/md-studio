@@ -60,6 +60,13 @@ export function App() {
   const [isWriting, setIsWriting] = useState(true);
   const scrollSync = useScrollSync({ enabled: view === "split" });
 
+  useEffect(() => {
+    // Dismiss Tauri splashscreen once the React UI is mounted
+    import("@tauri-apps/api/core")
+      .then(({ invoke }) => invoke("close_splash"))
+      .catch(() => {});
+  }, []);
+
   const handleOpenFolderFromWelcome = useCallback(async () => {
     const result = await pickFolder();
     if (result.ok) {
