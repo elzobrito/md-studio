@@ -9,6 +9,8 @@ import { useSession, type ViewMode } from "./state/session";
 import { isTauriRuntime, pickFolder, pickMarkdownFile } from "./lib/ipc";
 import { scrollToHeading } from "./services/navigation";
 import { WelcomeScreen } from "./components/empty/WelcomeScreen";
+import { ConflictDialog } from "./components/ConflictDialog";
+import { exportActiveDocumentHtml } from "./services/exportHtml";
 import { EmptyState } from "./components/empty/EmptyState";
 import { CommandPalette } from "./components/command/CommandPalette";
 import { ResizablePanel } from "./components/layout/ResizablePanel";
@@ -37,6 +39,17 @@ export function App() {
   const session = useSession();
   const settings = useSettings();
   const doc = useDocumentState();
+
+  const handleExportHtml = useCallback(async () => {
+    const base = doc.relativePath
+      ? (doc.relativePath.split("/").pop() || "export.md").replace(/\.md$/i, ".html")
+      : "export.html";
+    const result = await exportActiveDocumentHtml(doc.content, base);
+    if (!result.ok && !result.cancelled) {
+      console.error(result.error ?? "export failed");
+    }
+  }, [doc.content, doc.relativePath]);
+
   const [query, setQuery] = useState("");
   const view = useMemo(() => session.viewMode, [session.viewMode]);
   const tauri = isTauriRuntime();
@@ -353,6 +366,7 @@ export function App() {
   const rightCollapsed = !session.rightOpen;
 
   return (
+    <>
     <div className={`app theme-${settings.theme}`} role="application" aria-label="MD Studio">
       <AppHeader
         viewMode={view}
@@ -541,5 +555,12 @@ export function App() {
         onOpenShortcuts={() => setShortcutsModalOpen(true)}
       />
     </div>
+      <ConflictDialog
+        open={!!doc.conflictPath}
+        relativePath={doc.conflictPath ?? ""}
+        onChoose={(c) => { void doc.resolveConflict(c); }}
+      />
+    </>
   );
 }
+
