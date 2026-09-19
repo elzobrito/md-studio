@@ -1,0 +1,38 @@
+.mermaid-chrome {
+  margin: 0.75rem 0;
+  border: 1px solid var(--border, #313244);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--surface, #1e1e2e);
+}
+.mermaid-chrome-toolbar {
+  display: flex;
+  gap: 0.35rem;
+  padding: 0.35rem 0.5rem;
+  border-bottom: 1px solid var(--border, #313244);
+  background: var(--surface-2, #313244);
+}
+.mermaid-chrome-toolbar button {
+  font: inherit;
+  font-size: 0.75rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 6px;
+  border: 1px solid var(--border, #45475a);
+  background: transparent;
+  color: var(--text-secondary, #a6adc8);
+  cursor: pointer;
+}
+.mermaid-chrome-toolbar button:hover {
+  color: var(--text-primary, #cdd6f4);
+  border-color: var(--accent, #89b4fa);
+}
+.mermaid-chrome .mermaid {
+  padding: 0.75rem;
+  overflow: auto;
+}
+.mermaid-chrome-source {
+  margin: 0;
+  padding: 0.75rem;
+  overflow: auto;
+  font-size: 0.8rem;
+}

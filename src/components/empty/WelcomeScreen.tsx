@@ -15,7 +15,11 @@ export function WelcomeScreen({ onOpenFolder, onOpenFile, onOpenRecent, onNewDoc
         📝
       </div>
       <h1 className="empty-state-title">MD Studio</h1>
-      <p className="empty-state-subtitle">Editor Markdown Local-First</p>
+      <p className="empty-state-subtitle">Editor Markdown local-first (Tauri)</p>
+      <p className="empty-state-hint welcome-tauri-hint">
+        Abra pastas e arquivos pelos <strong>diálogos nativos</strong> do sistema. O preview e a
+        exportação HTML usam o mesmo pipeline sanitizado — sem enviar documentos à nuvem.
+      </p>
 
       <div className="empty-state-actions">
         {onNewDocument && (
