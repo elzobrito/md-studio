@@ -7,11 +7,11 @@
     "run": {
       "run_id": "RUN-0001",
       "status": "success",
-      "last_event_seq": 1259,
-      "projection_hash_sha256": "f59c15a65dac4a9df778941c0dd1bf9654ec00cde02c8c6410eb74d0952a4c39",
+      "last_event_seq": 1277,
+      "projection_hash_sha256": "1a1374d0db31f1b22622b1092e0144b7e2a65a767d0607893e1ddc555db76691",
       "verify_status": "ok"
     },
-    "updated_at": "2026-09-19T18:05:14Z"
+    "updated_at": "2026-09-19T18:18:33Z"
   },
   "project": {
     "name": "MD Studio",
@@ -3625,7 +3625,7 @@
       "task_kind": "impl",
       "title": "Watcher FS real + conflito dirty",
       "description": "Implementar watcher de filesystem (notify) emitindo eventos para o frontend; UI de reload/conflito quando arquivo dirty muda no disco. Hoje src-tauri watcher é stub.",
-      "status": "in_progress",
+      "status": "done",
       "depends_on": [],
       "targets": [
         "RF-06 watcher"
@@ -3651,14 +3651,21 @@
       ],
       "required_review_mode": "functional",
       "assigned_to": "agent-impl",
-      "started_at": "2026-09-19T18:05:13Z"
+      "started_at": "2026-09-19T18:05:13Z",
+      "verification": {
+        "checks": [
+          "PR #1 MERGED 62992d9",
+          "main contains watcher/export/release"
+        ]
+      },
+      "completed_at": "2026-09-19T18:18:28Z"
     },
     {
       "task_id": "MDS-PROD-EXPORT-001",
       "task_kind": "impl",
       "title": "Export HTML unificado com pipeline do preview",
       "description": "export_html no Tauri não deve gravar markdown em <pre>; deve usar o mesmo HTML sanitizado do preview (ou FE gera e Rust só escreve atomicamente no destino escolhido).",
-      "status": "in_progress",
+      "status": "done",
       "depends_on": [],
       "targets": [
         "RF-07 export"
@@ -3684,14 +3691,21 @@
       ],
       "required_review_mode": "security",
       "assigned_to": "agent-impl",
-      "started_at": "2026-09-19T18:05:14Z"
+      "started_at": "2026-09-19T18:05:14Z",
+      "verification": {
+        "checks": [
+          "PR #1 MERGED 62992d9",
+          "main contains watcher/export/release"
+        ]
+      },
+      "completed_at": "2026-09-19T18:18:30Z"
     },
     {
       "task_id": "MDS-PROD-RELEASE-001",
       "task_kind": "impl",
       "title": "Chrome de release: README, onboarding, packaging Linux",
       "description": "README real do MD Studio (não boilerplate ESAA); first-run/onboarding Tauri-friendly; alinhar Mermaid UI mínima (zoom ou export); documentar/build targets .deb/AppImage. Não apagar target/node_modules só para liberar disco.",
-      "status": "in_progress",
+      "status": "done",
       "depends_on": [],
       "targets": [
         "RNF-PORT-01"
@@ -3719,13 +3733,19 @@
       ],
       "required_review_mode": "docs",
       "assigned_to": "agent-impl",
-      "started_at": "2026-09-19T18:05:14Z"
+      "started_at": "2026-09-19T18:05:14Z",
+      "verification": {
+        "checks": [
+          "PR #1 MERGED 62992d9",
+          "main contains watcher/export/release"
+        ]
+      },
+      "completed_at": "2026-09-19T18:18:33Z"
     }
   ],
   "indexes": {
     "by_status": {
-      "done": 108,
-      "in_progress": 3
+      "done": 111
     },
     "by_kind": {
       "impl": 63,
