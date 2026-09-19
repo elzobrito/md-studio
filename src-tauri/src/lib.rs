@@ -9,16 +9,19 @@ pub mod workspace;
 
 use parking_lot::Mutex;
 use std::sync::Arc;
+use watcher::WatcherHub;
 use workspace::WorkspaceRegistry;
 
 pub struct AppState {
     pub workspaces: Arc<Mutex<WorkspaceRegistry>>,
+    pub watcher: Arc<WatcherHub>,
 }
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     let state = AppState {
         workspaces: Arc::new(Mutex::new(WorkspaceRegistry::default())),
+        watcher: Arc::new(WatcherHub::default()),
     };
 
     tauri::Builder::default()
@@ -32,6 +35,8 @@ pub fn run() {
             commands::save_document,
             commands::search_workspace,
             commands::export_html,
+            watcher::start_watching,
+            watcher::stop_watching,
         ])
         .run(tauri::generate_context!())
         .expect("error while running MD Studio");

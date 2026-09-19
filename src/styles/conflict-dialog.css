@@ -1,0 +1,57 @@
+.conflict-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 18, 25, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+}
+.conflict-dialog {
+  background: var(--surface, #1e1e2e);
+  color: var(--text-primary, #cdd6f4);
+  border: 1px solid var(--border, #313244);
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  max-width: 28rem;
+  width: calc(100% - 2rem);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+}
+.conflict-dialog h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.1rem;
+}
+.conflict-dialog p {
+  margin: 0 0 1rem;
+  line-height: 1.45;
+  font-size: 0.92rem;
+  color: var(--text-secondary, #a6adc8);
+}
+.conflict-dialog code {
+  font-size: 0.85em;
+}
+.conflict-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: flex-end;
+}
+.conflict-btn {
+  border: 1px solid var(--border, #45475a);
+  background: var(--surface-2, #313244);
+  color: inherit;
+  border-radius: 8px;
+  padding: 0.45rem 0.75rem;
+  cursor: pointer;
+  font: inherit;
+}
+.conflict-btn.primary {
+  background: var(--accent, #89b4fa);
+  color: #1e1e2e;
+  border-color: transparent;
+}
+.conflict-btn.danger {
+  background: #f38ba8;
+  color: #1e1e2e;
+  border-color: transparent;
+}
