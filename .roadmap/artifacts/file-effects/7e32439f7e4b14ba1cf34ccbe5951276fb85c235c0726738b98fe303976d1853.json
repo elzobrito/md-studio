@@ -1,0 +1,13 @@
+{
+  "after_sha256": "e346750d127583b2d8316dc8676629b53ee855dc620d7d7c55865fcb2e2e6295",
+  "artifact_id": "ART-e346750d127583b2d8316dc8676629b53ee855dc620d7d7c55865fcb2e2e6295",
+  "artifact_sha256": "7e32439f7e4b14ba1cf34ccbe5951276fb85c235c0726738b98fe303976d1853",
+  "before_sha256": "e346750d127583b2d8316dc8676629b53ee855dc620d7d7c55865fcb2e2e6295",
+  "bytes": 182,
+  "content": "import type { IpcErrorCode } from \"../../contracts/types\";\n\nexport function formatIpcError(code: IpcErrorCode | string, message: string): string {\n  return `[${code}] ${message}`;\n}\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "src/lib/diagnostics/format.ts",
+  "source_path": "src/lib/diagnostics/format.ts",
+  "ts": "2026-07-10T14:03:08Z"
+}

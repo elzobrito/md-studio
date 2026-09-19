@@ -1,0 +1,13 @@
+{
+  "after_sha256": "b400c2364d6ef4a46acaa2332084cff9c2fcc6b3b352f9634e21a68e5823b63a",
+  "artifact_id": "ART-b400c2364d6ef4a46acaa2332084cff9c2fcc6b3b352f9634e21a68e5823b63a",
+  "artifact_sha256": "809711838986b9a6f8873282c0fb64da09f4dbf658afe0a960d4e9d7e841b75c",
+  "before_sha256": "b400c2364d6ef4a46acaa2332084cff9c2fcc6b3b352f9634e21a68e5823b63a",
+  "bytes": 467,
+  "content": "const ALERTS = new Set([\"NOTE\", \"TIP\", \"IMPORTANT\", \"WARNING\", \"CAUTION\"]);\n\nexport function transformGithubAlerts(markdown: string): string {\n  // Pre-pass: convert GitHub-style alerts to blockquotes with class markers for later rendering\n  return markdown.replace(\n    /^> \\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\\]\\s*$/gim,\n    (_m, kind: string) => `> **${kind}**`,\n  );\n}\n\nexport function isAlertKind(s: string): boolean {\n  return ALERTS.has(s.toUpperCase());\n}\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "src/markdown/plugins/alerts.ts",
+  "source_path": "src/markdown/plugins/alerts.ts",
+  "ts": "2026-07-10T14:02:37Z"
+}

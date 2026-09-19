@@ -1,0 +1,13 @@
+{
+  "after_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "artifact_id": "ART-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "artifact_sha256": "89410ac9b45237eaebb5b2257e507132121e1f873cd270e56dacf813dabaaa68",
+  "before_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "bytes": 0,
+  "content": "",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "src/contracts/.gitkeep",
+  "source_path": "src/contracts/.gitkeep",
+  "ts": "2026-07-10T14:02:14Z"
+}

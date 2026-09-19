@@ -1,0 +1,13 @@
+{
+  "after_sha256": "33c0667b6816ab441122cf8ae0d437b3dd5ef142ed292c0f695d496b97137dd5",
+  "artifact_id": "ART-33c0667b6816ab441122cf8ae0d437b3dd5ef142ed292c0f695d496b97137dd5",
+  "artifact_sha256": "415b13f96a28e50ca16501f4b24e5073eb5c41a0d03da9908766ac88bc6e8dbb",
+  "before_sha256": "33c0667b6816ab441122cf8ae0d437b3dd5ef142ed292c0f695d496b97137dd5",
+  "bytes": 337,
+  "content": "import { describe, expect, it } from \"vitest\";\nimport { exportHtmlDocument } from \"../../src/services/export\";\n\ndescribe(\"export\", () => {\n  it(\"produces standalone html\", async () => {\n    const html = await exportHtmlDocument(\"# Title\\n\\nHi\");\n    expect(html).toContain(\"<!DOCTYPE html>\");\n    expect(html).toContain(\"Hi\");\n  });\n});\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "tests/export/export.test.ts",
+  "source_path": "tests/export/export.test.ts",
+  "ts": "2026-07-10T14:03:04Z"
+}

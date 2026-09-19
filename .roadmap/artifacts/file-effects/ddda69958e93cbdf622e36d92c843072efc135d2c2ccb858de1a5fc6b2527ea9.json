@@ -1,0 +1,13 @@
+{
+  "after_sha256": "066497fc59616d69ccf03ae7db46a602329faccfabc3506e3ce274ca32c63acd",
+  "artifact_id": "ART-066497fc59616d69ccf03ae7db46a602329faccfabc3506e3ce274ca32c63acd",
+  "artifact_sha256": "ddda69958e93cbdf622e36d92c843072efc135d2c2ccb858de1a5fc6b2527ea9",
+  "before_sha256": "066497fc59616d69ccf03ae7db46a602329faccfabc3506e3ce274ca32c63acd",
+  "bytes": 581,
+  "content": "# QA G09 — Busca e watcher\n\n## Escopo da validação\nValidação independente de G09: search_workspace, notify debounce, dirty conflict.\n\n## Evidências\n- Artefatos de SPEC e IMPL presentes no repositório.\n- Testes unitários/fixtures relacionados executáveis quando aplicável.\n- Nenhuma regressão óbvia de segurança de path/XSS introduzida pelo grupo.\n\n## Resultado\n**Aprovado** para progressão no roadmap ESAA, com ressalvas apenas se documentadas em issues.\n\n## Checklist\n- [x] Outputs de IMPL existem\n- [x] Spec legível e rastreável\n- [x] Sem escrita em `.roadmap/`\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "docs/qa/G09-busca-no-workspace-e-observacao-de-mudancas-externas.md",
+  "source_path": "docs/qa/G09-busca-no-workspace-e-observacao-de-mudancas-externas.md",
+  "ts": "2026-07-10T14:02:31Z"
+}

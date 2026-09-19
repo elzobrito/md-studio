@@ -1,0 +1,13 @@
+{
+  "after_sha256": "6dce7a4669a5cb4ad588ffcadeb345c8c1c5e91fda2b19bf3cdc48678ad8b903",
+  "artifact_id": "ART-6dce7a4669a5cb4ad588ffcadeb345c8c1c5e91fda2b19bf3cdc48678ad8b903",
+  "artifact_sha256": "236b768535611d1a6140f1e1afe92e3aa140192b0e0337d8eb682c1a1164597a",
+  "before_sha256": "6dce7a4669a5cb4ad588ffcadeb345c8c1c5e91fda2b19bf3cdc48678ad8b903",
+  "bytes": 1580,
+  "content": "/** Prefix applied by rehype-sanitize clobberPrefix — keep in sync with sanitize.ts */\nexport const HEADING_ID_PREFIX = \"user-content-\";\n\nexport function slugify(heading: string): string {\n  return heading\n    .toLowerCase()\n    .normalize(\"NFD\")\n    .replace(/\\p{M}/gu, \"\")\n    .replace(/[^a-z0-9\\s-]/g, \"\")\n    .trim()\n    .replace(/\\s+/g, \"-\")\n    .replace(/-+/g, \"-\");\n}\n\nexport function extractOutline(markdown: string): { level: number; text: string; id: string }[] {\n  const lines = markdown.split(/\\n/);\n  const out: { level: number; text: string; id: string }[] = [];\n  const seen = new Map<string, number>();\n  for (const line of lines) {\n    const m = /^(#{1,6})\\s+(.+)$/.exec(line);\n    if (m) {\n      const text = m[2].replace(/#+\\s*$/, \"\").trim();\n      let base = slugify(text) || \"section\";\n      const n = seen.get(base) ?? 0;\n      seen.set(base, n + 1);\n      const id = n === 0 ? base : `${base}-${n}`;\n      out.push({ level: m[1].length, text, id });\n    }\n  }\n  return out;\n}\n\n/** DOM id after sanitize (clobberPrefix). */\nexport function headingDomId(slug: string): string {\n  return `${HEADING_ID_PREFIX}${slug}`;\n}\n\n/** Scroll preview pane to a heading slug from the outline. */\nexport function scrollToHeading(slug: string, root?: ParentNode | null): boolean {\n  const scope = root ?? document;\n  const el =\n    (scope as Document | Element).querySelector?.(`#${CSS.escape(headingDomId(slug))}`) ??\n    document.getElementById(headingDomId(slug));\n  if (!el) return false;\n  el.scrollIntoView({ behavior: \"smooth\", block: \"start\" });\n  return true;\n}\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "src/services/navigation.ts",
+  "source_path": "src/services/navigation.ts",
+  "ts": "2026-07-10T15:25:48Z"
+}

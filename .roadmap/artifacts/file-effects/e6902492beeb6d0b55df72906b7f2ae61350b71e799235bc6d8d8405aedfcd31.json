@@ -1,0 +1,13 @@
+{
+  "after_sha256": "4d426f3a77fc4f6b9006f134f9b0094486f416ff6ad23ec58e7ea218b835789c",
+  "artifact_id": "ART-4d426f3a77fc4f6b9006f134f9b0094486f416ff6ad23ec58e7ea218b835789c",
+  "artifact_sha256": "e6902492beeb6d0b55df72906b7f2ae61350b71e799235bc6d8d8405aedfcd31",
+  "before_sha256": "4d426f3a77fc4f6b9006f134f9b0094486f416ff6ad23ec58e7ea218b835789c",
+  "bytes": 117,
+  "content": "# Accessibility checks\n\nManual matrix in docs/quality/accessibility-matrix.md; automated smoke via component labels.\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "tests/accessibility/README.md",
+  "source_path": "tests/accessibility/README.md",
+  "ts": "2026-07-10T14:03:01Z"
+}

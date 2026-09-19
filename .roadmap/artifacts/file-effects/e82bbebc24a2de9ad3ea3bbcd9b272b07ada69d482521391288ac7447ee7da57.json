@@ -1,0 +1,13 @@
+{
+  "after_sha256": "1ebb62ddbd9b66b55c1a7ea2f998a101c4661e5202e3c3253fc4c2805997c5ab",
+  "artifact_id": "ART-1ebb62ddbd9b66b55c1a7ea2f998a101c4661e5202e3c3253fc4c2805997c5ab",
+  "artifact_sha256": "e82bbebc24a2de9ad3ea3bbcd9b272b07ada69d482521391288ac7447ee7da57",
+  "before_sha256": "1ebb62ddbd9b66b55c1a7ea2f998a101c4661e5202e3c3253fc4c2805997c5ab",
+  "bytes": 579,
+  "content": "const BLOCKED = /^(javascript:|vbscript:|file:|data:text\\/html)/i;\n\nexport function isRemoteUrl(url: string): boolean {\n  return /^https?:\\/\\//i.test(url);\n}\n\nexport function allowUrl(url: string, opts: { allowRemote?: boolean } = {}): boolean {\n  if (BLOCKED.test(url)) return false;\n  if (url.startsWith(\"#\")) return true;\n  if (url.startsWith(\"/\") || url.startsWith(\"./\") || url.startsWith(\"../\")) return true;\n  if (isRemoteUrl(url)) return !!opts.allowRemote;\n  if (url.startsWith(\"data:image/\")) return true;\n  if (url.startsWith(\"mailto:\")) return true;\n  return false;\n}\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "src/security/urlPolicy.ts",
+  "source_path": "src/security/urlPolicy.ts",
+  "ts": "2026-07-10T14:02:40Z"
+}

@@ -1,0 +1,13 @@
+{
+  "after_sha256": "8b8db13c54886ea0d06965fb4d061f2e4e26816c303da2be8f27f8731eca9fc9",
+  "artifact_id": "ART-8b8db13c54886ea0d06965fb4d061f2e4e26816c303da2be8f27f8731eca9fc9",
+  "artifact_sha256": "32b0ddafcd3423627110bcb6f28e35e162ad11ae6345a09a3cdfc83333ab02d1",
+  "before_sha256": "8b8db13c54886ea0d06965fb4d061f2e4e26816c303da2be8f27f8731eca9fc9",
+  "bytes": 1795,
+  "content": "import { useEffect, useState } from \"react\";\n\nexport type Theme = \"light\" | \"dark\" | \"auto\";\nexport type ViewMode = \"source\" | \"preview\" | \"split\";\n\nconst KEY = \"md-studio-session-v1\";\n\nexport interface SessionApi {\n  theme: Theme;\n  viewMode: ViewMode;\n  leftOpen: boolean;\n  rightOpen: boolean;\n  setTheme: (t: Theme) => void;\n  setViewMode: (v: ViewMode) => void;\n  setLeftOpen: (v: boolean) => void;\n  setRightOpen: (v: boolean) => void;\n  toggleLeft: () => void;\n  toggleRight: () => void;\n}\n\nexport function useSession(): SessionApi {\n  const [theme, setThemeState] = useState<Theme>(\"auto\");\n  const [viewMode, setViewModeState] = useState<ViewMode>(\"preview\");\n  const [leftOpen, setLeftOpen] = useState(true);\n  const [rightOpen, setRightOpen] = useState(true);\n\n  useEffect(() => {\n    try {\n      const raw = localStorage.getItem(KEY);\n      if (!raw) return;\n      const parsed = JSON.parse(raw) as {\n        theme?: Theme;\n        viewMode?: ViewMode;\n        leftOpen?: boolean;\n        rightOpen?: boolean;\n      };\n      if (parsed.theme) setThemeState(parsed.theme);\n      if (parsed.viewMode) setViewModeState(parsed.viewMode);\n      if (typeof parsed.leftOpen === \"boolean\") setLeftOpen(parsed.leftOpen);\n      if (typeof parsed.rightOpen === \"boolean\") setRightOpen(parsed.rightOpen);\n    } catch {\n      /* ignore */\n    }\n  }, []);\n\n  useEffect(() => {\n    localStorage.setItem(\n      KEY,\n      JSON.stringify({ theme, viewMode, leftOpen, rightOpen }),\n    );\n  }, [theme, viewMode, leftOpen, rightOpen]);\n\n  return {\n    theme,\n    viewMode,\n    leftOpen,\n    rightOpen,\n    setTheme: setThemeState,\n    setViewMode: setViewModeState,\n    setLeftOpen,\n    setRightOpen,\n    toggleLeft: () => setLeftOpen((v) => !v),\n    toggleRight: () => setRightOpen((v) => !v),\n  };\n}\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "src/state/session.ts",
+  "source_path": "src/state/session.ts",
+  "ts": "2026-07-10T15:25:48Z"
+}

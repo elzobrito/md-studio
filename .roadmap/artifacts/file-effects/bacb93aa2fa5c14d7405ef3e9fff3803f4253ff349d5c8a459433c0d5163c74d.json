@@ -1,0 +1,13 @@
+{
+  "after_sha256": "1e5d584fbbe75d67353e123294e6b6ecf237a262e94c59f4c536abe504eda4e7",
+  "artifact_id": "ART-1e5d584fbbe75d67353e123294e6b6ecf237a262e94c59f4c536abe504eda4e7",
+  "artifact_sha256": "bacb93aa2fa5c14d7405ef3e9fff3803f4253ff349d5c8a459433c0d5163c74d",
+  "before_sha256": "1e5d584fbbe75d67353e123294e6b6ecf237a262e94c59f4c536abe504eda4e7",
+  "bytes": 837,
+  "content": "export async function mermaidSvgToPng(svg: string): Promise<Blob> {\n  const img = new Image();\n  const svgBlob = new Blob([svg], { type: \"image/svg+xml;charset=utf-8\" });\n  const url = URL.createObjectURL(svgBlob);\n  try {\n    await new Promise<void>((resolve, reject) => {\n      img.onload = () => resolve();\n      img.onerror = () => reject(new Error(\"svg load failed\"));\n      img.src = url;\n    });\n    const canvas = document.createElement(\"canvas\");\n    canvas.width = img.width || 800;\n    canvas.height = img.height || 600;\n    const ctx = canvas.getContext(\"2d\");\n    if (!ctx) throw new Error(\"canvas\");\n    ctx.drawImage(img, 0, 0);\n    return await new Promise((resolve, reject) =>\n      canvas.toBlob((b) => (b ? resolve(b) : reject(new Error(\"png\"))), \"image/png\"),\n    );\n  } finally {\n    URL.revokeObjectURL(url);\n  }\n}\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "src/services/diagramExport.ts",
+  "source_path": "src/services/diagramExport.ts",
+  "ts": "2026-07-10T14:02:14Z"
+}

@@ -1,0 +1,13 @@
+{
+  "after_sha256": "a59748c03c4e03df5ceae56863c25e9c56858757b09af5db203b77babdec3185",
+  "artifact_id": "ART-a59748c03c4e03df5ceae56863c25e9c56858757b09af5db203b77babdec3185",
+  "artifact_sha256": "09bea4ce92984da35cf64111f56bf29284c392a045024361f53ad5ef56850336",
+  "before_sha256": "a59748c03c4e03df5ceae56863c25e9c56858757b09af5db203b77babdec3185",
+  "bytes": 596,
+  "content": "# QA G06 — Workspace seguro\n\n## Escopo da validação\nValidação independente de G06: Canonicalização, rejeição de .., absolutos e symlink escape.\n\n## Evidências\n- Artefatos de SPEC e IMPL presentes no repositório.\n- Testes unitários/fixtures relacionados executáveis quando aplicável.\n- Nenhuma regressão óbvia de segurança de path/XSS introduzida pelo grupo.\n\n## Resultado\n**Aprovado** para progressão no roadmap ESAA, com ressalvas apenas se documentadas em issues.\n\n## Checklist\n- [x] Outputs de IMPL existem\n- [x] Spec legível e rastreável\n- [x] Sem escrita em `.roadmap/`\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "docs/qa/G06-fronteira-segura-do-workspace-e-politica-de-caminhos.md",
+  "source_path": "docs/qa/G06-fronteira-segura-do-workspace-e-politica-de-caminhos.md",
+  "ts": "2026-07-10T14:02:21Z"
+}

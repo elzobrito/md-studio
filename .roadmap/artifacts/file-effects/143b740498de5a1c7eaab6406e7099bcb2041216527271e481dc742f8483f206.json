@@ -1,0 +1,13 @@
+{
+  "after_sha256": "6df4a65a76a9e604cd53925805ec9200ea76146bf53402e3dadcca21c5b899c3",
+  "artifact_id": "ART-6df4a65a76a9e604cd53925805ec9200ea76146bf53402e3dadcca21c5b899c3",
+  "artifact_sha256": "143b740498de5a1c7eaab6406e7099bcb2041216527271e481dc742f8483f206",
+  "before_sha256": "6df4a65a76a9e604cd53925805ec9200ea76146bf53402e3dadcca21c5b899c3",
+  "bytes": 223,
+  "content": "# QA G01 — Contrato do produto\n\n## Validação\n- PROJETO.md e PRDs CORE/EXTENSIONS/QUALITY presentes.\n- Spec G01 define escopo e exclusões.\n- Stack e limites v1 consistentes entre documentos.\n\n## Resultado\n**Aprovado**.\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "docs/qa/G01-contrato-do-produto-e-conjunto-de-prds.md",
+  "source_path": "docs/qa/G01-contrato-do-produto-e-conjunto-de-prds.md",
+  "ts": "2026-07-10T14:01:40Z"
+}

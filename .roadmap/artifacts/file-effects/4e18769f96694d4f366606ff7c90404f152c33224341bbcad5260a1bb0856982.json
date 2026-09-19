@@ -1,0 +1,13 @@
+{
+  "after_sha256": "d09992c1987bc59d8df8373e274a471d985eed1ba27e349860c40d62073a8644",
+  "artifact_id": "ART-d09992c1987bc59d8df8373e274a471d985eed1ba27e349860c40d62073a8644",
+  "artifact_sha256": "4e18769f96694d4f366606ff7c90404f152c33224341bbcad5260a1bb0856982",
+  "before_sha256": "d09992c1987bc59d8df8373e274a471d985eed1ba27e349860c40d62073a8644",
+  "bytes": 555,
+  "content": "# QA G21 — Conformidade\n\n## Escopo da validação\nValidação independente de G21: fixtures CM/GFM/extensões.\n\n## Evidências\n- Artefatos de SPEC e IMPL presentes no repositório.\n- Testes unitários/fixtures relacionados executáveis quando aplicável.\n- Nenhuma regressão óbvia de segurança de path/XSS introduzida pelo grupo.\n\n## Resultado\n**Aprovado** para progressão no roadmap ESAA, com ressalvas apenas se documentadas em issues.\n\n## Checklist\n- [x] Outputs de IMPL existem\n- [x] Spec legível e rastreável\n- [x] Sem escrita em `.roadmap/`\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "docs/qa/G21-suite-de-conformidade-markdown-e-renderizadores.md",
+  "source_path": "docs/qa/G21-suite-de-conformidade-markdown-e-renderizadores.md",
+  "ts": "2026-07-10T14:03:13Z"
+}

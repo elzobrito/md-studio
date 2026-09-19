@@ -1,0 +1,13 @@
+{
+  "after_sha256": "35e3dc754e327bc0be4fdec6f1e47d230450080bb916b4ac944add84e2e0870b",
+  "artifact_id": "ART-35e3dc754e327bc0be4fdec6f1e47d230450080bb916b4ac944add84e2e0870b",
+  "artifact_sha256": "9a87eb7a4cbd39473cd6ef903273cb61365f56864f3b33cb60defcd8d6c5b62c",
+  "before_sha256": "35e3dc754e327bc0be4fdec6f1e47d230450080bb916b4ac944add84e2e0870b",
+  "bytes": 1681,
+  "content": "# G01 — Contrato do produto e conjunto de PRDs\n\n## Objetivo\nCongelar o contrato executável da v1 do MD Studio sem decisões pendentes de produto.\n\n## Escopo v1\n- Editor Markdown em código-fonte (CodeMirror 6), sem WYSIWYG.\n- Preview seguro CommonMark/GFM + extensões documentadas (alertas, diretivas, Mermaid, KaTeX).\n- Workspace local: árvore, busca, watcher, sessão recente.\n- Persistência explícita (Ctrl+S), hash de versão, conflitos e rascunho de recuperação fora da fonte.\n- Export HTML autossuficiente + impressão/PDF via sistema.\n- Linux-first, offline, single-user, sem telemetria.\n\n## Fora de escopo v1\nWYSIWYG, colaboração, cloud sync, plugins JS, Obsidian completo, Pandoc, BibTeX, backlinks, grafo, abas multi-documento.\n\n## PRDs canônicos\n| PRD | Responsabilidade |\n|-----|------------------|\n| `app/PRD-MD-STUDIO-CORE.md` | Workspace, persistência, autoria |\n| `app/PRD-MD-STUDIO-EXTENSIONS.md` | Markdown, código, math, diagramas |\n| `app/PRD-MD-STUDIO-QUALITY.md` | Segurança, qualidade, export, distribuição |\n| `app/_indice-prd.md` | Índice e rastreio |\n\n## Critérios de aceite G01\n1. PRDs e PROJETO.md cobrem fluxos principais e exclusões.\n2. Stack aprovada: Tauri 2, Rust, React, TS, CodeMirror 6, Unified.\n3. Nenhuma ambiguidade sobre autosave da fonte (desligado) e gravação atômica.\n4. Extensões não-GFM rotuladas como próprias do produto.\n5. Documento de spec (este arquivo) é a referência de SPEC para o grupo.\n\n## Decisões fechadas\n- Um documento ativo por vez na v1.\n- Recursos remotos bloqueados por padrão.\n- Backend Rust é a única porta do filesystem.\n- PDF tipográfico determinístico não é compromisso da v1.\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "docs/spec/G01-contrato-do-produto-e-conjunto-de-prds.md",
+  "source_path": "docs/spec/G01-contrato-do-produto-e-conjunto-de-prds.md",
+  "ts": "2026-07-10T13:58:16Z"
+}

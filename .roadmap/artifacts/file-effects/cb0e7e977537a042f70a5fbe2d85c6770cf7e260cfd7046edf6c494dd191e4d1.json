@@ -1,0 +1,13 @@
+{
+  "after_sha256": "f8f16bcbbc9628b18e5a6483834c163834106944a11d10e57c2167b0a43c4cd2",
+  "artifact_id": "ART-f8f16bcbbc9628b18e5a6483834c163834106944a11d10e57c2167b0a43c4cd2",
+  "artifact_sha256": "cb0e7e977537a042f70a5fbe2d85c6770cf7e260cfd7046edf6c494dd191e4d1",
+  "before_sha256": "f8f16bcbbc9628b18e5a6483834c163834106944a11d10e57c2167b0a43c4cd2",
+  "bytes": 480,
+  "content": "# G06 — Workspace seguro\n\n## Objetivo\nCanonicalização, rejeição de .., absolutos e symlink escape.\n\n## Requisitos\n- Entrega alinhada ao plano MD Studio v1 e PRDs CORE/EXTENSIONS/QUALITY.\n- Artefatos de implementação nos paths declarados no roadmap ESAA.\n- Critérios de aceite verificáveis em QA.\n\n## Aceite\n1. Spec implementável sem decisões pendentes.\n2. Superfície de erro e segurança definida quando aplicável.\n3. Dependências de grupos anteriores respeitadas.\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "docs/spec/G06-fronteira-segura-do-workspace-e-politica-de-caminhos.md",
+  "source_path": "docs/spec/G06-fronteira-segura-do-workspace-e-politica-de-caminhos.md",
+  "ts": "2026-07-10T14:02:19Z"
+}

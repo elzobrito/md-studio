@@ -1,0 +1,93 @@
+.status-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 26px;
+  min-height: 26px;
+  padding: 0 12px;
+  background-color: var(--bg-secondary, #181825);
+  border-top: 1px solid var(--border, #313244);
+  font-size: 11px;
+  color: var(--text-secondary, #a6adc8);
+  user-select: none;
+  z-index: 50;
+}
+
+.status-bar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.status-bar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.status-bar-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.status-bar-item.clickable {
+  cursor: pointer;
+  padding: 1px 4px;
+  border-radius: 3px;
+}
+
+.status-bar-item.clickable:hover {
+  background: var(--bg-hover, rgba(255, 255, 255, 0.08));
+  color: var(--text-primary, #cdd6f4);
+}
+
+.status-bar-separator {
+  color: var(--border, #313244);
+}
+
+.save-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 500;
+}
+
+.save-status-badge.status-saved {
+  color: var(--color-success, #a6e3a1);
+}
+
+.save-status-badge.status-modified {
+  color: var(--color-warning, #f9e2af);
+}
+
+.save-status-badge.status-saving {
+  color: var(--color-accent, #89b4fa);
+}
+
+.save-status-badge.status-error {
+  color: var(--color-error, #f38ba8);
+}
+
+.status-bar-btn {
+  background: none;
+  border: none;
+  padding: 2px 6px;
+  font-size: 11px;
+  color: var(--text-secondary, #a6adc8);
+  cursor: pointer;
+  border-radius: 3px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.status-bar-btn:hover {
+  background: var(--bg-hover, rgba(255, 255, 255, 0.08));
+  color: var(--text-primary, #cdd6f4);
+}
+
+.status-bar-btn.active {
+  color: var(--color-accent, #89b4fa);
+}
+

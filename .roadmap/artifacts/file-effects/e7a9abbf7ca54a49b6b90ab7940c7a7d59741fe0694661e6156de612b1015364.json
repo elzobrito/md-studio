@@ -1,0 +1,13 @@
+{
+  "after_sha256": "da8487f0a69df0c8880c789e416ff8cac7c6ea18e68e88c89943721f60a811e1",
+  "artifact_id": "ART-da8487f0a69df0c8880c789e416ff8cac7c6ea18e68e88c89943721f60a811e1",
+  "artifact_sha256": "e7a9abbf7ca54a49b6b90ab7940c7a7d59741fe0694661e6156de612b1015364",
+  "before_sha256": "da8487f0a69df0c8880c789e416ff8cac7c6ea18e68e88c89943721f60a811e1",
+  "bytes": 458,
+  "content": "# G10 — Pipeline Markdown\n\n## Objetivo\nremark-parse/gfm → rehype → sanitize.\n\n## Requisitos\n- Entrega alinhada ao plano MD Studio v1 e PRDs CORE/EXTENSIONS/QUALITY.\n- Artefatos de implementação nos paths declarados no roadmap ESAA.\n- Critérios de aceite verificáveis em QA.\n\n## Aceite\n1. Spec implementável sem decisões pendentes.\n2. Superfície de erro e segurança definida quando aplicável.\n3. Dependências de grupos anteriores respeitadas.\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "docs/spec/G10-pipeline-ast-commonmark-e-gfm.md",
+  "source_path": "docs/spec/G10-pipeline-ast-commonmark-e-gfm.md",
+  "ts": "2026-07-10T14:02:32Z"
+}

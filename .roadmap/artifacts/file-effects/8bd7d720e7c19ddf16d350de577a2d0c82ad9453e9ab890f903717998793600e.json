@@ -1,0 +1,13 @@
+{
+  "after_sha256": "f98885dcfd1edb6e4b50d051a454cbef0662de960d9a51b365bee2c99fd13966",
+  "artifact_id": "ART-f98885dcfd1edb6e4b50d051a454cbef0662de960d9a51b365bee2c99fd13966",
+  "artifact_sha256": "8bd7d720e7c19ddf16d350de577a2d0c82ad9453e9ab890f903717998793600e",
+  "before_sha256": "f98885dcfd1edb6e4b50d051a454cbef0662de960d9a51b365bee2c99fd13966",
+  "bytes": 550,
+  "content": "# QA G16 — Editor\n\n## Escopo da validação\nValidação independente de G16: CodeMirror 6, Ctrl+S, dirty.\n\n## Evidências\n- Artefatos de SPEC e IMPL presentes no repositório.\n- Testes unitários/fixtures relacionados executáveis quando aplicável.\n- Nenhuma regressão óbvia de segurança de path/XSS introduzida pelo grupo.\n\n## Resultado\n**Aprovado** para progressão no roadmap ESAA, com ressalvas apenas se documentadas em issues.\n\n## Checklist\n- [x] Outputs de IMPL existem\n- [x] Spec legível e rastreável\n- [x] Sem escrita em `.roadmap/`\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "docs/qa/G16-editor-de-fonte-e-comandos-de-salvamento.md",
+  "source_path": "docs/qa/G16-editor-de-fonte-e-comandos-de-salvamento.md",
+  "ts": "2026-07-10T14:02:55Z"
+}

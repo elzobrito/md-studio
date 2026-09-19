@@ -1,0 +1,13 @@
+{
+  "after_sha256": "140afef4ea26ff363b94ca660f85fdd971e9e9ffafbd0d3de61e3e0d9089589e",
+  "artifact_id": "ART-140afef4ea26ff363b94ca660f85fdd971e9e9ffafbd0d3de61e3e0d9089589e",
+  "artifact_sha256": "6ce7a7933d311cd08809c4a304e6388ae67784ccc1a9a3491d7627c8975dc2db",
+  "before_sha256": "140afef4ea26ff363b94ca660f85fdd971e9e9ffafbd0d3de61e3e0d9089589e",
+  "bytes": 851,
+  "content": "const PREFIX = \"md-studio-draft:\";\n\nexport function draftKey(workspaceId: string, relativePath: string): string {\n  return `${PREFIX}${workspaceId}:${relativePath}`;\n}\n\nexport function saveDraft(workspaceId: string, relativePath: string, content: string): void {\n  try {\n    localStorage.setItem(draftKey(workspaceId, relativePath), JSON.stringify({ content, ts: Date.now() }));\n  } catch {\n    /* quota */\n  }\n}\n\nexport function loadDraft(workspaceId: string, relativePath: string): string | null {\n  try {\n    const raw = localStorage.getItem(draftKey(workspaceId, relativePath));\n    if (!raw) return null;\n    return (JSON.parse(raw) as { content: string }).content;\n  } catch {\n    return null;\n  }\n}\n\nexport function clearDraft(workspaceId: string, relativePath: string): void {\n  localStorage.removeItem(draftKey(workspaceId, relativePath));\n}\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "src/lib/drafts/recovery.ts",
+  "source_path": "src/lib/drafts/recovery.ts",
+  "ts": "2026-07-10T14:02:23Z"
+}

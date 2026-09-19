@@ -1,0 +1,13 @@
+{
+  "after_sha256": "fa83320d8507c1c768af6c87a36be27806aacdc5146f0749a6a2f6c51550dba2",
+  "artifact_id": "ART-fa83320d8507c1c768af6c87a36be27806aacdc5146f0749a6a2f6c51550dba2",
+  "artifact_sha256": "c0cbfd11f39a6198172377e1fe18f785b52f1b4275ed32e8979a30a52b7ae90e",
+  "before_sha256": "fa83320d8507c1c768af6c87a36be27806aacdc5146f0749a6a2f6c51550dba2",
+  "bytes": 30,
+  "content": "| a | b |\n| - | - |\n| 1 | 2 |\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "tests/conformance/gfm/table.md",
+  "source_path": "tests/conformance/gfm/table.md",
+  "ts": "2026-07-10T14:03:12Z"
+}

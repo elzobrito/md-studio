@@ -1,0 +1,13 @@
+{
+  "after_sha256": "7f6f6b96967f00e5bc4888b26e9d571ab593a49d9e51fe6404392887a108b4c4",
+  "artifact_id": "ART-7f6f6b96967f00e5bc4888b26e9d571ab593a49d9e51fe6404392887a108b4c4",
+  "artifact_sha256": "cd4b87434d2a1a66023f630bd2ba835c2f65eb9f81d65a68ba76350b367d94a4",
+  "before_sha256": "7f6f6b96967f00e5bc4888b26e9d571ab593a49d9e51fe6404392887a108b4c4",
+  "bytes": 454,
+  "content": "export async function renderMermaid(id: string, source: string): Promise<{ svg?: string; error?: string }> {\n  try {\n    const mermaid = (await import(\"mermaid\")).default;\n    mermaid.initialize({\n      startOnLoad: false,\n      securityLevel: \"strict\",\n      theme: \"neutral\",\n    });\n    const { svg } = await mermaid.render(id, source);\n    return { svg };\n  } catch (e) {\n    return { error: e instanceof Error ? e.message : \"Mermaid error\" };\n  }\n}\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "src/markdown/mermaid.ts",
+  "source_path": "src/markdown/mermaid.ts",
+  "ts": "2026-07-10T14:02:14Z"
+}

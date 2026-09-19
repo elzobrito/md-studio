@@ -1,0 +1,13 @@
+{
+  "after_sha256": "59c093f46657b72a441ea80187d3b1959c2c19a2f7c59aa6f870c6403c80f529",
+  "artifact_id": "ART-59c093f46657b72a441ea80187d3b1959c2c19a2f7c59aa6f870c6403c80f529",
+  "artifact_sha256": "deb04b82389a0f41e677e2975fa16d24eee0afcaadf690fb59c11def07d18d8a",
+  "before_sha256": "59c093f46657b72a441ea80187d3b1959c2c19a2f7c59aa6f870c6403c80f529",
+  "bytes": 468,
+  "content": "# G08 — Files e assets\n\n## Objetivo\nÁrvore, assets relativos, política remota bloqueada.\n\n## Requisitos\n- Entrega alinhada ao plano MD Studio v1 e PRDs CORE/EXTENSIONS/QUALITY.\n- Artefatos de implementação nos paths declarados no roadmap ESAA.\n- Critérios de aceite verificáveis em QA.\n\n## Aceite\n1. Spec implementável sem decisões pendentes.\n2. Superfície de erro e segurança definida quando aplicável.\n3. Dependências de grupos anteriores respeitadas.\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "docs/spec/G08-arvore-de-arquivos-e-resolucao-de-assets-locais.md",
+  "source_path": "docs/spec/G08-arvore-de-arquivos-e-resolucao-de-assets-locais.md",
+  "ts": "2026-07-10T14:02:26Z"
+}

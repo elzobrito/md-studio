@@ -1,0 +1,13 @@
+{
+  "after_sha256": "7760b6f8d4565a4d83ea42b6b10d80932281e5937e3b4e2e747b360c112b3e6e",
+  "artifact_id": "ART-7760b6f8d4565a4d83ea42b6b10d80932281e5937e3b4e2e747b360c112b3e6e",
+  "artifact_sha256": "3e24400d88657f2c6343f1563543026e4d7637c9aeff11022af0aff13e31eb88",
+  "before_sha256": "7760b6f8d4565a4d83ea42b6b10d80932281e5937e3b4e2e747b360c112b3e6e",
+  "bytes": 471,
+  "content": "import { extractOutline } from \"../services/navigation\";\n\nexport function DocumentOutline(props: { content: string }) {\n  const items = extractOutline(props.content);\n  return (\n    <nav className=\"outline\" aria-label=\"Sumário\">\n      <h2>Sumário</h2>\n      <ul>\n        {items.map((it) => (\n          <li key={it.id} style={{ marginLeft: (it.level - 1) * 12 }}>\n            <a href={`#${it.id}`}>{it.text}</a>\n          </li>\n        ))}\n      </ul>\n    </nav>\n  );\n}\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "src/components/DocumentOutline.tsx",
+  "source_path": "src/components/DocumentOutline.tsx",
+  "ts": "2026-07-10T14:02:57Z"
+}

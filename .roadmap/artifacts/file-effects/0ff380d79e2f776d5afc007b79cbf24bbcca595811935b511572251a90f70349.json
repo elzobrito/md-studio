@@ -1,0 +1,13 @@
+{
+  "after_sha256": "ac760ee6509c4180e7c02aab683dab41481ee069e07d97ad506d47c1f239dfe1",
+  "artifact_id": "ART-ac760ee6509c4180e7c02aab683dab41481ee069e07d97ad506d47c1f239dfe1",
+  "artifact_sha256": "0ff380d79e2f776d5afc007b79cbf24bbcca595811935b511572251a90f70349",
+  "before_sha256": "ac760ee6509c4180e7c02aab683dab41481ee069e07d97ad506d47c1f239dfe1",
+  "bytes": 1284,
+  "content": "import { useEffect, useState } from \"react\";\nimport { ipc } from \"../lib/ipc\";\nimport type { FileEntry } from \"../contracts/types\";\n\nexport function FileExplorer(props: {\n  onOpen: (path: string) => void;\n  query: string;\n  onQuery: (q: string) => void;\n}) {\n  const [entries, setEntries] = useState<FileEntry[]>([]);\n  const [workspaceId, setWorkspaceId] = useState<string | null>(null);\n\n  useEffect(() => {\n    void (async () => {\n      const ws = await ipc.openWorkspace(\".\");\n      setWorkspaceId(ws.id);\n      const list = await ipc.listEntries(ws.id, \"\");\n      setEntries(list);\n    })();\n  }, []);\n\n  return (\n    <div className=\"file-explorer\">\n      <h2>Arquivos</h2>\n      <label>\n        Busca\n        <input\n          aria-label=\"Busca no workspace\"\n          value={props.query}\n          onChange={(e) => props.onQuery(e.target.value)}\n        />\n      </label>\n      <ul>\n        {entries\n          .filter((e) => !props.query || e.name.includes(props.query))\n          .map((e) => (\n            <li key={e.relativePath}>\n              <button type=\"button\" onClick={() => props.onOpen(e.relativePath)}>\n                {e.name}\n              </button>\n            </li>\n          ))}\n      </ul>\n      {!workspaceId && <p>Abrindo workspace…</p>}\n    </div>\n  );\n}\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "src/components/FileExplorer.tsx",
+  "source_path": "src/components/FileExplorer.tsx",
+  "ts": "2026-07-10T14:02:14Z"
+}

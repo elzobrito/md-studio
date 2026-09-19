@@ -1,0 +1,13 @@
+{
+  "after_sha256": "226a654d8825e6585dd1fa3e323945481362933f9204edd05d3d74adf45a6401",
+  "artifact_id": "ART-226a654d8825e6585dd1fa3e323945481362933f9204edd05d3d74adf45a6401",
+  "artifact_sha256": "d11d89bd5ed4fe711c32725700de854ea2ae929b6dcb6a2f8584497fbd7c8173",
+  "before_sha256": "226a654d8825e6585dd1fa3e323945481362933f9204edd05d3d74adf45a6401",
+  "bytes": 429,
+  "content": "# G23 — Release\n\n## Objetivo\nE2E, CI, deb/AppImage.\n\n## Requisitos\n- Entrega alinhada ao plano MD Studio v1 e PRDs CORE/EXTENSIONS/QUALITY.\n- Artefatos de implementação nos paths declarados no roadmap ESAA.\n- Critérios de aceite verificáveis em QA.\n\n## Aceite\n1. Spec implementável sem decisões pendentes.\n2. Superfície de erro e segurança definida quando aplicável.\n3. Dependências de grupos anteriores respeitadas.\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "docs/spec/G23-e2e-desempenho-pacotes-linux-e-release-candidata.md",
+  "source_path": "docs/spec/G23-e2e-desempenho-pacotes-linux-e-release-candidata.md",
+  "ts": "2026-07-10T14:03:17Z"
+}

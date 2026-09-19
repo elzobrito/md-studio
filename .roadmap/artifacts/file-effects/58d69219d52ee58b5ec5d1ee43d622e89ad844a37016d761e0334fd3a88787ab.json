@@ -1,0 +1,13 @@
+{
+  "after_sha256": "115124ace940f7d3356e03a0b32392f2c7b441fef4f85d42385146b73fa93835",
+  "artifact_id": "ART-115124ace940f7d3356e03a0b32392f2c7b441fef4f85d42385146b73fa93835",
+  "artifact_sha256": "58d69219d52ee58b5ec5d1ee43d622e89ad844a37016d761e0334fd3a88787ab",
+  "before_sha256": "115124ace940f7d3356e03a0b32392f2c7b441fef4f85d42385146b73fa93835",
+  "bytes": 583,
+  "content": "import { normalizeLanguage } from \"../markdown/code\";\n\nexport function CodeBlock(props: { code: string; language?: string; filename?: string }) {\n  const lang = normalizeLanguage(props.language);\n  return (\n    <div className=\"code-block\">\n      <header>\n        <span>{props.filename ?? lang}</span>\n        <button\n          type=\"button\"\n          onClick={() => void navigator.clipboard.writeText(props.code)}\n        >\n          Copiar\n        </button>\n      </header>\n      <pre>\n        <code className={`language-${lang}`}>{props.code}</code>\n      </pre>\n    </div>\n  );\n}\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "src/components/CodeBlock.tsx",
+  "source_path": "src/components/CodeBlock.tsx",
+  "ts": "2026-07-10T14:02:14Z"
+}

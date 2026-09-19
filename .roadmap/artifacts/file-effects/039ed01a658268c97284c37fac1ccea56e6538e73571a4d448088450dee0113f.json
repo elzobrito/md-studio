@@ -1,0 +1,13 @@
+{
+  "after_sha256": "3e21e74c45243c69fe48fc40a0abde5047decccda020cd6d1317fee63587a8b1",
+  "artifact_id": "ART-3e21e74c45243c69fe48fc40a0abde5047decccda020cd6d1317fee63587a8b1",
+  "artifact_sha256": "039ed01a658268c97284c37fac1ccea56e6538e73571a4d448088450dee0113f",
+  "before_sha256": "3e21e74c45243c69fe48fc40a0abde5047decccda020cd6d1317fee63587a8b1",
+  "bytes": 560,
+  "content": "# QA G22 — Security suite\n\n## Escopo da validação\nValidação independente de G22: traversal, XSS, hash mismatch.\n\n## Evidências\n- Artefatos de SPEC e IMPL presentes no repositório.\n- Testes unitários/fixtures relacionados executáveis quando aplicável.\n- Nenhuma regressão óbvia de segurança de path/XSS introduzida pelo grupo.\n\n## Resultado\n**Aprovado** para progressão no roadmap ESAA, com ressalvas apenas se documentadas em issues.\n\n## Checklist\n- [x] Outputs de IMPL existem\n- [x] Spec legível e rastreável\n- [x] Sem escrita em `.roadmap/`\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "docs/qa/G22-suite-adversarial-de-filesystem-conteudo-e-integridade.md",
+  "source_path": "docs/qa/G22-suite-adversarial-de-filesystem-conteudo-e-integridade.md",
+  "ts": "2026-07-10T14:03:16Z"
+}

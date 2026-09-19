@@ -1,0 +1,13 @@
+{
+  "after_sha256": "d9ff1150f57ed744e9cfe77dd690f4f162dff0927162ad00362aa158acc9b39c",
+  "artifact_id": "ART-d9ff1150f57ed744e9cfe77dd690f4f162dff0927162ad00362aa158acc9b39c",
+  "artifact_sha256": "c30567126be3fafa5869faa589e384fc4f6229bbab7404d7a03963f7819ef65b",
+  "before_sha256": "d9ff1150f57ed744e9cfe77dd690f4f162dff0927162ad00362aa158acc9b39c",
+  "bytes": 635,
+  "content": "import { ipc } from \"../lib/ipc\";\nimport type { DocumentSnapshot, SaveResult } from \"../contracts/types\";\nimport { clearDraft, saveDraft } from \"../lib/drafts/recovery\";\n\nexport async function persistDocument(\n  snapshot: DocumentSnapshot,\n  content: string,\n): Promise<SaveResult> {\n  saveDraft(snapshot.workspaceId, snapshot.relativePath, content);\n  const result = await ipc.saveDocument({\n    workspaceId: snapshot.workspaceId,\n    relativePath: snapshot.relativePath,\n    expectedHash: snapshot.contentHash,\n    content,\n  });\n  if (result.ok) {\n    clearDraft(snapshot.workspaceId, snapshot.relativePath);\n  }\n  return result;\n}\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "src/services/save.ts",
+  "source_path": "src/services/save.ts",
+  "ts": "2026-07-10T14:02:54Z"
+}

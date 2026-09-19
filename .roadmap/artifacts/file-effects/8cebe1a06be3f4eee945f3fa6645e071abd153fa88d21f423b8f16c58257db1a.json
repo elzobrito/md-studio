@@ -1,0 +1,13 @@
+{
+  "after_sha256": "7f2cb29636a60e2f88bb5674ae54d5208651b8141f2b3758d421fa10e48092be",
+  "artifact_id": "ART-7f2cb29636a60e2f88bb5674ae54d5208651b8141f2b3758d421fa10e48092be",
+  "artifact_sha256": "8cebe1a06be3f4eee945f3fa6645e071abd153fa88d21f423b8f16c58257db1a",
+  "before_sha256": "7f2cb29636a60e2f88bb5674ae54d5208651b8141f2b3758d421fa10e48092be",
+  "bytes": 1010,
+  "content": "use serde::{Deserialize, Serialize};\n\n/// IPC DTOs — camelCase to match TypeScript contracts in src/contracts/types.ts\n#[derive(Debug, Clone, Serialize, Deserialize)]\n#[serde(rename_all = \"camelCase\")]\npub struct WorkspaceDescriptor {\n    pub id: String,\n    pub root_label: String,\n    pub kind: String,\n}\n\n#[derive(Debug, Clone, Serialize, Deserialize)]\n#[serde(rename_all = \"camelCase\")]\npub struct FileEntry {\n    pub name: String,\n    pub relative_path: String,\n    pub kind: String,\n    pub size: Option<u64>,\n}\n\n#[derive(Debug, Clone, Serialize, Deserialize)]\n#[serde(rename_all = \"camelCase\")]\npub struct DocumentSnapshot {\n    pub workspace_id: String,\n    pub relative_path: String,\n    pub content: String,\n    pub encoding: String,\n    pub mtime_ms: u64,\n    pub content_hash: String,\n    pub version: u64,\n}\n\n#[derive(Debug, Clone, Serialize, Deserialize)]\n#[serde(rename_all = \"camelCase\")]\npub struct SearchResult {\n    pub relative_path: String,\n    pub line: u32,\n    pub preview: String,\n}\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "src-tauri/src/contracts/mod.rs",
+  "source_path": "src-tauri/src/contracts/mod.rs",
+  "ts": "2026-07-10T17:13:15Z"
+}

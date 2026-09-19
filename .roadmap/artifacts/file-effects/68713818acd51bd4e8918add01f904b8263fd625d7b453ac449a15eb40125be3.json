@@ -1,0 +1,13 @@
+{
+  "after_sha256": "6804a3bab84a1bd8f56bfefcaada1c163618929829967bb717327daa536ec742",
+  "artifact_id": "ART-6804a3bab84a1bd8f56bfefcaada1c163618929829967bb717327daa536ec742",
+  "artifact_sha256": "68713818acd51bd4e8918add01f904b8263fd625d7b453ac449a15eb40125be3",
+  "before_sha256": "6804a3bab84a1bd8f56bfefcaada1c163618929829967bb717327daa536ec742",
+  "bytes": 322,
+  "content": "import { describe, expect, it } from \"vitest\";\nimport { renderMermaid } from \"../../../src/markdown/mermaid\";\n\ndescribe(\"mermaid\", () => {\n  it(\"returns error on invalid diagram without throwing\", async () => {\n    const r = await renderMermaid(\"t1\", \"not a diagram\");\n    expect(r.error || r.svg).toBeTruthy();\n  });\n});\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "tests/markdown/mermaid/mermaid.test.ts",
+  "source_path": "tests/markdown/mermaid/mermaid.test.ts",
+  "ts": "2026-07-10T14:02:50Z"
+}

@@ -1,0 +1,13 @@
+{
+  "after_sha256": "db863ecec4c3eae62484f7f893ba71fffc2b7d0574850179b14af4c153afbbb3",
+  "artifact_id": "ART-db863ecec4c3eae62484f7f893ba71fffc2b7d0574850179b14af4c153afbbb3",
+  "artifact_sha256": "e79b127fa1a941d7e45cfe5f6805485ba836f8a6f704a3ba92773fd941d7b7f2",
+  "before_sha256": "db863ecec4c3eae62484f7f893ba71fffc2b7d0574850179b14af4c153afbbb3",
+  "bytes": 1251,
+  "content": "import rehypeSanitize, { defaultSchema } from \"rehype-sanitize\";\nimport type { Schema } from \"hast-util-sanitize\";\n\n/** Versioned sanitize schema — security contract of the preview pipeline. */\nexport const mdStudioSanitizeSchema: Schema = {\n  ...defaultSchema,\n  tagNames: [\n    ...(defaultSchema.tagNames ?? []),\n    \"section\",\n    \"aside\",\n    \"details\",\n    \"summary\",\n    \"mark\",\n  ],\n  attributes: {\n    ...defaultSchema.attributes,\n    a: [...(defaultSchema.attributes?.a ?? []), [\"className\"], [\"href\"], [\"title\"], [\"rel\"], [\"target\"]],\n    code: [...(defaultSchema.attributes?.code ?? []), [\"className\"]],\n    span: [...(defaultSchema.attributes?.span ?? []), [\"className\"], [\"style\"], [\"aria-hidden\"]],\n    div: [...(defaultSchema.attributes?.div ?? []), [\"className\"], [\"role\", \"aria-label\"]],\n    section: [[\"className\"], [\"role\", \"aria-label\"]],\n    img: [...(defaultSchema.attributes?.img ?? []), [\"src\"], [\"alt\"], [\"title\"], [\"loading\"]],\n    svg: false as unknown as string[],\n  },\n  protocols: {\n    ...defaultSchema.protocols,\n    href: [\"http\", \"https\", \"mailto\"],\n    src: [\"http\", \"https\", \"data\"],\n  },\n  clobberPrefix: \"user-content-\",\n};\n\nexport function sanitizePlugin() {\n  return rehypeSanitize(mdStudioSanitizeSchema);\n}\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "src/markdown/sanitize.ts",
+  "source_path": "src/markdown/sanitize.ts",
+  "ts": "2026-07-10T14:02:14Z"
+}

@@ -1,0 +1,13 @@
+{
+  "after_sha256": "f73aff87fe3f350be2ec41f94f5f3cabcaf98ae46d0ae65c0962fdf451449caa",
+  "artifact_id": "ART-f73aff87fe3f350be2ec41f94f5f3cabcaf98ae46d0ae65c0962fdf451449caa",
+  "artifact_sha256": "95c0eae067d601f938dfdc076b8db13e5f2215641c371b09fcb9b0e341b31ed7",
+  "before_sha256": "f73aff87fe3f350be2ec41f94f5f3cabcaf98ae46d0ae65c0962fdf451449caa",
+  "bytes": 57,
+  "content": "# Heading\n\nParagraph with **bold** and *italic*.\n\n- list\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "tests/conformance/commonmark/basic.md",
+  "source_path": "tests/conformance/commonmark/basic.md",
+  "ts": "2026-07-10T14:03:12Z"
+}

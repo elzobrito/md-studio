@@ -1,0 +1,13 @@
+{
+  "after_sha256": "95f3dc251e13177ef8f229b5701ff64b9ff3b695a09731514a3c0ac34e654108",
+  "artifact_id": "ART-95f3dc251e13177ef8f229b5701ff64b9ff3b695a09731514a3c0ac34e654108",
+  "artifact_sha256": "42ae4c3c7ec66c2dfceb0c28ae05c4cb787d1af018695580606c55178ef6a62b",
+  "before_sha256": "95f3dc251e13177ef8f229b5701ff64b9ff3b695a09731514a3c0ac34e654108",
+  "bytes": 853,
+  "content": "import { useEffect, useId, useState } from \"react\";\nimport { renderMermaid } from \"../markdown/mermaid\";\n\nexport function MermaidBlock(props: { source: string }) {\n  const rid = useId().replace(/:/g, \"\");\n  const [svg, setSvg] = useState<string | null>(null);\n  const [error, setError] = useState<string | null>(null);\n\n  useEffect(() => {\n    let alive = true;\n    void renderMermaid(`mmd-${rid}`, props.source).then((r) => {\n      if (!alive) return;\n      if (r.error) setError(r.error);\n      else setSvg(r.svg ?? null);\n    });\n    return () => {\n      alive = false;\n    };\n  }, [props.source, rid]);\n\n  if (error) return <div className=\"mermaid-error\" role=\"alert\">{error}</div>;\n  if (!svg) return <div className=\"mermaid-loading\">Renderizando diagrama…</div>;\n  return <div className=\"mermaid\" dangerouslySetInnerHTML={{ __html: svg }} />;\n}\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "src/components/MermaidBlock.tsx",
+  "source_path": "src/components/MermaidBlock.tsx",
+  "ts": "2026-07-10T14:02:14Z"
+}

@@ -1,0 +1,13 @@
+{
+  "after_sha256": "952c9d385c2e45f368461e16a49d21333ac7cbae374d6d5567e40cb7b1854f9a",
+  "artifact_id": "ART-952c9d385c2e45f368461e16a49d21333ac7cbae374d6d5567e40cb7b1854f9a",
+  "artifact_sha256": "102e636a123410b6513145e4f156256746760b5b07e6490da26a5542a13b0226",
+  "before_sha256": "952c9d385c2e45f368461e16a49d21333ac7cbae374d6d5567e40cb7b1854f9a",
+  "bytes": 795,
+  "content": "import { useEffect, useState } from \"react\";\nimport { processMarkdown } from \"../markdown/processor\";\n\nexport function MarkdownViewer(props: { content: string; relativePath: string }) {\n  const [html, setHtml] = useState(\"\");\n  const [token, setToken] = useState(0);\n\n  useEffect(() => {\n    let alive = true;\n    const my = token + 1;\n    setToken(my);\n    const t = window.setTimeout(() => {\n      void processMarkdown(props.content).then((r) => {\n        if (alive && my >= token) setHtml(r.html);\n      });\n    }, 120);\n    return () => {\n      alive = false;\n      window.clearTimeout(t);\n    };\n  }, [props.content]);\n\n  return (\n    <section className=\"preview\" aria-label=\"Preview\">\n      <div className=\"preview-body\" dangerouslySetInnerHTML={{ __html: html }} />\n    </section>\n  );\n}\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "src/components/MarkdownViewer.tsx",
+  "source_path": "src/components/MarkdownViewer.tsx",
+  "ts": "2026-07-10T14:02:14Z"
+}

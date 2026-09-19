@@ -1,0 +1,13 @@
+{
+  "after_sha256": "df8f170379ecaf058b5e029a49d91d6811d5f6e84ae3f0f77eef9042ca2579eb",
+  "artifact_id": "ART-df8f170379ecaf058b5e029a49d91d6811d5f6e84ae3f0f77eef9042ca2579eb",
+  "artifact_sha256": "0a1f090538363d1ae232db1bf10ea34210d2ecf54e8987f68bab2e652da099e7",
+  "before_sha256": "df8f170379ecaf058b5e029a49d91d6811d5f6e84ae3f0f77eef9042ca2579eb",
+  "bytes": 950,
+  "content": "import type { SessionApi } from \"../state/session\";\n\nexport function Settings(props: { session: SessionApi }) {\n  const s = props.session;\n  return (\n    <section aria-label=\"Preferências\">\n      <h2>Preferências</h2>\n      <label>\n        Tema\n        <select\n          value={s.theme}\n          onChange={(e) => s.setTheme(e.target.value as \"light\" | \"dark\" | \"auto\")}\n        >\n          <option value=\"auto\">Automático</option>\n          <option value=\"light\">Claro</option>\n          <option value=\"dark\">Escuro</option>\n        </select>\n      </label>\n      <label>\n        Visualização\n        <select\n          value={s.viewMode}\n          onChange={(e) => s.setViewMode(e.target.value as \"source\" | \"preview\" | \"split\")}\n        >\n          <option value=\"split\">Dividida</option>\n          <option value=\"source\">Fonte</option>\n          <option value=\"preview\">Preview</option>\n        </select>\n      </label>\n    </section>\n  );\n}\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "src/components/Settings.tsx",
+  "source_path": "src/components/Settings.tsx",
+  "ts": "2026-07-10T14:03:01Z"
+}

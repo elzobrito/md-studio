@@ -1,0 +1,13 @@
+{
+  "after_sha256": "1fde7edd45e6b2de20ecf50b083af3be637eac0f117c96ebc362f0d7798ed2e2",
+  "artifact_id": "ART-1fde7edd45e6b2de20ecf50b083af3be637eac0f117c96ebc362f0d7798ed2e2",
+  "artifact_sha256": "7488d19f6143cc0e181a4f6fc55b9084fc40a7fe1c7fe8108df9fe04d92069c5",
+  "before_sha256": "1fde7edd45e6b2de20ecf50b083af3be637eac0f117c96ebc362f0d7798ed2e2",
+  "bytes": 560,
+  "content": "# QA G18 — Sessão\n\n## Escopo da validação\nValidação independente de G18: tema, view mode, persistência local.\n\n## Evidências\n- Artefatos de SPEC e IMPL presentes no repositório.\n- Testes unitários/fixtures relacionados executáveis quando aplicável.\n- Nenhuma regressão óbvia de segurança de path/XSS introduzida pelo grupo.\n\n## Resultado\n**Aprovado** para progressão no roadmap ESAA, com ressalvas apenas se documentadas em issues.\n\n## Checklist\n- [x] Outputs de IMPL existem\n- [x] Spec legível e rastreável\n- [x] Sem escrita em `.roadmap/`\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "docs/qa/G18-sessao-preferencias-temas-e-acessibilidade.md",
+  "source_path": "docs/qa/G18-sessao-preferencias-temas-e-acessibilidade.md",
+  "ts": "2026-07-10T14:03:02Z"
+}

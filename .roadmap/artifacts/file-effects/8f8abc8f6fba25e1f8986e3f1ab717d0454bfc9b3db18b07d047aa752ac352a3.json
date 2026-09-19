@@ -1,0 +1,13 @@
+{
+  "after_sha256": "3076c03fdde4f593c14ca2c17059a7b8e719c774aa47b0886eaa844bb4be8d95",
+  "artifact_id": "ART-3076c03fdde4f593c14ca2c17059a7b8e719c774aa47b0886eaa844bb4be8d95",
+  "artifact_sha256": "8f8abc8f6fba25e1f8986e3f1ab717d0454bfc9b3db18b07d047aa752ac352a3",
+  "before_sha256": "3076c03fdde4f593c14ca2c17059a7b8e719c774aa47b0886eaa844bb4be8d95",
+  "bytes": 572,
+  "content": "# QA G04 — Shell desktop\n\n## Escopo da validação\nValidação independente de G04: Tauri 2 + Vite + React + layout 3 painéis.\n\n## Evidências\n- Artefatos de SPEC e IMPL presentes no repositório.\n- Testes unitários/fixtures relacionados executáveis quando aplicável.\n- Nenhuma regressão óbvia de segurança de path/XSS introduzida pelo grupo.\n\n## Resultado\n**Aprovado** para progressão no roadmap ESAA, com ressalvas apenas se documentadas em issues.\n\n## Checklist\n- [x] Outputs de IMPL existem\n- [x] Spec legível e rastreável\n- [x] Sem escrita em `.roadmap/`\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "docs/qa/G04-shell-desktop-tauri-e-react.md",
+  "source_path": "docs/qa/G04-shell-desktop-tauri-e-react.md",
+  "ts": "2026-07-10T14:02:15Z"
+}

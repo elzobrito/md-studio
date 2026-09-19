@@ -1,0 +1,13 @@
+{
+  "after_sha256": "9ea63d46f7b1114ba57b636702a46e3c177ee5b83d79c3612efd55154e722861",
+  "artifact_id": "ART-9ea63d46f7b1114ba57b636702a46e3c177ee5b83d79c3612efd55154e722861",
+  "artifact_sha256": "e72aee861327b820e46d9e3efff209358125f1fc9410d9b1571d2920ba3baa6f",
+  "before_sha256": "9ea63d46f7b1114ba57b636702a46e3c177ee5b83d79c3612efd55154e722861",
+  "bytes": 481,
+  "content": "# G05 — IPC tipado\n\n## Objetivo\nopen/list/read/save/search/export; capability default sem fs:write-all.\n\n## Requisitos\n- Entrega alinhada ao plano MD Studio v1 e PRDs CORE/EXTENSIONS/QUALITY.\n- Artefatos de implementação nos paths declarados no roadmap ESAA.\n- Critérios de aceite verificáveis em QA.\n\n## Aceite\n1. Spec implementável sem decisões pendentes.\n2. Superfície de erro e segurança definida quando aplicável.\n3. Dependências de grupos anteriores respeitadas.\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "docs/spec/G05-comandos-tauri-capabilities-e-eventos-tipados.md",
+  "source_path": "docs/spec/G05-comandos-tauri-capabilities-e-eventos-tipados.md",
+  "ts": "2026-07-10T14:02:16Z"
+}

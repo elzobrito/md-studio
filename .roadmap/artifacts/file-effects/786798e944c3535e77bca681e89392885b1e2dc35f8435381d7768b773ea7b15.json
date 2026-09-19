@@ -1,0 +1,13 @@
+{
+  "after_sha256": "8bea550477cd96c47a8c2984e1f9ccc4275745a8beb23d30245e196fe63e1b45",
+  "artifact_id": "ART-8bea550477cd96c47a8c2984e1f9ccc4275745a8beb23d30245e196fe63e1b45",
+  "artifact_sha256": "786798e944c3535e77bca681e89392885b1e2dc35f8435381d7768b773ea7b15",
+  "before_sha256": "8bea550477cd96c47a8c2984e1f9ccc4275745a8beb23d30245e196fe63e1b45",
+  "bytes": 88,
+  "content": "# Integrity cases\n\n- hash mismatch on save\nCovered by `src-tauri/tests/atomic_save.rs`.\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "tests/security/integrity/README.md",
+  "source_path": "tests/security/integrity/README.md",
+  "ts": "2026-07-10T14:03:15Z"
+}

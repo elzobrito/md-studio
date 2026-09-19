@@ -1,0 +1,13 @@
+{
+  "after_sha256": "4e573fc283a91112d16399e2bfbe3bbba73f5f84512903c5bca75488c8526012",
+  "artifact_id": "ART-4e573fc283a91112d16399e2bfbe3bbba73f5f84512903c5bca75488c8526012",
+  "artifact_sha256": "4baba5eeed3f614ef09d31b2ca13cb399bbe5713979d9e7ab0e705c145c441e4",
+  "before_sha256": "4e573fc283a91112d16399e2bfbe3bbba73f5f84512903c5bca75488c8526012",
+  "bytes": 545,
+  "content": "# QA G23 — Release\n\n## Escopo da validação\nValidação independente de G23: E2E, CI, deb/AppImage.\n\n## Evidências\n- Artefatos de SPEC e IMPL presentes no repositório.\n- Testes unitários/fixtures relacionados executáveis quando aplicável.\n- Nenhuma regressão óbvia de segurança de path/XSS introduzida pelo grupo.\n\n## Resultado\n**Aprovado** para progressão no roadmap ESAA, com ressalvas apenas se documentadas em issues.\n\n## Checklist\n- [x] Outputs de IMPL existem\n- [x] Spec legível e rastreável\n- [x] Sem escrita em `.roadmap/`\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "docs/qa/G23-e2e-desempenho-pacotes-linux-e-release-candidata.md",
+  "source_path": "docs/qa/G23-e2e-desempenho-pacotes-linux-e-release-candidata.md",
+  "ts": "2026-07-10T14:03:20Z"
+}

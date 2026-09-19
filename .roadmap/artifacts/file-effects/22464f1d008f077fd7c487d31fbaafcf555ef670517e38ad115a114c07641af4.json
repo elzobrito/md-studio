@@ -1,0 +1,13 @@
+{
+  "after_sha256": "92ea6addb3c84b84fcb28955a95a29a6ee9c6a9d22fea45bf7b6d9facedbda32",
+  "artifact_id": "ART-92ea6addb3c84b84fcb28955a95a29a6ee9c6a9d22fea45bf7b6d9facedbda32",
+  "artifact_sha256": "22464f1d008f077fd7c487d31fbaafcf555ef670517e38ad115a114c07641af4",
+  "before_sha256": "92ea6addb3c84b84fcb28955a95a29a6ee9c6a9d22fea45bf7b6d9facedbda32",
+  "bytes": 444,
+  "content": "# G15 — Mermaid\n\n## Objetivo\nsecurityLevel strict, export SVG/PNG.\n\n## Requisitos\n- Entrega alinhada ao plano MD Studio v1 e PRDs CORE/EXTENSIONS/QUALITY.\n- Artefatos de implementação nos paths declarados no roadmap ESAA.\n- Critérios de aceite verificáveis em QA.\n\n## Aceite\n1. Spec implementável sem decisões pendentes.\n2. Superfície de erro e segurança definida quando aplicável.\n3. Dependências de grupos anteriores respeitadas.\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "docs/spec/G15-renderizador-mermaid-isolado-e-exportavel.md",
+  "source_path": "docs/spec/G15-renderizador-mermaid-isolado-e-exportavel.md",
+  "ts": "2026-07-10T14:02:49Z"
+}

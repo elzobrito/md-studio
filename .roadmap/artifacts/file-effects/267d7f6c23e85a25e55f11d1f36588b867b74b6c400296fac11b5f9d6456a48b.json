@@ -1,0 +1,13 @@
+{
+  "after_sha256": "29222edf91cc6b822651c7b371d739c6ffddcb03bbfac2f2638c1c49c12ab629",
+  "artifact_id": "ART-29222edf91cc6b822651c7b371d739c6ffddcb03bbfac2f2638c1c49c12ab629",
+  "artifact_sha256": "267d7f6c23e85a25e55f11d1f36588b867b74b6c400296fac11b5f9d6456a48b",
+  "before_sha256": "29222edf91cc6b822651c7b371d739c6ffddcb03bbfac2f2638c1c49c12ab629",
+  "bytes": 508,
+  "content": "# G02 — Arquitetura, IPC e tipos públicos\n\n## Objetivo\nWorkspaceId opaco, DocumentSnapshot, save com hash, capabilities mínimas.\n\n## Requisitos\n- Entrega alinhada ao plano MD Studio v1 e PRDs CORE/EXTENSIONS/QUALITY.\n- Artefatos de implementação nos paths declarados no roadmap ESAA.\n- Critérios de aceite verificáveis em QA.\n\n## Aceite\n1. Spec implementável sem decisões pendentes.\n2. Superfície de erro e segurança definida quando aplicável.\n3. Dependências de grupos anteriores respeitadas.\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "docs/spec/G02-contrato-arquitetural-ipc-e-tipos-publicos.md",
+  "source_path": "docs/spec/G02-contrato-arquitetural-ipc-e-tipos-publicos.md",
+  "ts": "2026-07-10T14:01:41Z"
+}

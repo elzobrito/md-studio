@@ -1,0 +1,13 @@
+{
+  "after_sha256": "337ec69ea0b8683e2d2a3796ef2f3daca3ef89d63c465799fca316566f1afb2f",
+  "artifact_id": "ART-337ec69ea0b8683e2d2a3796ef2f3daca3ef89d63c465799fca316566f1afb2f",
+  "artifact_sha256": "935b1c1b8f34c02441d882eedb1496aa085db6884cff8c94c90d16abf954647d",
+  "before_sha256": "337ec69ea0b8683e2d2a3796ef2f3daca3ef89d63c465799fca316566f1afb2f",
+  "bytes": 813,
+  "content": "import { extractOutline } from \"../services/navigation\";\n\nexport function DocumentOutline(props: {\n  content: string;\n  onNavigate: (slug: string) => void;\n}) {\n  const items = extractOutline(props.content);\n\n  return (\n    <nav className=\"outline\" aria-label=\"Sumário\">\n      <h2>Sumário</h2>\n      {items.length === 0 ? (\n        <p className=\"outline-empty\">Nenhum heading no documento.</p>\n      ) : (\n        <ul>\n          {items.map((it) => (\n            <li key={it.id} style={{ marginLeft: (it.level - 1) * 12 }}>\n              <button\n                type=\"button\"\n                className=\"outline-link\"\n                onClick={() => props.onNavigate(it.id)}\n              >\n                {it.text}\n              </button>\n            </li>\n          ))}\n        </ul>\n      )}\n    </nav>\n  );\n}\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "src/components/DocumentOutline.tsx",
+  "source_path": "src/components/DocumentOutline.tsx",
+  "ts": "2026-07-10T15:25:48Z"
+}

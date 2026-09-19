@@ -1,0 +1,13 @@
+{
+  "after_sha256": "416a927b40d46d61a50e01d1d4be62209cd8efb75dbcc6ae2c80ad7311a08beb",
+  "artifact_id": "ART-416a927b40d46d61a50e01d1d4be62209cd8efb75dbcc6ae2c80ad7311a08beb",
+  "artifact_sha256": "a2d9cba03aa2d4f5434897ae94764774f92ec8825fb60d395feeca072dbb9b63",
+  "before_sha256": "416a927b40d46d61a50e01d1d4be62209cd8efb75dbcc6ae2c80ad7311a08beb",
+  "bytes": 860,
+  "content": "import { parse as parseYaml } from \"yaml\";\nimport { z } from \"zod\";\n\nexport const FrontmatterSchema = z\n  .object({\n    title: z.string().optional(),\n    description: z.string().optional(),\n    tags: z.array(z.string()).optional(),\n    date: z.union([z.string(), z.date()]).optional(),\n  })\n  .passthrough();\n\nexport type Frontmatter = z.infer<typeof FrontmatterSchema>;\n\nexport function parseFrontmatter(raw: unknown): { data: Frontmatter; errors: string[] } {\n  try {\n    const data = typeof raw === \"string\" ? parseYaml(raw) : raw;\n    const parsed = FrontmatterSchema.safeParse(data ?? {});\n    if (!parsed.success) {\n      return { data: {}, errors: parsed.error.issues.map((i) => i.message) };\n    }\n    return { data: parsed.data, errors: [] };\n  } catch (e) {\n    return { data: {}, errors: [e instanceof Error ? e.message : \"YAML inválido\"] };\n  }\n}\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "src/markdown/frontmatter.ts",
+  "source_path": "src/markdown/frontmatter.ts",
+  "ts": "2026-07-10T14:02:37Z"
+}

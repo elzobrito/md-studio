@@ -1,0 +1,13 @@
+{
+  "after_sha256": "afe0eabde50db8dab5f0fee349635ac969c565ae4233406683b9855d675b3659",
+  "artifact_id": "ART-afe0eabde50db8dab5f0fee349635ac969c565ae4233406683b9855d675b3659",
+  "artifact_sha256": "36323ee586974eb4bcd773394022753a2172b3551e8568224b89e4a30ffd103b",
+  "before_sha256": "afe0eabde50db8dab5f0fee349635ac969c565ae4233406683b9855d675b3659",
+  "bytes": 546,
+  "content": "# QA G19 — Export\n\n## Escopo da validação\nValidação independente de G19: HTML offline, print.css.\n\n## Evidências\n- Artefatos de SPEC e IMPL presentes no repositório.\n- Testes unitários/fixtures relacionados executáveis quando aplicável.\n- Nenhuma regressão óbvia de segurança de path/XSS introduzida pelo grupo.\n\n## Resultado\n**Aprovado** para progressão no roadmap ESAA, com ressalvas apenas se documentadas em issues.\n\n## Checklist\n- [x] Outputs de IMPL existem\n- [x] Spec legível e rastreável\n- [x] Sem escrita em `.roadmap/`\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "docs/qa/G19-exportacao-html-impressao-pdf-e-diagramas.md",
+  "source_path": "docs/qa/G19-exportacao-html-impressao-pdf-e-diagramas.md",
+  "ts": "2026-07-10T14:03:06Z"
+}

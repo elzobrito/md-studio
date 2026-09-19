@@ -1,0 +1,13 @@
+{
+  "after_sha256": "fa5de33f62146404985ad3a538929e0e1afe63512e116d1f071ca32c7b9da5d8",
+  "artifact_id": "ART-fa5de33f62146404985ad3a538929e0e1afe63512e116d1f071ca32c7b9da5d8",
+  "artifact_sha256": "25f7a8bd5719774974a434f2be63896eff854123fb327d4bc5005ca7ed584bf5",
+  "before_sha256": "fa5de33f62146404985ad3a538929e0e1afe63512e116d1f071ca32c7b9da5d8",
+  "bytes": 1191,
+  "content": "/** Minimal File System Access API typings used by MD Studio browser mode. */\n\ninterface FileSystemHandle {\n  readonly kind: \"file\" | \"directory\";\n  readonly name: string;\n}\n\ninterface FileSystemFileHandle extends FileSystemHandle {\n  readonly kind: \"file\";\n  getFile(): Promise<File>;\n  createWritable(): Promise<FileSystemWritableFileStream>;\n}\n\ninterface FileSystemDirectoryHandle extends FileSystemHandle {\n  readonly kind: \"directory\";\n  getDirectoryHandle(name: string, options?: { create?: boolean }): Promise<FileSystemDirectoryHandle>;\n  getFileHandle(name: string, options?: { create?: boolean }): Promise<FileSystemFileHandle>;\n  entries(): AsyncIterableIterator<[string, FileSystemHandle]>;\n}\n\ninterface FileSystemWritableFileStream extends WritableStream {\n  write(data: BufferSource | Blob | string): Promise<void>;\n  close(): Promise<void>;\n}\n\ninterface Window {\n  showDirectoryPicker?: (options?: {\n    mode?: \"read\" | \"readwrite\";\n  }) => Promise<FileSystemDirectoryHandle>;\n  showOpenFilePicker?: (options?: {\n    multiple?: boolean;\n    types?: Array<{\n      description?: string;\n      accept: Record<string, string[]>;\n    }>;\n  }) => Promise<FileSystemFileHandle[]>;\n}\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "src/types/fs-access.d.ts",
+  "source_path": "src/types/fs-access.d.ts",
+  "ts": "2026-07-10T15:14:29Z"
+}

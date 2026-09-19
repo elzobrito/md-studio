@@ -1,0 +1,13 @@
+{
+  "after_sha256": "da866f52de36c9082309d6fa7aac600a098f5b5f1260eb4e41b5f14b52a6aa0b",
+  "artifact_id": "ART-da866f52de36c9082309d6fa7aac600a098f5b5f1260eb4e41b5f14b52a6aa0b",
+  "artifact_sha256": "629d21c57376b087fbc6c185000c771c662b46c10c062c94b31b7b0b95fe0507",
+  "before_sha256": "da866f52de36c9082309d6fa7aac600a098f5b5f1260eb4e41b5f14b52a6aa0b",
+  "bytes": 391,
+  "content": "import { renderMath } from \"../markdown/math\";\n\nexport function MathBlock(props: { source: string; display?: boolean }) {\n  const r = renderMath(props.source, !!props.display);\n  if (r.error) {\n    return (\n      <div className=\"math-error\" role=\"alert\">\n        Erro KaTeX: {r.error}\n      </div>\n    );\n  }\n  return <div className=\"math\" dangerouslySetInnerHTML={{ __html: r.html }} />;\n}\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "src/components/MathBlock.tsx",
+  "source_path": "src/components/MathBlock.tsx",
+  "ts": "2026-07-10T14:02:47Z"
+}

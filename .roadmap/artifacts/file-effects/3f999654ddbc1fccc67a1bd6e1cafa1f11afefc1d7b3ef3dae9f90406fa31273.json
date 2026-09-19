@@ -1,0 +1,13 @@
+{
+  "after_sha256": "faa7fff49a42daa174857afdce2fe63b687633472eb7287400ad4a4802056250",
+  "artifact_id": "ART-faa7fff49a42daa174857afdce2fe63b687633472eb7287400ad4a4802056250",
+  "artifact_sha256": "3f999654ddbc1fccc67a1bd6e1cafa1f11afefc1d7b3ef3dae9f90406fa31273",
+  "before_sha256": "faa7fff49a42daa174857afdce2fe63b687633472eb7287400ad4a4802056250",
+  "bytes": 1081,
+  "content": "import { useEffect, useRef, useState } from \"react\";\nimport { processMarkdown } from \"../markdown/processor\";\n\nexport function MarkdownViewer(props: {\n  content: string;\n  relativePath: string;\n  onRoot?: (el: HTMLElement | null) => void;\n}) {\n  const [html, setHtml] = useState(\"\");\n  const bodyRef = useRef<HTMLDivElement>(null);\n  const requestRef = useRef(0);\n  const onRoot = props.onRoot;\n\n  useEffect(() => {\n    onRoot?.(bodyRef.current);\n    return () => onRoot?.(null);\n  }, [onRoot, html]);\n\n  useEffect(() => {\n    let alive = true;\n    const my = ++requestRef.current;\n    const t = window.setTimeout(() => {\n      void processMarkdown(props.content).then((r) => {\n        if (alive && my === requestRef.current) setHtml(r.html);\n      });\n    }, 120);\n    return () => {\n      alive = false;\n      window.clearTimeout(t);\n    };\n  }, [props.content]);\n\n  return (\n    <section className=\"preview\" aria-label=\"Preview\">\n      <div\n        ref={bodyRef}\n        className=\"preview-body\"\n        dangerouslySetInnerHTML={{ __html: html }}\n      />\n    </section>\n  );\n}\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "src/components/MarkdownViewer.tsx",
+  "source_path": "src/components/MarkdownViewer.tsx",
+  "ts": "2026-07-10T15:25:48Z"
+}

@@ -1,0 +1,13 @@
+{
+  "after_sha256": "9cfbaff2da84aa1804940a6325995c68f8413857f07b5b0d63e91efa9c8860d8",
+  "artifact_id": "ART-9cfbaff2da84aa1804940a6325995c68f8413857f07b5b0d63e91efa9c8860d8",
+  "artifact_sha256": "21e18644cd65465152ec480055c536abb7d7168dec488252d3083e980f28a79d",
+  "before_sha256": "9cfbaff2da84aa1804940a6325995c68f8413857f07b5b0d63e91efa9c8860d8",
+  "bytes": 467,
+  "content": "# G07 — Save atômico\n\n## Objetivo\ntmp+fsync+rename, expected_hash, drafts fora da fonte.\n\n## Requisitos\n- Entrega alinhada ao plano MD Studio v1 e PRDs CORE/EXTENSIONS/QUALITY.\n- Artefatos de implementação nos paths declarados no roadmap ESAA.\n- Critérios de aceite verificáveis em QA.\n\n## Aceite\n1. Spec implementável sem decisões pendentes.\n2. Superfície de erro e segurança definida quando aplicável.\n3. Dependências de grupos anteriores respeitadas.\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "docs/spec/G07-persistencia-atomica-conflitos-e-recuperacao-de-rascunhos.md",
+  "source_path": "docs/spec/G07-persistencia-atomica-conflitos-e-recuperacao-de-rascunhos.md",
+  "ts": "2026-07-10T14:02:22Z"
+}

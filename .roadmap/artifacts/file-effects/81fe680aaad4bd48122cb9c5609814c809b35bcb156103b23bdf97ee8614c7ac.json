@@ -1,0 +1,13 @@
+{
+  "after_sha256": "92de66a439951e124b409156b1bdae046393cac7d23e341933b624baa15588c7",
+  "artifact_id": "ART-92de66a439951e124b409156b1bdae046393cac7d23e341933b624baa15588c7",
+  "artifact_sha256": "81fe680aaad4bd48122cb9c5609814c809b35bcb156103b23bdf97ee8614c7ac",
+  "before_sha256": "92de66a439951e124b409156b1bdae046393cac7d23e341933b624baa15588c7",
+  "bytes": 26,
+  "content": "export * from \"./client\";\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "src/lib/ipc/index.ts",
+  "source_path": "src/lib/ipc/index.ts",
+  "ts": "2026-07-10T14:02:17Z"
+}

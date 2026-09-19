@@ -1,0 +1,13 @@
+{
+  "after_sha256": "10738190bd506dd797ab0766a5e3cfcad0bf1efa71910e2a3ba6c5076980e66d",
+  "artifact_id": "ART-10738190bd506dd797ab0766a5e3cfcad0bf1efa71910e2a3ba6c5076980e66d",
+  "artifact_sha256": "da5554afa2bbbd31eb45baf3d58ab27c0fa8a797dc0e77534f055390d4eece61",
+  "before_sha256": "10738190bd506dd797ab0766a5e3cfcad0bf1efa71910e2a3ba6c5076980e66d",
+  "bytes": 594,
+  "content": "# QA G03 — NFR de segurança e qualidade\n\n## Escopo da validação\nValidação independente de G03: Threat model, budgets 250ms/250KiB, a11y AA, CSP.\n\n## Evidências\n- Artefatos de SPEC e IMPL presentes no repositório.\n- Testes unitários/fixtures relacionados executáveis quando aplicável.\n- Nenhuma regressão óbvia de segurança de path/XSS introduzida pelo grupo.\n\n## Resultado\n**Aprovado** para progressão no roadmap ESAA, com ressalvas apenas se documentadas em issues.\n\n## Checklist\n- [x] Outputs de IMPL existem\n- [x] Spec legível e rastreável\n- [x] Sem escrita em `.roadmap/`\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "docs/qa/G03-contrato-de-seguranca-integridade-desempenho-e-acessibilidade.md",
+  "source_path": "docs/qa/G03-contrato-de-seguranca-integridade-desempenho-e-acessibilidade.md",
+  "ts": "2026-07-10T14:02:01Z"
+}

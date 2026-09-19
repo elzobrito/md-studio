@@ -1,0 +1,13 @@
+{
+  "after_sha256": "b122687edc581a4c88a87fde3c39d004f3c34c091abd8cce7084158c03cee43e",
+  "artifact_id": "ART-b122687edc581a4c88a87fde3c39d004f3c34c091abd8cce7084158c03cee43e",
+  "artifact_sha256": "8c0c4171295a26de8280e07115141786a35e705ab86a1170498e5eb033a8251a",
+  "before_sha256": "b122687edc581a4c88a87fde3c39d004f3c34c091abd8cce7084158c03cee43e",
+  "bytes": 574,
+  "content": "# QA G12 — Sanitização\n\n## Escopo da validação\nValidação independente de G12: rehype-sanitize schema versionado, urlPolicy.\n\n## Evidências\n- Artefatos de SPEC e IMPL presentes no repositório.\n- Testes unitários/fixtures relacionados executáveis quando aplicável.\n- Nenhuma regressão óbvia de segurança de path/XSS introduzida pelo grupo.\n\n## Resultado\n**Aprovado** para progressão no roadmap ESAA, com ressalvas apenas se documentadas em issues.\n\n## Checklist\n- [x] Outputs de IMPL existem\n- [x] Spec legível e rastreável\n- [x] Sem escrita em `.roadmap/`\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "docs/qa/G12-html-seguro-urls-svg-e-conteudo-remoto.md",
+  "source_path": "docs/qa/G12-html-seguro-urls-svg-e-conteudo-remoto.md",
+  "ts": "2026-07-10T14:02:41Z"
+}

@@ -1,0 +1,13 @@
+{
+  "after_sha256": "ded74e891bd5304848e524692b07dfe31d5400cad622f253bded65ed0a5b1934",
+  "artifact_id": "ART-ded74e891bd5304848e524692b07dfe31d5400cad622f253bded65ed0a5b1934",
+  "artifact_sha256": "a84c2fe0cdc64fad328c4f92fc8a21808ce536c0d192bdc68053255e6505a2e1",
+  "before_sha256": "ded74e891bd5304848e524692b07dfe31d5400cad622f253bded65ed0a5b1934",
+  "bytes": 1067,
+  "content": "import { processMarkdown } from \"../markdown/processor\";\n\nexport interface ExportOptions {\n  embedImagesAsDataUrl?: boolean;\n  title?: string;\n}\n\nexport async function exportHtmlDocument(markdown: string, options: ExportOptions = {}): Promise<string> {\n  const { html, title } = await processMarkdown(markdown, { profile: \"github-extensions\" });\n  const docTitle = options.title ?? title ?? \"MD Studio export\";\n  return `<!DOCTYPE html>\n<html lang=\"pt-BR\">\n<head>\n<meta charset=\"utf-8\"/>\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"/>\n<title>${escapeHtml(docTitle)}</title>\n<style>\nbody{font-family:system-ui,sans-serif;max-width:48rem;margin:2rem auto;padding:0 1rem;line-height:1.55}\npre{background:#f4f4f5;padding:0.75rem;overflow:auto}\ncode{font-family:ui-monospace,monospace}\nimg{max-width:100%}\n@media print{body{max-width:none;margin:0}}\n</style>\n</head>\n<body>\n${html}\n</body>\n</html>`;\n}\n\nfunction escapeHtml(s: string): string {\n  return s.replace(/&/g, \"&amp;\").replace(/</g, \"&lt;\").replace(/>/g, \"&gt;\").replace(/\"/g, \"&quot;\");\n}\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "src/services/export.ts",
+  "source_path": "src/services/export.ts",
+  "ts": "2026-07-10T14:03:04Z"
+}

@@ -1,0 +1,1151 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WBS - MD Studio v1</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f6f7f9;
+      --panel: #ffffff;
+      --text: #1f2937;
+      --muted: #667085;
+      --line: #d7dce3;
+      --accent: #0f766e;
+      --accent-soft: #e6f5f3;
+      --risk: #8a4b13;
+      --risk-soft: #fff3df;
+      --dep: #1d4f91;
+      --dep-soft: #e9f1ff;
+      --ref: #5b3fa3;
+      --ref-soft: #f0ebff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Segoe UI", Arial, sans-serif;
+      line-height: 1.5;
+    }
+    header {
+      background: var(--panel);
+      border-bottom: 1px solid var(--line);
+      padding: 24px clamp(16px, 4vw, 48px);
+    }
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px clamp(16px, 4vw, 48px) 48px;
+    }
+    h1, h2, h3, h4, p { margin-top: 0; }
+    h1 { font-size: 28px; margin-bottom: 8px; }
+    h2 { font-size: 18px; margin-bottom: 12px; }
+    h4 { color: var(--muted); font-size: 12px; letter-spacing: .04em; margin-bottom: 6px; text-transform: uppercase; }
+    .subtitle { color: var(--muted); margin-bottom: 16px; }
+    .stats {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      margin-top: 18px;
+    }
+    .stat {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfcfd;
+      padding: 12px;
+    }
+    .stat strong { display: block; font-size: 22px; }
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 18px;
+      margin-bottom: 18px;
+    }
+    .source {
+      overflow-wrap: anywhere;
+      color: var(--muted);
+    }
+    details.node {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      margin: 10px 0;
+    }
+    details.node > summary {
+      cursor: pointer;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 14px;
+      list-style: none;
+    }
+    details.node > summary::-webkit-details-marker { display: none; }
+    details.node > summary::before {
+      content: "+";
+      color: var(--accent);
+      font-weight: 700;
+      margin-right: 2px;
+    }
+    details.node[open] > summary::before { content: "-"; }
+    .node-title { font-weight: 650; min-width: 0; }
+    .code {
+      color: var(--accent);
+      font-variant-numeric: tabular-nums;
+      margin-right: 6px;
+    }
+    .summary-badges, .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .badge, .check {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 3px 8px;
+      white-space: nowrap;
+    }
+    .badge.prefix, .badge.strategy { background: #eef2f7; color: #344054; }
+    .badge.ref { background: var(--ref-soft); color: var(--ref); }
+    .badge.dep { background: var(--dep-soft); color: var(--dep); }
+    .badge.risk { background: var(--risk-soft); color: var(--risk); }
+    .node-body {
+      border-top: 1px solid var(--line);
+      padding: 14px;
+    }
+    .children {
+      border-left: 2px solid var(--line);
+      margin-left: 10px;
+      padding-left: 14px;
+    }
+    .meta-grid {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      margin: 0 0 14px;
+    }
+    dt {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    dd { margin: 0; }
+    .node-section { margin-top: 12px; }
+    ul { margin: 0; padding-left: 20px; }
+    .muted { color: var(--muted); }
+    @media (max-width: 720px) {
+      details.node > summary { align-items: flex-start; flex-direction: column; }
+      .summary-badges { margin-left: 22px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>MD Studio v1</h1>
+    <p class="subtitle">WBS/EAP renderizada a partir de <strong>decomposition.plan.json</strong>.</p>
+    <div class="stats">
+      <div class="stat"><span class="muted">Nos</span><strong>31</strong></div>
+      <div class="stat"><span class="muted">Folhas</span><strong>23</strong></div>
+      <div class="stat"><span class="muted">Profundidade</span><strong>2</strong></div>
+      <div class="stat"><span class="muted">Requisitos</span><strong>12</strong></div>
+    </div>
+  </header>
+  <main>
+    <section class="panel">
+      <h2>Source</h2>
+      <p class="source">PROJETO.md; app/PRD-MD-STUDIO-CORE.md; app/PRD-MD-STUDIO-EXTENSIONS.md; app/PRD-MD-STUDIO-QUALITY.md</p>
+    </section>
+    <section class="panel">
+      <h2>Requirements</h2>
+      <div class="badges"><span class="badge ref">RF-01</span><span class="badge ref">RF-02</span><span class="badge ref">RF-03</span><span class="badge ref">RF-04</span><span class="badge ref">RF-05</span><span class="badge ref">RF-06</span><span class="badge ref">RF-07</span><span class="badge ref">RNF-SEC-01</span><span class="badge ref">RNF-DATA-01</span><span class="badge ref">RNF-PERF-01</span><span class="badge ref">RNF-A11Y-01</span><span class="badge ref">RNF-PORT-01</span></div>
+    </section>
+    <section>
+      <h2>WBS</h2>
+      
+      <details class="node branch" open>
+        <summary>
+          <span class="node-title"><span class="code">1.0</span> MD Studio v1</span>
+          <span class="summary-badges"><span class="badge axis">axis: domain</span><span class="badge">folhas: 23</span></span>
+        </summary>
+        <div class="node-body">
+          
+      <dl class="meta-grid">
+        <div><dt>children_axis</dt><dd>domain</dd></div>
+        <div><dt>children</dt><dd>7</dd></div>
+      </dl>
+      <section class="node-section">
+        <h4>coverage_statement</h4>
+        <p>Os sete domínios cobrem integralmente contrato, plataforma, dados locais, processamento Markdown, autoria, publicação e assurance da v1.</p>
+      </section>
+      <section class="node-section">
+        <h4>mutual_exclusion_statement</h4>
+        <p>Cada domínio possui uma responsabilidade operacional distinta; validações sistêmicas verificam integrações sem reimplementar os componentes validados.</p>
+      </section>
+    
+          <div class="children">
+      <details class="node branch" open>
+        <summary>
+          <span class="node-title"><span class="code">1.1</span> Governança e contratos</span>
+          <span class="summary-badges"><span class="badge axis">axis: deliverable</span><span class="badge">folhas: 3</span></span>
+        </summary>
+        <div class="node-body">
+          
+      <dl class="meta-grid">
+        <div><dt>children_axis</dt><dd>deliverable</dd></div>
+        <div><dt>children</dt><dd>3</dd></div>
+      </dl>
+      <section class="node-section">
+        <h4>coverage_statement</h4>
+        <p>As entregas cobrem contrato de produto, arquitetura e requisitos não funcionais antes da implementação.</p>
+      </section>
+      <section class="node-section">
+        <h4>mutual_exclusion_statement</h4>
+        <p>Produto define comportamento, arquitetura define interfaces e qualidade define restrições transversais.</p>
+      </section>
+    
+          <div class="children">
+      <details class="node leaf">
+        <summary>
+          <span class="node-title"><span class="code">1.1.1</span> Contrato do produto e conjunto de PRDs</span>
+          <span class="summary-badges"><span class="badge">G01</span><span class="badge prefix">MDS-PRODUCT</span><span class="badge strategy">contract-triad</span></span>
+        </summary>
+        <div class="node-body">
+          
+      <dl class="meta-grid">
+        <div><dt>group</dt><dd>G01</dd></div>
+        <div><dt>prefix</dt><dd>MDS-PRODUCT</dd></div>
+        <div><dt>task_strategy</dt><dd>contract-triad</dd></div>
+        <div><dt>leaf_test</dt><dd><span class="check">estimavel: sim</span><span class="check">atribuivel: sim</span><span class="check">pronto claro: sim</span> <span class="check">esforco: 8-80h</span></dd></div>
+      </dl>
+      <section class="node-section">
+        <h4>source_refs</h4>
+        <div class="badges"><span class="badge ref">RF-01</span><span class="badge ref">RF-02</span><span class="badge ref">RF-03</span><span class="badge ref">RF-04</span><span class="badge ref">RF-07</span></div>
+      </section>
+      <section class="node-section">
+        <h4>depends_on_wbs</h4>
+        <div class="badges"><span class="muted">-</span></div>
+      </section>
+      <section class="node-section">
+        <h4>risk_tags</h4>
+        <div class="badges"><span class="badge risk">contract</span><span class="badge risk">scope</span><span class="badge risk">traceability</span></div>
+      </section>
+      <section class="node-section">
+        <h4>acceptance_focus</h4>
+        <ul><li>PRDs descrevem fluxos principais, exceções, limites da v1 e critérios verificáveis sem contradições.</li><li>Índice atribui todos os requisitos a fontes e nenhuma capacidade fora de escopo aparece como compromisso da v1.</li><li>Revisão confirma cobertura integral dos requisitos e ausência de decisões técnicas deixadas ao implementador.</li></ul>
+      </section>
+    
+          
+        </div>
+      </details>
+    
+      <details class="node leaf">
+        <summary>
+          <span class="node-title"><span class="code">1.1.2</span> Contrato arquitetural, IPC e tipos públicos</span>
+          <span class="summary-badges"><span class="badge">G02</span><span class="badge prefix">MDS-ARCH</span><span class="badge strategy">contract-triad</span></span>
+        </summary>
+        <div class="node-body">
+          
+      <dl class="meta-grid">
+        <div><dt>group</dt><dd>G02</dd></div>
+        <div><dt>prefix</dt><dd>MDS-ARCH</dd></div>
+        <div><dt>task_strategy</dt><dd>contract-triad</dd></div>
+        <div><dt>leaf_test</dt><dd><span class="check">estimavel: sim</span><span class="check">atribuivel: sim</span><span class="check">pronto claro: sim</span> <span class="check">esforco: 8-80h</span></dd></div>
+      </dl>
+      <section class="node-section">
+        <h4>source_refs</h4>
+        <div class="badges"><span class="badge ref">RF-01</span><span class="badge ref">RF-02</span><span class="badge ref">RF-06</span><span class="badge ref">RNF-PORT-01</span></div>
+      </section>
+      <section class="node-section">
+        <h4>depends_on_wbs</h4>
+        <div class="badges"><span class="badge dep">1.1.1</span></div>
+      </section>
+      <section class="node-section">
+        <h4>risk_tags</h4>
+        <div class="badges"><span class="badge risk">contract</span><span class="badge risk">architecture</span><span class="badge risk">portability</span><span class="badge risk">security</span></div>
+      </section>
+      <section class="node-section">
+        <h4>acceptance_focus</h4>
+        <ul><li>ADR define fronteiras Rust/Tauri e React, tipos IPC, códigos de erro, eventos e versionamento.</li><li>Contrato impede acesso genérico do frontend ao filesystem e não assume detalhes exclusivos do Linux.</li><li>Testes de contrato demonstram serialização compatível e falha segura para payload inválido.</li></ul>
+      </section>
+    
+          
+        </div>
+      </details>
+    
+      <details class="node leaf">
+        <summary>
+          <span class="node-title"><span class="code">1.1.3</span> Contrato de segurança, integridade, desempenho e acessibilidade</span>
+          <span class="summary-badges"><span class="badge">G03</span><span class="badge prefix">MDS-NFR</span><span class="badge strategy">contract-triad</span></span>
+        </summary>
+        <div class="node-body">
+          
+      <dl class="meta-grid">
+        <div><dt>group</dt><dd>G03</dd></div>
+        <div><dt>prefix</dt><dd>MDS-NFR</dd></div>
+        <div><dt>task_strategy</dt><dd>contract-triad</dd></div>
+        <div><dt>leaf_test</dt><dd><span class="check">estimavel: sim</span><span class="check">atribuivel: sim</span><span class="check">pronto claro: sim</span> <span class="check">esforco: 8-80h</span></dd></div>
+      </dl>
+      <section class="node-section">
+        <h4>source_refs</h4>
+        <div class="badges"><span class="badge ref">RNF-SEC-01</span><span class="badge ref">RNF-DATA-01</span><span class="badge ref">RNF-PERF-01</span><span class="badge ref">RNF-A11Y-01</span><span class="badge ref">RNF-PORT-01</span></div>
+      </section>
+      <section class="node-section">
+        <h4>depends_on_wbs</h4>
+        <div class="badges"><span class="badge dep">1.1.1</span><span class="badge dep">1.1.2</span></div>
+      </section>
+      <section class="node-section">
+        <h4>risk_tags</h4>
+        <div class="badges"><span class="badge risk">security</span><span class="badge risk">data-integrity</span><span class="badge risk">performance</span><span class="badge risk">accessibility</span></div>
+      </section>
+      <section class="node-section">
+        <h4>acceptance_focus</h4>
+        <ul><li>Modelo de ameaças cobre Markdown, HTML, SVG, URLs, paths, symlinks, recursos e exportação.</li><li>Orçamentos mensuráveis definem limites de tamanho, tempo, responsividade e recuperação.</li><li>Matriz de acessibilidade define navegação por teclado, foco, semântica, contraste e movimento reduzido.</li></ul>
+      </section>
+    
+          
+        </div>
+      </details>
+    </div>
+        </div>
+      </details>
+    
+      <details class="node branch" open>
+        <summary>
+          <span class="node-title"><span class="code">1.2</span> Plataforma desktop</span>
+          <span class="summary-badges"><span class="badge axis">axis: deliverable</span><span class="badge">folhas: 2</span></span>
+        </summary>
+        <div class="node-body">
+          
+      <dl class="meta-grid">
+        <div><dt>children_axis</dt><dd>deliverable</dd></div>
+        <div><dt>children</dt><dd>2</dd></div>
+      </dl>
+      <section class="node-section">
+        <h4>coverage_statement</h4>
+        <p>As entregas cobrem o shell executável e a fronteira tipada entre backend e frontend.</p>
+      </section>
+      <section class="node-section">
+        <h4>mutual_exclusion_statement</h4>
+        <p>O shell possui ciclo de vida e composição; IPC possui comandos, eventos, capabilities e contratos.</p>
+      </section>
+    
+          <div class="children">
+      <details class="node leaf">
+        <summary>
+          <span class="node-title"><span class="code">1.2.1</span> Shell desktop Tauri e React</span>
+          <span class="summary-badges"><span class="badge">G04</span><span class="badge prefix">MDS-SHELL</span><span class="badge strategy">triad</span></span>
+        </summary>
+        <div class="node-body">
+          
+      <dl class="meta-grid">
+        <div><dt>group</dt><dd>G04</dd></div>
+        <div><dt>prefix</dt><dd>MDS-SHELL</dd></div>
+        <div><dt>task_strategy</dt><dd>triad</dd></div>
+        <div><dt>leaf_test</dt><dd><span class="check">estimavel: sim</span><span class="check">atribuivel: sim</span><span class="check">pronto claro: sim</span> <span class="check">esforco: 8-80h</span></dd></div>
+      </dl>
+      <section class="node-section">
+        <h4>source_refs</h4>
+        <div class="badges"><span class="badge ref">RF-01</span><span class="badge ref">RNF-PORT-01</span><span class="badge ref">RNF-A11Y-01</span></div>
+      </section>
+      <section class="node-section">
+        <h4>depends_on_wbs</h4>
+        <div class="badges"><span class="badge dep">1.1.2</span></div>
+      </section>
+      <section class="node-section">
+        <h4>risk_tags</h4>
+        <div class="badges"><span class="badge risk">architecture</span><span class="badge risk">platform</span><span class="badge risk">accessibility</span></div>
+      </section>
+      <section class="node-section">
+        <h4>acceptance_focus</h4>
+        <ul><li>Aplicação inicia localmente com layout de três painéis, estados vazio, carregando e erro.</li><li>Build Linux usa dependências fixadas e não depende de CDN ou serviço remoto.</li><li>Smoke test comprova inicialização, fechamento e restauração básica sem erro de console.</li></ul>
+      </section>
+    
+          
+        </div>
+      </details>
+    
+      <details class="node leaf">
+        <summary>
+          <span class="node-title"><span class="code">1.2.2</span> Comandos Tauri, capabilities e eventos tipados</span>
+          <span class="summary-badges"><span class="badge">G05</span><span class="badge prefix">MDS-IPC</span><span class="badge strategy">contract-triad</span></span>
+        </summary>
+        <div class="node-body">
+          
+      <dl class="meta-grid">
+        <div><dt>group</dt><dd>G05</dd></div>
+        <div><dt>prefix</dt><dd>MDS-IPC</dd></div>
+        <div><dt>task_strategy</dt><dd>contract-triad</dd></div>
+        <div><dt>leaf_test</dt><dd><span class="check">estimavel: sim</span><span class="check">atribuivel: sim</span><span class="check">pronto claro: sim</span> <span class="check">esforco: 8-80h</span></dd></div>
+      </dl>
+      <section class="node-section">
+        <h4>source_refs</h4>
+        <div class="badges"><span class="badge ref">RF-01</span><span class="badge ref">RF-02</span><span class="badge ref">RF-06</span><span class="badge ref">RNF-SEC-01</span></div>
+      </section>
+      <section class="node-section">
+        <h4>depends_on_wbs</h4>
+        <div class="badges"><span class="badge dep">1.1.3</span><span class="badge dep">1.2.1</span></div>
+      </section>
+      <section class="node-section">
+        <h4>risk_tags</h4>
+        <div class="badges"><span class="badge risk">security</span><span class="badge risk">contract</span><span class="badge risk">error-handling</span></div>
+      </section>
+      <section class="node-section">
+        <h4>acceptance_focus</h4>
+        <ul><li>Comandos e eventos implementam apenas capacidades autorizadas e validam todos os payloads.</li><li>Erros IPC retornam código estável e mensagem segura sem stack trace ou segredo.</li><li>Testes negam comando desconhecido, path não autorizado e payload incompatível.</li></ul>
+      </section>
+    
+          
+        </div>
+      </details>
+    </div>
+        </div>
+      </details>
+    
+      <details class="node branch" open>
+        <summary>
+          <span class="node-title"><span class="code">1.3</span> Workspace e persistência</span>
+          <span class="summary-badges"><span class="badge axis">axis: deliverable</span><span class="badge">folhas: 4</span></span>
+        </summary>
+        <div class="node-body">
+          
+      <dl class="meta-grid">
+        <div><dt>children_axis</dt><dd>deliverable</dd></div>
+        <div><dt>children</dt><dd>4</dd></div>
+      </dl>
+      <section class="node-section">
+        <h4>coverage_statement</h4>
+        <p>As entregas cobrem autorização de caminhos, leitura e gravação, árvore/assets e descoberta de mudanças.</p>
+      </section>
+      <section class="node-section">
+        <h4>mutual_exclusion_statement</h4>
+        <p>A fronteira autoriza, a persistência protege conteúdo, a árvore modela recursos e busca/watcher observa o workspace.</p>
+      </section>
+    
+          <div class="children">
+      <details class="node leaf">
+        <summary>
+          <span class="node-title"><span class="code">1.3.1</span> Fronteira segura do workspace e política de caminhos</span>
+          <span class="summary-badges"><span class="badge">G06</span><span class="badge prefix">MDS-WORKSPACE</span><span class="badge strategy">triad</span></span>
+        </summary>
+        <div class="node-body">
+          
+      <dl class="meta-grid">
+        <div><dt>group</dt><dd>G06</dd></div>
+        <div><dt>prefix</dt><dd>MDS-WORKSPACE</dd></div>
+        <div><dt>task_strategy</dt><dd>triad</dd></div>
+        <div><dt>leaf_test</dt><dd><span class="check">estimavel: sim</span><span class="check">atribuivel: sim</span><span class="check">pronto claro: sim</span> <span class="check">esforco: 8-80h</span></dd></div>
+      </dl>
+      <section class="node-section">
+        <h4>source_refs</h4>
+        <div class="badges"><span class="badge ref">RF-01</span><span class="badge ref">RF-05</span><span class="badge ref">RNF-SEC-01</span><span class="badge ref">RNF-PORT-01</span></div>
+      </section>
+      <section class="node-section">
+        <h4>depends_on_wbs</h4>
+        <div class="badges"><span class="badge dep">1.1.3</span><span class="badge dep">1.2.2</span></div>
+      </section>
+      <section class="node-section">
+        <h4>risk_tags</h4>
+        <div class="badges"><span class="badge risk">security</span><span class="badge risk">path-traversal</span><span class="badge risk">symlink</span><span class="badge risk">portability</span></div>
+      </section>
+      <section class="node-section">
+        <h4>acceptance_focus</h4>
+        <ul><li>Backend usa identificador opaco, canonicalização e caminhos relativos para cada operação.</li><li>Travessia, symlink externo, URI não permitida e troca de raiz falham antes de ler ou gravar.</li><li>Testes cobrem caminhos Unicode, removidos, renomeados e diferenças de separador.</li></ul>
+      </section>
+    
+          
+        </div>
+      </details>
+    
+      <details class="node leaf">
+        <summary>
+          <span class="node-title"><span class="code">1.3.2</span> Persistência atômica, conflitos e recuperação de rascunhos</span>
+          <span class="summary-badges"><span class="badge">G07</span><span class="badge prefix">MDS-SAVE</span><span class="badge strategy">triad</span></span>
+        </summary>
+        <div class="node-body">
+          
+      <dl class="meta-grid">
+        <div><dt>group</dt><dd>G07</dd></div>
+        <div><dt>prefix</dt><dd>MDS-SAVE</dd></div>
+        <div><dt>task_strategy</dt><dd>triad</dd></div>
+        <div><dt>leaf_test</dt><dd><span class="check">estimavel: sim</span><span class="check">atribuivel: sim</span><span class="check">pronto claro: sim</span> <span class="check">esforco: 8-80h</span></dd></div>
+      </dl>
+      <section class="node-section">
+        <h4>source_refs</h4>
+        <div class="badges"><span class="badge ref">RF-02</span><span class="badge ref">RNF-DATA-01</span><span class="badge ref">RNF-SEC-01</span></div>
+      </section>
+      <section class="node-section">
+        <h4>depends_on_wbs</h4>
+        <div class="badges"><span class="badge dep">1.3.1</span></div>
+      </section>
+      <section class="node-section">
+        <h4>risk_tags</h4>
+        <div class="badges"><span class="badge risk">data-integrity</span><span class="badge risk">concurrency</span><span class="badge risk">crash-recovery</span></div>
+      </section>
+      <section class="node-section">
+        <h4>acceptance_focus</h4>
+        <ul><li>Leitura retorna hash e metadados; salvamento usa compare-and-swap e escrita atômica no mesmo filesystem.</li><li>Conflito, falta de espaço ou crash preserva o arquivo válido e mantém rascunho recuperável.</li><li>Testes injetam falhas antes e depois de flush e comprovam ausência de arquivo parcial.</li></ul>
+      </section>
+    
+          
+        </div>
+      </details>
+    
+      <details class="node leaf">
+        <summary>
+          <span class="node-title"><span class="code">1.3.3</span> Árvore de arquivos e resolução de assets locais</span>
+          <span class="summary-badges"><span class="badge">G08</span><span class="badge prefix">MDS-FILES</span><span class="badge strategy">triad</span></span>
+        </summary>
+        <div class="node-body">
+          
+      <dl class="meta-grid">
+        <div><dt>group</dt><dd>G08</dd></div>
+        <div><dt>prefix</dt><dd>MDS-FILES</dd></div>
+        <div><dt>task_strategy</dt><dd>triad</dd></div>
+        <div><dt>leaf_test</dt><dd><span class="check">estimavel: sim</span><span class="check">atribuivel: sim</span><span class="check">pronto claro: sim</span> <span class="check">esforco: 8-80h</span></dd></div>
+      </dl>
+      <section class="node-section">
+        <h4>source_refs</h4>
+        <div class="badges"><span class="badge ref">RF-01</span><span class="badge ref">RF-05</span><span class="badge ref">RNF-PERF-01</span><span class="badge ref">RNF-SEC-01</span></div>
+      </section>
+      <section class="node-section">
+        <h4>depends_on_wbs</h4>
+        <div class="badges"><span class="badge dep">1.3.1</span></div>
+      </section>
+      <section class="node-section">
+        <h4>risk_tags</h4>
+        <div class="badges"><span class="badge risk">filesystem</span><span class="badge risk">security</span><span class="badge risk">performance</span></div>
+      </section>
+      <section class="node-section">
+        <h4>acceptance_focus</h4>
+        <ul><li>Árvore apresenta entradas autorizadas com paginação ou carregamento incremental para diretórios grandes.</li><li>Assets relativos resolvem contra o documento e nunca escapam da política do workspace.</li><li>Erros de permissão, item removido e asset inválido aparecem localmente sem quebrar a árvore.</li></ul>
+      </section>
+    
+          
+        </div>
+      </details>
+    
+      <details class="node leaf">
+        <summary>
+          <span class="node-title"><span class="code">1.3.4</span> Busca no workspace e observação de mudanças externas</span>
+          <span class="summary-badges"><span class="badge">G09</span><span class="badge prefix">MDS-DISCOVERY</span><span class="badge strategy">triad</span></span>
+        </summary>
+        <div class="node-body">
+          
+      <dl class="meta-grid">
+        <div><dt>group</dt><dd>G09</dd></div>
+        <div><dt>prefix</dt><dd>MDS-DISCOVERY</dd></div>
+        <div><dt>task_strategy</dt><dd>triad</dd></div>
+        <div><dt>leaf_test</dt><dd><span class="check">estimavel: sim</span><span class="check">atribuivel: sim</span><span class="check">pronto claro: sim</span> <span class="check">esforco: 8-80h</span></dd></div>
+      </dl>
+      <section class="node-section">
+        <h4>source_refs</h4>
+        <div class="badges"><span class="badge ref">RF-06</span><span class="badge ref">RNF-PERF-01</span><span class="badge ref">RNF-DATA-01</span></div>
+      </section>
+      <section class="node-section">
+        <h4>depends_on_wbs</h4>
+        <div class="badges"><span class="badge dep">1.3.1</span></div>
+      </section>
+      <section class="node-section">
+        <h4>risk_tags</h4>
+        <div class="badges"><span class="badge risk">performance</span><span class="badge risk">concurrency</span><span class="badge risk">event-ordering</span></div>
+      </section>
+      <section class="node-section">
+        <h4>acceptance_focus</h4>
+        <ul><li>Busca e watcher são canceláveis, limitados e não bloqueiam a thread da UI.</li><li>Eventos duplicados, rename e rajadas são normalizados sem esconder alteração relevante.</li><li>Documento dirty nunca é recarregado silenciosamente após mudança externa.</li></ul>
+      </section>
+    
+          
+        </div>
+      </details>
+    </div>
+        </div>
+      </details>
+    
+      <details class="node branch" open>
+        <summary>
+          <span class="node-title"><span class="code">1.4</span> Processamento Markdown</span>
+          <span class="summary-badges"><span class="badge axis">axis: deliverable</span><span class="badge">folhas: 6</span></span>
+        </summary>
+        <div class="node-body">
+          
+      <dl class="meta-grid">
+        <div><dt>children_axis</dt><dd>deliverable</dd></div>
+        <div><dt>children</dt><dd>6</dd></div>
+      </dl>
+      <section class="node-section">
+        <h4>coverage_statement</h4>
+        <p>As entregas cobrem sintaxe base, extensões, segurança do conteúdo e três renderizadores especializados.</p>
+      </section>
+      <section class="node-section">
+        <h4>mutual_exclusion_statement</h4>
+        <p>O pipeline define AST, extensões acrescentam nós, sanitização controla saída e cada renderizador possui falhas isoladas.</p>
+      </section>
+    
+          <div class="children">
+      <details class="node leaf">
+        <summary>
+          <span class="node-title"><span class="code">1.4.1</span> Pipeline AST CommonMark e GFM</span>
+          <span class="summary-badges"><span class="badge">G10</span><span class="badge prefix">MDS-MARKDOWN</span><span class="badge strategy">contract-triad</span></span>
+        </summary>
+        <div class="node-body">
+          
+      <dl class="meta-grid">
+        <div><dt>group</dt><dd>G10</dd></div>
+        <div><dt>prefix</dt><dd>MDS-MARKDOWN</dd></div>
+        <div><dt>task_strategy</dt><dd>contract-triad</dd></div>
+        <div><dt>leaf_test</dt><dd><span class="check">estimavel: sim</span><span class="check">atribuivel: sim</span><span class="check">pronto claro: sim</span> <span class="check">esforco: 8-80h</span></dd></div>
+      </dl>
+      <section class="node-section">
+        <h4>source_refs</h4>
+        <div class="badges"><span class="badge ref">RF-03</span><span class="badge ref">RNF-PERF-01</span></div>
+      </section>
+      <section class="node-section">
+        <h4>depends_on_wbs</h4>
+        <div class="badges"><span class="badge dep">1.1.2</span></div>
+      </section>
+      <section class="node-section">
+        <h4>risk_tags</h4>
+        <div class="badges"><span class="badge risk">compatibility</span><span class="badge risk">parser</span><span class="badge risk">performance</span></div>
+      </section>
+      <section class="node-section">
+        <h4>acceptance_focus</h4>
+        <ul><li>Pipeline MDAST/HAST implementa CommonMark e GFM com configuração determinística.</li><li>Fixtures oficiais e regressões locais preservam estrutura, posições e slugs estáveis.</li><li>Documento inválido gera diagnóstico e conteúdo legível sem crash global.</li></ul>
+      </section>
+    
+          
+        </div>
+      </details>
+    
+      <details class="node leaf">
+        <summary>
+          <span class="node-title"><span class="code">1.4.2</span> Front matter, notas, alertas e diretivas</span>
+          <span class="summary-badges"><span class="badge">G11</span><span class="badge prefix">MDS-EXTENSIONS</span><span class="badge strategy">triad</span></span>
+        </summary>
+        <div class="node-body">
+          
+      <dl class="meta-grid">
+        <div><dt>group</dt><dd>G11</dd></div>
+        <div><dt>prefix</dt><dd>MDS-EXTENSIONS</dd></div>
+        <div><dt>task_strategy</dt><dd>triad</dd></div>
+        <div><dt>leaf_test</dt><dd><span class="check">estimavel: sim</span><span class="check">atribuivel: sim</span><span class="check">pronto claro: sim</span> <span class="check">esforco: 8-80h</span></dd></div>
+      </dl>
+      <section class="node-section">
+        <h4>source_refs</h4>
+        <div class="badges"><span class="badge ref">RF-03</span><span class="badge ref">RNF-SEC-01</span></div>
+      </section>
+      <section class="node-section">
+        <h4>depends_on_wbs</h4>
+        <div class="badges"><span class="badge dep">1.4.1</span></div>
+      </section>
+      <section class="node-section">
+        <h4>risk_tags</h4>
+        <div class="badges"><span class="badge risk">parser</span><span class="badge risk">schema</span><span class="badge risk">security</span></div>
+      </section>
+      <section class="node-section">
+        <h4>acceptance_focus</h4>
+        <ul><li>Extensões transformam nós AST e não usam substituição de HTML por regex.</li><li>YAML é parseado seguramente; diretiva desconhecida permanece legível e sem execução.</li><li>Testes cobrem nesting, sintaxe incompleta, metadado desconhecido e alertas combinados.</li></ul>
+      </section>
+    
+          
+        </div>
+      </details>
+    
+      <details class="node leaf">
+        <summary>
+          <span class="node-title"><span class="code">1.4.3</span> HTML seguro, URLs, SVG e conteúdo remoto</span>
+          <span class="summary-badges"><span class="badge">G12</span><span class="badge prefix">MDS-SANITIZE</span><span class="badge strategy">triad</span></span>
+        </summary>
+        <div class="node-body">
+          
+      <dl class="meta-grid">
+        <div><dt>group</dt><dd>G12</dd></div>
+        <div><dt>prefix</dt><dd>MDS-SANITIZE</dd></div>
+        <div><dt>task_strategy</dt><dd>triad</dd></div>
+        <div><dt>leaf_test</dt><dd><span class="check">estimavel: sim</span><span class="check">atribuivel: sim</span><span class="check">pronto claro: sim</span> <span class="check">esforco: 8-80h</span></dd></div>
+      </dl>
+      <section class="node-section">
+        <h4>source_refs</h4>
+        <div class="badges"><span class="badge ref">RF-03</span><span class="badge ref">RF-05</span><span class="badge ref">RNF-SEC-01</span></div>
+      </section>
+      <section class="node-section">
+        <h4>depends_on_wbs</h4>
+        <div class="badges"><span class="badge dep">1.1.3</span><span class="badge dep">1.3.1</span><span class="badge dep">1.4.1</span><span class="badge dep">1.4.2</span></div>
+      </section>
+      <section class="node-section">
+        <h4>risk_tags</h4>
+        <div class="badges"><span class="badge risk">security</span><span class="badge risk">xss</span><span class="badge risk">url-policy</span><span class="badge risk">svg</span></div>
+      </section>
+      <section class="node-section">
+        <h4>acceptance_focus</h4>
+        <ul><li>Schema de sanitização permite somente elementos, atributos e protocolos necessários.</li><li>HTML, SVG, MathML, data URLs e recursos remotos maliciosos são bloqueados sem destruir texto seguro.</li><li>Corpus adversarial comprova ausência de script, handler, javascript URL e escape do sandbox.</li></ul>
+      </section>
+    
+          
+        </div>
+      </details>
+    
+      <details class="node leaf">
+        <summary>
+          <span class="node-title"><span class="code">1.4.4</span> Renderizador de código e recursos de bloco</span>
+          <span class="summary-badges"><span class="badge">G13</span><span class="badge prefix">MDS-CODE</span><span class="badge strategy">triad</span></span>
+        </summary>
+        <div class="node-body">
+          
+      <dl class="meta-grid">
+        <div><dt>group</dt><dd>G13</dd></div>
+        <div><dt>prefix</dt><dd>MDS-CODE</dd></div>
+        <div><dt>task_strategy</dt><dd>triad</dd></div>
+        <div><dt>leaf_test</dt><dd><span class="check">estimavel: sim</span><span class="check">atribuivel: sim</span><span class="check">pronto claro: sim</span> <span class="check">esforco: 8-80h</span></dd></div>
+      </dl>
+      <section class="node-section">
+        <h4>source_refs</h4>
+        <div class="badges"><span class="badge ref">RF-04</span><span class="badge ref">RNF-PERF-01</span><span class="badge ref">RNF-A11Y-01</span></div>
+      </section>
+      <section class="node-section">
+        <h4>depends_on_wbs</h4>
+        <div class="badges"><span class="badge dep">1.4.1</span><span class="badge dep">1.4.3</span></div>
+      </section>
+      <section class="node-section">
+        <h4>risk_tags</h4>
+        <div class="badges"><span class="badge risk">rendering</span><span class="badge risk">performance</span><span class="badge risk">accessibility</span></div>
+      </section>
+      <section class="node-section">
+        <h4>acceptance_focus</h4>
+        <ul><li>Linguagens explícitas, autodetecção desligada e fallback em texto preservam conteúdo.</li><li>Copiar, linhas, wrap, filename e destaques usam metadados validados e controles acessíveis.</li><li>Bloco muito grande degrada de forma controlada sem travar o documento.</li></ul>
+      </section>
+    
+          
+        </div>
+      </details>
+    
+      <details class="node leaf">
+        <summary>
+          <span class="node-title"><span class="code">1.4.5</span> Renderizador matemático KaTeX</span>
+          <span class="summary-badges"><span class="badge">G14</span><span class="badge prefix">MDS-MATH</span><span class="badge strategy">triad</span></span>
+        </summary>
+        <div class="node-body">
+          
+      <dl class="meta-grid">
+        <div><dt>group</dt><dd>G14</dd></div>
+        <div><dt>prefix</dt><dd>MDS-MATH</dd></div>
+        <div><dt>task_strategy</dt><dd>triad</dd></div>
+        <div><dt>leaf_test</dt><dd><span class="check">estimavel: sim</span><span class="check">atribuivel: sim</span><span class="check">pronto claro: sim</span> <span class="check">esforco: 8-80h</span></dd></div>
+      </dl>
+      <section class="node-section">
+        <h4>source_refs</h4>
+        <div class="badges"><span class="badge ref">RF-04</span><span class="badge ref">RNF-SEC-01</span><span class="badge ref">RNF-A11Y-01</span></div>
+      </section>
+      <section class="node-section">
+        <h4>depends_on_wbs</h4>
+        <div class="badges"><span class="badge dep">1.4.1</span><span class="badge dep">1.4.3</span></div>
+      </section>
+      <section class="node-section">
+        <h4>risk_tags</h4>
+        <div class="badges"><span class="badge risk">rendering</span><span class="badge risk">security</span><span class="badge risk">accessibility</span></div>
+      </section>
+      <section class="node-section">
+        <h4>acceptance_focus</h4>
+        <ul><li>KaTeX renderiza inline e display com trust desativado, macros limitadas e assets locais.</li><li>Erro de sintaxe fica isolado no bloco e fornece diagnóstico com posição.</li><li>Saída matemática mantém semântica acessível e passa pela política de sanitização.</li></ul>
+      </section>
+    
+          
+        </div>
+      </details>
+    
+      <details class="node leaf">
+        <summary>
+          <span class="node-title"><span class="code">1.4.6</span> Renderizador Mermaid isolado e exportável</span>
+          <span class="summary-badges"><span class="badge">G15</span><span class="badge prefix">MDS-MERMAID</span><span class="badge strategy">triad</span></span>
+        </summary>
+        <div class="node-body">
+          
+      <dl class="meta-grid">
+        <div><dt>group</dt><dd>G15</dd></div>
+        <div><dt>prefix</dt><dd>MDS-MERMAID</dd></div>
+        <div><dt>task_strategy</dt><dd>triad</dd></div>
+        <div><dt>leaf_test</dt><dd><span class="check">estimavel: sim</span><span class="check">atribuivel: sim</span><span class="check">pronto claro: sim</span> <span class="check">esforco: 8-80h</span></dd></div>
+      </dl>
+      <section class="node-section">
+        <h4>source_refs</h4>
+        <div class="badges"><span class="badge ref">RF-04</span><span class="badge ref">RF-07</span><span class="badge ref">RNF-SEC-01</span><span class="badge ref">RNF-PERF-01</span></div>
+      </section>
+      <section class="node-section">
+        <h4>depends_on_wbs</h4>
+        <div class="badges"><span class="badge dep">1.4.1</span><span class="badge dep">1.4.3</span></div>
+      </section>
+      <section class="node-section">
+        <h4>risk_tags</h4>
+        <div class="badges"><span class="badge risk">security</span><span class="badge risk">sandbox</span><span class="badge risk">rendering</span><span class="badge risk">performance</span></div>
+      </section>
+      <section class="node-section">
+        <h4>acceptance_focus</h4>
+        <ul><li>Cada diagrama possui isolamento, timeout, diagnóstico, zoom, pan e tela cheia.</li><li>Mermaid strict ou sandbox e sanitização posterior impedem script, handler e protocolo perigoso.</li><li>SVG e PNG exportados derivam exclusivamente da saída já validada e não sobrescrevem sem confirmação.</li></ul>
+      </section>
+    
+          
+        </div>
+      </details>
+    </div>
+        </div>
+      </details>
+    
+      <details class="node branch" open>
+        <summary>
+          <span class="node-title"><span class="code">1.5</span> Experiência de autoria</span>
+          <span class="summary-badges"><span class="badge axis">axis: deliverable</span><span class="badge">folhas: 3</span></span>
+        </summary>
+        <div class="node-body">
+          
+      <dl class="meta-grid">
+        <div><dt>children_axis</dt><dd>deliverable</dd></div>
+        <div><dt>children</dt><dd>3</dd></div>
+      </dl>
+      <section class="node-section">
+        <h4>coverage_statement</h4>
+        <p>As entregas cobrem edição, preview/navegação e estado persistente da interface.</p>
+      </section>
+      <section class="node-section">
+        <h4>mutual_exclusion_statement</h4>
+        <p>Editor controla fonte, preview apresenta resultado e preferências controlam sessão e apresentação global.</p>
+      </section>
+    
+          <div class="children">
+      <details class="node leaf">
+        <summary>
+          <span class="node-title"><span class="code">1.5.1</span> Editor de fonte e comandos de salvamento</span>
+          <span class="summary-badges"><span class="badge">G16</span><span class="badge prefix">MDS-EDITOR</span><span class="badge strategy">triad</span></span>
+        </summary>
+        <div class="node-body">
+          
+      <dl class="meta-grid">
+        <div><dt>group</dt><dd>G16</dd></div>
+        <div><dt>prefix</dt><dd>MDS-EDITOR</dd></div>
+        <div><dt>task_strategy</dt><dd>triad</dd></div>
+        <div><dt>leaf_test</dt><dd><span class="check">estimavel: sim</span><span class="check">atribuivel: sim</span><span class="check">pronto claro: sim</span> <span class="check">esforco: 8-80h</span></dd></div>
+      </dl>
+      <section class="node-section">
+        <h4>source_refs</h4>
+        <div class="badges"><span class="badge ref">RF-02</span><span class="badge ref">RNF-DATA-01</span><span class="badge ref">RNF-A11Y-01</span></div>
+      </section>
+      <section class="node-section">
+        <h4>depends_on_wbs</h4>
+        <div class="badges"><span class="badge dep">1.2.1</span><span class="badge dep">1.3.2</span><span class="badge dep">1.4.1</span></div>
+      </section>
+      <section class="node-section">
+        <h4>risk_tags</h4>
+        <div class="badges"><span class="badge risk">data-integrity</span><span class="badge risk">ux</span><span class="badge risk">accessibility</span><span class="badge risk">security</span></div>
+      </section>
+      <section class="node-section">
+        <h4>acceptance_focus</h4>
+        <ul><li>Editor mantém undo/redo, dirty state, atalhos e salvamento explícito sem autosave do fonte.</li><li>UI diferencia sucesso, conflito, erro e rascunho recuperável sem bloquear edição desnecessariamente.</li><li>Fluxos completos funcionam por teclado e não perdem conteúdo ao fechar ou trocar documento.</li></ul>
+      </section>
+    
+          
+        </div>
+      </details>
+    
+      <details class="node leaf">
+        <summary>
+          <span class="node-title"><span class="code">1.5.2</span> Preview, sumário, rolagem e navegação interna</span>
+          <span class="summary-badges"><span class="badge">G17</span><span class="badge prefix">MDS-PREVIEW</span><span class="badge strategy">triad</span></span>
+        </summary>
+        <div class="node-body">
+          
+      <dl class="meta-grid">
+        <div><dt>group</dt><dd>G17</dd></div>
+        <div><dt>prefix</dt><dd>MDS-PREVIEW</dd></div>
+        <div><dt>task_strategy</dt><dd>triad</dd></div>
+        <div><dt>leaf_test</dt><dd><span class="check">estimavel: sim</span><span class="check">atribuivel: sim</span><span class="check">pronto claro: sim</span> <span class="check">esforco: 8-80h</span></dd></div>
+      </dl>
+      <section class="node-section">
+        <h4>source_refs</h4>
+        <div class="badges"><span class="badge ref">RF-03</span><span class="badge ref">RF-05</span><span class="badge ref">RF-06</span><span class="badge ref">RNF-A11Y-01</span></div>
+      </section>
+      <section class="node-section">
+        <h4>depends_on_wbs</h4>
+        <div class="badges"><span class="badge dep">1.3.3</span><span class="badge dep">1.4.2</span><span class="badge dep">1.5.1</span></div>
+      </section>
+      <section class="node-section">
+        <h4>risk_tags</h4>
+        <div class="badges"><span class="badge risk">ux</span><span class="badge risk">navigation</span><span class="badge risk">accessibility</span><span class="badge risk">performance</span></div>
+      </section>
+      <section class="node-section">
+        <h4>acceptance_focus</h4>
+        <ul><li>Preview atualiza com debounce, mantém editor responsivo e mostra diagnósticos por bloco.</li><li>Outline, slugs, âncoras e links Markdown navegam de forma determinística dentro do aplicativo.</li><li>Rolagem sincronizada tolera blocos assimétricos e pode ser desligada sem perder posição.</li></ul>
+      </section>
+    
+          
+        </div>
+      </details>
+    
+      <details class="node leaf">
+        <summary>
+          <span class="node-title"><span class="code">1.5.3</span> Sessão, preferências, temas e acessibilidade</span>
+          <span class="summary-badges"><span class="badge">G18</span><span class="badge prefix">MDS-SETTINGS</span><span class="badge strategy">triad</span></span>
+        </summary>
+        <div class="node-body">
+          
+      <dl class="meta-grid">
+        <div><dt>group</dt><dd>G18</dd></div>
+        <div><dt>prefix</dt><dd>MDS-SETTINGS</dd></div>
+        <div><dt>task_strategy</dt><dd>triad</dd></div>
+        <div><dt>leaf_test</dt><dd><span class="check">estimavel: sim</span><span class="check">atribuivel: sim</span><span class="check">pronto claro: sim</span> <span class="check">esforco: 8-80h</span></dd></div>
+      </dl>
+      <section class="node-section">
+        <h4>source_refs</h4>
+        <div class="badges"><span class="badge ref">RF-06</span><span class="badge ref">RNF-A11Y-01</span><span class="badge ref">RNF-PORT-01</span></div>
+      </section>
+      <section class="node-section">
+        <h4>depends_on_wbs</h4>
+        <div class="badges"><span class="badge dep">1.2.1</span><span class="badge dep">1.5.1</span></div>
+      </section>
+      <section class="node-section">
+        <h4>risk_tags</h4>
+        <div class="badges"><span class="badge risk">accessibility</span><span class="badge risk">privacy</span><span class="badge risk">portability</span></div>
+      </section>
+      <section class="node-section">
+        <h4>acceptance_focus</h4>
+        <ul><li>Sessão restaura workspace, documento e layout sem persistir conteúdo sensível desnecessário.</li><li>Temas claro, escuro e sistema atendem contraste e redução de movimento.</li><li>Árvore, editor, preview, outline, diálogos e alertas passam navegação por teclado e foco.</li></ul>
+      </section>
+    
+          
+        </div>
+      </details>
+    </div>
+        </div>
+      </details>
+    
+      <details class="node branch" open>
+        <summary>
+          <span class="node-title"><span class="code">1.6</span> Publicação local</span>
+          <span class="summary-badges"><span class="badge axis">axis: deliverable</span><span class="badge">folhas: 1</span></span>
+        </summary>
+        <div class="node-body">
+          
+      <dl class="meta-grid">
+        <div><dt>children_axis</dt><dd>deliverable</dd></div>
+        <div><dt>children</dt><dd>1</dd></div>
+      </dl>
+      <section class="node-section">
+        <h4>coverage_statement</h4>
+        <p>A entrega cobre os três formatos de saída prometidos pela v1.</p>
+      </section>
+      <section class="node-section">
+        <h4>mutual_exclusion_statement</h4>
+        <p>Há uma única folha porque HTML, impressão/PDF e diagramas compartilham o pipeline renderizado e a política de saída.</p>
+      </section>
+    
+          <div class="children">
+      <details class="node leaf">
+        <summary>
+          <span class="node-title"><span class="code">1.6.1</span> Exportação HTML, impressão, PDF e diagramas</span>
+          <span class="summary-badges"><span class="badge">G19</span><span class="badge prefix">MDS-EXPORT</span><span class="badge strategy">triad</span></span>
+        </summary>
+        <div class="node-body">
+          
+      <dl class="meta-grid">
+        <div><dt>group</dt><dd>G19</dd></div>
+        <div><dt>prefix</dt><dd>MDS-EXPORT</dd></div>
+        <div><dt>task_strategy</dt><dd>triad</dd></div>
+        <div><dt>leaf_test</dt><dd><span class="check">estimavel: sim</span><span class="check">atribuivel: sim</span><span class="check">pronto claro: sim</span> <span class="check">esforco: 8-80h</span></dd></div>
+      </dl>
+      <section class="node-section">
+        <h4>source_refs</h4>
+        <div class="badges"><span class="badge ref">RF-07</span><span class="badge ref">RF-05</span><span class="badge ref">RNF-SEC-01</span><span class="badge ref">RNF-DATA-01</span></div>
+      </section>
+      <section class="node-section">
+        <h4>depends_on_wbs</h4>
+        <div class="badges"><span class="badge dep">1.4.4</span><span class="badge dep">1.4.5</span><span class="badge dep">1.4.6</span><span class="badge dep">1.5.2</span></div>
+      </section>
+      <section class="node-section">
+        <h4>risk_tags</h4>
+        <div class="badges"><span class="badge risk">export</span><span class="badge risk">data-integrity</span><span class="badge risk">security</span><span class="badge risk">compatibility</span></div>
+      </section>
+      <section class="node-section">
+        <h4>acceptance_focus</h4>
+        <ul><li>HTML exportado reutiliza pipeline e sanitização do preview e registra assets ausentes.</li><li>Impressão/PDF usa CSS próprio sem prometer paginação acadêmica determinística.</li><li>Nenhuma saída sobrescreve arquivo existente sem confirmação e falha não deixa arquivo parcial.</li></ul>
+      </section>
+    
+          
+        </div>
+      </details>
+    </div>
+        </div>
+      </details>
+    
+      <details class="node branch" open>
+        <summary>
+          <span class="node-title"><span class="code">1.7</span> Confiabilidade e entrega</span>
+          <span class="summary-badges"><span class="badge axis">axis: deliverable</span><span class="badge">folhas: 4</span></span>
+        </summary>
+        <div class="node-body">
+          
+      <dl class="meta-grid">
+        <div><dt>children_axis</dt><dd>deliverable</dd></div>
+        <div><dt>children</dt><dd>4</dd></div>
+      </dl>
+      <section class="node-section">
+        <h4>coverage_statement</h4>
+        <p>As entregas cobrem diagnóstico operacional, conformidade, segurança adversarial e release integrada.</p>
+      </section>
+      <section class="node-section">
+        <h4>mutual_exclusion_statement</h4>
+        <p>Diagnóstico implementa telemetria local; conformidade valida sintaxe; segurança valida abuso; release valida a história completa e pacotes.</p>
+      </section>
+    
+          <div class="children">
+      <details class="node leaf">
+        <summary>
+          <span class="node-title"><span class="code">1.7.1</span> Diagnósticos e tratamento seguro de falhas</span>
+          <span class="summary-badges"><span class="badge">G20</span><span class="badge prefix">MDS-DIAGNOSTICS</span><span class="badge strategy">triad</span></span>
+        </summary>
+        <div class="node-body">
+          
+      <dl class="meta-grid">
+        <div><dt>group</dt><dd>G20</dd></div>
+        <div><dt>prefix</dt><dd>MDS-DIAGNOSTICS</dd></div>
+        <div><dt>task_strategy</dt><dd>triad</dd></div>
+        <div><dt>leaf_test</dt><dd><span class="check">estimavel: sim</span><span class="check">atribuivel: sim</span><span class="check">pronto claro: sim</span> <span class="check">esforco: 8-80h</span></dd></div>
+      </dl>
+      <section class="node-section">
+        <h4>source_refs</h4>
+        <div class="badges"><span class="badge ref">RF-06</span><span class="badge ref">RNF-SEC-01</span><span class="badge ref">RNF-DATA-01</span><span class="badge ref">RNF-PERF-01</span></div>
+      </section>
+      <section class="node-section">
+        <h4>depends_on_wbs</h4>
+        <div class="badges"><span class="badge dep">1.2.2</span><span class="badge dep">1.3.2</span><span class="badge dep">1.3.4</span><span class="badge dep">1.4.3</span><span class="badge dep">1.4.6</span></div>
+      </section>
+      <section class="node-section">
+        <h4>risk_tags</h4>
+        <div class="badges"><span class="badge risk">observability</span><span class="badge risk">privacy</span><span class="badge risk">error-handling</span></div>
+      </section>
+      <section class="node-section">
+        <h4>acceptance_focus</h4>
+        <ul><li>Erros possuem códigos, correlação local e mensagens acionáveis sem conteúdo integral ou segredo.</li><li>Logs distinguem falha real, operação cancelada, limite excedido e recurso indisponível.</li><li>Falha de um documento ou bloco não derruba a sessão nem oculta a causa verificável.</li></ul>
+      </section>
+    
+          
+        </div>
+      </details>
+    
+      <details class="node leaf">
+        <summary>
+          <span class="node-title"><span class="code">1.7.2</span> Suíte de conformidade Markdown e renderizadores</span>
+          <span class="summary-badges"><span class="badge">G21</span><span class="badge prefix">MDS-CONFORMANCE</span><span class="badge strategy">triad</span></span>
+        </summary>
+        <div class="node-body">
+          
+      <dl class="meta-grid">
+        <div><dt>group</dt><dd>G21</dd></div>
+        <div><dt>prefix</dt><dd>MDS-CONFORMANCE</dd></div>
+        <div><dt>task_strategy</dt><dd>triad</dd></div>
+        <div><dt>leaf_test</dt><dd><span class="check">estimavel: sim</span><span class="check">atribuivel: sim</span><span class="check">pronto claro: sim</span> <span class="check">esforco: 8-80h</span></dd></div>
+      </dl>
+      <section class="node-section">
+        <h4>source_refs</h4>
+        <div class="badges"><span class="badge ref">RF-03</span><span class="badge ref">RF-04</span><span class="badge ref">RNF-PERF-01</span></div>
+      </section>
+      <section class="node-section">
+        <h4>depends_on_wbs</h4>
+        <div class="badges"><span class="badge dep">1.4.1</span><span class="badge dep">1.4.2</span><span class="badge dep">1.4.4</span><span class="badge dep">1.4.5</span><span class="badge dep">1.4.6</span></div>
+      </section>
+      <section class="node-section">
+        <h4>risk_tags</h4>
+        <div class="badges"><span class="badge risk">qa</span><span class="badge risk">compatibility</span><span class="badge risk">regression</span></div>
+      </section>
+      <section class="node-section">
+        <h4>acceptance_focus</h4>
+        <ul><li>Fixtures versionadas cobrem CommonMark/GFM, extensões e erros isolados dos renderizadores.</li><li>Snapshots estruturais evitam dependência de HTML incidental e detectam regressão sem mascarar mudança legítima.</li><li>Suite executa deterministicamente em CI e registra versões dos parsers e renderizadores.</li></ul>
+      </section>
+    
+          
+        </div>
+      </details>
+    
+      <details class="node leaf">
+        <summary>
+          <span class="node-title"><span class="code">1.7.3</span> Suíte adversarial de filesystem, conteúdo e integridade</span>
+          <span class="summary-badges"><span class="badge">G22</span><span class="badge prefix">MDS-SECURITY</span><span class="badge strategy">triad</span></span>
+        </summary>
+        <div class="node-body">
+          
+      <dl class="meta-grid">
+        <div><dt>group</dt><dd>G22</dd></div>
+        <div><dt>prefix</dt><dd>MDS-SECURITY</dd></div>
+        <div><dt>task_strategy</dt><dd>triad</dd></div>
+        <div><dt>leaf_test</dt><dd><span class="check">estimavel: sim</span><span class="check">atribuivel: sim</span><span class="check">pronto claro: sim</span> <span class="check">esforco: 8-80h</span></dd></div>
+      </dl>
+      <section class="node-section">
+        <h4>source_refs</h4>
+        <div class="badges"><span class="badge ref">RNF-SEC-01</span><span class="badge ref">RNF-DATA-01</span><span class="badge ref">RF-05</span></div>
+      </section>
+      <section class="node-section">
+        <h4>depends_on_wbs</h4>
+        <div class="badges"><span class="badge dep">1.1.3</span><span class="badge dep">1.3.1</span><span class="badge dep">1.3.2</span><span class="badge dep">1.4.3</span><span class="badge dep">1.7.1</span></div>
+      </section>
+      <section class="node-section">
+        <h4>risk_tags</h4>
+        <div class="badges"><span class="badge risk">security</span><span class="badge risk">xss</span><span class="badge risk">path-traversal</span><span class="badge risk">data-integrity</span></div>
+      </section>
+      <section class="node-section">
+        <h4>acceptance_focus</h4>
+        <ul><li>Corpus cobre XSS, SVG, MathML, URLs, symlinks, traversal, arquivos gigantes e corrida de salvamento.</li><li>Todos os ataques falham antes do efeito perigoso e preservam evidência sem dados sensíveis.</li><li>Teste independente confirma CSP, capabilities e ausência de saída parcial após falhas injetadas.</li></ul>
+      </section>
+    
+          
+        </div>
+      </details>
+    
+      <details class="node leaf">
+        <summary>
+          <span class="node-title"><span class="code">1.7.4</span> E2E, desempenho, pacotes Linux e release candidata</span>
+          <span class="summary-badges"><span class="badge">G23</span><span class="badge prefix">MDS-RELEASE</span><span class="badge strategy">triad</span></span>
+        </summary>
+        <div class="node-body">
+          
+      <dl class="meta-grid">
+        <div><dt>group</dt><dd>G23</dd></div>
+        <div><dt>prefix</dt><dd>MDS-RELEASE</dd></div>
+        <div><dt>task_strategy</dt><dd>triad</dd></div>
+        <div><dt>leaf_test</dt><dd><span class="check">estimavel: sim</span><span class="check">atribuivel: sim</span><span class="check">pronto claro: sim</span> <span class="check">esforco: 8-80h</span></dd></div>
+      </dl>
+      <section class="node-section">
+        <h4>source_refs</h4>
+        <div class="badges"><span class="badge ref">RF-07</span><span class="badge ref">RNF-PERF-01</span><span class="badge ref">RNF-A11Y-01</span><span class="badge ref">RNF-PORT-01</span></div>
+      </section>
+      <section class="node-section">
+        <h4>depends_on_wbs</h4>
+        <div class="badges"><span class="badge dep">1.5.3</span><span class="badge dep">1.6.1</span><span class="badge dep">1.7.1</span><span class="badge dep">1.7.2</span><span class="badge dep">1.7.3</span></div>
+      </section>
+      <section class="node-section">
+        <h4>risk_tags</h4>
+        <div class="badges"><span class="badge risk">release</span><span class="badge risk">performance</span><span class="badge risk">accessibility</span><span class="badge risk">portability</span></div>
+      </section>
+      <section class="node-section">
+        <h4>acceptance_focus</h4>
+        <ul><li>E2E cobre abrir, editar, salvar, conflitar, recuperar, buscar, renderizar e exportar em instalação limpa.</li><li>Benchmarks atendem orçamentos aprovados e acessibilidade não possui bloqueador crítico.</li><li>Pacotes .deb e AppImage instaláveis registram checksums, versões fixadas e evidência de smoke test.</li></ul>
+      </section>
+    
+          
+        </div>
+      </details>
+    </div>
+        </div>
+      </details>
+    </div>
+        </div>
+      </details>
+    
+    </section>
+  </main>
+</body>
+</html>

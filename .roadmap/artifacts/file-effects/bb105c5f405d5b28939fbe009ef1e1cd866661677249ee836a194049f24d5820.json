@@ -1,0 +1,13 @@
+{
+  "after_sha256": "3c819066fc267f6296c720f937ed97a9b4df8aaf071eb5f0866b8199a485b8b4",
+  "artifact_id": "ART-3c819066fc267f6296c720f937ed97a9b4df8aaf071eb5f0866b8199a485b8b4",
+  "artifact_sha256": "bb105c5f405d5b28939fbe009ef1e1cd866661677249ee836a194049f24d5820",
+  "before_sha256": "3c819066fc267f6296c720f937ed97a9b4df8aaf071eb5f0866b8199a485b8b4",
+  "bytes": 439,
+  "content": "# G21 — Conformidade\n\n## Objetivo\nfixtures CM/GFM/extensões.\n\n## Requisitos\n- Entrega alinhada ao plano MD Studio v1 e PRDs CORE/EXTENSIONS/QUALITY.\n- Artefatos de implementação nos paths declarados no roadmap ESAA.\n- Critérios de aceite verificáveis em QA.\n\n## Aceite\n1. Spec implementável sem decisões pendentes.\n2. Superfície de erro e segurança definida quando aplicável.\n3. Dependências de grupos anteriores respeitadas.\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "docs/spec/G21-suite-de-conformidade-markdown-e-renderizadores.md",
+  "source_path": "docs/spec/G21-suite-de-conformidade-markdown-e-renderizadores.md",
+  "ts": "2026-07-10T14:03:10Z"
+}

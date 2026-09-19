@@ -1,0 +1,13 @@
+{
+  "after_sha256": "d9f570942e41155d6b87e9fd3fe68cfdd1bcd29084bb07033b9a21a0ca0042e6",
+  "artifact_id": "ART-d9f570942e41155d6b87e9fd3fe68cfdd1bcd29084bb07033b9a21a0ca0042e6",
+  "artifact_sha256": "547b91085e6603ece6d9b39a9102e17f1f9ba4a502dd66a6d80b3568f30da252",
+  "before_sha256": "d9f570942e41155d6b87e9fd3fe68cfdd1bcd29084bb07033b9a21a0ca0042e6",
+  "bytes": 478,
+  "content": "# G03 — NFR de segurança e qualidade\n\n## Objetivo\nThreat model, budgets 250ms/250KiB, a11y AA, CSP.\n\n## Requisitos\n- Entrega alinhada ao plano MD Studio v1 e PRDs CORE/EXTENSIONS/QUALITY.\n- Artefatos de implementação nos paths declarados no roadmap ESAA.\n- Critérios de aceite verificáveis em QA.\n\n## Aceite\n1. Spec implementável sem decisões pendentes.\n2. Superfície de erro e segurança definida quando aplicável.\n3. Dependências de grupos anteriores respeitadas.\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "docs/spec/G03-contrato-de-seguranca-integridade-desempenho-e-acessibilidade.md",
+  "source_path": "docs/spec/G03-contrato-de-seguranca-integridade-desempenho-e-acessibilidade.md",
+  "ts": "2026-07-10T14:01:59Z"
+}

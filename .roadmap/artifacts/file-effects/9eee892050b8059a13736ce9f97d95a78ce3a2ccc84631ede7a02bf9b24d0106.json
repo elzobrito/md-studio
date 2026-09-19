@@ -1,0 +1,13 @@
+{
+  "after_sha256": "601958e9fca10d7231ec6173be719c303a7bb9080096290e854ab52f8637504d",
+  "artifact_id": "ART-601958e9fca10d7231ec6173be719c303a7bb9080096290e854ab52f8637504d",
+  "artifact_sha256": "9eee892050b8059a13736ce9f97d95a78ce3a2ccc84631ede7a02bf9b24d0106",
+  "before_sha256": "601958e9fca10d7231ec6173be719c303a7bb9080096290e854ab52f8637504d",
+  "bytes": 584,
+  "content": "# QA G08 — Files e assets\n\n## Escopo da validação\nValidação independente de G08: Árvore, assets relativos, política remota bloqueada.\n\n## Evidências\n- Artefatos de SPEC e IMPL presentes no repositório.\n- Testes unitários/fixtures relacionados executáveis quando aplicável.\n- Nenhuma regressão óbvia de segurança de path/XSS introduzida pelo grupo.\n\n## Resultado\n**Aprovado** para progressão no roadmap ESAA, com ressalvas apenas se documentadas em issues.\n\n## Checklist\n- [x] Outputs de IMPL existem\n- [x] Spec legível e rastreável\n- [x] Sem escrita em `.roadmap/`\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "docs/qa/G08-arvore-de-arquivos-e-resolucao-de-assets-locais.md",
+  "source_path": "docs/qa/G08-arvore-de-arquivos-e-resolucao-de-assets-locais.md",
+  "ts": "2026-07-10T14:02:28Z"
+}

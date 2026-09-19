@@ -1,0 +1,13 @@
+{
+  "after_sha256": "6961cbe1da75a0c0d7db5862ef5e66b685e48b97a0e6887193d8351d0371fa0e",
+  "artifact_id": "ART-6961cbe1da75a0c0d7db5862ef5e66b685e48b97a0e6887193d8351d0371fa0e",
+  "artifact_sha256": "bfdf8d40bee4d1e487c1f40217b5f8371cc9b3061d48803a6b64fdfcc5d38572",
+  "before_sha256": "6961cbe1da75a0c0d7db5862ef5e66b685e48b97a0e6887193d8351d0371fa0e",
+  "bytes": 474,
+  "content": "import { describe, expect, it } from \"vitest\";\nimport { processMarkdown } from \"../../../src/markdown/processor\";\n\ndescribe(\"markdown core\", () => {\n  it(\"renders heading\", async () => {\n    const r = await processMarkdown(\"# Olá\");\n    expect(r.html).toContain(\"Olá\");\n  });\n\n  it(\"strips script tags via sanitize\", async () => {\n    const r = await processMarkdown('Hello <script>alert(1)</script>');\n    expect(r.html.toLowerCase()).not.toContain(\"<script\");\n  });\n});\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "tests/markdown/core/processor.test.ts",
+  "source_path": "tests/markdown/core/processor.test.ts",
+  "ts": "2026-07-10T14:02:33Z"
+}

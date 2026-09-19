@@ -1,0 +1,13 @@
+{
+  "after_sha256": "4949bdceb7732a6d08def12e98135468037fa17df26b20d10655dcf3a74dcec3",
+  "artifact_id": "ART-4949bdceb7732a6d08def12e98135468037fa17df26b20d10655dcf3a74dcec3",
+  "artifact_sha256": "86d2436c05afd11ef00bab97a37d226839ac125db681712e063f0e99cca5c2a4",
+  "before_sha256": "4949bdceb7732a6d08def12e98135468037fa17df26b20d10655dcf3a74dcec3",
+  "bytes": 1062,
+  "content": "import { useEffect, useState } from \"react\";\n\nexport type Theme = \"light\" | \"dark\" | \"auto\";\nexport type ViewMode = \"source\" | \"preview\" | \"split\";\n\nconst KEY = \"md-studio-session-v1\";\n\nexport interface SessionApi {\n  theme: Theme;\n  viewMode: ViewMode;\n  setTheme: (t: Theme) => void;\n  setViewMode: (v: ViewMode) => void;\n}\n\nexport function useSession(): SessionApi {\n  const [theme, setThemeState] = useState<Theme>(\"auto\");\n  const [viewMode, setViewModeState] = useState<ViewMode>(\"split\");\n\n  useEffect(() => {\n    try {\n      const raw = localStorage.getItem(KEY);\n      if (!raw) return;\n      const parsed = JSON.parse(raw) as { theme?: Theme; viewMode?: ViewMode };\n      if (parsed.theme) setThemeState(parsed.theme);\n      if (parsed.viewMode) setViewModeState(parsed.viewMode);\n    } catch {\n      /* ignore */\n    }\n  }, []);\n\n  useEffect(() => {\n    localStorage.setItem(KEY, JSON.stringify({ theme, viewMode }));\n  }, [theme, viewMode]);\n\n  return {\n    theme,\n    viewMode,\n    setTheme: setThemeState,\n    setViewMode: setViewModeState,\n  };\n}\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "src/state/session.ts",
+  "source_path": "src/state/session.ts",
+  "ts": "2026-07-10T14:03:01Z"
+}

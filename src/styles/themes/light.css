@@ -1,0 +1,30 @@
+:root,
+.theme-light {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f4f6f8;
+  --bg-tertiary: #e9ecef;
+  --bg-hover: rgba(0, 0, 0, 0.05);
+  --text-primary: #0f172a;
+  --text-secondary: #64748b;
+  --text-muted: #94a3b8;
+  --border: #e2e8f0;
+  --border-focus: #2563eb;
+  --color-accent: #2563eb;
+  --color-accent-hover: #1d4ed8;
+  --color-success: #16a34a;
+  --color-warning: #d97706;
+  --color-error: #dc2626;
+  --panel-bg: #f8fafc;
+  --shadow-sm: 0 1px 2px rgb(15 23 42 / 6%);
+  --shadow-md: 0 8px 24px rgb(15 23 42 / 8%);
+
+  /* Backwards compatibility aliases */
+  --bg: #f4f6f8;
+  --bg-elevated: #ffffff;
+  --fg: #0f172a;
+  --fg-muted: #64748b;
+  --panel: #f8fafc;
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --accent-soft: #dbeafe;
+}

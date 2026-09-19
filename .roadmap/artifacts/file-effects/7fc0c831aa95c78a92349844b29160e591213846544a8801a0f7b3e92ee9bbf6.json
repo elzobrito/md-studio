@@ -1,0 +1,13 @@
+{
+  "after_sha256": "0342e44c734b61a2e65daa06aaa319fdfe90a5ce048d936a2afc61b864847ecd",
+  "artifact_id": "ART-0342e44c734b61a2e65daa06aaa319fdfe90a5ce048d936a2afc61b864847ecd",
+  "artifact_sha256": "7fc0c831aa95c78a92349844b29160e591213846544a8801a0f7b3e92ee9bbf6",
+  "before_sha256": "0342e44c734b61a2e65daa06aaa319fdfe90a5ce048d936a2afc61b864847ecd",
+  "bytes": 311,
+  "content": "import { describe, expect, it } from \"vitest\";\nimport { parseFrontmatter } from \"../../../src/markdown/frontmatter\";\n\ndescribe(\"frontmatter\", () => {\n  it(\"parses title\", () => {\n    const r = parseFrontmatter(\"title: Demo\\n\");\n    expect(r.data.title).toBe(\"Demo\");\n    expect(r.errors).toEqual([]);\n  });\n});\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "tests/markdown/extensions/frontmatter.test.ts",
+  "source_path": "tests/markdown/extensions/frontmatter.test.ts",
+  "ts": "2026-07-10T14:02:37Z"
+}

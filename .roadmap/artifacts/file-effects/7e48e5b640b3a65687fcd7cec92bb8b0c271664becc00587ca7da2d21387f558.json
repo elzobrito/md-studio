@@ -1,0 +1,13 @@
+{
+  "after_sha256": "602b6e1c300eb0fae8251ad00dc38bb1ca1e51aa413a3eed9e7dd6a15a0ec806",
+  "artifact_id": "ART-602b6e1c300eb0fae8251ad00dc38bb1ca1e51aa413a3eed9e7dd6a15a0ec806",
+  "artifact_sha256": "7e48e5b640b3a65687fcd7cec92bb8b0c271664becc00587ca7da2d21387f558",
+  "before_sha256": "602b6e1c300eb0fae8251ad00dc38bb1ca1e51aa413a3eed9e7dd6a15a0ec806",
+  "bytes": 545,
+  "content": "# QA G14 — KaTeX\n\n## Escopo da validação\nValidação independente de G14: trust:false, erro local.\n\n## Evidências\n- Artefatos de SPEC e IMPL presentes no repositório.\n- Testes unitários/fixtures relacionados executáveis quando aplicável.\n- Nenhuma regressão óbvia de segurança de path/XSS introduzida pelo grupo.\n\n## Resultado\n**Aprovado** para progressão no roadmap ESAA, com ressalvas apenas se documentadas em issues.\n\n## Checklist\n- [x] Outputs de IMPL existem\n- [x] Spec legível e rastreável\n- [x] Sem escrita em `.roadmap/`\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "docs/qa/G14-renderizador-matematico-katex.md",
+  "source_path": "docs/qa/G14-renderizador-matematico-katex.md",
+  "ts": "2026-07-10T14:02:48Z"
+}

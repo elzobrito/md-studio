@@ -1,0 +1,13 @@
+{
+  "after_sha256": "9ee2d68310a908ccaeeef82b76212e2a8836e0331ec3a3c4ecd7f50dfc182db8",
+  "artifact_id": "ART-9ee2d68310a908ccaeeef82b76212e2a8836e0331ec3a3c4ecd7f50dfc182db8",
+  "artifact_sha256": "45cdcc9f84b8cafe9acc00bf64c7b63e3fa2e479148794ef9d929589f837c539",
+  "before_sha256": "9ee2d68310a908ccaeeef82b76212e2a8836e0331ec3a3c4ecd7f50dfc182db8",
+  "bytes": 214,
+  "content": "@media print {\n  .panel, .editor header, button { display: none !important; }\n  .app { display: block; }\n  .preview-body { max-width: 100%; }\n  a[href]::after { content: \" (\" attr(href) \")\"; font-size: 0.85em; }\n}\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "src/styles/print.css",
+  "source_path": "src/styles/print.css",
+  "ts": "2026-07-10T14:02:14Z"
+}

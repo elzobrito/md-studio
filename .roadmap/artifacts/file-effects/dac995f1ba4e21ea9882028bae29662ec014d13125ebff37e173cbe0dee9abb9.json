@@ -1,0 +1,13 @@
+{
+  "after_sha256": "77e3ca2712ddefb08a2b286fad9d0a556a5e5e5be7122bb641235cc32a2d00e2",
+  "artifact_id": "ART-77e3ca2712ddefb08a2b286fad9d0a556a5e5e5be7122bb641235cc32a2d00e2",
+  "artifact_sha256": "dac995f1ba4e21ea9882028bae29662ec014d13125ebff37e173cbe0dee9abb9",
+  "before_sha256": "77e3ca2712ddefb08a2b286fad9d0a556a5e5e5be7122bb641235cc32a2d00e2",
+  "bytes": 98,
+  "content": "# XSS fixtures\n\n<script>alert(1)</script>\n\n[x](javascript:alert(1))\n\n<img src=x onerror=alert(1)>\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "tests/security/adversarial/xss.md",
+  "source_path": "tests/security/adversarial/xss.md",
+  "ts": "2026-07-10T14:03:15Z"
+}

@@ -1,0 +1,13 @@
+{
+  "after_sha256": "c0df2048250c4d650c88696dc04f592c0e13494bcc4e2c7cf6244ef2c0c9258c",
+  "artifact_id": "ART-c0df2048250c4d650c88696dc04f592c0e13494bcc4e2c7cf6244ef2c0c9258c",
+  "artifact_sha256": "cf7efea6b57f0531888dc6c5887016896db9abf0e11004ecd325f56ba5b69f68",
+  "before_sha256": "c0df2048250c4d650c88696dc04f592c0e13494bcc4e2c7cf6244ef2c0c9258c",
+  "bytes": 1076,
+  "content": "import type { SessionApi } from \"../state/session\";\n\nexport function Settings(props: { session: SessionApi }) {\n  const s = props.session;\n  return (\n    <section className=\"card\" aria-label=\"Preferências\">\n      <h2>Preferências</h2>\n      <label>\n        Tema\n        <select\n          value={s.theme}\n          onChange={(e) => s.setTheme(e.target.value as \"light\" | \"dark\" | \"auto\")}\n        >\n          <option value=\"auto\">Automático</option>\n          <option value=\"light\">Claro</option>\n          <option value=\"dark\">Escuro</option>\n        </select>\n      </label>\n      <label>\n        Visualização\n        <select\n          value={s.viewMode}\n          onChange={(e) => s.setViewMode(e.target.value as \"source\" | \"preview\" | \"split\")}\n        >\n          <option value=\"preview\">Formatado</option>\n          <option value=\"source\">Markdown</option>\n          <option value=\"split\">Dividida</option>\n        </select>\n      </label>\n      <p className=\"settings-hint\">Atalho: use o seletor no topo (Markdown / Formatado / Dividida).</p>\n    </section>\n  );\n}\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "src/components/Settings.tsx",
+  "source_path": "src/components/Settings.tsx",
+  "ts": "2026-07-10T15:25:48Z"
+}

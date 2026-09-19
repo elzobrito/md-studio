@@ -1,0 +1,13 @@
+{
+  "after_sha256": "e7beb79d631853ffd7017569148c5c76a39083b696e9f9287f5509c22d76ed8a",
+  "artifact_id": "ART-e7beb79d631853ffd7017569148c5c76a39083b696e9f9287f5509c22d76ed8a",
+  "artifact_sha256": "116a2ce998928458245dd89af65b4f5114d9920ae9568f38340cb8c67686ed6b",
+  "before_sha256": "e7beb79d631853ffd7017569148c5c76a39083b696e9f9287f5509c22d76ed8a",
+  "bytes": 2049,
+  "content": "import { useEffect, useRef } from \"react\";\nimport { EditorState } from \"@codemirror/state\";\nimport { EditorView, keymap, lineNumbers } from \"@codemirror/view\";\nimport { defaultKeymap, history, historyKeymap } from \"@codemirror/commands\";\nimport { searchKeymap, highlightSelectionMatches } from \"@codemirror/search\";\nimport { markdown } from \"@codemirror/lang-markdown\";\n\nexport function MarkdownEditor(props: {\n  value: string;\n  dirty: boolean;\n  onChange: (v: string) => void;\n  onSave: () => void;\n}) {\n  const parent = useRef<HTMLDivElement>(null);\n  const viewRef = useRef<EditorView | null>(null);\n\n  useEffect(() => {\n    if (!parent.current) return;\n    const state = EditorState.create({\n      doc: props.value,\n      extensions: [\n        lineNumbers(),\n        history(),\n        markdown(),\n        highlightSelectionMatches(),\n        EditorView.lineWrapping,\n        keymap.of([\n          ...defaultKeymap,\n          ...historyKeymap,\n          ...searchKeymap,\n          {\n            key: \"Mod-s\",\n            run: () => {\n              props.onSave();\n              return true;\n            },\n          },\n        ]),\n        EditorView.updateListener.of((u) => {\n          if (u.docChanged) props.onChange(u.state.doc.toString());\n        }),\n      ],\n    });\n    const view = new EditorView({ state, parent: parent.current });\n    viewRef.current = view;\n    return () => view.destroy();\n    // eslint-disable-next-line react-hooks/exhaustive-deps\n  }, []);\n\n  useEffect(() => {\n    const view = viewRef.current;\n    if (!view) return;\n    if (view.state.doc.toString() !== props.value) {\n      view.dispatch({\n        changes: { from: 0, to: view.state.doc.length, insert: props.value },\n      });\n    }\n  }, [props.value]);\n\n  return (\n    <section className=\"editor\" aria-label=\"Editor Markdown\">\n      <header>\n        <span>{props.dirty ? \"Modificado\" : \"Salvo\"}</span>\n        <button type=\"button\" onClick={props.onSave}>\n          Salvar\n        </button>\n      </header>\n      <div ref={parent} />\n    </section>\n  );\n}\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "src/components/MarkdownEditor.tsx",
+  "source_path": "src/components/MarkdownEditor.tsx",
+  "ts": "2026-07-10T14:02:54Z"
+}

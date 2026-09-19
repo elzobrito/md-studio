@@ -1,0 +1,13 @@
+{
+  "after_sha256": "321686c5e5886451fce5f200291000854eb2de92eb22c2459f434652a208c3da",
+  "artifact_id": "ART-321686c5e5886451fce5f200291000854eb2de92eb22c2459f434652a208c3da",
+  "artifact_sha256": "5c0d0cfe4639c1882697e65f8145f5fab15af6e2400d02fa0c0edcea7a16b127",
+  "before_sha256": "321686c5e5886451fce5f200291000854eb2de92eb22c2459f434652a208c3da",
+  "bytes": 462,
+  "content": "# G11 — Extensões\n\n## Objetivo\nYAML+Zod, alertas GitHub-style, diretivas whitelist.\n\n## Requisitos\n- Entrega alinhada ao plano MD Studio v1 e PRDs CORE/EXTENSIONS/QUALITY.\n- Artefatos de implementação nos paths declarados no roadmap ESAA.\n- Critérios de aceite verificáveis em QA.\n\n## Aceite\n1. Spec implementável sem decisões pendentes.\n2. Superfície de erro e segurança definida quando aplicável.\n3. Dependências de grupos anteriores respeitadas.\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "docs/spec/G11-front-matter-notas-alertas-e-diretivas.md",
+  "source_path": "docs/spec/G11-front-matter-notas-alertas-e-diretivas.md",
+  "ts": "2026-07-10T14:02:35Z"
+}

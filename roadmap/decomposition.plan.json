@@ -1,0 +1,457 @@
+{
+  "source": "PROJETO.md; app/PRD-MD-STUDIO-CORE.md; app/PRD-MD-STUDIO-EXTENSIONS.md; app/PRD-MD-STUDIO-QUALITY.md",
+  "requirements": [
+    "RF-01",
+    "RF-02",
+    "RF-03",
+    "RF-04",
+    "RF-05",
+    "RF-06",
+    "RF-07",
+    "RNF-SEC-01",
+    "RNF-DATA-01",
+    "RNF-PERF-01",
+    "RNF-A11Y-01",
+    "RNF-PORT-01"
+  ],
+  "wbs": {
+    "code": "1.0",
+    "deliverable": "MD Studio v1",
+    "children_axis": "domain",
+    "coverage_statement": "Os sete domínios cobrem integralmente contrato, plataforma, dados locais, processamento Markdown, autoria, publicação e assurance da v1.",
+    "mutual_exclusion_statement": "Cada domínio possui uma responsabilidade operacional distinta; validações sistêmicas verificam integrações sem reimplementar os componentes validados.",
+    "children": [
+      {
+        "code": "1.1",
+        "deliverable": "Governança e contratos",
+        "children_axis": "deliverable",
+        "coverage_statement": "As entregas cobrem contrato de produto, arquitetura e requisitos não funcionais antes da implementação.",
+        "mutual_exclusion_statement": "Produto define comportamento, arquitetura define interfaces e qualidade define restrições transversais.",
+        "children": [
+          {
+            "code": "1.1.1",
+            "deliverable": "Contrato do produto e conjunto de PRDs",
+            "group": "G01",
+            "prefix": "MDS-PRODUCT",
+            "source_refs": ["RF-01", "RF-02", "RF-03", "RF-04", "RF-07"],
+            "task_strategy": "contract-triad",
+            "depends_on_wbs": [],
+            "risk_tags": ["contract", "scope", "traceability"],
+            "acceptance_focus": [
+              "PRDs descrevem fluxos principais, exceções, limites da v1 e critérios verificáveis sem contradições.",
+              "Índice atribui todos os requisitos a fontes e nenhuma capacidade fora de escopo aparece como compromisso da v1.",
+              "Revisão confirma cobertura integral dos requisitos e ausência de decisões técnicas deixadas ao implementador."
+            ],
+            "leaf_test": {"estimable": true, "assignable": true, "done_clear": true, "effort": "8-80h"}
+          },
+          {
+            "code": "1.1.2",
+            "deliverable": "Contrato arquitetural, IPC e tipos públicos",
+            "group": "G02",
+            "prefix": "MDS-ARCH",
+            "source_refs": ["RF-01", "RF-02", "RF-06", "RNF-PORT-01"],
+            "task_strategy": "contract-triad",
+            "depends_on_wbs": ["1.1.1"],
+            "risk_tags": ["contract", "architecture", "portability", "security"],
+            "acceptance_focus": [
+              "ADR define fronteiras Rust/Tauri e React, tipos IPC, códigos de erro, eventos e versionamento.",
+              "Contrato impede acesso genérico do frontend ao filesystem e não assume detalhes exclusivos do Linux.",
+              "Testes de contrato demonstram serialização compatível e falha segura para payload inválido."
+            ],
+            "leaf_test": {"estimable": true, "assignable": true, "done_clear": true, "effort": "8-80h"}
+          },
+          {
+            "code": "1.1.3",
+            "deliverable": "Contrato de segurança, integridade, desempenho e acessibilidade",
+            "group": "G03",
+            "prefix": "MDS-NFR",
+            "source_refs": ["RNF-SEC-01", "RNF-DATA-01", "RNF-PERF-01", "RNF-A11Y-01", "RNF-PORT-01"],
+            "task_strategy": "contract-triad",
+            "depends_on_wbs": ["1.1.1", "1.1.2"],
+            "risk_tags": ["security", "data-integrity", "performance", "accessibility"],
+            "acceptance_focus": [
+              "Modelo de ameaças cobre Markdown, HTML, SVG, URLs, paths, symlinks, recursos e exportação.",
+              "Orçamentos mensuráveis definem limites de tamanho, tempo, responsividade e recuperação.",
+              "Matriz de acessibilidade define navegação por teclado, foco, semântica, contraste e movimento reduzido."
+            ],
+            "leaf_test": {"estimable": true, "assignable": true, "done_clear": true, "effort": "8-80h"}
+          }
+        ]
+      },
+      {
+        "code": "1.2",
+        "deliverable": "Plataforma desktop",
+        "children_axis": "deliverable",
+        "coverage_statement": "As entregas cobrem o shell executável e a fronteira tipada entre backend e frontend.",
+        "mutual_exclusion_statement": "O shell possui ciclo de vida e composição; IPC possui comandos, eventos, capabilities e contratos.",
+        "children": [
+          {
+            "code": "1.2.1",
+            "deliverable": "Shell desktop Tauri e React",
+            "group": "G04",
+            "prefix": "MDS-SHELL",
+            "source_refs": ["RF-01", "RNF-PORT-01", "RNF-A11Y-01"],
+            "task_strategy": "triad",
+            "depends_on_wbs": ["1.1.2"],
+            "risk_tags": ["architecture", "platform", "accessibility"],
+            "acceptance_focus": [
+              "Aplicação inicia localmente com layout de três painéis, estados vazio, carregando e erro.",
+              "Build Linux usa dependências fixadas e não depende de CDN ou serviço remoto.",
+              "Smoke test comprova inicialização, fechamento e restauração básica sem erro de console."
+            ],
+            "leaf_test": {"estimable": true, "assignable": true, "done_clear": true, "effort": "8-80h"}
+          },
+          {
+            "code": "1.2.2",
+            "deliverable": "Comandos Tauri, capabilities e eventos tipados",
+            "group": "G05",
+            "prefix": "MDS-IPC",
+            "source_refs": ["RF-01", "RF-02", "RF-06", "RNF-SEC-01"],
+            "task_strategy": "contract-triad",
+            "depends_on_wbs": ["1.1.3", "1.2.1"],
+            "risk_tags": ["security", "contract", "error-handling"],
+            "acceptance_focus": [
+              "Comandos e eventos implementam apenas capacidades autorizadas e validam todos os payloads.",
+              "Erros IPC retornam código estável e mensagem segura sem stack trace ou segredo.",
+              "Testes negam comando desconhecido, path não autorizado e payload incompatível."
+            ],
+            "leaf_test": {"estimable": true, "assignable": true, "done_clear": true, "effort": "8-80h"}
+          }
+        ]
+      },
+      {
+        "code": "1.3",
+        "deliverable": "Workspace e persistência",
+        "children_axis": "deliverable",
+        "coverage_statement": "As entregas cobrem autorização de caminhos, leitura e gravação, árvore/assets e descoberta de mudanças.",
+        "mutual_exclusion_statement": "A fronteira autoriza, a persistência protege conteúdo, a árvore modela recursos e busca/watcher observa o workspace.",
+        "children": [
+          {
+            "code": "1.3.1",
+            "deliverable": "Fronteira segura do workspace e política de caminhos",
+            "group": "G06",
+            "prefix": "MDS-WORKSPACE",
+            "source_refs": ["RF-01", "RF-05", "RNF-SEC-01", "RNF-PORT-01"],
+            "task_strategy": "triad",
+            "depends_on_wbs": ["1.1.3", "1.2.2"],
+            "risk_tags": ["security", "path-traversal", "symlink", "portability"],
+            "acceptance_focus": [
+              "Backend usa identificador opaco, canonicalização e caminhos relativos para cada operação.",
+              "Travessia, symlink externo, URI não permitida e troca de raiz falham antes de ler ou gravar.",
+              "Testes cobrem caminhos Unicode, removidos, renomeados e diferenças de separador."
+            ],
+            "leaf_test": {"estimable": true, "assignable": true, "done_clear": true, "effort": "8-80h"}
+          },
+          {
+            "code": "1.3.2",
+            "deliverable": "Persistência atômica, conflitos e recuperação de rascunhos",
+            "group": "G07",
+            "prefix": "MDS-SAVE",
+            "source_refs": ["RF-02", "RNF-DATA-01", "RNF-SEC-01"],
+            "task_strategy": "triad",
+            "depends_on_wbs": ["1.3.1"],
+            "risk_tags": ["data-integrity", "concurrency", "crash-recovery"],
+            "acceptance_focus": [
+              "Leitura retorna hash e metadados; salvamento usa compare-and-swap e escrita atômica no mesmo filesystem.",
+              "Conflito, falta de espaço ou crash preserva o arquivo válido e mantém rascunho recuperável.",
+              "Testes injetam falhas antes e depois de flush e comprovam ausência de arquivo parcial."
+            ],
+            "leaf_test": {"estimable": true, "assignable": true, "done_clear": true, "effort": "8-80h"}
+          },
+          {
+            "code": "1.3.3",
+            "deliverable": "Árvore de arquivos e resolução de assets locais",
+            "group": "G08",
+            "prefix": "MDS-FILES",
+            "source_refs": ["RF-01", "RF-05", "RNF-PERF-01", "RNF-SEC-01"],
+            "task_strategy": "triad",
+            "depends_on_wbs": ["1.3.1"],
+            "risk_tags": ["filesystem", "security", "performance"],
+            "acceptance_focus": [
+              "Árvore apresenta entradas autorizadas com paginação ou carregamento incremental para diretórios grandes.",
+              "Assets relativos resolvem contra o documento e nunca escapam da política do workspace.",
+              "Erros de permissão, item removido e asset inválido aparecem localmente sem quebrar a árvore."
+            ],
+            "leaf_test": {"estimable": true, "assignable": true, "done_clear": true, "effort": "8-80h"}
+          },
+          {
+            "code": "1.3.4",
+            "deliverable": "Busca no workspace e observação de mudanças externas",
+            "group": "G09",
+            "prefix": "MDS-DISCOVERY",
+            "source_refs": ["RF-06", "RNF-PERF-01", "RNF-DATA-01"],
+            "task_strategy": "triad",
+            "depends_on_wbs": ["1.3.1"],
+            "risk_tags": ["performance", "concurrency", "event-ordering"],
+            "acceptance_focus": [
+              "Busca e watcher são canceláveis, limitados e não bloqueiam a thread da UI.",
+              "Eventos duplicados, rename e rajadas são normalizados sem esconder alteração relevante.",
+              "Documento dirty nunca é recarregado silenciosamente após mudança externa."
+            ],
+            "leaf_test": {"estimable": true, "assignable": true, "done_clear": true, "effort": "8-80h"}
+          }
+        ]
+      },
+      {
+        "code": "1.4",
+        "deliverable": "Processamento Markdown",
+        "children_axis": "deliverable",
+        "coverage_statement": "As entregas cobrem sintaxe base, extensões, segurança do conteúdo e três renderizadores especializados.",
+        "mutual_exclusion_statement": "O pipeline define AST, extensões acrescentam nós, sanitização controla saída e cada renderizador possui falhas isoladas.",
+        "children": [
+          {
+            "code": "1.4.1",
+            "deliverable": "Pipeline AST CommonMark e GFM",
+            "group": "G10",
+            "prefix": "MDS-MARKDOWN",
+            "source_refs": ["RF-03", "RNF-PERF-01"],
+            "task_strategy": "contract-triad",
+            "depends_on_wbs": ["1.1.2"],
+            "risk_tags": ["compatibility", "parser", "performance"],
+            "acceptance_focus": [
+              "Pipeline MDAST/HAST implementa CommonMark e GFM com configuração determinística.",
+              "Fixtures oficiais e regressões locais preservam estrutura, posições e slugs estáveis.",
+              "Documento inválido gera diagnóstico e conteúdo legível sem crash global."
+            ],
+            "leaf_test": {"estimable": true, "assignable": true, "done_clear": true, "effort": "8-80h"}
+          },
+          {
+            "code": "1.4.2",
+            "deliverable": "Front matter, notas, alertas e diretivas",
+            "group": "G11",
+            "prefix": "MDS-EXTENSIONS",
+            "source_refs": ["RF-03", "RNF-SEC-01"],
+            "task_strategy": "triad",
+            "depends_on_wbs": ["1.4.1"],
+            "risk_tags": ["parser", "schema", "security"],
+            "acceptance_focus": [
+              "Extensões transformam nós AST e não usam substituição de HTML por regex.",
+              "YAML é parseado seguramente; diretiva desconhecida permanece legível e sem execução.",
+              "Testes cobrem nesting, sintaxe incompleta, metadado desconhecido e alertas combinados."
+            ],
+            "leaf_test": {"estimable": true, "assignable": true, "done_clear": true, "effort": "8-80h"}
+          },
+          {
+            "code": "1.4.3",
+            "deliverable": "HTML seguro, URLs, SVG e conteúdo remoto",
+            "group": "G12",
+            "prefix": "MDS-SANITIZE",
+            "source_refs": ["RF-03", "RF-05", "RNF-SEC-01"],
+            "task_strategy": "triad",
+            "depends_on_wbs": ["1.1.3", "1.3.1", "1.4.1", "1.4.2"],
+            "risk_tags": ["security", "xss", "url-policy", "svg"],
+            "acceptance_focus": [
+              "Schema de sanitização permite somente elementos, atributos e protocolos necessários.",
+              "HTML, SVG, MathML, data URLs e recursos remotos maliciosos são bloqueados sem destruir texto seguro.",
+              "Corpus adversarial comprova ausência de script, handler, javascript URL e escape do sandbox."
+            ],
+            "leaf_test": {"estimable": true, "assignable": true, "done_clear": true, "effort": "8-80h"}
+          },
+          {
+            "code": "1.4.4",
+            "deliverable": "Renderizador de código e recursos de bloco",
+            "group": "G13",
+            "prefix": "MDS-CODE",
+            "source_refs": ["RF-04", "RNF-PERF-01", "RNF-A11Y-01"],
+            "task_strategy": "triad",
+            "depends_on_wbs": ["1.4.1", "1.4.3"],
+            "risk_tags": ["rendering", "performance", "accessibility"],
+            "acceptance_focus": [
+              "Linguagens explícitas, autodetecção desligada e fallback em texto preservam conteúdo.",
+              "Copiar, linhas, wrap, filename e destaques usam metadados validados e controles acessíveis.",
+              "Bloco muito grande degrada de forma controlada sem travar o documento."
+            ],
+            "leaf_test": {"estimable": true, "assignable": true, "done_clear": true, "effort": "8-80h"}
+          },
+          {
+            "code": "1.4.5",
+            "deliverable": "Renderizador matemático KaTeX",
+            "group": "G14",
+            "prefix": "MDS-MATH",
+            "source_refs": ["RF-04", "RNF-SEC-01", "RNF-A11Y-01"],
+            "task_strategy": "triad",
+            "depends_on_wbs": ["1.4.1", "1.4.3"],
+            "risk_tags": ["rendering", "security", "accessibility"],
+            "acceptance_focus": [
+              "KaTeX renderiza inline e display com trust desativado, macros limitadas e assets locais.",
+              "Erro de sintaxe fica isolado no bloco e fornece diagnóstico com posição.",
+              "Saída matemática mantém semântica acessível e passa pela política de sanitização."
+            ],
+            "leaf_test": {"estimable": true, "assignable": true, "done_clear": true, "effort": "8-80h"}
+          },
+          {
+            "code": "1.4.6",
+            "deliverable": "Renderizador Mermaid isolado e exportável",
+            "group": "G15",
+            "prefix": "MDS-MERMAID",
+            "source_refs": ["RF-04", "RF-07", "RNF-SEC-01", "RNF-PERF-01"],
+            "task_strategy": "triad",
+            "depends_on_wbs": ["1.4.1", "1.4.3"],
+            "risk_tags": ["security", "sandbox", "rendering", "performance"],
+            "acceptance_focus": [
+              "Cada diagrama possui isolamento, timeout, diagnóstico, zoom, pan e tela cheia.",
+              "Mermaid strict ou sandbox e sanitização posterior impedem script, handler e protocolo perigoso.",
+              "SVG e PNG exportados derivam exclusivamente da saída já validada e não sobrescrevem sem confirmação."
+            ],
+            "leaf_test": {"estimable": true, "assignable": true, "done_clear": true, "effort": "8-80h"}
+          }
+        ]
+      },
+      {
+        "code": "1.5",
+        "deliverable": "Experiência de autoria",
+        "children_axis": "deliverable",
+        "coverage_statement": "As entregas cobrem edição, preview/navegação e estado persistente da interface.",
+        "mutual_exclusion_statement": "Editor controla fonte, preview apresenta resultado e preferências controlam sessão e apresentação global.",
+        "children": [
+          {
+            "code": "1.5.1",
+            "deliverable": "Editor de fonte e comandos de salvamento",
+            "group": "G16",
+            "prefix": "MDS-EDITOR",
+            "source_refs": ["RF-02", "RNF-DATA-01", "RNF-A11Y-01"],
+            "task_strategy": "triad",
+            "depends_on_wbs": ["1.2.1", "1.3.2", "1.4.1"],
+            "risk_tags": ["data-integrity", "ux", "accessibility", "security"],
+            "acceptance_focus": [
+              "Editor mantém undo/redo, dirty state, atalhos e salvamento explícito sem autosave do fonte.",
+              "UI diferencia sucesso, conflito, erro e rascunho recuperável sem bloquear edição desnecessariamente.",
+              "Fluxos completos funcionam por teclado e não perdem conteúdo ao fechar ou trocar documento."
+            ],
+            "leaf_test": {"estimable": true, "assignable": true, "done_clear": true, "effort": "8-80h"}
+          },
+          {
+            "code": "1.5.2",
+            "deliverable": "Preview, sumário, rolagem e navegação interna",
+            "group": "G17",
+            "prefix": "MDS-PREVIEW",
+            "source_refs": ["RF-03", "RF-05", "RF-06", "RNF-A11Y-01"],
+            "task_strategy": "triad",
+            "depends_on_wbs": ["1.3.3", "1.4.2", "1.5.1"],
+            "risk_tags": ["ux", "navigation", "accessibility", "performance"],
+            "acceptance_focus": [
+              "Preview atualiza com debounce, mantém editor responsivo e mostra diagnósticos por bloco.",
+              "Outline, slugs, âncoras e links Markdown navegam de forma determinística dentro do aplicativo.",
+              "Rolagem sincronizada tolera blocos assimétricos e pode ser desligada sem perder posição."
+            ],
+            "leaf_test": {"estimable": true, "assignable": true, "done_clear": true, "effort": "8-80h"}
+          },
+          {
+            "code": "1.5.3",
+            "deliverable": "Sessão, preferências, temas e acessibilidade",
+            "group": "G18",
+            "prefix": "MDS-SETTINGS",
+            "source_refs": ["RF-06", "RNF-A11Y-01", "RNF-PORT-01"],
+            "task_strategy": "triad",
+            "depends_on_wbs": ["1.2.1", "1.5.1"],
+            "risk_tags": ["accessibility", "privacy", "portability"],
+            "acceptance_focus": [
+              "Sessão restaura workspace, documento e layout sem persistir conteúdo sensível desnecessário.",
+              "Temas claro, escuro e sistema atendem contraste e redução de movimento.",
+              "Árvore, editor, preview, outline, diálogos e alertas passam navegação por teclado e foco."
+            ],
+            "leaf_test": {"estimable": true, "assignable": true, "done_clear": true, "effort": "8-80h"}
+          }
+        ]
+      },
+      {
+        "code": "1.6",
+        "deliverable": "Publicação local",
+        "children_axis": "deliverable",
+        "coverage_statement": "A entrega cobre os três formatos de saída prometidos pela v1.",
+        "mutual_exclusion_statement": "Há uma única folha porque HTML, impressão/PDF e diagramas compartilham o pipeline renderizado e a política de saída.",
+        "children": [
+          {
+            "code": "1.6.1",
+            "deliverable": "Exportação HTML, impressão, PDF e diagramas",
+            "group": "G19",
+            "prefix": "MDS-EXPORT",
+            "source_refs": ["RF-07", "RF-05", "RNF-SEC-01", "RNF-DATA-01"],
+            "task_strategy": "triad",
+            "depends_on_wbs": ["1.4.4", "1.4.5", "1.4.6", "1.5.2"],
+            "risk_tags": ["export", "data-integrity", "security", "compatibility"],
+            "acceptance_focus": [
+              "HTML exportado reutiliza pipeline e sanitização do preview e registra assets ausentes.",
+              "Impressão/PDF usa CSS próprio sem prometer paginação acadêmica determinística.",
+              "Nenhuma saída sobrescreve arquivo existente sem confirmação e falha não deixa arquivo parcial."
+            ],
+            "leaf_test": {"estimable": true, "assignable": true, "done_clear": true, "effort": "8-80h"}
+          }
+        ]
+      },
+      {
+        "code": "1.7",
+        "deliverable": "Confiabilidade e entrega",
+        "children_axis": "deliverable",
+        "coverage_statement": "As entregas cobrem diagnóstico operacional, conformidade, segurança adversarial e release integrada.",
+        "mutual_exclusion_statement": "Diagnóstico implementa telemetria local; conformidade valida sintaxe; segurança valida abuso; release valida a história completa e pacotes.",
+        "children": [
+          {
+            "code": "1.7.1",
+            "deliverable": "Diagnósticos e tratamento seguro de falhas",
+            "group": "G20",
+            "prefix": "MDS-DIAGNOSTICS",
+            "source_refs": ["RF-06", "RNF-SEC-01", "RNF-DATA-01", "RNF-PERF-01"],
+            "task_strategy": "triad",
+            "depends_on_wbs": ["1.2.2", "1.3.2", "1.3.4", "1.4.3", "1.4.6"],
+            "risk_tags": ["observability", "privacy", "error-handling"],
+            "acceptance_focus": [
+              "Erros possuem códigos, correlação local e mensagens acionáveis sem conteúdo integral ou segredo.",
+              "Logs distinguem falha real, operação cancelada, limite excedido e recurso indisponível.",
+              "Falha de um documento ou bloco não derruba a sessão nem oculta a causa verificável."
+            ],
+            "leaf_test": {"estimable": true, "assignable": true, "done_clear": true, "effort": "8-80h"}
+          },
+          {
+            "code": "1.7.2",
+            "deliverable": "Suíte de conformidade Markdown e renderizadores",
+            "group": "G21",
+            "prefix": "MDS-CONFORMANCE",
+            "source_refs": ["RF-03", "RF-04", "RNF-PERF-01"],
+            "task_strategy": "triad",
+            "depends_on_wbs": ["1.4.1", "1.4.2", "1.4.4", "1.4.5", "1.4.6"],
+            "risk_tags": ["qa", "compatibility", "regression"],
+            "acceptance_focus": [
+              "Fixtures versionadas cobrem CommonMark/GFM, extensões e erros isolados dos renderizadores.",
+              "Snapshots estruturais evitam dependência de HTML incidental e detectam regressão sem mascarar mudança legítima.",
+              "Suite executa deterministicamente em CI e registra versões dos parsers e renderizadores."
+            ],
+            "leaf_test": {"estimable": true, "assignable": true, "done_clear": true, "effort": "8-80h"}
+          },
+          {
+            "code": "1.7.3",
+            "deliverable": "Suíte adversarial de filesystem, conteúdo e integridade",
+            "group": "G22",
+            "prefix": "MDS-SECURITY",
+            "source_refs": ["RNF-SEC-01", "RNF-DATA-01", "RF-05"],
+            "task_strategy": "triad",
+            "depends_on_wbs": ["1.1.3", "1.3.1", "1.3.2", "1.4.3", "1.7.1"],
+            "risk_tags": ["security", "xss", "path-traversal", "data-integrity"],
+            "acceptance_focus": [
+              "Corpus cobre XSS, SVG, MathML, URLs, symlinks, traversal, arquivos gigantes e corrida de salvamento.",
+              "Todos os ataques falham antes do efeito perigoso e preservam evidência sem dados sensíveis.",
+              "Teste independente confirma CSP, capabilities e ausência de saída parcial após falhas injetadas."
+            ],
+            "leaf_test": {"estimable": true, "assignable": true, "done_clear": true, "effort": "8-80h"}
+          },
+          {
+            "code": "1.7.4",
+            "deliverable": "E2E, desempenho, pacotes Linux e release candidata",
+            "group": "G23",
+            "prefix": "MDS-RELEASE",
+            "source_refs": ["RF-07", "RNF-PERF-01", "RNF-A11Y-01", "RNF-PORT-01"],
+            "task_strategy": "triad",
+            "depends_on_wbs": ["1.5.3", "1.6.1", "1.7.1", "1.7.2", "1.7.3"],
+            "risk_tags": ["release", "performance", "accessibility", "portability"],
+            "acceptance_focus": [
+              "E2E cobre abrir, editar, salvar, conflitar, recuperar, buscar, renderizar e exportar em instalação limpa.",
+              "Benchmarks atendem orçamentos aprovados e acessibilidade não possui bloqueador crítico.",
+              "Pacotes .deb e AppImage instaláveis registram checksums, versões fixadas e evidência de smoke test."
+            ],
+            "leaf_test": {"estimable": true, "assignable": true, "done_clear": true, "effort": "8-80h"}
+          }
+        ]
+      }
+    ]
+  }
+}

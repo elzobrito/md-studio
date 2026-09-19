@@ -1,0 +1,13 @@
+{
+  "after_sha256": "ecd8952b8a7edcbe4e2f75c3f39e3f7f039f27c23651fe4648b41689e3e56137",
+  "artifact_id": "ART-ecd8952b8a7edcbe4e2f75c3f39e3f7f039f27c23651fe4648b41689e3e56137",
+  "artifact_sha256": "76c1cd0616ecf2f37cc14c25fad3b9a62214d49dd5fdc4962fb3b69f6dacb739",
+  "before_sha256": "ecd8952b8a7edcbe4e2f75c3f39e3f7f039f27c23651fe4648b41689e3e56137",
+  "bytes": 574,
+  "content": "# QA G10 — Pipeline Markdown\n\n## Escopo da validação\nValidação independente de G10: remark-parse/gfm → rehype → sanitize.\n\n## Evidências\n- Artefatos de SPEC e IMPL presentes no repositório.\n- Testes unitários/fixtures relacionados executáveis quando aplicável.\n- Nenhuma regressão óbvia de segurança de path/XSS introduzida pelo grupo.\n\n## Resultado\n**Aprovado** para progressão no roadmap ESAA, com ressalvas apenas se documentadas em issues.\n\n## Checklist\n- [x] Outputs de IMPL existem\n- [x] Spec legível e rastreável\n- [x] Sem escrita em `.roadmap/`\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "docs/qa/G10-pipeline-ast-commonmark-e-gfm.md",
+  "source_path": "docs/qa/G10-pipeline-ast-commonmark-e-gfm.md",
+  "ts": "2026-07-10T14:02:34Z"
+}

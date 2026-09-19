@@ -1,0 +1,13 @@
+{
+  "after_sha256": "1794f1c2b31d605e5a63e3c5da384ad94d8ca69d87e8af4f9a775da1eb34c225",
+  "artifact_id": "ART-1794f1c2b31d605e5a63e3c5da384ad94d8ca69d87e8af4f9a775da1eb34c225",
+  "artifact_sha256": "98d5a9e1e85211b407e372bb7d02a3727316e9030684eab91df3f29d80927fb0",
+  "before_sha256": "1794f1c2b31d605e5a63e3c5da384ad94d8ca69d87e8af4f9a775da1eb34c225",
+  "bytes": 431,
+  "content": "import { describe, expect, it } from \"vitest\";\nimport { allowUrl } from \"../../../src/security/urlPolicy\";\n\ndescribe(\"url policy\", () => {\n  it(\"blocks javascript\", () => {\n    expect(allowUrl(\"javascript:alert(1)\")).toBe(false);\n  });\n  it(\"allows relative\", () => {\n    expect(allowUrl(\"./a.md\")).toBe(true);\n  });\n  it(\"blocks remote by default\", () => {\n    expect(allowUrl(\"https://example.com/x.png\")).toBe(false);\n  });\n});\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "tests/security/content/urlPolicy.test.ts",
+  "source_path": "tests/security/content/urlPolicy.test.ts",
+  "ts": "2026-07-10T14:02:40Z"
+}

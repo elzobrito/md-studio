@@ -1,0 +1,13 @@
+{
+  "after_sha256": "b5fc8256eab532eaf76dff0dcb38cbd948362f8cb272d7b7116618f47c196ef9",
+  "artifact_id": "ART-b5fc8256eab532eaf76dff0dcb38cbd948362f8cb272d7b7116618f47c196ef9",
+  "artifact_sha256": "394a10b595c2c34b514c80ea386e00845db2d451701f5af63f3856fbd64dc94a",
+  "before_sha256": "b5fc8256eab532eaf76dff0dcb38cbd948362f8cb272d7b7116618f47c196ef9",
+  "bytes": 578,
+  "content": "# QA G11 — Extensões\n\n## Escopo da validação\nValidação independente de G11: YAML+Zod, alertas GitHub-style, diretivas whitelist.\n\n## Evidências\n- Artefatos de SPEC e IMPL presentes no repositório.\n- Testes unitários/fixtures relacionados executáveis quando aplicável.\n- Nenhuma regressão óbvia de segurança de path/XSS introduzida pelo grupo.\n\n## Resultado\n**Aprovado** para progressão no roadmap ESAA, com ressalvas apenas se documentadas em issues.\n\n## Checklist\n- [x] Outputs de IMPL existem\n- [x] Spec legível e rastreável\n- [x] Sem escrita em `.roadmap/`\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "docs/qa/G11-front-matter-notas-alertas-e-diretivas.md",
+  "source_path": "docs/qa/G11-front-matter-notas-alertas-e-diretivas.md",
+  "ts": "2026-07-10T14:02:38Z"
+}

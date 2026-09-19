@@ -1,0 +1,13 @@
+{
+  "after_sha256": "04e0538fd9d6a0093d8f07b4979a1edb4475a1ab5875c2b2549e91f58c641995",
+  "artifact_id": "ART-04e0538fd9d6a0093d8f07b4979a1edb4475a1ab5875c2b2549e91f58c641995",
+  "artifact_sha256": "00c30b9dd7969e83fcfa5704fe9e303959cc06aa8191b2bc65e6a1f0367af1e7",
+  "before_sha256": "04e0538fd9d6a0093d8f07b4979a1edb4475a1ab5875c2b2549e91f58c641995",
+  "bytes": 903,
+  "content": "const LANG_ALLOW = new Set([\n  \"ts\", \"typescript\", \"js\", \"javascript\", \"json\", \"md\", \"markdown\", \"rust\", \"rs\",\n  \"python\", \"py\", \"bash\", \"sh\", \"shell\", \"css\", \"html\", \"yaml\", \"yml\", \"toml\", \"sql\", \"text\", \"plain\",\n]);\n\nexport function normalizeLanguage(lang?: string | null): string {\n  if (!lang) return \"text\";\n  const l = lang.toLowerCase().trim();\n  return LANG_ALLOW.has(l) ? l : \"text\";\n}\n\nexport function parseCodeMeta(meta: string): { filename?: string; highlight: number[] } {\n  const filename = /filename=([^\\s]+)/.exec(meta)?.[1];\n  const hl = /\\{([\\d,-]+)\\}/.exec(meta)?.[1];\n  const highlight: number[] = [];\n  if (hl) {\n    for (const part of hl.split(\",\")) {\n      if (part.includes(\"-\")) {\n        const [a, b] = part.split(\"-\").map(Number);\n        for (let i = a; i <= b; i++) highlight.push(i);\n      } else highlight.push(Number(part));\n    }\n  }\n  return { filename, highlight };\n}\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "src/markdown/code.ts",
+  "source_path": "src/markdown/code.ts",
+  "ts": "2026-07-10T14:02:14Z"
+}

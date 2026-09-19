@@ -1,0 +1,13 @@
+{
+  "after_sha256": "a17aa1e4659fb26b4e1574e80e39585fea89a2a60484e2943bd22426c5619af5",
+  "artifact_id": "ART-a17aa1e4659fb26b4e1574e80e39585fea89a2a60484e2943bd22426c5619af5",
+  "artifact_sha256": "763c8297f8a3a44fe04c1f62f413696cf5d396f65c4522ad5a921766effb59bd",
+  "before_sha256": "a17aa1e4659fb26b4e1574e80e39585fea89a2a60484e2943bd22426c5619af5",
+  "bytes": 1184,
+  "content": "/** Public IPC / domain types for MD Studio v1 */\nexport type WorkspaceId = string;\n\nexport interface WorkspaceDescriptor {\n  id: WorkspaceId;\n  rootLabel: string;\n  kind: \"folder\" | \"single-file\";\n}\n\nexport interface FileEntry {\n  name: string;\n  relativePath: string;\n  kind: \"file\" | \"dir\";\n  size?: number;\n}\n\nexport interface DocumentSnapshot {\n  workspaceId: WorkspaceId;\n  relativePath: string;\n  content: string;\n  encoding: \"utf-8\";\n  mtimeMs: number;\n  contentHash: string;\n  version: number;\n}\n\nexport interface SaveDocumentRequest {\n  workspaceId: WorkspaceId;\n  relativePath: string;\n  expectedHash: string;\n  content: string;\n}\n\nexport type SaveResult =\n  | { ok: true; snapshot: DocumentSnapshot }\n  | { ok: false; code: \"HashMismatch\" | \"OutsideWorkspace\" | \"IoError\"; message: string };\n\nexport interface SearchResult {\n  relativePath: string;\n  line: number;\n  preview: string;\n}\n\nexport type WatchEvent =\n  | { type: \"created\" | \"modified\" | \"removed\" | \"renamed\"; relativePath: string; from?: string };\n\nexport type IpcErrorCode =\n  | \"OutsideWorkspace\"\n  | \"SymlinkEscape\"\n  | \"HashMismatch\"\n  | \"NotFound\"\n  | \"PermissionDenied\"\n  | \"InvalidPath\"\n  | \"IoError\";\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "src/contracts/types.ts",
+  "source_path": "src/contracts/types.ts",
+  "ts": "2026-07-10T14:01:56Z"
+}

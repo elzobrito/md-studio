@@ -1,0 +1,13 @@
+{
+  "after_sha256": "269c96f970f709197b141a8290564745947f6ed7e99dca17cb16cf01df8897ee",
+  "artifact_id": "ART-269c96f970f709197b141a8290564745947f6ed7e99dca17cb16cf01df8897ee",
+  "artifact_sha256": "75ce769afa0396e4b41281f5bf84382f5fa10f2057d8df5fda6c0fcdc5a03425",
+  "before_sha256": "269c96f970f709197b141a8290564745947f6ed7e99dca17cb16cf01df8897ee",
+  "bytes": 565,
+  "content": "/** Resolve relative asset paths against document directory (frontend policy only). */\nexport function resolveAssetPath(documentPath: string, assetHref: string): string {\n  if (/^(https?:|data:|blob:)/i.test(assetHref)) return assetHref;\n  const base = documentPath.includes(\"/\") ? documentPath.slice(0, documentPath.lastIndexOf(\"/\") + 1) : \"\";\n  const parts = (base + assetHref).split(\"/\");\n  const out: string[] = [];\n  for (const p of parts) {\n    if (!p || p === \".\") continue;\n    if (p === \"..\") out.pop();\n    else out.push(p);\n  }\n  return out.join(\"/\");\n}\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "src/services/assets.ts",
+  "source_path": "src/services/assets.ts",
+  "ts": "2026-07-10T14:02:14Z"
+}

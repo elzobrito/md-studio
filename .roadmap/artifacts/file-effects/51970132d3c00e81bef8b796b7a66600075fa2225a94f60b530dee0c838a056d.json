@@ -1,0 +1,13 @@
+{
+  "after_sha256": "6cc90535939d6833bc5e3db132c9a91182f88eb241084d90f957db0201f752d5",
+  "artifact_id": "ART-6cc90535939d6833bc5e3db132c9a91182f88eb241084d90f957db0201f752d5",
+  "artifact_sha256": "51970132d3c00e81bef8b796b7a66600075fa2225a94f60b530dee0c838a056d",
+  "before_sha256": "6cc90535939d6833bc5e3db132c9a91182f88eb241084d90f957db0201f752d5",
+  "bytes": 458,
+  "content": "# G12 — Sanitização\n\n## Objetivo\nrehype-sanitize schema versionado, urlPolicy.\n\n## Requisitos\n- Entrega alinhada ao plano MD Studio v1 e PRDs CORE/EXTENSIONS/QUALITY.\n- Artefatos de implementação nos paths declarados no roadmap ESAA.\n- Critérios de aceite verificáveis em QA.\n\n## Aceite\n1. Spec implementável sem decisões pendentes.\n2. Superfície de erro e segurança definida quando aplicável.\n3. Dependências de grupos anteriores respeitadas.\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "docs/spec/G12-html-seguro-urls-svg-e-conteudo-remoto.md",
+  "source_path": "docs/spec/G12-html-seguro-urls-svg-e-conteudo-remoto.md",
+  "ts": "2026-07-10T14:02:39Z"
+}

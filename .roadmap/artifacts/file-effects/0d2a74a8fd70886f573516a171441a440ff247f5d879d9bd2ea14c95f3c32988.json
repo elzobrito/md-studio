@@ -1,0 +1,13 @@
+{
+  "after_sha256": "aef6ec5b2cb28e594acab6998b8e6db79f59435fb5c655cd80d38de977c1c2d5",
+  "artifact_id": "ART-aef6ec5b2cb28e594acab6998b8e6db79f59435fb5c655cd80d38de977c1c2d5",
+  "artifact_sha256": "0d2a74a8fd70886f573516a171441a440ff247f5d879d9bd2ea14c95f3c32988",
+  "before_sha256": "aef6ec5b2cb28e594acab6998b8e6db79f59435fb5c655cd80d38de977c1c2d5",
+  "bytes": 90,
+  "content": "# Renderer conformance notes\n\nFixtures for code/math/mermaid live under tests/markdown/*.\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "tests/conformance/renderers/README.md",
+  "source_path": "tests/conformance/renderers/README.md",
+  "ts": "2026-07-10T14:03:12Z"
+}

@@ -1,0 +1,133 @@
+:root {
+  --tree-indent: 16px;
+  --tree-item-height: 28px;
+  --tree-active-bg: var(--color-selection, #313244);
+  --tree-hover-bg: var(--color-hover, #2a2a3c);
+  --tree-font-size: 13px;
+}
+
+.file-tree {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: auto;
+  user-select: none;
+  font-size: var(--tree-font-size);
+}
+
+.file-tree-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.file-tree-item {
+  display: flex;
+  align-items: center;
+  height: var(--tree-item-height);
+  padding-right: 8px;
+  cursor: pointer;
+  border-radius: 4px;
+  color: var(--text-primary, #cdd6f4);
+  transition: background-color 150ms ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.file-tree-item:hover {
+  background-color: var(--tree-hover-bg);
+}
+
+.file-tree-item.is-active {
+  background-color: var(--tree-active-bg);
+  font-weight: 500;
+  border-left: 2px solid var(--color-accent, #89b4fa);
+}
+
+.file-tree-active-dot {
+  margin-left: auto;
+  font-size: 10px;
+  color: var(--color-accent, #89b4fa);
+  padding-right: 6px;
+}
+
+.file-tree-icon {
+  margin-right: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  flex-shrink: 0;
+}
+
+.file-tree-arrow {
+  display: inline-block;
+  font-size: 10px;
+  width: 12px;
+  margin-right: 2px;
+  color: var(--text-secondary, #a6adc8);
+  transition: transform 150ms ease;
+}
+
+.file-tree-arrow.is-expanded {
+  transform: rotate(90deg);
+}
+
+.file-tree-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.file-tree-empty {
+  padding: 16px;
+  text-align: center;
+  color: var(--text-secondary, #a6adc8);
+  font-size: 13px;
+}
+
+.tree-search-box {
+  display: flex;
+  align-items: center;
+  margin: 6px 8px;
+  padding: 4px 8px;
+  background-color: var(--bg-primary, #1e1e2e);
+  border: 1px solid var(--border, #313244);
+  border-radius: 4px;
+}
+
+.tree-search-icon {
+  font-size: 12px;
+  margin-right: 6px;
+  color: var(--text-secondary, #a6adc8);
+}
+
+.tree-search-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 12px;
+  color: var(--text-primary, #cdd6f4);
+}
+
+.tree-search-clear-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary, #a6adc8);
+  cursor: pointer;
+  padding: 0 4px;
+  font-size: 11px;
+}
+
+.tree-search-clear-btn:hover {
+  color: var(--text-primary, #cdd6f4);
+}
+
+.file-list-wrap .recent-files-section {
+  border-top: 1px solid var(--border, #313244);
+  padding: 12px 10px 8px;
+  margin-top: 8px;
+}
+

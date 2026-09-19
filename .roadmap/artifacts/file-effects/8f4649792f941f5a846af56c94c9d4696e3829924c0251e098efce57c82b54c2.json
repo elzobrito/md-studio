@@ -1,0 +1,13 @@
+{
+  "after_sha256": "0515e5cdcd7e8d0ebec6dccb0d8ed0ea55b6a24b387131d0c8a98cfff93d456c",
+  "artifact_id": "ART-0515e5cdcd7e8d0ebec6dccb0d8ed0ea55b6a24b387131d0c8a98cfff93d456c",
+  "artifact_sha256": "8f4649792f941f5a846af56c94c9d4696e3829924c0251e098efce57c82b54c2",
+  "before_sha256": "0515e5cdcd7e8d0ebec6dccb0d8ed0ea55b6a24b387131d0c8a98cfff93d456c",
+  "bytes": 78,
+  "content": "G24 toolchain evidence: see docs/qa/G24-toolchain-tauri-cargo-test-e-build.md\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "tests/toolchain/README.md",
+  "source_path": "tests/toolchain/README.md",
+  "ts": "2026-07-10T14:36:35Z"
+}

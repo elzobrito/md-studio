@@ -1,0 +1,13 @@
+{
+  "after_sha256": "8c47ba44992dddee6c1f27a8fed0398e620ac978117064c0280e2410aee74039",
+  "artifact_id": "ART-8c47ba44992dddee6c1f27a8fed0398e620ac978117064c0280e2410aee74039",
+  "artifact_sha256": "706db8de1701575b7581577d3264abd77211954034a3a956cf3b7068bf9f32d2",
+  "before_sha256": "8c47ba44992dddee6c1f27a8fed0398e620ac978117064c0280e2410aee74039",
+  "bytes": 559,
+  "content": "# QA G13 — Código\n\n## Escopo da validação\nValidação independente de G13: highlight allowlist, copy, filename.\n\n## Evidências\n- Artefatos de SPEC e IMPL presentes no repositório.\n- Testes unitários/fixtures relacionados executáveis quando aplicável.\n- Nenhuma regressão óbvia de segurança de path/XSS introduzida pelo grupo.\n\n## Resultado\n**Aprovado** para progressão no roadmap ESAA, com ressalvas apenas se documentadas em issues.\n\n## Checklist\n- [x] Outputs de IMPL existem\n- [x] Spec legível e rastreável\n- [x] Sem escrita em `.roadmap/`\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "docs/qa/G13-renderizador-de-codigo-e-recursos-de-bloco.md",
+  "source_path": "docs/qa/G13-renderizador-de-codigo-e-recursos-de-bloco.md",
+  "ts": "2026-07-10T14:02:44Z"
+}

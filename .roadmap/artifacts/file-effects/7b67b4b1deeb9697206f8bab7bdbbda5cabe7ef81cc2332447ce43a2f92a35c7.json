@@ -1,0 +1,13 @@
+{
+  "after_sha256": "5d9aa95aa0a078f8ca786c1609d727a2d30593ce8e60adb7514c3cd750e4d70c",
+  "artifact_id": "ART-5d9aa95aa0a078f8ca786c1609d727a2d30593ce8e60adb7514c3cd750e4d70c",
+  "artifact_sha256": "7b67b4b1deeb9697206f8bab7bdbbda5cabe7ef81cc2332447ce43a2f92a35c7",
+  "before_sha256": "5d9aa95aa0a078f8ca786c1609d727a2d30593ce8e60adb7514c3cd750e4d70c",
+  "bytes": 2063,
+  "content": "import { useCallback, useState } from \"react\";\nimport { ipc } from \"../lib/ipc\";\nimport { persistDocument } from \"../services/save\";\nimport type { DocumentSnapshot } from \"../contracts/types\";\nimport { loadDraft } from \"../lib/drafts/recovery\";\n\nexport function useDocumentState() {\n  const [snapshot, setSnapshot] = useState<DocumentSnapshot | null>(null);\n  const [content, setContentState] = useState(\"# MD Studio\\n\");\n  const [dirty, setDirty] = useState(false);\n  const [diagnostics, setDiagnostics] = useState<string[]>([]);\n  const [relativePath, setRelativePath] = useState(\"README.md\");\n\n  const setContent = useCallback((v: string) => {\n    setContentState(v);\n    setDirty(true);\n  }, []);\n\n  const openRelative = useCallback(async (path: string) => {\n    const ws = await ipc.openWorkspace(\".\");\n    const snap = await ipc.readDocument(ws.id, path);\n    const draft = loadDraft(ws.id, path);\n    setSnapshot(snap);\n    setRelativePath(path);\n    setContentState(draft ?? snap.content);\n    setDirty(!!draft && draft !== snap.content);\n    setDiagnostics(draft ? [\"Rascunho de recuperação carregado\"] : []);\n  }, []);\n\n  const save = useCallback(async () => {\n    if (!snapshot) {\n      const ws = await ipc.openWorkspace(\".\");\n      const snap = await ipc.readDocument(ws.id, relativePath);\n      setSnapshot(snap);\n      const result = await persistDocument(snap, content);\n      if (!result.ok) {\n        setDiagnostics([`Falha ao salvar: ${result.code} — ${result.message}`]);\n        return;\n      }\n      setSnapshot(result.snapshot);\n      setDirty(false);\n      setDiagnostics([\"Salvo\"]);\n      return;\n    }\n    const result = await persistDocument(snapshot, content);\n    if (!result.ok) {\n      setDiagnostics([`Conflito/erro: ${result.code} — ${result.message}`]);\n      return;\n    }\n    setSnapshot(result.snapshot);\n    setDirty(false);\n    setDiagnostics([\"Salvo\"]);\n  }, [snapshot, content, relativePath]);\n\n  return {\n    content,\n    setContent,\n    dirty,\n    diagnostics,\n    relativePath,\n    openRelative,\n    save,\n  };\n}\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "src/state/documentState.ts",
+  "source_path": "src/state/documentState.ts",
+  "ts": "2026-07-10T14:02:54Z"
+}

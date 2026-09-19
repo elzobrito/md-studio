@@ -1,0 +1,13 @@
+{
+  "after_sha256": "57bab7ca1403ee66e09fc99446d7064311c82e42965dccca9baa8c0a146d3525",
+  "artifact_id": "ART-57bab7ca1403ee66e09fc99446d7064311c82e42965dccca9baa8c0a146d3525",
+  "artifact_sha256": "2cc6545e596459ada6ec45092e385f61f2a01036f60bf87e62b1a2b08441bc5a",
+  "before_sha256": "57bab7ca1403ee66e09fc99446d7064311c82e42965dccca9baa8c0a146d3525",
+  "bytes": 282,
+  "content": "import { describe, expect, it } from \"vitest\";\nimport { renderMath } from \"../../../src/markdown/math\";\n\ndescribe(\"math\", () => {\n  it(\"renders simple expression or fails closed\", () => {\n    const r = renderMath(\"x+1\", false);\n    expect(r.html || r.error).toBeTruthy();\n  });\n});\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "tests/markdown/math/math.test.ts",
+  "source_path": "tests/markdown/math/math.test.ts",
+  "ts": "2026-07-10T14:02:47Z"
+}

@@ -1,0 +1,13 @@
+{
+  "after_sha256": "187b5692ec4e18c3fbce2143f8fc18400f4bc4e28200a75652b43ffcff05604e",
+  "artifact_id": "ART-187b5692ec4e18c3fbce2143f8fc18400f4bc4e28200a75652b43ffcff05604e",
+  "artifact_sha256": "4ab4e9d28282d3768c284f072d494670f9701a2d1330b33185ced75c92df610a",
+  "before_sha256": "187b5692ec4e18c3fbce2143f8fc18400f4bc4e28200a75652b43ffcff05604e",
+  "bytes": 441,
+  "content": "# G17 — Preview\n\n## Objetivo\ndebounce, outline, links internos.\n\n## Requisitos\n- Entrega alinhada ao plano MD Studio v1 e PRDs CORE/EXTENSIONS/QUALITY.\n- Artefatos de implementação nos paths declarados no roadmap ESAA.\n- Critérios de aceite verificáveis em QA.\n\n## Aceite\n1. Spec implementável sem decisões pendentes.\n2. Superfície de erro e segurança definida quando aplicável.\n3. Dependências de grupos anteriores respeitadas.\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "docs/spec/G17-preview-sumario-rolagem-e-navegacao-interna.md",
+  "source_path": "docs/spec/G17-preview-sumario-rolagem-e-navegacao-interna.md",
+  "ts": "2026-07-10T14:02:56Z"
+}

@@ -1,0 +1,13 @@
+{
+  "after_sha256": "0ce78a9e0586b452cf19518bd9de11b997fe5c5a35fcc849a18306f6b0dabaa3",
+  "artifact_id": "ART-0ce78a9e0586b452cf19518bd9de11b997fe5c5a35fcc849a18306f6b0dabaa3",
+  "artifact_sha256": "cf252aba0f403b0bda4deaec07a72020746fcbec8acf5bc9dca9d5debd89ac84",
+  "before_sha256": "0ce78a9e0586b452cf19518bd9de11b997fe5c5a35fcc849a18306f6b0dabaa3",
+  "bytes": 249,
+  "content": "import React from \"react\";\nimport ReactDOM from \"react-dom/client\";\nimport { App } from \"./App\";\nimport \"./styles/themes.css\";\n\nReactDOM.createRoot(document.getElementById(\"root\")!).render(\n  <React.StrictMode>\n    <App />\n  </React.StrictMode>,\n);\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "src/main.tsx",
+  "source_path": "src/main.tsx",
+  "ts": "2026-07-10T14:02:14Z"
+}

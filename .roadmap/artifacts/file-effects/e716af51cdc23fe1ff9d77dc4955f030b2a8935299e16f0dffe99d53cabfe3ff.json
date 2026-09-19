@@ -1,0 +1,13 @@
+{
+  "after_sha256": "828310a3ef6b47112868ac7d43d1364309672cecbffc3c31bc1479c419fb8d54",
+  "artifact_id": "ART-828310a3ef6b47112868ac7d43d1364309672cecbffc3c31bc1479c419fb8d54",
+  "artifact_sha256": "e716af51cdc23fe1ff9d77dc4955f030b2a8935299e16f0dffe99d53cabfe3ff",
+  "before_sha256": "828310a3ef6b47112868ac7d43d1364309672cecbffc3c31bc1479c419fb8d54",
+  "bytes": 465,
+  "content": "# G09 — Busca e watcher\n\n## Objetivo\nsearch_workspace, notify debounce, dirty conflict.\n\n## Requisitos\n- Entrega alinhada ao plano MD Studio v1 e PRDs CORE/EXTENSIONS/QUALITY.\n- Artefatos de implementação nos paths declarados no roadmap ESAA.\n- Critérios de aceite verificáveis em QA.\n\n## Aceite\n1. Spec implementável sem decisões pendentes.\n2. Superfície de erro e segurança definida quando aplicável.\n3. Dependências de grupos anteriores respeitadas.\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "docs/spec/G09-busca-no-workspace-e-observacao-de-mudancas-externas.md",
+  "source_path": "docs/spec/G09-busca-no-workspace-e-observacao-de-mudancas-externas.md",
+  "ts": "2026-07-10T14:02:29Z"
+}

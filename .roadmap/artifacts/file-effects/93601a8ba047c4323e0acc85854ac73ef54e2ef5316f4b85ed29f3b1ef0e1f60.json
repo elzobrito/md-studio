@@ -1,0 +1,13 @@
+{
+  "after_sha256": "71d360acf7de73267051c3837cb8476558411e41d21a0f2da389f1b3c157c00e",
+  "artifact_id": "ART-71d360acf7de73267051c3837cb8476558411e41d21a0f2da389f1b3c157c00e",
+  "artifact_sha256": "93601a8ba047c4323e0acc85854ac73ef54e2ef5316f4b85ed29f3b1ef0e1f60",
+  "before_sha256": "71d360acf7de73267051c3837cb8476558411e41d21a0f2da389f1b3c157c00e",
+  "bytes": 540,
+  "content": "export type MarkdownProfile = \"commonmark\" | \"github-extensions\";\n\nexport interface ProfileFlags {\n  gfm: boolean;\n  frontmatter: boolean;\n  math: boolean;\n  directives: boolean;\n  alerts: boolean;\n  mermaid: boolean;\n}\n\nexport function flagsFor(profile: MarkdownProfile): ProfileFlags {\n  if (profile === \"commonmark\") {\n    return { gfm: false, frontmatter: false, math: false, directives: false, alerts: false, mermaid: false };\n  }\n  return { gfm: true, frontmatter: true, math: true, directives: true, alerts: true, mermaid: true };\n}\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "src/markdown/profile.ts",
+  "source_path": "src/markdown/profile.ts",
+  "ts": "2026-07-10T14:02:33Z"
+}

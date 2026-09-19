@@ -1,0 +1,13 @@
+{
+  "after_sha256": "33a7e500620c66beb6742c4421d36952f457eea6285c08210ebe4e427a0d3cd7",
+  "artifact_id": "ART-33a7e500620c66beb6742c4421d36952f457eea6285c08210ebe4e427a0d3cd7",
+  "artifact_sha256": "be9ba52b2dd9a3ea19cbb1ec36e2d7c6bf1e08d3bc1054e5b3e823d595749fb4",
+  "before_sha256": "33a7e500620c66beb6742c4421d36952f457eea6285c08210ebe4e427a0d3cd7",
+  "bytes": 626,
+  "content": "export function slugify(heading: string): string {\n  return heading\n    .toLowerCase()\n    .normalize(\"NFD\")\n    .replace(/\\p{M}/gu, \"\")\n    .replace(/[^a-z0-9\\s-]/g, \"\")\n    .trim()\n    .replace(/\\s+/g, \"-\");\n}\n\nexport function extractOutline(markdown: string): { level: number; text: string; id: string }[] {\n  const lines = markdown.split(/\\n/);\n  const out: { level: number; text: string; id: string }[] = [];\n  for (const line of lines) {\n    const m = /^(#{1,6})\\s+(.+)$/.exec(line);\n    if (m) {\n      const text = m[2].trim();\n      out.push({ level: m[1].length, text, id: slugify(text) });\n    }\n  }\n  return out;\n}\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "src/services/navigation.ts",
+  "source_path": "src/services/navigation.ts",
+  "ts": "2026-07-10T14:02:57Z"
+}

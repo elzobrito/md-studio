@@ -1,0 +1,13 @@
+{
+  "after_sha256": "a58e0b8492d42c58c1464872bed545a19e9eb196436de4f4f11ea0babaaf44ee",
+  "artifact_id": "ART-a58e0b8492d42c58c1464872bed545a19e9eb196436de4f4f11ea0babaaf44ee",
+  "artifact_sha256": "4e609528533d1bd198c97aba30d95d4b0873ce6abe6f0601fc155956d21a629e",
+  "before_sha256": "a58e0b8492d42c58c1464872bed545a19e9eb196436de4f4f11ea0babaaf44ee",
+  "bytes": 444,
+  "content": "# G22 — Security suite\n\n## Objetivo\ntraversal, XSS, hash mismatch.\n\n## Requisitos\n- Entrega alinhada ao plano MD Studio v1 e PRDs CORE/EXTENSIONS/QUALITY.\n- Artefatos de implementação nos paths declarados no roadmap ESAA.\n- Critérios de aceite verificáveis em QA.\n\n## Aceite\n1. Spec implementável sem decisões pendentes.\n2. Superfície de erro e segurança definida quando aplicável.\n3. Dependências de grupos anteriores respeitadas.\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "docs/spec/G22-suite-adversarial-de-filesystem-conteudo-e-integridade.md",
+  "source_path": "docs/spec/G22-suite-adversarial-de-filesystem-conteudo-e-integridade.md",
+  "ts": "2026-07-10T14:03:14Z"
+}

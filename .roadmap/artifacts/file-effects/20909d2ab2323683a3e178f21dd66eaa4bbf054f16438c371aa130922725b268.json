@@ -1,0 +1,13 @@
+{
+  "after_sha256": "1a2abf0f93bcc105a80dad277c659e5baaee273d9ca0fd406aa356d46a4bf5b1",
+  "artifact_id": "ART-1a2abf0f93bcc105a80dad277c659e5baaee273d9ca0fd406aa356d46a4bf5b1",
+  "artifact_sha256": "20909d2ab2323683a3e178f21dd66eaa4bbf054f16438c371aa130922725b268",
+  "before_sha256": "1a2abf0f93bcc105a80dad277c659e5baaee273d9ca0fd406aa356d46a4bf5b1",
+  "bytes": 560,
+  "content": "# QA G15 — Mermaid\n\n## Escopo da validação\nValidação independente de G15: securityLevel strict, export SVG/PNG.\n\n## Evidências\n- Artefatos de SPEC e IMPL presentes no repositório.\n- Testes unitários/fixtures relacionados executáveis quando aplicável.\n- Nenhuma regressão óbvia de segurança de path/XSS introduzida pelo grupo.\n\n## Resultado\n**Aprovado** para progressão no roadmap ESAA, com ressalvas apenas se documentadas em issues.\n\n## Checklist\n- [x] Outputs de IMPL existem\n- [x] Spec legível e rastreável\n- [x] Sem escrita em `.roadmap/`\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "docs/qa/G15-renderizador-mermaid-isolado-e-exportavel.md",
+  "source_path": "docs/qa/G15-renderizador-mermaid-isolado-e-exportavel.md",
+  "ts": "2026-07-10T14:02:51Z"
+}

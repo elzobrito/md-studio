@@ -1,0 +1,13 @@
+{
+  "after_sha256": "d5dae7c18cb651fd400ff775e833e18cd428631995621fd4efcb0ec4c9b932a1",
+  "artifact_id": "ART-d5dae7c18cb651fd400ff775e833e18cd428631995621fd4efcb0ec4c9b932a1",
+  "artifact_sha256": "0e3a28574a6cf1d7bb704def0d3f4eef2420d3f216be3e4d357c4ab39d2f7846",
+  "before_sha256": "d5dae7c18cb651fd400ff775e833e18cd428631995621fd4efcb0ec4c9b932a1",
+  "bytes": 443,
+  "content": "# G13 — Código\n\n## Objetivo\nhighlight allowlist, copy, filename.\n\n## Requisitos\n- Entrega alinhada ao plano MD Studio v1 e PRDs CORE/EXTENSIONS/QUALITY.\n- Artefatos de implementação nos paths declarados no roadmap ESAA.\n- Critérios de aceite verificáveis em QA.\n\n## Aceite\n1. Spec implementável sem decisões pendentes.\n2. Superfície de erro e segurança definida quando aplicável.\n3. Dependências de grupos anteriores respeitadas.\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "docs/spec/G13-renderizador-de-codigo-e-recursos-de-bloco.md",
+  "source_path": "docs/spec/G13-renderizador-de-codigo-e-recursos-de-bloco.md",
+  "ts": "2026-07-10T14:02:42Z"
+}

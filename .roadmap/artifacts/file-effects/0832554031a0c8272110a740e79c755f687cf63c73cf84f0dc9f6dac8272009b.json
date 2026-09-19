@@ -1,0 +1,13 @@
+{
+  "after_sha256": "c9866a4a36b51143c013f6ee5a3afcc2436b56c51886b2ae1e1461272b818dbf",
+  "artifact_id": "ART-c9866a4a36b51143c013f6ee5a3afcc2436b56c51886b2ae1e1461272b818dbf",
+  "artifact_sha256": "0832554031a0c8272110a740e79c755f687cf63c73cf84f0dc9f6dac8272009b",
+  "before_sha256": "c9866a4a36b51143c013f6ee5a3afcc2436b56c51886b2ae1e1461272b818dbf",
+  "bytes": 456,
+  "content": "# G04 — Shell desktop\n\n## Objetivo\nTauri 2 + Vite + React + layout 3 painéis.\n\n## Requisitos\n- Entrega alinhada ao plano MD Studio v1 e PRDs CORE/EXTENSIONS/QUALITY.\n- Artefatos de implementação nos paths declarados no roadmap ESAA.\n- Critérios de aceite verificáveis em QA.\n\n## Aceite\n1. Spec implementável sem decisões pendentes.\n2. Superfície de erro e segurança definida quando aplicável.\n3. Dependências de grupos anteriores respeitadas.\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "docs/spec/G04-shell-desktop-tauri-e-react.md",
+  "source_path": "docs/spec/G04-shell-desktop-tauri-e-react.md",
+  "ts": "2026-07-10T14:02:02Z"
+}

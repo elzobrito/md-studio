@@ -1,0 +1,13 @@
+{
+  "after_sha256": "be8441dce209d25fdf522dbffd80548cf52e6d1369086ca2b9b21c8cb7b0ce25",
+  "artifact_id": "ART-be8441dce209d25fdf522dbffd80548cf52e6d1369086ca2b9b21c8cb7b0ce25",
+  "artifact_sha256": "52e8f428a0caad4edb84b016af7f6bef22f4fef1d7c8c226f19c42ce0943519b",
+  "before_sha256": "be8441dce209d25fdf522dbffd80548cf52e6d1369086ca2b9b21c8cb7b0ce25",
+  "bytes": 364,
+  "content": "import type { WatchEvent } from \"../contracts/types\";\n\ntype Handler = (ev: WatchEvent) => void;\nconst handlers = new Set<Handler>();\n\nexport function onWorkspaceEvent(handler: Handler): () => void {\n  handlers.add(handler);\n  return () => handlers.delete(handler);\n}\n\nexport function emitWorkspaceEvent(ev: WatchEvent): void {\n  for (const h of handlers) h(ev);\n}\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "src/services/workspaceEvents.ts",
+  "source_path": "src/services/workspaceEvents.ts",
+  "ts": "2026-07-10T14:02:30Z"
+}

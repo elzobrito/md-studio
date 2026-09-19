@@ -1,0 +1,13 @@
+{
+  "after_sha256": "7dee86f346b2741bfbdb59e4082004946485ad260a4fb01508f87b4abe058448",
+  "artifact_id": "ART-7dee86f346b2741bfbdb59e4082004946485ad260a4fb01508f87b4abe058448",
+  "artifact_sha256": "9f2c45c4c54f968fd777f387de53e896a8464cdf541836ada355480d5e369ea8",
+  "before_sha256": "7dee86f346b2741bfbdb59e4082004946485ad260a4fb01508f87b4abe058448",
+  "bytes": 434,
+  "content": "# G16 — Editor\n\n## Objetivo\nCodeMirror 6, Ctrl+S, dirty.\n\n## Requisitos\n- Entrega alinhada ao plano MD Studio v1 e PRDs CORE/EXTENSIONS/QUALITY.\n- Artefatos de implementação nos paths declarados no roadmap ESAA.\n- Critérios de aceite verificáveis em QA.\n\n## Aceite\n1. Spec implementável sem decisões pendentes.\n2. Superfície de erro e segurança definida quando aplicável.\n3. Dependências de grupos anteriores respeitadas.\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "docs/spec/G16-editor-de-fonte-e-comandos-de-salvamento.md",
+  "source_path": "docs/spec/G16-editor-de-fonte-e-comandos-de-salvamento.md",
+  "ts": "2026-07-10T14:02:53Z"
+}

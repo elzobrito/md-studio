@@ -1,0 +1,13 @@
+{
+  "after_sha256": "50bd9673b0fd779acc2a2b1937b8603cb099992f00255f348b216e6126bc1136",
+  "artifact_id": "ART-50bd9673b0fd779acc2a2b1937b8603cb099992f00255f348b216e6126bc1136",
+  "artifact_sha256": "281a1122217007430ec598d98b58928a4b78326b9c4c6c2ff7e729f0357cb6c0",
+  "before_sha256": "50bd9673b0fd779acc2a2b1937b8603cb099992f00255f348b216e6126bc1136",
+  "bytes": 446,
+  "content": "import katex from \"katex\";\n\nexport function renderMath(source: string, displayMode: boolean): { html: string; error?: string } {\n  try {\n    const html = katex.renderToString(source, {\n      displayMode,\n      throwOnError: false,\n      trust: false,\n      strict: \"warn\",\n      maxExpand: 1000,\n      maxSize: 10,\n    });\n    return { html };\n  } catch (e) {\n    return { html: \"\", error: e instanceof Error ? e.message : \"KaTeX error\" };\n  }\n}\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "src/markdown/math.ts",
+  "source_path": "src/markdown/math.ts",
+  "ts": "2026-07-10T14:02:14Z"
+}

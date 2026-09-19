@@ -1,0 +1,13 @@
+{
+  "after_sha256": "8fc054d365bcb8656cd6cc15b5d96e21f518fc312bfcf679fc700a51230b3600",
+  "artifact_id": "ART-8fc054d365bcb8656cd6cc15b5d96e21f518fc312bfcf679fc700a51230b3600",
+  "artifact_sha256": "3f1ea69f9298617e31b6527e99744c093cc96c261f1684405d8d7571699e91cd",
+  "before_sha256": "8fc054d365bcb8656cd6cc15b5d96e21f518fc312bfcf679fc700a51230b3600",
+  "bytes": 139,
+  "content": "# Filesystem adversarial cases\n\n- `../` traversal\n- absolute paths\n- symlink outside root\nCovered by `src-tauri/tests/workspace_paths.rs`.\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "tests/security/filesystem/README.md",
+  "source_path": "tests/security/filesystem/README.md",
+  "ts": "2026-07-10T14:03:15Z"
+}

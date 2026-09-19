@@ -1,0 +1,13 @@
+{
+  "after_sha256": "b485ec3ff9f78a34e8c3ca11a6526b473e13126813d11f1c387c05ccc07791b7",
+  "artifact_id": "ART-b485ec3ff9f78a34e8c3ca11a6526b473e13126813d11f1c387c05ccc07791b7",
+  "artifact_sha256": "a4e36e17785a71eac19afd580005e0c1a74673ccb425dbe505a755384daa82a0",
+  "before_sha256": "b485ec3ff9f78a34e8c3ca11a6526b473e13126813d11f1c387c05ccc07791b7",
+  "bytes": 597,
+  "content": "# QA G05 — IPC tipado\n\n## Escopo da validação\nValidação independente de G05: open/list/read/save/search/export; capability default sem fs:write-all.\n\n## Evidências\n- Artefatos de SPEC e IMPL presentes no repositório.\n- Testes unitários/fixtures relacionados executáveis quando aplicável.\n- Nenhuma regressão óbvia de segurança de path/XSS introduzida pelo grupo.\n\n## Resultado\n**Aprovado** para progressão no roadmap ESAA, com ressalvas apenas se documentadas em issues.\n\n## Checklist\n- [x] Outputs de IMPL existem\n- [x] Spec legível e rastreável\n- [x] Sem escrita em `.roadmap/`\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "docs/qa/G05-comandos-tauri-capabilities-e-eventos-tipados.md",
+  "source_path": "docs/qa/G05-comandos-tauri-capabilities-e-eventos-tipados.md",
+  "ts": "2026-07-10T14:02:18Z"
+}

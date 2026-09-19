@@ -1,0 +1,13 @@
+{
+  "after_sha256": "5b9806c2a4a79f0bd64b8d35c2fe2fbad39e6d62dda6fd82d5c3b544a63a3c06",
+  "artifact_id": "ART-5b9806c2a4a79f0bd64b8d35c2fe2fbad39e6d62dda6fd82d5c3b544a63a3c06",
+  "artifact_sha256": "408b6e1f608640b4f3117efff091939a24df8e37082c3a9d650eb67324417859",
+  "before_sha256": "5b9806c2a4a79f0bd64b8d35c2fe2fbad39e6d62dda6fd82d5c3b544a63a3c06",
+  "bytes": 302,
+  "content": "import { describe, expect, it } from \"vitest\";\nimport { normalizeLanguage } from \"../../../src/markdown/code\";\n\ndescribe(\"code\", () => {\n  it(\"allowlists languages\", () => {\n    expect(normalizeLanguage(\"typescript\")).toBe(\"typescript\");\n    expect(normalizeLanguage(\"foobar\")).toBe(\"text\");\n  });\n});\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "tests/markdown/code/code.test.ts",
+  "source_path": "tests/markdown/code/code.test.ts",
+  "ts": "2026-07-10T14:02:43Z"
+}

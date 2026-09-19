@@ -1,0 +1,13 @@
+{
+  "after_sha256": "133b3f565dd03f3d02ecb26eb1ec5154b589c5398f3bef8b000afb11e47d9d6f",
+  "artifact_id": "ART-133b3f565dd03f3d02ecb26eb1ec5154b589c5398f3bef8b000afb11e47d9d6f",
+  "artifact_sha256": "c5bd6f12e455dd7e6d39f014e064ff2dd2637d171c22b7d0bf8ca5cdd6c2241e",
+  "before_sha256": "133b3f565dd03f3d02ecb26eb1ec5154b589c5398f3bef8b000afb11e47d9d6f",
+  "bytes": 444,
+  "content": "# G18 — Sessão\n\n## Objetivo\ntema, view mode, persistência local.\n\n## Requisitos\n- Entrega alinhada ao plano MD Studio v1 e PRDs CORE/EXTENSIONS/QUALITY.\n- Artefatos de implementação nos paths declarados no roadmap ESAA.\n- Critérios de aceite verificáveis em QA.\n\n## Aceite\n1. Spec implementável sem decisões pendentes.\n2. Superfície de erro e segurança definida quando aplicável.\n3. Dependências de grupos anteriores respeitadas.\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "docs/spec/G18-sessao-preferencias-temas-e-acessibilidade.md",
+  "source_path": "docs/spec/G18-sessao-preferencias-temas-e-acessibilidade.md",
+  "ts": "2026-07-10T14:03:00Z"
+}

@@ -1,0 +1,13 @@
+{
+  "after_sha256": "dec46cf8d69b154383f5abb76591e653a5a48a16fd7c6364d762584f0b900092",
+  "artifact_id": "ART-dec46cf8d69b154383f5abb76591e653a5a48a16fd7c6364d762584f0b900092",
+  "artifact_sha256": "6a2288933c980052adb6f708d00208c790b349c93cc9cc14eaf265c0b82c6877",
+  "before_sha256": "dec46cf8d69b154383f5abb76591e653a5a48a16fd7c6364d762584f0b900092",
+  "bytes": 429,
+  "content": "# G14 — KaTeX\n\n## Objetivo\ntrust:false, erro local.\n\n## Requisitos\n- Entrega alinhada ao plano MD Studio v1 e PRDs CORE/EXTENSIONS/QUALITY.\n- Artefatos de implementação nos paths declarados no roadmap ESAA.\n- Critérios de aceite verificáveis em QA.\n\n## Aceite\n1. Spec implementável sem decisões pendentes.\n2. Superfície de erro e segurança definida quando aplicável.\n3. Dependências de grupos anteriores respeitadas.\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "docs/spec/G14-renderizador-matematico-katex.md",
+  "source_path": "docs/spec/G14-renderizador-matematico-katex.md",
+  "ts": "2026-07-10T14:02:46Z"
+}

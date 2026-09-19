@@ -1,0 +1,6 @@
+@media print {
+  .panel, .editor header, button { display: none !important; }
+  .app { display: block; }
+  .preview-body { max-width: 100%; }
+  a[href]::after { content: " (" attr(href) ")"; font-size: 0.85em; }
+}

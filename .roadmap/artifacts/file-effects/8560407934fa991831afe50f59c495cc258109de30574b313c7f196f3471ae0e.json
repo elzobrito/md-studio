@@ -1,0 +1,13 @@
+{
+  "after_sha256": "1dbb0516c25de25f88490d7796c5e30f8fa75a8c6871936fe5fc87f7e861577b",
+  "artifact_id": "ART-1dbb0516c25de25f88490d7796c5e30f8fa75a8c6871936fe5fc87f7e861577b",
+  "artifact_sha256": "8560407934fa991831afe50f59c495cc258109de30574b313c7f196f3471ae0e",
+  "before_sha256": "1dbb0516c25de25f88490d7796c5e30f8fa75a8c6871936fe5fc87f7e861577b",
+  "bytes": 1693,
+  "content": "import rehypeSanitize, { defaultSchema } from \"rehype-sanitize\";\n\n/** Versioned sanitize schema — security contract of the preview pipeline. */\nexport const mdStudioSanitizeSchema = {\n  ...defaultSchema,\n  tagNames: [\n    ...(defaultSchema.tagNames ?? []),\n    \"section\",\n    \"aside\",\n    \"details\",\n    \"summary\",\n    \"mark\",\n  ],\n  attributes: {\n    ...defaultSchema.attributes,\n    a: [...(defaultSchema.attributes?.a ?? []), [\"className\"], [\"href\"], [\"title\"], [\"rel\"], [\"target\"]],\n    code: [...(defaultSchema.attributes?.code ?? []), [\"className\"]],\n    span: [...(defaultSchema.attributes?.span ?? []), [\"className\"], [\"style\"], [\"aria-hidden\"]],\n    div: [...(defaultSchema.attributes?.div ?? []), [\"className\"], [\"role\", \"aria-label\"]],\n    section: [[\"className\"], [\"role\", \"aria-label\"]],\n    img: [...(defaultSchema.attributes?.img ?? []), [\"src\"], [\"alt\"], [\"title\"], [\"loading\"]],\n    h1: [...(defaultSchema.attributes?.h1 ?? []), [\"id\"], [\"className\"]],\n    h2: [...(defaultSchema.attributes?.h2 ?? []), [\"id\"], [\"className\"]],\n    h3: [...(defaultSchema.attributes?.h3 ?? []), [\"id\"], [\"className\"]],\n    h4: [...(defaultSchema.attributes?.h4 ?? []), [\"id\"], [\"className\"]],\n    h5: [...(defaultSchema.attributes?.h5 ?? []), [\"id\"], [\"className\"]],\n    h6: [...(defaultSchema.attributes?.h6 ?? []), [\"id\"], [\"className\"]],\n  },\n  protocols: {\n    ...defaultSchema.protocols,\n    href: [\"http\", \"https\", \"mailto\"],\n    src: [\"http\", \"https\", \"data\"],\n  },\n  /** Keep in sync with HEADING_ID_PREFIX in services/navigation.ts */\n  clobberPrefix: \"user-content-\",\n} as typeof defaultSchema;\n\nexport function sanitizePlugin() {\n  return rehypeSanitize(mdStudioSanitizeSchema);\n}\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "src/markdown/sanitize.ts",
+  "source_path": "src/markdown/sanitize.ts",
+  "ts": "2026-07-10T15:25:48Z"
+}

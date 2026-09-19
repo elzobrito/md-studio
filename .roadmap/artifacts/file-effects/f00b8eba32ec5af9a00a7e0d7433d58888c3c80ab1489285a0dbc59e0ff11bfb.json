@@ -1,0 +1,13 @@
+{
+  "after_sha256": "a149eac9d5698eb40713e7ea737d075311d1d5d5e3f770c7e04d9375b2ece6bf",
+  "artifact_id": "ART-a149eac9d5698eb40713e7ea737d075311d1d5d5e3f770c7e04d9375b2ece6bf",
+  "artifact_sha256": "f00b8eba32ec5af9a00a7e0d7433d58888c3c80ab1489285a0dbc59e0ff11bfb",
+  "before_sha256": "a149eac9d5698eb40713e7ea737d075311d1d5d5e3f770c7e04d9375b2ece6bf",
+  "bytes": 1700,
+  "content": "import { useMemo, useState } from \"react\";\nimport { FileExplorer } from \"./components/FileExplorer\";\nimport { MarkdownEditor } from \"./components/MarkdownEditor\";\nimport { MarkdownViewer } from \"./components/MarkdownViewer\";\nimport { DocumentOutline } from \"./components/DocumentOutline\";\nimport { Settings } from \"./components/Settings\";\nimport { useDocumentState } from \"./state/documentState\";\nimport { useSession } from \"./state/session\";\n\nexport function App() {\n  const session = useSession();\n  const doc = useDocumentState();\n  const [query, setQuery] = useState(\"\");\n  const view = useMemo(() => session.viewMode, [session.viewMode]);\n\n  return (\n    <div className={`app theme-${session.theme}`} role=\"application\" aria-label=\"MD Studio\">\n      <aside className=\"panel left\" aria-label=\"Workspace\">\n        <FileExplorer onOpen={doc.openRelative} query={query} onQuery={setQuery} />\n      </aside>\n      <main className=\"center\">\n        {view !== \"preview\" && (\n          <MarkdownEditor\n            value={doc.content}\n            dirty={doc.dirty}\n            onChange={doc.setContent}\n            onSave={doc.save}\n          />\n        )}\n        {view !== \"source\" && (\n          <MarkdownViewer content={doc.content} relativePath={doc.relativePath} />\n        )}\n      </main>\n      <aside className=\"panel right\" aria-label=\"Metadados\">\n        <DocumentOutline content={doc.content} />\n        <Settings session={session} />\n        <section aria-label=\"Diagnósticos\">\n          <h2>Diagnósticos</h2>\n          <ul>\n            {doc.diagnostics.map((d, i) => (\n              <li key={i}>{d}</li>\n            ))}\n          </ul>\n        </section>\n      </aside>\n    </div>\n  );\n}\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "src/App.tsx",
+  "source_path": "src/App.tsx",
+  "ts": "2026-07-10T14:02:14Z"
+}

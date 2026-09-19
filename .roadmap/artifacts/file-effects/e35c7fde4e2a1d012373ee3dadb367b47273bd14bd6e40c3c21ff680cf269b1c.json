@@ -1,0 +1,13 @@
+{
+  "after_sha256": "69bb0883d8e962dd53b3939ec626aea643cfbebaddc0345f6ccc4d83a652be60",
+  "artifact_id": "ART-69bb0883d8e962dd53b3939ec626aea643cfbebaddc0345f6ccc4d83a652be60",
+  "artifact_sha256": "e35c7fde4e2a1d012373ee3dadb367b47273bd14bd6e40c3c21ff680cf269b1c",
+  "before_sha256": "69bb0883d8e962dd53b3939ec626aea643cfbebaddc0345f6ccc4d83a652be60",
+  "bytes": 456,
+  "content": "# G20 — Diagnósticos\n\n## Objetivo\ncódigos IPC, mensagens sem paths internos.\n\n## Requisitos\n- Entrega alinhada ao plano MD Studio v1 e PRDs CORE/EXTENSIONS/QUALITY.\n- Artefatos de implementação nos paths declarados no roadmap ESAA.\n- Critérios de aceite verificáveis em QA.\n\n## Aceite\n1. Spec implementável sem decisões pendentes.\n2. Superfície de erro e segurança definida quando aplicável.\n3. Dependências de grupos anteriores respeitadas.\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "docs/spec/G20-diagnosticos-e-tratamento-seguro-de-falhas.md",
+  "source_path": "docs/spec/G20-diagnosticos-e-tratamento-seguro-de-falhas.md",
+  "ts": "2026-07-10T14:03:07Z"
+}
