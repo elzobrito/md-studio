@@ -1,5 +1,5 @@
-import { useCallback, useState } from "react";
-import { ipc, pickSaveMarkdownFile } from "../lib/ipc";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { ipc, pickSaveMarkdownFile, subscribeWorkspaceWatch } from "../lib/ipc";
 import { persistDocument } from "../services/save";
 import type { DocumentSnapshot, WorkspaceDescriptor } from "../contracts/types";
 import { loadDraft } from "../lib/drafts/recovery";
@@ -24,8 +24,15 @@ export function useDocumentState() {
     "# MD Studio\n\n1. Clique em **Abrir pasta**\n2. Navegue nas subpastas na lista à esquerda\n3. Abra o `.md` desejado\n",
   );
   const [dirty, setDirty] = useState(false);
+  const [conflictPath, setConflictPath] = useState<string | null>(null);
+  const dirtyRef = useRef(false);
+  const relativePathRef = useRef("");
+
   const [diagnostics, setDiagnostics] = useState<string[]>(["Nenhum workspace aberto ainda."]);
   const [relativePath, setRelativePath] = useState("");
+  dirtyRef.current = dirty;
+  relativePathRef.current = relativePath;
+
   const [status, setStatus] = useState<"idle" | "loading" | "ready">("idle");
 
   const setContent = useCallback((v: string) => {
@@ -217,6 +224,59 @@ export function useDocumentState() {
     editorStore.setSaveStatus("saved");
   }, []);
 
+
+  useEffect(() => {
+    if (!workspace?.id) return;
+    let cancelled = false;
+    let unsub: (() => void) | undefined;
+    void (async () => {
+      try {
+        await ipc.startWatching(workspace.id);
+        unsub = await subscribeWorkspaceWatch((ev) => {
+          if (cancelled) return;
+          const path = ev.relativePath;
+          if (!path) return;
+          if (path === relativePathRef.current && dirtyRef.current) {
+            setConflictPath(path);
+            setDiagnostics((d) => [
+              ...d,
+              `Conflito: ${path} alterado no disco com edições locais`,
+            ]);
+          }
+        });
+      } catch {
+        /* watch optional outside Tauri */
+      }
+    })();
+    return () => {
+      cancelled = true;
+      unsub?.();
+      void ipc.stopWatching().catch(() => undefined);
+    };
+  }, [workspace?.id]);
+
+  const resolveConflict = useCallback(
+    async (choice: "reload" | "keep" | "saveAs") => {
+      const path = conflictPath;
+      setConflictPath(null);
+      if (!path) return;
+      if (choice === "keep") {
+        setDiagnostics((d) => [...d, "Conflito: mantendo edição local"]);
+        return;
+      }
+      if (choice === "reload") {
+        await openRelative(path);
+        setDirty(false);
+        setDiagnostics([`Recarregado do disco: ${path}`]);
+        return;
+      }
+      if (choice === "saveAs") {
+        await saveAs();
+      }
+    },
+    [conflictPath, openRelative, saveAs],
+  );
+
   return {
     workspace,
     content,
@@ -233,5 +293,7 @@ export function useDocumentState() {
     saveAs,
     newDocument,
     closeFile,
+    conflictPath,
+    resolveConflict,
   };
 }

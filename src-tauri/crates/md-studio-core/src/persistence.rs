@@ -60,3 +60,22 @@ pub fn atomic_save(path: &Path, expected_hash: &str, content: &str) -> Result<St
     // best-effort dir fsync omitted for portability
     Ok(content_hash(content.as_bytes()))
 }
+
+
+/// Atomic write without hash check (trusted export sink).
+pub fn atomic_write_bytes(path: &Path, bytes: &[u8]) -> Result<(), std::io::Error> {
+    let parent = path.parent().unwrap_or_else(|| Path::new("."));
+    fs::create_dir_all(parent)?;
+    let tmp = parent.join(format!(
+        ".{}.tmp-{}",
+        path.file_name().and_then(|s| s.to_str()).unwrap_or("out"),
+        std::process::id()
+    ));
+    {
+        let mut f = File::create(&tmp)?;
+        f.write_all(bytes)?;
+        f.sync_all()?;
+    }
+    fs::rename(&tmp, path)?;
+    Ok(())
+}

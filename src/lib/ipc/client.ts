@@ -122,8 +122,10 @@ export const ipc = {
       } satisfies SearchResult;
     });
   },
-  exportHtml: (workspaceId: string, path: string, destination: string) =>
-    invoke<void>("export_html", { workspaceId, path, destination }),
+  exportHtml: (html: string, destination: string, overwrite: boolean) =>
+    invoke<void>("export_html", { html, destination, overwrite }),
+  startWatching: (workspaceId: string) => invoke<void>("start_watching", { workspaceId }),
+  stopWatching: () => invoke<void>("stop_watching"),
 };
 
 export type PickFolderResult =
@@ -264,3 +266,55 @@ async function browserInvoke<T>(cmd: string, args?: Record<string, unknown>): Pr
 }
 
 export type { WatchEvent };
+
+
+/** Subscribe to Rust notify events (`workspace://change`). No-op outside Tauri. */
+export async function subscribeWorkspaceWatch(
+  handler: (ev: WatchEvent) => void,
+): Promise<() => void> {
+  if (!isTauriRuntime()) return () => {};
+  const { listen } = await import("@tauri-apps/api/event");
+  const un = await listen<WatchEvent & { relativePath?: string; type?: string }>(
+    "workspace://change",
+    (event) => {
+      const p = event.payload as Record<string, unknown>;
+      const type = String(p.type ?? p["type"] ?? "modified") as WatchEvent["type"];
+      const relativePath = String(p.relativePath ?? p["relative_path"] ?? "");
+      const from = p.from != null ? String(p.from) : p["from"] != null ? String(p["from"]) : undefined;
+      handler({ type, relativePath, from });
+    },
+  );
+  return () => {
+    void un();
+  };
+}
+
+export async function pickSaveHtmlFile(defaultName: string = "export.html"): Promise<string | null> {
+  if (isTauriRuntime()) {
+    const { save } = await import("@tauri-apps/plugin-dialog");
+    const selected = await save({
+      title: "Exportar HTML",
+      defaultPath: defaultName,
+      filters: [{ name: "HTML", extensions: ["html", "htm"] }],
+    });
+    return typeof selected === "string" ? selected : null;
+  }
+  if (typeof window !== "undefined") {
+    return window.prompt("Salvar HTML como:", defaultName);
+  }
+  return null;
+}
+
+export async function confirmOverwrite(path: string): Promise<boolean> {
+  if (isTauriRuntime()) {
+    const { ask } = await import("@tauri-apps/plugin-dialog");
+    return ask(`O arquivo já existe:\n${path}\n\nSobrescrever?`, {
+      title: "Confirmar sobrescrita",
+      kind: "warning",
+    });
+  }
+  if (typeof window !== "undefined") {
+    return window.confirm(`O arquivo já existe:\n${path}\n\nSobrescrever?`);
+  }
+  return false;
+}

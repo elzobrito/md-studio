@@ -1,5 +1,5 @@
 use crate::contracts::{DocumentSnapshot, FileEntry, SearchResult, WorkspaceDescriptor};
-use crate::persistence::{atomic_save, content_hash, read_file};
+use crate::persistence::{atomic_save, atomic_write_bytes, content_hash, read_file};
 use crate::workspace::WorkspaceError;
 use crate::AppState;
 use serde::Deserialize;
@@ -172,28 +172,77 @@ pub fn search_workspace(
     Ok(out)
 }
 
-#[tauri::command]
-pub fn export_html(
-    workspace_id: String,
-    path: String,
-    destination: String,
-    state: State<'_, AppState>,
-) -> Result<(), String> {
-    let reg = state.workspaces.lock();
-    let full = reg.resolve(&workspace_id, &path).map_err(map_ws_err)?;
-    let (content, _, _) = read_file(&full).map_err(|e| e.to_string())?;
-    // Backend writes raw markdown wrapped; full HTML rendering is frontend responsibility.
-    let html = format!(
-        "<!DOCTYPE html><html><head><meta charset=utf-8><title>export</title></head><body><pre>{}</pre></body></html>",
-        html_escape(&content)
-    );
-    let dest = PathBuf::from(destination);
-    // destination must be absolute path chosen by dialog (trusted sink)
-    fs::write(dest, html).map_err(|e| e.to_string())
+#[derive(Debug, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct ExportHtmlRequest {
+    /// Pre-rendered, sanitized HTML document from the frontend preview pipeline.
+    pub html: String,
+    pub destination: String,
+    /// When false, refuse to clobber an existing file (FE must confirm overwrite).
+    pub overwrite: bool,
 }
 
-fn html_escape(s: &str) -> String {
-    s.replace('&', "&amp;")
-        .replace('<', "&lt;")
-        .replace('>', "&gt;")
+#[tauri::command]
+pub fn export_html(req: ExportHtmlRequest) -> Result<(), String> {
+    let dest = PathBuf::from(&req.destination);
+    if !dest.is_absolute() {
+        return Err("destination must be an absolute path".into());
+    }
+    if dest.exists() && !req.overwrite {
+        return Err("ExportTargetExists".into());
+    }
+    atomic_write_bytes(&dest, req.html.as_bytes()).map_err(|e| e.to_string())?;
+    Ok(())
 }
+
+#[cfg(test)]
+mod export_tests {
+    use super::*;
+    use std::fs;
+    use tempfile::tempdir;
+
+    #[test]
+    fn export_writes_rendered_html_not_pre_stub() {
+        let dir = tempdir().unwrap();
+        let dest = dir.path().join("out.html");
+        let html = "<!DOCTYPE html><html><body><h1>Title</h1><p>Hi</p></body></html>".to_string();
+        export_html(ExportHtmlRequest {
+            html: html.clone(),
+            destination: dest.to_string_lossy().to_string(),
+            overwrite: false,
+        })
+        .unwrap();
+        let got = fs::read_to_string(&dest).unwrap();
+        assert!(got.contains("<h1>Title</h1>"));
+        assert!(!got.contains("<pre>"));
+    }
+
+    #[test]
+    fn export_refuses_overwrite_without_flag() {
+        let dir = tempdir().unwrap();
+        let dest = dir.path().join("out.html");
+        fs::write(&dest, "old").unwrap();
+        let err = export_html(ExportHtmlRequest {
+            html: "<html></html>".into(),
+            destination: dest.to_string_lossy().to_string(),
+            overwrite: false,
+        })
+        .unwrap_err();
+        assert_eq!(err, "ExportTargetExists");
+    }
+
+    #[test]
+    fn export_overwrite_when_allowed() {
+        let dir = tempdir().unwrap();
+        let dest = dir.path().join("out.html");
+        fs::write(&dest, "old").unwrap();
+        export_html(ExportHtmlRequest {
+            html: "<html><body>new</body></html>".into(),
+            destination: dest.to_string_lossy().to_string(),
+            overwrite: true,
+        })
+        .unwrap();
+        assert!(fs::read_to_string(&dest).unwrap().contains("new"));
+    }
+}
+
