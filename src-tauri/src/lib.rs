@@ -15,6 +15,7 @@ use workspace::WorkspaceRegistry;
 pub struct AppState {
     pub workspaces: Arc<Mutex<WorkspaceRegistry>>,
     pub watcher: Arc<WatcherHub>,
+    pub metadata_engine: Arc<Mutex<Option<md_studio_core::index::ReindexEngine>>>,
 }
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
@@ -22,6 +23,7 @@ pub fn run() {
     let state = AppState {
         workspaces: Arc::new(Mutex::new(WorkspaceRegistry::default())),
         watcher: Arc::new(WatcherHub::default()),
+        metadata_engine: Arc::new(Mutex::new(None)),
     };
 
     tauri::Builder::default()
@@ -35,6 +37,12 @@ pub fn run() {
             commands::save_document,
             commands::search_workspace,
             commands::export_html,
+            commands::metadata::get_workspace_stats,
+            commands::metadata::get_document_metadata,
+            commands::metadata::get_all_documents,
+            commands::metadata::trigger_reindex,
+            commands::metadata::get_wiki_links_for,
+            commands::metadata::get_tags,
             watcher::start_watching,
             watcher::stop_watching,
         ])

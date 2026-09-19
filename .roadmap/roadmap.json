@@ -7,11 +7,11 @@
     "run": {
       "run_id": "RUN-0001",
       "status": "success",
-      "last_event_seq": 1277,
-      "projection_hash_sha256": "1a1374d0db31f1b22622b1092e0144b7e2a65a767d0607893e1ddc555db76691",
+      "last_event_seq": 1409,
+      "projection_hash_sha256": "51686f2d1d2cb3468cded0f22e38775f7f80deb06003025c15789f39d219015b",
       "verify_status": "ok"
     },
-    "updated_at": "2026-09-19T18:18:33Z"
+    "updated_at": "2026-09-19T18:58:11Z"
   },
   "project": {
     "name": "MD Studio",
@@ -3741,15 +3741,486 @@
         ]
       },
       "completed_at": "2026-09-19T18:18:33Z"
+    },
+    {
+      "task_id": "MDS-PROD-OPEN-FILE-001",
+      "task_kind": "impl",
+      "title": "Abrir .md passado pelo SO no launch (complementar Onda 1)",
+      "description": "Complementar às 10 tasks da Onda 1 Knowledge Foundation. Bug: clicar/abrir arquivo .md inicia o MD Studio mas nao carrega o arquivo. Desktop local ja usa Exec=... %F e MimeType text/markdown; o binario ignora argv. Corrigir: ler paths no startup (e idealmente single-instance se app ja aberto), abrir workspace pai + documento; atualizar .desktop do bundle com MimeType e %F.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "UX open-file-from-OS"
+      ],
+      "outputs": {
+        "files": [
+          "src-tauri/src/lib.rs"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src-tauri/**",
+        "src/**",
+        "tests/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "md-studio /caminho/arquivo.md abre o app e carrega esse documento",
+        "Path fora de fence ou inexistente falha com erro seguro sem crash",
+        "Bundle .desktop inclui MimeType markdown e %F",
+        "Teste cobrindo parse de argv / launch path"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-19T18:26:38Z",
+      "verification": {
+        "checks": [
+          "PR #2 OPEN mergeable feat/mds-open-file-from-os",
+          "cargo test md-studio-core launch parsers PASS (CI/agent)",
+          "pnpm test 40/40; typecheck PASS"
+        ]
+      },
+      "completed_at": "2026-09-19T18:31:05Z"
+    },
+    {
+      "task_id": "MD-FOUNDATION-001",
+      "task_kind": "impl",
+      "title": "Onda1: DocumentMetadata model (tipos centrais)",
+      "description": "ONDA 1 — Knowledge Foundation | MD-FOUNDATION-001 | CRÍTICA | Depende: nenhuma (base tipada; parsers/index consomem)\n\nOBJETIVO: Criar o modelo central DocumentMetadata e tipos auxiliares (Heading, Link, WikiLink) em Rust com Serialize/Deserialize (camelCase para IPC).\n\nPATHS REAIS DO REPO (não inventar pastas):\n- Criar: src-tauri/crates/md-studio-core/src/index/mod.rs\n- Criar: src-tauri/crates/md-studio-core/src/index/document_metadata.rs\n- Modificar: src-tauri/crates/md-studio-core/src/lib.rs (pub mod index)\n\nNÃO modificar: workspace.rs, persistence.rs (path fence / atomic save).\n\nCAMPOS DocumentMetadata: path, title, headings, links, wiki_links, tags, images, tables, mermaid_blocks, katex_blocks, word_count, line_count, last_modified (unix).\nHeading: depth 1-6, text, anchor.\nLink: text, url, is_internal, line.\nWikiLink: target, alias Option, line.\n\nPRINCÍPIOS: local-first; app não deleta arquivos do usuário; manter path traversal protection; não quebrar Onda 0; testes unitários.\n\nVERIFY: document_metadata_model_pass",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "MD-FOUNDATION-001",
+        "onda1"
+      ],
+      "outputs": {
+        "files": [
+          "src-tauri/crates/md-studio-core/src/index/document_metadata.rs"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src-tauri/crates/md-studio-core/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Struct DocumentMetadata + Heading/Link/WikiLink compiláveis com Serialize/Deserialize",
+        "serde camelCase nos tipos destinados a IPC",
+        "Exportados em index/mod.rs e lib.rs do md-studio-core",
+        "Verify: document_metadata_model_pass"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-19T18:39:52Z",
+      "verification": {
+        "checks": [
+          "document_metadata_model_pass"
+        ]
+      },
+      "completed_at": "2026-09-19T18:40:54Z"
+    },
+    {
+      "task_id": "MD-FOUNDATION-002",
+      "task_kind": "impl",
+      "title": "Onda1: MetadataIndex core em memória",
+      "description": "ONDA 1 — Knowledge Foundation | MD-FOUNDATION-002 | CRÍTICA | Depende: MD-FOUNDATION-001\n\nOBJETIVO: MetadataIndex em memória — HashMap PathBuf → DocumentMetadata, version, indexed_at; new/insert/remove/get/all/len/is_empty/contains/paths; serde JSON.\n\nPATHS:\n- Criar: src-tauri/crates/md-studio-core/src/index/metadata_index.rs\n- Exportar em index/mod.rs\n\nNão persistir ainda (isso é MD-FOUNDATION-007). Thread-safety fica no ReindexEngine (Arc<Mutex>).\n\nVERIFY: metadata_index_core_pass",
+      "status": "done",
+      "depends_on": [
+        "MD-FOUNDATION-001"
+      ],
+      "targets": [
+        "MD-FOUNDATION-002",
+        "onda1"
+      ],
+      "outputs": {
+        "files": [
+          "src-tauri/crates/md-studio-core/src/index/metadata_index.rs"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src-tauri/crates/md-studio-core/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "new/insert/remove/get/all/len/contains/paths funcionam",
+        "Serialize/Deserialize JSON roundtrip",
+        "Verify: metadata_index_core_pass"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-19T18:41:11Z",
+      "verification": {
+        "checks": [
+          "metadata_index_core_pass"
+        ]
+      },
+      "completed_at": "2026-09-19T18:41:57Z"
+    },
+    {
+      "task_id": "MD-FOUNDATION-003",
+      "task_kind": "impl",
+      "title": "Onda1: Wiki link parser [[doc]] / [[doc|alias]]",
+      "description": "ONDA 1 — Knowledge Foundation | MD-FOUNDATION-003 | CRÍTICA | Depende: MD-FOUNDATION-001\n\nOBJETIVO: Parser de Wiki Links [[Documento]] e [[Documento|Alias]].\n\nPATHS:\n- Criar: src-tauri/crates/md-studio-core/src/parser/mod.rs\n- Criar: src-tauri/crates/md-studio-core/src/parser/wiki_link_parser.rs\n- pub fn parse_wiki_links(content: &str) -> Vec<WikiLink>\n\nREGRAS: ignorar dentro de code fences ``` e inline code `...`; alias opcional após |; target case-sensitive; line numbers.\n\nTESTES OBRIGATÓRIOS: simple; with alias; ignore in code block; multiple; empty.\n\nVERIFY: wiki_link_parser_pass",
+      "status": "done",
+      "depends_on": [
+        "MD-FOUNDATION-001"
+      ],
+      "targets": [
+        "MD-FOUNDATION-003",
+        "onda1"
+      ],
+      "outputs": {
+        "files": [
+          "src-tauri/crates/md-studio-core/src/parser/wiki_link_parser.rs"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src-tauri/crates/md-studio-core/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "parse_wiki_links cobre simple, alias, code block ignore, multiple, empty",
+        "Ignora fences e inline code; line numbers corretos",
+        "Verify: wiki_link_parser_pass"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-19T18:42:05Z",
+      "verification": {
+        "checks": [
+          "wiki_link_parser_pass"
+        ]
+      },
+      "completed_at": "2026-09-19T18:42:49Z"
+    },
+    {
+      "task_id": "MD-FOUNDATION-004",
+      "task_kind": "impl",
+      "title": "Onda1: Tag parser #tag",
+      "description": "ONDA 1 — Knowledge Foundation | MD-FOUNDATION-004 | ALTA | Depende: MD-FOUNDATION-001\n\nOBJETIVO: Parser de tags #tag (hífen/underscore ok; sem espaços).\n\nPATHS:\n- Criar: src-tauri/crates/md-studio-core/src/parser/tag_parser.rs\n- Exportar em parser/mod.rs\n- pub fn parse_tags(content: &str) -> Vec<String>\n\nREGRAS: inicia com #; mínimo 1 char após #; IGNORAR em code blocks; IGNORAR headings Markdown (# / ## título — não confundir heading com tag); permitir #local-first.\n\nTESTES OBRIGATÓRIOS: simple; heading_not_tag; code_block_ignored; multiple; hyphen.\n\nVERIFY: tag_parser_pass",
+      "status": "done",
+      "depends_on": [
+        "MD-FOUNDATION-001"
+      ],
+      "targets": [
+        "MD-FOUNDATION-004",
+        "onda1"
+      ],
+      "outputs": {
+        "files": [
+          "src-tauri/crates/md-studio-core/src/parser/tag_parser.rs"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src-tauri/crates/md-studio-core/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "parse_tags: simple, heading≠tag, code ignore, multiple, hyphen",
+        "Verify: tag_parser_pass"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-19T18:42:57Z",
+      "verification": {
+        "checks": [
+          "tag_parser_pass"
+        ]
+      },
+      "completed_at": "2026-09-19T18:43:42Z"
+    },
+    {
+      "task_id": "MD-FOUNDATION-005",
+      "task_kind": "impl",
+      "title": "Onda1: WorkspaceScanner + metadata_extractor",
+      "description": "ONDA 1 — Knowledge Foundation | MD-FOUNDATION-005 | CRÍTICA | Depende: MD-FOUNDATION-001,003,004\n\nOBJETIVO: WorkspaceScanner + metadata_extractor — varrer workspace recursivo, só .md, extrair DocumentMetadata completo (title/headings/links/wiki/tags/images/counts/mtime).\n\nPATHS:\n- Criar: src-tauri/crates/md-studio-core/src/index/workspace_scanner.rs\n- Criar: src-tauri/crates/md-studio-core/src/index/metadata_extractor.rs\n\nREGRAS: ignorar ocultos (prefixo .); ignorar node_modules; ignorar .mdstudio; usar resolve_within/path fence do core existente ao resolver paths; arquivos ilegíveis → skip/erro gracioso sem panic; workspace vazio → vec![]; subdirs aninhados ok.\n\nNÃO duplicar list_entries do app — scanner é metadata-rich no crate core.\n\nVERIFY: workspace_scanner_pass",
+      "status": "done",
+      "depends_on": [
+        "MD-FOUNDATION-001",
+        "MD-FOUNDATION-003",
+        "MD-FOUNDATION-004"
+      ],
+      "targets": [
+        "MD-FOUNDATION-005",
+        "onda1"
+      ],
+      "outputs": {
+        "files": [
+          "src-tauri/crates/md-studio-core/src/index/workspace_scanner.rs",
+          "src-tauri/crates/md-studio-core/src/index/metadata_extractor.rs"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src-tauri/crates/md-studio-core/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Só .md; ignora ocultos, node_modules, .mdstudio",
+        "Extrai campos DocumentMetadata; vazio/aninhado/ilegível ok",
+        "Respeita path fence existente",
+        "Verify: workspace_scanner_pass"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-19T18:43:58Z",
+      "verification": {
+        "checks": [
+          "workspace_scanner_pass"
+        ]
+      },
+      "completed_at": "2026-09-19T18:45:20Z"
+    },
+    {
+      "task_id": "MD-FOUNDATION-006",
+      "task_kind": "impl",
+      "title": "Onda1: ReindexEngine (full + incremental)",
+      "description": "ONDA 1 — Knowledge Foundation | MD-FOUNDATION-006 | CRÍTICA | Depende: MD-FOUNDATION-002,005\n\nOBJETIVO: ReindexEngine — full_reindex, reindex_file, remove_file; Arc<Mutex<MetadataIndex>>; ReindexReport { indexed, skipped, errors }.\n\nPATHS:\n- Criar: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs\n\nINTEGRAÇÃO WATCHER (IMPORTANTE — repo já tem watcher):\n- JÁ EXISTE: src-tauri/src/watcher/ (notify, debounce, fence, evento workspace://change).\n- NÃO criar src-tauri/.../watcher/file_watcher.rs paralelo.\n- Nesta tarefa: motor de reindex no core; a ponte eventos→reindex_file pode ser finalizada em MD-FOUNDATION-009 ou stub documentado.\n- File watcher \"novo módulo\" da spec original = REUSAR o watcher da Onda 0/PR#1.\n\nVERIFY: incremental_reindex_pass",
+      "status": "done",
+      "depends_on": [
+        "MD-FOUNDATION-002",
+        "MD-FOUNDATION-005"
+      ],
+      "targets": [
+        "MD-FOUNDATION-006",
+        "onda1"
+      ],
+      "outputs": {
+        "files": [
+          "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src-tauri/crates/md-studio-core/**",
+        "src-tauri/src/watcher/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "full_reindex / reindex_file / remove_file thread-safe",
+        "ReindexReport retornado",
+        "NÃO duplicar watcher — reusar src-tauri/src/watcher/",
+        "Verify: incremental_reindex_pass"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-19T18:45:38Z",
+      "verification": {
+        "checks": [
+          "incremental_reindex_pass"
+        ]
+      },
+      "completed_at": "2026-09-19T18:46:27Z"
+    },
+    {
+      "task_id": "MD-FOUNDATION-007",
+      "task_kind": "impl",
+      "title": "Onda1: Persistência índice em .mdstudio/index.json",
+      "description": "ONDA 1 — Knowledge Foundation | MD-FOUNDATION-007 | ALTA | Depende: MD-FOUNDATION-002,006\n\nOBJETIVO: Persistência do índice em disco para cold start sem full scan sempre.\n\nPATH CANÔNICO (padronizar um só):\n  {workspace}/.mdstudio/index.json\n(criar dir .mdstudio se não existir; app NÃO deleta arquivos .md do usuário; clear_index só remove o arquivo de índice)\n\nPATHS:\n- Criar: src-tauri/crates/md-studio-core/src/index/index_persistence.rs\n- fns: index_path, save_index (atômico tmp→rename), load_index → Option, clear_index\n\nAlinhar estilo com atomic_save existente em persistence.rs (sem editar persistence.rs se possível — só espelhar padrão).\n\nVERIFY: index_persistence_pass",
+      "status": "done",
+      "depends_on": [
+        "MD-FOUNDATION-002",
+        "MD-FOUNDATION-006"
+      ],
+      "targets": [
+        "MD-FOUNDATION-007",
+        "onda1"
+      ],
+      "outputs": {
+        "files": [
+          "src-tauri/crates/md-studio-core/src/index/index_persistence.rs"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src-tauri/crates/md-studio-core/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "save/load atômico em {workspace}/.mdstudio/index.json",
+        "load retorna None se inexistente; parse error tipado",
+        "Não deleta .md do usuário",
+        "Verify: index_persistence_pass"
+      ],
+      "required_review_mode": "security",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-19T18:46:44Z",
+      "verification": {
+        "checks": [
+          "index_persistence_pass"
+        ]
+      },
+      "completed_at": "2026-09-19T18:47:31Z"
+    },
+    {
+      "task_id": "MD-FOUNDATION-008",
+      "task_kind": "impl",
+      "title": "Onda1: Metadata IPC + types/hooks frontend",
+      "description": "ONDA 1 — Knowledge Foundation | MD-FOUNDATION-008 | CRÍTICA | Depende: MD-FOUNDATION-002,006,007\n\nOBJETIVO: Expor índice via comandos Tauri IPC + tipos/hooks no frontend.\n\nBACKEND PATHS:\n- Criar: src-tauri/src/commands/metadata.rs\n- Registrar em src-tauri/src/lib.rs (generate_handler) e mod commands\n- Comandos: get_workspace_stats, get_document_metadata, get_all_documents, trigger_reindex, get_wiki_links_for, get_tags\n- WorkspaceStats: total_documents, total_words, total_links, total_wiki_links, total_tags, unique_tags, total_mermaid, total_katex\n- serde rename_all = \"camelCase\" nos tipos IPC\n\nFRONTEND PATHS REAIS:\n- Criar: src/types/metadata.ts\n- Criar: src/lib/ipc/metadata.ts (NÃO src/ipc/ — o repo usa src/lib/ipc/)\n- Criar: src/hooks/useMetadata.ts\n\nAppState deve guardar ReindexEngine/índice do workspace aberto (open_workspace carrega índice de .mdstudio ou full_reindex).\n\nVERIFY: metadata_service_pass",
+      "status": "done",
+      "depends_on": [
+        "MD-FOUNDATION-002",
+        "MD-FOUNDATION-006",
+        "MD-FOUNDATION-007"
+      ],
+      "targets": [
+        "MD-FOUNDATION-008",
+        "onda1"
+      ],
+      "outputs": {
+        "files": [
+          "src-tauri/src/commands/metadata.rs",
+          "src/types/metadata.ts",
+          "src/lib/ipc/metadata.ts",
+          "src/hooks/useMetadata.ts"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src-tauri/**",
+        "src/types/**",
+        "src/lib/ipc/**",
+        "src/hooks/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Comandos IPC registrados e camelCase",
+        "FE em src/lib/ipc/metadata.ts + useMetadata.ts",
+        "get_document_metadata None se path ausente",
+        "Verify: metadata_service_pass"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-19T18:47:49Z",
+      "verification": {
+        "checks": [
+          "metadata_service_pass"
+        ]
+      },
+      "completed_at": "2026-09-19T18:53:26Z"
+    },
+    {
+      "task_id": "MD-FOUNDATION-009",
+      "task_kind": "impl",
+      "title": "Onda1: save_document dispara reindex (+ ponte watcher)",
+      "description": "ONDA 1 — Knowledge Foundation | MD-FOUNDATION-009 | ALTA | Depende: MD-FOUNDATION-006,008\n\nOBJETIVO: Após save_document bem-sucedido, reindex_file do path salvo; falha de reindex NÃO bloqueia save. Opcional: ao receber workspace://change do watcher existente, reindex/remove conforme evento (se documento clean ou sempre metadata-only).\n\nPATHS A MODIFICAR:\n- src-tauri/src/commands/mod.rs (save_document)\n- possivelmente listener FE ou handler Rust do watcher já em src-tauri/src/watcher/\n\nNÃO regressar conflito dirty / atomic save / open-file-from-OS (PR#2).\n\nVERIFY: save_triggers_reindex_pass",
+      "status": "done",
+      "depends_on": [
+        "MD-FOUNDATION-006",
+        "MD-FOUNDATION-008"
+      ],
+      "targets": [
+        "MD-FOUNDATION-009",
+        "onda1"
+      ],
+      "outputs": {
+        "files": [
+          "src-tauri/src/commands/mod.rs"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src-tauri/src/**",
+        "src/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Save bem-sucedido atualiza índice; falha reindex não bloqueia save",
+        "Sem regressão dirty conflict / open-from-OS",
+        "Verify: save_triggers_reindex_pass"
+      ],
+      "required_review_mode": "regression",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-19T18:53:47Z",
+      "verification": {
+        "checks": [
+          "save_triggers_reindex_pass"
+        ]
+      },
+      "completed_at": "2026-09-19T18:55:45Z"
+    },
+    {
+      "task_id": "MD-FOUNDATION-010",
+      "task_kind": "qa",
+      "title": "Onda1 QA: testes foundation + gate encerramento",
+      "description": "ONDA 1 — Knowledge Foundation | MD-FOUNDATION-010 | CRÍTICA QA | Depende: MD-FOUNDATION-001..009\n\nOBJETIVO: Suíte de testes Onda 1 + zero regressão Onda 0.\n\nRUST (cargo test no crate md-studio-core e/ou src-tauri):\n- wiki_link_parser ≥5 casos; tag_parser ≥5; MetadataIndex ≥4; WorkspaceScanner ≥3; IndexPersistence ≥3; ReindexEngine ≥3\n\nTS (vitest):\n- tests/foundation/metadata.test.ts (tipos + IPC mock)\n- total testes após onda ≥ 60; atuais Onda 0 = 40 em 14 suites — não quebrar\n\nGATES ENCERRAMENTO ONDA 1:\n- cargo test md-studio-core 100%\n- pnpm test / vitest 100% sem regressão\n- cargo build --release limpo quando host tiver deps gtk/webkit (Nitro)\n- IPC get_workspace_stats / get_all_documents / trigger_reindex com dados reais\n- save atualiza índice; índice persiste e recarrega de .mdstudio/index.json\n\nVERIFY: foundation_qa_pass / onda_1_foundation_complete\n\nNOTA EXECUTOR: Cloud Agents / agente externo. Complementar já feita: MDS-PROD-OPEN-FILE-001 (abrir .md via SO) — não reabrir esse bug como escopo desta task.",
+      "status": "done",
+      "depends_on": [
+        "MD-FOUNDATION-001",
+        "MD-FOUNDATION-002",
+        "MD-FOUNDATION-003",
+        "MD-FOUNDATION-004",
+        "MD-FOUNDATION-005",
+        "MD-FOUNDATION-006",
+        "MD-FOUNDATION-007",
+        "MD-FOUNDATION-008",
+        "MD-FOUNDATION-009"
+      ],
+      "targets": [
+        "MD-FOUNDATION-010",
+        "onda1",
+        "onda_1_foundation_complete"
+      ],
+      "outputs": {
+        "files": [
+          "tests/foundation/metadata.test.ts"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src-tauri/**",
+        "src/**",
+        "tests/**"
+      ],
+      "task_type": "audit",
+      "acceptance_criteria": [
+        "cargo test md-studio-core 100%; vitest sem regressão (≥60 testes total)",
+        "IPC stats/all/reindex com dados reais; índice persiste/recarrega",
+        "Verify: foundation_qa_pass / onda_1_foundation_complete"
+      ],
+      "required_review_mode": "regression",
+      "assigned_to": "agent-qa",
+      "started_at": "2026-09-19T18:56:04Z",
+      "verification": {
+        "checks": [
+          "foundation_qa_pass"
+        ]
+      },
+      "completed_at": "2026-09-19T18:58:11Z"
     }
   ],
   "indexes": {
     "by_status": {
-      "done": 111
+      "done": 122
     },
     "by_kind": {
-      "impl": 63,
-      "qa": 25,
+      "impl": 73,
+      "qa": 26,
       "spec": 23
     }
   }

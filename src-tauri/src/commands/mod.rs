@@ -17,6 +17,8 @@ pub struct SaveDocumentRequest {
     pub content: String,
 }
 
+pub mod metadata;
+
 fn map_ws_err(e: WorkspaceError) -> String {
     e.to_string()
 }
@@ -29,6 +31,21 @@ pub fn open_workspace(path: String, state: State<'_, AppState>) -> Result<Worksp
         .map_err(map_ws_err)?;
     // Drop previous workspaces so only the active root is retained.
     reg.retain(&ws.id);
+
+    // Inicializar ou carregar índice de metadados do workspace
+    let engine = md_studio_core::index::ReindexEngine::new(ws.root.clone());
+    if let Ok(Some(persisted)) = md_studio_core::index::load_index(&ws.root) {
+        if let Ok(mut idx) = engine.index.lock() {
+            *idx = persisted;
+        }
+    } else {
+        let _ = engine.full_reindex();
+        if let Ok(idx) = engine.index.lock() {
+            let _ = md_studio_core::index::save_index(&idx, &ws.root);
+        }
+    }
+    *state.metadata_engine.lock() = Some(engine);
+
     Ok(WorkspaceDescriptor {
         id: ws.id,
         root_label: ws.root.display().to_string(),
@@ -105,6 +122,14 @@ pub fn save_document(
         .map_err(map_ws_err)?;
     match atomic_save(&full, &req.expected_hash, &req.content) {
         Ok(hash) => {
+            // Reindexar arquivo salvo de forma resiliente (falha de índice não bloqueia save)
+            if let Some(engine) = state.metadata_engine.lock().as_ref().cloned() {
+                let _ = engine.reindex_file(&full);
+                if let Ok(idx) = engine.index.lock() {
+                    let _ = md_studio_core::index::save_index(&idx, &engine.root);
+                }
+            }
+
             let snap = DocumentSnapshot {
                 workspace_id: req.workspace_id,
                 relative_path: req.relative_path,
