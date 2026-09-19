@@ -1,0 +1,13 @@
+{
+  "after_sha256": "3ba5eec6fd45147df4270563ea35884a4c5dfb3af92f0af66b62583acc2e36a4",
+  "artifact_id": "ART-3ba5eec6fd45147df4270563ea35884a4c5dfb3af92f0af66b62583acc2e36a4",
+  "artifact_sha256": "3acf7c8231a42219c32485b410dae932708bfae1a9e4d6b6e124234a413decf8",
+  "before_sha256": "3ba5eec6fd45147df4270563ea35884a4c5dfb3af92f0af66b62583acc2e36a4",
+  "bytes": 635,
+  "content": "pub mod document_metadata;\npub mod index_persistence;\npub mod metadata_extractor;\npub mod metadata_index;\npub mod reindex_engine;\npub mod workspace_scanner;\npub mod wiki_resolve;\n\npub use document_metadata::{DocumentMetadata, Heading, Link, WikiLink};\npub use index_persistence::{clear_index, index_path, load_index, save_index, INDEX_DIR, INDEX_FILE};\npub use metadata_extractor::{extract_metadata, extract_metadata_from_str, slugify};\npub use metadata_index::MetadataIndex;\npub use reindex_engine::{ReindexEngine, ReindexReport};\npub use workspace_scanner::WorkspaceScanner;\npub use wiki_resolve::{ResolvedWikiLink, WikiLinkStatus};\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "src-tauri/crates/md-studio-core/src/index/mod.rs",
+  "source_path": "src-tauri/crates/md-studio-core/src/index/mod.rs",
+  "ts": "2026-09-19T21:16:43Z"
+}

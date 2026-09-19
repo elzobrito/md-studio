@@ -3,8 +3,11 @@ Categories={{categories}}
 {{#if comment}}
 Comment={{comment}}
 {{/if}}
-Exec={{exec}} %F
-StartupWMClass={{exec}}
+# Tauri/TAO 0.35.x has an upstream GTK client-side-decoration bug on
+# Wayland where the native window buttons are inert until the window is
+# maximized or resized. XWayland keeps the native controls interactive.
+Exec=/usr/bin/env GDK_BACKEND=x11 {{exec}} %F
+StartupWMClass=MD Studio
 Icon={{icon}}
 Name={{name}}
 Terminal=false

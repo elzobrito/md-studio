@@ -6,8 +6,8 @@ pub mod workspace;
 
 pub use index::{
     clear_index, extract_metadata, extract_metadata_from_str, index_path, load_index, save_index,
-    DocumentMetadata, Heading, Link, MetadataIndex, ReindexEngine, ReindexReport, WikiLink,
-    WorkspaceScanner, INDEX_DIR, INDEX_FILE,
+    DocumentMetadata, Heading, Link, MetadataIndex, ReindexEngine, ReindexReport,
+    ResolvedWikiLink, WikiLink, WikiLinkStatus, WorkspaceScanner, INDEX_DIR, INDEX_FILE,
 };
 pub use launch::{first_existing_markdown_path, is_markdown_path, path_from_arg};
 pub use parser::{parse_tags, parse_wiki_links};

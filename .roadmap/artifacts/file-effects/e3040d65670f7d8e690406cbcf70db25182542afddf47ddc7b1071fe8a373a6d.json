@@ -1,0 +1,13 @@
+{
+  "after_sha256": "248951be6606dfa0e3462c713bf74307727ccba543d2d3528860fb278b5bd6f7",
+  "artifact_id": "ART-248951be6606dfa0e3462c713bf74307727ccba543d2d3528860fb278b5bd6f7",
+  "artifact_sha256": "e3040d65670f7d8e690406cbcf70db25182542afddf47ddc7b1071fe8a373a6d",
+  "before_sha256": "248951be6606dfa0e3462c713bf74307727ccba543d2d3528860fb278b5bd6f7",
+  "bytes": 1067,
+  "content": "import type { EditorView } from \"@codemirror/view\";\nimport {\n  insertWikiCompletion,\n  type WikiCompletionState,\n} from \"../../editor/wiki/wiki-completion\";\n\nexport function WikiCompletionMenu(props: {\n  view: EditorView | null;\n  state: WikiCompletionState | null;\n  onClose: () => void;\n}) {\n  if (!props.state) return null;\n  return (\n    <div className=\"wiki-completion-menu\" role=\"listbox\" aria-label=\"Completar wiki link\">\n      {props.state.items.map((item, index) => (\n        <button\n          key={`${item.target}:${item.detail}`}\n          type=\"button\"\n          role=\"option\"\n          aria-selected={index === props.state?.selected}\n          className={index === props.state?.selected ? \"is-selected\" : \"\"}\n          onMouseDown={(event) => {\n            event.preventDefault();\n            if (props.view && props.state) insertWikiCompletion(props.view, props.state, item);\n            props.onClose();\n          }}\n        >\n          <strong>{item.label}</strong>\n          <small>{item.detail}</small>\n        </button>\n      ))}\n    </div>\n  );\n}\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "src/components/editor/WikiCompletionMenu.tsx",
+  "source_path": "src/components/editor/WikiCompletionMenu.tsx",
+  "ts": "2026-09-19T21:23:10Z"
+}

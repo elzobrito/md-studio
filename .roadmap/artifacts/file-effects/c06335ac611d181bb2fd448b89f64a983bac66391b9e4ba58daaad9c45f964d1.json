@@ -1,0 +1,13 @@
+{
+  "after_sha256": "75cb9a9def9a74de8b994ab3ed2c830dc874ddb9899de9dca7728936ceb28901",
+  "artifact_id": "ART-75cb9a9def9a74de8b994ab3ed2c830dc874ddb9899de9dca7728936ceb28901",
+  "artifact_sha256": "c06335ac611d181bb2fd448b89f64a983bac66391b9e4ba58daaad9c45f964d1",
+  "before_sha256": "75cb9a9def9a74de8b994ab3ed2c830dc874ddb9899de9dca7728936ceb28901",
+  "bytes": 1032,
+  "content": ".outgoing-links header {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n}\n\n.outgoing-links header h2 {\n  margin: 0;\n}\n\n.outgoing-links ul {\n  display: grid;\n  gap: 0.25rem;\n  margin: 0.65rem 0 0;\n  padding: 0;\n  list-style: none;\n}\n\n.outgoing-links button {\n  display: flex;\n  width: 100%;\n  gap: 0.5rem;\n  align-items: center;\n  justify-content: space-between;\n  padding: 0.4rem 0.5rem;\n  border: 0;\n  border-radius: 0.35rem;\n  color: var(--fg);\n  background: transparent;\n  text-align: left;\n}\n\n.outgoing-links button:hover,\n.outgoing-links button:focus-visible {\n  background: var(--accent-soft);\n}\n\n.outgoing-links-empty {\n  color: var(--fg-muted);\n  font-size: 0.8rem;\n}\n\n.wiki-status {\n  flex: none;\n  padding: 0.1rem 0.3rem;\n  border-radius: 999px;\n  color: var(--fg-muted);\n  background: var(--panel);\n  font-size: 0.65rem;\n}\n\n.wiki-status.is-resolved {\n  color: var(--accent);\n  background: var(--accent-soft);\n}\n\n.wiki-status.is-ambiguous,\n.wiki-status.is-unresolved {\n  color: var(--danger);\n}\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "src/styles/wiki-links.css",
+  "source_path": "src/styles/wiki-links.css",
+  "ts": "2026-09-19T21:24:04Z"
+}

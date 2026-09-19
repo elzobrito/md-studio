@@ -4,7 +4,7 @@ use serde::{Deserialize, Serialize};
 use tauri::State;
 
 use md_studio_core::index::{
-    save_index, DocumentMetadata, ReindexEngine, ReindexReport, WikiLink,
+    save_index, DocumentMetadata, ReindexEngine, ReindexReport, ResolvedWikiLink, WikiLink,
 };
 use crate::AppState;
 
@@ -24,6 +24,19 @@ pub struct WorkspaceStats {
 fn get_engine(state: &AppState) -> Option<ReindexEngine> {
     let guard = state.metadata_engine.lock();
     guard.as_ref().cloned()
+}
+
+fn find_document<'a>(
+    index: &'a md_studio_core::index::MetadataIndex,
+    path: &str,
+) -> Option<&'a DocumentMetadata> {
+    let clean_path = path.replace('\\', "/");
+    let target = PathBuf::from(&clean_path);
+    index.documents.iter().find_map(|(indexed_path, document)| {
+        (indexed_path == &target
+            || indexed_path.to_string_lossy().replace('\\', "/") == clean_path)
+            .then_some(document)
+    })
 }
 
 #[tauri::command]
@@ -81,17 +94,7 @@ pub async fn get_document_metadata(
     };
 
     let index_guard = engine.index.lock().map_err(|e| e.to_string())?;
-    let clean_path = path.replace('\\', "/");
-    let target = PathBuf::from(&clean_path);
-
-    // Buscar por correspondência exata ou normalizada
-    for (p, doc) in &index_guard.documents {
-        if p == &target || p.to_string_lossy().replace('\\', "/") == clean_path {
-            return Ok(Some(doc.clone()));
-        }
-    }
-
-    Ok(None)
+    Ok(find_document(&index_guard, &path).cloned())
 }
 
 #[tauri::command]
@@ -132,16 +135,35 @@ pub async fn get_wiki_links_for(
     };
 
     let index_guard = engine.index.lock().map_err(|e| e.to_string())?;
-    let clean_path = path.replace('\\', "/");
-    let target = PathBuf::from(&clean_path);
+    Ok(find_document(&index_guard, &path)
+        .map(|document| document.wiki_links.clone())
+        .unwrap_or_default())
+}
 
-    for (p, doc) in &index_guard.documents {
-        if p == &target || p.to_string_lossy().replace('\\', "/") == clean_path {
-            return Ok(doc.wiki_links.clone());
-        }
-    }
+#[tauri::command]
+pub async fn resolve_wiki_link(
+    target: String,
+    state: State<'_, AppState>,
+) -> Result<ResolvedWikiLink, String> {
+    let engine = get_engine(&state)
+        .ok_or_else(|| "Nenhum workspace ativo para resolver wiki link".to_string())?;
+    let index_guard = engine.index.lock().map_err(|e| e.to_string())?;
+    Ok(index_guard.resolve_wiki_link(&target))
+}
 
-    Ok(vec![])
+#[tauri::command]
+pub async fn get_resolved_wiki_links_for(
+    path: String,
+    state: State<'_, AppState>,
+) -> Result<Vec<ResolvedWikiLink>, String> {
+    let engine = match get_engine(&state) {
+        Some(engine) => engine,
+        None => return Ok(vec![]),
+    };
+    let index_guard = engine.index.lock().map_err(|e| e.to_string())?;
+    Ok(find_document(&index_guard, &path)
+        .map(|document| index_guard.resolve_all(document))
+        .unwrap_or_default())
 }
 
 #[tauri::command]

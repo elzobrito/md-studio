@@ -1,0 +1,13 @@
+{
+  "after_sha256": "25ab57a90d48fd4cc9deb492a1fb01edac6006eafcc681e4b92580f722b60a3f",
+  "artifact_id": "ART-25ab57a90d48fd4cc9deb492a1fb01edac6006eafcc681e4b92580f722b60a3f",
+  "artifact_sha256": "fdde5753b4c65016bc9c8e1f3d1cdbaa609671ccb3f57e6ccda1743e0cbf6b9d",
+  "before_sha256": "25ab57a90d48fd4cc9deb492a1fb01edac6006eafcc681e4b92580f722b60a3f",
+  "bytes": 1096,
+  "content": "export interface DocumentMetadata {\n  path: string;\n  title: string | null;\n  headings: Heading[];\n  links: Link[];\n  wikiLinks: WikiLink[];\n  tags: string[];\n  images: string[];\n  tables: number;\n  mermaidBlocks: number;\n  katexBlocks: number;\n  wordCount: number;\n  lineCount: number;\n  lastModified: number;\n}\n\nexport interface Heading {\n  depth: number;\n  text: string;\n  anchor: string;\n}\n\nexport interface Link {\n  text: string;\n  url: string;\n  isInternal: boolean;\n  line: number;\n}\n\nexport interface WikiLink {\n  target: string;\n  alias: string | null;\n  line: number;\n}\n\nexport type WikiLinkStatus = \"resolved\" | \"unresolved\" | \"ambiguous\";\n\nexport interface ResolvedWikiLink extends WikiLink {\n  status: WikiLinkStatus;\n  path: string | null;\n  candidates: string[];\n}\n\nexport interface WorkspaceStats {\n  totalDocuments: number;\n  totalWords: number;\n  totalLinks: number;\n  totalWikiLinks: number;\n  totalTags: number;\n  uniqueTags: number;\n  totalMermaid: number;\n  totalKatex: number;\n}\n\nexport interface ReindexReport {\n  indexed: number;\n  skipped: number;\n  errors: string[];\n}\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "src/types/metadata.ts",
+  "source_path": "src/types/metadata.ts",
+  "ts": "2026-09-19T21:17:54Z"
+}

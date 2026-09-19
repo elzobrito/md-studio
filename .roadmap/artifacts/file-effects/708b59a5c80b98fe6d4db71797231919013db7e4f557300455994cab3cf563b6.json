@@ -1,0 +1,13 @@
+{
+  "after_sha256": "241135fc43ca31e26f304dfb941869c0bffc51a40f3eb868213de728ba59fb84",
+  "artifact_id": "ART-241135fc43ca31e26f304dfb941869c0bffc51a40f3eb868213de728ba59fb84",
+  "artifact_sha256": "708b59a5c80b98fe6d4db71797231919013db7e4f557300455994cab3cf563b6",
+  "before_sha256": "241135fc43ca31e26f304dfb941869c0bffc51a40f3eb868213de728ba59fb84",
+  "bytes": 1955,
+  "content": ".outgoing-links header {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n}\n\n.outgoing-links header h2 {\n  margin: 0;\n}\n\n.outgoing-links ul {\n  display: grid;\n  gap: 0.25rem;\n  margin: 0.65rem 0 0;\n  padding: 0;\n  list-style: none;\n}\n\n.outgoing-links button {\n  display: flex;\n  width: 100%;\n  gap: 0.5rem;\n  align-items: center;\n  justify-content: space-between;\n  padding: 0.4rem 0.5rem;\n  border: 0;\n  border-radius: 0.35rem;\n  color: var(--fg);\n  background: transparent;\n  text-align: left;\n}\n\n.outgoing-links button:hover,\n.outgoing-links button:focus-visible {\n  background: var(--accent-soft);\n}\n\n.outgoing-links-empty {\n  color: var(--fg-muted);\n  font-size: 0.8rem;\n}\n\n.wiki-status {\n  flex: none;\n  padding: 0.1rem 0.3rem;\n  border-radius: 999px;\n  color: var(--fg-muted);\n  background: var(--panel);\n  font-size: 0.65rem;\n}\n\n.wiki-status.is-resolved {\n  color: var(--accent);\n  background: var(--accent-soft);\n}\n\n.wiki-status.is-ambiguous,\n.wiki-status.is-unresolved {\n  color: var(--danger);\n}\n\n.wiki-create-backdrop {\n  position: fixed;\n  z-index: 40;\n  inset: 0;\n  display: grid;\n  place-items: center;\n  padding: 1rem;\n  background: rgb(15 23 42 / 45%);\n}\n\n.wiki-create-dialog {\n  width: min(30rem, 100%);\n  padding: 1rem;\n  border: 1px solid var(--border);\n  border-radius: var(--radius);\n  color: var(--fg);\n  background: var(--bg-elevated);\n  box-shadow: var(--shadow);\n}\n\n.wiki-create-dialog h2 {\n  margin: 0 0 1rem;\n  font-size: 1rem;\n}\n\n.wiki-create-dialog label {\n  display: grid;\n  gap: 0.35rem;\n  color: var(--fg-muted);\n  font-size: 0.8rem;\n}\n\n.wiki-create-dialog input {\n  width: 100%;\n  padding: 0.55rem 0.65rem;\n  border: 1px solid var(--border);\n  border-radius: 0.4rem;\n  color: var(--fg);\n  background: var(--bg);\n}\n\n.wiki-create-dialog footer {\n  display: flex;\n  gap: 0.5rem;\n  justify-content: flex-end;\n  margin-top: 1rem;\n}\n\n.wiki-create-error {\n  color: var(--danger);\n  font-size: 0.8rem;\n}\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "src/styles/wiki-links.css",
+  "source_path": "src/styles/wiki-links.css",
+  "ts": "2026-09-19T21:26:10Z"
+}

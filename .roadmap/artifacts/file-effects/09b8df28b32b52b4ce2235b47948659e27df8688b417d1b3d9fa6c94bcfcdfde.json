@@ -1,0 +1,13 @@
+{
+  "after_sha256": "c26a5df844e51531f8f1d19baa30e97bdce28ad9b47635742cb744f939e2602d",
+  "artifact_id": "ART-c26a5df844e51531f8f1d19baa30e97bdce28ad9b47635742cb744f939e2602d",
+  "artifact_sha256": "09b8df28b32b52b4ce2235b47948659e27df8688b417d1b3d9fa6c94bcfcdfde",
+  "before_sha256": "c26a5df844e51531f8f1d19baa30e97bdce28ad9b47635742cb744f939e2602d",
+  "bytes": 56,
+  "content": "export * from \"./alerts\";\nexport * from \"./wiki-links\";\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "src/markdown/plugins/index.ts",
+  "source_path": "src/markdown/plugins/index.ts",
+  "ts": "2026-09-19T21:20:11Z"
+}

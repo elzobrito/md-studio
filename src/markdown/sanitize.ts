@@ -13,7 +13,26 @@ export const mdStudioSanitizeSchema = {
   ],
   attributes: {
     ...defaultSchema.attributes,
-    a: [...(defaultSchema.attributes?.a ?? []), ["className"], ["href"], ["title"], ["rel"], ["target"]],
+    a: [
+      ...(defaultSchema.attributes?.a ?? []).filter(
+        (attribute) => !Array.isArray(attribute) || attribute[0] !== "className",
+      ),
+      [
+        "className",
+        "data-footnote-backref",
+        "wiki-link",
+        "is-resolved",
+        "is-unresolved",
+        "is-ambiguous",
+      ],
+      ["href"],
+      ["title"],
+      ["rel"],
+      ["target"],
+      ["dataWikiTarget"],
+      ["dataWikiStatus", "resolved", "unresolved", "ambiguous"],
+      ["dataWikiPath"],
+    ],
     code: [...(defaultSchema.attributes?.code ?? []), ["className"]],
     span: [...(defaultSchema.attributes?.span ?? []), ["className"], ["style"], ["aria-hidden"]],
     div: [...(defaultSchema.attributes?.div ?? []), ["className"], ["role", "aria-label"]],

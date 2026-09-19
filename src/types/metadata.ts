@@ -33,6 +33,14 @@ export interface WikiLink {
   line: number;
 }
 
+export type WikiLinkStatus = "resolved" | "unresolved" | "ambiguous";
+
+export interface ResolvedWikiLink extends WikiLink {
+  status: WikiLinkStatus;
+  path: string | null;
+  candidates: string[];
+}
+
 export interface WorkspaceStats {
   totalDocuments: number;
   totalWords: number;

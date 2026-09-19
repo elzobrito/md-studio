@@ -28,6 +28,9 @@ import { useSettings } from "./hooks/useSettings";
 import { SettingsPanel } from "./components/settings/SettingsPanel";
 import { editorStore } from "./state/editor";
 import { recentFilesStore } from "./state/recent-files";
+import { useMetadata } from "./hooks/useMetadata";
+import { OutgoingLinksPanel } from "./components/wiki/OutgoingLinksPanel";
+import { CreateNoteFromWiki } from "./components/wiki/CreateNoteFromWiki";
 
 const VIEW_OPTIONS: { id: ViewMode; label: string; title: string }[] = [
   { id: "source", label: "Markdown", title: "Ver e editar o código-fonte .md" },
@@ -39,6 +42,7 @@ export function App() {
   const session = useSession();
   const settings = useSettings();
   const doc = useDocumentState();
+  const metadata = useMetadata(doc.relativePath || undefined);
 
   const handleExportHtml = useCallback(async () => {
     const base = doc.relativePath
@@ -58,6 +62,7 @@ export function App() {
   const [goToLineOpen, setGoToLineOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [isWriting, setIsWriting] = useState(false);
+  const [unresolvedWikiTarget, setUnresolvedWikiTarget] = useState<string | null>(null);
   const scrollSync = useScrollSync({ enabled: view === "split" });
 
   useEffect(() => {
@@ -497,12 +502,19 @@ export function App() {
                   onChange={doc.setContent}
                   onSave={doc.save}
                   onScroller={scrollSync.setEditorScroller}
+                  wikiDocuments={metadata.allDocs}
                 />
               )}
               {view !== "source" && (
                 <MarkdownViewer
                   content={doc.content}
                   relativePath={doc.relativePath}
+                  wikiLinks={metadata.resolvedWikiLinks}
+                  onOpenRelative={async (path) => {
+                    const opened = await doc.openRelative(path);
+                    if (opened) setIsWriting(true);
+                  }}
+                  onUnresolvedWiki={setUnresolvedWikiTarget}
                   onRoot={(el) => {
                     onPreviewRoot(el);
                     scrollSync.setPreviewScroller(el);
@@ -533,6 +545,14 @@ export function App() {
             aria-label="Metadados"
           >
             <DocumentOutline content={doc.content} onNavigate={goToHeading} />
+            <OutgoingLinksPanel
+              links={metadata.resolvedWikiLinks}
+              onOpen={async (path) => {
+                const opened = await doc.openRelative(path);
+                if (opened) setIsWriting(true);
+              }}
+              onUnresolved={setUnresolvedWikiTarget}
+            />
             <Settings session={session} />
             <section className="card" aria-label="Diagnósticos">
               <h2>Diagnósticos</h2>
@@ -573,6 +593,17 @@ export function App() {
         onClose={() => setSettingsOpen(false)}
         onOpenShortcuts={() => setShortcutsModalOpen(true)}
       />
+      <CreateNoteFromWiki
+        target={unresolvedWikiTarget}
+        currentPath={doc.relativePath}
+        workspaceId={doc.workspace?.id ?? null}
+        onCancel={() => setUnresolvedWikiTarget(null)}
+        onCreated={async (path) => {
+          setUnresolvedWikiTarget(null);
+          const opened = await doc.openRelative(path);
+          if (opened) setIsWriting(true);
+        }}
+      />
     </div>
       <ConflictDialog
         open={!!doc.conflictPath}
@@ -582,4 +613,3 @@ export function App() {
     </>
   );
 }
-

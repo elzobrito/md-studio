@@ -1,5 +1,11 @@
 import { useState, useEffect, useCallback } from "react";
-import type { DocumentMetadata, WorkspaceStats, WikiLink, ReindexReport } from "../types/metadata";
+import type {
+  DocumentMetadata,
+  WorkspaceStats,
+  WikiLink,
+  ResolvedWikiLink,
+  ReindexReport,
+} from "../types/metadata";
 import * as metadataIpc from "../lib/ipc/metadata";
 
 export function useMetadata(currentPath?: string) {
@@ -8,6 +14,7 @@ export function useMetadata(currentPath?: string) {
   const [allDocs, setAllDocs] = useState<DocumentMetadata[]>([]);
   const [tags, setTags] = useState<string[]>([]);
   const [wikiLinks, setWikiLinks] = useState<WikiLink[]>([]);
+  const [resolvedWikiLinks, setResolvedWikiLinks] = useState<ResolvedWikiLink[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -44,6 +51,8 @@ export function useMetadata(currentPath?: string) {
       setCurrentDocMetadata(meta);
       const links = await metadataIpc.getWikiLinksFor(path);
       setWikiLinks(links);
+      const resolvedLinks = await metadataIpc.getResolvedWikiLinksFor(path);
+      setResolvedWikiLinks(resolvedLinks);
     } catch (e) {
       setError(e instanceof Error ? e.message : String(e));
     }
@@ -82,6 +91,7 @@ export function useMetadata(currentPath?: string) {
     } else {
       setCurrentDocMetadata(null);
       setWikiLinks([]);
+      setResolvedWikiLinks([]);
     }
   }, [currentPath, refreshCurrentDoc]);
 
@@ -91,6 +101,7 @@ export function useMetadata(currentPath?: string) {
     allDocs,
     tags,
     wikiLinks,
+    resolvedWikiLinks,
     loading,
     error,
     refreshStats,

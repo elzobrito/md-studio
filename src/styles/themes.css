@@ -12,6 +12,7 @@
   --accent: #2563eb;
   --accent-hover: #1d4ed8;
   --accent-soft: #dbeafe;
+  --editor-cursor-color: #1d4ed8;
   --danger: #b91c1c;
   --radius: 10px;
   --shadow: 0 1px 2px rgb(15 23 42 / 6%), 0 8px 24px rgb(15 23 42 / 6%);
@@ -29,6 +30,7 @@
   --accent: #3b82f6;
   --accent-hover: #60a5fa;
   --accent-soft: #1e3a5f;
+  --editor-cursor-color: #f9e2af;
   --shadow: 0 1px 2px rgb(0 0 0 / 40%), 0 12px 32px rgb(0 0 0 / 35%);
 }
 
@@ -43,6 +45,7 @@
     --accent: #3b82f6;
     --accent-hover: #60a5fa;
     --accent-soft: #1e3a5f;
+    --editor-cursor-color: #f9e2af;
     --shadow: 0 1px 2px rgb(0 0 0 / 40%), 0 12px 32px rgb(0 0 0 / 35%);
   }
 }
@@ -567,6 +570,16 @@ select {
   height: 100%;
 }
 
+.editor .cm-content {
+  caret-color: var(--editor-cursor-color, var(--accent));
+}
+
+.editor .cm-cursor,
+.editor .cm-dropCursor {
+  border-left: 2px solid var(--editor-cursor-color, var(--accent)) !important;
+  filter: drop-shadow(0 0 1px var(--bg-elevated));
+}
+
 .preview {
   overflow: hidden;
 }
@@ -673,6 +686,77 @@ select {
   max-width: none;
 }
 
+.preview-body .wiki-link {
+  border-radius: 0.25rem;
+  padding: 0 0.15rem;
+  text-decoration: none;
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+}
+
+.preview-body .wiki-link.is-unresolved,
+.preview-body .wiki-link.is-ambiguous {
+  color: var(--text-secondary);
+  text-decoration: underline dashed;
+  text-underline-offset: 0.2em;
+}
+
+.wiki-unresolved-notice {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 5;
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  padding: 0.65rem 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  color: var(--fg);
+  background: var(--bg-elevated);
+  box-shadow: var(--shadow);
+}
+
+.wiki-completion-menu {
+  position: absolute;
+  z-index: 12;
+  left: 1rem;
+  bottom: 1rem;
+  width: min(26rem, calc(100% - 2rem));
+  max-height: 18rem;
+  overflow: auto;
+  padding: 0.35rem;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  background: var(--bg-elevated);
+  box-shadow: var(--shadow);
+}
+
+.wiki-completion-menu button {
+  display: flex;
+  width: 100%;
+  gap: 0.75rem;
+  justify-content: space-between;
+  padding: 0.5rem 0.6rem;
+  border: 0;
+  border-radius: 0.35rem;
+  color: var(--fg);
+  background: transparent;
+  text-align: left;
+}
+
+.wiki-completion-menu button.is-selected,
+.wiki-completion-menu button:hover {
+  background: var(--accent-soft);
+}
+
+.wiki-completion-menu small {
+  overflow: hidden;
+  color: var(--fg-muted);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 /* Right cards */
 .card,
 .outline,
@@ -718,6 +802,11 @@ select {
 @media (prefers-reduced-motion: reduce) {
   * {
     transition: none !important;
+    animation: none !important;
+  }
+
+  .editor .cm-focused > .cm-scroller > .cm-cursorLayer {
+    opacity: 1 !important;
     animation: none !important;
   }
 }

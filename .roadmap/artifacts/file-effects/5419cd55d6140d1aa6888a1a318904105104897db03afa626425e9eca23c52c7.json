@@ -1,0 +1,13 @@
+{
+  "after_sha256": "1113e7e7b421ed9a986a5a411d8ac220176b75628e7ac43f8eb394ae709e2497",
+  "artifact_id": "ART-1113e7e7b421ed9a986a5a411d8ac220176b75628e7ac43f8eb394ae709e2497",
+  "artifact_sha256": "5419cd55d6140d1aa6888a1a318904105104897db03afa626425e9eca23c52c7",
+  "before_sha256": "1113e7e7b421ed9a986a5a411d8ac220176b75628e7ac43f8eb394ae709e2497",
+  "bytes": 1608,
+  "content": "import { describe, expect, it } from \"vitest\";\nimport { processMarkdown } from \"../../../src/markdown/processor\";\n\ndescribe(\"markdown core\", () => {\n  it(\"renders heading\", async () => {\n    const r = await processMarkdown(\"# Olá\");\n    expect(r.html).toContain(\"Olá\");\n  });\n\n  it(\"assigns stable heading ids (sanitize prefix)\", async () => {\n    const r = await processMarkdown(\"# Introdução\\n\\n## Detalhes\\n\\n## Detalhes\");\n    expect(r.html).toMatch(/id=\"user-content-introducao\"/);\n    expect(r.html).toMatch(/id=\"user-content-detalhes\"/);\n    expect(r.html).toMatch(/id=\"user-content-detalhes-1\"/);\n  });\n\n  it(\"strips script tags via sanitize\", async () => {\n    const r = await processMarkdown('Hello <script>alert(1)</script>');\n    expect(r.html.toLowerCase()).not.toContain(\"<script\");\n  });\n\n  it(\"renders wiki targets and aliases as sanitized links\", async () => {\n    const r = await processMarkdown(\"See [[Guide]] and [[API|the API]].\", {\n      wikiLinks: [{ target: \"Guide\", status: \"resolved\", path: \"docs/guide.md\" }],\n    });\n    expect(r.html).toContain(\n      'class=\"wiki-link is-resolved\" href=\"#\" data-wiki-target=\"Guide\" data-wiki-status=\"resolved\" data-wiki-path=\"docs/guide.md\">Guide</a>',\n    );\n    expect(r.html).toContain(\n      'class=\"wiki-link is-unresolved\" href=\"#\" data-wiki-target=\"API\" data-wiki-status=\"unresolved\">the API</a>',\n    );\n  });\n\n  it(\"does not transform wiki syntax inside code\", async () => {\n    const r = await processMarkdown(\"`[[literal]]`\");\n    expect(r.html).toContain(\"[[literal]]\");\n    expect(r.html).not.toContain(\"wiki-link\");\n  });\n});\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "tests/markdown/core/processor.test.ts",
+  "source_path": "tests/markdown/core/processor.test.ts",
+  "ts": "2026-09-19T21:20:11Z"
+}

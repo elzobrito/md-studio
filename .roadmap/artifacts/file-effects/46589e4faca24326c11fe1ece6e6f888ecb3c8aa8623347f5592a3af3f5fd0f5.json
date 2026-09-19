@@ -1,0 +1,13 @@
+{
+  "after_sha256": "f802b615488e3bab1a2904dc891947fedd178934478ec7b824685b7ec3f96c57",
+  "artifact_id": "ART-f802b615488e3bab1a2904dc891947fedd178934478ec7b824685b7ec3f96c57",
+  "artifact_sha256": "46589e4faca24326c11fe1ece6e6f888ecb3c8aa8623347f5592a3af3f5fd0f5",
+  "before_sha256": "f802b615488e3bab1a2904dc891947fedd178934478ec7b824685b7ec3f96c57",
+  "bytes": 1456,
+  "content": "# QA — Hotfix do cursor do editor\n\nData: 2026-09-19  \nTask: `MD-HOTFIX-CURSOR-001`\n\n## Causa\n\nO CodeMirror era inicializado sem `drawSelection` e o tema não definia uma cor\nexplícita para o caret. Assim, o cursor nativo podia perder contraste no fundo\nescuro. A regra global de `prefers-reduced-motion` também removia animações sem\ndeclarar explicitamente que o cursor deveria permanecer opaco.\n\n## Correção\n\n- `drawSelection({ cursorBlinkRate: 1200 })` habilita o cursor desenhado pelo\n  CodeMirror e seu ciclo de piscar.\n- Cursor com 2 px e cor de alto contraste por tema: azul no claro e amarelo no\n  escuro.\n- `caret-color` explícito mantém um fallback nativo visível.\n- Em movimento reduzido, a animação é removida, mas a camada permanece com\n  `opacity: 1`.\n\n## Evidência\n\n- `tests/editor/cursor.test.ts`: confirma camada desenhada e blink rate de\n  1200 ms.\n- `pnpm test`: 31 arquivos e 178 testes aprovados.\n- `pnpm typecheck`: aprovado.\n- `pnpm build`: aprovado.\n- `git diff --check`: aprovado.\n- Navegador local: documento novo aberto no modo Markdown; após digitar\n  `Posicione aqui`, o caret de 2 px apareceu amarelo no tema escuro e azul no\n  tema claro. Duas capturas consecutivas no tema claro mostraram o caret nos\n  estados visível e oculto, confirmando que o piscar está ativo.\n- A página apresentou conteúdo e controles normais, sem tela em branco ou\n  overlay de erro. O servidor e a aba de teste foram encerrados.\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "docs/qa/hotfix-editor-cursor.md",
+  "source_path": "docs/qa/hotfix-editor-cursor.md",
+  "ts": "2026-09-19T21:41:11Z"
+}

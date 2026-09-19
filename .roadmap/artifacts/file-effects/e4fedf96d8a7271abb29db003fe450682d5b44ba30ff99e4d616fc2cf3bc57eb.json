@@ -1,0 +1,13 @@
+{
+  "after_sha256": "c280628a42609bf2c54bf8a72b9748c40070d2a8c2077710315596976c2e1a23",
+  "artifact_id": "ART-c280628a42609bf2c54bf8a72b9748c40070d2a8c2077710315596976c2e1a23",
+  "artifact_sha256": "e4fedf96d8a7271abb29db003fe450682d5b44ba30ff99e4d616fc2cf3bc57eb",
+  "before_sha256": "c280628a42609bf2c54bf8a72b9748c40070d2a8c2077710315596976c2e1a23",
+  "bytes": 974,
+  "content": "import { EditorState } from \"@codemirror/state\";\nimport { EditorView, getDrawSelectionConfig } from \"@codemirror/view\";\nimport { afterEach, describe, expect, it } from \"vitest\";\nimport { editorCursorExtensions } from \"../../src/components/MarkdownEditor\";\n\nlet view: EditorView | null = null;\n\nafterEach(() => {\n  view?.destroy();\n  view = null;\n  document.body.innerHTML = \"\";\n});\n\ndescribe(\"editor cursor\", () => {\n  it(\"installs a drawn cursor with a 1200ms blink rate\", () => {\n    const parent = document.createElement(\"div\");\n    document.body.append(parent);\n    view = new EditorView({\n      parent,\n      state: EditorState.create({ doc: \"texto\", extensions: editorCursorExtensions }),\n    });\n\n    view.focus();\n    const layer = parent.querySelector<HTMLElement>(\".cm-cursorLayer\");\n\n    expect(layer).not.toBeNull();\n    expect(layer?.style.animationDuration).toBe(\"1200ms\");\n    expect(getDrawSelectionConfig(view.state)?.cursorBlinkRate).toBe(1200);\n  });\n});\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "tests/editor/cursor.test.ts",
+  "source_path": "tests/editor/cursor.test.ts",
+  "ts": "2026-09-19T21:41:11Z"
+}

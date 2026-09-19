@@ -1,0 +1,13 @@
+{
+  "after_sha256": "798c536662f96558813735cc58673b5a73288a85436b6fb261d40ced72ce3bbc",
+  "artifact_id": "ART-798c536662f96558813735cc58673b5a73288a85436b6fb261d40ced72ce3bbc",
+  "artifact_sha256": "ce8733ab2659acba261a9f805de1ca8063232235c0b563be579eeed2c102c99a",
+  "before_sha256": "798c536662f96558813735cc58673b5a73288a85436b6fb261d40ced72ce3bbc",
+  "bytes": 887,
+  "content": "import { describe, expect, it } from \"vitest\";\nimport {\n  notePathForTarget,\n  safeWikiNotePath,\n  sanitizeWikiFileName,\n} from \"../../src/components/wiki/CreateNoteFromWiki\";\n\ndescribe(\"create note from wiki\", () => {\n  it(\"sanitizes target and keeps the current document directory\", () => {\n    expect(sanitizeWikiFileName(\"Visão Geral.md\")).toBe(\"visao-geral\");\n    expect(notePathForTarget(\"Visão Geral\", \"docs/current.md\")).toBe(\"docs/visao-geral.md\");\n  });\n\n  it(\"does not preserve traversal or separators\", () => {\n    expect(notePathForTarget(\"../../secrets\", \"docs/current.md\")).toBe(\"docs/secrets.md\");\n    expect(notePathForTarget(\"///\", \"docs/current.md\")).toBeNull();\n    expect(safeWikiNotePath(\"../secrets.md\")).toBeNull();\n    expect(safeWikiNotePath(\"/tmp/secrets.md\")).toBeNull();\n    expect(safeWikiNotePath(\"docs/New Note.md\")).toBe(\"docs/new-note.md\");\n  });\n});\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "tests/wiki/create-note.test.ts",
+  "source_path": "tests/wiki/create-note.test.ts",
+  "ts": "2026-09-19T21:26:10Z"
+}

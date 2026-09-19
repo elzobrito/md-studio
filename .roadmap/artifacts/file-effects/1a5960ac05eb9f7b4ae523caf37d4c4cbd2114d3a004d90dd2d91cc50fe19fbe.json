@@ -1,0 +1,13 @@
+{
+  "after_sha256": "64e27573e255fd5166e534999b9e586b3d419e5b63d701a6a2f04a9fbc5d480d",
+  "artifact_id": "ART-64e27573e255fd5166e534999b9e586b3d419e5b63d701a6a2f04a9fbc5d480d",
+  "artifact_sha256": "1a5960ac05eb9f7b4ae523caf37d4c4cbd2114d3a004d90dd2d91cc50fe19fbe",
+  "before_sha256": "64e27573e255fd5166e534999b9e586b3d419e5b63d701a6a2f04a9fbc5d480d",
+  "bytes": 681,
+  "content": "pub mod index;\npub mod launch;\npub mod parser;\npub mod persistence;\npub mod workspace;\n\npub use index::{\n    clear_index, extract_metadata, extract_metadata_from_str, index_path, load_index, save_index,\n    DocumentMetadata, Heading, Link, MetadataIndex, ReindexEngine, ReindexReport,\n    ResolvedWikiLink, WikiLink, WikiLinkStatus, WorkspaceScanner, INDEX_DIR, INDEX_FILE,\n};\npub use launch::{first_existing_markdown_path, is_markdown_path, path_from_arg};\npub use parser::{parse_tags, parse_wiki_links};\npub use persistence::{atomic_save, atomic_write_bytes, content_hash, read_file, SaveError};\npub use workspace::{resolve_within, Workspace, WorkspaceError, WorkspaceRegistry};\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "src-tauri/crates/md-studio-core/src/lib.rs",
+  "source_path": "src-tauri/crates/md-studio-core/src/lib.rs",
+  "ts": "2026-09-19T21:16:43Z"
+}

@@ -1,0 +1,13 @@
+{
+  "after_sha256": "bb9c7c6234c8fb6e6664d7baaf8e36bcd37fd81ff4e3c29b686c058341b61ba5",
+  "artifact_id": "ART-bb9c7c6234c8fb6e6664d7baaf8e36bcd37fd81ff4e3c29b686c058341b61ba5",
+  "artifact_sha256": "f79ea637bdcdd1ced9a96fa37399140c98c5da6131d311c3d0f1b6e31e3e534c",
+  "before_sha256": "bb9c7c6234c8fb6e6664d7baaf8e36bcd37fd81ff4e3c29b686c058341b61ba5",
+  "bytes": 781,
+  "content": "# Regras de resolução de wiki links\n\nO motor resolve apenas contra o `MetadataIndex` em memória; ele não lê o disco.\n\nOrdem de precedência:\n\n1. Caminho relativo exato, sensível a maiúsculas, com ou sem a extensão `.md`.\n2. Nome-base (`stem`) do arquivo, sem distinção ASCII entre maiúsculas e minúsculas.\n3. Título do documento, sem distinção ASCII entre maiúsculas e minúsculas.\n\nUm único candidato produz `resolved` e seu caminho. Nenhum candidato produz\n`unresolved`. Dois ou mais candidatos no mesmo nível produzem `ambiguous`, sem\nescolha silenciosa, e retornam a lista ordenada de caminhos candidatos.\n\nTargets vazios, absolutos ou com componentes `..` são `unresolved`. O alias não\nparticipa da busca: é preservado exclusivamente para apresentação.\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "docs/onda2/resolve-rules.md",
+  "source_path": "docs/onda2/resolve-rules.md",
+  "ts": "2026-09-19T21:16:43Z"
+}

@@ -71,6 +71,11 @@
         "mimeType": "text/mdx",
         "role": "Editor"
       }
-    ]
+    ],
+    "linux": {
+      "deb": {
+        "desktopTemplate": "linux/md-studio.desktop"
+      }
+    }
   }
 }

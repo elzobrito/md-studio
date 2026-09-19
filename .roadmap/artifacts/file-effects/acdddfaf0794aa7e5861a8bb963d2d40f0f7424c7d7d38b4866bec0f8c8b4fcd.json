@@ -1,0 +1,13 @@
+{
+  "after_sha256": "fb26698f862da37187f873ce9f799445f241af2a715b7368013ff4cddc4b6a27",
+  "artifact_id": "ART-fb26698f862da37187f873ce9f799445f241af2a715b7368013ff4cddc4b6a27",
+  "artifact_sha256": "acdddfaf0794aa7e5861a8bb963d2d40f0f7424c7d7d38b4866bec0f8c8b4fcd",
+  "before_sha256": "fb26698f862da37187f873ce9f799445f241af2a715b7368013ff4cddc4b6a27",
+  "bytes": 822,
+  "content": "import { describe, expect, it } from \"vitest\";\nimport { wikiCandidates } from \"../../src/editor/wiki/wiki-completion\";\n\nconst documents = [\n  { path: \"docs/architecture.md\", title: \"Architecture\" },\n  { path: \"notes/api.md\", title: \"API Guide\" },\n  { path: \"README.md\", title: null },\n];\n\ndescribe(\"wiki completion candidates\", () => {\n  it(\"filters by title or path and sorts labels\", () => {\n    expect(wikiCandidates(documents, \"a\").map((item) => item.label)).toEqual([\n      \"API Guide\",\n      \"Architecture\",\n      \"README\",\n    ]);\n    expect(wikiCandidates(documents, \"notes\")[0]?.target).toBe(\"API Guide\");\n  });\n\n  it(\"deduplicates targets case-insensitively\", () => {\n    expect(\n      wikiCandidates([...documents, { path: \"other.md\", title: \"architecture\" }], \"architecture\"),\n    ).toHaveLength(1);\n  });\n});\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "tests/wiki/wiki-completion.test.ts",
+  "source_path": "tests/wiki/wiki-completion.test.ts",
+  "ts": "2026-09-19T21:23:10Z"
+}

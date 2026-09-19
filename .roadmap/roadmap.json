@@ -7,11 +7,11 @@
     "run": {
       "run_id": "RUN-0001",
       "status": "success",
-      "last_event_seq": 1619,
-      "projection_hash_sha256": "4c238497ba2b4773112f7d0e800fcd7b51aabe0658e8fafb55b851e5e96fa1cc",
+      "last_event_seq": 1775,
+      "projection_hash_sha256": "26997cc481ba23f0eceed6c388f600a2ca21b0e8bfc6c6ee713adb7c592595d6",
       "verify_status": "ok"
     },
-    "updated_at": "2026-09-19T20:51:08Z"
+    "updated_at": "2026-09-19T22:08:02Z"
   },
   "project": {
     "name": "MD Studio",
@@ -4963,16 +4963,862 @@
         ]
       },
       "completed_at": "2026-09-19T20:51:08Z"
+    },
+    {
+      "task_id": "MD-WIKI-001",
+      "task_kind": "impl",
+      "title": "Onda2: Wiki resolve engine (índice → path)",
+      "description": "# Onda 2 — Wiki Links | MD-WIKI-001\n**Agente executor.** Task ESAA em `todo`. Claim → implement → prove → complete.\n**WBS:** `docs/onda2/WBS-ONDA-2-WIKI-LINKS-v1.0.md`\n**Repo:** `/home/elzobrito/desenvolvimento/md-studio`\n**Pré:** Foundation done. **Proibido:** grafo, backlinks UI, reparse inventado (reusar parser Onda 1).\n\n## Regras\n1. Paths reais — `rg`/`find` antes de criar paralelo.\n2. Path fence / workspace root — sem escapar do workspace.\n3. Não quebrar 0B/0C/Foundation tests.\n4. Dark/light se houver UI.\n5. Done só com verify + evidência em `docs/qa/` quando aplicável.\n\n\n## Objetivo\nMotor de resolução: dado `target` de um `WikiLink`, achar o `.md` no `MetadataIndex` ou marcar unresolved.\n\n## Trabalho\n1. Em `md-studio-core` (módulo index), implementar resolução com ordem documentada, ex.:\n   1. path relativo exato (com ou sem `.md`)\n   2. stem do arquivo == target (case-fold configurável; default case-insensitive em Linux? **documentar escolha** — preferir case-sensitive no path, case-insensitive no título/stem se houver colisão → lista)\n   3. título (`DocumentMetadata.title`) == target\n2. Tipo `ResolvedWikiLink { target, alias, line, status: Resolved|Unresolved, path: Option<PathBuf> }`\n3. API no índice: `resolve_wiki_link(target) -> …` e `resolve_all(doc) -> Vec<ResolvedWikiLink>`\n4. Testes unitários Rust: hit path, hit title, miss, alias ignorado na resolução (alias só display), colisão documentada\n\n## Artefatos\n- NEW/MOD sob `src-tauri/crates/md-studio-core/src/index/`\n- Testes no crate core\n\n## Fora\nIPC, UI, preview.\n\n## AC\n- [ ] Regras de resolve documentadas no código ou `docs/onda2/resolve-rules.md`\n- [ ] Resolved vs Unresolved cobertos por testes\n- [ ] Sem I/O fora do índice (resolve é puro sobre o index)\n\n**Verify:** `wiki_resolve_engine_pass`\n\n\nCópia local: docs/onda2/MD-WIKI-001-FULL.md",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "MD-WIKI-001",
+        "onda2",
+        "W2-A",
+        "wiki_resolve_engine_pass"
+      ],
+      "outputs": {
+        "files": [
+          "src-tauri/crates/md-studio-core/src/index/wiki_resolve.rs",
+          "docs/onda2/resolve-rules.md"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src-tauri/crates/md-studio-core/**",
+        "docs/onda2/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Regras de resolução documentadas",
+        "Resolved/Unresolved cobertos por testes Rust",
+        "Resolve puro sobre MetadataIndex",
+        "Verify: wiki_resolve_engine_pass"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-19T21:14:59Z",
+      "verification": {
+        "checks": [
+          "cargo test --manifest-path src-tauri/crates/md-studio-core/Cargo.toml: 38 passed",
+          "wiki_resolve_engine_pass: 4 testes dedicados passaram"
+        ]
+      },
+      "completed_at": "2026-09-19T21:16:44Z"
+    },
+    {
+      "task_id": "MD-WIKI-002",
+      "task_kind": "impl",
+      "title": "Onda2: IPC resolve + tipos/hooks FE",
+      "description": "# Onda 2 — Wiki Links | MD-WIKI-002\n**Agente executor.** Task ESAA em `todo`. Claim → implement → prove → complete.\n**WBS:** `docs/onda2/WBS-ONDA-2-WIKI-LINKS-v1.0.md`\n**Repo:** `/home/elzobrito/desenvolvimento/md-studio`\n**Pré:** Foundation done. **Proibido:** grafo, backlinks UI, reparse inventado (reusar parser Onda 1).\n\n## Regras\n1. Paths reais — `rg`/`find` antes de criar paralelo.\n2. Path fence / workspace root — sem escapar do workspace.\n3. Não quebrar 0B/0C/Foundation tests.\n4. Dark/light se houver UI.\n5. Done só com verify + evidência em `docs/qa/` quando aplicável.\n\n\n## Objetivo\nExpor resolução via Tauri IPC + tipos/hooks FE.\n\n## Depende\nMD-WIKI-001\n\n## Trabalho\n1. Comandos (nomes finais via generate_handler existente em metadata):\n   - `resolve_wiki_link { target }`\n   - `get_resolved_wiki_links_for { path }` (outgoing enriquecido)\n   - opcional: `list_unresolved_wiki_links` (workspace)\n2. Atualizar `src/types/metadata.ts` com `ResolvedWikiLink` / status\n3. `src/lib/ipc/metadata.ts` + `useMetadata` (ou hook dedicado `useWikiLinks`)\n4. Não quebrar comandos já existentes (`get_wiki_links_for` pode permanecer como raw parse)\n\n## Artefatos\n- MOD: `src-tauri/src/commands/metadata.rs` (+ lib.rs handler)\n- MOD: types/ipc/hooks FE\n\n## AC\n- [ ] FE consegue listar outgoing resolved/unresolved do doc atual\n- [ ] Tipos camelCase alinhados ao serde Rust\n- [ ] Teste smoke IPC ou unit do comando\n\n**Verify:** `wiki_resolve_ipc_pass`\n\n\nCópia local: docs/onda2/MD-WIKI-002-FULL.md",
+      "status": "done",
+      "depends_on": [
+        "MD-WIKI-001"
+      ],
+      "targets": [
+        "MD-WIKI-002",
+        "onda2",
+        "W2-A",
+        "wiki_resolve_ipc_pass"
+      ],
+      "outputs": {
+        "files": [
+          "src-tauri/src/commands/metadata.rs",
+          "src/types/metadata.ts",
+          "src/lib/ipc/metadata.ts"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src-tauri/src/**",
+        "src/types/**",
+        "src/lib/ipc/**",
+        "src/hooks/**",
+        "docs/onda2/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "IPC retorna outgoing resolved/unresolved",
+        "Tipos FE camelCase alinhados",
+        "Comandos antigos intactos",
+        "Verify: wiki_resolve_ipc_pass"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-19T21:16:53Z",
+      "verification": {
+        "checks": [
+          "cargo check --manifest-path src-tauri/Cargo.toml: pass (um warning preexistente de dead_code)",
+          "pnpm typecheck: pass",
+          "tests/foundation/metadata.test.ts: 22 passed"
+        ]
+      },
+      "completed_at": "2026-09-19T21:17:54Z"
+    },
+    {
+      "task_id": "MD-WIKI-003",
+      "task_kind": "impl",
+      "title": "Onda2: Preview render [[wiki]] navegável",
+      "description": "# Onda 2 — Wiki Links | MD-WIKI-003\n**Agente executor.** Task ESAA em `todo`. Claim → implement → prove → complete.\n**WBS:** `docs/onda2/WBS-ONDA-2-WIKI-LINKS-v1.0.md`\n**Repo:** `/home/elzobrito/desenvolvimento/md-studio`\n**Pré:** Foundation done. **Proibido:** grafo, backlinks UI, reparse inventado (reusar parser Onda 1).\n\n## Regras\n1. Paths reais — `rg`/`find` antes de criar paralelo.\n2. Path fence / workspace root — sem escapar do workspace.\n3. Não quebrar 0B/0C/Foundation tests.\n4. Dark/light se houver UI.\n5. Done só com verify + evidência em `docs/qa/` quando aplicável.\n\n\n## Objetivo\nPreview renderiza `[[Target]]` / `[[Target|Alias]]` como elementos clicáveis (não texto cru).\n\n## Depende\nMD-WIKI-002 (para classes resolved/unresolved se a resolução for no FE; se o plugin só emite `data-wiki-target`, a resolução pode ser lazy no click — preferir marcar status se barato)\n\n## Trabalho\n1. Plugin remark/micromark/rehype em `src/markdown/plugins/` integrado em `processor.ts`\n2. HTML sugerido: `<a class=\"wiki-link is-resolved|is-unresolved\" data-wiki-target=\"…\" href=\"#\">label</a>`\n3. Não quebrar sanitize (`sanitize.ts`) — allowlist de class/data attrs\n4. Testes do processor com fixtures `[[A]]` e `[[A|B]]`\n\n## Artefatos\n- NEW plugin + MOD processor/sanitize\n- Testes em `tests/markdown/` ou equivalente\n\n## AC\n- [ ] Preview mostra label (alias ou target)\n- [ ] Unresolved com estilo distinto (CSS)\n- [ ] Sanitize não stripa o link\n\n**Verify:** `wiki_preview_render_pass`\n\n\nCópia local: docs/onda2/MD-WIKI-003-FULL.md",
+      "status": "done",
+      "depends_on": [
+        "MD-WIKI-002"
+      ],
+      "targets": [
+        "MD-WIKI-003",
+        "onda2",
+        "W2-B",
+        "wiki_preview_render_pass"
+      ],
+      "outputs": {
+        "files": [
+          "src/markdown/plugins/wiki-links.ts",
+          "src/markdown/processor.ts"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src/markdown/**",
+        "src/styles/**",
+        "tests/**",
+        "docs/onda2/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "[[Target]] e [[Target|Alias]] renderizam no preview",
+        "Unresolved com estilo distinto",
+        "Sanitize preserva data attrs",
+        "Verify: wiki_preview_render_pass"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-19T21:18:04Z",
+      "verification": {
+        "checks": [
+          "tests/markdown/core/processor.test.ts: 5 passed, incluindo resolved/unresolved, alias e code literal",
+          "pnpm typecheck: pass"
+        ]
+      },
+      "completed_at": "2026-09-19T21:20:11Z"
+    },
+    {
+      "task_id": "MD-WIKI-004",
+      "task_kind": "impl",
+      "title": "Onda2: Click preview abre doc / unresolved",
+      "description": "# Onda 2 — Wiki Links | MD-WIKI-004\n**Agente executor.** Task ESAA em `todo`. Claim → implement → prove → complete.\n**WBS:** `docs/onda2/WBS-ONDA-2-WIKI-LINKS-v1.0.md`\n**Repo:** `/home/elzobrito/desenvolvimento/md-studio`\n**Pré:** Foundation done. **Proibido:** grafo, backlinks UI, reparse inventado (reusar parser Onda 1).\n\n## Regras\n1. Paths reais — `rg`/`find` antes de criar paralelo.\n2. Path fence / workspace root — sem escapar do workspace.\n3. Não quebrar 0B/0C/Foundation tests.\n4. Dark/light se houver UI.\n5. Done só com verify + evidência em `docs/qa/` quando aplicável.\n\n\n## Objetivo\nClique no wiki link do preview navega ou sinaliza unresolved.\n\n## Depende\nMD-WIKI-003\n\n## Trabalho\n1. Em `MarkdownViewer` (ou container pai): delegação de click em `.wiki-link`\n2. Resolved → abrir documento no app (mesmo caminho de open file interno / `onOpenRelative`)\n3. Unresolved → emitir evento/callback `onUnresolvedWiki(target)` (criar na 007; por enquanto toast/dialog stub OK se 007 ainda não merged — preferir callback tipado)\n4. Não navegar href externo; `preventDefault`\n\n## Artefatos\n- MOD: `src/components/MarkdownViewer.tsx` (+ App wiring)\n\n## AC\n- [ ] Click resolved abre o md correto\n- [ ] Click unresolved não quebra; callback disparado\n- [ ] Path fence respeitado\n\n**Verify:** `wiki_preview_nav_pass`\n\n\nCópia local: docs/onda2/MD-WIKI-004-FULL.md",
+      "status": "done",
+      "depends_on": [
+        "MD-WIKI-003"
+      ],
+      "targets": [
+        "MD-WIKI-004",
+        "onda2",
+        "W2-B",
+        "wiki_preview_nav_pass"
+      ],
+      "outputs": {
+        "files": [
+          "src/components/MarkdownViewer.tsx"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src/components/**",
+        "src/App.tsx",
+        "tests/**",
+        "docs/onda2/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Click resolved abre markdown no app",
+        "Unresolved dispara callback tipado",
+        "Sem navegação href externa indevida",
+        "Verify: wiki_preview_nav_pass"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-19T21:20:20Z",
+      "verification": {
+        "checks": [
+          "pnpm typecheck: pass",
+          "processor wiki tests: 5 passed",
+          "preventDefault e stopPropagation aplicados a todo a.wiki-link"
+        ]
+      },
+      "completed_at": "2026-09-19T21:21:19Z"
+    },
+    {
+      "task_id": "MD-WIKI-005",
+      "task_kind": "impl",
+      "title": "Onda2: Autocomplete [[ no CodeMirror",
+      "description": "# Onda 2 — Wiki Links | MD-WIKI-005\n**Agente executor.** Task ESAA em `todo`. Claim → implement → prove → complete.\n**WBS:** `docs/onda2/WBS-ONDA-2-WIKI-LINKS-v1.0.md`\n**Repo:** `/home/elzobrito/desenvolvimento/md-studio`\n**Pré:** Foundation done. **Proibido:** grafo, backlinks UI, reparse inventado (reusar parser Onda 1).\n\n## Regras\n1. Paths reais — `rg`/`find` antes de criar paralelo.\n2. Path fence / workspace root — sem escapar do workspace.\n3. Não quebrar 0B/0C/Foundation tests.\n4. Dark/light se houver UI.\n5. Done só com verify + evidência em `docs/qa/` quando aplicável.\n\n\n## Objetivo\nAutocomplete no editor ao digitar `[[`.\n\n## Depende\nMD-WIKI-002 (lista de docs do índice)\n\n## Trabalho\n1. Extensão CodeMirror 6 (completion source) em `src/editor/` \n2. Trigger: após `[[` até `]]` ou cursor\n3. Candidatos: títulos/stems/paths relativos do `get_all_documents` (cache leve)\n4. Inserção: `[[Target]]` ou completa target; alias manual depois\n5. Convivência com slash menu / formatting toolbar da 0B (sem roubar teclas)\n\n## Artefatos\n- NEW completion module + wire no MarkdownEditor\n- Teste unitário do filtro de candidatos se puro TS\n\n## AC\n- [ ] `[[` abre completions\n- [ ] Escolher item insere wiki link válido\n- [ ] Esc fecha; não regressa slash `/`\n\n**Verify:** `wiki_editor_autocomplete_pass`\n\n\nCópia local: docs/onda2/MD-WIKI-005-FULL.md",
+      "status": "done",
+      "depends_on": [
+        "MD-WIKI-002"
+      ],
+      "targets": [
+        "MD-WIKI-005",
+        "onda2",
+        "W2-B",
+        "wiki_editor_autocomplete_pass"
+      ],
+      "outputs": {
+        "files": [
+          "src/editor/wiki/wiki-completion.ts"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src/editor/**",
+        "src/components/**",
+        "tests/**",
+        "docs/onda2/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "[[ abre completions do índice",
+        "Inserção gera wiki link válido",
+        "Sem regressão slash menu 0B",
+        "Verify: wiki_editor_autocomplete_pass"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-19T21:21:29Z",
+      "verification": {
+        "checks": [
+          "pnpm typecheck: pass",
+          "wiki completion + slash regression: 12 passed"
+        ]
+      },
+      "completed_at": "2026-09-19T21:23:11Z"
+    },
+    {
+      "task_id": "MD-WIKI-006",
+      "task_kind": "impl",
+      "title": "Onda2: Painel outgoing links (doc atual)",
+      "description": "# Onda 2 — Wiki Links | MD-WIKI-006\n**Agente executor.** Task ESAA em `todo`. Claim → implement → prove → complete.\n**WBS:** `docs/onda2/WBS-ONDA-2-WIKI-LINKS-v1.0.md`\n**Repo:** `/home/elzobrito/desenvolvimento/md-studio`\n**Pré:** Foundation done. **Proibido:** grafo, backlinks UI, reparse inventado (reusar parser Onda 1).\n\n## Regras\n1. Paths reais — `rg`/`find` antes de criar paralelo.\n2. Path fence / workspace root — sem escapar do workspace.\n3. Não quebrar 0B/0C/Foundation tests.\n4. Dark/light se houver UI.\n5. Done só com verify + evidência em `docs/qa/` quando aplicável.\n\n\n## Objetivo\nPainel “Links” do documento atual: lista outgoing resolved/unresolved (NÃO backlinks).\n\n## Depende\nMD-WIKI-002\n\n## Trabalho\n1. UI no right panel (aba ao lado de Sumário) ou seção colapsável — reusar padrões 0C\n2. Lista: label, status badge, click → open ou unresolved action\n3. Empty state: “Nenhum wiki link neste documento”\n4. Atualiza ao trocar doc / após reindex\n\n## Artefatos\n- NEW component ex. `src/components/wiki/OutgoingLinksPanel.tsx`\n- MOD right panel shell\n\n## Fora\nBacklinks, grafo, filtro workspace-wide (pode ser follow-up)\n\n## AC\n- [ ] Lista outgoing correta vs índice\n- [ ] Click resolved abre\n- [ ] Unresolved distinguível\n- [ ] Dark/light OK\n\n**Verify:** `wiki_outgoing_panel_pass`\n\n\nCópia local: docs/onda2/MD-WIKI-006-FULL.md",
+      "status": "done",
+      "depends_on": [
+        "MD-WIKI-002"
+      ],
+      "targets": [
+        "MD-WIKI-006",
+        "onda2",
+        "W2-B",
+        "wiki_outgoing_panel_pass"
+      ],
+      "outputs": {
+        "files": [
+          "src/components/wiki/OutgoingLinksPanel.tsx"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src/components/**",
+        "src/styles/**",
+        "tests/**",
+        "docs/onda2/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Lista outgoing resolved/unresolved do doc atual",
+        "Click resolved abre",
+        "SEM backlinks/grafo",
+        "Verify: wiki_outgoing_panel_pass"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-19T21:23:20Z",
+      "verification": {
+        "checks": [
+          "pnpm typecheck: pass",
+          "metadata + processor regression: 27 passed",
+          "dark/light usa somente tokens de tema existentes"
+        ]
+      },
+      "completed_at": "2026-09-19T21:24:04Z"
+    },
+    {
+      "task_id": "MD-WIKI-007",
+      "task_kind": "impl",
+      "title": "Onda2: Criar nota a partir de unresolved",
+      "description": "# Onda 2 — Wiki Links | MD-WIKI-007\n**Agente executor.** Task ESAA em `todo`. Claim → implement → prove → complete.\n**WBS:** `docs/onda2/WBS-ONDA-2-WIKI-LINKS-v1.0.md`\n**Repo:** `/home/elzobrito/desenvolvimento/md-studio`\n**Pré:** Foundation done. **Proibido:** grafo, backlinks UI, reparse inventado (reusar parser Onda 1).\n\n## Regras\n1. Paths reais — `rg`/`find` antes de criar paralelo.\n2. Path fence / workspace root — sem escapar do workspace.\n3. Não quebrar 0B/0C/Foundation tests.\n4. Dark/light se houver UI.\n5. Done só com verify + evidência em `docs/qa/` quando aplicável.\n\n\n## Objetivo\nCriar `.md` a partir de wiki link unresolved (preview ou painel ou autocomplete “criar novo”).\n\n## Depende\nMD-WIKI-004, MD-WIKI-005\n\n## Trabalho\n1. Dialog confirma: nome arquivo (slug do target), pasta default = dir do doc atual ou root workspace\n2. Criar arquivo via comando Tauri existente de save/create (reusar; não inventar IO inseguro)\n3. Conteúdo inicial: `# {title}\\n\\n`\n4. Reindex incremental / trigger + abrir o novo doc\n5. Opcional: substituir seleção unresolved — não obrigatório nesta task\n\n## Segurança\n- Só dentro do workspace; sanitize nome de arquivo; sem `..`\n\n## AC\n- [ ] Unresolved → criar → arquivo no disco → abre no editor\n- [ ] Índice atualiza (link passa a resolved após reindex)\n- [ ] Cancelar não cria nada\n\n**Verify:** `wiki_create_from_link_pass`\n\n\nCópia local: docs/onda2/MD-WIKI-007-FULL.md",
+      "status": "done",
+      "depends_on": [
+        "MD-WIKI-004",
+        "MD-WIKI-005"
+      ],
+      "targets": [
+        "MD-WIKI-007",
+        "onda2",
+        "W2-C",
+        "wiki_create_from_link_pass"
+      ],
+      "outputs": {
+        "files": [
+          "src/components/wiki/CreateNoteFromWiki.tsx"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src/components/**",
+        "src-tauri/src/**",
+        "src/lib/**",
+        "tests/**",
+        "docs/onda2/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Dialog cria .md só dentro do workspace",
+        "Reindex + abre o novo doc",
+        "Nome sanitizado sem ..",
+        "Verify: wiki_create_from_link_pass"
+      ],
+      "required_review_mode": "security",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-19T21:24:14Z",
+      "verification": {
+        "checks": [
+          "pnpm typecheck: pass",
+          "create-note tests: 2 passed",
+          "workspace path fence Rust: 3 passed"
+        ]
+      },
+      "completed_at": "2026-09-19T21:26:11Z"
+    },
+    {
+      "task_id": "MD-WIKI-008",
+      "task_kind": "qa",
+      "title": "Onda2: QA Wiki Links + regressão",
+      "description": "# Onda 2 — Wiki Links | MD-WIKI-008\n**Agente executor.** Task ESAA em `todo`. Claim → implement → prove → complete.\n**WBS:** `docs/onda2/WBS-ONDA-2-WIKI-LINKS-v1.0.md`\n**Repo:** `/home/elzobrito/desenvolvimento/md-studio`\n**Pré:** Foundation done. **Proibido:** grafo, backlinks UI, reparse inventado (reusar parser Onda 1).\n\n## Regras\n1. Paths reais — `rg`/`find` antes de criar paralelo.\n2. Path fence / workspace root — sem escapar do workspace.\n3. Não quebrar 0B/0C/Foundation tests.\n4. Dark/light se houver UI.\n5. Done só com verify + evidência em `docs/qa/` quando aplicável.\n\n\n## Objetivo\nGate de encerramento da Onda 2.\n\n## Depende\nMD-WIKI-001…007\n\n## Checklist\n- [ ] Resolve rules + testes Rust\n- [ ] IPC + FE types\n- [ ] Preview render + nav\n- [ ] Autocomplete [[\n- [ ] Outgoing panel\n- [ ] Create from unresolved\n- [ ] Regressão: `pnpm test`, typecheck, cargo test relevantes\n- [ ] Regressão manual: 0B guided md, 0C polish, splash, open from OS\n- [ ] Sem UI de grafo/backlinks\n- [ ] Evidência: `docs/qa/onda2-wiki-links.md`\n\n**Verify:** `onda_2_wiki_links_complete`\n\n\nCópia local: docs/onda2/MD-WIKI-008-FULL.md",
+      "status": "done",
+      "depends_on": [
+        "MD-WIKI-001",
+        "MD-WIKI-002",
+        "MD-WIKI-003",
+        "MD-WIKI-004",
+        "MD-WIKI-005",
+        "MD-WIKI-006",
+        "MD-WIKI-007"
+      ],
+      "targets": [
+        "MD-WIKI-008",
+        "onda2",
+        "W2-D",
+        "onda_2_wiki_links_complete"
+      ],
+      "outputs": {
+        "files": [
+          "docs/qa/onda2-wiki-links.md"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "docs/qa/**",
+        "docs/onda2/**",
+        "tests/**",
+        "src/**",
+        "src-tauri/**"
+      ],
+      "task_type": "audit",
+      "acceptance_criteria": [
+        "Checklist WBS completo",
+        "pnpm test / typecheck / cargo test relevantes verdes",
+        "Sem grafo/backlinks; regressão 0B/0C/Foundation OK",
+        "Verify: onda_2_wiki_links_complete"
+      ],
+      "required_review_mode": "regression",
+      "assigned_to": "agent-qa",
+      "started_at": "2026-09-19T21:26:28Z",
+      "verification": {
+        "checks": [
+          "pnpm test: 30 files, 177 passed",
+          "pnpm typecheck: pass",
+          "pnpm build: pass, 797 modules transformed",
+          "cargo test app: 6 passed; cargo test core: 38 passed",
+          "visual: page/content/controls, wiki alias, unresolved dialog e cancelamento verificados",
+          "git diff --check: pass; sem backlinks/grafo"
+        ]
+      },
+      "completed_at": "2026-09-19T21:29:36Z"
+    },
+    {
+      "task_id": "MD-HOTFIX-CURSOR-001",
+      "task_kind": "impl",
+      "title": "Hotfix: restaurar cursor visível e piscante no editor Markdown",
+      "description": "Corrigir o caret do CodeMirror 6, que fica invisível ao editar .md. Adicionar drawSelection/cursor explícito com cor de alto contraste nos temas, preservar acessibilidade prefers-reduced-motion mantendo cursor estático visível, testar configuração e registrar evidência visual. Não alterar comportamento de edição fora do cursor.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "MD-HOTFIX-CURSOR-001",
+        "editor-cursor-visible"
+      ],
+      "outputs": {
+        "files": [
+          "src/components/MarkdownEditor.tsx",
+          "src/styles/themes.css",
+          "tests/editor/cursor.test.ts",
+          "docs/qa/hotfix-editor-cursor.md"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src/components/**",
+        "src/styles/**",
+        "tests/**",
+        "docs/qa/**"
+      ],
+      "task_type": "hotfix",
+      "acceptance_criteria": [
+        "Cursor é claramente visível no foco em tema escuro e claro",
+        "Cursor pisca quando movimento não é reduzido",
+        "Em prefers-reduced-motion o cursor permanece visível sem depender da animação",
+        "Testes, typecheck e verificação visual aprovados"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-19T21:37:25Z",
+      "verification": {
+        "checks": [
+          "pnpm test: 31 files, 178 passed",
+          "pnpm typecheck: pass",
+          "pnpm build: pass",
+          "visual dark/light: caret amarelo/azul visível; capturas consecutivas confirmaram blink",
+          "git diff --check: pass"
+        ]
+      },
+      "completed_at": "2026-09-19T21:41:12Z"
+    },
+    {
+      "task_id": "MD-BACKLINK-000",
+      "task_kind": "spec",
+      "title": "Onda3: Governança v1 + consolidar Onda 2 no Git",
+      "description": "# Onda 3 — Backlinks v3.1 | MD-BACKLINK-000\n**Executor externo.** Claim → implement → prove → complete.\n**WBS:** `docs/onda3/WBS-ONDA-3-BACKLINKS-v3.1.md`\n**Repo:** `/home/elzobrito/desenvolvimento/md-studio`\n**Proibido:** grafo, segundo watcher, status `collision`, campo `column`, persistência própria do índice, alterar Onda 2 resolver.\n\n## Regras globais\n1. Confirmar paths com `rg`/`find` (OutgoingLinksPanel, wiki_resolve, ReindexEngine).\n2. Só indexar `Resolved`; excluir self-links; Ambiguous/Unresolved fora.\n3. Contexto sob demanda; falha → context null.\n4. Não misturar commit Onda 2 com código de backlinks.\n5. Done = AC + verify + evidência quando aplicável.\n\n\n## Objetivo\nEmendar norma v1 e consolidar Onda 2 no Git. **Bloqueante** — sem isto, 001+ não elegíveis.\n\n## Trabalho\n1. Emendar `PROJETO.md`: backlinks de Wiki Links internos **entram** na v1; Knowledge Graph **fora** da v1 (Onda 4).\n2. Emendar `docs/spec/G01-contrato-do-produto-e-conjunto-de-prds.md` com a mesma decisão (remover backlinks da lista de exclusões da v1; manter grafo excluído).\n3. Revisar working tree da Onda 2; incluir `docs/qa/onda2-wiki-links.md` se ainda não commitado.\n4. Commit **exclusivo** Onda 2 (não misturar backlinks). Push conforme política do repo.\n5. Registrar hash do commit em `docs/onda3/onda2-commit-gate.md`.\n6. `git status` pós-consolidação documentado.\n\n## Fora\nImplementar backlinks; mudar comportamento wiki.\n\n## AC\n- [ ] PROJETO + G01 coerentes (backlinks in, grafo out)\n- [ ] Onda 2 em commit próprio; hash registrado\n- [ ] Sem código de backlink neste commit\n- [ ] Status inspecionado antes da 001\n\n**Verify:** `md_backlink_000_governance_pass`\n\n\nCópia local: docs/onda3/MD-BACKLINK-000-FULL.md",
+      "status": "todo",
+      "depends_on": [],
+      "targets": [
+        "MD-BACKLINK-000",
+        "onda3",
+        "B3-0",
+        "md_backlink_000_governance_pass"
+      ],
+      "outputs": {
+        "files": [
+          "PROJETO.md",
+          "docs/spec/G01-contrato-do-produto-e-conjunto-de-prds.md",
+          "docs/onda3/onda2-commit-gate.md"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "PROJETO.md",
+        "docs/spec/**",
+        "docs/onda3/**",
+        "docs/qa/**"
+      ],
+      "task_type": "governance",
+      "acceptance_criteria": [
+        "PROJETO+G01: backlinks wiki na v1; grafo fora",
+        "Onda 2 em commit próprio com hash registrado",
+        "Sem código de backlink no commit 000",
+        "Verify: md_backlink_000_governance_pass"
+      ],
+      "required_review_mode": "governance"
+    },
+    {
+      "task_id": "MD-BACKLINK-001",
+      "task_kind": "spec",
+      "title": "Onda3: Contrato Backlinks + mapa do repositório",
+      "description": "# Onda 3 — Backlinks v3.1 | MD-BACKLINK-001\n**Executor externo.** Claim → implement → prove → complete.\n**WBS:** `docs/onda3/WBS-ONDA-3-BACKLINKS-v3.1.md`\n**Repo:** `/home/elzobrito/desenvolvimento/md-studio`\n**Proibido:** grafo, segundo watcher, status `collision`, campo `column`, persistência própria do índice, alterar Onda 2 resolver.\n\n## Regras globais\n1. Confirmar paths com `rg`/`find` (OutgoingLinksPanel, wiki_resolve, ReindexEngine).\n2. Só indexar `Resolved`; excluir self-links; Ambiguous/Unresolved fora.\n3. Contexto sob demanda; falha → context null.\n4. Não misturar commit Onda 2 com código de backlinks.\n5. Done = AC + verify + evidência quando aplicável.\n\n\n## Objetivo\nMapear paths reais e congelar contrato em `docs/architecture/backlinks-contract.md`.\n\n## Depende\nMD-BACKLINK-000\n\n## Trabalho\n1. Mapear: WikiLink, WikiLinkStatus, wiki_resolve, MetadataIndex, ReindexEngine, save_document, watcher, IPC wiki, TS types/hooks, OutgoingLinksPanel, painel direito, go-to-line, testes Onda 2.\n2. Contrato: Resolved only; Unresolved/Ambiguous out; self-link excluído; sem column; line base 1 pública; context Option + read-on-demand; sem persistência própria; ordenação grupos title CI / path, ocorrências line ASC; segundo watcher proibido.\n3. Tipos Rust/TS alinhados ao WBS §9.\n\n## AC\n- [ ] Paths reais no contrato\n- [ ] Todas decisões §5 do WBS 3.1 escritas\n- [ ] Sem módulos paralelos criados nesta task\n\n**Verify:** `md_backlink_001_contract_pass`\n\n\nCópia local: docs/onda3/MD-BACKLINK-001-FULL.md",
+      "status": "todo",
+      "depends_on": [
+        "MD-BACKLINK-000"
+      ],
+      "targets": [
+        "MD-BACKLINK-001",
+        "onda3",
+        "B3-A",
+        "md_backlink_001_contract_pass"
+      ],
+      "outputs": {
+        "files": [
+          "docs/architecture/backlinks-contract.md"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "docs/architecture/**",
+        "docs/onda3/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Paths reais mapeados",
+        "Resolved-only; Ambiguous/Unresolved out; self-link excluído",
+        "Context on-demand; sem column; sem 2º watcher",
+        "Verify: md_backlink_001_contract_pass"
+      ],
+      "required_review_mode": "docs"
+    },
+    {
+      "task_id": "MD-BACKLINK-002",
+      "task_kind": "impl",
+      "title": "Onda3: Reverse Link Index (só Resolved)",
+      "description": "# Onda 3 — Backlinks v3.1 | MD-BACKLINK-002\n**Executor externo.** Claim → implement → prove → complete.\n**WBS:** `docs/onda3/WBS-ONDA-3-BACKLINKS-v3.1.md`\n**Repo:** `/home/elzobrito/desenvolvimento/md-studio`\n**Proibido:** grafo, segundo watcher, status `collision`, campo `column`, persistência própria do índice, alterar Onda 2 resolver.\n\n## Regras globais\n1. Confirmar paths com `rg`/`find` (OutgoingLinksPanel, wiki_resolve, ReindexEngine).\n2. Só indexar `Resolved`; excluir self-links; Ambiguous/Unresolved fora.\n3. Contexto sob demanda; falha → context null.\n4. Não misturar commit Onda 2 com código de backlinks.\n5. Done = AC + verify + evidência quando aplicável.\n\n\n## Objetivo\nReverse Link Index no core Rust; só Resolved; sem armazenar context.\n\n## Depende\nMD-BACKLINK-001\n\n## Trabalho\n1. `BacklinkIndex` com rebuild, backlinks_for, replace_source (idempotente), remove_source.\n2. Reusar `MetadataIndex::resolve_*` — não duplicar regras.\n3. Self-link detectado e descartado antes do store público.\n4. Testes Rust listados no WBS (alias, ambiguous, unresolved, unicode, empty, idempotência, path fence via integração existente).\n\n## AC\n- [ ] Só Resolved indexado; self-links fora\n- [ ] replace_source remove arestas antigas antes de inserir\n- [ ] Sem column / sem collision enum\n- [ ] Testes Rust verdes\n\n**Verify:** `md_backlink_002_index_pass`\n\n\nCópia local: docs/onda3/MD-BACKLINK-002-FULL.md",
+      "status": "todo",
+      "depends_on": [
+        "MD-BACKLINK-001"
+      ],
+      "targets": [
+        "MD-BACKLINK-002",
+        "onda3",
+        "B3-A",
+        "md_backlink_002_index_pass"
+      ],
+      "outputs": {
+        "files": [
+          "src-tauri/crates/md-studio-core/src/index/backlink_index.rs"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src-tauri/crates/md-studio-core/**",
+        "docs/onda3/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Reusa resolver Onda 2",
+        "Self-links excluídos; replace_source idempotente",
+        "Testes Rust do WBS verdes",
+        "Verify: md_backlink_002_index_pass"
+      ],
+      "required_review_mode": "functional"
+    },
+    {
+      "task_id": "MD-BACKLINK-003",
+      "task_kind": "impl",
+      "title": "Onda3: Incremental via reindex/save/watcher existentes",
+      "description": "# Onda 3 — Backlinks v3.1 | MD-BACKLINK-003\n**Executor externo.** Claim → implement → prove → complete.\n**WBS:** `docs/onda3/WBS-ONDA-3-BACKLINKS-v3.1.md`\n**Repo:** `/home/elzobrito/desenvolvimento/md-studio`\n**Proibido:** grafo, segundo watcher, status `collision`, campo `column`, persistência própria do índice, alterar Onda 2 resolver.\n\n## Regras globais\n1. Confirmar paths com `rg`/`find` (OutgoingLinksPanel, wiki_resolve, ReindexEngine).\n2. Só indexar `Resolved`; excluir self-links; Ambiguous/Unresolved fora.\n3. Contexto sob demanda; falha → context null.\n4. Não misturar commit Onda 2 com código de backlinks.\n5. Done = AC + verify + evidência quando aplicável.\n\n\n## Objetivo\nPendurar BacklinkIndex em load/rebuild, reindex_file, save_document e watcher **existentes**.\n\n## Depende\nMD-BACKLINK-002\n\n## Trabalho\n1. Após metadata atualizar → `replace_source` / `remove_source`.\n2. Criação de nota unresolved → atualiza relação.\n3. Erro de backlink não bloqueia save; log sem panic.\n4. Sem segundo watcher / segundo pipeline.\n5. Testes: add/remove link+save, retarget A→B, create unresolved target, external delete, no dupes, rebuild≡incremental.\n\n## AC\n- [ ] Hooks reais usados\n- [ ] Sem watcher duplicado\n- [ ] Idempotente sob multi-save\n- [ ] Testes incrementais verdes\n\n**Verify:** `md_backlink_003_incremental_pass`\n\n\nCópia local: docs/onda3/MD-BACKLINK-003-FULL.md",
+      "status": "todo",
+      "depends_on": [
+        "MD-BACKLINK-002"
+      ],
+      "targets": [
+        "MD-BACKLINK-003",
+        "onda3",
+        "B3-A",
+        "md_backlink_003_incremental_pass"
+      ],
+      "outputs": {
+        "files": [
+          "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs",
+          "src-tauri/src/commands/mod.rs"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src-tauri/**",
+        "docs/onda3/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Sem segundo watcher",
+        "Save/watcher/unresolved-create atualizam índice",
+        "Sem duplicar sob multi-save; erro não bloqueia save",
+        "Verify: md_backlink_003_incremental_pass"
+      ],
+      "required_review_mode": "functional"
+    },
+    {
+      "task_id": "MD-BACKLINK-004",
+      "task_kind": "impl",
+      "title": "Onda3: IPC get_backlinks + contexto sob demanda",
+      "description": "# Onda 3 — Backlinks v3.1 | MD-BACKLINK-004\n**Executor externo.** Claim → implement → prove → complete.\n**WBS:** `docs/onda3/WBS-ONDA-3-BACKLINKS-v3.1.md`\n**Repo:** `/home/elzobrito/desenvolvimento/md-studio`\n**Proibido:** grafo, segundo watcher, status `collision`, campo `column`, persistência própria do índice, alterar Onda 2 resolver.\n\n## Regras globais\n1. Confirmar paths com `rg`/`find` (OutgoingLinksPanel, wiki_resolve, ReindexEngine).\n2. Só indexar `Resolved`; excluir self-links; Ambiguous/Unresolved fora.\n3. Contexto sob demanda; falha → context null.\n4. Não misturar commit Onda 2 com código de backlinks.\n5. Done = AC + verify + evidência quando aplicável.\n\n\n## Objetivo\nIPC `get_backlinks` + contexto sob demanda + tipos/hook FE.\n\n## Depende\nMD-BACKLINK-002, MD-BACKLINK-003\n\n## Trabalho\n1. Comando tipado; path fence no target.\n2. Enriquecer context lendo só lines dos sources indexados; falha → null.\n3. TS interfaces conforme WBS; hook atualiza ao trocar doc.\n4. Sem endpoint summary redundante se BacklinkResult já traz contagens.\n5. Testes IPC / mocks.\n\n## AC\n- [ ] camelCase; empty válido; Ambiguous ausente\n- [ ] context on-demand; null não remove ocorrência\n- [ ] path fora do workspace rejeitado\n- [ ] Hook FE ok\n\n**Verify:** `md_backlink_004_ipc_pass`\n\n\nCópia local: docs/onda3/MD-BACKLINK-004-FULL.md",
+      "status": "todo",
+      "depends_on": [
+        "MD-BACKLINK-002",
+        "MD-BACKLINK-003"
+      ],
+      "targets": [
+        "MD-BACKLINK-004",
+        "onda3",
+        "B3-B",
+        "md_backlink_004_ipc_pass"
+      ],
+      "outputs": {
+        "files": [
+          "src-tauri/src/commands/metadata.rs",
+          "src/types/metadata.ts",
+          "src/lib/ipc/metadata.ts"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src-tauri/src/**",
+        "src/types/**",
+        "src/lib/**",
+        "src/hooks/**",
+        "docs/onda3/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Path fence; empty válido",
+        "Context on-demand; null não remove ocorrência",
+        "Tipos FE alinhados; hook ok",
+        "Verify: md_backlink_004_ipc_pass"
+      ],
+      "required_review_mode": "security"
+    },
+    {
+      "task_id": "MD-BACKLINK-005",
+      "task_kind": "impl",
+      "title": "Onda3: Painel Backlinks no painel direito",
+      "description": "# Onda 3 — Backlinks v3.1 | MD-BACKLINK-005\n**Executor externo.** Claim → implement → prove → complete.\n**WBS:** `docs/onda3/WBS-ONDA-3-BACKLINKS-v3.1.md`\n**Repo:** `/home/elzobrito/desenvolvimento/md-studio`\n**Proibido:** grafo, segundo watcher, status `collision`, campo `column`, persistência própria do índice, alterar Onda 2 resolver.\n\n## Regras globais\n1. Confirmar paths com `rg`/`find` (OutgoingLinksPanel, wiki_resolve, ReindexEngine).\n2. Só indexar `Resolved`; excluir self-links; Ambiguous/Unresolved fora.\n3. Contexto sob demanda; falha → context null.\n4. Não misturar commit Onda 2 com código de backlinks.\n5. Done = AC + verify + evidência quando aplicável.\n\n\n## Objetivo\nAba/seção Backlinks no painel direito (junto Sumário / Links). Sem sidebar nova.\n\n## Depende\nMD-BACKLINK-004\n\n## Trabalho\n1. Estender shell do painel que já hospeda OutgoingLinksPanel + DocumentOutline.\n2. Header: `N documentos · M referências`; grupos por source; line + context.\n3. Estados loading / empty / error+retry; colapso 0C; dark/light; Button compartilhado.\n4. Ordenação = backend.\n\n## AC\n- [ ] Integrado ao painel direito\n- [ ] Contagens distintas docs vs ocorrências\n- [ ] context null não quebra\n- [ ] Sem segunda sidebar\n\n**Verify:** `md_backlink_005_panel_pass`\n\n\nCópia local: docs/onda3/MD-BACKLINK-005-FULL.md",
+      "status": "todo",
+      "depends_on": [
+        "MD-BACKLINK-004"
+      ],
+      "targets": [
+        "MD-BACKLINK-005",
+        "onda3",
+        "B3-B",
+        "md_backlink_005_panel_pass"
+      ],
+      "outputs": {
+        "files": [
+          "src/components/wiki/BacklinksPanel.tsx"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src/components/**",
+        "src/styles/**",
+        "src/App.tsx",
+        "docs/onda3/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Sem sidebar nova",
+        "N docs · M refs; grupos; loading/empty/error",
+        "Dark/light + colapso 0C",
+        "Verify: md_backlink_005_panel_pass"
+      ],
+      "required_review_mode": "functional"
+    },
+    {
+      "task_id": "MD-BACKLINK-006",
+      "task_kind": "impl",
+      "title": "Onda3: Navegação para source + line",
+      "description": "# Onda 3 — Backlinks v3.1 | MD-BACKLINK-006\n**Executor externo.** Claim → implement → prove → complete.\n**WBS:** `docs/onda3/WBS-ONDA-3-BACKLINKS-v3.1.md`\n**Repo:** `/home/elzobrito/desenvolvimento/md-studio`\n**Proibido:** grafo, segundo watcher, status `collision`, campo `column`, persistência própria do índice, alterar Onda 2 resolver.\n\n## Regras globais\n1. Confirmar paths com `rg`/`find` (OutgoingLinksPanel, wiki_resolve, ReindexEngine).\n2. Só indexar `Resolved`; excluir self-links; Ambiguous/Unresolved fora.\n3. Contexto sob demanda; falha → context null.\n4. Não misturar commit Onda 2 com código de backlinks.\n5. Done = AC + verify + evidência quando aplicável.\n\n\n## Objetivo\nClique → abrir source + go-to-line (base 1) + highlight temporário + recent files.\n\n## Depende\nMD-BACKLINK-005\n\n## Trabalho\n1. Compor open-file + go-to-line **existentes** — sem segunda implementação.\n2. Path fence; arquivo ausente → erro seguro; dirty policy existente.\n3. Sem column.\n\n## AC\n- [ ] Line correta; highlight temporário\n- [ ] Recent files atualizado\n- [ ] Ausente/inválido tratados\n- [ ] Source e split ok\n\n**Verify:** `md_backlink_006_navigation_pass`\n\n\nCópia local: docs/onda3/MD-BACKLINK-006-FULL.md",
+      "status": "todo",
+      "depends_on": [
+        "MD-BACKLINK-005"
+      ],
+      "targets": [
+        "MD-BACKLINK-006",
+        "onda3",
+        "B3-C",
+        "md_backlink_006_navigation_pass"
+      ],
+      "outputs": {
+        "files": [
+          "src/components/wiki/BacklinksPanel.tsx"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src/components/**",
+        "src/editor/**",
+        "src/App.tsx",
+        "docs/onda3/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Reusa open+go-to-line existentes",
+        "Highlight temporário; recent files",
+        "Ausente/inválido seguros",
+        "Verify: md_backlink_006_navigation_pass"
+      ],
+      "required_review_mode": "functional"
+    },
+    {
+      "task_id": "MD-BACKLINK-007",
+      "task_kind": "impl",
+      "title": "Onda3: A11y e estados do painel Backlinks",
+      "description": "# Onda 3 — Backlinks v3.1 | MD-BACKLINK-007\n**Executor externo.** Claim → implement → prove → complete.\n**WBS:** `docs/onda3/WBS-ONDA-3-BACKLINKS-v3.1.md`\n**Repo:** `/home/elzobrito/desenvolvimento/md-studio`\n**Proibido:** grafo, segundo watcher, status `collision`, campo `column`, persistência própria do índice, alterar Onda 2 resolver.\n\n## Regras globais\n1. Confirmar paths com `rg`/`find` (OutgoingLinksPanel, wiki_resolve, ReindexEngine).\n2. Só indexar `Resolved`; excluir self-links; Ambiguous/Unresolved fora.\n3. Contexto sob demanda; falha → context null.\n4. Não misturar commit Onda 2 com código de backlinks.\n5. Done = AC + verify + evidência quando aplicável.\n\n\n## Objetivo\nA11y + consistência visual.\n\n## Depende\nMD-BACKLINK-005, MD-BACKLINK-006\n\n## Trabalho\nTabs/grupos/ocorrências com teclado, aria-selected/expanded, foco visível, contagens em texto, tokens tema, singular/plural.\n\n## AC\n- [ ] Navegação só teclado\n- [ ] Nomes acessíveis conforme WBS\n- [ ] Dark/light + design system\n\n**Verify:** `md_backlink_007_ux_pass`\n\n\nCópia local: docs/onda3/MD-BACKLINK-007-FULL.md",
+      "status": "todo",
+      "depends_on": [
+        "MD-BACKLINK-005",
+        "MD-BACKLINK-006"
+      ],
+      "targets": [
+        "MD-BACKLINK-007",
+        "onda3",
+        "B3-C",
+        "md_backlink_007_ux_pass"
+      ],
+      "outputs": {
+        "files": [
+          "src/components/wiki/BacklinksPanel.tsx"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src/components/**",
+        "src/styles/**",
+        "docs/onda3/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Teclado + aria corretos",
+        "Contagens em texto; design system",
+        "Verify: md_backlink_007_ux_pass"
+      ],
+      "required_review_mode": "functional"
+    },
+    {
+      "task_id": "MD-BACKLINK-008",
+      "task_kind": "qa",
+      "title": "Onda3: QA Backlinks + regressão Onda 2",
+      "description": "# Onda 3 — Backlinks v3.1 | MD-BACKLINK-008\n**Executor externo.** Claim → implement → prove → complete.\n**WBS:** `docs/onda3/WBS-ONDA-3-BACKLINKS-v3.1.md`\n**Repo:** `/home/elzobrito/desenvolvimento/md-studio`\n**Proibido:** grafo, segundo watcher, status `collision`, campo `column`, persistência própria do índice, alterar Onda 2 resolver.\n\n## Regras globais\n1. Confirmar paths com `rg`/`find` (OutgoingLinksPanel, wiki_resolve, ReindexEngine).\n2. Só indexar `Resolved`; excluir self-links; Ambiguous/Unresolved fora.\n3. Contexto sob demanda; falha → context null.\n4. Não misturar commit Onda 2 com código de backlinks.\n5. Done = AC + verify + evidência quando aplicável.\n\n\n## Objetivo\nQA + regressão Onda 2 + relatório `docs/qa/onda3-backlinks.md`.\n\n## Depende\n000–007\n\n## Trabalho\n1. Suites Rust/FE do WBS § MD-BACKLINK-008.\n2. Regressão wiki Onda 2 completa.\n3. pnpm test/typecheck/build + cargo tests + git diff --check.\n4. Visual checklist; documentar limite se sem Tauri desktop interativo.\n5. Confirmar: sem grafo.\n\n## AC\n- [ ] Todas 000–008 done\n- [ ] Relatório QA criado; limites honestos\n- [ ] verify ok; gate `onda_3_backlinks_v3_1_complete`\n\n**Verify:** `md_backlink_008_qa_pass`\n\n\nCópia local: docs/onda3/MD-BACKLINK-008-FULL.md",
+      "status": "todo",
+      "depends_on": [
+        "MD-BACKLINK-000",
+        "MD-BACKLINK-001",
+        "MD-BACKLINK-002",
+        "MD-BACKLINK-003",
+        "MD-BACKLINK-004",
+        "MD-BACKLINK-005",
+        "MD-BACKLINK-006",
+        "MD-BACKLINK-007"
+      ],
+      "targets": [
+        "MD-BACKLINK-008",
+        "onda3",
+        "B3-D",
+        "md_backlink_008_qa_pass"
+      ],
+      "outputs": {
+        "files": [
+          "docs/qa/onda3-backlinks.md"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "docs/qa/**",
+        "docs/onda3/**",
+        "tests/**",
+        "src/**",
+        "src-tauri/**"
+      ],
+      "task_type": "audit",
+      "acceptance_criteria": [
+        "000–008 done; relatório QA",
+        "Regressão Onda 2 + builds/testes",
+        "Sem grafo; limites honestos",
+        "Verify: md_backlink_008_qa_pass / onda_3_backlinks_v3_1_complete"
+      ],
+      "required_review_mode": "regression"
+    },
+    {
+      "task_id": "MD-HOTFIX-DESKTOP-002",
+      "task_kind": "impl",
+      "title": "Hotfix: instalar cursor e restaurar controles da janela no Ubuntu",
+      "description": "Rebuild e reinstalação user-local do MD Studio para publicar o cursor já corrigido no launcher Mostrar aplicativos. Corrigir os botões nativos minimizar, maximizar e fechar que ficam inertes na janela restaurada no Ubuntu GNOME/Wayland; o sintoma coincide com o bug upstream Tauri/TAO #13440/#1218. Aplicar workaround de lançamento via XWayland no desktop entry, preservar abertura de arquivos por %F, gerar pacote e registrar evidência. Não modificar outras features.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "MD-HOTFIX-DESKTOP-002",
+        "ubuntu-wayland-controls",
+        "show-apps-install"
+      ],
+      "outputs": {
+        "files": [
+          "src-tauri/linux/md-studio.desktop",
+          "src-tauri/tauri.conf.json",
+          "docs/qa/hotfix-desktop-ubuntu.md"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src-tauri/linux/**",
+        "src-tauri/tauri.conf.json",
+        "docs/qa/**",
+        "src/components/**",
+        "src/styles/**",
+        "tests/**"
+      ],
+      "task_type": "hotfix",
+      "acceptance_criteria": [
+        "Mostrar aplicativos abre o binário reconstruído que contém o cursor visível e piscante",
+        "Janela restaurada no Ubuntu permite minimizar, maximizar e fechar sem maximização prévia",
+        "Launcher preserva abertura de arquivos Markdown via %F",
+        "Testes, typecheck, build Tauri e hashes de instalação aprovados"
+      ],
+      "required_review_mode": "release",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-19T21:52:04Z",
+      "verification": {
+        "checks": [
+          "pnpm test: 31 arquivos e 178 testes aprovados",
+          "pnpm typecheck e pnpm build: aprovados",
+          "cargo test src-tauri: 6 aprovados",
+          "pnpm tauri build --bundles deb: aprovado",
+          "SHA-256 release = instalado: 21e7625aec8f9e7b9a091aec31bdd0c3fc3f8da65bb267e858a4b174ab6d34a1",
+          "desktop entry gerado e user-local usam GDK_BACKEND=x11 e preservam %F",
+          "gtk-launch md-studio abriu ~/.local/bin/md-studio com GDK_BACKEND=x11 e janela XWayland confirmada",
+          "git diff --check nos três outputs: aprovado"
+        ]
+      },
+      "completed_at": "2026-09-19T22:08:02Z"
     }
   ],
   "indexes": {
     "by_status": {
-      "done": 138
+      "done": 148,
+      "todo": 9
     },
     "by_kind": {
-      "impl": 87,
-      "qa": 28,
-      "spec": 23
+      "impl": 102,
+      "qa": 30,
+      "spec": 25
     }
   }
 }

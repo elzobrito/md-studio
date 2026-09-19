@@ -1,0 +1,13 @@
+{
+  "after_sha256": "c69f9964e69e0a4ee550792d1dc9deeb1d7764fb412371251623b3227ad67dcf",
+  "artifact_id": "ART-c69f9964e69e0a4ee550792d1dc9deeb1d7764fb412371251623b3227ad67dcf",
+  "artifact_sha256": "fcc3e7549e13f8cebf1803070b7b3e444e9893165596fce5262bd3fd848d4b31",
+  "before_sha256": "c69f9964e69e0a4ee550792d1dc9deeb1d7764fb412371251623b3227ad67dcf",
+  "bytes": 1681,
+  "content": "import type { ResolvedWikiLink } from \"../../types/metadata\";\nimport \"../../styles/wiki-links.css\";\n\nexport function OutgoingLinksPanel(props: {\n  links: readonly ResolvedWikiLink[];\n  onOpen: (path: string) => void | Promise<unknown>;\n  onUnresolved: (target: string) => void;\n}) {\n  return (\n    <section className=\"outgoing-links card\" aria-labelledby=\"outgoing-links-title\">\n      <header>\n        <h2 id=\"outgoing-links-title\">Links</h2>\n        <span>{props.links.length}</span>\n      </header>\n      {props.links.length === 0 ? (\n        <p className=\"outgoing-links-empty\">Nenhum wiki link neste documento.</p>\n      ) : (\n        <ul>\n          {props.links.map((link, index) => {\n            const resolved = link.status === \"resolved\" && !!link.path;\n            return (\n              <li key={`${link.target}:${link.line}:${index}`}>\n                <button\n                  type=\"button\"\n                  onClick={() => {\n                    if (resolved) void props.onOpen(link.path!);\n                    else props.onUnresolved(link.target);\n                  }}\n                  title={resolved ? link.path! : `Nota não resolvida: ${link.target}`}\n                >\n                  <span>{link.alias || link.target}</span>\n                  <small className={`wiki-status is-${link.status}`}>\n                    {link.status === \"resolved\"\n                      ? \"resolvido\"\n                      : link.status === \"ambiguous\"\n                        ? \"ambíguo\"\n                        : \"não resolvido\"}\n                  </small>\n                </button>\n              </li>\n            );\n          })}\n        </ul>\n      )}\n    </section>\n  );\n}\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "src/components/wiki/OutgoingLinksPanel.tsx",
+  "source_path": "src/components/wiki/OutgoingLinksPanel.tsx",
+  "ts": "2026-09-19T21:24:04Z"
+}

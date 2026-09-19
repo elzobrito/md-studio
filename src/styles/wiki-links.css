@@ -1,0 +1,113 @@
+.outgoing-links header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.outgoing-links header h2 {
+  margin: 0;
+}
+
+.outgoing-links ul {
+  display: grid;
+  gap: 0.25rem;
+  margin: 0.65rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.outgoing-links button {
+  display: flex;
+  width: 100%;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.4rem 0.5rem;
+  border: 0;
+  border-radius: 0.35rem;
+  color: var(--fg);
+  background: transparent;
+  text-align: left;
+}
+
+.outgoing-links button:hover,
+.outgoing-links button:focus-visible {
+  background: var(--accent-soft);
+}
+
+.outgoing-links-empty {
+  color: var(--fg-muted);
+  font-size: 0.8rem;
+}
+
+.wiki-status {
+  flex: none;
+  padding: 0.1rem 0.3rem;
+  border-radius: 999px;
+  color: var(--fg-muted);
+  background: var(--panel);
+  font-size: 0.65rem;
+}
+
+.wiki-status.is-resolved {
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.wiki-status.is-ambiguous,
+.wiki-status.is-unresolved {
+  color: var(--danger);
+}
+
+.wiki-create-backdrop {
+  position: fixed;
+  z-index: 40;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: rgb(15 23 42 / 45%);
+}
+
+.wiki-create-dialog {
+  width: min(30rem, 100%);
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--fg);
+  background: var(--bg-elevated);
+  box-shadow: var(--shadow);
+}
+
+.wiki-create-dialog h2 {
+  margin: 0 0 1rem;
+  font-size: 1rem;
+}
+
+.wiki-create-dialog label {
+  display: grid;
+  gap: 0.35rem;
+  color: var(--fg-muted);
+  font-size: 0.8rem;
+}
+
+.wiki-create-dialog input {
+  width: 100%;
+  padding: 0.55rem 0.65rem;
+  border: 1px solid var(--border);
+  border-radius: 0.4rem;
+  color: var(--fg);
+  background: var(--bg);
+}
+
+.wiki-create-dialog footer {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
+
+.wiki-create-error {
+  color: var(--danger);
+  font-size: 0.8rem;
+}

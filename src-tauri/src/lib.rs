@@ -80,6 +80,8 @@ pub fn run() {
             commands::metadata::get_all_documents,
             commands::metadata::trigger_reindex,
             commands::metadata::get_wiki_links_for,
+            commands::metadata::resolve_wiki_link,
+            commands::metadata::get_resolved_wiki_links_for,
             commands::metadata::get_tags,
             commands::close_splash,
             watcher::start_watching,

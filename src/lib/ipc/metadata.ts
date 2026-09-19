@@ -1,5 +1,11 @@
 import { invoke } from "@tauri-apps/api/core";
-import type { DocumentMetadata, WorkspaceStats, WikiLink, ReindexReport } from "../../types/metadata";
+import type {
+  DocumentMetadata,
+  WorkspaceStats,
+  WikiLink,
+  ResolvedWikiLink,
+  ReindexReport,
+} from "../../types/metadata";
 
 const isTauri = () => typeof window !== "undefined" && "__TAURI_INTERNALS__" in window;
 
@@ -39,6 +45,18 @@ export const triggerReindex = async (): Promise<ReindexReport> => {
 export const getWikiLinksFor = async (path: string): Promise<WikiLink[]> => {
   if (!isTauri()) return [];
   return invoke("get_wiki_links_for", { path });
+};
+
+export const resolveWikiLink = async (target: string): Promise<ResolvedWikiLink> => {
+  if (!isTauri()) {
+    return { target, alias: null, line: 0, status: "unresolved", path: null, candidates: [] };
+  }
+  return invoke("resolve_wiki_link", { target });
+};
+
+export const getResolvedWikiLinksFor = async (path: string): Promise<ResolvedWikiLink[]> => {
+  if (!isTauri()) return [];
+  return invoke("get_resolved_wiki_links_for", { path });
 };
 
 export const getTags = async (): Promise<string[]> => {

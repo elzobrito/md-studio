@@ -11,6 +11,7 @@ import rehypeKatex from "rehype-katex";
 import { flagsFor, type MarkdownProfile } from "./profile";
 import { sanitizePlugin } from "./sanitize";
 import { transformGithubAlerts } from "./plugins/alerts";
+import { rehypeWikiLinks, type WikiResolution } from "./plugins/wiki-links";
 import { parseFrontmatter } from "./frontmatter";
 import { normalizeLanguage } from "./code";
 import { slugify } from "../services/navigation";
@@ -18,6 +19,7 @@ import { slugify } from "../services/navigation";
 export interface ProcessOptions {
   profile?: MarkdownProfile;
   allowRemote?: boolean;
+  wikiLinks?: readonly WikiResolution[];
 }
 
 export interface ProcessResult {
@@ -52,6 +54,7 @@ export async function processMarkdown(source: string, options: ProcessOptions = 
   processor = processor
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeRaw)
+    .use(rehypeWikiLinks, { resolutions: options.wikiLinks })
     .use(rehypeHeadingIds)
     .use(rehypeHighlight, { detect: false, plainText: ["text", "plain", "txt"] })
     .use(rehypeKatex, { throwOnError: false, trust: false })
@@ -112,7 +115,7 @@ function hastToHtml(node: unknown): string {
     const attrs = Object.entries(props)
       .filter(([k, v]) => v !== undefined && v !== null && k !== "children")
       .map(([k, v]) => {
-        const key = k === "className" ? "class" : k;
+        const key = propertyName(k);
         if (v === true) return key;
         if (Array.isArray(v)) return `${key}="${escape(v.join(" "))}"`;
         return `${key}="${escape(String(v))}"`;
@@ -123,6 +126,14 @@ function hastToHtml(node: unknown): string {
     return `<${tag}${attrs ? " " + attrs : ""}>${inner}</${tag}>`;
   }
   return "";
+}
+
+function propertyName(key: string): string {
+  if (key === "className") return "class";
+  if (key.startsWith("data") && /[A-Z]/.test(key)) {
+    return key.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`);
+  }
+  return key;
 }
 
 function escape(s: string): string {

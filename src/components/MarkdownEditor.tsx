@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { EditorState } from "@codemirror/state";
-import { EditorView, keymap, lineNumbers } from "@codemirror/view";
+import { EditorView, drawSelection, keymap, lineNumbers } from "@codemirror/view";
 import { defaultKeymap, history, historyKeymap } from "@codemirror/commands";
 import { searchKeymap, highlightSelectionMatches } from "@codemirror/search";
 import { markdown } from "@codemirror/lang-markdown";
@@ -21,6 +21,21 @@ import {
   insertLink,
   toggleCode,
 } from "../editor/formatting";
+import {
+  createWikiCompletionExtensions,
+  type WikiCompletionState,
+  type WikiDocumentCandidate,
+} from "../editor/wiki/wiki-completion";
+import { WikiCompletionMenu } from "./editor/WikiCompletionMenu";
+
+export const editorCursorExtensions = [
+  drawSelection({ cursorBlinkRate: 1200 }),
+  EditorView.theme({
+    ".cm-cursor, .cm-dropCursor": {
+      borderLeftWidth: "2px",
+    },
+  }),
+];
 
 export function MarkdownEditor(props: {
   value: string;
@@ -28,11 +43,15 @@ export function MarkdownEditor(props: {
   onChange: (v: string) => void;
   onSave: () => void;
   onScroller?: (el: HTMLElement | null) => void;
+  wikiDocuments?: readonly WikiDocumentCandidate[];
 }) {
   const parent = useRef<HTMLDivElement>(null);
   const viewRef = useRef<EditorView | null>(null);
+  const wikiDocumentsRef = useRef(props.wikiDocuments ?? []);
+  wikiDocumentsRef.current = props.wikiDocuments ?? [];
   const [editorView, setEditorView] = useState<EditorView | null>(null);
   const [slashState, setSlashState] = useState<SlashState | null>(null);
+  const [wikiCompletion, setWikiCompletion] = useState<WikiCompletionState | null>(null);
   const onScroller = props.onScroller;
 
   const handleSelectSlashItem = useCallback((item: SlashItem) => {
@@ -56,6 +75,7 @@ export function MarkdownEditor(props: {
         markdown(),
         highlightSelectionMatches(),
         EditorView.lineWrapping,
+        ...editorCursorExtensions,
         keymap.of([
           ...defaultKeymap,
           ...historyKeymap,
@@ -117,6 +137,7 @@ export function MarkdownEditor(props: {
         }),
         createSlashPlugin(setSlashState),
         smartPasteExtension,
+        ...createWikiCompletionExtensions(() => wikiDocumentsRef.current, setWikiCompletion),
       ],
     });
     const view = new EditorView({ state, parent: parent.current });
@@ -169,6 +190,11 @@ export function MarkdownEditor(props: {
         slashState={slashState}
         onSelect={handleSelectSlashItem}
         onClose={handleCloseSlashMenu}
+      />
+      <WikiCompletionMenu
+        view={editorView}
+        state={wikiCompletion}
+        onClose={() => setWikiCompletion(null)}
       />
     </section>
   );
