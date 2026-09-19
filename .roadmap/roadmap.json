@@ -7,11 +7,11 @@
     "run": {
       "run_id": "RUN-0001",
       "status": "success",
-      "last_event_seq": 1277,
-      "projection_hash_sha256": "1a1374d0db31f1b22622b1092e0144b7e2a65a767d0607893e1ddc555db76691",
+      "last_event_seq": 1283,
+      "projection_hash_sha256": "1857cba49767e3914e226a534516b3ea1d071880c540554da608dca35753d0fb",
       "verify_status": "ok"
     },
-    "updated_at": "2026-09-19T18:18:33Z"
+    "updated_at": "2026-09-19T18:27:56Z"
   },
   "project": {
     "name": "MD Studio",
@@ -3741,14 +3741,53 @@
         ]
       },
       "completed_at": "2026-09-19T18:18:33Z"
+    },
+    {
+      "task_id": "MDS-PROD-OPEN-FILE-001",
+      "task_kind": "impl",
+      "title": "Abrir .md via OS (argv / .desktop)",
+      "description": "Cold start: se argv tiver path(s) .md existentes (absolutos), abrir workspace no parent e carregar o documento. Preferir o primeiro .md. Paths inválidos não crasham. Atualizar bundle .desktop com MimeType + %F. Teste do helper de parse. Single-instance: follow-up se custoso.",
+      "status": "in_progress",
+      "depends_on": [],
+      "targets": [
+        "RF-01 open file from OS"
+      ],
+      "outputs": {
+        "files": [
+          "src-tauri/src/lib.rs",
+          "src-tauri/src/commands/",
+          "src/"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src-tauri/**",
+        "src/**",
+        "tests/**",
+        "docs/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Cold start com argv .md existente abre pasta pai como workspace e carrega o arquivo",
+        "Path inválido/ausente não crasha; log/diagnóstico opcional",
+        "Primeiro .md preferido se múltiplos args",
+        "tauri.conf / desktop template gera MimeType + %F",
+        "Teste automatizado do helper de parse de argv"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-19T18:27:56Z"
     }
   ],
   "indexes": {
     "by_status": {
-      "done": 111
+      "done": 111,
+      "in_progress": 1
     },
     "by_kind": {
-      "impl": 63,
+      "impl": 64,
       "qa": 25,
       "spec": 23
     }

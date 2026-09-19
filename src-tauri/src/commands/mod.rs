@@ -246,3 +246,9 @@ mod export_tests {
     }
 }
 
+
+/// Return (and clear) the Markdown path passed on the process argv at cold start, if any.
+#[tauri::command]
+pub fn get_launch_path(state: State<'_, AppState>) -> Option<String> {
+    state.launch_path.lock().take()
+}
