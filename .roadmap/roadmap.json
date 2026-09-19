@@ -7,11 +7,11 @@
     "run": {
       "run_id": "RUN-0001",
       "status": "success",
-      "last_event_seq": 1238,
-      "projection_hash_sha256": "01f8136a0472a7f4197cb7f5c11bca380c0d40b4f5bbf044e0e114e7ff378e4d",
+      "last_event_seq": 1259,
+      "projection_hash_sha256": "f59c15a65dac4a9df778941c0dd1bf9654ec00cde02c8c6410eb74d0952a4c39",
       "verify_status": "ok"
     },
-    "updated_at": "2026-09-19T13:39:40Z"
+    "updated_at": "2026-09-19T18:05:14Z"
   },
   "project": {
     "name": "MD Studio",
@@ -3619,14 +3619,116 @@
         ]
       },
       "completed_at": "2026-09-19T13:39:40Z"
+    },
+    {
+      "task_id": "MDS-PROD-WATCHER-001",
+      "task_kind": "impl",
+      "title": "Watcher FS real + conflito dirty",
+      "description": "Implementar watcher de filesystem (notify) emitindo eventos para o frontend; UI de reload/conflito quando arquivo dirty muda no disco. Hoje src-tauri watcher é stub.",
+      "status": "in_progress",
+      "depends_on": [],
+      "targets": [
+        "RF-06 watcher"
+      ],
+      "outputs": {
+        "files": [
+          "src-tauri/src/watcher/"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src-tauri/**",
+        "src/**",
+        "tests/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Watcher detecta create/modify/remove/rename sob o workspace aberto",
+        "Documento dirty + mudança externa mostra conflito (não sobrescreve em silêncio)",
+        "Testes Rust e/ou front cobrem o caminho feliz e o conflito"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-19T18:05:13Z"
+    },
+    {
+      "task_id": "MDS-PROD-EXPORT-001",
+      "task_kind": "impl",
+      "title": "Export HTML unificado com pipeline do preview",
+      "description": "export_html no Tauri não deve gravar markdown em <pre>; deve usar o mesmo HTML sanitizado do preview (ou FE gera e Rust só escreve atomicamente no destino escolhido).",
+      "status": "in_progress",
+      "depends_on": [],
+      "targets": [
+        "RF-07 export"
+      ],
+      "outputs": {
+        "files": [
+          "src-tauri/src/commands/"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src-tauri/**",
+        "src/**",
+        "tests/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Export HTML produz documento renderizado alinhado ao preview (não raw em pre)",
+        "Sanitização/CSP policy do preview preservada no export",
+        "Overwrite exige confirmação; teste cobrindo export"
+      ],
+      "required_review_mode": "security",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-19T18:05:14Z"
+    },
+    {
+      "task_id": "MDS-PROD-RELEASE-001",
+      "task_kind": "impl",
+      "title": "Chrome de release: README, onboarding, packaging Linux",
+      "description": "README real do MD Studio (não boilerplate ESAA); first-run/onboarding Tauri-friendly; alinhar Mermaid UI mínima (zoom ou export); documentar/build targets .deb/AppImage. Não apagar target/node_modules só para liberar disco.",
+      "status": "in_progress",
+      "depends_on": [],
+      "targets": [
+        "RNF-PORT-01"
+      ],
+      "outputs": {
+        "files": [
+          "README.md"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "README.md",
+        "PROJETO.md",
+        "docs/**",
+        "src/**",
+        "src-tauri/**"
+      ],
+      "task_type": "release",
+      "acceptance_criteria": [
+        "README descreve o que é o MD Studio, como rodar e limites v1",
+        "Welcome/onboarding não empurra File System Access API como caminho principal no Tauri",
+        "tauri.conf bundle targets deb/appimage documentados; script ou CI de smoke se já existir"
+      ],
+      "required_review_mode": "docs",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-19T18:05:14Z"
     }
   ],
   "indexes": {
     "by_status": {
-      "done": 108
+      "done": 108,
+      "in_progress": 3
     },
     "by_kind": {
-      "impl": 60,
+      "impl": 63,
       "qa": 25,
       "spec": 23
     }
