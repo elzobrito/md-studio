@@ -1,6 +1,6 @@
 [package]
 name = "md-studio"
-version = "0.1.0"
+version = "0.1.1"
 description = "MD Studio — secure local Markdown editor"
 authors = ["MD Studio"]
 edition = "2021"

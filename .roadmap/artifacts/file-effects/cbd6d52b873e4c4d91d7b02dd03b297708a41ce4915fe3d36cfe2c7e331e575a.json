@@ -1,0 +1,13 @@
+{
+  "after_sha256": "f8d9bdf28c2f1eb13f417f2fe7774a2c8eddc35deb9cfddbef245c3209684258",
+  "artifact_id": "ART-f8d9bdf28c2f1eb13f417f2fe7774a2c8eddc35deb9cfddbef245c3209684258",
+  "artifact_sha256": "cbd6d52b873e4c4d91d7b02dd03b297708a41ce4915fe3d36cfe2c7e331e575a",
+  "before_sha256": "f8d9bdf28c2f1eb13f417f2fe7774a2c8eddc35deb9cfddbef245c3209684258",
+  "bytes": 909,
+  "content": "[package]\nname = \"md-studio\"\nversion = \"0.1.1\"\ndescription = \"MD Studio — secure local Markdown editor\"\nauthors = [\"MD Studio\"]\nedition = \"2021\"\nrust-version = \"1.77\"\n\n[lib]\nname = \"md_studio_lib\"\ncrate-type = [\"staticlib\", \"cdylib\", \"rlib\"]\n\n[build-dependencies]\ntauri-build = { version = \"2.1.0\", features = [] }\n\n[dependencies]\nmd-studio-core = { path = \"crates/md-studio-core\" }\ntauri = { version = \"2.4.0\", features = [] }\ntauri-plugin-dialog = \"2.2.0\"\ntauri-plugin-opener = \"2.2.6\"\ntauri-plugin-single-instance = \"2.2.0\"\nserde = { version = \"1.0.219\", features = [\"derive\"] }\nserde_json = \"1.0.140\"\nthiserror = \"2.0.12\"\nsha2 = \"0.10.8\"\nhex = \"0.4.3\"\nwalkdir = \"2.5.0\"\nignore = \"0.4.23\"\nnotify = \"7.0.0\"\nuuid = { version = \"1.16.0\", features = [\"v4\"] }\nparking_lot = \"0.12.3\"\n\n[dev-dependencies]\ntempfile = \"3.19.1\"\n\n[features]\ndefault = [\"custom-protocol\"]\ncustom-protocol = [\"tauri/custom-protocol\"]\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "src-tauri/Cargo.toml",
+  "source_path": "src-tauri/Cargo.toml",
+  "ts": "2026-09-20T21:55:34Z"
+}

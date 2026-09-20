@@ -1,0 +1,193 @@
+/* Syntax Highlighting Theme for MD Studio (highlight.js)
+ * Supports Light, Dark, and Auto (system preference) themes.
+ */
+
+/* ==========================================================================
+   Base Code Block Styles inside Preview
+   ========================================================================== */
+
+.preview-body pre code {
+  display: block;
+  overflow-x: auto;
+  padding: 0;
+  background: transparent;
+  color: inherit;
+}
+
+/* ==========================================================================
+   Light Theme Syntax Colors (Default / .theme-light)
+   ========================================================================== */
+
+:root,
+.theme-light {
+  --hljs-bg: transparent;
+  --hljs-text: #24292e;
+  --hljs-keyword: #d73a49;
+  --hljs-entity: #6f42c1;
+  --hljs-constant: #005cc5;
+  --hljs-string: #032f62;
+  --hljs-variable: #e36209;
+  --hljs-comment: #6a737d;
+  --hljs-tag: #22863a;
+  --hljs-addition-text: #22863a;
+  --hljs-addition-bg: #f0fff4;
+  --hljs-deletion-text: #b31d28;
+  --hljs-deletion-bg: #ffeef0;
+}
+
+/* ==========================================================================
+   Dark Theme Syntax Colors (.theme-dark)
+   ========================================================================== */
+
+.theme-dark {
+  --hljs-bg: transparent;
+  --hljs-text: #c9d1d9;
+  --hljs-keyword: #ff7b72;
+  --hljs-entity: #d2a8ff;
+  --hljs-constant: #79c0ff;
+  --hljs-string: #a5d6ff;
+  --hljs-variable: #ffa657;
+  --hljs-comment: #8b949e;
+  --hljs-tag: #7ee787;
+  --hljs-addition-text: #aff5b4;
+  --hljs-addition-bg: #033a16;
+  --hljs-deletion-text: #ffdcd7;
+  --hljs-deletion-bg: #67060c;
+}
+
+/* ==========================================================================
+   Auto Theme (Media Query for System Dark Mode)
+   ========================================================================== */
+
+@media (prefers-color-scheme: dark) {
+  .theme-auto {
+    --hljs-bg: transparent;
+    --hljs-text: #c9d1d9;
+    --hljs-keyword: #ff7b72;
+    --hljs-entity: #d2a8ff;
+    --hljs-constant: #79c0ff;
+    --hljs-string: #a5d6ff;
+    --hljs-variable: #ffa657;
+    --hljs-comment: #8b949e;
+    --hljs-tag: #7ee787;
+    --hljs-addition-text: #aff5b4;
+    --hljs-addition-bg: #033a16;
+    --hljs-deletion-text: #ffdcd7;
+    --hljs-deletion-bg: #67060c;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .theme-auto {
+    --hljs-bg: transparent;
+    --hljs-text: #24292e;
+    --hljs-keyword: #d73a49;
+    --hljs-entity: #6f42c1;
+    --hljs-constant: #005cc5;
+    --hljs-string: #032f62;
+    --hljs-variable: #e36209;
+    --hljs-comment: #6a737d;
+    --hljs-tag: #22863a;
+    --hljs-addition-text: #22863a;
+    --hljs-addition-bg: #f0fff4;
+    --hljs-deletion-text: #b31d28;
+    --hljs-deletion-bg: #ffeef0;
+  }
+}
+
+/* ==========================================================================
+   Token Mapping
+   ========================================================================== */
+
+.preview-body .hljs {
+  color: var(--hljs-text);
+  background: var(--hljs-bg);
+}
+
+.preview-body .hljs-doctag,
+.preview-body .hljs-keyword,
+.preview-body .hljs-meta .hljs-keyword,
+.preview-body .hljs-template-tag,
+.preview-body .hljs-template-variable,
+.preview-body .hljs-type,
+.preview-body .hljs-variable.language_ {
+  color: var(--hljs-keyword);
+  font-weight: 600;
+}
+
+.preview-body .hljs-title,
+.preview-body .hljs-title.class_,
+.preview-body .hljs-title.class_.inherited__,
+.preview-body .hljs-title.function_ {
+  color: var(--hljs-entity);
+  font-weight: 600;
+}
+
+.preview-body .hljs-attr,
+.preview-body .hljs-attribute,
+.preview-body .hljs-literal,
+.preview-body .hljs-meta,
+.preview-body .hljs-number,
+.preview-body .hljs-operator,
+.preview-body .hljs-variable,
+.preview-body .hljs-selector-attr,
+.preview-body .hljs-selector-class,
+.preview-body .hljs-selector-id {
+  color: var(--hljs-constant);
+}
+
+.preview-body .hljs-regexp,
+.preview-body .hljs-string,
+.preview-body .hljs-meta .hljs-string {
+  color: var(--hljs-string);
+}
+
+.preview-body .hljs-built_in,
+.preview-body .hljs-symbol {
+  color: var(--hljs-variable);
+}
+
+.preview-body .hljs-comment,
+.preview-body .hljs-code,
+.preview-body .hljs-formula {
+  color: var(--hljs-comment);
+  font-style: italic;
+}
+
+.preview-body .hljs-name,
+.preview-body .hljs-quote,
+.preview-body .hljs-selector-tag,
+.preview-body .hljs-selector-pseudo {
+  color: var(--hljs-tag);
+}
+
+.preview-body .hljs-subst {
+  color: var(--hljs-text);
+}
+
+.preview-body .hljs-section {
+  color: var(--hljs-constant);
+  font-weight: bold;
+}
+
+.preview-body .hljs-bullet {
+  color: var(--hljs-variable);
+}
+
+.preview-body .hljs-emphasis {
+  font-style: italic;
+}
+
+.preview-body .hljs-strong {
+  font-weight: bold;
+}
+
+.preview-body .hljs-addition {
+  color: var(--hljs-addition-text);
+  background-color: var(--hljs-addition-bg);
+}
+
+.preview-body .hljs-deletion {
+  color: var(--hljs-deletion-text);
+  background-color: var(--hljs-deletion-bg);
+}

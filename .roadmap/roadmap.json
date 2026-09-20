@@ -7,11 +7,11 @@
     "run": {
       "run_id": "RUN-0001",
       "status": "success",
-      "last_event_seq": 1938,
-      "projection_hash_sha256": "4a6cdcbb2c8a850ccea9d542a1db0811e2630613099d3ff690249c255ed4e66e",
+      "last_event_seq": 1976,
+      "projection_hash_sha256": "9cbe9edd782ded911cd8649b1d5658b60d5ac6b01c35e6fa5104a07a2a14407e",
       "verify_status": "ok"
     },
-    "updated_at": "2026-09-20T02:02:32Z"
+    "updated_at": "2026-09-20T21:55:55Z"
   },
   "project": {
     "name": "MD Studio",
@@ -6203,14 +6203,124 @@
         ]
       },
       "completed_at": "2026-09-20T02:02:32Z"
+    },
+    {
+      "task_id": "MD-UI-SYNTAX-HIGHLIGHT-001",
+      "task_kind": "impl",
+      "title": "Implementar realce de sintaxe colorido para blocos de código",
+      "description": "Adicionar estilos CSS para realce de sintaxe integrados aos temas claro e escuro no preview do MD Studio, com testes automatizados.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src/styles/**",
+        "tests/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Blocos de codigo como python geram tokens estilizados no preview",
+        "Cores adaptadas aos modos claro e escuro",
+        "Testes automatizados e verify aprovados"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-20T21:39:45Z",
+      "verification": {
+        "checks": [
+          "Vitest: 35 suites e 200 testes aprovados (100% pass)",
+          "pnpm typecheck aprovado com zero erros",
+          "pnpm build aprovado com geracao dos bundles de producao",
+          "code-highlight.test.ts valida classes hljs de Python (import, class, def, CrudTestCase, strings, numbers)"
+        ]
+      },
+      "completed_at": "2026-09-20T21:42:13Z"
+    },
+    {
+      "task_id": "MD-REL-SYNTAX-BUILD-INSTALL-001",
+      "task_kind": "impl",
+      "title": "Compilar release Tauri do MD Studio e atualizar binário local",
+      "description": "Executar build de release do Tauri (pnpm tauri build --bundles deb) incorporando o bundle com realce de sintaxe colorido e atualizar o executavel instalado em ~/.local/bin/md-studio.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "release",
+      "acceptance_criteria": [
+        "pnpm tauri build --bundles deb executado com sucesso",
+        "Binario de release gerado e instalado em ~/.local/bin/md-studio com hash identico",
+        "Testes e ESAA verify aprovados"
+      ],
+      "required_review_mode": "release",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-20T21:49:07Z",
+      "verification": {
+        "checks": [
+          "pnpm tauri build --bundles deb concluído com código 0",
+          "Binário release gerado em src-tauri/target/release/md-studio",
+          "Executável ~/.local/bin/md-studio atualizado com SHA-256 cac0421359d8fc880854f83019a9051b8938385bfdfce9d3dc1071f7c45e7d1d",
+          "Pacote DEB gerado em src-tauri/target/release/bundle/deb/MD Studio_0.1.0_amd64.deb"
+        ]
+      },
+      "completed_at": "2026-09-20T21:51:25Z"
+    },
+    {
+      "task_id": "MD-REL-COMMIT-PUSH-002",
+      "task_kind": "impl",
+      "title": "Versionar e publicar release com realce de sintaxe colorido",
+      "description": "Atualizar versão para v0.1.1 nos manifestos do projeto; consolidar alterações no Git, criar commit e publicar na branch main em origin/main.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "package.json",
+        "src-tauri/**",
+        "src/**",
+        "tests/**"
+      ],
+      "task_type": "release",
+      "acceptance_criteria": [
+        "Versao atualizada para 0.1.1 nos manifestos do projeto",
+        "Testes, typecheck e build aprovados",
+        "Commit criado na branch main e publicado em origin/main"
+      ],
+      "required_review_mode": "release",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-20T21:53:53Z",
+      "verification": {
+        "checks": [
+          "Versão 0.1.1 configurada em package.json, tauri.conf.json e Cargo.toml",
+          "Cargo.lock sincronizado e cargo check aprovado",
+          "Vitest: 35 arquivos e 200 testes aprovados",
+          "pnpm typecheck aprovado",
+          "pnpm build aprovado"
+        ]
+      },
+      "completed_at": "2026-09-20T21:55:55Z"
     }
   ],
   "indexes": {
     "by_status": {
-      "done": 163
+      "done": 166
     },
     "by_kind": {
-      "impl": 108,
+      "impl": 111,
       "qa": 30,
       "spec": 25
     }

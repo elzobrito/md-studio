@@ -1,0 +1,13 @@
+{
+  "after_sha256": "3320c20e8d2ce60034be3f791676b27365f103a55295b9d3529939219e519d41",
+  "artifact_id": "ART-3320c20e8d2ce60034be3f791676b27365f103a55295b9d3529939219e519d41",
+  "artifact_sha256": "4bc6a53f1ac30064b24ea93d5915b70d8900a338dd69e396a1b9021529b5dadb",
+  "before_sha256": "3320c20e8d2ce60034be3f791676b27365f103a55295b9d3529939219e519d41",
+  "bytes": 1905,
+  "content": "{\n  \"$schema\": \"https://schema.tauri.app/config/2\",\n  \"productName\": \"MD Studio\",\n  \"version\": \"0.1.1\",\n  \"identifier\": \"dev.mdstudio.app\",\n  \"build\": {\n    \"beforeDevCommand\": \"pnpm dev\",\n    \"devUrl\": \"http://localhost:1420\",\n    \"beforeBuildCommand\": \"pnpm build\",\n    \"frontendDist\": \"../dist\"\n  },\n  \"app\": {\n    \"windows\": [\n      {\n        \"label\": \"main\",\n        \"title\": \"MD Studio\",\n        \"width\": 1280,\n        \"height\": 800,\n        \"resizable\": true,\n        \"visible\": false\n      },\n      {\n        \"label\": \"splashscreen\",\n        \"title\": \"MD Studio\",\n        \"url\": \"splashscreen.html\",\n        \"width\": 420,\n        \"height\": 280,\n        \"resizable\": false,\n        \"decorations\": false,\n        \"center\": true,\n        \"visible\": true,\n        \"alwaysOnTop\": true\n      }\n    ],\n    \"security\": {\n      \"csp\": \"default-src 'self'; img-src 'self' data: blob:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; script-src 'self'; connect-src 'self' ipc: http://ipc.localhost\"\n    }\n  },\n  \"bundle\": {\n    \"active\": true,\n    \"targets\": [\n      \"deb\",\n      \"appimage\"\n    ],\n    \"icon\": [\n      \"icons/32x32.png\",\n      \"icons/128x128.png\",\n      \"icons/128x128@2x.png\",\n      \"icons/icon.png\",\n      \"icons/icon.ico\"\n    ],\n    \"fileAssociations\": [\n      {\n        \"ext\": [\"md\"],\n        \"name\": \"Markdown\",\n        \"description\": \"Markdown document\",\n        \"mimeType\": \"text/markdown\",\n        \"role\": \"Editor\"\n      },\n      {\n        \"ext\": [\"markdown\"],\n        \"name\": \"Markdown\",\n        \"description\": \"Markdown document\",\n        \"mimeType\": \"text/x-markdown\",\n        \"role\": \"Editor\"\n      },\n      {\n        \"ext\": [\"mdx\"],\n        \"name\": \"MDX\",\n        \"description\": \"MDX document\",\n        \"mimeType\": \"text/mdx\",\n        \"role\": \"Editor\"\n      }\n    ],\n    \"linux\": {\n      \"deb\": {\n        \"desktopTemplate\": \"linux/md-studio.desktop\"\n      }\n    }\n  }\n}\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "src-tauri/tauri.conf.json",
+  "source_path": "src-tauri/tauri.conf.json",
+  "ts": "2026-09-20T21:55:34Z"
+}

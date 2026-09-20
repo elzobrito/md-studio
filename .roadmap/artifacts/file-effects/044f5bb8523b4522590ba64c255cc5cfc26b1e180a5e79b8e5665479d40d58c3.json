@@ -1,0 +1,13 @@
+{
+  "after_sha256": "3b978e7cfa80a11ac790d7ddb0b84d842547a4ec6e75b497af2bf01d9db2ea21",
+  "artifact_id": "ART-3b978e7cfa80a11ac790d7ddb0b84d842547a4ec6e75b497af2bf01d9db2ea21",
+  "artifact_sha256": "044f5bb8523b4522590ba64c255cc5cfc26b1e180a5e79b8e5665479d40d58c3",
+  "before_sha256": "3b978e7cfa80a11ac790d7ddb0b84d842547a4ec6e75b497af2bf01d9db2ea21",
+  "bytes": 303,
+  "content": "[package]\nname = \"md-studio-core\"\nversion = \"0.1.1\"\nedition = \"2021\"\n\n[dependencies]\nserde = { version = \"1.0.219\", features = [\"derive\"] }\nserde_json = \"1.0.140\"\nthiserror = \"2.0.12\"\nsha2 = \"0.10.8\"\nhex = \"0.4.3\"\nuuid = { version = \"1.16.0\", features = [\"v4\"] }\n\n[dev-dependencies]\ntempfile = \"3.19.1\"\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "src-tauri/crates/md-studio-core/Cargo.toml",
+  "source_path": "src-tauri/crates/md-studio-core/Cargo.toml",
+  "ts": "2026-09-20T21:55:34Z"
+}

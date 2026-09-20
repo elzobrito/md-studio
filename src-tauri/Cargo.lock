@@ -2062,7 +2062,7 @@ dependencies = [
 
 [[package]]
 name = "md-studio"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "hex",
  "ignore",
@@ -2085,7 +2085,7 @@ dependencies = [
 
 [[package]]
 name = "md-studio-core"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "hex",
  "serde",
