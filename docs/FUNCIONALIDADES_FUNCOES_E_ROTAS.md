@@ -451,3 +451,83 @@ Esta seção mapeia a cadeia de execução completa de ponta a ponta: do evento 
   - Disparador: Clique em snippet de ocorrência.
   - Execução: Executa `openRelative(occurrence.sourcePath)` e dispara `queueGoToLine(occurrence.line)`, abrindo o arquivo de origem e saltando imediatamente para a linha que contém o link.
 
+---
+
+## 6. Matriz de Rastreabilidade de Impacto: Onde Mexer Para Cada Tipo de Alteração
+
+Graças à arquitetura unidirecional em camadas e ao desacoplamento estrito entre o núcleo Rust, a ponte de IPC e a interface React, **toda e qualquer alteração futura no MD Studio pode ser mapeada deterministicamente**.
+
+### 6.1. Diagrama de Fluxo Unidirecional de Camadas
+
+```mermaid
+flowchart TD
+  subgraph UI["1. Camada de Apresentação (UI & Modais)"]
+    direction TB
+    Components["Componentes React (AppHeader, MarkdownEditor, Viewer, Modais)"]
+    CSS["Estilos CSS / Design System"]
+  end
+
+  subgraph State["2. Camada de Estado & Orquestração (React Hooks & Stores)"]
+    direction TB
+    DocState["documentState.ts (Ciclo de Vida do Documento)"]
+    MetadataHook["useMetadata.ts (Links, Backlinks, Tags)"]
+    SessionStore["session.ts / editorStore.ts / settingsStore.ts"]
+  end
+
+  subgraph IPCBridge["3. Camada de Contratos & Transporte (IPC Bridge)"]
+    direction TB
+    Types["src/contracts/types.ts (Interfaces e DTOs)"]
+    IPCClient["src/lib/ipc/client.ts & metadata.ts"]
+  end
+
+  subgraph RustBackend["4. Camada de Backend & Segurança (Tauri 2 Rust)"]
+    direction TB
+    Handlers["src-tauri/src/commands/ (Validação e Path Fence)"]
+    CoreEngine["md-studio-core (Algoritmos Puros, AST, Hashes, Resolução)"]
+    Persistence["persistence.rs & watcher/mod.rs (fsync, notify)"]
+  end
+
+  UI --> State
+  State --> IPCBridge
+  IPCBridge --> RustBackend
+```
+
+---
+
+### 6.2. Playbook de Engenharia: Onde Mexer por Cenário de Alteração
+
+A tabela abaixo serve como guia operacional direto para desenvolvimento e manutenção:
+
+| Cenário de Alteração | Camada | Arquivos a Modificar | Funções / Estruturas Envolvidas | Testes a Executar |
+|---|---|---|---|---|
+| **1. Nova Operação de Arquivo / Workspace** *(ex: renomear, excluir, criar pasta)* | Backend Rust | [`src-tauri/crates/md-studio-core/`](file:///home/elzobrito/desenvolvimento/md-studio/src-tauri/crates/md-studio-core) e [`src-tauri/src/commands/`](file:///home/elzobrito/desenvolvimento/md-studio/src-tauri/src/commands/) | Criar função pura no core; criar handler Rust com `workspaces.lock().resolve_and_fence()` | `cargo test` |
+| | Registro Tauri | [`src-tauri/src/lib.rs`](file:///home/elzobrito/desenvolvimento/md-studio/src-tauri/src/lib.rs) | Adicionar comando em `invoke_handler![...]` | `cargo test` |
+| | Contratos TypeScript | [`src/contracts/types.ts`](file:///home/elzobrito/desenvolvimento/md-studio/src/contracts/types.ts) | Definir interfaces de Request/Response DTOs | `pnpm test` |
+| | Cliente IPC | [`src/lib/ipc/client.ts`](file:///home/elzobrito/desenvolvimento/md-studio/src/lib/ipc/client.ts) | Adicionar método na fachada `ipc.*` com tipagem estrita | `pnpm test` |
+| | Estado Frontend | [`src/state/documentState.ts`](file:///home/elzobrito/desenvolvimento/md-studio/src/state/documentState.ts) | Criar action correspondente e atualizar lista de entradas/árvore | `tests/ux/` |
+| | Interface Visual | [`src/components/FileExplorer.tsx`](file:///home/elzobrito/desenvolvimento/md-studio/src/components/FileExplorer.tsx) ou Header | Conectar clique do botão à action do hook | `tests/ui/` |
+| **2. Nova Extensão de Sintaxe Markdown** *(ex: novos alertas, tags de mídia, plugins AST)* | Processador Markdown | [`src/markdown/processor.ts`](file:///home/elzobrito/desenvolvimento/md-studio/src/markdown/processor.ts) | Adicionar plugin Unified/Remark/Rehype; liberar tags/atributos permitidos no schema do `rehype-sanitize` | `tests/markdown/` |
+| | Componentes / Estilos | [`src/components/`](file:///home/elzobrito/desenvolvimento/md-studio/src/components/) e CSS | Criar bloco interativo (como `MermaidBlock.tsx`) ou classes CSS em `src/styles/` | `pnpm test` |
+| **3. Novo Atalho de Teclado Global** | Registro do Atalho | [`src/App.tsx`](file:///home/elzobrito/desenvolvimento/md-studio/src/App.tsx) | Adicionar item no array `shortcuts` com `key`, modificadores e callback de ação | `pnpm test` |
+| | Ajuda Visual | [`src/components/help/ShortcutsModal.tsx`](file:///home/elzobrito/desenvolvimento/md-studio/src/components/help/ShortcutsModal.tsx) | Adicionar linha com descrição e categoria na tabela do modal | `tests/help/` |
+| **4. Novo Modelo de Documento (*Template*)** | Lista de Templates | [`src/templates/index.ts`](file:///home/elzobrito/desenvolvimento/md-studio/src/templates/index.ts) | Adicionar objeto em `TEMPLATES` com `id`, `name`, `description`, `icon`, `category` e gerador `content()` *(O modal `NewDocumentModal` carrega automaticamente!)* | `tests/templates/` |
+| **5. Nova Preferência / Configuração do Usuário** | Store de Preferências | [`src/state/settings.ts`](file:///home/elzobrito/desenvolvimento/md-studio/src/state/settings.ts) | Adicionar campo na interface `SettingsState`, valor default e persistência no `localStorage` | `tests/ux/settingsStore.test.ts` |
+| | Interface de Ajustes | [`src/components/settings/SettingsPanel.tsx`](file:///home/elzobrito/desenvolvimento/md-studio/src/components/settings/SettingsPanel.tsx) | Inserir controle visual (Toggle, Select, Slider) conectado ao hook `useSettings()` | `pnpm test` |
+| | Aplicação no Editor | [`src/components/MarkdownEditor.tsx`](file:///home/elzobrito/desenvolvimento/md-studio/src/components/MarkdownEditor.tsx) | Conectar valor aos Compartments de configuração do CodeMirror 6 | `pnpm test` |
+| **6. Novo Canal de Eventos do Sistema** *(ex: novo evento de sincronização)* | Emissor Rust | [`src-tauri/src/watcher/`](file:///home/elzobrito/desenvolvimento/md-studio/src-tauri/src/watcher/) ou [`lib.rs`](file:///home/elzobrito/desenvolvimento/md-studio/src-tauri/src/lib.rs) | Emitir com `app.emit("namespace://evento", payload)` | `cargo test` |
+| | Listener Frontend | [`src/lib/ipc/client.ts`](file:///home/elzobrito/desenvolvimento/md-studio/src/lib/ipc/client.ts) | Criar função de subscrição `subscribe*` com `listen()` e retorno de cleanup | `pnpm test` |
+| | Consumo Reativo | [`src/state/documentState.ts`](file:///home/elzobrito/desenvolvimento/md-studio/src/state/documentState.ts) | Adicionar escuta em `useEffect` disparando a atualização do estado | `pnpm test` |
+| **7. Novo Painel Lateral ou Aba de Contexto** | Componente Visual | [`src/components/wiki/`](file:///home/elzobrito/desenvolvimento/md-studio/src/components/wiki/) | Criar componente React do painel | `tests/panel/` |
+| | Layout Principal | [`src/App.tsx`](file:///home/elzobrito/desenvolvimento/md-studio/src/App.tsx) | Adicionar aba no painel direito e controle no `PanelControls.tsx` *(redimensionamento herdado automaticamente por `useResizablePanel`)* | `pnpm test` |
+| | Provedor de Dados | [`src/hooks/useMetadata.ts`](file:///home/elzobrito/desenvolvimento/md-studio/src/hooks/useMetadata.ts) | Adicionar chamada IPC correspondente | `pnpm test` |
+
+---
+
+### 6.3. Checklist de Garantia de Qualidade para Qualquer Alteração
+Sempre que uma alteração for realizada seguindo o mapa acima, o ciclo de validação obrigatório consiste em:
+1. **Tipagem e Linting:** `pnpm build` (TypeScript check estrito).
+2. **Testes Unitários e de Integração Frontend:** `pnpm test` (suite com 197 testes no Vitest).
+3. **Testes Unitários e de Segurança Backend:** `cargo test` no diretório `src-tauri/` (confinamento de path, atomismo e hashes).
+4. **Atualização da Documentação:** Refletir o novo comando, atalho ou evento no presente documento [`docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md`](file:///home/elzobrito/desenvolvimento/md-studio/docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md).
+
+
