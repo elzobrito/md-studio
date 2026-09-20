@@ -4,6 +4,7 @@ import { useSaveStatus } from "../../hooks/useSaveStatus";
 import { ViewModeToggle } from "./ViewModeToggle";
 import { SaveButton } from "./SaveButton";
 import { ExportHtmlButton } from "./ExportHtmlButton";
+import { ExportPdfButton } from "./ExportPdfButton";
 import { PanelControls } from "./PanelControls";
 import "../../styles/header.css";
 
@@ -18,6 +19,7 @@ interface Props {
   canSave: boolean;
   canExport?: boolean;
   onExportHtml?: () => void;
+  onExportPdf?: () => void;
   fileName?: string;
   onNewDocument?: () => void;
   onOpenSearch?: () => void;
@@ -37,6 +39,7 @@ export function AppHeader({
   canSave,
   canExport,
   onExportHtml,
+  onExportPdf,
   fileName,
   onNewDocument,
   onOpenSearch,
@@ -119,6 +122,12 @@ export function AppHeader({
           {onExportHtml ? (
             <ExportHtmlButton
               onExport={onExportHtml}
+              disabled={canExport !== undefined ? !canExport : !canSave}
+            />
+          ) : null}
+          {onExportPdf ? (
+            <ExportPdfButton
+              onExport={onExportPdf}
               disabled={canExport !== undefined ? !canExport : !canSave}
             />
           ) : null}

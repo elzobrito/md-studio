@@ -13,6 +13,16 @@ export interface ExportHtmlResult {
   error?: string;
 }
 
+function downloadHtml(html: string, fileName: string): void {
+  const blob = new Blob([html], { type: "text/html;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const anchor = document.createElement("a");
+  anchor.href = url;
+  anchor.download = fileName;
+  anchor.click();
+  URL.revokeObjectURL(url);
+}
+
 /** Same sanitized HTML as preview, then atomic write via Rust `export_html`. */
 export async function exportActiveDocumentHtml(
   markdown: string,
@@ -21,6 +31,12 @@ export async function exportActiveDocumentHtml(
   const html = await exportHtmlDocument(markdown);
   const destination = await pickSaveHtmlFile(defaultName);
   if (!destination) return { ok: false, cancelled: true };
+
+  if (!isTauriRuntime()) {
+    const fileName = destination.split(/[\\/]/).pop() || defaultName;
+    downloadHtml(html, fileName);
+    return { ok: true, path: fileName };
+  }
 
   try {
     await ipc.exportHtml(html, destination, false);
@@ -36,16 +52,6 @@ export async function exportActiveDocumentHtml(
       } catch (e2) {
         return { ok: false, error: e2 instanceof Error ? e2.message : String(e2) };
       }
-    }
-    if (!isTauriRuntime()) {
-      const blob = new Blob([html], { type: "text/html;charset=utf-8" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = defaultName;
-      a.click();
-      URL.revokeObjectURL(url);
-      return { ok: true, path: defaultName };
     }
     return { ok: false, error: msg };
   }

@@ -1,0 +1,13 @@
+{
+  "after_sha256": "94cc58d842c3ced805c99a371ee8ed53158f168269b0e225d3ca2ffd2f2320cc",
+  "artifact_id": "ART-94cc58d842c3ced805c99a371ee8ed53158f168269b0e225d3ca2ffd2f2320cc",
+  "artifact_sha256": "46e037b28cdc0d5f28c0bda50ca3354fc481b4a4651eaa7078f8d8abe2fae184",
+  "before_sha256": "94cc58d842c3ced805c99a371ee8ed53158f168269b0e225d3ca2ffd2f2320cc",
+  "bytes": 1328,
+  "content": "# Hotfix — contraste de código no PDF\n\nData: 2026-09-19\n\n## Evidência inicial\n\nNa saída PDF real, blocos fenced mantinham o fundo azul-escuro do tema enquanto\no WebKit imprimia comandos e tokens em tons escuros. O trecho CLI de\n`AGENTS.md` ficava praticamente ilegível, embora estivesse correto no preview.\n\n## Correção\n\nSomente em `@media print`:\n\n- `pre` usa fundo `#f3f4f6`, texto `#111827` e borda clara;\n- `pre code` e todos os spans de syntax highlighting herdam texto escuro e\n  fundo transparente;\n- sombras de texto são removidas;\n- linhas longas usam `pre-wrap` e `overflow-wrap`, evitando corte horizontal;\n- inline code recebe fundo claro e borda discreta.\n\nO tema exibido no aplicativo não foi alterado.\n\n## Evidências de validação\n\n- teste focal de exportação PDF: 5/5 testes aprovados;\n- suíte completa: 34 arquivos e 197 testes aprovados;\n- `pnpm typecheck` e `pnpm build`: aprovados;\n- `pnpm tauri build --bundles deb`: aprovado, com pacote `.deb` gerado;\n- smoke de PDF real: página renderizada e inspecionada visualmente, com blocos\n  claros, texto escuro legível, inline code distinguível e comando longo sem\n  corte horizontal;\n- executável instalado em `~/.local/bin/md-studio` e idêntico à build release:\n  SHA-256 `2f095159637d0360aff1800adb4d0231248b8d5cf6c27f90899533231231a0e0`.\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "docs/qa/hotfix-pdf-code-contrast.md",
+  "source_path": "docs/qa/hotfix-pdf-code-contrast.md",
+  "ts": "2026-09-20T01:51:23Z"
+}

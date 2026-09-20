@@ -1,0 +1,13 @@
+{
+  "after_sha256": "dece8223ec9e1fb75e5ee252294408e05fe2c2514c6502c50f32a5d22a6df9f6",
+  "artifact_id": "ART-dece8223ec9e1fb75e5ee252294408e05fe2c2514c6502c50f32a5d22a6df9f6",
+  "artifact_sha256": "cb90feda11c506b1675ad454eef0e2e3a1f51c8a6aa6895ae6c5d2cc6d9c6030",
+  "before_sha256": "dece8223ec9e1fb75e5ee252294408e05fe2c2514c6502c50f32a5d22a6df9f6",
+  "bytes": 2026,
+  "content": "@media print {\n  @page {\n    margin: 18mm;\n  }\n\n  html,\n  body,\n  #root,\n  .app {\n    width: auto !important;\n    height: auto !important;\n    min-height: 0 !important;\n    overflow: visible !important;\n    background: #fff !important;\n    color: #111 !important;\n  }\n\n  .app-header,\n  .panel,\n  .rail,\n  .editor,\n  .status-bar,\n  .resize-handle,\n  .formatting-toolbar,\n  .command-palette,\n  button {\n    display: none !important;\n  }\n\n  .workspace,\n  .center,\n  .preview {\n    display: block !important;\n    width: auto !important;\n    height: auto !important;\n    min-height: 0 !important;\n    overflow: visible !important;\n    margin: 0 !important;\n    padding: 0 !important;\n    background: #fff !important;\n  }\n\n  .preview-body {\n    display: block !important;\n    max-width: 100% !important;\n    margin: 0 !important;\n    padding: 0 !important;\n    color: #111 !important;\n    background: #fff !important;\n    box-shadow: none !important;\n  }\n\n  .preview-body pre,\n  .preview-body blockquote,\n  .preview-body table,\n  .preview-body img,\n  .preview-body svg {\n    break-inside: avoid;\n  }\n\n  /* Print uses a light canvas regardless of the active app theme. Override\n     both the fenced block and every syntax-highlighting span so dark-theme\n     token colors cannot become unreadable in the PDF. */\n  .preview-body pre {\n    overflow: visible !important;\n    white-space: pre-wrap !important;\n    overflow-wrap: anywhere;\n    color: #111827 !important;\n    background: #f3f4f6 !important;\n    border: 1px solid #d1d5db !important;\n    box-shadow: none !important;\n  }\n\n  .preview-body pre code,\n  .preview-body pre code * {\n    color: #111827 !important;\n    background: transparent !important;\n    text-shadow: none !important;\n  }\n\n  .preview-body :not(pre) > code {\n    color: #111827 !important;\n    background: #f3f4f6 !important;\n    border: 1px solid #e5e7eb;\n    border-radius: 3px;\n    padding: 0.08em 0.25em;\n  }\n\n  .preview-body a[href]::after {\n    content: \" (\" attr(href) \")\";\n    font-size: 0.85em;\n  }\n}\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "src/styles/print.css",
+  "source_path": "src/styles/print.css",
+  "ts": "2026-09-20T01:51:23Z"
+}

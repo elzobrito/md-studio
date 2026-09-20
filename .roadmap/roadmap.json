@@ -7,11 +7,11 @@
     "run": {
       "run_id": "RUN-0001",
       "status": "success",
-      "last_event_seq": 1889,
-      "projection_hash_sha256": "2055aa7b095d721576d4393d95e21f0851858d924dac1148ac1572675831899c",
+      "last_event_seq": 1932,
+      "projection_hash_sha256": "1c12b6ddbe3a3c0e3820cacb5b729732c960fc5e090cebc3dd6cc26fbbaff1a3",
       "verify_status": "ok"
     },
-    "updated_at": "2026-09-20T00:32:47Z"
+    "updated_at": "2026-09-20T02:00:53Z"
   },
   "project": {
     "name": "MD Studio",
@@ -5988,14 +5988,217 @@
         ]
       },
       "completed_at": "2026-09-20T00:32:47Z"
+    },
+    {
+      "task_id": "MD-HOTFIX-EXPORT-HTML-001",
+      "task_kind": "impl",
+      "title": "Hotfix: restaurar Exportar HTML no app instalado",
+      "description": "Corrigir o fluxo Exportar HTML: alinhar o envelope IPC frontend com export_html(req) no Rust; fazer o fallback web realmente baixar o arquivo; exibir falha ao usuário em vez de apenas console.error; adicionar testes do contrato IPC, cancelamento, sucesso, overwrite e fallback. Preservar integralmente as alterações concorrentes do fluxo Novo documento/modelos.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "MD-HOTFIX-EXPORT-HTML-001",
+        "export-html-ipc"
+      ],
+      "outputs": {
+        "files": [
+          "src/lib/ipc/client.ts",
+          "src/services/exportHtml.ts",
+          "src/App.tsx",
+          "tests/export/export-flow.test.ts",
+          "docs/qa/hotfix-export-html.md"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src/lib/ipc/client.ts",
+        "src/services/exportHtml.ts",
+        "src/App.tsx",
+        "tests/export/**",
+        "docs/qa/**"
+      ],
+      "task_type": "hotfix",
+      "acceptance_criteria": [
+        "Tauri recebe export_html com argumento req contendo html, destination e overwrite",
+        "Modo navegador produz download real e não retorna falso sucesso",
+        "Cancelamento não mostra erro; falha real é comunicada ao usuário",
+        "Testes cobrem sucesso, cancelamento, overwrite, erro e contrato IPC; regressão completa aprovada"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-20T01:25:42Z",
+      "verification": {
+        "checks": [
+          "Teste focado export-flow: 6/6 aprovado",
+          "pnpm test: 33 arquivos, 192 testes aprovados",
+          "pnpm typecheck: aprovado",
+          "pnpm build: aprovado",
+          "cargo test export_tests: 3 aprovados",
+          "pnpm tauri build --bundles deb: aprovado",
+          "SHA-256 release = instalado: 4c273336e7342b683e7ec5373c801611d3f2055de448972692f62f838f2a80ec",
+          "Smoke instalado: documento temporário aberto e botão Exportar HTML visível/habilitado; limite de clique sintético GNOME documentado",
+          "git diff --check nos outputs: aprovado"
+        ]
+      },
+      "completed_at": "2026-09-20T01:31:56Z"
+    },
+    {
+      "task_id": "MD-FEATURE-EXPORT-PDF-001",
+      "task_kind": "impl",
+      "title": "Adicionar Exportar PDF pelo diálogo nativo",
+      "description": "Adicionar botão Exportar PDF ao lado de Exportar HTML. Reutilizar o preview sanitizado e os estilos de impressão existentes, acionar o diálogo nativo do Ubuntu via window.print(), ocultar chrome/painéis no papel e imprimir somente o documento renderizado. Desabilitar sem documento ativo, preservar Exportar HTML e o fluxo Novo documento/modelos, e cobrir UI/ação/print CSS com testes.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "MD-FEATURE-EXPORT-PDF-001",
+        "export-pdf-native"
+      ],
+      "outputs": {
+        "files": [
+          "src/components/header/ExportPdfButton.tsx",
+          "src/components/header/AppHeader.tsx",
+          "src/App.tsx",
+          "src/styles/print.css",
+          "tests/export/export-pdf.test.tsx",
+          "docs/qa/export-pdf-native.md"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src/components/header/**",
+        "src/App.tsx",
+        "src/styles/print.css",
+        "tests/export/**",
+        "docs/qa/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Botão Exportar PDF aparece ao lado de Exportar HTML e fica desabilitado sem documento",
+        "Clique apresenta impressão nativa usando o conteúdo renderizado e sanitizado do preview",
+        "CSS de impressão oculta chrome, painéis e editor, imprimindo somente o documento formatado",
+        "Testes, typecheck, build Tauri, instalação e smoke test aprovados"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-20T01:38:38Z",
+      "verification": {
+        "checks": [
+          "Teste focado export-pdf: 4/4 aprovado",
+          "pnpm test: 34 arquivos, 196 testes aprovados",
+          "pnpm typecheck e pnpm build: aprovados",
+          "pnpm tauri build --bundles deb: aprovado",
+          "SHA-256 release = instalado: 73e5fc8c80e85ef735cdec9d35628591d4ec50279dc8bc31e633d9465027c3ad",
+          "Smoke visual instalado: documento formatado e Exportar PDF visível/habilitado após Exportar HTML",
+          "git diff --check nos outputs: aprovado"
+        ]
+      },
+      "completed_at": "2026-09-20T01:43:04Z"
+    },
+    {
+      "task_id": "MD-HOTFIX-PDF-CODE-CONTRAST-001",
+      "task_kind": "impl",
+      "title": "Hotfix: corrigir contraste de blocos de código no PDF",
+      "description": "O PDF gerado pelo diálogo nativo mantém fundo escuro em blocos pre/code, mas imprime texto e syntax highlighting quase pretos, tornando comandos ilegíveis. Normalizar apenas em @media print os blocos fenced para fundo claro, texto escuro e spans herdando contraste; preservar tema do app, inline code e quebras seguras. Validar com teste CSS, build, instalação e evidência visual.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "MD-HOTFIX-PDF-CODE-CONTRAST-001",
+        "pdf-code-contrast"
+      ],
+      "outputs": {
+        "files": [
+          "src/styles/print.css",
+          "tests/export/export-pdf.test.tsx",
+          "docs/qa/hotfix-pdf-code-contrast.md"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src/styles/print.css",
+        "tests/export/export-pdf.test.tsx",
+        "docs/qa/**"
+      ],
+      "task_type": "hotfix",
+      "acceptance_criteria": [
+        "Blocos de código exportados em PDF têm contraste legível em fundo claro",
+        "Syntax highlighting não pode sobrescrever a cor impressa com tons de baixo contraste",
+        "Inline code permanece distinguível e linhas longas não são cortadas",
+        "Testes, build Tauri, instalação e smoke visual aprovados"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-20T01:46:20Z",
+      "verification": {
+        "checks": [
+          "Teste focal de exportação PDF: 5/5 aprovados",
+          "Suíte completa: 34 arquivos e 197 testes aprovados",
+          "pnpm typecheck e pnpm build aprovados",
+          "pnpm tauri build --bundles deb aprovado",
+          "PDF real gerado, renderizado e inspecionado: contraste legível, inline code distinguível e linha longa sem corte",
+          "Executável release e instalado têm SHA-256 idêntico 2f095159637d0360aff1800adb4d0231248b8d5cf6c27f90899533231231a0e0",
+          "git diff --check aprovado"
+        ]
+      },
+      "completed_at": "2026-09-20T01:51:31Z"
+    },
+    {
+      "task_id": "MD-REL-COMMIT-PUSH-001",
+      "task_kind": "impl",
+      "title": "Versionar e publicar correções concluídas",
+      "description": "Consolidar no Git as tarefas concluídas de exportação HTML, exportação PDF e contraste de código no PDF, incluindo código, testes, evidências e artefatos ESAA; validar o conjunto, criar commit na branch main e publicar em origin/main.",
+      "status": "in_progress",
+      "depends_on": [],
+      "targets": [
+        "git",
+        "origin/main"
+      ],
+      "outputs": {
+        "files": [
+          "src/App.tsx",
+          "src/components/header/AppHeader.tsx",
+          "src/components/header/ExportPdfButton.tsx",
+          "src/lib/ipc/client.ts",
+          "src/services/exportHtml.ts",
+          "src/styles/print.css",
+          "tests/export/export-flow.test.ts",
+          "tests/export/export-pdf.test.tsx",
+          "docs/qa/export-pdf-native.md",
+          "docs/qa/hotfix-export-html.md",
+          "docs/qa/hotfix-pdf-code-contrast.md"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src/**",
+        "tests/**",
+        "docs/qa/**"
+      ],
+      "task_type": "release",
+      "acceptance_criteria": [
+        "Somente alterações pertencentes às tarefas concluídas entram no commit",
+        "Testes, typecheck, build e ESAA verify permanecem aprovados",
+        "Commit criado em main e publicado em origin/main"
+      ],
+      "required_review_mode": "release",
+      "assigned_to": "agent-release",
+      "started_at": "2026-09-20T02:00:53Z"
     }
   ],
   "indexes": {
     "by_status": {
-      "done": 159
+      "done": 162,
+      "in_progress": 1
     },
     "by_kind": {
-      "impl": 104,
+      "impl": 108,
       "qa": 30,
       "spec": 25
     }

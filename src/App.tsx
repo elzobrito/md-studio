@@ -35,6 +35,7 @@ import { BacklinksPanel } from "./components/wiki/BacklinksPanel";
 import { CreateNoteFromWiki } from "./components/wiki/CreateNoteFromWiki";
 import { NewDocumentModal } from "./components/editor/NewDocumentModal";
 import type { Template } from "./templates";
+import "./styles/print.css";
 
 const VIEW_OPTIONS: { id: ViewMode; label: string; title: string }[] = [
   { id: "source", label: "Markdown", title: "Ver e editar o código-fonte .md" },
@@ -83,8 +84,22 @@ export function App() {
     const result = await exportActiveDocumentHtml(doc.content, base);
     if (!result.ok && !result.cancelled) {
       console.error(result.error ?? "export failed");
+      window.alert(
+        `Não foi possível exportar o HTML.\n\n${result.error ?? "Erro desconhecido"}`,
+      );
     }
   }, [hasActiveDocument, doc.content, doc.relativePath]);
+
+  const handleExportPdf = useCallback(() => {
+    if (!hasActiveDocument) return;
+
+    // Printing must use the sanitized preview DOM. Source-only mode does not
+    // mount MarkdownViewer, so switch first and wait for its async render.
+    if (view === "source") {
+      session.setViewMode("preview");
+    }
+    window.setTimeout(() => window.print(), view === "source" ? 350 : 0);
+  }, [hasActiveDocument, session, view]);
 
   useEffect(() => {
     // Dismiss Tauri splashscreen once the React UI is mounted
@@ -422,6 +437,7 @@ export function App() {
             void handleExportHtml();
           }
         }}
+        onExportPdf={handleExportPdf}
         fileName={
           doc.relativePath
             ? doc.relativePath.split("/").pop()

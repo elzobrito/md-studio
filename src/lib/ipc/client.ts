@@ -123,7 +123,9 @@ export const ipc = {
     });
   },
   exportHtml: (html: string, destination: string, overwrite: boolean) =>
-    invoke<void>("export_html", { html, destination, overwrite }),
+    invoke<void>("export_html", {
+      req: { html, destination, overwrite },
+    }),
   startWatching: (workspaceId: string) => invoke<void>("start_watching", { workspaceId }),
   stopWatching: () => invoke<void>("stop_watching"),
   /** Absolute Markdown path from process argv on cold start (consumed once). */
@@ -266,7 +268,9 @@ async function browserInvoke<T>(cmd: string, args?: Record<string, unknown>): Pr
   }
 
   if (cmd === "search_workspace") return [] as T;
-  if (cmd === "export_html") return undefined as T;
+  if (cmd === "export_html") {
+    throw new Error("export_html must use the browser download flow outside Tauri");
+  }
   if (cmd === "get_launch_path") return null as T;
   throw new Error(`browser IPC missing: ${cmd}`);
 }
