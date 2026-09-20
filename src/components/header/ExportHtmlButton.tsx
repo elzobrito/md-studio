@@ -13,7 +13,7 @@ export function ExportHtmlButton({ onExport, disabled }: Props) {
       className="export-html-btn"
       onClick={onExport}
       disabled={disabled}
-      title="Exportar HTML"
+      title={disabled ? "Nenhum documento aberto para exportar" : "Exportar HTML"}
       aria-label="Exportar HTML"
       icon={
         <span className="export-html-btn-icon" aria-hidden="true">

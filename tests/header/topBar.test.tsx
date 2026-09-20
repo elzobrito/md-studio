@@ -70,4 +70,46 @@ describe("MD-UI-HEADER-001: Header Polish & Dynamic Window Title", () => {
     expect(html).toContain("Formatado");
     expect(html).toContain("Dividida");
   });
+
+  it("disables both Salvar and Exportar HTML when canSave and canExport are false", () => {
+    const html = renderToString(
+      <AppHeader
+        viewMode="source"
+        onViewModeChange={() => {}}
+        leftOpen={true}
+        rightOpen={true}
+        onToggleLeft={() => {}}
+        onToggleRight={() => {}}
+        onSave={() => {}}
+        canSave={false}
+        canExport={false}
+        onExportHtml={() => {}}
+      />
+    );
+
+    expect(html).toMatch(/class="[^"]*save-btn[^"]*"[^>]*disabled/);
+    expect(html).toMatch(/class="[^"]*export-html-btn[^"]*"[^>]*disabled/);
+    expect(html).toContain("Nenhum documento aberto para salvar");
+    expect(html).toContain("Nenhum documento aberto para exportar");
+  });
+
+  it("enables both Salvar and Exportar HTML when canSave and canExport are true", () => {
+    const html = renderToString(
+      <AppHeader
+        viewMode="source"
+        onViewModeChange={() => {}}
+        leftOpen={true}
+        rightOpen={true}
+        onToggleLeft={() => {}}
+        onToggleRight={() => {}}
+        onSave={() => {}}
+        canSave={true}
+        canExport={true}
+        onExportHtml={() => {}}
+      />
+    );
+
+    expect(html).not.toMatch(/save-btn[^>]*disabled/);
+    expect(html).not.toMatch(/export-html-btn[^>]*disabled/);
+  });
 });

@@ -46,16 +46,6 @@ export function App() {
   const doc = useDocumentState();
   const metadata = useMetadata(doc.relativePath || undefined);
 
-  const handleExportHtml = useCallback(async () => {
-    const base = doc.relativePath
-      ? (doc.relativePath.split("/").pop() || "export.md").replace(/\.md$/i, ".html")
-      : "export.html";
-    const result = await exportActiveDocumentHtml(doc.content, base);
-    if (!result.ok && !result.cancelled) {
-      console.error(result.error ?? "export failed");
-    }
-  }, [doc.content, doc.relativePath]);
-
   const [query, setQuery] = useState("");
   const view = useMemo(() => session.viewMode, [session.viewMode]);
   const tauri = isTauriRuntime();
@@ -66,6 +56,19 @@ export function App() {
   const [isWriting, setIsWriting] = useState(false);
   const [unresolvedWikiTarget, setUnresolvedWikiTarget] = useState<string | null>(null);
   const scrollSync = useScrollSync({ enabled: view === "split" });
+
+  const hasActiveDocument = Boolean(isWriting || doc.relativePath);
+
+  const handleExportHtml = useCallback(async () => {
+    if (!hasActiveDocument) return;
+    const base = doc.relativePath
+      ? (doc.relativePath.split("/").pop() || "export.md").replace(/\.md$/i, ".html")
+      : "export.html";
+    const result = await exportActiveDocumentHtml(doc.content, base);
+    if (!result.ok && !result.cancelled) {
+      console.error(result.error ?? "export failed");
+    }
+  }, [hasActiveDocument, doc.content, doc.relativePath]);
 
   useEffect(() => {
     // Dismiss Tauri splashscreen once the React UI is mounted
@@ -220,7 +223,9 @@ export function App() {
         key: "s",
         ctrl: true,
         action: () => {
-          void doc.save();
+          if (hasActiveDocument) {
+            void doc.save();
+          }
         },
         description: "Salvar documento",
         category: "Arquivo",
@@ -230,7 +235,9 @@ export function App() {
         ctrl: true,
         shift: true,
         action: () => {
-          void doc.saveAs();
+          if (hasActiveDocument) {
+            void doc.saveAs();
+          }
         },
         description: "Salvar como...",
         category: "Arquivo",
@@ -389,10 +396,25 @@ export function App() {
         rightOpen={session.rightOpen}
         onToggleLeft={session.toggleLeft}
         onToggleRight={session.toggleRight}
-        onSave={() => void doc.save()}
-        canSave={true}
-        onExportHtml={() => void handleExportHtml()}
-        fileName={doc.relativePath ? doc.relativePath.split("/").pop() : "sem-titulo.md"}
+        onSave={() => {
+          if (hasActiveDocument) {
+            void doc.save();
+          }
+        }}
+        canSave={hasActiveDocument}
+        canExport={hasActiveDocument}
+        onExportHtml={() => {
+          if (hasActiveDocument) {
+            void handleExportHtml();
+          }
+        }}
+        fileName={
+          doc.relativePath
+            ? doc.relativePath.split("/").pop()
+            : isWriting
+              ? "sem-titulo.md"
+              : undefined
+        }
         onNewDocument={() => {
           doc.newDocument();
           setIsWriting(true);

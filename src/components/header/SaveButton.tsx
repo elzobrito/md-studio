@@ -23,8 +23,9 @@ export function SaveButton({ status, onSave, disabled, errorMessage }: Props) {
     icon = "⚠";
   }
 
-  const title =
-    status === "error" && errorMessage
+  const title = disabled
+    ? "Nenhum documento aberto para salvar"
+    : status === "error" && errorMessage
       ? `Erro ao salvar: ${errorMessage}`
       : status === "modified"
         ? "Salvar alterações (Ctrl+S)"

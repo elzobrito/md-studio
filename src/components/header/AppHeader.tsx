@@ -16,6 +16,7 @@ interface Props {
   onToggleRight: () => void;
   onSave: () => void;
   canSave: boolean;
+  canExport?: boolean;
   onExportHtml?: () => void;
   fileName?: string;
   onNewDocument?: () => void;
@@ -34,6 +35,7 @@ export function AppHeader({
   onToggleRight,
   onSave,
   canSave,
+  canExport,
   onExportHtml,
   fileName,
   onNewDocument,
@@ -114,7 +116,12 @@ export function AppHeader({
             disabled={!canSave}
             errorMessage={errorMessage}
           />
-          {onExportHtml ? <ExportHtmlButton onExport={onExportHtml} /> : null}
+          {onExportHtml ? (
+            <ExportHtmlButton
+              onExport={onExportHtml}
+              disabled={canExport !== undefined ? !canExport : !canSave}
+            />
+          ) : null}
         </div>
       </div>
 
