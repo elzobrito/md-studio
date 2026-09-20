@@ -37,12 +37,14 @@ cargo test --manifest-path src-tauri/crates/md-studio-core/Cargo.toml
 
 - Workspace local (pasta ou arquivo) com path fence no Rust
 - Editor CodeMirror 6 + preview (GFM, math, highlight, Mermaid)
+- Modelos de documento integrados (7 templates: Reunião, Relatório, Anotações, Especificação, etc.)
 - Wiki links `[[alvo]]` / `[[alvo|rótulo]]` com resolução, autocomplete e criação de nota
-- Backlinks no painel direito (índice reverso só de links resolvidos)
+- Backlinks no painel direito (índice reverso só de links resolvidos com snippets de contexto)
 - Salvamento atômico com detecção de conflito por hash
 - **Watcher FS (notify)** com debounce; se o arquivo aberto estiver *dirty* e mudar no disco → diálogo Recarregar / Manter / Salvar como (sem sobrescrita silenciosa)
 - **Export HTML** pelo mesmo pipeline sanitizado do preview + escrita atômica; confirma sobrescrita
 - Diálogos nativos Tauri (abrir/salvar/confirmar)
+- Documentação completa de rotas e IPC: [docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md](docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md)
 
 ## Empacotamento Linux
 
