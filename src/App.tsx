@@ -33,6 +33,8 @@ import { useMetadata } from "./hooks/useMetadata";
 import { OutgoingLinksPanel } from "./components/wiki/OutgoingLinksPanel";
 import { BacklinksPanel } from "./components/wiki/BacklinksPanel";
 import { CreateNoteFromWiki } from "./components/wiki/CreateNoteFromWiki";
+import { NewDocumentModal } from "./components/editor/NewDocumentModal";
+import type { Template } from "./templates";
 
 const VIEW_OPTIONS: { id: ViewMode; label: string; title: string }[] = [
   { id: "source", label: "Markdown", title: "Ver e editar o código-fonte .md" },
@@ -54,10 +56,24 @@ export function App() {
   const [goToLineOpen, setGoToLineOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [isWriting, setIsWriting] = useState(false);
+  const [newDocModalOpen, setNewDocModalOpen] = useState(false);
   const [unresolvedWikiTarget, setUnresolvedWikiTarget] = useState<string | null>(null);
   const scrollSync = useScrollSync({ enabled: view === "split" });
 
   const hasActiveDocument = Boolean(isWriting || doc.relativePath);
+
+  const handleOpenNewDocument = useCallback(() => {
+    setNewDocModalOpen(true);
+  }, []);
+
+  const handleSelectTemplate = useCallback(
+    (template: Template) => {
+      doc.newDocument(template.content());
+      setIsWriting(true);
+      setNewDocModalOpen(false);
+    },
+    [doc],
+  );
 
   const handleExportHtml = useCallback(async () => {
     if (!hasActiveDocument) return;
@@ -212,10 +228,7 @@ export function App() {
       {
         key: "n",
         ctrl: true,
-        action: () => {
-          doc.newDocument();
-          setIsWriting(true);
-        },
+        action: handleOpenNewDocument,
         description: "Novo documento",
         category: "Arquivo",
       },
@@ -338,6 +351,7 @@ export function App() {
       cycleRecentFile,
       handleOpenFileFromWelcome,
       handleOpenFolderFromWelcome,
+      handleOpenNewDocument,
     ],
   );
 
@@ -415,10 +429,7 @@ export function App() {
               ? "sem-titulo.md"
               : undefined
         }
-        onNewDocument={() => {
-          doc.newDocument();
-          setIsWriting(true);
-        }}
+        onNewDocument={handleOpenNewDocument}
         onOpenSettings={() => setSettingsOpen(true)}
         onOpenShortcuts={() => setShortcutsModalOpen(true)}
         breadcrumb={
@@ -500,10 +511,7 @@ export function App() {
                   void doc.openRecent(path);
                   setIsWriting(true);
                 }}
-                onNewDocument={() => {
-                  doc.newDocument();
-                  setIsWriting(true);
-                }}
+                onNewDocument={handleOpenNewDocument}
               />
             ) : (
               <EmptyState
@@ -512,10 +520,7 @@ export function App() {
                     new KeyboardEvent("keydown", { key: "p", ctrlKey: true, bubbles: true })
                   );
                 }}
-                onNewDocument={() => {
-                  doc.newDocument();
-                  setIsWriting(true);
-                }}
+                onNewDocument={handleOpenNewDocument}
               />
             )
           ) : (
@@ -646,6 +651,11 @@ export function App() {
           const opened = await doc.openRelative(path);
           if (opened) setIsWriting(true);
         }}
+      />
+      <NewDocumentModal
+        isOpen={newDocModalOpen}
+        onClose={() => setNewDocModalOpen(false)}
+        onSelectTemplate={handleSelectTemplate}
       />
     </div>
       <ConflictDialog
