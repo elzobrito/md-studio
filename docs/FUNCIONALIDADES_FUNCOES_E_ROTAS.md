@@ -213,3 +213,241 @@ O MD Studio integra três plugins oficiais do ecossistema Tauri 2 para comunica�
 - **`editorStore` ([`src/state/editor.ts`](file:///home/elzobrito/desenvolvimento/md-studio/src/state/editor.ts)):** Estado de salvamento, mensagens de erro e navegação para linha específica (`goToLine`).
 - **`settingsStore` ([`src/state/settings.ts`](file:///home/elzobrito/desenvolvimento/md-studio/src/state/settings.ts)):** Preferências persistidas do usuário (tema visual, zoom da interface).
 - **`recentFilesStore` ([`src/state/recent-files.ts`](file:///home/elzobrito/desenvolvimento/md-studio/src/state/recent-files.ts)):** Histórico dos últimos arquivos abertos com persistência local.
+
+---
+
+## 5. Mapeamento Detalhado: Funções Disparadas por Rota (Execution Call Chains)
+
+Esta seção mapeia a cadeia de execução completa de ponta a ponta: do evento que dispara a rota até o efeito colateral no frontend e no backend Rust.
+
+### 5.1. Comandos IPC do Backend (19 Invokes Tauri 2)
+
+#### 1. `open_workspace`
+* **Gatilho / Origem:** Clique em "Abrir pasta" no cabeçalho ou na tela inicial (`Ctrl+Shift+O`).
+* **Funções Frontend:** `handleOpenFolderFromWelcome()` no [`App.tsx`](file:///home/elzobrito/desenvolvimento/md-studio/src/App.tsx) ➔ `pickFolder()` ➔ `doc.openFolder(path)` / `openWorkspacePath(path)` no [`documentState.ts`](file:///home/elzobrito/desenvolvimento/md-studio/src/state/documentState.ts).
+* **Cliente IPC:** `ipc.openWorkspace(path)` no [`client.ts`](file:///home/elzobrito/desenvolvimento/md-studio/src/lib/ipc/client.ts) via `invoke("open_workspace", { path })`.
+* **Funções Backend Rust:** `commands::open_workspace` no [`src-tauri/src/commands/mod.rs`](file:///home/elzobrito/desenvolvimento/md-studio/src-tauri/src/commands/mod.rs) ➔ canonicaliza caminho ➔ `state.workspaces.lock().register(path)` no [`workspace/mod.rs`](file:///home/elzobrito/desenvolvimento/md-studio/src-tauri/src/workspace/mod.rs) ➔ instancia e inicia `ReindexEngine` em thread paralela.
+* **Efeito Colateral & Estado:** Define `workspace` no `documentState`; invoca `loadEntries()`; dispara `ipc.startWatching(workspace.id)` iniciando o observador em disco.
+
+#### 2. `list_entries`
+* **Gatilho / Origem:** Conclusão de abertura de workspace ou expansão manual de subpasta no explorador de arquivos.
+* **Funções Frontend:** `loadEntries()` no [`documentState.ts`](file:///home/elzobrito/desenvolvimento/md-studio/src/state/documentState.ts) ou `toggleFolder(subpath)` no [`FileExplorer.tsx`](file:///home/elzobrito/desenvolvimento/md-studio/src/components/FileExplorer.tsx).
+* **Cliente IPC:** `ipc.listEntries(workspaceId, subpath)` no [`client.ts`](file:///home/elzobrito/desenvolvimento/md-studio/src/lib/ipc/client.ts) via `invoke("list_entries", ...)`.
+* **Funções Backend Rust:** `commands::list_entries` ➔ valida barreira de confinamento (*path fence*) no workspace ➔ `std::fs::read_dir` recursivo ➔ ignora arquivos ocultos e mapeia para `Vec<FileEntry>`.
+* **Efeito Colateral & Estado:** Atualiza estado `entries` no `documentState`, que re-renderiza a árvore interativa do `FileExplorer`.
+
+#### 3. `read_document`
+* **Gatilho / Origem:** Clique em arquivo no `FileExplorer`, seleção de nota no `CommandPalette`, histórico de recentes ou clique em wiki link resolvido no preview.
+* **Funções Frontend:** `doc.openRelative(relativePath)` ou `doc.openFile(path)` no [`documentState.ts`](file:///home/elzobrito/desenvolvimento/md-studio/src/state/documentState.ts).
+* **Cliente IPC:** `ipc.readDocument(workspaceId, relativePath)` no [`client.ts`](file:///home/elzobrito/desenvolvimento/md-studio/src/lib/ipc/client.ts) via `invoke("read_document", ...)`.
+* **Funções Backend Rust:** `commands::read_document` ➔ valida barreira de segurança (*path fence*) ➔ checa limite de tamanho ➔ lê bytes UTF-8 ➔ computa hash SHA-256 via `md_studio_core::hash_content` ➔ retorna `DocumentSnapshot`.
+* **Efeito Colateral & Estado:** Atualiza `content`, `expectedHash` e `relativePath`; reseta `dirty = false`; registra em `recentFilesStore.add()`; sincroniza título nativo da janela pelo [`useSaveStatus`](file:///home/elzobrito/desenvolvimento/md-studio/src/hooks/useSaveStatus.ts).
+
+#### 4. `save_document`
+* **Gatilho / Origem:** Atalho `Ctrl+S`, botão "Salvar" no cabeçalho ou salvamento acionado por perda de foco/timer.
+* **Funções Frontend:** `doc.save()` / `doc.saveAs()` no [`documentState.ts`](file:///home/elzobrito/desenvolvimento/md-studio/src/state/documentState.ts) ➔ valida se `hasActiveDocument` é verdadeiro.
+* **Cliente IPC:** `ipc.saveDocument(payload)` no [`client.ts`](file:///home/elzobrito/desenvolvimento/md-studio/src/lib/ipc/client.ts) via `invoke("save_document", ...)`.
+* **Funções Backend Rust:** `commands::save_document` ➔ delega para `persistence::atomic_write_with_hash`:
+  1. Compara hash atual do disco com `payload.expected_hash` (retorna `SaveError::HashMismatch` se divergente).
+  2. Grava arquivo temporário com sufixo `.tmp` no mesmo diretório.
+  3. Invoca `fsync` no descritor de arquivo garantindo flush físico no disco.
+  4. Executa renomeação atômica (`std::fs::rename`) substituindo o arquivo final.
+  5. Notifica `metadata_engine` para atualização incremental do índice.
+* **Efeito Colateral & Estado:** Se sucesso: atualiza `expectedHash`, define status `saved` no `editorStore`. Se conflito (`HashMismatch`): aciona `setConflictPath(path)` abrindo o `ConflictDialog`.
+
+#### 5. `search_workspace`
+* **Gatilho / Origem:** Digitação de texto no campo de busca do `FileExplorer` ou barra do `CommandPalette`.
+* **Funções Frontend:** `onSearch(query)` no [`FileExplorer.tsx`](file:///home/elzobrito/desenvolvimento/md-studio/src/components/FileExplorer.tsx) / `CommandPalette.tsx`.
+* **Cliente IPC:** `ipc.searchWorkspace(workspaceId, query)` no [`client.ts`](file:///home/elzobrito/desenvolvimento/md-studio/src/lib/ipc/client.ts).
+* **Funções Backend Rust:** `commands::search_workspace` ➔ executa `search::search_text`: varre arquivos Markdown dentro do confinamento do workspace e realiza casamento textual insensível a maiúsculas/minúsculas.
+* **Efeito Colateral & Estado:** Retorna `Vec<SearchResult>` contendo `relative_path`, número da linha e snippet formatado, alimentando a lista de resultados da interface.
+
+#### 6. `export_html`
+* **Gatilho / Origem:** Clique no botão `[⇩ Exportar HTML]` no cabeçalho da aplicação.
+* **Funções Frontend:** `handleExportHtml()` no [`App.tsx`](file:///home/elzobrito/desenvolvimento/md-studio/src/App.tsx) ➔ `exportActiveDocumentHtml(content, defaultName)` no [`exportHtml.ts`](file:///home/elzobrito/desenvolvimento/md-studio/src/services/exportHtml.ts) ➔ dispara diálogo nativo `pickSaveHtmlFile()` ➔ gera documento HTML completo via `processMarkdown()`.
+* **Cliente IPC:** `ipc.exportHtml(path, html, overwrite)` no [`client.ts`](file:///home/elzobrito/desenvolvimento/md-studio/src/lib/ipc/client.ts).
+* **Funções Backend Rust:** `commands::export_html` ➔ verifica se arquivo já existe e respeita o booleano `overwrite` ➔ cria diretórios pais caso necessário ➔ grava o arquivo com `fsync`.
+* **Efeito Colateral & Estado:** Grava documento HTML independente no disco. Se o arquivo já existir e `overwrite = false`, invoca o diálogo nativo `confirmOverwrite(path)` solicitando consentimento explícito.
+
+#### 7. `get_launch_path`
+* **Gatilho / Origem:** Inicialização (*boot*) da aplicação MD Studio.
+* **Funções Frontend:** `useEffect` no [`documentState.ts`](file:///home/elzobrito/desenvolvimento/md-studio/src/state/documentState.ts).
+* **Cliente IPC:** `ipc.getLaunchPath()` no [`client.ts`](file:///home/elzobrito/desenvolvimento/md-studio/src/lib/ipc/client.ts).
+* **Funções Backend Rust:** `commands::get_launch_path` ➔ consome `state.launch_path.lock().take()`, capturado dos argumentos de linha de comando (`std::env::args`).
+* **Efeito Colateral & Estado:** Se houver caminho de arquivo `.md` válido, dispara imediatamente `openFile(path)`, abrindo a nota diretamente sem passar pela tela inicial.
+
+#### 8. `close_splash`
+* **Gatilho / Origem:** Montagem inicial do componente raiz da interface React ([`App.tsx`](file:///home/elzobrito/desenvolvimento/md-studio/src/App.tsx)).
+* **Funções Frontend:** `useEffect` no `App.tsx` invoca diretamente `invoke("close_splash")`.
+* **Funções Backend Rust:** `commands::close_splash` ➔ localiza janela de webview `"splashscreen"` e executa `.close()` ➔ localiza janela principal `"main"`, executa `.show()` e `.set_focus()`.
+* **Efeito Colateral & Estado:** Encerra a tela de splashscreen nativa do Tauri e transiciona o foco suavemente para a janela principal do app.
+
+#### 9. `start_watching`
+* **Gatilho / Origem:** Definição ou alteração do workspace ativo no `documentState`.
+* **Funções Frontend:** `useEffect` no [`documentState.ts`](file:///home/elzobrito/desenvolvimento/md-studio/src/state/documentState.ts) monitorando `workspace.id`.
+* **Cliente IPC:** `ipc.startWatching(workspace.id)` no [`client.ts`](file:///home/elzobrito/desenvolvimento/md-studio/src/lib/ipc/client.ts).
+* **Funções Backend Rust:** `watcher::start_watching` no [`watcher/mod.rs`](file:///home/elzobrito/desenvolvimento/md-studio/src-tauri/src/watcher/mod.rs) ➔ instancia `RecommendedWatcher` da biblioteca `notify` ➔ inicializa thread de debounce estável de 300ms ➔ armazena estado no `WatcherHub`.
+* **Efeito Colateral & Estado:** O sistema operacional monitora em tempo real adições, alterações, renomeações e exclusões na pasta raiz do workspace.
+
+#### 10. `stop_watching`
+* **Gatilho / Origem:** Desmontagem do workspace, troca de pasta ou fechamento do documento.
+* **Funções Frontend:** Função de limpeza (*cleanup function*) do `useEffect` em `documentState.ts`.
+* **Cliente IPC:** `ipc.stopWatching()` no [`client.ts`](file:///home/elzobrito/desenvolvimento/md-studio/src/lib/ipc/client.ts).
+* **Funções Backend Rust:** `watcher::stop_watching` ➔ sinaliza flag atômica `stop.store(true)` na estrutura `ActiveWatch` e destrói o observador do canal `mpsc`.
+* **Efeito Colateral & Estado:** Encerra com segurança a thread do observador e libera descritores de arquivo no kernel do Linux.
+
+#### 11. `get_workspace_stats`
+* **Gatilho / Origem:** Abertura de pasta de trabalho ou término de indexação.
+* **Funções Frontend:** `loadStats()` no [`useMetadata.ts`](file:///home/elzobrito/desenvolvimento/md-studio/src/hooks/useMetadata.ts).
+* **Cliente IPC:** `ipc.getWorkspaceStats(workspaceId)` no [`metadata.ts`](file:///home/elzobrito/desenvolvimento/md-studio/src/lib/ipc/metadata.ts).
+* **Funções Backend Rust:** `commands::metadata::get_workspace_stats` ➔ consulta contadores agregados em memória do `ReindexEngine`.
+* **Efeito Colateral & Estado:** Atualiza estado `stats` com o número de arquivos indexados, quantidade de tags e conexões de links.
+
+#### 12. `get_document_metadata`
+* **Gatilho / Origem:** Alteração de nota ativa (`doc.relativePath`).
+* **Funções Frontend:** `loadDocumentMetadata(path)` no [`useMetadata.ts`](file:///home/elzobrito/desenvolvimento/md-studio/src/hooks/useMetadata.ts).
+* **Cliente IPC:** `ipc.getDocumentMetadata(workspaceId, relativePath)` no [`metadata.ts`](file:///home/elzobrito/desenvolvimento/md-studio/src/lib/ipc/metadata.ts).
+* **Funções Backend Rust:** `commands::metadata::get_document_metadata` ➔ consulta o índice local por metadados da nota (frontmatter estruturado, cabeçalhos e tags associadas).
+* **Efeito Colateral & Estado:** Alimenta os metadados do documento exibidos nos painéis laterais de contexto.
+
+#### 13. `get_all_documents`
+* **Gatilho / Origem:** Digitação do gatilho `[[` no editor CodeMirror ou abertura do `CommandPalette` (`Ctrl+P`).
+* **Funções Frontend:** Extensão CodeMirror `wikiAutocomplete` ([`wikiAutocomplete.ts`](file:///home/elzobrito/desenvolvimento/md-studio/src/editor/extensions/wikiAutocomplete.ts)) e modal `CommandPalette`.
+* **Cliente IPC:** `ipc.getAllDocuments(workspaceId)` no [`metadata.ts`](file:///home/elzobrito/desenvolvimento/md-studio/src/lib/ipc/metadata.ts).
+* **Funções Backend Rust:** `commands::metadata::get_all_documents` ➔ lê o catálogo completo de documentos `.md` do workspace indexados.
+* **Efeito Colateral & Estado:** Preenche a lista suspensa de autocompletar permitindo inserção rápida de links internos sem consulta síncrona a disco.
+
+#### 14. `trigger_reindex`
+* **Gatilho / Origem:** Início de sessão com workspace ou ação de sincronização manual.
+* **Funções Frontend:** `reindexWorkspace()` no [`useMetadata.ts`](file:///home/elzobrito/desenvolvimento/md-studio/src/hooks/useMetadata.ts).
+* **Cliente IPC:** `ipc.triggerReindex(workspaceId)` no [`metadata.ts`](file:///home/elzobrito/desenvolvimento/md-studio/src/lib/ipc/metadata.ts).
+* **Funções Backend Rust:** `commands::metadata::trigger_reindex` ➔ aciona `ReindexEngine::reindex_workspace`: varre o sistema de arquivos, parseia cada arquivo com `pulldown_cmark`, extrai tags e links e persiste `.mdstudio/index.json`.
+* **Efeito Colateral & Estado:** Invalida caches do frontend, forçando recarga de backlinks e links de saída.
+
+#### 15. `get_wiki_links_for`
+* **Gatilho / Origem:** Análise de links internos do documento ativo.
+* **Funções Frontend:** Rotina de extração em `useMetadata.ts`.
+* **Cliente IPC:** `ipc.getWikiLinksFor(workspaceId, relativePath)`.
+* **Funções Backend Rust:** `commands::metadata::get_wiki_links_for` ➔ extrai todas as sequências de regex `\[\[(.*?)\]\]` do arquivo especificado.
+* **Efeito Colateral & Estado:** Retorna a lista crua de referências wiki da nota.
+
+#### 16. `resolve_wiki_link`
+* **Gatilho / Origem:** Avaliação pontual de um alvo de link interno.
+* **Funções Frontend:** Resolução unitária de destino em `useMetadata.ts`.
+* **Cliente IPC:** `ipc.resolveWikiLink(workspaceId, fromPath, target)`.
+* **Funções Backend Rust:** `commands::metadata::resolve_wiki_link` ➔ executa algoritmo canônico em `md_studio_core::wiki_resolve::resolve`: busca exata por nome de arquivo, busca sem extensão e varredura em subpastas.
+* **Efeito Colateral & Estado:** Retorna status (`Resolved`, `Ambiguous`, `Unresolved`) e caminho relativo canônico.
+
+#### 17. `get_resolved_wiki_links_for`
+* **Gatilho / Origem:** Carregamento de nota ativa no editor para exibição no painel lateral direito.
+* **Funções Frontend:** `loadOutgoingLinks()` no [`useMetadata.ts`](file:///home/elzobrito/desenvolvimento/md-studio/src/hooks/useMetadata.ts).
+* **Cliente IPC:** `ipc.getResolvedWikiLinksFor(workspaceId, relativePath)`.
+* **Funções Backend Rust:** `commands::metadata::get_resolved_wiki_links_for` ➔ extrai todos os links do documento e resolve individualmente cada um contra o índice em memória.
+* **Efeito Colateral & Estado:** Alimenta a lista de links de saída no [`OutgoingLinksPanel`](file:///home/elzobrito/desenvolvimento/md-studio/src/components/wiki/OutgoingLinksPanel.tsx) com rotulagem visual de status.
+
+#### 18. `get_tags`
+* **Gatilho / Origem:** Inicialização do painel de taxonomia / nuvem de tags.
+* **Funções Frontend:** `loadTags()` no [`useMetadata.ts`](file:///home/elzobrito/desenvolvimento/md-studio/src/hooks/useMetadata.ts).
+* **Cliente IPC:** `ipc.getTags(workspaceId)`.
+* **Funções Backend Rust:** `commands::metadata::get_tags` ➔ agrupa e calcula a contagem agregada de tags `#tag` e entradas frontmatter no índice.
+* **Efeito Colateral & Estado:** Retorna `Vec<TagInfo>` para exibição e filtragem no explorador.
+
+#### 19. `get_backlinks` (Onda 3)
+* **Gatilho / Origem:** Abertura de nota no editor e renderização do painel de backlinks.
+* **Funções Frontend:** `loadBacklinks(targetPath)` no [`useMetadata.ts`](file:///home/elzobrito/desenvolvimento/md-studio/src/hooks/useMetadata.ts).
+* **Cliente IPC:** `ipc.getBacklinks(workspaceId, targetPath)` no [`metadata.ts`](file:///home/elzobrito/desenvolvimento/md-studio/src/lib/ipc/metadata.ts).
+* **Funções Backend Rust:** `commands::metadata::get_backlinks` no [`src-tauri/src/commands/metadata.rs`](file:///home/elzobrito/desenvolvimento/md-studio/src-tauri/src/commands/metadata.rs):
+  1. Consulta a tabela de conexões reversas do `ReindexEngine`.
+  2. Filtra auto-referências (notas que linkam para si mesmas).
+  3. Para cada nota referenciadora, abre o arquivo em disco, itera sobre as linhas para calcular a posição exata (1-based) e extrai um snippet contextual de 1 linha.
+  4. Retorna `Vec<BacklinkOccurrence>`.
+* **Efeito Colateral & Estado:** Popula o [`BacklinksPanel`](file:///home/elzobrito/desenvolvimento/md-studio/src/components/wiki/BacklinksPanel.tsx) com lista de referências agrupadas por nota de origem, prontas para salto direto ao clique.
+
+---
+
+### 5.2. Canais de Eventos Assíncronos (Tauri Event Channels)
+
+#### 1. Canal `workspace://change`
+* **Emissor Backend:** Worker thread no [`watcher/mod.rs`](file:///home/elzobrito/desenvolvimento/md-studio/src-tauri/src/watcher/mod.rs) via `app.emit("workspace://change", dto)`.
+* **Assinante Frontend:** `subscribeWorkspaceWatch(handler)` no [`client.ts`](file:///home/elzobrito/desenvolvimento/md-studio/src/lib/ipc/client.ts).
+* **Função Consumidora:** `useEffect` no [`documentState.ts`](file:///home/elzobrito/desenvolvimento/md-studio/src/state/documentState.ts).
+* **Cadeia de Decisão:**
+  1. Verifica se `ev.relativePath === relativePathRef.current`.
+  2. Se o documento ativo foi modificado externamente e está com edições locais pendentes (`dirtyRef.current === true`):
+     - Dispara `setConflictPath(path)`.
+     - Exibe na tela o diálogo modal [`ConflictDialog`](file:///home/elzobrito/desenvolvimento/md-studio/src/components/ConflictDialog.tsx).
+     - Adiciona aviso nos diagnósticos do sistema.
+  3. Se o documento não estiver em edição conflitante: sinaliza invalidação no índice e atualiza o `FileExplorer`.
+
+#### 2. Canal `app://open-file`
+* **Emissor Backend:** Handler `tauri_plugin_single_instance` no [`lib.rs`](file:///home/elzobrito/desenvolvimento/md-studio/src-tauri/src/lib.rs) via `app.emit("app://open-file", { path })`.
+* **Assinante Frontend:** `subscribeOpenFile(handler)` no [`client.ts`](file:///home/elzobrito/desenvolvimento/md-studio/src/lib/ipc/client.ts).
+* **Função Consumidora:** `useEffect` no [`documentState.ts`](file:///home/elzobrito/desenvolvimento/md-studio/src/state/documentState.ts).
+* **Cadeia de Ação:**
+  1. Intercepta nova invocação do app com arquivo passado por clique duplo no sistema operacional.
+  2. O backend traz a janela principal para primeiro plano (`unminimize`, `show`, `set_focus`) e fecha qualquer splash aberto.
+  3. O listener no frontend recebe `{ path }` e invoca imediatamente `openFile(path)`, carregando o novo arquivo no editor.
+
+---
+
+### 5.3. Plugins Nativos do Sistema Operacional
+
+| Plugin Tauri | Função Disparadora Frontend | Invocação no Sistema Operacional | Efeito Colateral e Continuação |
+|---|---|---|---|
+| **`tauri-plugin-dialog`** | `pickFolder()` | `dialog.open({ directory: true })` | Retorna caminho selecionado pelo usuário ➔ dispara `doc.openFolder(path)`. |
+| **`tauri-plugin-dialog`** | `pickMarkdownFile()` | `dialog.open({ directory: false, filters })` | Retorna caminho do arquivo ➔ dispara `doc.openFile(path)`. |
+| **`tauri-plugin-dialog`** | `pickSaveMarkdownFile()` | `dialog.save({ filters: ["md"] })` | Retorna novo caminho de destino ➔ dispara `save_document` com novo caminho. |
+| **`tauri-plugin-dialog`** | `pickSaveHtmlFile()` | `dialog.save({ filters: ["html"] })` | Retorna caminho de destino para HTML ➔ dispara `export_html`. |
+| **`tauri-plugin-dialog`** | `confirmOverwrite(path)` | `dialog.ask("O arquivo já existe...\nSobrescrever?", { kind: "warning" })` | Retorna booleano: se `true`, permite a sobrescrita; se `false`, cancela a operação de exportação. |
+| **`tauri-plugin-single-instance`** | Callback nativo de nova instância | Hook de IPC no kernel do SO | Evita abertura de janelas duplicadas; encaminha argumentos para a janela ativa via canal `app://open-file`. |
+| **`tauri-plugin-opener`** | `openUrl(url)` | Chamada XDG do desktop Linux | Lança o link externo no navegador padrão do sistema (ex: Firefox ou Chrome), isolado do webview. |
+
+---
+
+### 5.4. Rotas de Interface, Modais e Navegação Interna
+
+#### 1. Rotas de Modos de Visão (`View Modes`)
+* **Modo `source` (`Ctrl+1` / Botão "Markdown"):**
+  - Disparador: `session.setViewMode("source")` no [`session.ts`](file:///home/elzobrito/desenvolvimento/md-studio/src/state/session.ts).
+  - Execução: Altera `session.viewMode = "source"`; monta o componente `MarkdownEditor` (CodeMirror 6); ativa `FormattingToolbar` e `TableToolbar`; desmonta o preview.
+* **Modo `preview` (`Ctrl+2` / Botão "Formatado"):**
+  - Disparador: `session.setViewMode("preview")`.
+  - Execução: Altera `session.viewMode = "preview"`; monta `MarkdownViewer`; dispara pipeline assíncrono `processMarkdown()`; processa e injeta Mermaid, KaTeX e realce de sintaxe; oculta barras de ferramentas de edição.
+* **Modo `split` (`Ctrl+3` / Botão "Dividida"):**
+  - Disparador: `session.setViewMode("split")`.
+  - Execução: Altera `session.viewMode = "split"`; renderiza `MarkdownEditor` e `MarkdownViewer` em colunas paralelas; ativa o hook [`useScrollSync`](file:///home/elzobrito/desenvolvimento/md-studio/src/hooks/useScrollSync.ts), que intercepta eventos de scroll do CodeMirror e sincroniza proporcionalmente o DOM do preview.
+* **Modo `zen` (`F11`):**
+  - Disparador: `session.toggleZen()`.
+  - Execução: Inverte booleano `session.isZen`; oculta `AppHeader`, barras laterais e `StatusBar`; define layout para tela cheia imersiva focada no texto.
+
+#### 2. Modais e Diálogos de Interação
+* **`NewDocumentModal` (`Ctrl+N` / Botão `+`):**
+  - Disparador: `handleOpenNewDocument()` ➔ `setNewDocModalOpen(true)`.
+  - Seleção: `handleSelectTemplate(template)` ➔ executa a função de conteúdo `template.content()` ➔ invoca `doc.newDocument(content)` ➔ define `isWriting = true` ➔ fecha modal.
+* **`CommandPalette` (`Ctrl+P` / `Ctrl+Shift+P`):**
+  - Disparador: Hook global de atalho define estado de abertura do modal.
+  - Execução: Carrega lista via `ipc.getAllDocuments()`; executa busca difusa em memória (`fuzzySearch`); seleção de item dispara `doc.openRelative(path)`.
+* **`GoToLine` (`Ctrl+G`):**
+  - Disparador: `setGoToLineOpen(true)`.
+  - Confirmação: Dispara `editorStore.goToLine(lineNum)`; envia dispatch para o CodeMirror rolando a viewport e posicionando a seleção na linha solicitada.
+* **`SettingsPanel` (`Ctrl+,` / Botão `⚙`):**
+  - Disparador: `setSettingsOpen(true)`.
+  - Ações: Dispara `settingsStore.setTheme(theme)` (aplica classes `.dark` / `.light` no root HTML) e `settingsStore.setZoomLevel(level)` (aplica CSS zoom na interface).
+* **`ConflictDialog` (Disparo Automático):**
+  - Disparador: Divergência de hash detectada por `watcher` ou retorno `HashMismatch` de `save_document`.
+  - Escolhas: `resolveConflict(choice)`:
+    - `"reload"`: Descarta edições locais e recarrega snapshot do disco com `read_document`.
+    - `"keep"`: Atualiza hash esperado para forçar sobrescrita no próximo salvamento.
+    - `"saveAs"`: Dispara `saveAs()` para salvar a versão local em novo arquivo preservando a versão em disco.
+
+#### 3. Rotas de Navegação de Conteúdo
+* **Wiki Links (`MarkdownViewer.tsx`):**
+  - Disparador: Clique em elemento `a.wiki-link`.
+  - Resolução: Se `dataset.wikiStatus === "resolved"`, aciona `onOpenRelative(path)` abrindo o documento alvo. Se `unresolved`, aciona `onUnresolvedWiki(target)` abrindo o modal `CreateNoteFromWiki` para criar a nota.
+* **Sumário de Cabeçalhos (`DocumentOutline.tsx`):**
+  - Disparador: Clique em item da árvore de títulos.
+  - Execução: Invoca `scrollToHeading(slug, viewMode)` em [`navigation.ts`](file:///home/elzobrito/desenvolvimento/md-studio/src/services/navigation.ts), que calcula o offset do cabeçalho e executa scroll suave até a linha correspondente.
+* **Navegação de Backlinks (`BacklinksPanel.tsx`):**
+  - Disparador: Clique em snippet de ocorrência.
+  - Execução: Executa `openRelative(occurrence.sourcePath)` e dispara `queueGoToLine(occurrence.line)`, abrindo o arquivo de origem e saltando imediatamente para a linha que contém o link.
+
