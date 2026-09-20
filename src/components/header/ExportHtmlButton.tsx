@@ -21,7 +21,7 @@ export function ExportHtmlButton({ onExport, disabled }: Props) {
         </span>
       }
     >
-      <span>HTML</span>
+      <span>Exportar HTML</span>
     </Button>
   );
 }
