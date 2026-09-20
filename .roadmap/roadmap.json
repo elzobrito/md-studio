@@ -7,11 +7,11 @@
     "run": {
       "run_id": "RUN-0001",
       "status": "success",
-      "last_event_seq": 1877,
-      "projection_hash_sha256": "baa94a77aa7aa30b73bb5aa4e3f4a5239485c6c3c0d3488d2a061f1ad56d3a0d",
+      "last_event_seq": 1889,
+      "projection_hash_sha256": "2055aa7b095d721576d4393d95e21f0851858d924dac1148ac1572675831899c",
       "verify_status": "ok"
     },
-    "updated_at": "2026-09-19T23:37:03Z"
+    "updated_at": "2026-09-20T00:32:47Z"
   },
   "project": {
     "name": "MD Studio",
@@ -5944,14 +5944,58 @@
         ]
       },
       "completed_at": "2026-09-19T23:37:03Z"
+    },
+    {
+      "task_id": "MD-EXPORT-HTML-UI-001",
+      "task_kind": "impl",
+      "title": "Botão Exportar HTML ao lado de Salvar",
+      "description": "Ligar exportActiveDocumentHtml a um botão no header imediatamente ao lado do SaveButton. Reusar Button compartilhado. Sem mudar o pipeline de export. Teste do header confirma o botão.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "MD-EXPORT-HTML-UI-001"
+      ],
+      "outputs": {
+        "files": [
+          "src/components/header/AppHeader.tsx",
+          "src/App.tsx"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src/components/header/**",
+        "src/App.tsx",
+        "src/styles/**",
+        "tests/header/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Botão Exportar HTML visível ao lado de Salvar no header",
+        "Clique dispara o fluxo existente de export HTML",
+        "Sem mudança do pipeline sanitizado/atomic write"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-20T00:13:25Z",
+      "verification": {
+        "checks": [
+          "Botao Exportar HTML visivel ao lado de Salvar no header",
+          "Clique dispara o fluxo existente de export HTML via handleExportHtml",
+          "Sem alteracao no pipeline sanitizado nem na escrita atomica",
+          "Testes do header e suite completa aprovados (184/184)"
+        ]
+      },
+      "completed_at": "2026-09-20T00:32:47Z"
     }
   ],
   "indexes": {
     "by_status": {
-      "done": 158
+      "done": 159
     },
     "by_kind": {
-      "impl": 103,
+      "impl": 104,
       "qa": 30,
       "spec": 25
     }

@@ -24,6 +24,28 @@ describe("MD-UI-HEADER-001: Header Polish & Dynamic Window Title", () => {
     expect(html).not.toContain("brand-mark");
   });
 
+  it("renders Exportar HTML immediately after Salvar when onExportHtml is provided", () => {
+    const html = renderToString(
+      <AppHeader
+        viewMode="source"
+        onViewModeChange={() => {}}
+        leftOpen={true}
+        rightOpen={true}
+        onToggleLeft={() => {}}
+        onToggleRight={() => {}}
+        onSave={() => {}}
+        canSave={true}
+        onExportHtml={() => {}}
+      />,
+    );
+
+    const saveIdx = html.indexOf("Salvar");
+    const exportIdx = html.indexOf("Exportar HTML");
+    expect(saveIdx).toBeGreaterThan(-1);
+    expect(exportIdx).toBeGreaterThan(saveIdx);
+    expect(html).toContain("export-html-btn");
+  });
+
   it("formats window title dynamically according to spec", () => {
     // Sem arquivo: "MD Studio"
     expect(formatWindowTitle()).toBe("MD Studio");

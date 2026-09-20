@@ -3,6 +3,7 @@ import type { ViewMode } from "../../state/session";
 import { useSaveStatus } from "../../hooks/useSaveStatus";
 import { ViewModeToggle } from "./ViewModeToggle";
 import { SaveButton } from "./SaveButton";
+import { ExportHtmlButton } from "./ExportHtmlButton";
 import { PanelControls } from "./PanelControls";
 import "../../styles/header.css";
 
@@ -15,6 +16,7 @@ interface Props {
   onToggleRight: () => void;
   onSave: () => void;
   canSave: boolean;
+  onExportHtml?: () => void;
   fileName?: string;
   onNewDocument?: () => void;
   onOpenSearch?: () => void;
@@ -32,6 +34,7 @@ export function AppHeader({
   onToggleRight,
   onSave,
   canSave,
+  onExportHtml,
   fileName,
   onNewDocument,
   onOpenSearch,
@@ -111,6 +114,7 @@ export function AppHeader({
             disabled={!canSave}
             errorMessage={errorMessage}
           />
+          {onExportHtml ? <ExportHtmlButton onExport={onExportHtml} /> : null}
         </div>
       </div>
 

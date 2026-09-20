@@ -391,6 +391,7 @@ export function App() {
         onToggleRight={session.toggleRight}
         onSave={() => void doc.save()}
         canSave={true}
+        onExportHtml={() => void handleExportHtml()}
         fileName={doc.relativePath ? doc.relativePath.split("/").pop() : "sem-titulo.md"}
         onNewDocument={() => {
           doc.newDocument();
