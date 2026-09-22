@@ -1,6 +1,5 @@
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
-use std::fs;
 use std::path::{Component, Path, PathBuf};
 use thiserror::Error;
 use uuid::Uuid;
@@ -33,7 +32,7 @@ pub struct WorkspaceRegistry {
 
 impl WorkspaceRegistry {
     pub fn open(&mut self, path: &Path) -> Result<Workspace, WorkspaceError> {
-        let root = fs::canonicalize(path).map_err(|_| WorkspaceError::NotFound)?;
+        let root = dunce::canonicalize(path).map_err(|_| WorkspaceError::NotFound)?;
         let kind = if root.is_file() {
             "single-file".into()
         } else {
@@ -71,7 +70,7 @@ impl WorkspaceRegistry {
 
 pub fn resolve_within(root: &Path, relative: &str) -> Result<PathBuf, WorkspaceError> {
     if relative.is_empty() {
-        return Ok(root.to_path_buf());
+        return Ok(dunce::simplified(root).to_path_buf());
     }
     if Path::new(relative).is_absolute() {
         return Err(WorkspaceError::InvalidPath);
@@ -87,24 +86,24 @@ pub fn resolve_within(root: &Path, relative: &str) -> Result<PathBuf, WorkspaceE
     }
     // Disallow escaping via symlink: canonicalize when exists
     if joined.exists() {
-        let canon = fs::canonicalize(&joined)?;
-        let root_canon = fs::canonicalize(root)?;
+        let canon = dunce::canonicalize(&joined)?;
+        let root_canon = dunce::canonicalize(root)?;
         if !canon.starts_with(&root_canon) {
             return Err(WorkspaceError::SymlinkEscape);
         }
-        return Ok(canon);
+        return Ok(dunce::simplified(&canon).to_path_buf());
     }
     // parent must stay inside root
     if let Some(parent) = joined.parent() {
         if parent.exists() {
-            let parent_canon = fs::canonicalize(parent)?;
-            let root_canon = fs::canonicalize(root)?;
+            let parent_canon = dunce::canonicalize(parent)?;
+            let root_canon = dunce::canonicalize(root)?;
             if !parent_canon.starts_with(&root_canon) {
                 return Err(WorkspaceError::OutsideWorkspace);
             }
         }
     }
-    Ok(joined)
+    Ok(dunce::simplified(&joined).to_path_buf())
 }
 
 #[derive(Debug, Serialize, Deserialize)]

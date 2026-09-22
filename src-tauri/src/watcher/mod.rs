@@ -86,12 +86,12 @@ impl WatcherHub {
 }
 
 fn relativize(root: &Path, full: &Path) -> Option<String> {
-    let root_c = root.canonicalize().ok()?;
+    let root_c = dunce::canonicalize(root).ok()?;
     let full_c = if full.exists() {
-        full.canonicalize().ok()?
+        dunce::canonicalize(full).ok()?
     } else {
         // deleted path: canonicalize parent + join name
-        let parent = full.parent()?.canonicalize().ok()?;
+        let parent = dunce::canonicalize(full.parent()?).ok()?;
         parent.join(full.file_name()?)
     };
     let rel = full_c.strip_prefix(&root_c).ok()?;

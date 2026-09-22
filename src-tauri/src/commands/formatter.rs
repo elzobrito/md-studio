@@ -111,15 +111,30 @@ pub fn find_executable(name: &str) -> Option<PathBuf> {
     // 1. Search in PATH
     if let Some(path_var) = std::env::var_os("PATH") {
         for dir in std::env::split_paths(&path_var) {
-            let candidate = dir.join(name);
-            if is_executable(&candidate) {
-                return Some(candidate);
-            }
             #[cfg(windows)]
             {
-                let candidate_exe = dir.join(format!("{}.exe", name));
-                if is_executable(&candidate_exe) {
-                    return Some(candidate_exe);
+                let exts = ["exe", "cmd", "bat"];
+                let mut names = Vec::new();
+                if name.contains('.') {
+                    names.push(name.to_string());
+                } else {
+                    for ext in exts {
+                        names.push(format!("{}.{}", name, ext));
+                    }
+                    names.push(name.to_string());
+                }
+                for n in names {
+                    let candidate = dir.join(n);
+                    if is_executable(&candidate) {
+                        return Some(candidate);
+                    }
+                }
+            }
+            #[cfg(not(windows))]
+            {
+                let candidate = dir.join(name);
+                if is_executable(&candidate) {
+                    return Some(candidate);
                 }
             }
         }
@@ -149,6 +164,37 @@ pub fn find_executable(name: &str) -> Option<PathBuf> {
         for candidate in system_candidates {
             if is_executable(&candidate) {
                 return Some(candidate);
+            }
+        }
+    }
+
+    #[cfg(windows)]
+    {
+        let mut search_dirs = Vec::new();
+        if let Some(user_profile) = std::env::var_os("USERPROFILE") {
+            let user_path = PathBuf::from(user_profile);
+            search_dirs.push(user_path.join(".cargo").join("bin"));
+        }
+        if let Some(local_app_data) = std::env::var_os("LOCALAPPDATA") {
+            let lad_path = PathBuf::from(local_app_data);
+            search_dirs.push(lad_path.join("Programs").join("Python"));
+        }
+        let exts = ["exe", "cmd", "bat"];
+        for dir in search_dirs {
+            let mut names = Vec::new();
+            if name.contains('.') {
+                names.push(name.to_string());
+            } else {
+                for ext in exts {
+                    names.push(format!("{}.{}", name, ext));
+                }
+                names.push(name.to_string());
+            }
+            for n in names {
+                let candidate = dir.join(n);
+                if is_executable(&candidate) {
+                    return Some(candidate);
+                }
             }
         }
     }

@@ -186,7 +186,7 @@ pub fn search_workspace(
                     .strip_prefix(&ws.root)
                     .unwrap_or(path)
                     .to_string_lossy()
-                    .to_string();
+                    .replace('\\', "/");
                 out.push(SearchResult {
                     relative_path: rel,
                     line: (i + 1) as u32,

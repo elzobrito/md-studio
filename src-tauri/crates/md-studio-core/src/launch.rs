@@ -83,7 +83,7 @@ where
             continue;
         }
         if path.is_file() {
-            return std::fs::canonicalize(&path).ok().or(Some(path));
+            return dunce::canonicalize(&path).ok().or(Some(path));
         }
     }
     None
@@ -107,8 +107,8 @@ mod tests {
             b.to_string_lossy().to_string(),
         ]);
         assert_eq!(
-            got.as_deref().and_then(|p| p.canonicalize().ok()),
-            Some(a.canonicalize().unwrap())
+            got.as_deref().and_then(|p| dunce::canonicalize(p).ok()),
+            Some(dunce::canonicalize(&a).unwrap())
         );
     }
 
@@ -127,8 +127,8 @@ mod tests {
             ok.to_string_lossy().to_string(),
         ]);
         assert_eq!(
-            got.as_deref().and_then(|p| p.canonicalize().ok()),
-            Some(ok.canonicalize().unwrap())
+            got.as_deref().and_then(|p| dunce::canonicalize(p).ok()),
+            Some(dunce::canonicalize(&ok).unwrap())
         );
     }
 
@@ -140,8 +140,8 @@ mod tests {
         let url = format!("file://{}", f.display());
         let got = first_existing_markdown_path([url]);
         assert_eq!(
-            got.as_deref().and_then(|p| p.canonicalize().ok()),
-            Some(f.canonicalize().unwrap())
+            got.as_deref().and_then(|p| dunce::canonicalize(p).ok()),
+            Some(dunce::canonicalize(&f).unwrap())
         );
     }
 

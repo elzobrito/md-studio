@@ -29,6 +29,7 @@ ignore = "0.4.23"
 notify = "7.0.0"
 uuid = { version = "1.16.0", features = ["v4"] }
 parking_lot = "0.12.3"
+dunce = "1.0.5"
 
 [dev-dependencies]
 tempfile = "3.19.1"
