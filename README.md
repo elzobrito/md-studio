@@ -1,8 +1,47 @@
 # MD Studio
 
-Editor Markdown **local-first** e **100% offline** para Linux, desenvolvido com **Tauri 2** (Rust + React 19 / TypeScript).
+> **Markdown local para documentação técnica e engenharia no Linux**  
+> *Com realce de código TextMate dual-themes, formatação de código com ferramentas nativas, diagramas interativos Mermaid, conexões bidirecionais (Wiki links & Backlinks) e exportação autônoma — direto da caixa, sem configurações complexas.*
 
-Os documentos ficam exclusivamente no seu disco local. O pipeline de renderização, visualização (AST), autocompleção de wiki links, cálculo de backlinks, realce de sintaxe e exportação HTML compartilham a mesma camada sanitizada e segura — na tela e no arquivo final exportado.
+O **MD Studio** é um editor Markdown **local-first** e **100% offline** para Linux, desenvolvido com **Tauri 2** (Rust + React 19 / TypeScript).
+
+Projetado especificamente para engenheiros de software, autores técnicos e equipes de tecnologia que mantêm sua documentação em arquivos `.md` no próprio disco local, o MD Studio reúne em uma única ferramenta nativa:
+- **Realce e Formatação de Código de Alta Fidelidade:** Shiki (TextMate com temas duplos claro/escuro) e um hub híbrido de formatação (Prettier Web + formatadores nativos como `ruff`, `rustfmt`, `gofmt`, `clang-format`).
+- **Motor de Diagramas Interativos:** Mermaid com suporte a zoom/pan fluido, tolerância a digitação de sintaxe incompleta e exportação fiel em SVG/PNG com estilos computados embutidos.
+- **Interconexão de Documentos:** Wiki links (`[[nota]]`), autocompleção instantânea e painel de backlinks com busca contextual no workspace.
+- **Persistência Atômica & Auto-Save Silencioso:** Gravação atômica com `fsync` e supressão de notificações internas no `inotify`, prevenindo falsos positivos de conflito durante a digitação.
+- **Segurança Rigorosa (Zero-XSS):** Pipeline AST unificado e sanitizado via `rehype-sanitize` e isolamento estrito de caminhos (*Path Fencing*) em Rust.
+
+---
+
+## Downloads e Instalação (v0.2.0)
+
+Você pode baixar os pacotes pré-compilados diretamente da página de [Releases do GitHub](https://github.com/elzobrito/md-studio/releases/latest):
+
+### Pacote Debian / Ubuntu (`.deb`)
+```bash
+# 1. Baixar o arquivo .deb da versão v0.2.0
+wget https://github.com/elzobrito/md-studio/releases/download/v0.2.0/MD.Studio_0.2.0_amd64.deb
+
+# 2. Instalar no sistema
+sudo apt install ./MD.Studio_0.2.0_amd64.deb
+
+# 3. Executar pelo lançador de aplicativos ou via terminal:
+md-studio
+```
+
+### Executável Portátil (`AppImage`)
+Compatível com qualquer distribuição Linux (Ubuntu, Debian, Fedora, Arch, openSUSE):
+```bash
+# 1. Baixar o AppImage da versão v0.2.0
+wget https://github.com/elzobrito/md-studio/releases/download/v0.2.0/MD.Studio_0.2.0_amd64.AppImage
+
+# 2. Dar permissão de execução
+chmod +x "MD Studio_0.2.0_amd64.AppImage"
+
+# 3. Executar diretamente
+./"MD Studio_0.2.0_amd64.AppImage"
+```
 
 ![Tela inicial do MD Studio](docs/screenshots/welcome.png)
 
