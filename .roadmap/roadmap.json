@@ -7,11 +7,11 @@
     "run": {
       "run_id": "RUN-0001",
       "status": "success",
-      "last_event_seq": 2132,
-      "projection_hash_sha256": "345453848b073a06ee1e5195a4d470d7cf449ad9c98208b5b5ab02096bbe37c0",
+      "last_event_seq": 2144,
+      "projection_hash_sha256": "d779aa0ce559f0bc18433c90393bd88f4d3cbe4f7fe7b32774de21b9275fbc5b",
       "verify_status": "ok"
     },
-    "updated_at": "2026-09-22T22:57:57Z"
+    "updated_at": "2026-09-22T23:15:02Z"
   },
   "project": {
     "name": "MD Studio",
@@ -6826,14 +6826,51 @@
         ]
       },
       "completed_at": "2026-09-22T22:57:57Z"
+    },
+    {
+      "task_id": "MD-SNAP-STORE-ICON-001",
+      "task_kind": "impl",
+      "title": "Gerar e otimizar icone para a loja Canonical Snap Store",
+      "description": "Gera o icone oficial do MD Studio em formato PNG 512x512 otimizado (abaixo de 256kB) e proporcao 1:1 em conformidade com as diretrizes da Canonical Snap Store, salvando em snap/gui/icon.png e docs/assets/icon-canonical.png.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "snap/gui/icon.png",
+        "docs/assets/icon-canonical.png"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "snap/**",
+        "docs/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Formato PNG com resolucao 512x512 e aspect ratio 1:1",
+        "Tamanho do arquivo estritamente inferior a 256 kB"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-22T23:14:17Z",
+      "verification": {
+        "checks": [
+          "Icone gerado em snap/gui/icon.png com 512x512 e tamanho inferior a 256kB (81 kB)",
+          "Copia de distribuicao salva em docs/assets/icon-canonical.png"
+        ]
+      },
+      "completed_at": "2026-09-22T23:15:02Z"
     }
   ],
   "indexes": {
     "by_status": {
-      "done": 179
+      "done": 180
     },
     "by_kind": {
-      "impl": 124,
+      "impl": 125,
       "qa": 30,
       "spec": 25
     }
