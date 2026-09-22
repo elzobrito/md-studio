@@ -32,7 +32,12 @@
 - **Pipeline Sanitizado e Seguro:** Processamento via Unified/Remark/Rehype com isolamento estrito contra XSS (`rehype-sanitize`).
 - **CommonMark & GFM:** Suporte integral a tabelas, task lists (`- [x]`), autolinks, emojis e notas de rodapé.
 - **KaTeX:** Renderização de fórmulas matemáticas inline (`$...$`) e em bloco (`$$...$$`).
-- **Mermaid:** Renderização reativa de diagramas de sequência, fluxogramas, grafos e diagramas de classe em container SVG isolado com tratamento seguro de erros de sintaxe.
+- **Motor de Diagramas Interativos Mermaid (`MermaidBlock` & `@panzoom/panzoom`):**
+  - **Isolamento de Pipeline AST:** Interceptação limpa de blocos ````mermaid` antes do Shiki via `rehypeMermaidBlocks`, gerando contêineres sanitizados `<div class="mermaid-diagram-container" data-mermaid-code="...">` sem interferência na camada de realce de sintaxe.
+  - **Interatividade Completa (Pan & Zoom):** Controles de toolbar dedicados (`+`, `-`, `1:1`), rolagem de mouse suave (*wheel zoom*) e arrasto com ponteiro (*pan*) com feedback de cursor (`grab`/`grabbing`).
+  - **Resiliência a Digitação em Tempo Real:** Captura segura de erros de compilação durante digitação parcial; retém o último diagrama válido com indicador sutil `[Sintaxe incompleta]`, prevenindo quebras e poluição do DOM.
+  - **Exportação Fiel (SVG e PNG):** Utilitário `diagramExport.ts` que embute regras de estilo geradas pelo tema ativo dentro de `<defs><style>` do SVG antes do salvamento ou cópia para o clipboard, assegurando fidelidade visual no Inkscape, Figma ou navegadores.
+  - **Alternância Diagrama / Código-Fonte:** Botão para alternar a exibição do diagrama renderizado e do código-fonte Mermaid com um clique.
 - **Shiki Syntax Highlighting (TextMate Dual Themes):** Realce de sintaxe de alta precisão via Shiki (`@shikijs/rehype`) com suporte nativo a temas duplos simultâneos (`github-light` e `github-dark`) mapeados para variáveis CSS (`.theme-light`, `.theme-dark`, auto). Singleton Wasm com overhead zero de inicialização.
 - **Alertas / Callouts GFM:** Suporte a `> [!NOTE]`, `> [!TIP]`, `> [!IMPORTANT]`, `> [!WARNING]` e `> [!CAUTION]`.
 
@@ -226,6 +231,16 @@ O MD Studio integra três plugins oficiais do ecossistema Tauri 2 para comunica�
 - **`editorStore` ([`src/state/editor.ts`](file:///home/elzobrito/desenvolvimento/md-studio/src/state/editor.ts)):** Estado de salvamento, mensagens de erro e navegação para linha específica (`goToLine`).
 - **`settingsStore` ([`src/state/settings.ts`](file:///home/elzobrito/desenvolvimento/md-studio/src/state/settings.ts)):** Preferências persistidas do usuário (tema visual, zoom da interface).
 - **`recentFilesStore` ([`src/state/recent-files.ts`](file:///home/elzobrito/desenvolvimento/md-studio/src/state/recent-files.ts)):** Histórico dos últimos arquivos abertos com persistência local.
+
+### 4.3. Serviços e Utilitários Especializados
+- **`diagramExport` ([`src/services/diagramExport.ts`](file:///home/elzobrito/desenvolvimento/md-studio/src/services/diagramExport.ts)):**
+  - `embedStylesInSvg(svgString)`: Consolida folhas de estilo geradas pelo Mermaid e injeta no nó `<defs><style>` do SVG raiz, preservando namespaces XML.
+  - `mermaidSvgToPng(svgString, scale)`: Renderiza o SVG estilizado em um `<canvas>` offscreen em alta densidade de pixels e exporta Blob PNG.
+  - `downloadSvg(svgString, filename)` / `downloadPng(svgString, filename)`: Trata download instantâneo de diagramas sem dependências externas.
+- **`mermaid` ([`src/markdown/mermaid.ts`](file:///home/elzobrito/desenvolvimento/md-studio/src/markdown/mermaid.ts)):**
+  - `renderMermaid(id, code, options)`: Wrapper seguro em torno de `mermaid.render()`. Trata limpeza de nós de erro vazados no DOM, sincronização de tema (dark/light) e geração determinística de identificadores de diagrama.
+- **`formatCode` ([`src/services/formatCode.ts`](file:///home/elzobrito/desenvolvimento/md-studio/src/services/formatCode.ts)):**
+  - Hub híbrido de formatação: seleciona entre execução Prettier local (Web) e comando IPC Tauri `format_code` (Rust) para ferramentas de linha de comando nativas.
 
 ---
 
@@ -538,9 +553,9 @@ A tabela abaixo serve como guia operacional direto para desenvolvimento e manute
 
 ### 6.3. Checklist de Garantia de Qualidade para Qualquer Alteração
 Sempre que uma alteração for realizada seguindo o mapa acima, o ciclo de validação obrigatório consiste em:
-1. **Tipagem e Linting:** `pnpm build` (TypeScript check estrito).
-2. **Testes Unitários e de Integração Frontend:** `pnpm test` (suite com 197 testes no Vitest).
-3. **Testes Unitários e de Segurança Backend:** `cargo test` no diretório `src-tauri/` (confinamento de path, atomismo e hashes).
+1. **Tipagem e Linting:** `pnpm typecheck` (TypeScript check estrito).
+2. **Testes Unitários e de Integração Frontend:** `pnpm test` (suite com mais de 220 testes no Vitest cobrindo parser, AST, diagramas, atalhos e UX).
+3. **Testes Unitários e de Segurança Backend:** `cargo test` no diretório `src-tauri/` (confinamento de path, atomismo, supressão no watcher e hashes).
 4. **Atualização da Documentação:** Refletir o novo comando, atalho ou evento no presente documento [`docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md`](file:///home/elzobrito/desenvolvimento/md-studio/docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md).
 
 

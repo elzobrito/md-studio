@@ -58,6 +58,7 @@ export async function processMarkdown(source: string, options: ProcessOptions = 
     .use(rehypeRaw)
     .use(rehypeWikiLinks, { resolutions: options.wikiLinks })
     .use(rehypeHeadingIds)
+    .use(rehypeMermaidBlocks)
     .use(rehypeShikiFromHighlighter, highlighter, {
       themes: {
         light: "github-light",
@@ -99,6 +100,64 @@ function rehypeHeadingIds() {
       if (!props.id) props.id = id;
     });
   };
+}
+
+/** Intercept code blocks with language "mermaid" and transform them into interactive diagram containers */
+function rehypeMermaidBlocks() {
+  return (tree: any) => {
+    visitPreElements(tree);
+  };
+}
+
+function visitPreElements(node: any): void {
+  if (!node || typeof node !== "object") return;
+  if (Array.isArray(node.children)) {
+    for (let i = 0; i < node.children.length; i++) {
+      const child = node.children[i];
+      if (child.type === "element" && child.tagName === "pre") {
+        const codeNode = (child.children || []).find((c: any) => c.type === "element" && c.tagName === "code");
+        if (codeNode) {
+          const classNames = Array.isArray(codeNode.properties?.className)
+            ? codeNode.properties.className
+            : [codeNode.properties?.className || ""];
+          const isMermaid = classNames.some((cls: string) =>
+            cls === "language-mermaid" || cls === "mermaid"
+          );
+
+          if (isMermaid) {
+            const rawCode = extractTextValue(codeNode).trim();
+            node.children[i] = {
+              type: "element",
+              tagName: "div",
+              properties: {
+                className: ["mermaid-diagram-container"],
+                dataMermaidCode: rawCode,
+              },
+              children: [
+                {
+                  type: "element",
+                  tagName: "pre",
+                  properties: { className: ["mermaid-code-fallback"] },
+                  children: [{ type: "text", value: rawCode }],
+                },
+              ],
+            };
+            continue;
+          }
+        }
+      }
+      visitPreElements(child);
+    }
+  }
+}
+
+function extractTextValue(node: any): string {
+  if (!node) return "";
+  if (node.type === "text") return node.value || "";
+  if (Array.isArray(node.children)) {
+    return node.children.map(extractTextValue).join("");
+  }
+  return "";
 }
 
 type HastNode = {

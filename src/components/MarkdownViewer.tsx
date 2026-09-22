@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from "react";
+import { createRoot, type Root } from "react-dom/client";
 import { processMarkdown } from "../markdown/processor";
 import type { ResolvedWikiLink } from "../types/metadata";
 import { formatCode } from "../services/formatter";
 import { replaceFencedCodeBlock } from "../markdown/fencedCode";
+import { MermaidBlock } from "./MermaidBlock";
 
 export function MarkdownViewer(props: {
   content: string;
@@ -159,6 +161,38 @@ export function MarkdownViewer(props: {
       container.appendChild(pre);
     });
   }, [html, props.content, props.onChangeContent]);
+
+  // Mount interactive MermaidBlock components into .mermaid-diagram-container elements
+  useEffect(() => {
+    const root = bodyRef.current;
+    if (!root) return;
+
+    const containers = root.querySelectorAll<HTMLDivElement>(".mermaid-diagram-container");
+    const mountedRoots: Root[] = [];
+
+    containers.forEach((container) => {
+      if (container.dataset.mounted === "true") return;
+      container.dataset.mounted = "true";
+
+      const code = container.dataset.mermaidCode || container.textContent || "";
+      if (!code.trim()) return;
+
+      container.innerHTML = "";
+      const reactRoot = createRoot(container);
+      reactRoot.render(<MermaidBlock source={code} />);
+      mountedRoots.push(reactRoot);
+    });
+
+    return () => {
+      mountedRoots.forEach((r) => {
+        try {
+          r.unmount();
+        } catch {
+          /* unmount safety */
+        }
+      });
+    };
+  }, [html]);
 
   return (
     <section className="preview" aria-label="Preview">

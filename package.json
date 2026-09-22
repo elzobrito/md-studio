@@ -19,6 +19,7 @@
     "@codemirror/search": "6.5.10",
     "@codemirror/state": "6.5.2",
     "@codemirror/view": "6.36.4",
+    "@panzoom/panzoom": "^4.6.2",
     "@shikijs/rehype": "^4.4.3",
     "@tauri-apps/api": "2.4.0",
     "@tauri-apps/plugin-dialog": "2.2.0",

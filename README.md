@@ -28,6 +28,7 @@ Preview formatado (GFM, matemática KaTeX, Shiki syntax highlighting e diagramas
 | **Syntax Highlighting** | **Shiki (TextMate)** | Realce de sintaxe TextMate dual-themes (`github-light` / `github-dark`) com zero overhead. |
 | **Formatação de Código** | **Prettier Standalone + CLI Nativo** | Formatação híbrida: Prettier no navegador (Web) e formatadores nativos via Rust (`ruff`, `rustfmt`, `gofmt`, `clang-format`). |
 | **Pipeline Markdown** | **Unified / Remark / Rehype** | Parser AST completo com suporte a CommonMark, GFM, KaTeX e Mermaid. |
+| **Diagramas Interativos** | **Mermaid.js + @panzoom/panzoom** | Renderização reativa de diagramas com zoom/pan, alternância de fonte e exportação SVG/PNG com estilos embutidos. |
 | **Segurança no Renderizador** | **rehype-sanitize** | Higienização estrita contra XSS: eliminação de `<script>`, `<iframe>` e handlers inline. |
 | **Observador do Sistema** | **notify (Rust)** | Monitoramento de disco via `inotify` com debounce e supressão de escritas internas. |
 
@@ -97,6 +98,24 @@ cargo test --manifest-path src-tauri/Cargo.toml  # Testes unitários do backend 
 
 4. **Rascunhos de Recuperação Instantânea:**
    Alterações não salvas também são sincronizadas imediatamente em armazenamento local (`localStorage`), garantindo restauração automática com aviso na interface caso o aplicativo seja encerrado bruscamente antes do flush físico no disco.
+
+---
+
+## Motor de Diagramas Interativos (Mermaid.js)
+
+O MD Studio integra renderização interativa avançada para diagramas Mermaid (`flowchart`, `sequenceDiagram`, `classDiagram`, `erDiagram`, `stateDiagram`, `gantt`, etc.):
+
+- **Interatividade Total (Pan & Zoom):**
+  - Botões de controle dedicados: `+` (Zoom In), `-` (Zoom Out) e `1:1` (Reset de escala).
+  - Suporte a rolagem com o mouse (wheel zoom) e arrastar com o ponteiro (drag/pan) com cursor visual `grab`/`grabbing`.
+- **Resiliência a Digitação em Tempo Real:**
+  - Envolve a compilação do Mermaid em ciclo seguro. Enquanto o usuário digita expressões incompletas no editor, o preview retém de forma graciosa a última renderização válida e exibe um indicador discreto `[Sintaxe incompleta]`, prevenindo flashes de tela, mensagens de erro intrusivas ou poluição no DOM.
+- **Exportação Fiel de Imagens (SVG e PNG):**
+  - **SVG:** Antes do download ou cópia para a área de transferência, todas as regras CSS e estilos computados gerados pelo Mermaid são automaticamente consolidados e embutidos dentro da tag `<defs><style>` do próprio SVG. O arquivo abre com perfeita fidelidade de fontes e cores no Inkscape, Figma, Illustrator ou qualquer navegador web.
+  - **PNG:** Renderização em alta resolução em elemento Canvas offscreen com download instantâneo.
+  - **Copiar SVG:** Cópia direta do SVG higienizado e estilizado para a área de transferência com feedback visual `✓ Copiado!`.
+- **Alternância Rápida Diagrama / Fonte:**
+  - Botão de alternância para inspecionar instantaneamente o código-fonte Mermaid original sem sair do modo preview.
 
 ---
 

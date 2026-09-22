@@ -26,6 +26,9 @@ importers:
       '@codemirror/view':
         specifier: 6.36.4
         version: 6.36.4
+      '@panzoom/panzoom':
+        specifier: ^4.6.2
+        version: 4.6.2
       '@shikijs/rehype':
         specifier: ^4.4.3
         version: 4.4.3
@@ -516,6 +519,9 @@ packages:
 
   '@mermaid-js/parser@0.4.0':
     resolution: {integrity: sha512-wla8XOWvQAwuqy+gxiZqY+c7FokraOTHRWMsbB4AgRx9Sy7zKslNyejy7E+a77qHfey5GXw/ik3IXv/NHMJgaA==}
+
+  '@panzoom/panzoom@4.6.2':
+    resolution: {integrity: sha512-Zn3B5/hwa6eYIPRSKX0xf2clv8nviTX8AnAU5kU/EugiTDhG41ya2wlBqYrZJYCWQROr/5XkWObZhIkepi89qw==}
 
   '@rollup/rollup-android-arm-eabi@4.62.2':
     resolution: {integrity: sha512-6o7ZLZK+BeenkZCFNDXqpbjw9bD6nuWonvS/lwQJp7NoVVxm6p3qE7qQ5jGuBjiFsgvqjD8mZAU5oWxTmbOeOg==}
@@ -2581,6 +2587,8 @@ snapshots:
   '@mermaid-js/parser@0.4.0':
     dependencies:
       langium: 3.3.1
+
+  '@panzoom/panzoom@4.6.2': {}
 
   '@rollup/rollup-android-arm-eabi@4.62.2':
     optional: true

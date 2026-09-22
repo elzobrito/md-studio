@@ -7,11 +7,11 @@
     "run": {
       "run_id": "RUN-0001",
       "status": "success",
-      "last_event_seq": 2072,
-      "projection_hash_sha256": "035067436f8c1f64a8480ce3a6e35cc11050411cb7842cf38f7e715154ebd4c2",
+      "last_event_seq": 2108,
+      "projection_hash_sha256": "7006843fbb546ce5e119392c0adda4bb451b44b2cdebd3ec17dc03ddaacf0289",
       "verify_status": "ok"
     },
-    "updated_at": "2026-09-22T17:23:13Z"
+    "updated_at": "2026-09-22T18:18:32Z"
   },
   "project": {
     "name": "MD Studio",
@@ -6628,14 +6628,129 @@
         ]
       },
       "completed_at": "2026-09-22T17:23:13Z"
+    },
+    {
+      "task_id": "MD-MERMAID-CORE-RENDER-001",
+      "task_kind": "impl",
+      "title": "Integrar blocos Mermaid no pipeline AST com estilizacao e sanitizacao segura",
+      "description": "Interceptar blocos fenced mermaid antes do Shiki no pipeline Unified/Rehype, sanitizar atributos no sanitize schema e sincronizar renderizacao dinamica com temas light/dark",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "src/markdown/processor.ts",
+        "src/markdown/sanitize.ts",
+        "src/markdown/mermaid.ts"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Blocos fenced mermaid sao transformados em containers de diagrama no pipeline AST sem passar pelo Shiki",
+        "mdStudioSanitizeSchema permite containers e atributos de dados do mermaid de forma segura",
+        "renderMermaid sincroniza temas dinamicos (light/dark) e isola erros de sintaxe",
+        "Testes unitarios validam o pipeline AST e o renderizador"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-22T18:04:12Z",
+      "verification": {
+        "checks": [
+          "pnpm vitest run tests/markdown/mermaid/mermaid.test.ts",
+          "pnpm typecheck"
+        ]
+      },
+      "completed_at": "2026-09-22T18:08:17Z"
+    },
+    {
+      "task_id": "MD-MERMAID-INTERACTIVE-PANZOOM-002",
+      "task_kind": "impl",
+      "title": "Implementar visualizador interativo MermaidBlock com Panzoom e exportacao SVG/PNG",
+      "description": "Instalar @panzoom/panzoom, aprimorar MermaidBlock com controles de zoom/pan, exportacao segura com estilos embutidos e integracao no MarkdownViewer",
+      "status": "done",
+      "depends_on": [
+        "MD-MERMAID-CORE-RENDER-001"
+      ],
+      "targets": [
+        "src/components/MermaidBlock.tsx",
+        "src/components/MarkdownViewer.tsx",
+        "src/styles/mermaid-chrome.css",
+        "src/services/diagramExport.ts"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "MermaidBlock renderiza diagrama com zoom in, zoom out, reset 1:1 e suporte a drag/pan",
+        "Falha temporaria de sintaxe durante digitacao preserva o ultimo diagrama valido e exibe aviso discreto",
+        "Exportacao de SVG embute estilos computados garantindo fidelidade visual em visualizadores externos",
+        "MarkdownViewer monta MermaidBlock interativo em todos os blocos de diagrama",
+        "Testes unitarios e de interface aprovados"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-22T18:08:38Z",
+      "verification": {
+        "checks": [
+          "pnpm vitest run tests/editor/mermaid-interactive.test.tsx",
+          "pnpm typecheck",
+          "pnpm test"
+        ]
+      },
+      "completed_at": "2026-09-22T18:14:37Z"
+    },
+    {
+      "task_id": "MD-MERMAID-VERIFY-DOCS-003",
+      "task_kind": "impl",
+      "title": "Documentar motor de diagramas Mermaid interativo e validar suite completa",
+      "description": "Atualizar documentacao no README.md e mapa de funcoes e rotas, validar suites Vitest, Cargo e build de release",
+      "status": "done",
+      "depends_on": [
+        "MD-MERMAID-INTERACTIVE-PANZOOM-002"
+      ],
+      "targets": [
+        "README.md",
+        "docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "README.md documenta suporte a diagramas interativos Mermaid com zoom, pan e exportacao",
+        "docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md atualizado com as novas capacidades visuais",
+        "Suite completa (cargo test, pnpm test, pnpm typecheck, pnpm build) aprovada sem regressoes"
+      ],
+      "required_review_mode": "docs",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-22T18:14:59Z",
+      "verification": {
+        "checks": [
+          "cargo test --manifest-path src-tauri/Cargo.toml",
+          "pnpm typecheck",
+          "pnpm test",
+          "pnpm build"
+        ]
+      },
+      "completed_at": "2026-09-22T18:18:32Z"
     }
   ],
   "indexes": {
     "by_status": {
-      "done": 174
+      "done": 177
     },
     "by_kind": {
-      "impl": 119,
+      "impl": 122,
       "qa": 30,
       "spec": 25
     }
