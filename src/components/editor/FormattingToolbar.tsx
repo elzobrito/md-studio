@@ -15,6 +15,7 @@ import {
   insertImage,
   toggleCode,
   insertCodeBlock,
+  formatCodeBlockAtCursor,
   toggleList,
   insertBlockquote,
   insertDivider,
@@ -145,9 +146,17 @@ export function FormattingToolbar({ view, className = "" }: FormattingToolbarPro
           onClick={() => toggleCode(view)}
         />
         <ToolbarButton
-          icon="```"
-          label="Bloco de código"
-          onClick={() => insertCodeBlock(view)}
+           icon="```"
+           label="Bloco de código"
+           onClick={() => insertCodeBlock(view)}
+         />
+        <ToolbarButton
+          icon="✨"
+          label="Formatar código"
+          shortcut="Shift+Alt+F"
+          onClick={() => {
+            if (view) void formatCodeBlockAtCursor(view);
+          }}
         />
       </ToolbarGroup>
 

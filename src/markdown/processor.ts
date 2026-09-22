@@ -6,7 +6,7 @@ import remarkMath from "remark-math";
 import remarkDirective from "remark-directive";
 import remarkRehype from "remark-rehype";
 import rehypeRaw from "rehype-raw";
-import rehypeHighlight from "rehype-highlight";
+import { getHighlighter, rehypeShikiFromHighlighter } from "./shiki";
 import rehypeKatex from "rehype-katex";
 import { flagsFor, type MarkdownProfile } from "./profile";
 import { sanitizePlugin } from "./sanitize";
@@ -51,12 +51,31 @@ export async function processMarkdown(source: string, options: ProcessOptions = 
   if (flags.math) processor = processor.use(remarkMath);
   if (flags.directives) processor = processor.use(remarkDirective);
 
+  const highlighter = await getHighlighter();
+
   processor = processor
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeRaw)
     .use(rehypeWikiLinks, { resolutions: options.wikiLinks })
     .use(rehypeHeadingIds)
-    .use(rehypeHighlight, { detect: false, plainText: ["text", "plain", "txt"] })
+    .use(rehypeShikiFromHighlighter, highlighter, {
+      themes: {
+        light: "github-light",
+        dark: "github-dark",
+      },
+      defaultColor: false,
+      fallbackLanguage: "text",
+      addLanguageClass: true,
+      transformers: [
+        {
+          pre(this: any, node: any) {
+            const lang = this.options?.lang || "";
+            node.properties = node.properties || {};
+            node.properties["data-language"] = lang;
+          },
+        },
+      ],
+    })
     .use(rehypeKatex, { throwOnError: false, trust: false })
     .use(sanitizePlugin);
 

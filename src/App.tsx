@@ -565,6 +565,7 @@ export function App() {
                     onPreviewRoot(el);
                     scrollSync.setPreviewScroller(el);
                   }}
+                  onChangeContent={doc.setContent}
                 />
               )}
             </>

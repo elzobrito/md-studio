@@ -3,8 +3,8 @@ import { processMarkdown } from "../../../src/markdown/processor";
 import * as fs from "node:fs";
 import * as path from "node:path";
 
-describe("code syntax highlighting", () => {
-  it("highlights python code blocks with appropriate hljs classes", async () => {
+describe("code syntax highlighting with Shiki", () => {
+  it("highlights python code blocks with Shiki TextMate dual-theme tokens", async () => {
     const pythonCode = [
       '```python',
       '"""Testes da etapa final usando banco temporário e cliente Flask."""',
@@ -25,51 +25,52 @@ describe("code syntax highlighting", () => {
     const result = await processMarkdown(pythonCode);
     const html = result.html;
 
-    // Code container classes
-    expect(html).toContain('<pre><code class="language-python">');
+    // Code container classes and dual-theme attributes
+    expect(html).toContain('<pre');
+    expect(html).toContain('class="shiki shiki-themes github-light github-dark"');
+    expect(html).toContain('data-language="python"');
+    expect(html).toContain('--shiki-light');
+    expect(html).toContain('--shiki-dark');
 
-    // Keywords: import, class, def
-    expect(html).toMatch(/<span class="hljs-keyword">import<\/span>/);
-    expect(html).toMatch(/<span class="hljs-keyword">class<\/span>/);
-    expect(html).toMatch(/<span class="hljs-keyword">def<\/span>/);
+    // Keywords: import, class, def (GitHub Light: #D73A49, GitHub Dark: #F97583)
+    expect(html).toMatch(/<span style="[^"]*--shiki-light:#D73A49[^"]*">\s*import<\/span>/);
+    expect(html).toMatch(/<span style="[^"]*--shiki-light:#D73A49[^"]*">\s*class<\/span>/);
+    expect(html).toMatch(/<span style="[^"]*--shiki-light:#D73A49[^"]*">\s*def<\/span>/);
 
-    // Entity/Class and Function titles
-    expect(html).toMatch(/<span class="hljs-title class_">CrudTestCase<\/span>/);
-    expect(html).toMatch(/<span class="hljs-title function_">setUp<\/span>/);
-    expect(html).toMatch(/<span class="hljs-title function_">test_crud_completo<\/span>/);
+    // Entity/Class and Function titles (GitHub Light: #6F42C1)
+    expect(html).toMatch(/<span style="[^"]*--shiki-light:#6F42C1[^"]*">\s*CrudTestCase<\/span>/);
+    expect(html).toMatch(/<span style="[^"]*--shiki-light:#6F42C1[^"]*">\s*setUp<\/span>/);
+    expect(html).toMatch(/<span style="[^"]*--shiki-light:#6F42C1[^"]*">\s*test_crud_completo<\/span>/);
 
-    // Strings
-    expect(html).toMatch(/<span class="hljs-string">&quot;teste\.db&quot;<\/span>/);
-    expect(html).toMatch(/<span class="hljs-string">&quot;&quot;&quot;Testes da etapa final/);
+    // Strings (GitHub Light: #032F62)
+    expect(html).toMatch(/<span style="[^"]*--shiki-light:#032F62[^"]*">\s*&quot;teste\.db&quot;<\/span>/);
 
-    // Numbers
-    expect(html).toMatch(/<span class="hljs-number">302<\/span>/);
-  });
+    // Numbers (GitHub Light: #005CC5)
+    expect(html).toMatch(/<span style="[^"]*--shiki-light:#005CC5[^"]*">\s*302<\/span>/);
+  }, 20000);
 
-  it("highlights javascript and json code blocks", async () => {
+  it("highlights javascript and json code blocks with TextMate tokens", async () => {
     const jsSnippet = '```javascript\nconst x = 42;\nfunction hello() { return "world"; }\n```';
     const jsResult = await processMarkdown(jsSnippet);
-    expect(jsResult.html).toContain('class="language-javascript"');
-    expect(jsResult.html).toMatch(/<span class="hljs-keyword">const<\/span>/);
-    expect(jsResult.html).toMatch(/<span class="hljs-number">42<\/span>/);
+    expect(jsResult.html).toContain('class="shiki shiki-themes github-light github-dark"');
+    expect(jsResult.html).toMatch(/<span style="[^"]*--shiki-light:#D73A49[^"]*">\s*const<\/span>/);
+    expect(jsResult.html).toMatch(/<span style="[^"]*--shiki-light:#005CC5[^"]*">\s*42<\/span>/);
 
     const jsonSnippet = '```json\n{"status": "ok", "count": 10}\n```';
     const jsonResult = await processMarkdown(jsonSnippet);
-    expect(jsonResult.html).toContain('class="language-json"');
-    expect(jsonResult.html).toMatch(/<span class="hljs-attr">&quot;status&quot;<\/span>/);
+    expect(jsonResult.html).toContain('class="shiki shiki-themes github-light github-dark"');
+    expect(jsonResult.html).toMatch(/<span style="[^"]*--shiki-light:#005CC5[^"]*">\s*10<\/span>/);
   });
 
-  it("ensures syntax.css exists and defines variables for light and dark themes", () => {
+  it("ensures syntax.css exists and defines variables for light, dark, and Shiki themes", () => {
     const cssPath = path.resolve(__dirname, "../../../src/styles/syntax.css");
     expect(fs.existsSync(cssPath)).toBe(true);
 
     const cssContent = fs.readFileSync(cssPath, "utf-8");
-    expect(cssContent).toContain("--hljs-keyword");
-    expect(cssContent).toContain("--hljs-string");
-    expect(cssContent).toContain("--hljs-constant");
+    expect(cssContent).toContain("pre.shiki");
+    expect(cssContent).toContain("--shiki-light");
+    expect(cssContent).toContain("--shiki-dark");
     expect(cssContent).toContain(".theme-light");
     expect(cssContent).toContain(".theme-dark");
-    expect(cssContent).toContain(".preview-body .hljs-keyword");
-    expect(cssContent).toContain(".preview-body .hljs-string");
   });
 });

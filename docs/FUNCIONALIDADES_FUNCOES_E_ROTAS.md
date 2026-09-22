@@ -1,6 +1,6 @@
 # Mapa de Funcionalidades, Funções e Rotas — MD Studio
 
-**Versão do Produto:** v0.1 (Ondas 0, 0B, 0C, 1, 2 e 3 Concluídas)  
+**Versão do Produto:** v0.2.0 (Ondas 0-3 + Shiki & Hub Híbrido de Formatação Concluídos)  
 **Stack:** Tauri 2 (Rust) + React 19 + TypeScript + CodeMirror 6 + Unified  
 **Repositório:** [github.com/elzobrito/md-studio](https://github.com/elzobrito/md-studio)  
 **Ambiente:** Desktop Linux (Local-first / Offline)
@@ -33,7 +33,7 @@
 - **CommonMark & GFM:** Suporte integral a tabelas, task lists (`- [x]`), autolinks, emojis e notas de rodapé.
 - **KaTeX:** Renderização de fórmulas matemáticas inline (`$...$`) e em bloco (`$$...$$`).
 - **Mermaid:** Renderização reativa de diagramas de sequência, fluxogramas, grafos e diagramas de classe em container SVG isolado com tratamento seguro de erros de sintaxe.
-- **Highlight.js:** Realce de sintaxe de dezenas de linguagens em blocos de código cercados (` ```lang `).
+- **Shiki Syntax Highlighting (TextMate Dual Themes):** Realce de sintaxe de alta precisão via Shiki (`@shikijs/rehype`) com suporte nativo a temas duplos simultâneos (`github-light` e `github-dark`) mapeados para variáveis CSS (`.theme-light`, `.theme-dark`, auto). Singleton Wasm com overhead zero de inicialização.
 - **Alertas / Callouts GFM:** Suporte a `> [!NOTE]`, `> [!TIP]`, `> [!IMPORTANT]`, `> [!WARNING]` e `> [!CAUTION]`.
 
 ### 1.4. Wiki Links e Conexões Bidirecionais
@@ -53,6 +53,16 @@
 - **Detecção de Conflitos Concorrentes:** Verificação de SHA-256 antes da gravação. Se o arquivo no disco foi alterado externamente, o diálogo `ConflictDialog` oferece opções: *Recarregar do Disco*, *Manter Edição Local* ou *Salvar Como*.
 - **Observador de Arquivos (*Watcher FS*):** Motor `notify` em Rust observando modificações em tempo real com debounce estável.
 - **Exportação HTML Autossuficiente:** Botão `[⇩ Exportar HTML]` no cabeçalho; gera documento HTML autônomo com estilos embutidos e scripts seguros. Protegido para só ficar habilitado com arquivo ativo.
+
+### 1.6. Hub Híbrido de Formatação de Código (Frontend Web + Backend Rust)
+- **Camada Web (Prettier Standalone):** Formatação local instantânea no navegador sem dependências nativas para JavaScript, TypeScript, JSX, TSX, HTML, CSS, SCSS, Less, JSON, YAML e Markdown.
+- **Camada Nativa (Rust IPC `format_code`):** Execução segura de formatadores CLI do sistema operacional (`ruff format -` para Python, `rustfmt` para Rust, `gofmt` para Go, `clang-format` para C/C++/C#/Java/Proto, `google-java-format`, `php-cs-fixer`, `dart format`).
+- **Resiliência e Fallback Seguro:** Execução em threads separadas para I/O com timeout de 2 segundos; se a ferramenta CLI estiver ausente ou o código contiver erros de sintaxe, o código original é preservado sem travar ou corromper o documento.
+- **Ações de Interface (UX):**
+  - Botão **Formatar** no cabeçalho de cada bloco de código no Preview com feedback visual animado (`Formatando...`, `✓ Formatado!`).
+  - Comando e atalho **`Shift + Alt + F`** no editor CodeMirror 6 para formatar o bloco cercado sob o cursor.
+  - Botão dedicado de formatação de código na `FormattingToolbar`.
+  - Sincronização atômica in-place no documento Markdown ativo.
 
 ---
 
@@ -132,7 +142,7 @@ O MD Studio dispõe de um barramento de atalhos globais gerenciado por [`useKeyb
 
 Todas as rotas IPC e canais de eventos estão registrados em [`src-tauri/src/lib.rs`](file:///home/elzobrito/desenvolvimento/md-studio/src-tauri/src/lib.rs) e expostos com tipagem TypeScript segura em [`src/lib/ipc/`](file:///home/elzobrito/desenvolvimento/md-studio/src/lib/ipc).
 
-### 3.1. Comandos IPC de Requisição e Resposta (Tauri Invokes — 19 Comandos)
+### 3.1. Comandos IPC de Requisição e Resposta (Tauri Invokes — 20 Comandos)
 
 | Comando IPC (Rota) | Módulo Rust | Parâmetros de Entrada | Retorno (Payload) | Descrição e Regras de Segurança |
 |---|---|---|---|---|
@@ -144,6 +154,7 @@ Todas as rotas IPC e canais de eventos estão registrados em [`src-tauri/src/lib
 | `export_html` | `commands::mod` | `path: String, html: String, overwrite: bool` | `ExportResult` | Grava arquivo `.html` autossuficiente no caminho absoluto fornecido. Rejeita sobrescrita sem confirmação explícita. |
 | `get_launch_path` | `commands::mod` | — | `Option<String>` | Obtém caminho de arquivo `.md` passado via linha de comando ou clique duplo do sistema operacional. |
 | `close_splash` | `commands::mod` | — | `()` | Fecha a janela temporária de splash e exibe a janela principal de 1280x800 com foco. |
+| `format_code` | `commands::formatter` | `language: String, code: String` | `FormatResult` | Formata bloco de código via ferramentas CLI locais (`ruff`, `rustfmt`, `gofmt`, `clang-format`) com timeout de 2s e fallback seguro. |
 | `start_watching` | `watcher::mod` | `workspace_id: String, root_path: String` | `()` | Inicia o observador de filesystem (`notify`) na raiz com debounce para detectar alterações externas. |
 | `stop_watching` | `watcher::mod` | — | `()` | Encerra com segurança o worker thread do observador de arquivos. |
 | `get_workspace_stats` | `commands::metadata` | `workspace_id: String` | `WorkspaceStats` | Quantidade de documentos indexados, total de tags e links mapeados. |

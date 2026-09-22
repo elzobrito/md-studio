@@ -85,6 +85,7 @@ pub fn run() {
             commands::metadata::get_tags,
             commands::metadata::get_backlinks,
             commands::close_splash,
+            commands::formatter::format_code,
             watcher::start_watching,
             watcher::stop_watching,
         ])

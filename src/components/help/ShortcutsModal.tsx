@@ -37,6 +37,7 @@ const SHORTCUT_DEFS: ShortcutDef[] = [
   { keys: ["Ctrl", "Shift", "F"], desc: "Buscar no workspace", category: "Editor" },
   { keys: ["Ctrl", "Home"], desc: "Início do documento", category: "Editor" },
   { keys: ["Ctrl", "End"], desc: "Fim do documento", category: "Editor" },
+  { keys: ["Shift", "Alt", "F"], desc: "Formatar bloco de código", category: "Editor" },
 
   // Interface
   { keys: ["Ctrl", ","], desc: "Configurações", category: "Interface" },

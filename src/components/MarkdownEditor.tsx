@@ -20,6 +20,7 @@ import {
   toggleStrikethrough,
   insertLink,
   toggleCode,
+  formatCodeBlockAtCursor,
 } from "../editor/formatting";
 import {
   createWikiCompletionExtensions,
@@ -120,6 +121,20 @@ export function MarkdownEditor(props: {
             key: "Mod-e",
             run: (v) => {
               toggleCode(v);
+              return true;
+            },
+          },
+          {
+            key: "Shift-Alt-f",
+            run: (v) => {
+              void formatCodeBlockAtCursor(v);
+              return true;
+            },
+          },
+          {
+            key: "Shift-Alt-F",
+            run: (v) => {
+              void formatCodeBlockAtCursor(v);
               return true;
             },
           },

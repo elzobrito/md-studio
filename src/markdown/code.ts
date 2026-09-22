@@ -1,12 +1,33 @@
+const ALIASES: Record<string, string> = {
+  js: "javascript",
+  ts: "typescript",
+  py: "python",
+  rs: "rust",
+  rb: "ruby",
+  sh: "bash",
+  shell: "bash",
+  zsh: "bash",
+  yml: "yaml",
+  cs: "csharp",
+  "c++": "cpp",
+  golang: "go",
+  md: "markdown",
+  txt: "text",
+  plain: "text",
+};
+
 const LANG_ALLOW = new Set([
-  "ts", "typescript", "js", "javascript", "json", "md", "markdown", "rust", "rs",
-  "python", "py", "bash", "sh", "shell", "css", "html", "yaml", "yml", "toml", "sql", "text", "plain",
+  "typescript", "javascript", "json", "markdown", "rust",
+  "python", "bash", "css", "html", "yaml", "toml", "sql", "text",
+  "go", "c", "cpp", "csharp", "java", "php", "dart", "ruby", "xml",
+  "graphql", "scss", "less", "kotlin", "swift", "lua", "diff",
 ]);
 
 export function normalizeLanguage(lang?: string | null): string {
   if (!lang) return "text";
   const l = lang.toLowerCase().trim();
-  return LANG_ALLOW.has(l) ? l : "text";
+  const resolved = ALIASES[l] ?? l;
+  return LANG_ALLOW.has(resolved) ? resolved : "text";
 }
 
 export function parseCodeMeta(meta: string): { filename?: string; highlight: number[] } {

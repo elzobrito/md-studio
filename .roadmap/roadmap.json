@@ -7,11 +7,11 @@
     "run": {
       "run_id": "RUN-0001",
       "status": "success",
-      "last_event_seq": 1976,
-      "projection_hash_sha256": "9cbe9edd782ded911cd8649b1d5658b60d5ac6b01c35e6fa5104a07a2a14407e",
+      "last_event_seq": 2036,
+      "projection_hash_sha256": "7132803b7bc691cdac1aa47272aec99763ef416224251d276fcb0cf4de242cdd",
       "verify_status": "ok"
     },
-    "updated_at": "2026-09-20T21:55:55Z"
+    "updated_at": "2026-09-22T16:05:31Z"
   },
   "project": {
     "name": "MD Studio",
@@ -6313,14 +6313,217 @@
         ]
       },
       "completed_at": "2026-09-20T21:55:55Z"
+    },
+    {
+      "task_id": "MD-CODE-SHIKI-RENDER-001",
+      "task_kind": "impl",
+      "title": "Migrar pipeline de preview para Shiki com dual themes",
+      "description": "Substituir highlight.js por Shiki (@shikijs/rehype) com dual themes (github-light e github-dark) via CSS variables, estender o schema de sanitização e cobrir com testes unitários.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "package.json",
+        "pnpm-lock.yaml",
+        "src/**",
+        "tests/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Shiki integrado no processMarkdown usando @shikijs/rehype com temas github-light e github-dark",
+        "Schema de sanitizacao mdStudioSanitizeSchema atualizado para autorizar estilos e classes do Shiki",
+        "Mapeamento de CSS variables no syntax.css para alternancia fluida entre temas Claro e Escuro",
+        "Testes de renderizacao e realce TextMate passando no Vitest"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-22T15:27:50Z",
+      "verification": {
+        "checks": [
+          "Shiki integrado no processMarkdown via singleton getHighlighter e rehypeShikiFromHighlighter",
+          "Dual themes github-light e github-dark configurados com CSS variables",
+          "mdStudioSanitizeSchema atualizado para autorizar pre, code e span styles e classes",
+          "Vitest: 35 arquivos e 200 testes aprovados em 19s",
+          "pnpm typecheck aprovado sem erros"
+        ]
+      },
+      "completed_at": "2026-09-22T15:39:22Z"
+    },
+    {
+      "task_id": "MD-CODE-FORMAT-PRETTIER-002",
+      "task_kind": "impl",
+      "title": "Implementar Hub Prettier Standalone para linguagens Web",
+      "description": "Integrar prettier/standalone com parsers babel, html, postcss, markdown e yaml no frontend com tratamento de erros e fallback resiliente.",
+      "status": "done",
+      "depends_on": [
+        "MD-CODE-SHIKI-RENDER-001"
+      ],
+      "targets": [],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "package.json",
+        "pnpm-lock.yaml",
+        "src/**",
+        "tests/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Servico de formatacao web implementado com Prettier standalone e plugins carregados sob demanda",
+        "Suporte validado para JS, TS, JSX, TSX, HTML, CSS, JSON, YAML e Markdown",
+        "Tratamento de erro resiliente retornando codigo original em caso de sintaxe invalida",
+        "Testes unitarios de formatacao Web passando no Vitest"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-22T15:39:37Z",
+      "verification": {
+        "checks": [
+          "pnpm vitest run tests/formatter/web.test.ts",
+          "pnpm typecheck"
+        ]
+      },
+      "completed_at": "2026-09-22T15:42:08Z"
+    },
+    {
+      "task_id": "MD-CODE-FORMAT-NATIVE-003",
+      "task_kind": "impl",
+      "title": "Implementar comando Tauri em Rust para formatadores CLI",
+      "description": "Criar comando Tauri format_code em Rust com detecção de ferramentas no PATH (ruff, rustfmt, gofmt, clang-format), execução via stdin/stdout com timeout e fallback silencioso.",
+      "status": "done",
+      "depends_on": [
+        "MD-CODE-FORMAT-PRETTIER-002"
+      ],
+      "targets": [],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src-tauri/**",
+        "src/**",
+        "tests/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Comando format_code implementado no Rust e exposto via tauri::generate_handler",
+        "Suporte a ruff format (Python), rustfmt (Rust), gofmt (Go) e clang-format (C/C++/Java/Proto)",
+        "Execucao segura com timeout de 2 segundos e fallback transparente se ferramenta ausente",
+        "Testes unitarios em Rust validando mapeamento, timeout e fallback"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-22T15:42:24Z",
+      "verification": {
+        "checks": [
+          "cargo test --manifest-path src-tauri/Cargo.toml",
+          "pnpm vitest run tests/formatter/web.test.ts"
+        ]
+      },
+      "completed_at": "2026-09-22T15:46:17Z"
+    },
+    {
+      "task_id": "MD-CODE-UI-INTEGRATION-004",
+      "task_kind": "impl",
+      "title": "Integrar ações de formatação no Preview e CodeMirror",
+      "description": "Adicionar botão Formatar no cabeçalho dos blocos de código no Preview e comando/atalho Shift+Alt+F no editor CodeMirror para formatar blocos cercados in-place.",
+      "status": "done",
+      "depends_on": [
+        "MD-CODE-FORMAT-NATIVE-003"
+      ],
+      "targets": [],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src/**",
+        "tests/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Botao Formatar presente nos blocos de codigo do Preview com feedback visual de conclusao",
+        "Comando e atalho Shift+Alt+F no CodeMirror formatando o bloco cercado sob o cursor",
+        "Sincronizacao atomica da alteracao no documento Markdown ativo",
+        "Testes de interacao e fluxo de UI passando"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-22T15:46:28Z",
+      "verification": {
+        "checks": [
+          "pnpm vitest run tests/ui/code-formatting-ui.test.tsx",
+          "pnpm vitest run tests/editor/formatCodeBlock.test.ts",
+          "pnpm typecheck"
+        ]
+      },
+      "completed_at": "2026-09-22T15:56:05Z"
+    },
+    {
+      "task_id": "MD-CODE-RELEASE-V0.2.0-005",
+      "task_kind": "impl",
+      "title": "Validar suíte completa, atualizar documentação e lançar v0.2.0",
+      "description": "Executar testes completos, typecheck, build release do binário Tauri, atualizar documentação de arquitetura e manifestos de versão para v0.2.0.",
+      "status": "done",
+      "depends_on": [
+        "MD-CODE-UI-INTEGRATION-004"
+      ],
+      "targets": [],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "package.json",
+        "pnpm-lock.yaml",
+        "src-tauri/**",
+        "src/**",
+        "tests/**",
+        "docs/**"
+      ],
+      "task_type": "release",
+      "acceptance_criteria": [
+        "Suite completa de testes (Vitest e Cargo) aprovada sem regressoes",
+        "pnpm typecheck e pnpm tauri build concluidos com sucesso",
+        "Versao elevada para v0.2.0 em package.json, tauri.conf.json e Cargo.toml",
+        "Documento FUNCIONALIDADES_FUNCOES_E_ROTAS.md atualizado com as novas rotas e servicos"
+      ],
+      "required_review_mode": "release",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-22T15:56:22Z",
+      "verification": {
+        "checks": [
+          "cargo test --manifest-path src-tauri/Cargo.toml",
+          "pnpm test",
+          "pnpm typecheck",
+          "pnpm tauri build"
+        ]
+      },
+      "completed_at": "2026-09-22T16:05:31Z"
     }
   ],
   "indexes": {
     "by_status": {
-      "done": 166
+      "done": 171
     },
     "by_kind": {
-      "impl": 111,
+      "impl": 116,
       "qa": 30,
       "spec": 25
     }

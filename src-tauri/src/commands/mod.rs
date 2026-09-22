@@ -18,6 +18,7 @@ pub struct SaveDocumentRequest {
 }
 
 pub mod metadata;
+pub mod formatter;
 
 fn map_ws_err(e: WorkspaceError) -> String {
     e.to_string()
