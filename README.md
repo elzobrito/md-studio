@@ -21,10 +21,10 @@ Você pode baixar os pacotes pré-compilados diretamente da página de [Releases
 ### Pacote Debian / Ubuntu (`.deb`)
 ```bash
 # 1. Baixar o arquivo .deb da versão v0.2.0
-wget https://github.com/elzobrito/md-studio/releases/download/v0.2.0/MD.Studio_0.2.0_amd64.deb
+wget https://github.com/elzobrito/md-studio/releases/download/v0.2.0/md-studio_0.2.0_amd64.deb
 
 # 2. Instalar no sistema
-sudo apt install ./MD.Studio_0.2.0_amd64.deb
+sudo apt install ./md-studio_0.2.0_amd64.deb
 
 # 3. Executar pelo lançador de aplicativos ou via terminal:
 md-studio
@@ -34,13 +34,13 @@ md-studio
 Compatível com qualquer distribuição Linux (Ubuntu, Debian, Fedora, Arch, openSUSE):
 ```bash
 # 1. Baixar o AppImage da versão v0.2.0
-wget https://github.com/elzobrito/md-studio/releases/download/v0.2.0/MD.Studio_0.2.0_amd64.AppImage
+wget https://github.com/elzobrito/md-studio/releases/download/v0.2.0/md-studio_0.2.0_amd64.AppImage
 
 # 2. Dar permissão de execução
-chmod +x "MD Studio_0.2.0_amd64.AppImage"
+chmod +x md-studio_0.2.0_amd64.AppImage
 
 # 3. Executar diretamente
-./"MD Studio_0.2.0_amd64.AppImage"
+./md-studio_0.2.0_amd64.AppImage
 ```
 
 ![Tela inicial do MD Studio](docs/screenshots/welcome.png)
