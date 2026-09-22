@@ -29,9 +29,16 @@ export function MarkdownViewer(props: {
     let alive = true;
     const my = ++requestRef.current;
     const t = window.setTimeout(() => {
-      void processMarkdown(props.content, { wikiLinks: props.wikiLinks }).then((r) => {
-        if (alive && my === requestRef.current) setHtml(r.html);
-      });
+      void processMarkdown(props.content, { wikiLinks: props.wikiLinks })
+        .then((r) => {
+          if (alive && my === requestRef.current) setHtml(r.html);
+        })
+        .catch((err) => {
+          console.error("Erro ao processar markdown:", err);
+          if (alive && my === requestRef.current) {
+            setHtml(`<div class="preview-error"><p>Erro ao formatar visualização.</p></div>`);
+          }
+        });
     }, 120);
     return () => {
       alive = false;

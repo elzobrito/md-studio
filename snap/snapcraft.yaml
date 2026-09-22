@@ -1,0 +1,50 @@
+name: md-studio
+base: core24 # Base Ubuntu 24.04 LTS
+version: '0.2.0' # Ou extraia dinamicamente
+summary: Editor Markdown Desktop moderno construído com Tauri e Rust
+description: |
+  O MD Studio é um editor de Markdown técnico, leve e focado em privacidade,
+  projetado nativamente para Linux com suporte a Shiki, KaTeX e Mermaid.
+
+grade: stable
+confinement: strict # Exigência para publicação direta na loja
+
+# Permissões do sistema que o MD Studio precisa
+apps:
+  md-studio:
+    command: bin/md-studio
+    extensions: [gnome] # Já injeta WebKitGTK, Wayland/X11, fontes e temas GTK
+    plugs:
+      - home             # Leitura/escrita na home do usuário (~/)
+      - removable-media # Permite abrir e salvar arquivos em pendrives (/media, /mnt)
+      - network         # Para downloads de dependências/assets externos (se aplicável)
+
+parts:
+  frontend:
+    plugin: nil
+    source: .
+    build-packages:
+      - nodejs
+      - npm
+    override-build: |
+      npm install -g pnpm
+      pnpm install --frozen-lockfile
+      pnpm build
+
+  desktop-app:
+    after: [frontend]
+    plugin: rust
+    source: src-tauri
+    build-packages:
+      - libwebkit2gtk-4.1-dev
+      - build-essential
+      - curl
+      - wget
+      - libssl-dev
+      - libgtk-3-dev
+      - libayatana-appindicator3-dev
+      - librsvg2-dev
+    override-build: |
+      cargo build --release
+      mkdir -p $SNAPCRAFT_PART_INSTALL/bin
+      cp target/release/md-studio $SNAPCRAFT_PART_INSTALL/bin/

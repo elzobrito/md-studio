@@ -60,6 +60,6 @@ chmod +x md-studio_0.2.0_amd64.AppImage
 ### Checksums SHA-256
 
 ```text
-2909fd6e913c5b7978f0a2992c0cdf69a926756a14d78f78f29caf4e8a43de95  md-studio_0.2.0_amd64.deb
-cdfd28fa16cce74c3b4d15c26bb0929681c7388b4b384d6745d0ff4a0f7c0e7a  md-studio_0.2.0_amd64.AppImage
+4566641657a649e6b6f09c645c4e6477943e71037120a99c112f0b2cb5b8dac6  md-studio_0.2.0_amd64.deb
+29ef70d6b40ffcfb13655e7bad3dc3a159abeae1b28473657b5db7983f10e93d  md-studio_0.2.0_amd64.AppImage
 ```

@@ -51,15 +51,17 @@ export async function processMarkdown(source: string, options: ProcessOptions = 
   if (flags.math) processor = processor.use(remarkMath);
   if (flags.directives) processor = processor.use(remarkDirective);
 
-  const highlighter = await getHighlighter();
+  const highlighter = await getHighlighter().catch(() => null);
 
   processor = processor
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeRaw)
     .use(rehypeWikiLinks, { resolutions: options.wikiLinks })
     .use(rehypeHeadingIds)
-    .use(rehypeMermaidBlocks)
-    .use(rehypeShikiFromHighlighter, highlighter, {
+    .use(rehypeMermaidBlocks);
+
+  if (highlighter) {
+    processor = processor.use(rehypeShikiFromHighlighter, highlighter, {
       themes: {
         light: "github-light",
         dark: "github-dark",
@@ -76,7 +78,10 @@ export async function processMarkdown(source: string, options: ProcessOptions = 
           },
         },
       ],
-    })
+    });
+  }
+
+  processor = processor
     .use(rehypeKatex, { throwOnError: false, trust: false })
     .use(sanitizePlugin);
 
