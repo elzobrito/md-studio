@@ -8,6 +8,7 @@ description: |
 
 grade: stable
 confinement: strict # Exigência para publicação direta na loja
+icon: src-tauri/icons/icon.png
 
 # Permissões do sistema que o MD Studio precisa
 apps:
@@ -20,22 +21,11 @@ apps:
       - network         # Para downloads de dependências/assets externos (se aplicável)
 
 parts:
-  frontend:
+  md-studio:
     plugin: nil
     source: .
     build-packages:
-      - nodejs
-      - npm
-    override-build: |
-      npm install -g pnpm
-      pnpm install --frozen-lockfile
-      pnpm build
-
-  desktop-app:
-    after: [frontend]
-    plugin: rust
-    source: src-tauri
-    build-packages:
+      - git
       - libwebkit2gtk-4.1-dev
       - build-essential
       - curl
@@ -44,7 +34,26 @@ parts:
       - libgtk-3-dev
       - libayatana-appindicator3-dev
       - librsvg2-dev
+      - pkg-config
+      - xz-utils
     override-build: |
-      cargo build --release
-      mkdir -p $SNAPCRAFT_PART_INSTALL/bin
-      cp target/release/md-studio $SNAPCRAFT_PART_INSTALL/bin/
+      # 1. Se dist/ não existir, compila o frontend
+      if [ ! -d "dist" ]; then
+        curl -fsSL https://nodejs.org/dist/v22.14.0/node-v22.14.0-linux-x64.tar.xz | tar -xJ -C /usr/local --strip-components=1
+        corepack enable
+        corepack prepare pnpm@9.15.4 --activate
+        rm -rf node_modules
+        pnpm install --frozen-lockfile --config.confirmModulesPurge=false
+        pnpm build
+      fi
+
+      # 2. Instalar toolchain Rust estável oficial
+      curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain stable
+      . "$HOME/.cargo/env"
+
+      # 3. Compilar o binário Tauri em release
+      cargo build --release --manifest-path src-tauri/Cargo.toml
+
+      # 4. Instalar o executável no snap
+      mkdir -p "$SNAPCRAFT_PART_INSTALL/bin"
+      cp src-tauri/target/release/md-studio "$SNAPCRAFT_PART_INSTALL/bin/"
