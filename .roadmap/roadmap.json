@@ -7,11 +7,11 @@
     "run": {
       "run_id": "RUN-0001",
       "status": "success",
-      "last_event_seq": 2120,
-      "projection_hash_sha256": "9f7333722aab6d58a0a285135a523a4986eac9ee986548dfaecef7e18b1a5db1",
+      "last_event_seq": 2132,
+      "projection_hash_sha256": "345453848b073a06ee1e5195a4d470d7cf449ad9c98208b5b5ab02096bbe37c0",
       "verify_status": "ok"
     },
-    "updated_at": "2026-09-22T22:44:19Z"
+    "updated_at": "2026-09-22T22:57:57Z"
   },
   "project": {
     "name": "MD Studio",
@@ -6789,14 +6789,51 @@
         ]
       },
       "completed_at": "2026-09-22T22:44:18Z"
+    },
+    {
+      "task_id": "MD-DOCS-WINDOWS-README-001",
+      "task_kind": "impl",
+      "title": "Documentar suporte, instaladores e instrucoes do Windows no README",
+      "description": "Atualiza o README.md para documentar o suporte multiplataforma ao Windows, incluindo instrucoes de download e instalacao para o instalador NSIS (.exe) e o pacote corporativo (.msi) da versao v0.2.0, alem das notas de empacotamento Windows.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "README.md"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "README.md"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "README.md inclui instrucoes de instalacao do instalador .exe do Windows",
+        "README.md inclui instrucoes de instalacao do pacote .msi do Windows",
+        "README.md reflete o suporte multiplataforma Linux e Windows"
+      ],
+      "required_review_mode": "docs",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-22T22:56:20Z",
+      "verification": {
+        "checks": [
+          "README.md atualizado com instrucoes do instalador .exe do Windows",
+          "README.md atualizado com instrucoes do pacote .msi do Windows",
+          "README.md atualizado com escopo multiplataforma Linux e Windows e secao de empacotamento"
+        ]
+      },
+      "completed_at": "2026-09-22T22:57:57Z"
     }
   ],
   "indexes": {
     "by_status": {
-      "done": 178
+      "done": 179
     },
     "by_kind": {
-      "impl": 123,
+      "impl": 124,
       "qa": 30,
       "spec": 25
     }

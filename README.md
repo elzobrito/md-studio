@@ -1,9 +1,9 @@
 # MD Studio
 
-> **Markdown local para documentação técnica e engenharia no Linux**  
+> **Markdown local para documentação técnica e engenharia no Linux e Windows**  
 > *Com realce de código TextMate dual-themes, formatação de código com ferramentas nativas, diagramas interativos Mermaid, conexões bidirecionais (Wiki links & Backlinks) e exportação autônoma — direto da caixa, sem configurações complexas.*
 
-O **MD Studio** é um editor Markdown **local-first** e **100% offline** para Linux, desenvolvido com **Tauri 2** (Rust + React 19 / TypeScript).
+O **MD Studio** é um editor Markdown **local-first** e **100% offline** para Linux e Windows, desenvolvido com **Tauri 2** (Rust + React 19 / TypeScript).
 
 Projetado especificamente para engenheiros de software, autores técnicos e equipes de tecnologia que mantêm sua documentação em arquivos `.md` no próprio disco local, o MD Studio reúne em uma única ferramenta nativa:
 - **Realce e Formatação de Código de Alta Fidelidade:** Shiki (TextMate com temas duplos claro/escuro) e um hub híbrido de formatação (Prettier Web + formatadores nativos como `ruff`, `rustfmt`, `gofmt`, `clang-format`).
@@ -18,7 +18,29 @@ Projetado especificamente para engenheiros de software, autores técnicos e equi
 
 Você pode baixar os pacotes pré-compilados diretamente da página de [Releases do GitHub](https://github.com/elzobrito/md-studio/releases/latest):
 
-### Pacote Debian / Ubuntu (`.deb`)
+### Windows (Instalador `.exe` NSIS)
+Recomendado para a maioria dos usuários Windows (Windows 10 e 11 x64):
+```powershell
+# 1. Baixar o instalador da versão v0.2.0
+Invoke-WebRequest -Uri "https://github.com/elzobrito/md-studio/releases/download/v0.2.0/MD.Studio_0.2.0_x64-setup.exe" -OutFile "MD.Studio_0.2.0_x64-setup.exe"
+
+# 2. Executar o instalador
+Start-Process .\MD.Studio_0.2.0_x64-setup.exe
+```
+*Ou baixe diretamente pelo navegador:* [MD.Studio_0.2.0_x64-setup.exe](https://github.com/elzobrito/md-studio/releases/download/v0.2.0/MD.Studio_0.2.0_x64-setup.exe)
+
+### Windows (Pacote MSI `.msi`)
+Recomendado para ambientes corporativos e instalação automatizada / silenciosa:
+```powershell
+# 1. Baixar o pacote MSI da versão v0.2.0
+Invoke-WebRequest -Uri "https://github.com/elzobrito/md-studio/releases/download/v0.2.0/MD.Studio_0.2.0_x64_en-US.msi" -OutFile "MD.Studio_0.2.0_x64_en-US.msi"
+
+# 2. Instalação silenciosa via linha de comando
+msiexec /i MD.Studio_0.2.0_x64_en-US.msi /quiet /qn
+```
+*Ou baixe diretamente pelo navegador:* [MD.Studio_0.2.0_x64_en-US.msi](https://github.com/elzobrito/md-studio/releases/download/v0.2.0/MD.Studio_0.2.0_x64_en-US.msi)
+
+### Linux — Pacote Debian / Ubuntu (`.deb`)
 ```bash
 # 1. Baixar o arquivo .deb da versão v0.2.0
 wget https://github.com/elzobrito/md-studio/releases/download/v0.2.0/md-studio_0.2.0_amd64.deb
@@ -30,7 +52,7 @@ sudo apt install ./md-studio_0.2.0_amd64.deb
 md-studio
 ```
 
-### Executável Portátil (`AppImage`)
+### Linux — Executável Portátil (`AppImage`)
 Compatível com qualquer distribuição Linux (Ubuntu, Debian, Fedora, Arch, openSUSE):
 ```bash
 # 1. Baixar o AppImage da versão v0.2.0
@@ -158,17 +180,23 @@ O MD Studio integra renderização interativa avançada para diagramas Mermaid (
 
 ---
 
-## Empacotamento Linux (Release)
+## Empacotamento e Build de Releases
 
-Alvos oficiais configurados em `src-tauri/tauri.conf.json`: pacote Debian (**`.deb`**) e executável autônomo portátil (**`AppImage`**).
+Alvos oficiais configurados em `src-tauri/tauri.conf.json`:
+- **Linux:** pacote Debian (**`.deb`**) e executável autônomo portátil (**`AppImage`**).
+- **Windows:** instalador NSIS (**`.exe`**) e pacote Windows Installer (**`.msi`**).
 
 ```bash
 pnpm tauri build
 ```
 
 Os pacotes gerados ficam disponíveis em:
-- `src-tauri/target/release/bundle/deb/`
-- `src-tauri/target/release/bundle/appimage/`
+- **Linux:**
+  - `src-tauri/target/release/bundle/deb/*.deb`
+  - `src-tauri/target/release/bundle/appimage/*.AppImage`
+- **Windows:**
+  - `src-tauri/target/release/bundle/nsis/*.exe`
+  - `src-tauri/target/release/bundle/msi/*.msi`
 
 Consulte detalhes adicionais em [docs/release/PACKAGING.md](docs/release/PACKAGING.md).
 
