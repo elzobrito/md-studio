@@ -7,11 +7,11 @@
     "run": {
       "run_id": "RUN-0001",
       "status": "success",
-      "last_event_seq": 2108,
-      "projection_hash_sha256": "7006843fbb546ce5e119392c0adda4bb451b44b2cdebd3ec17dc03ddaacf0289",
+      "last_event_seq": 2120,
+      "projection_hash_sha256": "9f7333722aab6d58a0a285135a523a4986eac9ee986548dfaecef7e18b1a5db1",
       "verify_status": "ok"
     },
-    "updated_at": "2026-09-22T18:18:32Z"
+    "updated_at": "2026-09-22T22:44:19Z"
   },
   "project": {
     "name": "MD Studio",
@@ -6743,14 +6743,60 @@
         ]
       },
       "completed_at": "2026-09-22T18:18:32Z"
+    },
+    {
+      "task_id": "MD-WINDOWS-CI-COMPAT-001",
+      "task_kind": "impl",
+      "title": "Configurar CI Windows e compatibilidade de caminhos UNC e executaveis",
+      "description": "Configura o workflow build-windows.yml para compilacao e publicacao de instaladores NSIS/MSI do Windows, introduz a crate dunce para desarmar prefixos UNC em caminhos canonicos e aprimora a resolucao de executaveis com extensao .exe.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        ".github/workflows/build-windows.yml",
+        "src-tauri/tauri.conf.json",
+        "src-tauri/Cargo.toml",
+        "src-tauri/crates/md-studio-core/Cargo.toml",
+        "src-tauri/crates/md-studio-core/src/workspace.rs",
+        "src-tauri/crates/md-studio-core/src/launch.rs",
+        "src-tauri/src/commands/formatter.rs",
+        "src-tauri/src/watcher/mod.rs",
+        "src-tauri/src/commands/mod.rs"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        ".github/**",
+        "src-tauri/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Workflow build-windows.yml compila executaveis NSIS e MSI no Windows",
+        "Caminhos canonizados nao vazam prefixo UNC para o frontend ou strip_prefix",
+        "find_executable localiza executaveis .exe em caminhos de usuario e PATH do Windows"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-22T22:43:51Z",
+      "verification": {
+        "checks": [
+          "cargo test core passou com 43 testes de unidade e 8 de integracao",
+          "cargo test src-tauri passou com 17 testes",
+          "workflow build-windows executou com sucesso no runner windows-latest e gerou instaladores NSIS e MSI"
+        ]
+      },
+      "completed_at": "2026-09-22T22:44:18Z"
     }
   ],
   "indexes": {
     "by_status": {
-      "done": 177
+      "done": 178
     },
     "by_kind": {
-      "impl": 122,
+      "impl": 123,
       "qa": 30,
       "spec": 25
     }
