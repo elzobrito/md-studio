@@ -124,6 +124,9 @@ pub fn save_document(
         .map_err(map_ws_err)?;
     match atomic_save(&full, &req.expected_hash, &req.content) {
         Ok(hash) => {
+            // Registra a escrita interna para suprimir falso positivo no WatcherHub
+            state.watcher.register_internal_save(&req.workspace_id, &req.relative_path, &hash);
+
             // Reindexar arquivo salvo de forma resiliente (falha de índice não bloqueia save)
             if let Some(engine) = state.metadata_engine.lock().as_ref().cloned() {
                 let _ = engine.reindex_file(&full);

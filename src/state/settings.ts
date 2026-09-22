@@ -12,6 +12,8 @@ export interface SettingsState {
   lineNumbers: boolean;
   smartPaste: boolean;
   markdownHints: boolean;
+  autoSave: boolean;
+  autoSaveDelay: number;
 }
 
 const STORAGE_KEY = "md-studio-settings-v2";
@@ -70,6 +72,8 @@ export const DEFAULT_SETTINGS: SettingsState = {
   lineNumbers: true,
   smartPaste: true,
   markdownHints: true,
+  autoSave: true,
+  autoSaveDelay: 1500,
 };
 
 
@@ -172,6 +176,21 @@ class SettingsStore {
   public setMarkdownHints(markdownHints: boolean) {
     if (this.state.markdownHints === markdownHints) return;
     this.state = { ...this.state, markdownHints };
+    this.save();
+    this.notify();
+  }
+
+  public setAutoSave(autoSave: boolean) {
+    if (this.state.autoSave === autoSave) return;
+    this.state = { ...this.state, autoSave };
+    this.save();
+    this.notify();
+  }
+
+  public setAutoSaveDelay(autoSaveDelay: number) {
+    const clamped = Math.max(500, Math.min(10000, autoSaveDelay));
+    if (this.state.autoSaveDelay === clamped) return;
+    this.state = { ...this.state, autoSaveDelay: clamped };
     this.save();
     this.notify();
   }

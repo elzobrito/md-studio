@@ -31,7 +31,9 @@ pub struct WatchEventDto {
 }
 
 struct ActiveWatch {
+    #[allow(dead_code)]
     workspace_id: String,
+    #[allow(dead_code)]
     root: PathBuf,
     stop: Arc<AtomicBool>,
 }
@@ -39,6 +41,8 @@ struct ActiveWatch {
 #[derive(Default)]
 pub struct WatcherHub {
     active: Mutex<Option<ActiveWatch>>,
+    /// Tracks internal saves by MD Studio: key is format!("{workspace_id}:{relative_path}"), value is (hash, Instant)
+    internal_saves: Mutex<HashMap<String, (String, Instant)>>,
 }
 
 impl WatcherHub {
@@ -46,6 +50,38 @@ impl WatcherHub {
         if let Some(a) = self.active.lock().take() {
             a.stop.store(true, Ordering::SeqCst);
         }
+    }
+
+    /// Registers that MD Studio just saved a file internally with a known SHA-256 hash.
+    pub fn register_internal_save(&self, workspace_id: &str, relative_path: &str, hash: &str) {
+        let key = format!("{}:{}", workspace_id, relative_path.replace('\\', "/"));
+        let mut map = self.internal_saves.lock();
+        // Opportunistic cleanup of entries older than 5 seconds
+        map.retain(|_, (_, time)| time.elapsed() < Duration::from_secs(5));
+        map.insert(key, (hash.to_string(), Instant::now()));
+    }
+
+    /// Checks if a filesystem event corresponds to an internal save with matching hash.
+    /// If it matches, the entry is consumed and returns true (suppressing false conflict).
+    pub fn should_suppress(&self, workspace_id: &str, relative_path: &str, full_path: &Path) -> bool {
+        let key = format!("{}:{}", workspace_id, relative_path.replace('\\', "/"));
+        let expected_hash = {
+            let map = self.internal_saves.lock();
+            match map.get(&key) {
+                Some((hash, time)) if time.elapsed() < Duration::from_secs(5) => Some(hash.clone()),
+                _ => None,
+            }
+        };
+
+        if let Some(expected) = expected_hash {
+            if let Ok((_, current_hash, _)) = crate::persistence::read_file(full_path) {
+                if current_hash == expected {
+                    self.internal_saves.lock().remove(&key);
+                    return true;
+                }
+            }
+        }
+        false
     }
 }
 
@@ -83,6 +119,7 @@ fn spawn_watcher(
     workspace_id: String,
     root: PathBuf,
     stop: Arc<AtomicBool>,
+    hub: Arc<WatcherHub>,
 ) -> Result<(), String> {
     let (tx, rx) = mpsc::channel::<Event>();
     let mut watcher = RecommendedWatcher::new(
@@ -156,6 +193,10 @@ fn spawn_watcher(
                     let batch: Vec<_> = pending.drain().map(|(_, v)| v).collect();
                     last_push = Instant::now();
                     for dto in batch {
+                        let full_path = root.join(&dto.relative_path);
+                        if hub.should_suppress(&dto.workspace_id, &dto.relative_path, &full_path) {
+                            continue;
+                        }
                         apply_watch_to_engine(&app, &dto);
                         let _ = app.emit(WATCH_EVENT, dto);
                     }
@@ -164,6 +205,10 @@ fn spawn_watcher(
 
             // flush remaining
             for (_, dto) in pending.drain() {
+                let full_path = root.join(&dto.relative_path);
+                if hub.should_suppress(&dto.workspace_id, &dto.relative_path, &full_path) {
+                    continue;
+                }
                 apply_watch_to_engine(&app, &dto);
                 let _ = app.emit(WATCH_EVENT, dto);
             }
@@ -205,7 +250,13 @@ pub fn start_watching(
     // Replace any previous watch.
     state.watcher.stop();
     let stop = Arc::new(AtomicBool::new(false));
-    spawn_watcher(app, workspace_id.clone(), root.clone(), stop.clone())?;
+    spawn_watcher(
+        app,
+        workspace_id.clone(),
+        root.clone(),
+        stop.clone(),
+        state.watcher.clone(),
+    )?;
     *state.watcher.active.lock() = Some(ActiveWatch {
         workspace_id,
         root,
@@ -266,5 +317,30 @@ mod tests {
             workspace_id: "w".into(),
         };
         assert_eq!(coalesce_key(&ev), "modified:a.md");
+    }
+
+    #[test]
+    fn internal_save_suppression_flow() {
+        let dir = tempdir().unwrap();
+        let file_path = dir.path().join("doc.md");
+        let content = "Hello world";
+        fs::write(&file_path, content).unwrap();
+
+        let hub = WatcherHub::default();
+        let (buf, hash, _) = crate::persistence::read_file(&file_path).unwrap();
+        assert_eq!(buf, content);
+
+        // Register internal save
+        hub.register_internal_save("ws-1", "doc.md", &hash);
+
+        // First check should suppress and consume the expected hash
+        assert!(hub.should_suppress("ws-1", "doc.md", &file_path));
+
+        // Subsequent check should NOT suppress because the entry was consumed
+        assert!(!hub.should_suppress("ws-1", "doc.md", &file_path));
+
+        // Register again with a mismatching hash (simulating external modification)
+        hub.register_internal_save("ws-1", "doc.md", "different-hash");
+        assert!(!hub.should_suppress("ws-1", "doc.md", &file_path));
     }
 }

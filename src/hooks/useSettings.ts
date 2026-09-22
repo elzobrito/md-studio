@@ -14,6 +14,8 @@ export function useSettings(): SettingsState & {
   setPreviewFontFamily: (family: string) => void;
   setLineWrapping: (enabled: boolean) => void;
   setLineNumbers: (enabled: boolean) => void;
+  setAutoSave: (enabled: boolean) => void;
+  setAutoSaveDelay: (delay: number) => void;
   resetToDefaults: () => void;
 } {
   const [state, setState] = useState(() => settingsStore.getState());
@@ -38,6 +40,8 @@ export function useSettings(): SettingsState & {
     setPreviewFontFamily: (pff) => settingsStore.setPreviewFontFamily(pff),
     setLineWrapping: (lw) => settingsStore.setLineWrapping(lw),
     setLineNumbers: (ln) => settingsStore.setLineNumbers(ln),
+    setAutoSave: (as) => settingsStore.setAutoSave(as),
+    setAutoSaveDelay: (asd) => settingsStore.setAutoSaveDelay(asd),
     resetToDefaults: () => settingsStore.resetToDefaults(),
   };
 }

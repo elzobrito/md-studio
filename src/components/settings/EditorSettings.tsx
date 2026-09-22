@@ -4,7 +4,16 @@ import { useSettings } from "../../hooks/useSettings";
 import { settingsStore } from "../../state/settings";
 
 export function EditorSettings() {
-  const { lineWrapping, lineNumbers, setLineWrapping, setLineNumbers } = useSettings();
+  const {
+    lineWrapping,
+    lineNumbers,
+    autoSave,
+    autoSaveDelay,
+    setLineWrapping,
+    setLineNumbers,
+    setAutoSave,
+    setAutoSaveDelay,
+  } = useSettings();
   const [smartPaste, setSmartPasteState] = useState(() => settingsStore.getState().smartPaste);
 
   useEffect(() => {
@@ -63,6 +72,45 @@ export function EditorSettings() {
             Converte automaticamente conteúdo HTML copiado da web para Markdown limpo ao colar.
           </span>
         </div>
+
+        <div className="settings-field">
+          <label className="settings-label" style={{ display: "flex", alignItems: "center", gap: "8px", cursor: "pointer" }}>
+            <input
+              type="checkbox"
+              checked={autoSave}
+              onChange={(e) => setAutoSave(e.target.checked)}
+              style={{ cursor: "pointer" }}
+            />
+            <span>Auto-Save (Salvamento no Disco): {autoSave ? "Ativado" : "Desativado"}</span>
+          </label>
+          <span className="settings-hint">
+            Salva alterações automaticamente no arquivo físico com debounce. O salvamento manual (Ctrl+S) continua sempre disponível.
+          </span>
+        </div>
+
+        {autoSave && (
+          <div className="settings-field" style={{ marginLeft: "24px" }}>
+            <label className="settings-label" htmlFor="autosave-delay-select">
+              Intervalo de Salvamento Automático:
+            </label>
+            <select
+              id="autosave-delay-select"
+              className="settings-select"
+              value={autoSaveDelay}
+              onChange={(e) => setAutoSaveDelay(Number(e.target.value))}
+              style={{ marginTop: "6px", maxWidth: "240px" }}
+            >
+              <option value={1000}>1 segundo (rápido)</option>
+              <option value={1500}>1.5 segundo (recomendado)</option>
+              <option value={2000}>2 segundos</option>
+              <option value={3000}>3 segundos</option>
+              <option value={5000}>5 segundos</option>
+            </select>
+            <span className="settings-hint">
+              Tempo de espera após a última tecla digitada antes de gravar silenciosamente no disco.
+            </span>
+          </div>
+        )}
       </div>
     </div>
   );

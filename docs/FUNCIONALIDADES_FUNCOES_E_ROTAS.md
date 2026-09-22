@@ -47,11 +47,13 @@
 - **Criação Rápida de Notas:** Clicar em um wiki link `Unresolved` abre o modal `CreateNoteFromWiki` para criar a nota no caminho correto e abri-la no editor.
 - **Painel de Backlinks (`BacklinksPanel` - Onda 3):** Lista reversa de todos os outros documentos do workspace que apontam para o arquivo aberto, agrupados com snippet de contexto textual e navegação por clique direto para a linha da ocorrência.
 
-### 1.5. Gestão de Workspace e Persistência Segura
+### 1.5. Gestão de Workspace, Persistência Segura e Auto-Save
 - **Local-First & Path Fencing:** Operações confinadas ao diretório raiz escolhido pelo usuário; rejeição no Rust de qualquer tentativa de *path traversal* (`../`).
 - **Gravação Atômica (`save_document`):** Escrita em arquivo temporário com `fsync` seguido de renomeação atômica para evitar perda de dados por queda de energia.
-- **Detecção de Conflitos Concorrentes:** Verificação de SHA-256 antes da gravação. Se o arquivo no disco foi alterado externamente, o diálogo `ConflictDialog` oferece opções: *Recarregar do Disco*, *Manter Edição Local* ou *Salvar Como*.
-- **Observador de Arquivos (*Watcher FS*):** Motor `notify` em Rust observando modificações em tempo real com debounce estável.
+- **Auto-Save com Debounce e Supressão Interna:** Salvamento automático configurável (1000ms a 5000ms, padrão 1500ms). Disparado pelo hook `useDocumentState` e integrado com o `WatcherHub` no Rust para registrar hashes de escritas internas com TTL, evitando falsos positivos no diálogo de conflito durante a digitação.
+- **Detecção de Conflitos Concorrentes:** Verificação de SHA-256 antes da gravação. Se o arquivo no disco foi alterado externamente por outro processo, o diálogo `ConflictDialog` oferece opções: *Recarregar do Disco*, *Manter Edição Local* ou *Salvar Como*.
+- **Observador de Arquivos (*Watcher FS*):** Motor `notify` em Rust observando modificações em tempo real com debounce estável e supressão inteligente de eventos internos.
+- **Rascunhos de Recuperação Instantânea:** Armazenamento local imediato (`localStorage`) para restauração de edições não salvas após encerramento forçado do processo.
 - **Exportação HTML Autossuficiente:** Botão `[⇩ Exportar HTML]` no cabeçalho; gera documento HTML autônomo com estilos embutidos e scripts seguros. Protegido para só ficar habilitado com arquivo ativo.
 
 ### 1.6. Hub Híbrido de Formatação de Código (Frontend Web + Backend Rust)

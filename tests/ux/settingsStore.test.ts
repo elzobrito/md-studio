@@ -62,6 +62,22 @@ describe("settingsStore", () => {
 
     settingsStore.setLineNumbers(false);
     expect(settingsStore.getState().lineNumbers).toBe(false);
+
+    // Auto-save toggle and delay clamping
+    expect(settingsStore.getState().autoSave).toBe(true);
+    settingsStore.setAutoSave(false);
+    expect(settingsStore.getState().autoSave).toBe(false);
+
+    settingsStore.setAutoSaveDelay(2500);
+    expect(settingsStore.getState().autoSaveDelay).toBe(2500);
+
+    // Clamped below minimum (500ms)
+    settingsStore.setAutoSaveDelay(100);
+    expect(settingsStore.getState().autoSaveDelay).toBe(500);
+
+    // Clamped above maximum (10000ms)
+    settingsStore.setAutoSaveDelay(20000);
+    expect(settingsStore.getState().autoSaveDelay).toBe(10000);
   });
 
   it("resets all settings to defaults", () => {
@@ -70,6 +86,8 @@ describe("settingsStore", () => {
     settingsStore.setTheme("light");
     settingsStore.setPreviewFontSize(24);
     settingsStore.setLineWrapping(false);
+    settingsStore.setAutoSave(false);
+    settingsStore.setAutoSaveDelay(3000);
 
     settingsStore.resetToDefaults();
     expect(settingsStore.getState().fontSize).toBe(DEFAULT_SETTINGS.fontSize);
@@ -77,5 +95,7 @@ describe("settingsStore", () => {
     expect(settingsStore.getState().theme).toBe(DEFAULT_SETTINGS.theme);
     expect(settingsStore.getState().previewFontSize).toBe(DEFAULT_SETTINGS.previewFontSize);
     expect(settingsStore.getState().lineWrapping).toBe(DEFAULT_SETTINGS.lineWrapping);
+    expect(settingsStore.getState().autoSave).toBe(DEFAULT_SETTINGS.autoSave);
+    expect(settingsStore.getState().autoSaveDelay).toBe(DEFAULT_SETTINGS.autoSaveDelay);
   });
 });

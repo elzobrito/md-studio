@@ -2,9 +2,10 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { ipc, isTauriRuntime, pickSaveMarkdownFile, subscribeWorkspaceWatch } from "../lib/ipc";
 import { persistDocument } from "../services/save";
 import type { DocumentSnapshot, WorkspaceDescriptor } from "../contracts/types";
-import { loadDraft } from "../lib/drafts/recovery";
+import { loadDraft, saveDraft } from "../lib/drafts/recovery";
 import { recentFilesStore } from "./recent-files";
 import { editorStore } from "./editor";
+import { settingsStore } from "./settings";
 
 function basename(p: string): string {
   const parts = p.replace(/\\/g, "/").split("/");
@@ -29,19 +30,59 @@ export function useDocumentState() {
   const [conflictPath, setConflictPath] = useState<string | null>(null);
   const dirtyRef = useRef(false);
   const relativePathRef = useRef("");
+  const workspaceRef = useRef<WorkspaceDescriptor | null>(null);
+  const snapshotRef = useRef<DocumentSnapshot | null>(null);
+  const contentRef = useRef(content);
+  const autoSaveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const saveRef = useRef<() => Promise<void>>(async () => {});
 
   const [diagnostics, setDiagnostics] = useState<string[]>(["Nenhum workspace aberto ainda."]);
   const [relativePath, setRelativePath] = useState("");
   dirtyRef.current = dirty;
   relativePathRef.current = relativePath;
+  workspaceRef.current = workspace;
+  snapshotRef.current = snapshot;
+  contentRef.current = content;
 
   const [status, setStatus] = useState<"idle" | "loading" | "ready">("idle");
 
-  const setContent = useCallback((v: string) => {
-    setContentState(v);
-    setDirty(true);
-    editorStore.setSaveStatus("modified");
+  const clearAutoSaveTimer = useCallback(() => {
+    if (autoSaveTimerRef.current) {
+      clearTimeout(autoSaveTimerRef.current);
+      autoSaveTimerRef.current = null;
+    }
   }, []);
+
+  const setContent = useCallback(
+    (v: string) => {
+      setContentState(v);
+      contentRef.current = v;
+      setDirty(true);
+      dirtyRef.current = true;
+      editorStore.setSaveStatus("modified");
+
+      const ws = workspaceRef.current;
+      const rel = relativePathRef.current;
+
+      // 1. Rascunho imediato no localStorage
+      if (ws?.id && rel) {
+        saveDraft(ws.id, rel, v);
+      }
+
+      // 2. Auto-save no disco com debounce se habilitado
+      clearAutoSaveTimer();
+
+      const settings = settingsStore.getState();
+      if (settings.autoSave && ws?.id && rel && snapshotRef.current) {
+        autoSaveTimerRef.current = setTimeout(async () => {
+          if (dirtyRef.current && snapshotRef.current && relativePathRef.current === rel) {
+            await saveRef.current();
+          }
+        }, settings.autoSaveDelay ?? 1500);
+      }
+    },
+    [clearAutoSaveTimer],
+  );
 
   /** After browser FS pick or demo, sync workspace descriptor via IPC. */
   const onWorkspaceReady = useCallback(async () => {
@@ -76,6 +117,7 @@ export function useDocumentState() {
 
   const openRelative = useCallback(
     async (path: string, wsOverride?: WorkspaceDescriptor): Promise<boolean> => {
+      clearAutoSaveTimer();
       const clean = (path || "").replace(/\\/g, "/").replace(/^\/+/, "");
       if (!clean) {
         setDiagnostics(["Caminho de arquivo vazio — não foi possível abrir."]);
@@ -220,6 +262,7 @@ export function useDocumentState() {
   );
 
   const saveAs = useCallback(async () => {
+    clearAutoSaveTimer();
     const defaultName = relativePath ? basename(relativePath) : "documento.md";
     const chosen = await pickSaveMarkdownFile(defaultName);
     if (!chosen) return;
@@ -257,8 +300,11 @@ export function useDocumentState() {
       }
 
       setSnapshot(result.snapshot);
+      snapshotRef.current = result.snapshot;
       setRelativePath(name);
+      relativePathRef.current = name;
       setDirty(false);
+      dirtyRef.current = false;
       recentFilesStore.add(name);
       editorStore.setSaveStatus("saved");
       setDiagnostics([`Salvo em: ${cleanChosen}`]);
@@ -266,40 +312,56 @@ export function useDocumentState() {
       editorStore.setSaveStatus("error", e instanceof Error ? e.message : String(e));
       setDiagnostics([`Erro ao salvar: ${e instanceof Error ? e.message : String(e)}`]);
     }
-  }, [content, relativePath, workspace, openWorkspacePath]);
+  }, [clearAutoSaveTimer, content, relativePath, workspace, openWorkspacePath]);
 
   const save = useCallback(async () => {
-    if (!relativePath || !snapshot) {
+    clearAutoSaveTimer();
+    const currentRel = relativePathRef.current;
+    const currentSnap = snapshotRef.current;
+    const currentContent = contentRef.current;
+    if (!currentRel || !currentSnap) {
       return saveAs();
     }
     editorStore.setSaveStatus("saving");
-    const result = await persistDocument(snapshot, content);
+    const result = await persistDocument(currentSnap, currentContent);
     if (!result.ok) {
       editorStore.setSaveStatus("error", result.message);
       setDiagnostics([`Conflito/erro: ${result.code} — ${result.message}`]);
       return;
     }
     setSnapshot(result.snapshot);
+    snapshotRef.current = result.snapshot;
     setDirty(false);
+    dirtyRef.current = false;
     editorStore.setSaveStatus("saved");
     setDiagnostics(["Salvo"]);
-  }, [snapshot, content, relativePath, saveAs]);
+  }, [clearAutoSaveTimer, saveAs]);
+
+  saveRef.current = save;
 
   const newDocument = useCallback((initialText: string = "") => {
+    clearAutoSaveTimer();
     setRelativePath("");
     setSnapshot(null);
     setContentState(initialText);
     setDirty(false);
     editorStore.setSaveStatus("saved");
-  }, []);
+  }, [clearAutoSaveTimer]);
 
   const closeFile = useCallback(() => {
+    clearAutoSaveTimer();
     setRelativePath("");
     setSnapshot(null);
     setContentState("");
     setDirty(false);
     editorStore.setSaveStatus("saved");
-  }, []);
+  }, [clearAutoSaveTimer]);
+
+  useEffect(() => {
+    return () => {
+      clearAutoSaveTimer();
+    };
+  }, [clearAutoSaveTimer]);
 
 
   // Cold start & OS launch: open Markdown path from argv or file manager (Tauri only).
