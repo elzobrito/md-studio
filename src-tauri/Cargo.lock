@@ -2061,7 +2061,7 @@ dependencies = [
 
 [[package]]
 name = "md-studio"
-version = "0.2.1"
+version = "0.2.2"
 dependencies = [
  "dunce",
  "hex",
@@ -2085,7 +2085,7 @@ dependencies = [
 
 [[package]]
 name = "md-studio-core"
-version = "0.2.1"
+version = "0.2.2"
 dependencies = [
  "dunce",
  "hex",

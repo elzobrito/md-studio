@@ -1,7 +1,7 @@
 name: md-studio
 title: MD Studio
 base: core24 # Base Ubuntu 24.04 LTS
-version: "0.2.1"
+version: "0.2.2"
 summary: Editor Markdown local para documentação técnica e engenharia no Linux
 description: |
   O MD Studio é um editor Markdown local-first, leve e 100% offline para Linux, construído com Tauri 2 (Rust) e React 19 / TypeScript.

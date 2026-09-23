@@ -7,11 +7,11 @@
     "run": {
       "run_id": "RUN-0001",
       "status": "success",
-      "last_event_seq": 2374,
-      "projection_hash_sha256": "52047884ea253299a304a64f5400e2aadc8669783f0a1720de094ceb1826596d",
+      "last_event_seq": 2386,
+      "projection_hash_sha256": "104aa552f8f17becce2ebdecd3932c3c48ea8fa76a9482abdd8f99148b204661",
       "verify_status": "ok"
     },
-    "updated_at": "2026-09-23T17:08:14Z"
+    "updated_at": "2026-09-23T17:41:15Z"
   },
   "project": {
     "name": "MD Studio",
@@ -7562,14 +7562,57 @@
         ]
       },
       "completed_at": "2026-09-23T17:08:14Z"
+    },
+    {
+      "task_id": "MD-RELEASE-V022-001",
+      "task_kind": "impl",
+      "title": "Lançamento global v0.2.2 no Git e Ubuntu Snap Store",
+      "description": "Atualizar manifestos para v0.2.2, gerar tag no Git, compilar snap e publicar Revision 3 na Ubuntu Snap Store nos canais stable, candidate e edge.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "package.json",
+        "src-tauri/tauri.conf.json",
+        "src-tauri/Cargo.toml",
+        "src-tauri/Cargo.lock",
+        "src-tauri/crates/md-studio-core/Cargo.toml",
+        "snap/snapcraft.yaml",
+        ".gitignore"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "*.snap",
+        "parts/**",
+        "stage/**",
+        "prime/**",
+        "src-tauri/target/**"
+      ],
+      "task_type": "release",
+      "required_review_mode": "release",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-23T17:16:43Z",
+      "verification": {
+        "checks": [
+          "Bump de versão para v0.2.2 em todos os manifestos (package.json, tauri.conf.json, Cargo.toml, Cargo.lock, snapcraft.yaml)",
+          "Todas as suítes de testes aprovadas (242 testes Vitest e 68 testes Rust)",
+          "Pacote snap md-studio_0.2.2_amd64.snap compilado com sucesso no LXD core24",
+          "Publicação na Ubuntu Snap Store com Revision 3 nos canais stable, candidate e edge"
+        ]
+      },
+      "completed_at": "2026-09-23T17:41:15Z"
     }
   ],
   "indexes": {
     "by_status": {
-      "done": 199
+      "done": 200
     },
     "by_kind": {
-      "impl": 143,
+      "impl": 144,
       "qa": 31,
       "spec": 25
     }
