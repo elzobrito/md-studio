@@ -7,11 +7,11 @@
     "run": {
       "run_id": "RUN-0001",
       "status": "success",
-      "last_event_seq": 2326,
-      "projection_hash_sha256": "4ba02e2842252d84ebb2caff98d948b8a1e41ed1fa294de40b7dc6e1082caec5",
+      "last_event_seq": 2338,
+      "projection_hash_sha256": "aa5ca6945717a00d78ce920be78c1480fff1e334e77726fc0d86e3a620ac90fb",
       "verify_status": "ok"
     },
-    "updated_at": "2026-09-23T15:27:02Z"
+    "updated_at": "2026-09-23T15:57:05Z"
   },
   "project": {
     "name": "MD Studio",
@@ -7413,14 +7413,49 @@
         ]
       },
       "completed_at": "2026-09-23T15:27:02Z"
+    },
+    {
+      "task_id": "MD-RELEASE-SNAP-STORE-001",
+      "task_kind": "impl",
+      "title": "Build e publicacao do Snap v0.2.1 na Ubuntu Snap Store",
+      "description": "Construir pacote snap v0.2.1 com snapcraft e publicar na Snap Store canônica.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "snap/snapcraft.yaml"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "*.snap",
+        "parts/**",
+        "stage/**",
+        "prime/**"
+      ],
+      "task_type": "release",
+      "required_review_mode": "release",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-23T15:31:28Z",
+      "verification": {
+        "checks": [
+          "Pacote snap md-studio_0.2.1_amd64.snap gerado com sucesso via snapcraft core24",
+          "Snap publicado na Ubuntu Snap Store com Revision 2",
+          "Disponibilizado nos canais stable, candidate e edge da Canonical Snap Store"
+        ]
+      },
+      "completed_at": "2026-09-23T15:57:05Z"
     }
   ],
   "indexes": {
     "by_status": {
-      "done": 195
+      "done": 196
     },
     "by_kind": {
-      "impl": 139,
+      "impl": 140,
       "qa": 31,
       "spec": 25
     }
