@@ -7,11 +7,11 @@
     "run": {
       "run_id": "RUN-0001",
       "status": "success",
-      "last_event_seq": 2350,
-      "projection_hash_sha256": "b99bbaac41585ecf7dcf335023c5d39874de574d65e9af8aa6680c72d0ebb2c0",
+      "last_event_seq": 2362,
+      "projection_hash_sha256": "0b26d3d0ba36bb07db83fa192f0a8e993ccc5c26059958c7150dc6869bb8220b",
       "verify_status": "ok"
     },
-    "updated_at": "2026-09-23T16:43:37Z"
+    "updated_at": "2026-09-23T17:02:19Z"
   },
   "project": {
     "name": "MD Studio",
@@ -7491,14 +7491,51 @@
         ]
       },
       "completed_at": "2026-09-23T16:43:37Z"
+    },
+    {
+      "task_id": "MD-HOTFIX-PREVIEW-LINKS-001",
+      "task_kind": "impl",
+      "title": "Correção de interceptação e navegação de links no MarkdownViewer",
+      "description": "Corrigir bug onde cliques em links Markdown padrão e âncoras não eram interceptados, causando navegação acidental do Webview para fora da SPA e reset para a tela de boas-vindas. Implementar resolução de links relativos, navegação de âncoras e abertura externa com tauri-plugin-opener.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "src/services/navigation.ts",
+        "src/components/MarkdownViewer.tsx",
+        "tests/markdown/core/navigation.test.ts"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src/**",
+        "tests/**"
+      ],
+      "task_type": "hotfix",
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-23T16:58:04Z",
+      "verification": {
+        "checks": [
+          "Interceptação universal de cliques em links <a> no MarkdownViewer com preventDefault incondicional",
+          "Resolução e navegação de links relativos Markdown para abertura de arquivos via onOpenRelative",
+          "Abertura segura de links externos no navegador padrão via @tauri-apps/plugin-opener",
+          "Navegação por âncoras internas no mesmo documento via scrollToHeading",
+          "Suíte de testes de navegação aprovada com 8/8 testes e regressão geral com 242/242 testes"
+        ]
+      },
+      "completed_at": "2026-09-23T17:02:18Z"
     }
   ],
   "indexes": {
     "by_status": {
-      "done": 197
+      "done": 198
     },
     "by_kind": {
-      "impl": 141,
+      "impl": 142,
       "qa": 31,
       "spec": 25
     }

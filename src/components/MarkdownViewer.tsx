@@ -5,6 +5,7 @@ import type { ResolvedWikiLink } from "../types/metadata";
 import { formatCode } from "../services/formatter";
 import { replaceFencedCodeBlock } from "../markdown/fencedCode";
 import { MermaidBlock } from "./MermaidBlock";
+import { scrollToHeading, resolveRelativeLink, openExternalUrl } from "../services/navigation";
 
 export function MarkdownViewer(props: {
   content: string;
@@ -46,30 +47,79 @@ export function MarkdownViewer(props: {
     };
   }, [props.content, props.wikiLinks]);
 
-  // Handle wiki links navigation
+  // Handle all links navigation (wiki links, relative markdown links, anchors, external URLs)
   useEffect(() => {
     const root = bodyRef.current;
     if (!root) return;
     const onClick = (event: MouseEvent) => {
       const target = event.target;
       if (!(target instanceof Element)) return;
-      const link = target.closest<HTMLAnchorElement>("a.wiki-link");
+      const link = target.closest<HTMLAnchorElement>("a");
       if (!link || !root.contains(link)) return;
+
+      // Always prevent default Webview navigation to stop SPA resets
       event.preventDefault();
       event.stopPropagation();
 
-      const wikiTarget = link.dataset.wikiTarget?.trim();
-      if (!wikiTarget) return;
-      const path = link.dataset.wikiPath?.trim();
-      if (link.dataset.wikiStatus === "resolved" && path) {
-        void props.onOpenRelative?.(path);
-      } else {
-        props.onUnresolvedWiki?.(wikiTarget);
+      // 1. Wiki Links
+      if (link.classList.contains("wiki-link")) {
+        const wikiTarget = link.dataset.wikiTarget?.trim();
+        if (!wikiTarget) return;
+        const path = link.dataset.wikiPath?.trim();
+        if (link.dataset.wikiStatus === "resolved" && path) {
+          void props.onOpenRelative?.(path);
+        } else {
+          props.onUnresolvedWiki?.(wikiTarget);
+        }
+        return;
+      }
+
+      const href = link.getAttribute("href")?.trim() || "";
+      if (!href || href === "#") return;
+
+      // 2. Anchor Links (same document)
+      if (href.startsWith("#")) {
+        const slug = decodeURIComponent(href.slice(1));
+        if (slug) {
+          const scrolled = scrollToHeading(slug, root);
+          if (!scrolled) {
+            root
+              .querySelector(
+                `[id="${CSS.escape(slug)}"], [id="${CSS.escape("user-content-" + slug)}"], a[name="${CSS.escape(slug)}"]`,
+              )
+              ?.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        }
+        return;
+      }
+
+      // 3. External Web Links
+      if (/^(https?:|mailto:|tel:)/i.test(href)) {
+        void openExternalUrl(href);
+        return;
+      }
+
+      // 4. Relative / Internal File Links (e.g. [outro](outro.md) or [docs](docs/README.md))
+      const [pathPart, hashPart] = href.split("#");
+      if (pathPart) {
+        const decodedPath = decodeURIComponent(pathPart);
+        const resolved = resolveRelativeLink(props.relativePath, decodedPath);
+        void props.onOpenRelative?.(resolved);
+      } else if (hashPart) {
+        const slug = decodeURIComponent(hashPart);
+        const scrolled = scrollToHeading(slug, root);
+        if (!scrolled) {
+          root
+            .querySelector(
+              `[id="${CSS.escape(slug)}"], [id="${CSS.escape("user-content-" + slug)}"], a[name="${CSS.escape(slug)}"]`,
+            )
+            ?.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
       }
     };
     root.addEventListener("click", onClick);
     return () => root.removeEventListener("click", onClick);
-  }, [html, props.onOpenRelative, props.onUnresolvedWiki]);
+  }, [html, props.relativePath, props.onOpenRelative, props.onUnresolvedWiki]);
 
   // Decorate code blocks with headers, Copy, and Format buttons
   useEffect(() => {
