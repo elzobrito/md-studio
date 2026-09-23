@@ -7,11 +7,11 @@
     "run": {
       "run_id": "RUN-0001",
       "status": "success",
-      "last_event_seq": 2428,
-      "projection_hash_sha256": "abd04f5ddc1e7afb08f48999cfd43e6f5a99f851fe67457ed6729b7538a67aea",
+      "last_event_seq": 2437,
+      "projection_hash_sha256": "8a8ec0becbe67ad127781fc9fad991da6fec6580d1fdd1f139246a6b73aee2b0",
       "verify_status": "ok"
     },
-    "updated_at": "2026-09-23T23:28:42Z"
+    "updated_at": "2026-09-23T23:31:15Z"
   },
   "project": {
     "name": "MD Studio",
@@ -7686,7 +7686,7 @@
       "task_kind": "impl",
       "title": "Presentation processor reutilizando pipeline Unified/Remark/Rehype",
       "description": "Ramificar o pipeline Markdown do MD Studio para compilar os slides segmentados em HTML sanitizado por slide sem duplicar o parser nem comprometer segurança.",
-      "status": "todo",
+      "status": "done",
       "depends_on": [
         "MD-PRES-001"
       ],
@@ -7705,7 +7705,18 @@
         "tests/presentation/**"
       ],
       "task_type": "feature",
-      "required_review_mode": "functional"
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-23T23:29:44Z",
+      "verification": {
+        "checks": [
+          "Implementação do processador de apresentação em src/presentation/processor.ts reutilizando o pipeline Unified do MD Studio",
+          "Compilação de cada slide para HTML sanitizado com suporte a Shiki, KaTeX, Mermaid e alertas",
+          "Tratamento de diagnósticos e isolamento de falhas por slide via fallback seguro sem quebrar a sessão",
+          "Suíte de testes de integração do processador aprovada com 4/4 testes e total de 16 testes em presentation"
+        ]
+      },
+      "completed_at": "2026-09-23T23:31:15Z"
     },
     {
       "task_id": "MD-PRES-003",
@@ -7845,8 +7856,8 @@
   ],
   "indexes": {
     "by_status": {
-      "done": 202,
-      "todo": 6
+      "done": 203,
+      "todo": 5
     },
     "by_kind": {
       "impl": 151,
