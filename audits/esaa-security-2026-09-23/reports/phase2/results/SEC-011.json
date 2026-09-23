@@ -1,0 +1,158 @@
+{
+  "task_id": "SEC-011",
+  "domain": "dependencies_supply_chain",
+  "playbook_version": "1.1.0",
+  "checks_total": 6,
+  "checks_pass": 5,
+  "checks_fail": 0,
+  "checks_partial": 1,
+  "checks_na": 0,
+  "checks_error": 0,
+  "worst_severity": "INFO",
+  "duration_ms": 0,
+  "results": [
+    {
+      "check_id": "DS-001",
+      "check_name": "Dependências com vulnerabilidades conhecidas",
+      "status": "pass",
+      "severity_if_fail": "HIGH",
+      "confidence": "high",
+      "evidence": {
+        "files": [
+          "src-tauri/Cargo.lock",
+          "pnpm-lock.yaml"
+        ],
+        "evidence_types": [
+          "tool_output"
+        ],
+        "evidence_sources": [
+          "cargo_audit",
+          "pnpm_audit"
+        ],
+        "fallback_applied": false,
+        "description": "pnpm audit executado com 0 vulnerabilidades (No known vulnerabilities found); cargo audit com 0 vulnerabilidades."
+      },
+      "remediation": "Repetir pnpm audit; avaliar alcançabilidade e atualização de event-listener/glib.",
+      "cross_refs": [
+        "FE-003"
+      ]
+    },
+    {
+      "check_id": "DS-002",
+      "check_name": "Dependências abandonadas",
+      "status": "partial",
+      "severity_if_fail": "MEDIUM",
+      "confidence": "high",
+      "evidence": {
+        "files": [
+          "src-tauri/Cargo.lock"
+        ],
+        "evidence_types": [
+          "tool_output"
+        ],
+        "evidence_sources": [
+          "cargo_audit"
+        ],
+        "fallback_applied": false,
+        "description": "0 vulnerabilidades conhecidas; 7 avisos residuais de crates transitivas unmaintained documentados e rastreados em docs/security/rust-advisory-residuals-2026-09-23.md sob MD-SEC-RUST-FOLLOWUP-20261023 com prazo para 23/10/2026."
+      },
+      "remediation": "Mapear dependentes e atualizar/substituir quando compatível.",
+      "cross_refs": []
+    },
+    {
+      "check_id": "DS-003",
+      "check_name": "Typosquatting packages",
+      "status": "pass",
+      "severity_if_fail": "CRITICAL",
+      "confidence": "low",
+      "evidence": {
+        "files": [
+          "package.json",
+          "src-tauri/Cargo.toml"
+        ],
+        "evidence_types": [
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": true,
+        "fallback_reason": "Sem consulta reputacional a registries",
+        "description": "Nenhuma variante suspeita óbvia entre dependências diretas; avaliação heurística apenas."
+      },
+      "remediation": "",
+      "cross_refs": []
+    },
+    {
+      "check_id": "DS-004",
+      "check_name": "Dependências sem lockfile",
+      "status": "pass",
+      "severity_if_fail": "MEDIUM",
+      "confidence": "high",
+      "evidence": {
+        "files": [
+          "pnpm-lock.yaml",
+          "src-tauri/Cargo.lock",
+          "src-tauri/crates/md-studio-core/Cargo.lock"
+        ],
+        "evidence_types": [
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Lockfiles presentes para JS e ambos os manifests Rust."
+      },
+      "remediation": "",
+      "cross_refs": []
+    },
+    {
+      "check_id": "DS-005",
+      "check_name": "Dependências externas não auditadas",
+      "status": "pass",
+      "severity_if_fail": "LOW",
+      "confidence": "high",
+      "evidence": {
+        "files": [
+          ".github/workflows/ci.yml",
+          ".github/workflows/build-windows.yml"
+        ],
+        "evidence_types": [
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Workflows .github/workflows/security-gates.yml e ci.yml executam gates efetivos de auditoria de dependencias (pnpm audit, cargo audit) com falha bloqueante."
+      },
+      "remediation": "Adicionar auditoria contínua com política de exceções e gates efetivos.",
+      "cross_refs": []
+    },
+    {
+      "check_id": "DS-006",
+      "check_name": "Build não reproduzível",
+      "status": "pass",
+      "severity_if_fail": "LOW",
+      "confidence": "high",
+      "evidence": {
+        "files": [
+          ".github/workflows/ci.yml",
+          ".github/workflows/build-windows.yml",
+          "snap/snapcraft.yaml"
+        ],
+        "evidence_types": [
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Fallback nao congelado removido em ci.yml; pnpm install --frozen-lockfile estrito, cargo --locked, toolchain Node 22.14.0 e Rust 1.96.1 fixadas."
+      },
+      "remediation": "Eliminar fallback não congelado; fixar toolchain e usar --locked conforme política de release.",
+      "cross_refs": []
+    }
+  ]
+}

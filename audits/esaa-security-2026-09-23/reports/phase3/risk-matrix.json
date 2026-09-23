@@ -1,0 +1,42 @@
+{
+  "rows": [
+    {
+      "finding_id": "SEC-011-DS-002-001",
+      "domain": "dependencies_supply_chain",
+      "severity": "LOW",
+      "cia": {
+        "c": 0,
+        "i": 0,
+        "a": 1
+      },
+      "owasp_mapping": [
+        "A06:2021",
+        "CWE-1104"
+      ],
+      "recommendation_summary": "Reavaliar dependências transitivas unmaintained na data limite de 23/10/2026.",
+      "effort_estimate": "M",
+      "source_check": "DS-002",
+      "status": "partial",
+      "confidence": "high"
+    },
+    {
+      "finding_id": "SEC-026-BL-003-001",
+      "domain": "business_logic",
+      "severity": "INFO",
+      "cia": {
+        "c": 0,
+        "i": 1,
+        "a": 0
+      },
+      "owasp_mapping": [
+        "A04:2021",
+        "CWE-367"
+      ],
+      "recommendation_summary": "Acompanhamento de concorrência em salvamento atômico local.",
+      "effort_estimate": "S",
+      "source_check": "BL-003",
+      "status": "partial",
+      "confidence": "low"
+    }
+  ]
+}

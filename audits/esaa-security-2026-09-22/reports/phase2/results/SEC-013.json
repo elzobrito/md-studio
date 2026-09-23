@@ -1,0 +1,171 @@
+{
+  "task_id": "SEC-013",
+  "domain": "authorization",
+  "playbook_version": "1.2.1",
+  "checks_total": 6,
+  "checks_pass": 1,
+  "checks_fail": 0,
+  "checks_partial": 3,
+  "checks_na": 2,
+  "checks_error": 0,
+  "worst_severity": "INFO",
+  "duration_ms": 0,
+  "results": [
+    {
+      "check_id": "AZ-001",
+      "check_name": "Controle de acesso ausente",
+      "status": "partial",
+      "severity_if_fail": "CRITICAL",
+      "confidence": "medium",
+      "evidence": {
+        "files": [
+          "src-tauri/src/lib.rs",
+          "src-tauri/capabilities/default.json",
+          "src-tauri/src/commands/mod.rs",
+          "src-tauri/crates/md-studio-core/src/workspace.rs"
+        ],
+        "evidence_types": [
+          "code_reference",
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Inventário SEC-003 enumera 20 comandos IPC, não endpoints HTTP. Comandos customizados são registrados para a webview principal; não há identidade de usuário interna. Acesso fica sob confiança no renderer/local OS."
+      },
+      "remediation": "Validar dinamicamente ou documentar o controle externo.",
+      "cross_refs": []
+    },
+    {
+      "check_id": "AZ-002",
+      "check_name": "IDOR (Insecure Direct Object Reference)",
+      "status": "partial",
+      "severity_if_fail": "CRITICAL",
+      "confidence": "medium",
+      "evidence": {
+        "files": [
+          "src-tauri/src/lib.rs",
+          "src-tauri/capabilities/default.json",
+          "src-tauri/src/commands/mod.rs",
+          "src-tauri/crates/md-studio-core/src/workspace.rs"
+        ],
+        "evidence_types": [
+          "code_reference",
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "workspace_id é ID aleatório do registry e resolve_within restringe caminhos, mas open_workspace aceita path enviado pela webview. IDOR multiusuário não se aplica; controle de escopo em renderer comprometido não foi testado."
+      },
+      "remediation": "Validar dinamicamente ou documentar o controle externo.",
+      "cross_refs": []
+    },
+    {
+      "check_id": "AZ-003",
+      "check_name": "Verificação de permissão apenas no frontend",
+      "status": "pass",
+      "severity_if_fail": "CRITICAL",
+      "confidence": "medium",
+      "evidence": {
+        "files": [
+          "src-tauri/src/lib.rs",
+          "src-tauri/capabilities/default.json",
+          "src-tauri/src/commands/mod.rs",
+          "src-tauri/crates/md-studio-core/src/workspace.rs"
+        ],
+        "evidence_types": [
+          "code_reference",
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Validação de caminho e hash de save ocorre em Rust, não apenas no frontend."
+      },
+      "remediation": "",
+      "cross_refs": []
+    },
+    {
+      "check_id": "AZ-004",
+      "check_name": "Admin routes expostas",
+      "status": "not_applicable",
+      "severity_if_fail": "HIGH",
+      "confidence": "high",
+      "evidence": {
+        "files": [
+          "src-tauri/src/lib.rs",
+          "src-tauri/capabilities/default.json",
+          "src-tauri/src/commands/mod.rs",
+          "src-tauri/crates/md-studio-core/src/workspace.rs"
+        ],
+        "evidence_types": [
+          "code_reference",
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Nenhuma rota admin HTTP ou papel admin identificado."
+      },
+      "remediation": "",
+      "cross_refs": []
+    },
+    {
+      "check_id": "AZ-005",
+      "check_name": "Escopo de permissões mal definido",
+      "status": "not_applicable",
+      "severity_if_fail": "MEDIUM",
+      "confidence": "high",
+      "evidence": {
+        "files": [
+          "src-tauri/src/lib.rs",
+          "src-tauri/capabilities/default.json",
+          "src-tauri/src/commands/mod.rs",
+          "src-tauri/crates/md-studio-core/src/workspace.rs"
+        ],
+        "evidence_types": [
+          "code_reference",
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Matriz roles×permissões: usuário local/main webview → comandos IPC registrados; sem roles diferenciadas."
+      },
+      "remediation": "",
+      "cross_refs": []
+    },
+    {
+      "check_id": "AZ-006",
+      "check_name": "Ações sensíveis sem confirmação",
+      "status": "partial",
+      "severity_if_fail": "LOW",
+      "confidence": "medium",
+      "evidence": {
+        "files": [
+          "src-tauri/src/lib.rs",
+          "src-tauri/capabilities/default.json",
+          "src-tauri/src/commands/mod.rs",
+          "src-tauri/crates/md-studio-core/src/workspace.rs"
+        ],
+        "evidence_types": [
+          "code_reference",
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "export_html aceita destino absoluto e flag overwrite vinda do renderer; confirmação de sobrescrita está na UI, não imposta no backend. Depende de renderer comprometido/ação local."
+      },
+      "remediation": "Validar dinamicamente ou documentar o controle externo.",
+      "cross_refs": []
+    }
+  ]
+}

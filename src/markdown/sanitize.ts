@@ -1,5 +1,39 @@
 import rehypeSanitize, { defaultSchema } from "rehype-sanitize";
 
+type HastNode = {
+  tagName?: string;
+  properties?: Record<string, unknown>;
+  children?: HastNode[];
+};
+
+function visitElements(node: HastNode, visit: (element: HastNode) => void): void {
+  if (node.tagName) visit(node);
+  for (const child of node.children ?? []) visitElements(child, visit);
+}
+
+/** Run immediately after rehypeRaw, before any trusted renderer adds its own styles. */
+export function stripMarkdownStyles() {
+  return (tree: HastNode) => visitElements(tree, (node) => {
+    if (node.properties) delete node.properties.style;
+  });
+}
+
+/** Shiki only needs literal token colors; never allow layout or CSS functions. */
+export function restrictRendererStyles() {
+  return (tree: HastNode) => visitElements(tree, (node) => {
+    const properties = node.properties;
+    if (!properties || typeof properties.style !== "string") return;
+    if (!["pre", "code", "span"].includes(node.tagName ?? "")) {
+      delete properties.style;
+      return;
+    }
+    const declarations = properties.style.split(";").map((part) => part.trim()).filter(Boolean);
+    if (declarations.length === 0 || declarations.some((part) => !/^--shiki-(?:light|dark)(?:-bg)?:#[0-9a-fA-F]{3,8}$/.test(part))) {
+      delete properties.style;
+    }
+  });
+}
+
 /** Versioned sanitize schema — security contract of the preview pipeline. */
 export const mdStudioSanitizeSchema = {
   ...defaultSchema,

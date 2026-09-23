@@ -1,0 +1,147 @@
+{
+  "task_id": "SEC-020",
+  "domain": "logging_monitoring",
+  "playbook_version": "1.2.1",
+  "checks_total": 5,
+  "checks_pass": 0,
+  "checks_fail": 0,
+  "checks_partial": 2,
+  "checks_na": 3,
+  "checks_error": 0,
+  "worst_severity": "INFO",
+  "duration_ms": 0,
+  "results": [
+    {
+      "check_id": "LM-001",
+      "check_name": "Logs contendo dados sensíveis",
+      "status": "partial",
+      "severity_if_fail": "HIGH",
+      "confidence": "medium",
+      "evidence": {
+        "files": [
+          "src/App.tsx",
+          "src/state/documentState.ts",
+          "src/components/MarkdownViewer.tsx",
+          "src-tauri/src/lib.rs"
+        ],
+        "evidence_types": [
+          "code_reference",
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Sem log explícito de token/env; console.error de objetos de erro pode conter caminhos/documentos. Detalhe em SC-008."
+      },
+      "remediation": "Validar dinamicamente ou documentar o controle externo.",
+      "cross_refs": [
+        "SC-008"
+      ]
+    },
+    {
+      "check_id": "LM-002",
+      "check_name": "Ausência de logs de auditoria",
+      "status": "not_applicable",
+      "severity_if_fail": "MEDIUM",
+      "confidence": "high",
+      "evidence": {
+        "files": [
+          "src/App.tsx",
+          "src/state/documentState.ts",
+          "src/components/MarkdownViewer.tsx",
+          "src-tauri/src/lib.rs"
+        ],
+        "evidence_types": [
+          "code_reference",
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Não há contas/ações administrativas remotas que requeiram trilha de auditoria; eventos ESAA são governança de desenvolvimento, não logs do app."
+      },
+      "remediation": "",
+      "cross_refs": []
+    },
+    {
+      "check_id": "LM-003",
+      "check_name": "Logs não estruturados",
+      "status": "partial",
+      "severity_if_fail": "LOW",
+      "confidence": "medium",
+      "evidence": {
+        "files": [
+          "src/App.tsx",
+          "src/state/documentState.ts",
+          "src/components/MarkdownViewer.tsx",
+          "src-tauri/src/lib.rs"
+        ],
+        "evidence_types": [
+          "code_reference",
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Logs observados são console.error/console.warn livres, sem schema. Impacto local; não há pipeline central."
+      },
+      "remediation": "Validar dinamicamente ou documentar o controle externo.",
+      "cross_refs": []
+    },
+    {
+      "check_id": "LM-004",
+      "check_name": "Ausência de alertas de segurança",
+      "status": "not_applicable",
+      "severity_if_fail": "MEDIUM",
+      "confidence": "high",
+      "evidence": {
+        "files": [
+          "src/App.tsx",
+          "src/state/documentState.ts",
+          "src/components/MarkdownViewer.tsx",
+          "src-tauri/src/lib.rs"
+        ],
+        "evidence_types": [
+          "code_reference",
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Sem serviço de produção/monitoramento remoto operado pelo app; alertas do host ficam fora do repo."
+      },
+      "remediation": "",
+      "cross_refs": []
+    },
+    {
+      "check_id": "LM-005",
+      "check_name": "Ausência de correlação de requisições",
+      "status": "not_applicable",
+      "severity_if_fail": "LOW",
+      "confidence": "high",
+      "evidence": {
+        "files": [
+          "src/App.tsx",
+          "src/state/documentState.ts",
+          "src/components/MarkdownViewer.tsx",
+          "src-tauri/src/lib.rs"
+        ],
+        "evidence_types": [
+          "code_reference",
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Sem requests HTTP distribuídos para correlacionar."
+      },
+      "remediation": "",
+      "cross_refs": []
+    }
+  ]
+}

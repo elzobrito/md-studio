@@ -1,0 +1,13 @@
+{
+  "after_sha256": "c00c3a2be330f3a1501a3236db8a7f3cdf558f753ec5738856cd3519d3de657f",
+  "artifact_id": "ART-c00c3a2be330f3a1501a3236db8a7f3cdf558f753ec5738856cd3519d3de657f",
+  "artifact_sha256": "82ffb742bff3fd19aed503c1c7507584ca95b888d6d731be815a36ef0fe82085",
+  "before_sha256": null,
+  "bytes": 1519,
+  "content": "# SEC-018 — Auditar Criptografia\n\nMD Studio, HEAD f8eaf22. Revisão estática do produto local Tauri; nenhum código foi alterado.\n\nEditor local-first: arquivos Markdown e rascunhos ficam no dispositivo do usuário; hashes SHA-256 são controle de integridade, não criptografia de dados. Sem chaves de aplicação ou transporte HTTP próprio.\n\n| Check | Resultado | Evidência/limite |\n| --- | --- | --- |\n| CR-001 HTTPS não obrigatório | not_applicable | Não há serviço HTTP próprio para impor HTTPS. |\n| CR-002 Algoritmos criptográficos inseguros | pass | Hash de conteúdo usa SHA-256 para detecção de conflito; busca no código não revelou MD5/SHA1/DES para segurança ou Math.random para segredo. |\n| CR-003 Dados sensíveis sem criptografia | partial | Markdown e rascunhos localStorage permanecem em claro por desenho local-first; sensibilidade depende do documento e da proteção do dispositivo. Não há criptografia no app. |\n| CR-004 Chaves criptográficas expostas | pass | Busca estática SEC-010 não identificou chave privada/segredo no código rastreado; histórico e artefatos não varridos. |\n| CR-005 Falta de rotação de chaves | not_applicable | Sem chave criptográfica própria identificada para rotacionar. |\n\nFontes inspecionadas: `src-tauri/crates/md-studio-core/src/persistence.rs`, `src/lib/drafts/recovery.ts`, `src-tauri/tauri.conf.json`.\n\nLimite geral: sem teste do pacote Tauri instalado, sem infraestrutura externa e sem afirmação de exploração para checks parciais.\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "reports/phase2/cryptography-audit.md",
+  "source_path": "reports/phase2/cryptography-audit.md",
+  "ts": "2026-09-23T13:06:21Z"
+}

@@ -9,7 +9,7 @@ import rehypeRaw from "rehype-raw";
 import { getHighlighter, rehypeShikiFromHighlighter } from "./shiki";
 import rehypeKatex from "rehype-katex";
 import { flagsFor, type MarkdownProfile } from "./profile";
-import { sanitizePlugin } from "./sanitize";
+import { restrictRendererStyles, sanitizePlugin, stripMarkdownStyles } from "./sanitize";
 import { transformGithubAlerts } from "./plugins/alerts";
 import { rehypeWikiLinks, type WikiResolution } from "./plugins/wiki-links";
 import { parseFrontmatter } from "./frontmatter";
@@ -56,6 +56,7 @@ export async function processMarkdown(source: string, options: ProcessOptions = 
   processor = processor
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeRaw)
+    .use(stripMarkdownStyles)
     .use(rehypeWikiLinks, { resolutions: options.wikiLinks })
     .use(rehypeHeadingIds)
     .use(rehypeMermaidBlocks);
@@ -82,6 +83,7 @@ export async function processMarkdown(source: string, options: ProcessOptions = 
   }
 
   processor = processor
+    .use(restrictRendererStyles)
     .use(rehypeKatex, { throwOnError: false, trust: false })
     .use(sanitizePlugin);
 

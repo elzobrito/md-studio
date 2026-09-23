@@ -1,0 +1,13 @@
+{
+  "after_sha256": "7b4b4ca277e03eeadebb2a2335ab486cddfe61ac78e5c0970f22754be911a869",
+  "artifact_id": "ART-7b4b4ca277e03eeadebb2a2335ab486cddfe61ac78e5c0970f22754be911a869",
+  "artifact_sha256": "806c1c5cca78e127f78127eafdc84ed6ac6d034460a76c5328cff6fb9f22124a",
+  "before_sha256": null,
+  "bytes": 1456,
+  "content": "# SEC-020 — Auditar Logs e Monitoramento\n\nMD Studio, HEAD f8eaf22. Revisão estática do produto local Tauri; nenhum código foi alterado.\n\nInspeção de pontos console.* e logs Rust. App local sem servidor ou requisições distribuídas; não há telemetria central de segurança identificada.\n\n| Check | Resultado | Evidência/limite |\n| --- | --- | --- |\n| LM-001 Logs contendo dados sensíveis | partial | Sem log explícito de token/env; console.error de objetos de erro pode conter caminhos/documentos. Detalhe em SC-008. |\n| LM-002 Ausência de logs de auditoria | not_applicable | Não há contas/ações administrativas remotas que requeiram trilha de auditoria; eventos ESAA são governança de desenvolvimento, não logs do app. |\n| LM-003 Logs não estruturados | partial | Logs observados são console.error/console.warn livres, sem schema. Impacto local; não há pipeline central. |\n| LM-004 Ausência de alertas de segurança | not_applicable | Sem serviço de produção/monitoramento remoto operado pelo app; alertas do host ficam fora do repo. |\n| LM-005 Ausência de correlação de requisições | not_applicable | Sem requests HTTP distribuídos para correlacionar. |\n\nFontes inspecionadas: `src/App.tsx`, `src/state/documentState.ts`, `src/components/MarkdownViewer.tsx`, `src-tauri/src/lib.rs`.\n\nLimite geral: sem teste do pacote Tauri instalado, sem infraestrutura externa e sem afirmação de exploração para checks parciais.\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "reports/phase2/logging-monitoring-audit.md",
+  "source_path": "reports/phase2/logging-monitoring-audit.md",
+  "ts": "2026-09-23T13:06:24Z"
+}

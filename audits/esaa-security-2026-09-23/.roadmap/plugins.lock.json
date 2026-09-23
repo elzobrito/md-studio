@@ -1,0 +1,13 @@
+{
+  "schema_version": "esaa-plugins-lock/v1",
+  "plugins": [
+    {
+      "id": "security-audit",
+      "name": "Security Audit Plugin",
+      "version": "0.1.0",
+      "source": "local",
+      "content_hash": "sha256:efdc93a51344d331de53a26921a2dd85e630ff2ff8a0737c4d0d0f57fd3f1f26",
+      "manifest_path": "/home/elzobrito/desenvolvimento/ESAA-Security/plugins/security-audit/0.1.0/plugin.json"
+    }
+  ]
+}

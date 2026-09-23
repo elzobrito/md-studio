@@ -8,6 +8,16 @@ export type BrowserFsMode = "none" | "directory" | "demo";
 let rootDir: FileSystemDirectoryHandle | null = null;
 let mode: BrowserFsMode = "none";
 let rootLabel = "workspace";
+let draftIdentity = "browser:unselected";
+
+/** Browser handles do not expose a canonical path; isolate each selection. */
+export function getBrowserDraftIdentity(): string {
+  return draftIdentity;
+}
+
+function newDraftIdentity(): string {
+  return `browser:${crypto.randomUUID()}`;
+}
 
 // Structured demo tree for fallback
 const DEMO: Record<string, Array<{ name: string; kind: "file" | "dir"; content?: string }>> = {
@@ -50,6 +60,7 @@ export async function pickRealDirectory(): Promise<{ label: string } | null> {
     rootDir = handle;
     mode = "directory";
     rootLabel = handle.name;
+    draftIdentity = newDraftIdentity();
     return { label: handle.name };
   } catch (e) {
     // user abort
@@ -83,6 +94,7 @@ export async function pickRealMarkdownFile(): Promise<{
     // Use a virtual single-file tree
     singleFile = { name: handle.name, content, handle };
     rootLabel = handle.name;
+    draftIdentity = newDraftIdentity();
     return { name: handle.name, parentLabel: handle.name, content };
   } catch (e) {
     if (e instanceof DOMException && e.name === "AbortError") return null;
@@ -101,6 +113,7 @@ export function useDemoWorkspace(): { label: string } {
   singleFile = null;
   mode = "demo";
   rootLabel = "demo-workspace";
+  draftIdentity = "browser:demo-workspace";
   return { label: rootLabel };
 }
 

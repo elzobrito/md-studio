@@ -1,0 +1,159 @@
+{
+  "task_id": "SEC-017",
+  "domain": "session_security",
+  "playbook_version": "1.2.1",
+  "checks_total": 6,
+  "checks_pass": 0,
+  "checks_fail": 0,
+  "checks_partial": 0,
+  "checks_na": 6,
+  "checks_error": 0,
+  "worst_severity": "INFO",
+  "duration_ms": 0,
+  "results": [
+    {
+      "check_id": "SS-001",
+      "check_name": "Cookies sem httpOnly",
+      "status": "not_applicable",
+      "severity_if_fail": "HIGH",
+      "confidence": "high",
+      "evidence": {
+        "files": [
+          "src/state/session.ts",
+          "src-tauri/src/lib.rs"
+        ],
+        "evidence_types": [
+          "code_reference",
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Sem cookie/token/sessão autenticada ou mutação HTTP sujeita a CSRF."
+      },
+      "remediation": "",
+      "cross_refs": []
+    },
+    {
+      "check_id": "SS-002",
+      "check_name": "Cookies sem Secure flag",
+      "status": "not_applicable",
+      "severity_if_fail": "HIGH",
+      "confidence": "high",
+      "evidence": {
+        "files": [
+          "src/state/session.ts",
+          "src-tauri/src/lib.rs"
+        ],
+        "evidence_types": [
+          "code_reference",
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Sem cookie/token/sessão autenticada ou mutação HTTP sujeita a CSRF."
+      },
+      "remediation": "",
+      "cross_refs": []
+    },
+    {
+      "check_id": "SS-003",
+      "check_name": "SameSite ausente",
+      "status": "not_applicable",
+      "severity_if_fail": "MEDIUM",
+      "confidence": "high",
+      "evidence": {
+        "files": [
+          "src/state/session.ts",
+          "src-tauri/src/lib.rs"
+        ],
+        "evidence_types": [
+          "code_reference",
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Sem cookie/token/sessão autenticada ou mutação HTTP sujeita a CSRF."
+      },
+      "remediation": "",
+      "cross_refs": []
+    },
+    {
+      "check_id": "SS-004",
+      "check_name": "Ausência de CSRF token",
+      "status": "not_applicable",
+      "severity_if_fail": "HIGH",
+      "confidence": "high",
+      "evidence": {
+        "files": [
+          "src/state/session.ts",
+          "src-tauri/src/lib.rs"
+        ],
+        "evidence_types": [
+          "code_reference",
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Sem cookie/token/sessão autenticada ou mutação HTTP sujeita a CSRF."
+      },
+      "remediation": "",
+      "cross_refs": []
+    },
+    {
+      "check_id": "SS-005",
+      "check_name": "Sessões sem expiração",
+      "status": "not_applicable",
+      "severity_if_fail": "HIGH",
+      "confidence": "high",
+      "evidence": {
+        "files": [
+          "src/state/session.ts",
+          "src-tauri/src/lib.rs"
+        ],
+        "evidence_types": [
+          "code_reference",
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Sem cookie/token/sessão autenticada ou mutação HTTP sujeita a CSRF."
+      },
+      "remediation": "",
+      "cross_refs": []
+    },
+    {
+      "check_id": "SS-006",
+      "check_name": "Tokens reutilizáveis",
+      "status": "not_applicable",
+      "severity_if_fail": "MEDIUM",
+      "confidence": "high",
+      "evidence": {
+        "files": [
+          "src/state/session.ts",
+          "src-tauri/src/lib.rs"
+        ],
+        "evidence_types": [
+          "code_reference",
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Sem cookie/token/sessão autenticada ou mutação HTTP sujeita a CSRF."
+      },
+      "remediation": "",
+      "cross_refs": []
+    }
+  ]
+}

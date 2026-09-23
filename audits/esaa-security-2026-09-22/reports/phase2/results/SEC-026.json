@@ -1,0 +1,115 @@
+{
+  "task_id": "SEC-026",
+  "domain": "business_logic",
+  "playbook_version": "1.2.1",
+  "checks_total": 4,
+  "checks_pass": 0,
+  "checks_fail": 0,
+  "checks_partial": 2,
+  "checks_na": 2,
+  "checks_error": 0,
+  "worst_severity": "INFO",
+  "duration_ms": 0,
+  "results": [
+    {
+      "check_id": "BL-001",
+      "check_name": "Bypass de workflow multi-step",
+      "status": "partial",
+      "severity_if_fail": "HIGH",
+      "confidence": "low",
+      "evidence": {
+        "files": [
+          "src-tauri/src/commands/mod.rs",
+          "src-tauri/crates/md-studio-core/src/persistence.rs",
+          "src-tauri/crates/md-studio-core/src/workspace.rs"
+        ],
+        "evidence_types": [
+          "code_reference",
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "save_document usa expected_hash, mas export_html aceita overwrite=true do renderer e destino absoluto; confirmação está na UI, não no backend. Exige webview comprometida/ação local."
+      },
+      "remediation": "Validar dinamicamente ou documentar o controle externo.",
+      "cross_refs": []
+    },
+    {
+      "check_id": "BL-002",
+      "check_name": "Anti-automação ausente em fluxos críticos",
+      "status": "not_applicable",
+      "severity_if_fail": "HIGH",
+      "confidence": "high",
+      "evidence": {
+        "files": [
+          "src-tauri/src/commands/mod.rs",
+          "src-tauri/crates/md-studio-core/src/persistence.rs",
+          "src-tauri/crates/md-studio-core/src/workspace.rs"
+        ],
+        "evidence_types": [
+          "code_reference",
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Sem fluxo crítico remoto/pagamento/login sujeito a bots."
+      },
+      "remediation": "",
+      "cross_refs": []
+    },
+    {
+      "check_id": "BL-003",
+      "check_name": "Race conditions (TOCTOU) em operações sensíveis",
+      "status": "partial",
+      "severity_if_fail": "CRITICAL",
+      "confidence": "low",
+      "evidence": {
+        "files": [
+          "src-tauri/src/commands/mod.rs",
+          "src-tauri/crates/md-studio-core/src/persistence.rs",
+          "src-tauri/crates/md-studio-core/src/workspace.rs"
+        ],
+        "evidence_types": [
+          "code_reference",
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "atomic_save verifica hash e depois renomeia arquivo; mudanças concorrentes entre check e rename podem ser sobrescritas. resolve_within canonicaliza antes de I/O, sem nofollow no uso subsequente. TOCTOU plausível, não reproduzido."
+      },
+      "remediation": "Validar dinamicamente ou documentar o controle externo.",
+      "cross_refs": []
+    },
+    {
+      "check_id": "BL-004",
+      "check_name": "Abuso de fluxo de negócio permitido",
+      "status": "not_applicable",
+      "severity_if_fail": "MEDIUM",
+      "confidence": "high",
+      "evidence": {
+        "files": [
+          "src-tauri/src/commands/mod.rs",
+          "src-tauri/crates/md-studio-core/src/persistence.rs",
+          "src-tauri/crates/md-studio-core/src/workspace.rs"
+        ],
+        "evidence_types": [
+          "code_reference",
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Sem regras comerciais de preço/cupom/crédito; abuso do fluxo local depende de privilégios já existentes no host."
+      },
+      "remediation": "",
+      "cross_refs": []
+    }
+  ]
+}

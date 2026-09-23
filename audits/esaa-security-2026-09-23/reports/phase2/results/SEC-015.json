@@ -1,0 +1,243 @@
+{
+  "task_id": "SEC-015",
+  "domain": "input_validation",
+  "playbook_version": "1.2.1",
+  "checks_total": 10,
+  "checks_pass": 3,
+  "checks_fail": 0,
+  "checks_partial": 3,
+  "checks_na": 4,
+  "checks_error": 0,
+  "worst_severity": "INFO",
+  "duration_ms": 0,
+  "results": [
+    {
+      "check_id": "IV-001",
+      "check_name": "SQL injection",
+      "status": "not_applicable",
+      "severity_if_fail": "CRITICAL",
+      "confidence": "high",
+      "evidence": {
+        "files": [],
+        "evidence_types": [
+          "code_reference"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Não há SQL no aplicativo inspecionado."
+      },
+      "remediation": "",
+      "cross_refs": []
+    },
+    {
+      "check_id": "IV-002",
+      "check_name": "Command injection",
+      "status": "pass",
+      "severity_if_fail": "CRITICAL",
+      "confidence": "medium",
+      "evidence": {
+        "files": [
+          "src-tauri/src/commands/formatter.rs"
+        ],
+        "evidence_types": [
+          "code_reference"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Formatador usa allowlist de executáveis e argumentos com std::process::Command, sem shell."
+      },
+      "remediation": "",
+      "cross_refs": []
+    },
+    {
+      "check_id": "IV-003",
+      "check_name": "Template injection",
+      "status": "not_applicable",
+      "severity_if_fail": "HIGH",
+      "confidence": "medium",
+      "evidence": {
+        "files": [],
+        "evidence_types": [
+          "code_reference"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Nenhum motor de template servidor exposto identificado."
+      },
+      "remediation": "",
+      "cross_refs": []
+    },
+    {
+      "check_id": "IV-004",
+      "check_name": "SSRF",
+      "status": "not_applicable",
+      "severity_if_fail": "HIGH",
+      "confidence": "medium",
+      "evidence": {
+        "files": [
+          "src-tauri/src/commands/mod.rs"
+        ],
+        "evidence_types": [
+          "code_reference"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Nenhum cliente HTTP server-side controlado por entrada identificado nos comandos."
+      },
+      "remediation": "",
+      "cross_refs": []
+    },
+    {
+      "check_id": "IV-005",
+      "check_name": "Cross-site scripting (XSS)",
+      "status": "partial",
+      "severity_if_fail": "HIGH",
+      "confidence": "medium",
+      "evidence": {
+        "files": [
+          "src/markdown/processor.ts",
+          "src/components/MarkdownViewer.tsx"
+        ],
+        "evidence_types": [
+          "code_reference",
+          "dynamic_test"
+        ],
+        "evidence_sources": [
+          "static_analysis",
+          "local_execution"
+        ],
+        "fallback_applied": false,
+        "description": "onerror e javascript: removidos nos três payloads testados; CSS inline arbitrário ainda chega ao HTML. JS não demonstrado."
+      },
+      "remediation": "Expandir suíte de payloads em WebView real e isolar CSS de documento.",
+      "cross_refs": [
+        "FE-002",
+        "IV-007"
+      ]
+    },
+    {
+      "check_id": "IV-006",
+      "check_name": "Inputs não validados",
+      "status": "partial",
+      "severity_if_fail": "MEDIUM",
+      "confidence": "medium",
+      "evidence": {
+        "files": [
+          "src-tauri/crates/md-studio-core/src/workspace.rs",
+          "src-tauri/src/commands/mod.rs"
+        ],
+        "evidence_types": [
+          "code_reference"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Fence de caminho presente; search_workspace e save_document sem limites explícitos de tamanho de entrada."
+      },
+      "remediation": "Definir limites e teste de carga para documentos/consultas locais.",
+      "cross_refs": []
+    },
+    {
+      "check_id": "IV-007",
+      "check_name": "Sanitização ausente",
+      "status": "pass",
+      "severity_if_fail": "HIGH",
+      "confidence": "high",
+      "evidence": {
+        "files": [
+          "src/markdown/sanitize.ts",
+          "src/markdown/processor.ts",
+          "src/components/MarkdownViewer.tsx"
+        ],
+        "evidence_types": [
+          "code_reference",
+          "dynamic_test"
+        ],
+        "evidence_sources": [
+          "static_analysis",
+          "local_execution"
+        ],
+        "fallback_applied": false,
+        "description": "Sanitizacao endurecida via stripMarkdownStyles e restrictRendererStyles; bloqueia position, inset, z-index e estilos arbitrarios, preservando tokens controlados do Shiki. Validado em markdown-css.test.ts."
+      },
+      "remediation": "Remover style de HTML bruto ou allowlist estrita separada dos estilos Shiki.",
+      "cross_refs": [
+        "FE-002"
+      ]
+    },
+    {
+      "check_id": "IV-008",
+      "check_name": "Deserialização insegura",
+      "status": "pass",
+      "severity_if_fail": "CRITICAL",
+      "confidence": "medium",
+      "evidence": {
+        "files": [
+          "src/markdown/frontmatter.ts",
+          "src/state/session.ts"
+        ],
+        "evidence_types": [
+          "code_reference"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Nenhum sink pickle.loads/yaml.load/unserialize/readObject/Marshal.load; frontmatter usa yaml.parse e validação Zod."
+      },
+      "remediation": "",
+      "cross_refs": []
+    },
+    {
+      "check_id": "IV-009",
+      "check_name": "XML External Entity (XXE)",
+      "status": "partial",
+      "severity_if_fail": "HIGH",
+      "confidence": "low",
+      "evidence": {
+        "files": [
+          "src/services/diagramExport.ts"
+        ],
+        "evidence_types": [
+          "code_reference"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "DOMParser.parseFromString para SVG Mermaid; sem teste dinâmico de DTD/entidade externa na WebView."
+      },
+      "remediation": "Confirmar comportamento do parser WebView com payload XXE isolado se SVG externo entrar no fluxo.",
+      "cross_refs": []
+    },
+    {
+      "check_id": "IV-010",
+      "check_name": "Open Redirect",
+      "status": "not_applicable",
+      "severity_if_fail": "MEDIUM",
+      "confidence": "high",
+      "evidence": {
+        "files": [],
+        "evidence_types": [
+          "code_reference"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Nenhum handler HTTP de redirect no aplicativo Tauri local."
+      },
+      "remediation": "",
+      "cross_refs": []
+    }
+  ]
+}

@@ -1,0 +1,197 @@
+{
+  "task_id": "SEC-021",
+  "domain": "infrastructure",
+  "playbook_version": "1.2.1",
+  "checks_total": 7,
+  "checks_pass": 0,
+  "checks_fail": 0,
+  "checks_partial": 1,
+  "checks_na": 6,
+  "checks_error": 0,
+  "worst_severity": "INFO",
+  "duration_ms": 0,
+  "results": [
+    {
+      "check_id": "IF-001",
+      "check_name": "HTTPS opcional",
+      "status": "not_applicable",
+      "severity_if_fail": "CRITICAL",
+      "confidence": "high",
+      "evidence": {
+        "files": [
+          "snap/snapcraft.yaml",
+          ".github/workflows/ci.yml",
+          ".github/workflows/build-windows.yml",
+          "src-tauri/tauri.conf.json"
+        ],
+        "evidence_types": [
+          "code_reference",
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Sem listener HTTP próprio; HTTPS de registries/GitHub externos está fora do produto."
+      },
+      "remediation": "",
+      "cross_refs": []
+    },
+    {
+      "check_id": "IF-002",
+      "check_name": "Ausência de firewall",
+      "status": "not_applicable",
+      "severity_if_fail": "HIGH",
+      "confidence": "high",
+      "evidence": {
+        "files": [
+          "snap/snapcraft.yaml",
+          ".github/workflows/ci.yml",
+          ".github/workflows/build-windows.yml",
+          "src-tauri/tauri.conf.json"
+        ],
+        "evidence_types": [
+          "code_reference",
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Firewall do host do usuário não é configurado por aplicativo desktop."
+      },
+      "remediation": "",
+      "cross_refs": []
+    },
+    {
+      "check_id": "IF-003",
+      "check_name": "Ausência de WAF",
+      "status": "not_applicable",
+      "severity_if_fail": "MEDIUM",
+      "confidence": "high",
+      "evidence": {
+        "files": [
+          "snap/snapcraft.yaml",
+          ".github/workflows/ci.yml",
+          ".github/workflows/build-windows.yml",
+          "src-tauri/tauri.conf.json"
+        ],
+        "evidence_types": [
+          "code_reference",
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Sem serviço web próprio para WAF."
+      },
+      "remediation": "",
+      "cross_refs": []
+    },
+    {
+      "check_id": "IF-004",
+      "check_name": "Network segmentation ausente",
+      "status": "not_applicable",
+      "severity_if_fail": "MEDIUM",
+      "confidence": "high",
+      "evidence": {
+        "files": [
+          "snap/snapcraft.yaml",
+          ".github/workflows/ci.yml",
+          ".github/workflows/build-windows.yml",
+          "src-tauri/tauri.conf.json"
+        ],
+        "evidence_types": [
+          "code_reference",
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Sem rede de serviços da aplicação a segmentar."
+      },
+      "remediation": "",
+      "cross_refs": []
+    },
+    {
+      "check_id": "IF-005",
+      "check_name": "Backups não configurados",
+      "status": "partial",
+      "severity_if_fail": "HIGH",
+      "confidence": "low",
+      "evidence": {
+        "files": [
+          "snap/snapcraft.yaml",
+          ".github/workflows/ci.yml",
+          ".github/workflows/build-windows.yml",
+          "src-tauri/tauri.conf.json"
+        ],
+        "evidence_types": [
+          "code_reference",
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Documentos ficam em diretórios escolhidos pelo usuário; estratégia de backup do usuário/host não é observável no repositório."
+      },
+      "remediation": "Validar dinamicamente ou documentar o controle externo.",
+      "cross_refs": []
+    },
+    {
+      "check_id": "IF-006",
+      "check_name": "Proteção contra DDoS ausente",
+      "status": "not_applicable",
+      "severity_if_fail": "MEDIUM",
+      "confidence": "high",
+      "evidence": {
+        "files": [
+          "snap/snapcraft.yaml",
+          ".github/workflows/ci.yml",
+          ".github/workflows/build-windows.yml",
+          "src-tauri/tauri.conf.json"
+        ],
+        "evidence_types": [
+          "code_reference",
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Sem endpoint de rede exposto para DDoS."
+      },
+      "remediation": "",
+      "cross_refs": []
+    },
+    {
+      "check_id": "IF-007",
+      "check_name": "Container hardening ausente",
+      "status": "not_applicable",
+      "severity_if_fail": "HIGH",
+      "confidence": "high",
+      "evidence": {
+        "files": [
+          "snap/snapcraft.yaml",
+          ".github/workflows/ci.yml",
+          ".github/workflows/build-windows.yml",
+          "src-tauri/tauri.conf.json"
+        ],
+        "evidence_types": [
+          "code_reference",
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Nenhum Dockerfile ou serviço docker-compose no repositório; Snap não é container Docker."
+      },
+      "remediation": "",
+      "cross_refs": []
+    }
+  ]
+}

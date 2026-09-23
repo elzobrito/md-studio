@@ -94,6 +94,6 @@ describe("Web Formatter (Prettier Standalone)", () => {
     expect(res.code).toBe("def foo():\n    pass\n");
 
     delete (window as any).__TAURI_INTERNALS__;
-    vi.unmock("@tauri-apps/api/core");
+    vi.doUnmock("@tauri-apps/api/core");
   });
 });

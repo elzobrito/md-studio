@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { FileExplorer } from "./components/FileExplorer";
 import { MarkdownEditor } from "./components/MarkdownEditor";
 import { MarkdownViewer } from "./components/MarkdownViewer";
@@ -34,6 +34,8 @@ import { OutgoingLinksPanel } from "./components/wiki/OutgoingLinksPanel";
 import { BacklinksPanel } from "./components/wiki/BacklinksPanel";
 import { CreateNoteFromWiki } from "./components/wiki/CreateNoteFromWiki";
 import { NewDocumentModal } from "./components/editor/NewDocumentModal";
+import { DraftRecoveryDialog } from "./components/DraftRecoveryDialog";
+import { listRecoverableDrafts, removeDraftKey } from "./lib/drafts/recovery";
 import type { Template } from "./templates";
 import "./styles/print.css";
 
@@ -58,10 +60,33 @@ export function App() {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [isWriting, setIsWriting] = useState(false);
   const [newDocModalOpen, setNewDocModalOpen] = useState(false);
+  const [recoveryDrafts, setRecoveryDrafts] = useState(() =>
+    listRecoverableDrafts().filter((draft) => draft.legacy || draft.browserSession || draft.expiringSoon),
+  );
+  const [recoveryOpen, setRecoveryOpen] = useState(recoveryDrafts.length > 0);
+  const announcedDrafts = useRef(new Set(recoveryDrafts.filter((draft) => draft.expiringSoon).map((draft) => `${draft.key}:${draft.expired ? "expired" : "warning"}`)));
   const [unresolvedWikiTarget, setUnresolvedWikiTarget] = useState<string | null>(null);
   const scrollSync = useScrollSync({ enabled: view === "split" });
 
   const hasActiveDocument = Boolean(isWriting || doc.relativePath);
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      const pending = listRecoverableDrafts().filter((draft) => draft.legacy || draft.browserSession || draft.expiringSoon);
+      const newlyDue = pending.some((draft) => {
+        if (!draft.expiringSoon) return false;
+        const token = `${draft.key}:${draft.expired ? "expired" : "warning"}`;
+        if (announcedDrafts.current.has(token)) return false;
+        announcedDrafts.current.add(token);
+        return true;
+      });
+      if (newlyDue) {
+        setRecoveryDrafts(pending);
+        setRecoveryOpen(true);
+      }
+    }, 60 * 60 * 1000);
+    return () => window.clearInterval(timer);
+  }, []);
 
   const handleOpenNewDocument = useCallback(() => {
     setNewDocModalOpen(true);
@@ -674,6 +699,26 @@ export function App() {
         onClose={() => setNewDocModalOpen(false)}
         onSelectTemplate={handleSelectTemplate}
       />
+      {recoveryOpen && recoveryDrafts.length > 0 && (
+        <DraftRecoveryDialog
+          drafts={recoveryDrafts}
+          onChange={() => {
+            const remaining = listRecoverableDrafts().filter((draft) => draft.legacy || draft.browserSession || draft.expiringSoon);
+            setRecoveryDrafts(remaining);
+            if (remaining.length === 0) setRecoveryOpen(false);
+          }}
+          onClose={(selectedKey) => {
+            const selected = recoveryDrafts.find((draft) => draft.key === selectedKey);
+            if (selected?.expired && !removeDraftKey(selected.key)) {
+              window.alert("Não foi possível remover um rascunho expirado. Tente novamente.");
+              return;
+            }
+            const remaining = listRecoverableDrafts().filter((draft) => draft.legacy || draft.browserSession || draft.expiringSoon);
+            setRecoveryDrafts(remaining);
+            setRecoveryOpen(remaining.some((draft) => draft.expired));
+          }}
+        />
+      )}
     </div>
       <ConflictDialog
         open={!!doc.conflictPath}

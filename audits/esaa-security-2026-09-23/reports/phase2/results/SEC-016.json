@@ -1,0 +1,159 @@
+{
+  "task_id": "SEC-016",
+  "domain": "file_upload",
+  "playbook_version": "1.2.1",
+  "checks_total": 6,
+  "checks_pass": 0,
+  "checks_fail": 0,
+  "checks_partial": 0,
+  "checks_na": 6,
+  "checks_error": 0,
+  "worst_severity": "INFO",
+  "duration_ms": 0,
+  "results": [
+    {
+      "check_id": "FU-001",
+      "check_name": "Uploads sem validação de tipo",
+      "status": "not_applicable",
+      "severity_if_fail": "HIGH",
+      "confidence": "high",
+      "evidence": {
+        "files": [
+          "src-tauri/src/commands/mod.rs",
+          "src-tauri/crates/md-studio-core/src/workspace.rs"
+        ],
+        "evidence_types": [
+          "code_reference",
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Nenhum endpoint de upload ou armazenamento remoto de arquivo; controle de upload não se aplica."
+      },
+      "remediation": "",
+      "cross_refs": []
+    },
+    {
+      "check_id": "FU-002",
+      "check_name": "Uploads sem limite de tamanho",
+      "status": "not_applicable",
+      "severity_if_fail": "MEDIUM",
+      "confidence": "high",
+      "evidence": {
+        "files": [
+          "src-tauri/src/commands/mod.rs",
+          "src-tauri/crates/md-studio-core/src/workspace.rs"
+        ],
+        "evidence_types": [
+          "code_reference",
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Nenhum endpoint de upload ou armazenamento remoto de arquivo; controle de upload não se aplica."
+      },
+      "remediation": "",
+      "cross_refs": []
+    },
+    {
+      "check_id": "FU-003",
+      "check_name": "Uploads armazenados no servidor da aplicação",
+      "status": "not_applicable",
+      "severity_if_fail": "MEDIUM",
+      "confidence": "high",
+      "evidence": {
+        "files": [
+          "src-tauri/src/commands/mod.rs",
+          "src-tauri/crates/md-studio-core/src/workspace.rs"
+        ],
+        "evidence_types": [
+          "code_reference",
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Nenhum endpoint de upload ou armazenamento remoto de arquivo; controle de upload não se aplica."
+      },
+      "remediation": "",
+      "cross_refs": []
+    },
+    {
+      "check_id": "FU-004",
+      "check_name": "Ausência de antivírus",
+      "status": "not_applicable",
+      "severity_if_fail": "MEDIUM",
+      "confidence": "high",
+      "evidence": {
+        "files": [
+          "src-tauri/src/commands/mod.rs",
+          "src-tauri/crates/md-studio-core/src/workspace.rs"
+        ],
+        "evidence_types": [
+          "code_reference",
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Nenhum endpoint de upload ou armazenamento remoto de arquivo; controle de upload não se aplica."
+      },
+      "remediation": "",
+      "cross_refs": []
+    },
+    {
+      "check_id": "FU-005",
+      "check_name": "Possibilidade de upload executável",
+      "status": "not_applicable",
+      "severity_if_fail": "CRITICAL",
+      "confidence": "high",
+      "evidence": {
+        "files": [
+          "src-tauri/src/commands/mod.rs",
+          "src-tauri/crates/md-studio-core/src/workspace.rs"
+        ],
+        "evidence_types": [
+          "code_reference",
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Nenhum endpoint de upload ou armazenamento remoto de arquivo; controle de upload não se aplica."
+      },
+      "remediation": "",
+      "cross_refs": []
+    },
+    {
+      "check_id": "FU-006",
+      "check_name": "Filenames não sanitizados",
+      "status": "not_applicable",
+      "severity_if_fail": "HIGH",
+      "confidence": "high",
+      "evidence": {
+        "files": [
+          "src-tauri/src/commands/mod.rs",
+          "src-tauri/crates/md-studio-core/src/workspace.rs"
+        ],
+        "evidence_types": [
+          "code_reference",
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Nenhum endpoint de upload ou armazenamento remoto de arquivo; controle de upload não se aplica."
+      },
+      "remediation": "",
+      "cross_refs": []
+    }
+  ]
+}

@@ -1,0 +1,240 @@
+{
+  "task_id": "SEC-012",
+  "domain": "authentication",
+  "playbook_version": "1.2.1",
+  "checks_total": 9,
+  "checks_pass": 0,
+  "checks_fail": 0,
+  "checks_partial": 0,
+  "checks_na": 9,
+  "checks_error": 0,
+  "worst_severity": "INFO",
+  "duration_ms": 0,
+  "results": [
+    {
+      "check_id": "AU-001",
+      "check_name": "Senhas armazenadas em texto plano",
+      "status": "not_applicable",
+      "severity_if_fail": "CRITICAL",
+      "confidence": "high",
+      "evidence": {
+        "files": [
+          "src-tauri/src/lib.rs",
+          "src-tauri/capabilities/default.json",
+          "src/state/session.ts"
+        ],
+        "evidence_types": [
+          "code_reference",
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Não há armazenamento de senha de usuário no produto."
+      },
+      "remediation": "",
+      "cross_refs": []
+    },
+    {
+      "check_id": "AU-002",
+      "check_name": "Hash de senha inseguro",
+      "status": "not_applicable",
+      "severity_if_fail": "HIGH",
+      "confidence": "high",
+      "evidence": {
+        "files": [
+          "src-tauri/src/lib.rs",
+          "src-tauri/capabilities/default.json",
+          "src/state/session.ts"
+        ],
+        "evidence_types": [
+          "code_reference",
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Não há hash de senha; SHA-256 é usado para integridade de documento, não credenciais."
+      },
+      "remediation": "",
+      "cross_refs": []
+    },
+    {
+      "check_id": "AU-003",
+      "check_name": "Ausência de MFA",
+      "status": "not_applicable",
+      "severity_if_fail": "MEDIUM",
+      "confidence": "high",
+      "evidence": {
+        "files": [
+          "src-tauri/src/lib.rs",
+          "src-tauri/capabilities/default.json",
+          "src/state/session.ts"
+        ],
+        "evidence_types": [
+          "code_reference",
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Sem conta/login próprio a proteger com MFA."
+      },
+      "remediation": "",
+      "cross_refs": []
+    },
+    {
+      "check_id": "AU-004",
+      "check_name": "Reset de senha inseguro",
+      "status": "not_applicable",
+      "severity_if_fail": "HIGH",
+      "confidence": "high",
+      "evidence": {
+        "files": [
+          "src-tauri/src/lib.rs",
+          "src-tauri/capabilities/default.json",
+          "src/state/session.ts"
+        ],
+        "evidence_types": [
+          "code_reference",
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Não há fluxo de reset de senha."
+      },
+      "remediation": "",
+      "cross_refs": []
+    },
+    {
+      "check_id": "AU-005",
+      "check_name": "Sessões sem expiração",
+      "status": "not_applicable",
+      "severity_if_fail": "HIGH",
+      "confidence": "high",
+      "evidence": {
+        "files": [
+          "src-tauri/src/lib.rs",
+          "src-tauri/capabilities/default.json",
+          "src/state/session.ts"
+        ],
+        "evidence_types": [
+          "code_reference",
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "A sessão em src/state/session.ts é somente preferência visual; não é sessão autenticada."
+      },
+      "remediation": "",
+      "cross_refs": []
+    },
+    {
+      "check_id": "AU-006",
+      "check_name": "Ausência de proteção contra brute force",
+      "status": "not_applicable",
+      "severity_if_fail": "HIGH",
+      "confidence": "high",
+      "evidence": {
+        "files": [
+          "src-tauri/src/lib.rs",
+          "src-tauri/capabilities/default.json",
+          "src/state/session.ts"
+        ],
+        "evidence_types": [
+          "code_reference",
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Não há endpoint de login sujeito a brute force."
+      },
+      "remediation": "",
+      "cross_refs": []
+    },
+    {
+      "check_id": "AU-007",
+      "check_name": "Tokens permanentes",
+      "status": "not_applicable",
+      "severity_if_fail": "HIGH",
+      "confidence": "high",
+      "evidence": {
+        "files": [
+          "src-tauri/src/lib.rs",
+          "src-tauri/capabilities/default.json",
+          "src/state/session.ts"
+        ],
+        "evidence_types": [
+          "code_reference",
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Não há tokens de autenticação próprios."
+      },
+      "remediation": "",
+      "cross_refs": []
+    },
+    {
+      "check_id": "AU-008",
+      "check_name": "Session fixation",
+      "status": "not_applicable",
+      "severity_if_fail": "HIGH",
+      "confidence": "high",
+      "evidence": {
+        "files": [
+          "src-tauri/src/lib.rs",
+          "src-tauri/capabilities/default.json",
+          "src/state/session.ts"
+        ],
+        "evidence_types": [
+          "code_reference",
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Não há identificador de sessão de autenticação a fixar."
+      },
+      "remediation": "",
+      "cross_refs": []
+    },
+    {
+      "check_id": "AU-009",
+      "check_name": "Fraquezas específicas de JWT",
+      "status": "not_applicable",
+      "severity_if_fail": "CRITICAL",
+      "confidence": "high",
+      "evidence": {
+        "files": [
+          "src-tauri/src/lib.rs",
+          "src-tauri/capabilities/default.json",
+          "src/state/session.ts"
+        ],
+        "evidence_types": [
+          "code_reference",
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Sem emissão/verificação de JWT; algoritmos, kid, segredo HS e RS/HS não se aplicam."
+      },
+      "remediation": "",
+      "cross_refs": []
+    }
+  ]
+}

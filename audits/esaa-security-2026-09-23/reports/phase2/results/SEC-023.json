@@ -1,0 +1,142 @@
+{
+  "task_id": "SEC-023",
+  "domain": "data_security",
+  "playbook_version": "1.2.1",
+  "checks_total": 5,
+  "checks_pass": 1,
+  "checks_fail": 0,
+  "checks_partial": 3,
+  "checks_na": 1,
+  "checks_error": 0,
+  "worst_severity": "INFO",
+  "duration_ms": 0,
+  "results": [
+    {
+      "check_id": "DA-001",
+      "check_name": "Dados sensíveis armazenados sem proteção",
+      "status": "partial",
+      "severity_if_fail": "CRITICAL",
+      "confidence": "low",
+      "evidence": {
+        "files": [
+          "src/lib/drafts/recovery.ts",
+          "src/state/recent-files.ts",
+          "src-tauri/crates/md-studio-core/src/index/index_persistence.rs"
+        ],
+        "evidence_types": [
+          "code_reference",
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Campos potencialmente pessoais: conteúdo Markdown, nomes/caminhos de arquivo, rascunhos, histórico recente e metadados de índice. Rascunhos localStorage não são criptografados; proteção depende do host."
+      },
+      "remediation": "Validar dinamicamente ou documentar o controle externo.",
+      "cross_refs": [
+        "CR-003"
+      ]
+    },
+    {
+      "check_id": "DA-002",
+      "check_name": "Dados excessivos armazenados",
+      "status": "partial",
+      "severity_if_fail": "MEDIUM",
+      "confidence": "low",
+      "evidence": {
+        "files": [
+          "src/lib/drafts/recovery.ts",
+          "src/state/recent-files.ts",
+          "src-tauri/crates/md-studio-core/src/index/index_persistence.rs"
+        ],
+        "evidence_types": [
+          "code_reference",
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Recentes e índice persistem paths/metadados; necessidade/minimização por campo não foi documentada. Sem evidência de envio remoto."
+      },
+      "remediation": "Validar dinamicamente ou documentar o controle externo.",
+      "cross_refs": []
+    },
+    {
+      "check_id": "DA-003",
+      "check_name": "Ausência de política de retenção",
+      "status": "pass",
+      "severity_if_fail": "MEDIUM",
+      "confidence": "low",
+      "evidence": {
+        "files": [
+          "src/lib/drafts/recovery.ts",
+          "src/state/recent-files.ts",
+          "src-tauri/crates/md-studio-core/src/index/index_persistence.rs"
+        ],
+        "evidence_types": [
+          "code_reference",
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Politica de retencao de rascunhos de 90 dias implementada com aviso visual aos 75 dias, expurgo periodico, isolamento em modo navegador e dialogo de recuperacao/exclusao manual (DraftRecoveryDialog.tsx e recovery.ts, testado em draft-retention.test.ts)."
+      },
+      "remediation": "Validar dinamicamente ou documentar o controle externo.",
+      "cross_refs": []
+    },
+    {
+      "check_id": "DA-004",
+      "check_name": "Ausência de anonimização",
+      "status": "not_applicable",
+      "severity_if_fail": "MEDIUM",
+      "confidence": "high",
+      "evidence": {
+        "files": [
+          "src/lib/drafts/recovery.ts",
+          "src/state/recent-files.ts",
+          "src-tauri/crates/md-studio-core/src/index/index_persistence.rs"
+        ],
+        "evidence_types": [
+          "code_reference",
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Sem analytics/relatório agregado ou dataset de terceiros que demande anonimização no produto."
+      },
+      "remediation": "",
+      "cross_refs": []
+    },
+    {
+      "check_id": "DA-005",
+      "check_name": "Não conformidade com LGPD/GDPR",
+      "status": "partial",
+      "severity_if_fail": "HIGH",
+      "confidence": "low",
+      "evidence": {
+        "files": [
+          "src/lib/drafts/recovery.ts",
+          "src/state/recent-files.ts",
+          "src-tauri/crates/md-studio-core/src/index/index_persistence.rs"
+        ],
+        "evidence_types": [
+          "code_reference",
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Conformidade LGPD/GDPR depende de finalidade, distribuição e operação do usuário; código não basta para atestar conformidade ou infração."
+      },
+      "remediation": "Validar dinamicamente ou documentar o controle externo.",
+      "cross_refs": []
+    }
+  ]
+}

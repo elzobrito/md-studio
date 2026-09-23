@@ -1,0 +1,165 @@
+{
+  "task_id": "SEC-022",
+  "domain": "devsecops",
+  "playbook_version": "1.2.1",
+  "checks_total": 6,
+  "checks_pass": 0,
+  "checks_fail": 3,
+  "checks_partial": 2,
+  "checks_na": 1,
+  "checks_error": 0,
+  "worst_severity": "HIGH",
+  "duration_ms": 0,
+  "results": [
+    {
+      "check_id": "DO-001",
+      "check_name": "Ausência de code review",
+      "status": "partial",
+      "severity_if_fail": "MEDIUM",
+      "confidence": "medium",
+      "evidence": {
+        "files": [
+          ".github/workflows/ci.yml",
+          ".github/workflows/build-windows.yml",
+          "snap/snapcraft.yaml"
+        ],
+        "evidence_types": [
+          "code_reference",
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "PR aciona CI, mas branch protection/revisores obrigatórios são configuração externa não observada."
+      },
+      "remediation": "Validar dinamicamente ou documentar o controle externo.",
+      "cross_refs": []
+    },
+    {
+      "check_id": "DO-002",
+      "check_name": "Pipeline sem análise de segurança",
+      "status": "fail",
+      "severity_if_fail": "MEDIUM",
+      "confidence": "medium",
+      "evidence": {
+        "files": [
+          ".github/workflows/ci.yml",
+          ".github/workflows/build-windows.yml",
+          "snap/snapcraft.yaml"
+        ],
+        "evidence_types": [
+          "code_reference",
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "CI não executa pnpm audit/cargo audit; typecheck e testes do workflow principal usam || true."
+      },
+      "remediation": "",
+      "cross_refs": []
+    },
+    {
+      "check_id": "DO-003",
+      "check_name": "Secrets scanning ausente",
+      "status": "fail",
+      "severity_if_fail": "HIGH",
+      "confidence": "medium",
+      "evidence": {
+        "files": [
+          ".github/workflows/ci.yml",
+          ".github/workflows/build-windows.yml",
+          "snap/snapcraft.yaml"
+        ],
+        "evidence_types": [
+          "code_reference",
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Nenhum gitleaks/secret scan nos workflows versionados."
+      },
+      "remediation": "",
+      "cross_refs": []
+    },
+    {
+      "check_id": "DO-004",
+      "check_name": "SAST não implementado",
+      "status": "fail",
+      "severity_if_fail": "MEDIUM",
+      "confidence": "medium",
+      "evidence": {
+        "files": [
+          ".github/workflows/ci.yml",
+          ".github/workflows/build-windows.yml",
+          "snap/snapcraft.yaml"
+        ],
+        "evidence_types": [
+          "code_reference",
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Nenhum SAST/CodeQL/semgrep nos workflows versionados."
+      },
+      "remediation": "",
+      "cross_refs": []
+    },
+    {
+      "check_id": "DO-005",
+      "check_name": "DAST não implementado",
+      "status": "not_applicable",
+      "severity_if_fail": "LOW",
+      "confidence": "high",
+      "evidence": {
+        "files": [
+          ".github/workflows/ci.yml",
+          ".github/workflows/build-windows.yml",
+          "snap/snapcraft.yaml"
+        ],
+        "evidence_types": [
+          "code_reference",
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Sem aplicação HTTP exposta para DAST web; testes desktop adversariais seriam o equivalente."
+      },
+      "remediation": "",
+      "cross_refs": []
+    },
+    {
+      "check_id": "DO-006",
+      "check_name": "Deploy sem auditoria",
+      "status": "partial",
+      "severity_if_fail": "MEDIUM",
+      "confidence": "medium",
+      "evidence": {
+        "files": [
+          ".github/workflows/ci.yml",
+          ".github/workflows/build-windows.yml",
+          "snap/snapcraft.yaml"
+        ],
+        "evidence_types": [
+          "code_reference",
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Workflow Windows publica artefatos em release por tag, sem gate de auditoria de dependências; aprovação externa não observável."
+      },
+      "remediation": "Validar dinamicamente ou documentar o controle externo.",
+      "cross_refs": []
+    }
+  ]
+}

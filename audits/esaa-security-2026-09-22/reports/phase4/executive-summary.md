@@ -1,0 +1,19 @@
+# Resumo executivo — MD Studio
+
+Score estático: **62.25/100 (fair)**. Foram processados 108 checks em 17 domínios: 15 pass, 8 fail, 25 partial, 60 não aplicáveis. O score mede cobertura/controles observados; não equivale a certificação ou prova de ausência de vulnerabilidades.
+
+## Cinco riscos prioritários
+
+1. **MEDIUM — CSS arbitrário em Markdown pode encobrir a interface** (`SEC-024-FE-002-001`): Separar CSS gerado por Shiki do HTML bruto e bloquear position/inset/z-index de conteúdo.
+2. **MEDIUM — Pipeline sem gates efetivos de segurança e qualidade** (`SEC-022-DO-002-001`): Introduzir gates de pnpm/cargo audit, secret scan e SAST; tornar typecheck/test bloqueantes.
+3. **LOW — CI pode instalar dependências fora do lockfile congelado** (`SEC-011-DS-006-001`): Remover fallback, usar instalação congelada e toolchain Rust fixada/--locked.
+4. **LOW — Dependências Rust transitivas não mantidas** (`SEC-011-DS-002-001`): Atualizar árvore transitiva de forma compatível e reexecutar cargo audit/testes.
+5. **LOW — Rascunhos locais sem prazo de retenção demonstrado** (`SEC-023-DA-003-001`): Definir prazo e limpeza de rascunhos abandonados; informar usuário sobre armazenamento local.
+
+A prioridade prática é bloquear CSS arbitrário de Markdown, tornar CI bloqueante e repetir `pnpm audit` em ambiente com registry responsivo. RustSec apontou zero vulnerabilities classificadas, mas avisos transitivos exigem revisão; não foi provada execução de JavaScript por Markdown.
+
+## Fórmula reproduzível
+
+Por check: pass = peso integral; partial = metade; fail/error = zero; N/A fora do denominador. Pesos de severidade: CRITICAL 10, HIGH 7, MEDIUM 4, LOW 2, INFO 1. Score de domínio = pontos obtidos / pontos possíveis × 100. Média global ponderada por prioridade do playbook: critical 3, high 2, medium 1; domínios 100% N/A excluídos. Penalidades do template são aplicadas a falhas CRITICAL e domínio crítico zerado.
+
+Nesta execução: numerador ponderado 1618.42, denominador 26.0; 0 falhas CRITICAL. Nenhuma penalidade alterou o resultado. Documento de escopo: auditoria estática local; sem teste empacotado, sem auditoria JS concluída, sem validação de infraestrutura externa.

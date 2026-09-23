@@ -1,0 +1,231 @@
+{
+  "documents": {
+    "best-practices.md": {
+      "path": "best-practices.md",
+      "title": "SEC-041 — Boas práticas por domínio",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "SEC-041 — Boas práticas por domínio",
+          "anchor": "sec-041-boas-praticas-por-dominio"
+        },
+        {
+          "depth": 2,
+          "text": "secrets_config",
+          "anchor": "secrets-config"
+        },
+        {
+          "depth": 2,
+          "text": "dependencies_supply_chain",
+          "anchor": "dependencies-supply-chain"
+        },
+        {
+          "depth": 2,
+          "text": "authentication",
+          "anchor": "authentication"
+        },
+        {
+          "depth": 2,
+          "text": "authorization",
+          "anchor": "authorization"
+        },
+        {
+          "depth": 2,
+          "text": "api_security",
+          "anchor": "api-security"
+        },
+        {
+          "depth": 2,
+          "text": "input_validation",
+          "anchor": "input-validation"
+        },
+        {
+          "depth": 2,
+          "text": "file_upload",
+          "anchor": "file-upload"
+        },
+        {
+          "depth": 2,
+          "text": "session_security",
+          "anchor": "session-security"
+        },
+        {
+          "depth": 2,
+          "text": "cryptography",
+          "anchor": "cryptography"
+        },
+        {
+          "depth": 2,
+          "text": "security_headers",
+          "anchor": "security-headers"
+        },
+        {
+          "depth": 2,
+          "text": "logging_monitoring",
+          "anchor": "logging-monitoring"
+        },
+        {
+          "depth": 2,
+          "text": "infrastructure",
+          "anchor": "infrastructure"
+        },
+        {
+          "depth": 2,
+          "text": "devsecops",
+          "anchor": "devsecops"
+        },
+        {
+          "depth": 2,
+          "text": "data_security",
+          "anchor": "data-security"
+        },
+        {
+          "depth": 2,
+          "text": "frontend_security",
+          "anchor": "frontend-security"
+        },
+        {
+          "depth": 2,
+          "text": "ai_llm_security",
+          "anchor": "ai-llm-security"
+        },
+        {
+          "depth": 2,
+          "text": "business_logic",
+          "anchor": "business-logic"
+        }
+      ],
+      "links": [
+        {
+          "text": "OWASP ASVS",
+          "url": "https://owasp.org/projects/asvs",
+          "isInternal": false,
+          "line": 107
+        },
+        {
+          "text": "NIST SP 800-218 SSDF",
+          "url": "https://csrc.nist.gov/pubs/sp/800/218/final",
+          "isInternal": false,
+          "line": 107
+        },
+        {
+          "text": "CIS Controls v8",
+          "url": "https://www.cisecurity.org/controls/cis-controls-navigator/v8",
+          "isInternal": false,
+          "line": 107
+        }
+      ],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 457,
+      "lineCount": 107,
+      "lastModified": 1790169162
+    },
+    "executive-summary.md": {
+      "path": "executive-summary.md",
+      "title": "Resumo executivo — MD Studio",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "Resumo executivo — MD Studio",
+          "anchor": "resumo-executivo-md-studio"
+        },
+        {
+          "depth": 2,
+          "text": "Cinco riscos prioritários",
+          "anchor": "cinco-riscos-prioritarios"
+        },
+        {
+          "depth": 2,
+          "text": "Fórmula reproduzível",
+          "anchor": "formula-reproduzivel"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 301,
+      "lineCount": 19,
+      "lastModified": 1790169165
+    },
+    "technical-remediations.md": {
+      "path": "technical-remediations.md",
+      "title": "SEC-040 — Correções técnicas propostas",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "SEC-040 — Correções técnicas propostas",
+          "anchor": "sec-040-correcoes-tecnicas-propostas"
+        },
+        {
+          "depth": 2,
+          "text": "SEC-022-DO-002-001 — Pipeline sem gates efetivos de segurança e qualidade (MEDIUM)",
+          "anchor": "sec-022-do-002-001-pipeline-sem-gates-efetivos-de-seguranca-e-qualidade-medium"
+        },
+        {
+          "depth": 2,
+          "text": "SEC-024-FE-002-001 — CSS arbitrário em Markdown pode encobrir a interface (MEDIUM)",
+          "anchor": "sec-024-fe-002-001-css-arbitrario-em-markdown-pode-encobrir-a-interface-medium"
+        },
+        {
+          "depth": 2,
+          "text": "SEC-011-DS-002-001 — Dependências Rust transitivas não mantidas (LOW)",
+          "anchor": "sec-011-ds-002-001-dependencias-rust-transitivas-nao-mantidas-low"
+        },
+        {
+          "depth": 2,
+          "text": "SEC-011-DS-006-001 — CI pode instalar dependências fora do lockfile congelado (LOW)",
+          "anchor": "sec-011-ds-006-001-ci-pode-instalar-dependencias-fora-do-lockfile-congelado-low"
+        },
+        {
+          "depth": 2,
+          "text": "SEC-023-DA-003-001 — Rascunhos locais sem prazo de retenção demonstrado (LOW)",
+          "anchor": "sec-023-da-003-001-rascunhos-locais-sem-prazo-de-retencao-demonstrado-low"
+        },
+        {
+          "depth": 2,
+          "text": "SEC-026-BL-003-001 — Possível TOCTOU entre verificação de hash e rename (INFO)",
+          "anchor": "sec-026-bl-003-001-possivel-toctou-entre-verificacao-de-hash-e-rename-info"
+        },
+        {
+          "depth": 2,
+          "text": "Detalhes de implementação prioritários",
+          "anchor": "detalhes-de-implementacao-prioritarios"
+        }
+      ],
+      "links": [
+        {
+          "text": "OWASP ASVS",
+          "url": "https://owasp.org/projects/asvs",
+          "isInternal": false,
+          "line": 50
+        },
+        {
+          "text": "NIST SSDF",
+          "url": "https://csrc.nist.gov/pubs/sp/800/218/final",
+          "isInternal": false,
+          "line": 50
+        }
+      ],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 473,
+      "lineCount": 50,
+      "lastModified": 1790169159
+    }
+  },
+  "version": 1,
+  "indexedAt": 1790176982
+}

@@ -1,0 +1,202 @@
+[
+  {
+    "method": "TAURI_IPC",
+    "path": "open_workspace",
+    "handler_file": "src-tauri/src/commands/mod.rs",
+    "handler_line": 28,
+    "middlewares": [],
+    "requires_auth": "local_webview",
+    "requires_role": null,
+    "produces_side_effects": true
+  },
+  {
+    "method": "TAURI_IPC",
+    "path": "list_entries",
+    "handler_file": "src-tauri/src/commands/mod.rs",
+    "handler_line": 59,
+    "middlewares": [],
+    "requires_auth": "local_webview",
+    "requires_role": null,
+    "produces_side_effects": false
+  },
+  {
+    "method": "TAURI_IPC",
+    "path": "read_document",
+    "handler_file": "src-tauri/src/commands/mod.rs",
+    "handler_line": 97,
+    "middlewares": [],
+    "requires_auth": "local_webview",
+    "requires_role": null,
+    "produces_side_effects": false
+  },
+  {
+    "method": "TAURI_IPC",
+    "path": "save_document",
+    "handler_file": "src-tauri/src/commands/mod.rs",
+    "handler_line": 117,
+    "middlewares": [],
+    "requires_auth": "local_webview",
+    "requires_role": null,
+    "produces_side_effects": true
+  },
+  {
+    "method": "TAURI_IPC",
+    "path": "search_workspace",
+    "handler_file": "src-tauri/src/commands/mod.rs",
+    "handler_line": 163,
+    "middlewares": [],
+    "requires_auth": "local_webview",
+    "requires_role": null,
+    "produces_side_effects": false
+  },
+  {
+    "method": "TAURI_IPC",
+    "path": "export_html",
+    "handler_file": "src-tauri/src/commands/mod.rs",
+    "handler_line": 216,
+    "middlewares": [],
+    "requires_auth": "local_webview",
+    "requires_role": null,
+    "produces_side_effects": true
+  },
+  {
+    "method": "TAURI_IPC",
+    "path": "get_launch_path",
+    "handler_file": "src-tauri/src/commands/mod.rs",
+    "handler_line": 281,
+    "middlewares": [],
+    "requires_auth": "local_webview",
+    "requires_role": null,
+    "produces_side_effects": false
+  },
+  {
+    "method": "TAURI_IPC",
+    "path": "get_workspace_stats",
+    "handler_file": "src-tauri/src/commands/metadata.rs",
+    "handler_line": 46,
+    "middlewares": [],
+    "requires_auth": "local_webview",
+    "requires_role": null,
+    "produces_side_effects": false
+  },
+  {
+    "method": "TAURI_IPC",
+    "path": "get_document_metadata",
+    "handler_file": "src-tauri/src/commands/metadata.rs",
+    "handler_line": 90,
+    "middlewares": [],
+    "requires_auth": "local_webview",
+    "requires_role": null,
+    "produces_side_effects": false
+  },
+  {
+    "method": "TAURI_IPC",
+    "path": "get_all_documents",
+    "handler_file": "src-tauri/src/commands/metadata.rs",
+    "handler_line": 104,
+    "middlewares": [],
+    "requires_auth": "local_webview",
+    "requires_role": null,
+    "produces_side_effects": false
+  },
+  {
+    "method": "TAURI_IPC",
+    "path": "trigger_reindex",
+    "handler_file": "src-tauri/src/commands/metadata.rs",
+    "handler_line": 117,
+    "middlewares": [],
+    "requires_auth": "local_webview",
+    "requires_role": null,
+    "produces_side_effects": true
+  },
+  {
+    "method": "TAURI_IPC",
+    "path": "get_wiki_links_for",
+    "handler_file": "src-tauri/src/commands/metadata.rs",
+    "handler_line": 131,
+    "middlewares": [],
+    "requires_auth": "local_webview",
+    "requires_role": null,
+    "produces_side_effects": false
+  },
+  {
+    "method": "TAURI_IPC",
+    "path": "resolve_wiki_link",
+    "handler_file": "src-tauri/src/commands/metadata.rs",
+    "handler_line": 147,
+    "middlewares": [],
+    "requires_auth": "local_webview",
+    "requires_role": null,
+    "produces_side_effects": false
+  },
+  {
+    "method": "TAURI_IPC",
+    "path": "get_resolved_wiki_links_for",
+    "handler_file": "src-tauri/src/commands/metadata.rs",
+    "handler_line": 158,
+    "middlewares": [],
+    "requires_auth": "local_webview",
+    "requires_role": null,
+    "produces_side_effects": false
+  },
+  {
+    "method": "TAURI_IPC",
+    "path": "get_tags",
+    "handler_file": "src-tauri/src/commands/metadata.rs",
+    "handler_line": 173,
+    "middlewares": [],
+    "requires_auth": "local_webview",
+    "requires_role": null,
+    "produces_side_effects": false
+  },
+  {
+    "method": "TAURI_IPC",
+    "path": "get_backlinks",
+    "handler_file": "src-tauri/src/commands/metadata.rs",
+    "handler_line": 233,
+    "middlewares": [],
+    "requires_auth": "local_webview",
+    "requires_role": null,
+    "produces_side_effects": false
+  },
+  {
+    "method": "TAURI_IPC",
+    "path": "close_splash",
+    "handler_file": "src-tauri/src/commands/mod.rs",
+    "handler_line": 286,
+    "middlewares": [],
+    "requires_auth": "local_webview",
+    "requires_role": null,
+    "produces_side_effects": true
+  },
+  {
+    "method": "TAURI_IPC",
+    "path": "format_code",
+    "handler_file": "src-tauri/src/commands/formatter.rs",
+    "handler_line": 343,
+    "middlewares": [],
+    "requires_auth": "local_webview",
+    "requires_role": null,
+    "produces_side_effects": true
+  },
+  {
+    "method": "TAURI_IPC",
+    "path": "start_watching",
+    "handler_file": "src-tauri/src/watcher/mod.rs",
+    "handler_line": 237,
+    "middlewares": [],
+    "requires_auth": "local_webview",
+    "requires_role": null,
+    "produces_side_effects": true
+  },
+  {
+    "method": "TAURI_IPC",
+    "path": "stop_watching",
+    "handler_file": "src-tauri/src/watcher/mod.rs",
+    "handler_line": 269,
+    "middlewares": [],
+    "requires_auth": "local_webview",
+    "requires_role": null,
+    "produces_side_effects": true
+  }
+]

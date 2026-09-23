@@ -1,6 +1,6 @@
 {
   "name": "md-studio",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "private": true,
   "type": "module",
   "scripts": {
@@ -27,7 +27,7 @@
     "hast-util-to-jsx-runtime": "2.3.6",
     "highlight.js": "11.11.1",
     "katex": "0.16.21",
-    "mermaid": "11.6.0",
+    "mermaid": "11.16.1",
     "prettier": "^3.9.8",
     "react": "19.0.0",
     "react-dom": "19.0.0",
@@ -43,7 +43,7 @@
     "remark-rehype": "11.1.1",
     "shiki": "^4.4.3",
     "unified": "11.0.5",
-    "yaml": "2.7.0",
+    "yaml": "2.8.3",
     "zod": "3.24.2"
   },
   "devDependencies": {
@@ -55,8 +55,8 @@
     "@vitejs/plugin-react": "4.3.4",
     "jsdom": "26.0.0",
     "typescript": "5.8.2",
-    "vite": "6.2.2",
-    "vitest": "3.0.9"
+    "vite": "6.4.3",
+    "vitest": "4.1.11"
   },
   "packageManager": "pnpm@9.15.4",
   "engines": {

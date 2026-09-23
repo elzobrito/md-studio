@@ -1,0 +1,13 @@
+{
+  "after_sha256": "aa349996e1619759f44244b7de54ecc43406cd0307ed69e815d67f42f322d6e9",
+  "artifact_id": "ART-aa349996e1619759f44244b7de54ecc43406cd0307ed69e815d67f42f322d6e9",
+  "artifact_sha256": "9824dcaa1466acc7c37fe75ce791f7ac713bae757eda5b9efe939838598d9f56",
+  "before_sha256": null,
+  "bytes": 1936,
+  "content": "# SEC-013 — Auditar Autorização\n\nMD Studio, HEAD f8eaf22. Revisão estática do produto local Tauri; nenhum código foi alterado.\n\nHá um único usuário local; a fronteira relevante é renderer Tauri → comandos nativos. A matriz de papéis é: usuário local/main webview → IPC registrado; nenhum papel admin/conta/remoto.\n\n| Check | Resultado | Evidência/limite |\n| --- | --- | --- |\n| AZ-001 Controle de acesso ausente | partial | Inventário SEC-003 enumera 20 comandos IPC, não endpoints HTTP. Comandos customizados são registrados para a webview principal; não há identidade de usuário interna. Acesso fica sob confiança no renderer/local OS. |\n| AZ-002 IDOR (Insecure Direct Object Reference) | partial | workspace_id é ID aleatório do registry e resolve_within restringe caminhos, mas open_workspace aceita path enviado pela webview. IDOR multiusuário não se aplica; controle de escopo em renderer comprometido não foi testado. |\n| AZ-003 Verificação de permissão apenas no frontend | pass | Validação de caminho e hash de save ocorre em Rust, não apenas no frontend. |\n| AZ-004 Admin routes expostas | not_applicable | Nenhuma rota admin HTTP ou papel admin identificado. |\n| AZ-005 Escopo de permissões mal definido | not_applicable | Matriz roles×permissões: usuário local/main webview → comandos IPC registrados; sem roles diferenciadas. |\n| AZ-006 Ações sensíveis sem confirmação | partial | export_html aceita destino absoluto e flag overwrite vinda do renderer; confirmação de sobrescrita está na UI, não imposta no backend. Depende de renderer comprometido/ação local. |\n\nFontes inspecionadas: `src-tauri/src/lib.rs`, `src-tauri/capabilities/default.json`, `src-tauri/src/commands/mod.rs`, `src-tauri/crates/md-studio-core/src/workspace.rs`.\n\nLimite geral: sem teste do pacote Tauri instalado, sem infraestrutura externa e sem afirmação de exploração para checks parciais.\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "reports/phase2/authorization-audit.md",
+  "source_path": "reports/phase2/authorization-audit.md",
+  "ts": "2026-09-23T13:06:12Z"
+}

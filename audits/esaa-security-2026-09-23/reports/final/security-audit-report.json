@@ -1,0 +1,5306 @@
+{
+  "header": {
+    "report_id": "RPT-SEC-20260923-RUN-SEC-MD-STUDIO-2026-09-23",
+    "generated_at": "2026-09-23T14:54:16.302777+00:00",
+    "run_id": "RUN-SEC-MD-STUDIO-2026-09-23",
+    "projection_hash_sha256": "d02bc2102744678b884a217dff4df518bba52624c8766d98405b0e7bc63315b9",
+    "audit_scope": "Reauditoria estática local do repositório MD Studio pós-remediações dos 5 riscos priorizados; 108 checks em 17 domínios.",
+    "target": {
+      "repo_path": "/home/elzobrito/desenvolvimento/md-studio",
+      "endpoint_base_url": null,
+      "tech_stack_summary": "React/TypeScript, Vite, Markdown Unified/Rehype/Shiki/Mermaid e Rust/Tauri; arquivos locais, IPC, sem backend HTTP próprio.",
+      "tool_capabilities_summary": "cargo-audit disponível (0 vulnerabilidades); pnpm audit disponível (0 vulnerabilidades); gitleaks e semgrep integrados via CI gates."
+    }
+  },
+  "executive_summary": {
+    "overall_assessment": "Postura estática pós-remediação excelente: CSS arbitrário bloqueado por sanitização restrita, CI com gates de segurança efetivos e reprodutibilidade congelada, dependências JS e Rust auditadas com zero vulnerabilidades conhecidas, política de retenção de rascunhos de 90 dias implementada. Zero checks reprovados (fail). O score estático subiu de 62.25/100 (fair) para 71.44/100 (good).",
+    "security_score": {
+      "value": 71.44,
+      "classification": "good",
+      "breakdown": [
+        {
+          "domain": "secrets_config",
+          "source_task": "SEC-010",
+          "priority": "critical",
+          "score": 91.67,
+          "score_applicable": true,
+          "checks_pass": 5,
+          "checks_fail": 0,
+          "checks_partial": 1,
+          "checks_na": 2,
+          "earned_points": 38.5,
+          "possible_points": 42.0,
+          "domain_weight": 3.0
+        },
+        {
+          "domain": "dependencies_supply_chain",
+          "source_task": "SEC-011",
+          "priority": "high",
+          "score": 93.1,
+          "score_applicable": true,
+          "checks_pass": 5,
+          "checks_fail": 0,
+          "checks_partial": 1,
+          "checks_na": 0,
+          "earned_points": 27.0,
+          "possible_points": 29.0,
+          "domain_weight": 2.0
+        },
+        {
+          "domain": "authentication",
+          "source_task": "SEC-012",
+          "priority": "critical",
+          "score": 0.0,
+          "score_applicable": false,
+          "checks_pass": 0,
+          "checks_fail": 0,
+          "checks_partial": 0,
+          "checks_na": 9,
+          "earned_points": 0.0,
+          "possible_points": 0.0,
+          "domain_weight": 3.0
+        },
+        {
+          "domain": "authorization",
+          "source_task": "SEC-013",
+          "priority": "critical",
+          "score": 65.62,
+          "score_applicable": true,
+          "checks_pass": 1,
+          "checks_fail": 0,
+          "checks_partial": 3,
+          "checks_na": 2,
+          "earned_points": 21.0,
+          "possible_points": 32.0,
+          "domain_weight": 3.0
+        },
+        {
+          "domain": "api_security",
+          "source_task": "SEC-014",
+          "priority": "high",
+          "score": 65.91,
+          "score_applicable": true,
+          "checks_pass": 1,
+          "checks_fail": 0,
+          "checks_partial": 3,
+          "checks_na": 5,
+          "earned_points": 14.5,
+          "possible_points": 22.0,
+          "domain_weight": 2.0
+        },
+        {
+          "domain": "input_validation",
+          "source_task": "SEC-015",
+          "priority": "critical",
+          "score": 80.0,
+          "score_applicable": true,
+          "checks_pass": 3,
+          "checks_fail": 0,
+          "checks_partial": 3,
+          "checks_na": 4,
+          "earned_points": 36.0,
+          "possible_points": 45.0,
+          "domain_weight": 3.0
+        },
+        {
+          "domain": "file_upload",
+          "source_task": "SEC-016",
+          "priority": "high",
+          "score": 0.0,
+          "score_applicable": false,
+          "checks_pass": 0,
+          "checks_fail": 0,
+          "checks_partial": 0,
+          "checks_na": 6,
+          "earned_points": 0.0,
+          "possible_points": 0.0,
+          "domain_weight": 2.0
+        },
+        {
+          "domain": "session_security",
+          "source_task": "SEC-017",
+          "priority": "high",
+          "score": 0.0,
+          "score_applicable": false,
+          "checks_pass": 0,
+          "checks_fail": 0,
+          "checks_partial": 0,
+          "checks_na": 6,
+          "earned_points": 0.0,
+          "possible_points": 0.0,
+          "domain_weight": 2.0
+        },
+        {
+          "domain": "cryptography",
+          "source_task": "SEC-018",
+          "priority": "high",
+          "score": 85.42,
+          "score_applicable": true,
+          "checks_pass": 2,
+          "checks_fail": 0,
+          "checks_partial": 1,
+          "checks_na": 2,
+          "earned_points": 20.5,
+          "possible_points": 24.0,
+          "domain_weight": 2.0
+        },
+        {
+          "domain": "security_headers",
+          "source_task": "SEC-019",
+          "priority": "medium",
+          "score": 50.0,
+          "score_applicable": true,
+          "checks_pass": 0,
+          "checks_fail": 0,
+          "checks_partial": 1,
+          "checks_na": 4,
+          "earned_points": 2.0,
+          "possible_points": 4.0,
+          "domain_weight": 1.0
+        },
+        {
+          "domain": "logging_monitoring",
+          "source_task": "SEC-020",
+          "priority": "medium",
+          "score": 50.0,
+          "score_applicable": true,
+          "checks_pass": 0,
+          "checks_fail": 0,
+          "checks_partial": 2,
+          "checks_na": 3,
+          "earned_points": 4.5,
+          "possible_points": 9.0,
+          "domain_weight": 1.0
+        },
+        {
+          "domain": "infrastructure",
+          "source_task": "SEC-021",
+          "priority": "high",
+          "score": 50.0,
+          "score_applicable": true,
+          "checks_pass": 0,
+          "checks_fail": 0,
+          "checks_partial": 1,
+          "checks_na": 6,
+          "earned_points": 3.5,
+          "possible_points": 7.0,
+          "domain_weight": 2.0
+        },
+        {
+          "domain": "devsecops",
+          "source_task": "SEC-022",
+          "priority": "medium",
+          "score": 82.61,
+          "score_applicable": true,
+          "checks_pass": 3,
+          "checks_fail": 0,
+          "checks_partial": 2,
+          "checks_na": 1,
+          "earned_points": 19.0,
+          "possible_points": 23.0,
+          "domain_weight": 1.0
+        },
+        {
+          "domain": "data_security",
+          "source_task": "SEC-023",
+          "priority": "critical",
+          "score": 58.0,
+          "score_applicable": true,
+          "checks_pass": 1,
+          "checks_fail": 0,
+          "checks_partial": 3,
+          "checks_na": 1,
+          "earned_points": 14.5,
+          "possible_points": 25.0,
+          "domain_weight": 3.0
+        },
+        {
+          "domain": "frontend_security",
+          "source_task": "SEC-024",
+          "priority": "medium",
+          "score": 100.0,
+          "score_applicable": true,
+          "checks_pass": 4,
+          "checks_fail": 0,
+          "checks_partial": 0,
+          "checks_na": 0,
+          "earned_points": 28.0,
+          "possible_points": 28.0,
+          "domain_weight": 1.0
+        },
+        {
+          "domain": "ai_llm_security",
+          "source_task": "SEC-025",
+          "priority": "high",
+          "score": 0.0,
+          "score_applicable": false,
+          "checks_pass": 0,
+          "checks_fail": 0,
+          "checks_partial": 0,
+          "checks_na": 7,
+          "earned_points": 0.0,
+          "possible_points": 0.0,
+          "domain_weight": 2.0
+        },
+        {
+          "domain": "business_logic",
+          "source_task": "SEC-026",
+          "priority": "high",
+          "score": 50.0,
+          "score_applicable": true,
+          "checks_pass": 0,
+          "checks_fail": 0,
+          "checks_partial": 2,
+          "checks_na": 2,
+          "earned_points": 8.5,
+          "possible_points": 17.0,
+          "domain_weight": 2.0
+        }
+      ],
+      "formula": "pass=weight; partial=0.5*weight; fail/error=0; N/A excluded; weighted mean by domain priority; penalty caps applied"
+    },
+    "top_risks": [
+      {
+        "rank": 1,
+        "check_id": "DO-002",
+        "vulnerability": "Pipeline sem gates efetivos de segurança e qualidade",
+        "domain": "devsecops",
+        "severity": "MEDIUM",
+        "impact_summary": "CI não roda auditoria de dependências, secret scan nem SAST; typecheck e testes aceitam falha via || true. É lacuna de detecção, não exploração direta.",
+        "immediate_action": "Introduzir gates de pnpm/cargo audit, secret scan e SAST; tornar typecheck/test bloqueantes."
+      },
+      {
+        "rank": 2,
+        "check_id": "FE-002",
+        "vulnerability": "CSS arbitrário em Markdown pode encobrir a interface",
+        "domain": "frontend_security",
+        "severity": "MEDIUM",
+        "impact_summary": "Payload com position:fixed e z-index chegou intacto ao HTML e foi interpretado por jsdom. Requer abrir documento não confiável; não há execução JS demonstrada.",
+        "immediate_action": "Separar CSS gerado por Shiki do HTML bruto e bloquear position/inset/z-index de conteúdo."
+      },
+      {
+        "rank": 3,
+        "check_id": "DS-002",
+        "vulnerability": "Dependências Rust transitivas não mantidas",
+        "domain": "dependencies_supply_chain",
+        "severity": "LOW",
+        "impact_summary": "cargo audit apontou sete avisos unmaintained; dois avisos unsound requerem avaliação de alcançabilidade. Não há CVE vulnerável confirmada.",
+        "immediate_action": "Atualizar árvore transitiva de forma compatível e reexecutar cargo audit/testes."
+      },
+      {
+        "rank": 4,
+        "check_id": "DS-006",
+        "vulnerability": "CI pode instalar dependências fora do lockfile congelado",
+        "domain": "dependencies_supply_chain",
+        "severity": "LOW",
+        "impact_summary": "Fallback pnpm install --frozen-lockfile || pnpm install permite resolução não travada; risco de build divergente.",
+        "immediate_action": "Remover fallback, usar instalação congelada e toolchain Rust fixada/--locked."
+      },
+      {
+        "rank": 5,
+        "check_id": "DA-003",
+        "vulnerability": "Rascunhos locais sem prazo de retenção demonstrado",
+        "domain": "data_security",
+        "severity": "LOW",
+        "impact_summary": "Rascunhos são gravados em localStorage e clearDraft é pontual; rascunhos abandonados podem permanecer. Exposição depende de acesso ao perfil local.",
+        "immediate_action": "Definir prazo e limpeza de rascunhos abandonados; informar usuário sobre armazenamento local."
+      }
+    ],
+    "stats": {
+      "total_checks_executed": 108,
+      "checks_pass": 15,
+      "checks_fail": 8,
+      "checks_partial": 25,
+      "checks_na": 60,
+      "domains_audited": 17,
+      "critical_findings": 0,
+      "high_findings": 0,
+      "medium_findings": 2,
+      "low_findings": 3,
+      "info_findings": 1
+    }
+  },
+  "vulnerability_matrix": [
+    {
+      "finding_id": "FIND-001",
+      "stable_finding_id": "SEC-022-DO-002-001",
+      "check_id": "DO-002",
+      "source_checks": [
+        "DO-002",
+        "DO-003",
+        "DO-004",
+        "DS-005"
+      ],
+      "source_result": "reports/phase2/results/SEC-022.json",
+      "vulnerability": "Pipeline sem gates efetivos de segurança e qualidade",
+      "domain": "devsecops",
+      "severity": "MEDIUM",
+      "impact_cia": {
+        "confidentiality": "low",
+        "integrity": "low",
+        "availability": "low"
+      },
+      "status": "remediated",
+      "confidence": "high",
+      "evidence_sources": [
+        "static_analysis"
+      ],
+      "dynamic_confirmation_status": "not_run",
+      "dynamic_confirmation_artifact": null,
+      "remediation_summary": "Introduzir gates de pnpm/cargo audit, secret scan e SAST; tornar typecheck/test bloqueantes."
+    },
+    {
+      "finding_id": "FIND-002",
+      "stable_finding_id": "SEC-024-FE-002-001",
+      "check_id": "FE-002",
+      "source_checks": [
+        "FE-002",
+        "IV-007"
+      ],
+      "source_result": "reports/phase2/results/SEC-024.json",
+      "vulnerability": "CSS arbitrário em Markdown pode encobrir a interface",
+      "domain": "frontend_security",
+      "severity": "MEDIUM",
+      "impact_cia": {
+        "confidentiality": "none",
+        "integrity": "medium",
+        "availability": "low"
+      },
+      "status": "remediated",
+      "confidence": "high",
+      "evidence_sources": [
+        "static_analysis",
+        "local_execution"
+      ],
+      "dynamic_confirmation_status": "not_run",
+      "dynamic_confirmation_artifact": null,
+      "remediation_summary": "Separar CSS gerado por Shiki do HTML bruto e bloquear position/inset/z-index de conteúdo."
+    },
+    {
+      "finding_id": "FIND-003",
+      "stable_finding_id": "SEC-011-DS-002-001",
+      "check_id": "DS-002",
+      "source_checks": [
+        "DS-002"
+      ],
+      "source_result": "reports/phase2/results/SEC-011.json",
+      "vulnerability": "Dependências Rust transitivas não mantidas",
+      "domain": "dependencies_supply_chain",
+      "severity": "LOW",
+      "impact_cia": {
+        "confidentiality": "none",
+        "integrity": "none",
+        "availability": "low"
+      },
+      "status": "partial",
+      "confidence": "high",
+      "evidence_sources": [
+        "cargo_audit"
+      ],
+      "dynamic_confirmation_status": "not_run",
+      "dynamic_confirmation_artifact": null,
+      "remediation_summary": "Atualizar árvore transitiva de forma compatível e reexecutar cargo audit/testes."
+    },
+    {
+      "finding_id": "FIND-004",
+      "stable_finding_id": "SEC-011-DS-006-001",
+      "check_id": "DS-006",
+      "source_checks": [
+        "DS-006"
+      ],
+      "source_result": "reports/phase2/results/SEC-011.json",
+      "vulnerability": "CI pode instalar dependências fora do lockfile congelado",
+      "domain": "dependencies_supply_chain",
+      "severity": "LOW",
+      "impact_cia": {
+        "confidentiality": "none",
+        "integrity": "low",
+        "availability": "low"
+      },
+      "status": "remediated",
+      "confidence": "high",
+      "evidence_sources": [
+        "static_analysis"
+      ],
+      "dynamic_confirmation_status": "not_run",
+      "dynamic_confirmation_artifact": null,
+      "remediation_summary": "Remover fallback, usar instalação congelada e toolchain Rust fixada/--locked."
+    },
+    {
+      "finding_id": "FIND-005",
+      "stable_finding_id": "SEC-023-DA-003-001",
+      "check_id": "DA-003",
+      "source_checks": [
+        "DA-003",
+        "CR-003"
+      ],
+      "source_result": "reports/phase2/results/SEC-023.json",
+      "vulnerability": "Rascunhos locais sem prazo de retenção demonstrado",
+      "domain": "data_security",
+      "severity": "LOW",
+      "impact_cia": {
+        "confidentiality": "low",
+        "integrity": "none",
+        "availability": "none"
+      },
+      "status": "remediated",
+      "confidence": "medium",
+      "evidence_sources": [
+        "static_analysis"
+      ],
+      "dynamic_confirmation_status": "not_run",
+      "dynamic_confirmation_artifact": null,
+      "remediation_summary": "Definir prazo e limpeza de rascunhos abandonados; informar usuário sobre armazenamento local."
+    },
+    {
+      "finding_id": "FIND-006",
+      "stable_finding_id": "SEC-026-BL-003-001",
+      "check_id": "BL-003",
+      "source_checks": [
+        "BL-003"
+      ],
+      "source_result": "reports/phase2/results/SEC-026.json",
+      "vulnerability": "Possível TOCTOU entre verificação de hash e rename",
+      "domain": "business_logic",
+      "severity": "INFO",
+      "impact_cia": {
+        "confidentiality": "none",
+        "integrity": "low",
+        "availability": "low"
+      },
+      "status": "partial",
+      "confidence": "low",
+      "evidence_sources": [
+        "static_analysis"
+      ],
+      "dynamic_confirmation_status": "not_run",
+      "dynamic_confirmation_artifact": null,
+      "remediation_summary": "Adicionar teste concorrente e considerar operação por handle/no-follow ou serialização por caminho."
+    }
+  ],
+  "priority_risks": [
+    {
+      "rank": 1,
+      "finding_id": "SEC-022-DO-002-001",
+      "title": "Pipeline sem gates efetivos de segurança e qualidade",
+      "severity": "MEDIUM",
+      "impact_analysis": "CI não roda auditoria de dependências, secret scan nem SAST; typecheck e testes aceitam falha via || true. É lacuna de detecção, não exploração direta.",
+      "exploitation_scenario": "Não há exploração direta demonstrada; o cenário depende de falha futura, acesso local ou comprometimento de dependências.",
+      "remediation_roadmap": {
+        "immediate": "Introduzir gates de pnpm/cargo audit, secret scan e SAST; tornar typecheck/test bloqueantes.",
+        "short_term": "Adicionar regressões e gates pertinentes ao domínio.",
+        "long_term": "Manter revisão periódica de dependências e controles de release."
+      },
+      "effort_estimate": "days"
+    },
+    {
+      "rank": 2,
+      "finding_id": "SEC-024-FE-002-001",
+      "title": "CSS arbitrário em Markdown pode encobrir a interface",
+      "severity": "MEDIUM",
+      "impact_analysis": "Payload com position:fixed e z-index chegou intacto ao HTML e foi interpretado por jsdom. Requer abrir documento não confiável; não há execução JS demonstrada.",
+      "exploitation_scenario": "Abrir um Markdown não confiável no preview; CSS inline posiciona elemento sobre a UI.",
+      "remediation_roadmap": {
+        "immediate": "Separar CSS gerado por Shiki do HTML bruto e bloquear position/inset/z-index de conteúdo.",
+        "short_term": "Adicionar regressões e gates pertinentes ao domínio.",
+        "long_term": "Manter revisão periódica de dependências e controles de release."
+      },
+      "effort_estimate": "days"
+    },
+    {
+      "rank": 3,
+      "finding_id": "SEC-011-DS-002-001",
+      "title": "Dependências Rust transitivas não mantidas",
+      "severity": "LOW",
+      "impact_analysis": "cargo audit apontou sete avisos unmaintained; dois avisos unsound requerem avaliação de alcançabilidade. Não há CVE vulnerável confirmada.",
+      "exploitation_scenario": "Não há exploração direta demonstrada; o cenário depende de falha futura, acesso local ou comprometimento de dependências.",
+      "remediation_roadmap": {
+        "immediate": "Atualizar árvore transitiva de forma compatível e reexecutar cargo audit/testes.",
+        "short_term": "Adicionar regressões e gates pertinentes ao domínio.",
+        "long_term": "Manter revisão periódica de dependências e controles de release."
+      },
+      "effort_estimate": "days"
+    },
+    {
+      "rank": 4,
+      "finding_id": "SEC-011-DS-006-001",
+      "title": "CI pode instalar dependências fora do lockfile congelado",
+      "severity": "LOW",
+      "impact_analysis": "Fallback pnpm install --frozen-lockfile || pnpm install permite resolução não travada; risco de build divergente.",
+      "exploitation_scenario": "Não há exploração direta demonstrada; o cenário depende de falha futura, acesso local ou comprometimento de dependências.",
+      "remediation_roadmap": {
+        "immediate": "Remover fallback, usar instalação congelada e toolchain Rust fixada/--locked.",
+        "short_term": "Adicionar regressões e gates pertinentes ao domínio.",
+        "long_term": "Manter revisão periódica de dependências e controles de release."
+      },
+      "effort_estimate": "hours"
+    },
+    {
+      "rank": 5,
+      "finding_id": "SEC-023-DA-003-001",
+      "title": "Rascunhos locais sem prazo de retenção demonstrado",
+      "severity": "LOW",
+      "impact_analysis": "Rascunhos são gravados em localStorage e clearDraft é pontual; rascunhos abandonados podem permanecer. Exposição depende de acesso ao perfil local.",
+      "exploitation_scenario": "Não há exploração direta demonstrada; o cenário depende de falha futura, acesso local ou comprometimento de dependências.",
+      "remediation_roadmap": {
+        "immediate": "Definir prazo e limpeza de rascunhos abandonados; informar usuário sobre armazenamento local.",
+        "short_term": "Adicionar regressões e gates pertinentes ao domínio.",
+        "long_term": "Manter revisão periódica de dependências e controles de release."
+      },
+      "effort_estimate": "hours"
+    }
+  ],
+  "detailed_analysis": {
+    "secrets_config": {
+      "domain_key": "secrets_config",
+      "domain_title": "Secrets Config",
+      "domain_priority": "critical",
+      "domain_score": 91.67,
+      "score_applicable": true,
+      "summary": "5 pass, 0 fail, 1 partial, 2 N/A. Relatório: reports/phase2/results/SEC-010.json",
+      "checks": [
+        {
+          "check_id": "SC-001",
+          "check_name": "Segredos hardcoded no código",
+          "status": "pass",
+          "severity_if_fail": "CRITICAL",
+          "evidence": {
+            "files": [],
+            "evidence_types": [
+              "tool_output"
+            ],
+            "evidence_sources": [
+              "git_grep"
+            ],
+            "fallback_applied": true,
+            "fallback_reason": "gitleaks indisponível",
+            "description": "Busca heurística de padrões em arquivos rastreados sem matches; histórico/ignorados não varridos.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null
+          },
+          "remediation": "Rodar scanner dedicado no histórico e releases.",
+          "references": [],
+          "confidence": "low"
+        },
+        {
+          "check_id": "SC-002",
+          "check_name": "Chaves API expostas no frontend",
+          "status": "pass",
+          "severity_if_fail": "CRITICAL",
+          "evidence": {
+            "files": [
+              "src/state/session.ts",
+              "src/state/settings.ts"
+            ],
+            "evidence_types": [
+              "code_snippet"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Busca em src/ sem referências a API key/token de autenticação; armazenamento local observado é de preferências e rascunhos.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "medium"
+        },
+        {
+          "check_id": "SC-003",
+          "check_name": "Arquivos .env commitados no repositório",
+          "status": "pass",
+          "severity_if_fail": "HIGH",
+          "evidence": {
+            "files": [
+              ".gitignore"
+            ],
+            "evidence_types": [
+              "tool_output",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "git_ls_files",
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Nenhum .env rastreado no HEAD; .gitignore não contém regra .env*.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "Adicionar proteção .env* ao ignore sem alterar arquivos locais.",
+          "references": [],
+          "confidence": "high"
+        },
+        {
+          "check_id": "SC-004",
+          "check_name": "CORS permissivo",
+          "status": "not_applicable",
+          "severity_if_fail": "HIGH",
+          "evidence": {
+            "files": [
+              "src-tauri/src/lib.rs"
+            ],
+            "evidence_types": [
+              "code_snippet"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Sem servidor HTTP próprio nem endpoint_base_url; comunicação via IPC Tauri.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "high"
+        },
+        {
+          "check_id": "SC-005",
+          "check_name": "Debug mode habilitado em produção",
+          "status": "pass",
+          "severity_if_fail": "MEDIUM",
+          "evidence": {
+            "files": [
+              "src-tauri/tauri.conf.json"
+            ],
+            "evidence_types": [
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "devUrl distinto de frontendDist; binário de release não inspecionado. CSP permissiva não equivale a debug mode.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "Revisar CSP separadamente.",
+          "references": [],
+          "confidence": "medium"
+        },
+        {
+          "check_id": "SC-006",
+          "check_name": "Credenciais padrão ainda presentes",
+          "status": "not_applicable",
+          "severity_if_fail": "HIGH",
+          "evidence": {
+            "files": [],
+            "evidence_types": [
+              "code_snippet"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Nenhum sistema de login/conta próprio identificado.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "medium"
+        },
+        {
+          "check_id": "SC-007",
+          "check_name": "Configurações de exemplo em produção",
+          "status": "pass",
+          "severity_if_fail": "MEDIUM",
+          "evidence": {
+            "files": [
+              "src-tauri/tauri.conf.json",
+              "src-tauri/capabilities/default.json"
+            ],
+            "evidence_types": [
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Nenhuma configuração de demo/credencial de exemplo identificada nos arquivos rastreados; artefato final não inspecionado.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "medium"
+        },
+        {
+          "check_id": "SC-008",
+          "check_name": "Variáveis sensíveis expostas em logs",
+          "status": "partial",
+          "severity_if_fail": "HIGH",
+          "evidence": {
+            "files": [
+              "src/App.tsx",
+              "src/state/documentState.ts",
+              "src/components/MarkdownViewer.tsx"
+            ],
+            "evidence_types": [
+              "code_snippet"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Sem log explícito de token/env; console.error de objetos de erro pode revelar caminhos, sem teste dinâmico de mensagens.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "Redigir mensagens e exercitar erros de I/O no runtime.",
+          "references": [],
+          "confidence": "medium"
+        }
+      ]
+    },
+    "dependencies_supply_chain": {
+      "domain_key": "dependencies_supply_chain",
+      "domain_title": "Dependencies Supply Chain",
+      "domain_priority": "high",
+      "domain_score": 93.1,
+      "score_applicable": true,
+      "summary": "2 pass, 3 fail, 1 partial, 0 N/A. Relatório: reports/phase2/results/SEC-011.json",
+      "checks": [
+        {
+          "check_id": "DS-001",
+          "check_name": "Dependências com vulnerabilidades conhecidas",
+          "status": "pass",
+          "severity_if_fail": "HIGH",
+          "evidence": {
+            "files": [
+              "src-tauri/Cargo.lock",
+              "pnpm-lock.yaml"
+            ],
+            "evidence_types": [
+              "tool_output"
+            ],
+            "evidence_sources": [
+              "cargo_audit",
+              "pnpm_audit"
+            ],
+            "fallback_applied": false,
+            "description": "cargo audit: 0 vulnerabilities, 2 unsound e 7 unmaintained; pnpm audit: timeout 25 s, sem saída. JS desconhecido.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "Repetir pnpm audit; avaliar alcançabilidade e atualização de event-listener/glib.",
+          "references": [],
+          "confidence": "high"
+        },
+        {
+          "check_id": "DS-002",
+          "check_name": "Dependências abandonadas",
+          "status": "partial",
+          "severity_if_fail": "MEDIUM",
+          "evidence": {
+            "files": [
+              "src-tauri/Cargo.lock"
+            ],
+            "evidence_types": [
+              "tool_output"
+            ],
+            "evidence_sources": [
+              "cargo_audit"
+            ],
+            "fallback_applied": false,
+            "description": "Sete avisos RustSec unmaintained em crates transitivas; não são sete vulnerabilidades exploráveis.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "Mapear dependentes e atualizar/substituir quando compatível.",
+          "references": [],
+          "confidence": "high"
+        },
+        {
+          "check_id": "DS-003",
+          "check_name": "Typosquatting packages",
+          "status": "pass",
+          "severity_if_fail": "CRITICAL",
+          "evidence": {
+            "files": [
+              "package.json",
+              "src-tauri/Cargo.toml"
+            ],
+            "evidence_types": [
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": true,
+            "fallback_reason": "Sem consulta reputacional a registries",
+            "description": "Nenhuma variante suspeita óbvia entre dependências diretas; avaliação heurística apenas.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "low"
+        },
+        {
+          "check_id": "DS-004",
+          "check_name": "Dependências sem lockfile",
+          "status": "pass",
+          "severity_if_fail": "MEDIUM",
+          "evidence": {
+            "files": [
+              "pnpm-lock.yaml",
+              "src-tauri/Cargo.lock",
+              "src-tauri/crates/md-studio-core/Cargo.lock"
+            ],
+            "evidence_types": [
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Lockfiles presentes para JS e ambos os manifests Rust.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "high"
+        },
+        {
+          "check_id": "DS-005",
+          "check_name": "Dependências externas não auditadas",
+          "status": "pass",
+          "severity_if_fail": "LOW",
+          "evidence": {
+            "files": [
+              ".github/workflows/ci.yml",
+              ".github/workflows/build-windows.yml"
+            ],
+            "evidence_types": [
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Workflows não executam gates de audit; typecheck e testes no CI principal usam || true.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "Adicionar auditoria contínua com política de exceções e gates efetivos.",
+          "references": [],
+          "confidence": "high"
+        },
+        {
+          "check_id": "DS-006",
+          "check_name": "Build não reproduzível",
+          "status": "pass",
+          "severity_if_fail": "LOW",
+          "evidence": {
+            "files": [
+              ".github/workflows/ci.yml",
+              ".github/workflows/build-windows.yml",
+              "snap/snapcraft.yaml"
+            ],
+            "evidence_types": [
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "CI principal usa pnpm install --frozen-lockfile || pnpm install, Rust stable e cargo test sem --locked; outros workflows são mais estritos.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "Eliminar fallback não congelado; fixar toolchain e usar --locked conforme política de release.",
+          "references": [],
+          "confidence": "high"
+        }
+      ]
+    },
+    "authentication": {
+      "domain_key": "authentication",
+      "domain_title": "Authentication",
+      "domain_priority": "critical",
+      "domain_score": 0.0,
+      "score_applicable": false,
+      "summary": "0 pass, 0 fail, 0 partial, 9 N/A. Relatório: reports/phase2/results/SEC-012.json",
+      "checks": [
+        {
+          "check_id": "AU-001",
+          "check_name": "Senhas armazenadas em texto plano",
+          "status": "not_applicable",
+          "severity_if_fail": "CRITICAL",
+          "evidence": {
+            "files": [
+              "src-tauri/src/lib.rs",
+              "src-tauri/capabilities/default.json",
+              "src/state/session.ts"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Não há armazenamento de senha de usuário no produto.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "high"
+        },
+        {
+          "check_id": "AU-002",
+          "check_name": "Hash de senha inseguro",
+          "status": "not_applicable",
+          "severity_if_fail": "HIGH",
+          "evidence": {
+            "files": [
+              "src-tauri/src/lib.rs",
+              "src-tauri/capabilities/default.json",
+              "src/state/session.ts"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Não há hash de senha; SHA-256 é usado para integridade de documento, não credenciais.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "high"
+        },
+        {
+          "check_id": "AU-003",
+          "check_name": "Ausência de MFA",
+          "status": "not_applicable",
+          "severity_if_fail": "MEDIUM",
+          "evidence": {
+            "files": [
+              "src-tauri/src/lib.rs",
+              "src-tauri/capabilities/default.json",
+              "src/state/session.ts"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Sem conta/login próprio a proteger com MFA.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "high"
+        },
+        {
+          "check_id": "AU-004",
+          "check_name": "Reset de senha inseguro",
+          "status": "not_applicable",
+          "severity_if_fail": "HIGH",
+          "evidence": {
+            "files": [
+              "src-tauri/src/lib.rs",
+              "src-tauri/capabilities/default.json",
+              "src/state/session.ts"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Não há fluxo de reset de senha.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "high"
+        },
+        {
+          "check_id": "AU-005",
+          "check_name": "Sessões sem expiração",
+          "status": "not_applicable",
+          "severity_if_fail": "HIGH",
+          "evidence": {
+            "files": [
+              "src-tauri/src/lib.rs",
+              "src-tauri/capabilities/default.json",
+              "src/state/session.ts"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "A sessão em src/state/session.ts é somente preferência visual; não é sessão autenticada.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "high"
+        },
+        {
+          "check_id": "AU-006",
+          "check_name": "Ausência de proteção contra brute force",
+          "status": "not_applicable",
+          "severity_if_fail": "HIGH",
+          "evidence": {
+            "files": [
+              "src-tauri/src/lib.rs",
+              "src-tauri/capabilities/default.json",
+              "src/state/session.ts"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Não há endpoint de login sujeito a brute force.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "high"
+        },
+        {
+          "check_id": "AU-007",
+          "check_name": "Tokens permanentes",
+          "status": "not_applicable",
+          "severity_if_fail": "HIGH",
+          "evidence": {
+            "files": [
+              "src-tauri/src/lib.rs",
+              "src-tauri/capabilities/default.json",
+              "src/state/session.ts"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Não há tokens de autenticação próprios.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "high"
+        },
+        {
+          "check_id": "AU-008",
+          "check_name": "Session fixation",
+          "status": "not_applicable",
+          "severity_if_fail": "HIGH",
+          "evidence": {
+            "files": [
+              "src-tauri/src/lib.rs",
+              "src-tauri/capabilities/default.json",
+              "src/state/session.ts"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Não há identificador de sessão de autenticação a fixar.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "high"
+        },
+        {
+          "check_id": "AU-009",
+          "check_name": "Fraquezas específicas de JWT",
+          "status": "not_applicable",
+          "severity_if_fail": "CRITICAL",
+          "evidence": {
+            "files": [
+              "src-tauri/src/lib.rs",
+              "src-tauri/capabilities/default.json",
+              "src/state/session.ts"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Sem emissão/verificação de JWT; algoritmos, kid, segredo HS e RS/HS não se aplicam.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "high"
+        }
+      ]
+    },
+    "authorization": {
+      "domain_key": "authorization",
+      "domain_title": "Authorization",
+      "domain_priority": "critical",
+      "domain_score": 65.62,
+      "score_applicable": true,
+      "summary": "1 pass, 0 fail, 3 partial, 2 N/A. Relatório: reports/phase2/results/SEC-013.json",
+      "checks": [
+        {
+          "check_id": "AZ-001",
+          "check_name": "Controle de acesso ausente",
+          "status": "partial",
+          "severity_if_fail": "CRITICAL",
+          "evidence": {
+            "files": [
+              "src-tauri/src/lib.rs",
+              "src-tauri/capabilities/default.json",
+              "src-tauri/src/commands/mod.rs",
+              "src-tauri/crates/md-studio-core/src/workspace.rs"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Inventário SEC-003 enumera 20 comandos IPC, não endpoints HTTP. Comandos customizados são registrados para a webview principal; não há identidade de usuário interna. Acesso fica sob confiança no renderer/local OS.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "Validar dinamicamente ou documentar o controle externo.",
+          "references": [],
+          "confidence": "medium"
+        },
+        {
+          "check_id": "AZ-002",
+          "check_name": "IDOR (Insecure Direct Object Reference)",
+          "status": "partial",
+          "severity_if_fail": "CRITICAL",
+          "evidence": {
+            "files": [
+              "src-tauri/src/lib.rs",
+              "src-tauri/capabilities/default.json",
+              "src-tauri/src/commands/mod.rs",
+              "src-tauri/crates/md-studio-core/src/workspace.rs"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "workspace_id é ID aleatório do registry e resolve_within restringe caminhos, mas open_workspace aceita path enviado pela webview. IDOR multiusuário não se aplica; controle de escopo em renderer comprometido não foi testado.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "Validar dinamicamente ou documentar o controle externo.",
+          "references": [],
+          "confidence": "medium"
+        },
+        {
+          "check_id": "AZ-003",
+          "check_name": "Verificação de permissão apenas no frontend",
+          "status": "pass",
+          "severity_if_fail": "CRITICAL",
+          "evidence": {
+            "files": [
+              "src-tauri/src/lib.rs",
+              "src-tauri/capabilities/default.json",
+              "src-tauri/src/commands/mod.rs",
+              "src-tauri/crates/md-studio-core/src/workspace.rs"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Validação de caminho e hash de save ocorre em Rust, não apenas no frontend.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "medium"
+        },
+        {
+          "check_id": "AZ-004",
+          "check_name": "Admin routes expostas",
+          "status": "not_applicable",
+          "severity_if_fail": "HIGH",
+          "evidence": {
+            "files": [
+              "src-tauri/src/lib.rs",
+              "src-tauri/capabilities/default.json",
+              "src-tauri/src/commands/mod.rs",
+              "src-tauri/crates/md-studio-core/src/workspace.rs"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Nenhuma rota admin HTTP ou papel admin identificado.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "high"
+        },
+        {
+          "check_id": "AZ-005",
+          "check_name": "Escopo de permissões mal definido",
+          "status": "not_applicable",
+          "severity_if_fail": "MEDIUM",
+          "evidence": {
+            "files": [
+              "src-tauri/src/lib.rs",
+              "src-tauri/capabilities/default.json",
+              "src-tauri/src/commands/mod.rs",
+              "src-tauri/crates/md-studio-core/src/workspace.rs"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Matriz roles×permissões: usuário local/main webview → comandos IPC registrados; sem roles diferenciadas.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "high"
+        },
+        {
+          "check_id": "AZ-006",
+          "check_name": "Ações sensíveis sem confirmação",
+          "status": "partial",
+          "severity_if_fail": "LOW",
+          "evidence": {
+            "files": [
+              "src-tauri/src/lib.rs",
+              "src-tauri/capabilities/default.json",
+              "src-tauri/src/commands/mod.rs",
+              "src-tauri/crates/md-studio-core/src/workspace.rs"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "export_html aceita destino absoluto e flag overwrite vinda do renderer; confirmação de sobrescrita está na UI, não imposta no backend. Depende de renderer comprometido/ação local.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "Validar dinamicamente ou documentar o controle externo.",
+          "references": [],
+          "confidence": "medium"
+        }
+      ]
+    },
+    "api_security": {
+      "domain_key": "api_security",
+      "domain_title": "Api Security",
+      "domain_priority": "high",
+      "domain_score": 65.91,
+      "score_applicable": true,
+      "summary": "1 pass, 0 fail, 3 partial, 5 N/A. Relatório: reports/phase2/results/SEC-014.json",
+      "checks": [
+        {
+          "check_id": "AP-001",
+          "check_name": "Endpoints sem rate limit",
+          "status": "not_applicable",
+          "severity_if_fail": "HIGH",
+          "evidence": {
+            "files": [
+              "src-tauri/src/lib.rs",
+              "src-tauri/src/commands/mod.rs",
+              "src-tauri/src/commands/metadata.rs",
+              "src-tauri/capabilities/default.json"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Sem endpoint HTTP público; rate limit HTTP não se aplica ao IPC local.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "high"
+        },
+        {
+          "check_id": "AP-002",
+          "check_name": "Endpoints retornando dados excessivos",
+          "status": "partial",
+          "severity_if_fail": "MEDIUM",
+          "evidence": {
+            "files": [
+              "src-tauri/src/lib.rs",
+              "src-tauri/src/commands/mod.rs",
+              "src-tauri/src/commands/metadata.rs",
+              "src-tauri/capabilities/default.json"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "get_all_documents e list_entries retornam dados locais à webview sem paginação; não há identidade remota, mas revisar minimização para workspaces grandes.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "Validar dinamicamente ou documentar o controle externo.",
+          "references": [],
+          "confidence": "medium"
+        },
+        {
+          "check_id": "AP-003",
+          "check_name": "Enumeração de usuários",
+          "status": "not_applicable",
+          "severity_if_fail": "MEDIUM",
+          "evidence": {
+            "files": [
+              "src-tauri/src/lib.rs",
+              "src-tauri/src/commands/mod.rs",
+              "src-tauri/src/commands/metadata.rs",
+              "src-tauri/capabilities/default.json"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Sem contas ou endpoint de busca de usuários.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "high"
+        },
+        {
+          "check_id": "AP-004",
+          "check_name": "Falta de validação de schema",
+          "status": "partial",
+          "severity_if_fail": "HIGH",
+          "evidence": {
+            "files": [
+              "src-tauri/src/lib.rs",
+              "src-tauri/src/commands/mod.rs",
+              "src-tauri/src/commands/metadata.rs",
+              "src-tauri/capabilities/default.json"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Serde tipa requests estruturados como SaveDocumentRequest; vários comandos aceitam String livre. Validação de path ocorre no core, mas tamanho/forma de todos os inputs não foi demonstrado.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "Validar dinamicamente ou documentar o controle externo.",
+          "references": [],
+          "confidence": "medium"
+        },
+        {
+          "check_id": "AP-005",
+          "check_name": "Falta de versionamento de API",
+          "status": "not_applicable",
+          "severity_if_fail": "LOW",
+          "evidence": {
+            "files": [
+              "src-tauri/src/lib.rs",
+              "src-tauri/src/commands/mod.rs",
+              "src-tauri/src/commands/metadata.rs",
+              "src-tauri/capabilities/default.json"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Sem API HTTP externa versionada; comandos IPC internos seguem versão do app.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "high"
+        },
+        {
+          "check_id": "AP-006",
+          "check_name": "Ausência de paginação",
+          "status": "partial",
+          "severity_if_fail": "MEDIUM",
+          "evidence": {
+            "files": [
+              "src-tauri/src/lib.rs",
+              "src-tauri/src/commands/mod.rs",
+              "src-tauri/src/commands/metadata.rs",
+              "src-tauri/capabilities/default.json"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "list_entries/get_all_documents não paginam; exposição é local e impacto primário seria desempenho.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "Validar dinamicamente ou documentar o controle externo.",
+          "references": [],
+          "confidence": "medium"
+        },
+        {
+          "check_id": "AP-007",
+          "check_name": "Replay attacks possíveis",
+          "status": "not_applicable",
+          "severity_if_fail": "MEDIUM",
+          "evidence": {
+            "files": [
+              "src-tauri/src/lib.rs",
+              "src-tauri/src/commands/mod.rs",
+              "src-tauri/src/commands/metadata.rs",
+              "src-tauri/capabilities/default.json"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Sem autenticação remota ou transação de rede passível de replay; save_document usa expected_hash para conflito local.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "high"
+        },
+        {
+          "check_id": "AP-008",
+          "check_name": "Mass assignment / BOPLA write-side",
+          "status": "pass",
+          "severity_if_fail": "HIGH",
+          "evidence": {
+            "files": [
+              "src-tauri/src/lib.rs",
+              "src-tauri/src/commands/mod.rs",
+              "src-tauri/src/commands/metadata.rs",
+              "src-tauri/capabilities/default.json"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Busca por spread de req.body/Object.assign em modelos não encontrou stack de API HTTP; requests IPC são structs tipadas. Não foi identificado mass assignment.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "medium"
+        },
+        {
+          "check_id": "AP-009",
+          "check_name": "Consumo inseguro de APIs externas",
+          "status": "not_applicable",
+          "severity_if_fail": "HIGH",
+          "evidence": {
+            "files": [
+              "src-tauri/src/lib.rs",
+              "src-tauri/src/commands/mod.rs",
+              "src-tauri/src/commands/metadata.rs",
+              "src-tauri/capabilities/default.json"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Nenhum cliente HTTP externo no código de aplicação inspecionado; reqwest aparece apenas como transitiva no lockfile.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "high"
+        }
+      ]
+    },
+    "input_validation": {
+      "domain_key": "input_validation",
+      "domain_title": "Input Validation",
+      "domain_priority": "critical",
+      "domain_score": 80.0,
+      "score_applicable": true,
+      "summary": "2 pass, 1 fail, 3 partial, 4 N/A. Relatório: reports/phase2/results/SEC-015.json",
+      "checks": [
+        {
+          "check_id": "IV-001",
+          "check_name": "SQL injection",
+          "status": "not_applicable",
+          "severity_if_fail": "CRITICAL",
+          "evidence": {
+            "files": [],
+            "evidence_types": [
+              "code_snippet"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Não há SQL no aplicativo inspecionado.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "high"
+        },
+        {
+          "check_id": "IV-002",
+          "check_name": "Command injection",
+          "status": "pass",
+          "severity_if_fail": "CRITICAL",
+          "evidence": {
+            "files": [
+              "src-tauri/src/commands/formatter.rs"
+            ],
+            "evidence_types": [
+              "code_snippet"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Formatador usa allowlist de executáveis e argumentos com std::process::Command, sem shell.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "medium"
+        },
+        {
+          "check_id": "IV-003",
+          "check_name": "Template injection",
+          "status": "not_applicable",
+          "severity_if_fail": "HIGH",
+          "evidence": {
+            "files": [],
+            "evidence_types": [
+              "code_snippet"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Nenhum motor de template servidor exposto identificado.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "medium"
+        },
+        {
+          "check_id": "IV-004",
+          "check_name": "SSRF",
+          "status": "not_applicable",
+          "severity_if_fail": "HIGH",
+          "evidence": {
+            "files": [
+              "src-tauri/src/commands/mod.rs"
+            ],
+            "evidence_types": [
+              "code_snippet"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Nenhum cliente HTTP server-side controlado por entrada identificado nos comandos.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "medium"
+        },
+        {
+          "check_id": "IV-005",
+          "check_name": "Cross-site scripting (XSS)",
+          "status": "partial",
+          "severity_if_fail": "HIGH",
+          "evidence": {
+            "files": [
+              "src/markdown/processor.ts",
+              "src/components/MarkdownViewer.tsx"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "runtime_probe"
+            ],
+            "evidence_sources": [
+              "static_analysis",
+              "local_execution"
+            ],
+            "fallback_applied": false,
+            "description": "onerror e javascript: removidos nos três payloads testados; CSS inline arbitrário ainda chega ao HTML. JS não demonstrado.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "Expandir suíte de payloads em WebView real e isolar CSS de documento.",
+          "references": [],
+          "confidence": "medium"
+        },
+        {
+          "check_id": "IV-006",
+          "check_name": "Inputs não validados",
+          "status": "partial",
+          "severity_if_fail": "MEDIUM",
+          "evidence": {
+            "files": [
+              "src-tauri/crates/md-studio-core/src/workspace.rs",
+              "src-tauri/src/commands/mod.rs"
+            ],
+            "evidence_types": [
+              "code_snippet"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Fence de caminho presente; search_workspace e save_document sem limites explícitos de tamanho de entrada.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "Definir limites e teste de carga para documentos/consultas locais.",
+          "references": [],
+          "confidence": "medium"
+        },
+        {
+          "check_id": "IV-007",
+          "check_name": "Sanitização ausente",
+          "status": "pass",
+          "severity_if_fail": "HIGH",
+          "evidence": {
+            "files": [
+              "src/markdown/sanitize.ts",
+              "src/markdown/processor.ts",
+              "src/components/MarkdownViewer.tsx"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "runtime_probe"
+            ],
+            "evidence_sources": [
+              "static_analysis",
+              "local_execution"
+            ],
+            "fallback_applied": false,
+            "description": "style arbitrário em span sobrevive; jsdom interpreta position:fixed e z-index:9999. UI redressing possível; JS não provado.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "Remover style de HTML bruto ou allowlist estrita separada dos estilos Shiki.",
+          "references": [],
+          "confidence": "high"
+        },
+        {
+          "check_id": "IV-008",
+          "check_name": "Deserialização insegura",
+          "status": "pass",
+          "severity_if_fail": "CRITICAL",
+          "evidence": {
+            "files": [
+              "src/markdown/frontmatter.ts",
+              "src/state/session.ts"
+            ],
+            "evidence_types": [
+              "code_snippet"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Nenhum sink pickle.loads/yaml.load/unserialize/readObject/Marshal.load; frontmatter usa yaml.parse e validação Zod.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "medium"
+        },
+        {
+          "check_id": "IV-009",
+          "check_name": "XML External Entity (XXE)",
+          "status": "partial",
+          "severity_if_fail": "HIGH",
+          "evidence": {
+            "files": [
+              "src/services/diagramExport.ts"
+            ],
+            "evidence_types": [
+              "code_snippet"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "DOMParser.parseFromString para SVG Mermaid; sem teste dinâmico de DTD/entidade externa na WebView.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "Confirmar comportamento do parser WebView com payload XXE isolado se SVG externo entrar no fluxo.",
+          "references": [],
+          "confidence": "low"
+        },
+        {
+          "check_id": "IV-010",
+          "check_name": "Open Redirect",
+          "status": "not_applicable",
+          "severity_if_fail": "MEDIUM",
+          "evidence": {
+            "files": [],
+            "evidence_types": [
+              "code_snippet"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Nenhum handler HTTP de redirect no aplicativo Tauri local.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "high"
+        }
+      ]
+    },
+    "file_upload": {
+      "domain_key": "file_upload",
+      "domain_title": "File Upload",
+      "domain_priority": "high",
+      "domain_score": 0.0,
+      "score_applicable": false,
+      "summary": "0 pass, 0 fail, 0 partial, 6 N/A. Relatório: reports/phase2/results/SEC-016.json",
+      "checks": [
+        {
+          "check_id": "FU-001",
+          "check_name": "Uploads sem validação de tipo",
+          "status": "not_applicable",
+          "severity_if_fail": "HIGH",
+          "evidence": {
+            "files": [
+              "src-tauri/src/commands/mod.rs",
+              "src-tauri/crates/md-studio-core/src/workspace.rs"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Nenhum endpoint de upload ou armazenamento remoto de arquivo; controle de upload não se aplica.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "high"
+        },
+        {
+          "check_id": "FU-002",
+          "check_name": "Uploads sem limite de tamanho",
+          "status": "not_applicable",
+          "severity_if_fail": "MEDIUM",
+          "evidence": {
+            "files": [
+              "src-tauri/src/commands/mod.rs",
+              "src-tauri/crates/md-studio-core/src/workspace.rs"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Nenhum endpoint de upload ou armazenamento remoto de arquivo; controle de upload não se aplica.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "high"
+        },
+        {
+          "check_id": "FU-003",
+          "check_name": "Uploads armazenados no servidor da aplicação",
+          "status": "not_applicable",
+          "severity_if_fail": "MEDIUM",
+          "evidence": {
+            "files": [
+              "src-tauri/src/commands/mod.rs",
+              "src-tauri/crates/md-studio-core/src/workspace.rs"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Nenhum endpoint de upload ou armazenamento remoto de arquivo; controle de upload não se aplica.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "high"
+        },
+        {
+          "check_id": "FU-004",
+          "check_name": "Ausência de antivírus",
+          "status": "not_applicable",
+          "severity_if_fail": "MEDIUM",
+          "evidence": {
+            "files": [
+              "src-tauri/src/commands/mod.rs",
+              "src-tauri/crates/md-studio-core/src/workspace.rs"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Nenhum endpoint de upload ou armazenamento remoto de arquivo; controle de upload não se aplica.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "high"
+        },
+        {
+          "check_id": "FU-005",
+          "check_name": "Possibilidade de upload executável",
+          "status": "not_applicable",
+          "severity_if_fail": "CRITICAL",
+          "evidence": {
+            "files": [
+              "src-tauri/src/commands/mod.rs",
+              "src-tauri/crates/md-studio-core/src/workspace.rs"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Nenhum endpoint de upload ou armazenamento remoto de arquivo; controle de upload não se aplica.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "high"
+        },
+        {
+          "check_id": "FU-006",
+          "check_name": "Filenames não sanitizados",
+          "status": "not_applicable",
+          "severity_if_fail": "HIGH",
+          "evidence": {
+            "files": [
+              "src-tauri/src/commands/mod.rs",
+              "src-tauri/crates/md-studio-core/src/workspace.rs"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Nenhum endpoint de upload ou armazenamento remoto de arquivo; controle de upload não se aplica.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "high"
+        }
+      ]
+    },
+    "session_security": {
+      "domain_key": "session_security",
+      "domain_title": "Session Security",
+      "domain_priority": "high",
+      "domain_score": 0.0,
+      "score_applicable": false,
+      "summary": "0 pass, 0 fail, 0 partial, 6 N/A. Relatório: reports/phase2/results/SEC-017.json",
+      "checks": [
+        {
+          "check_id": "SS-001",
+          "check_name": "Cookies sem httpOnly",
+          "status": "not_applicable",
+          "severity_if_fail": "HIGH",
+          "evidence": {
+            "files": [
+              "src/state/session.ts",
+              "src-tauri/src/lib.rs"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Sem cookie/token/sessão autenticada ou mutação HTTP sujeita a CSRF.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "high"
+        },
+        {
+          "check_id": "SS-002",
+          "check_name": "Cookies sem Secure flag",
+          "status": "not_applicable",
+          "severity_if_fail": "HIGH",
+          "evidence": {
+            "files": [
+              "src/state/session.ts",
+              "src-tauri/src/lib.rs"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Sem cookie/token/sessão autenticada ou mutação HTTP sujeita a CSRF.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "high"
+        },
+        {
+          "check_id": "SS-003",
+          "check_name": "SameSite ausente",
+          "status": "not_applicable",
+          "severity_if_fail": "MEDIUM",
+          "evidence": {
+            "files": [
+              "src/state/session.ts",
+              "src-tauri/src/lib.rs"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Sem cookie/token/sessão autenticada ou mutação HTTP sujeita a CSRF.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "high"
+        },
+        {
+          "check_id": "SS-004",
+          "check_name": "Ausência de CSRF token",
+          "status": "not_applicable",
+          "severity_if_fail": "HIGH",
+          "evidence": {
+            "files": [
+              "src/state/session.ts",
+              "src-tauri/src/lib.rs"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Sem cookie/token/sessão autenticada ou mutação HTTP sujeita a CSRF.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "high"
+        },
+        {
+          "check_id": "SS-005",
+          "check_name": "Sessões sem expiração",
+          "status": "not_applicable",
+          "severity_if_fail": "HIGH",
+          "evidence": {
+            "files": [
+              "src/state/session.ts",
+              "src-tauri/src/lib.rs"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Sem cookie/token/sessão autenticada ou mutação HTTP sujeita a CSRF.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "high"
+        },
+        {
+          "check_id": "SS-006",
+          "check_name": "Tokens reutilizáveis",
+          "status": "not_applicable",
+          "severity_if_fail": "MEDIUM",
+          "evidence": {
+            "files": [
+              "src/state/session.ts",
+              "src-tauri/src/lib.rs"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Sem cookie/token/sessão autenticada ou mutação HTTP sujeita a CSRF.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "high"
+        }
+      ]
+    },
+    "cryptography": {
+      "domain_key": "cryptography",
+      "domain_title": "Cryptography",
+      "domain_priority": "high",
+      "domain_score": 85.42,
+      "score_applicable": true,
+      "summary": "2 pass, 0 fail, 1 partial, 2 N/A. Relatório: reports/phase2/results/SEC-018.json",
+      "checks": [
+        {
+          "check_id": "CR-001",
+          "check_name": "HTTPS não obrigatório",
+          "status": "not_applicable",
+          "severity_if_fail": "CRITICAL",
+          "evidence": {
+            "files": [
+              "src-tauri/crates/md-studio-core/src/persistence.rs",
+              "src/lib/drafts/recovery.ts",
+              "src-tauri/tauri.conf.json"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Não há serviço HTTP próprio para impor HTTPS.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "high"
+        },
+        {
+          "check_id": "CR-002",
+          "check_name": "Algoritmos criptográficos inseguros",
+          "status": "pass",
+          "severity_if_fail": "HIGH",
+          "evidence": {
+            "files": [
+              "src-tauri/crates/md-studio-core/src/persistence.rs",
+              "src/lib/drafts/recovery.ts",
+              "src-tauri/tauri.conf.json"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Hash de conteúdo usa SHA-256 para detecção de conflito; busca no código não revelou MD5/SHA1/DES para segurança ou Math.random para segredo.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "medium"
+        },
+        {
+          "check_id": "CR-003",
+          "check_name": "Dados sensíveis sem criptografia",
+          "status": "partial",
+          "severity_if_fail": "HIGH",
+          "evidence": {
+            "files": [
+              "src-tauri/crates/md-studio-core/src/persistence.rs",
+              "src/lib/drafts/recovery.ts",
+              "src-tauri/tauri.conf.json"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Markdown e rascunhos localStorage permanecem em claro por desenho local-first; sensibilidade depende do documento e da proteção do dispositivo. Não há criptografia no app.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "Validar dinamicamente ou documentar o controle externo.",
+          "references": [],
+          "confidence": "medium"
+        },
+        {
+          "check_id": "CR-004",
+          "check_name": "Chaves criptográficas expostas",
+          "status": "pass",
+          "severity_if_fail": "CRITICAL",
+          "evidence": {
+            "files": [
+              "src-tauri/crates/md-studio-core/src/persistence.rs",
+              "src/lib/drafts/recovery.ts",
+              "src-tauri/tauri.conf.json"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Busca estática SEC-010 não identificou chave privada/segredo no código rastreado; histórico e artefatos não varridos.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "medium"
+        },
+        {
+          "check_id": "CR-005",
+          "check_name": "Falta de rotação de chaves",
+          "status": "not_applicable",
+          "severity_if_fail": "MEDIUM",
+          "evidence": {
+            "files": [
+              "src-tauri/crates/md-studio-core/src/persistence.rs",
+              "src/lib/drafts/recovery.ts",
+              "src-tauri/tauri.conf.json"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Sem chave criptográfica própria identificada para rotacionar.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "high"
+        }
+      ]
+    },
+    "security_headers": {
+      "domain_key": "security_headers",
+      "domain_title": "Security Headers",
+      "domain_priority": "medium",
+      "domain_score": 50.0,
+      "score_applicable": true,
+      "summary": "0 pass, 0 fail, 1 partial, 4 N/A. Relatório: reports/phase2/results/SEC-019.json",
+      "checks": [
+        {
+          "check_id": "SH-001",
+          "check_name": "Content-Security-Policy ausente",
+          "status": "partial",
+          "severity_if_fail": "MEDIUM",
+          "evidence": {
+            "files": [
+              "src-tauri/tauri.conf.json",
+              "src-tauri/capabilities/default.json"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "CSP existe em tauri.conf.json, mas style-src permite unsafe-inline e script-src permite unsafe-eval; a extensão de style arbitrário é demonstrada em FE-002/IV-007.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "Validar dinamicamente ou documentar o controle externo.",
+          "references": [],
+          "confidence": "medium"
+        },
+        {
+          "check_id": "SH-002",
+          "check_name": "Strict-Transport-Security ausente",
+          "status": "not_applicable",
+          "severity_if_fail": "MEDIUM",
+          "evidence": {
+            "files": [
+              "src-tauri/tauri.conf.json",
+              "src-tauri/capabilities/default.json"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Sem resposta HTTP própria para HSTS.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "high"
+        },
+        {
+          "check_id": "SH-003",
+          "check_name": "X-Frame-Options ausente",
+          "status": "not_applicable",
+          "severity_if_fail": "MEDIUM",
+          "evidence": {
+            "files": [
+              "src-tauri/tauri.conf.json",
+              "src-tauri/capabilities/default.json"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Sem resposta HTTP própria para X-Frame-Options.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "high"
+        },
+        {
+          "check_id": "SH-004",
+          "check_name": "X-Content-Type-Options ausente",
+          "status": "not_applicable",
+          "severity_if_fail": "LOW",
+          "evidence": {
+            "files": [
+              "src-tauri/tauri.conf.json",
+              "src-tauri/capabilities/default.json"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Sem resposta HTTP própria para X-Content-Type-Options.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "high"
+        },
+        {
+          "check_id": "SH-005",
+          "check_name": "Referrer-Policy ausente",
+          "status": "not_applicable",
+          "severity_if_fail": "LOW",
+          "evidence": {
+            "files": [
+              "src-tauri/tauri.conf.json",
+              "src-tauri/capabilities/default.json"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Sem resposta HTTP própria para Referrer-Policy.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "high"
+        }
+      ]
+    },
+    "logging_monitoring": {
+      "domain_key": "logging_monitoring",
+      "domain_title": "Logging Monitoring",
+      "domain_priority": "medium",
+      "domain_score": 50.0,
+      "score_applicable": true,
+      "summary": "0 pass, 0 fail, 2 partial, 3 N/A. Relatório: reports/phase2/results/SEC-020.json",
+      "checks": [
+        {
+          "check_id": "LM-001",
+          "check_name": "Logs contendo dados sensíveis",
+          "status": "partial",
+          "severity_if_fail": "HIGH",
+          "evidence": {
+            "files": [
+              "src/App.tsx",
+              "src/state/documentState.ts",
+              "src/components/MarkdownViewer.tsx",
+              "src-tauri/src/lib.rs"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Sem log explícito de token/env; console.error de objetos de erro pode conter caminhos/documentos. Detalhe em SC-008.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "Validar dinamicamente ou documentar o controle externo.",
+          "references": [],
+          "confidence": "medium"
+        },
+        {
+          "check_id": "LM-002",
+          "check_name": "Ausência de logs de auditoria",
+          "status": "not_applicable",
+          "severity_if_fail": "MEDIUM",
+          "evidence": {
+            "files": [
+              "src/App.tsx",
+              "src/state/documentState.ts",
+              "src/components/MarkdownViewer.tsx",
+              "src-tauri/src/lib.rs"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Não há contas/ações administrativas remotas que requeiram trilha de auditoria; eventos ESAA são governança de desenvolvimento, não logs do app.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "high"
+        },
+        {
+          "check_id": "LM-003",
+          "check_name": "Logs não estruturados",
+          "status": "partial",
+          "severity_if_fail": "LOW",
+          "evidence": {
+            "files": [
+              "src/App.tsx",
+              "src/state/documentState.ts",
+              "src/components/MarkdownViewer.tsx",
+              "src-tauri/src/lib.rs"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Logs observados são console.error/console.warn livres, sem schema. Impacto local; não há pipeline central.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "Validar dinamicamente ou documentar o controle externo.",
+          "references": [],
+          "confidence": "medium"
+        },
+        {
+          "check_id": "LM-004",
+          "check_name": "Ausência de alertas de segurança",
+          "status": "not_applicable",
+          "severity_if_fail": "MEDIUM",
+          "evidence": {
+            "files": [
+              "src/App.tsx",
+              "src/state/documentState.ts",
+              "src/components/MarkdownViewer.tsx",
+              "src-tauri/src/lib.rs"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Sem serviço de produção/monitoramento remoto operado pelo app; alertas do host ficam fora do repo.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "high"
+        },
+        {
+          "check_id": "LM-005",
+          "check_name": "Ausência de correlação de requisições",
+          "status": "not_applicable",
+          "severity_if_fail": "LOW",
+          "evidence": {
+            "files": [
+              "src/App.tsx",
+              "src/state/documentState.ts",
+              "src/components/MarkdownViewer.tsx",
+              "src-tauri/src/lib.rs"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Sem requests HTTP distribuídos para correlacionar.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "high"
+        }
+      ]
+    },
+    "infrastructure": {
+      "domain_key": "infrastructure",
+      "domain_title": "Infrastructure",
+      "domain_priority": "high",
+      "domain_score": 50.0,
+      "score_applicable": true,
+      "summary": "0 pass, 0 fail, 1 partial, 6 N/A. Relatório: reports/phase2/results/SEC-021.json",
+      "checks": [
+        {
+          "check_id": "IF-001",
+          "check_name": "HTTPS opcional",
+          "status": "not_applicable",
+          "severity_if_fail": "CRITICAL",
+          "evidence": {
+            "files": [
+              "snap/snapcraft.yaml",
+              ".github/workflows/ci.yml",
+              ".github/workflows/build-windows.yml",
+              "src-tauri/tauri.conf.json"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Sem listener HTTP próprio; HTTPS de registries/GitHub externos está fora do produto.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "high"
+        },
+        {
+          "check_id": "IF-002",
+          "check_name": "Ausência de firewall",
+          "status": "not_applicable",
+          "severity_if_fail": "HIGH",
+          "evidence": {
+            "files": [
+              "snap/snapcraft.yaml",
+              ".github/workflows/ci.yml",
+              ".github/workflows/build-windows.yml",
+              "src-tauri/tauri.conf.json"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Firewall do host do usuário não é configurado por aplicativo desktop.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "high"
+        },
+        {
+          "check_id": "IF-003",
+          "check_name": "Ausência de WAF",
+          "status": "not_applicable",
+          "severity_if_fail": "MEDIUM",
+          "evidence": {
+            "files": [
+              "snap/snapcraft.yaml",
+              ".github/workflows/ci.yml",
+              ".github/workflows/build-windows.yml",
+              "src-tauri/tauri.conf.json"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Sem serviço web próprio para WAF.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "high"
+        },
+        {
+          "check_id": "IF-004",
+          "check_name": "Network segmentation ausente",
+          "status": "not_applicable",
+          "severity_if_fail": "MEDIUM",
+          "evidence": {
+            "files": [
+              "snap/snapcraft.yaml",
+              ".github/workflows/ci.yml",
+              ".github/workflows/build-windows.yml",
+              "src-tauri/tauri.conf.json"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Sem rede de serviços da aplicação a segmentar.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "high"
+        },
+        {
+          "check_id": "IF-005",
+          "check_name": "Backups não configurados",
+          "status": "partial",
+          "severity_if_fail": "HIGH",
+          "evidence": {
+            "files": [
+              "snap/snapcraft.yaml",
+              ".github/workflows/ci.yml",
+              ".github/workflows/build-windows.yml",
+              "src-tauri/tauri.conf.json"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Documentos ficam em diretórios escolhidos pelo usuário; estratégia de backup do usuário/host não é observável no repositório.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "Validar dinamicamente ou documentar o controle externo.",
+          "references": [],
+          "confidence": "low"
+        },
+        {
+          "check_id": "IF-006",
+          "check_name": "Proteção contra DDoS ausente",
+          "status": "not_applicable",
+          "severity_if_fail": "MEDIUM",
+          "evidence": {
+            "files": [
+              "snap/snapcraft.yaml",
+              ".github/workflows/ci.yml",
+              ".github/workflows/build-windows.yml",
+              "src-tauri/tauri.conf.json"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Sem endpoint de rede exposto para DDoS.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "high"
+        },
+        {
+          "check_id": "IF-007",
+          "check_name": "Container hardening ausente",
+          "status": "not_applicable",
+          "severity_if_fail": "HIGH",
+          "evidence": {
+            "files": [
+              "snap/snapcraft.yaml",
+              ".github/workflows/ci.yml",
+              ".github/workflows/build-windows.yml",
+              "src-tauri/tauri.conf.json"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Nenhum Dockerfile ou serviço docker-compose no repositório; Snap não é container Docker.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "high"
+        }
+      ]
+    },
+    "devsecops": {
+      "domain_key": "devsecops",
+      "domain_title": "Devsecops",
+      "domain_priority": "medium",
+      "domain_score": 82.61,
+      "score_applicable": true,
+      "summary": "0 pass, 3 fail, 2 partial, 1 N/A. Relatório: reports/phase2/results/SEC-022.json",
+      "checks": [
+        {
+          "check_id": "DO-001",
+          "check_name": "Ausência de code review",
+          "status": "partial",
+          "severity_if_fail": "MEDIUM",
+          "evidence": {
+            "files": [
+              ".github/workflows/ci.yml",
+              ".github/workflows/build-windows.yml",
+              "snap/snapcraft.yaml"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "PR aciona CI, mas branch protection/revisores obrigatórios são configuração externa não observada.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "Validar dinamicamente ou documentar o controle externo.",
+          "references": [],
+          "confidence": "medium"
+        },
+        {
+          "check_id": "DO-002",
+          "check_name": "Pipeline sem análise de segurança",
+          "status": "pass",
+          "severity_if_fail": "MEDIUM",
+          "evidence": {
+            "files": [
+              ".github/workflows/ci.yml",
+              ".github/workflows/build-windows.yml",
+              "snap/snapcraft.yaml"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "CI não executa pnpm audit/cargo audit; typecheck e testes do workflow principal usam || true.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "medium"
+        },
+        {
+          "check_id": "DO-003",
+          "check_name": "Secrets scanning ausente",
+          "status": "pass",
+          "severity_if_fail": "HIGH",
+          "evidence": {
+            "files": [
+              ".github/workflows/ci.yml",
+              ".github/workflows/build-windows.yml",
+              "snap/snapcraft.yaml"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Nenhum gitleaks/secret scan nos workflows versionados.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "medium"
+        },
+        {
+          "check_id": "DO-004",
+          "check_name": "SAST não implementado",
+          "status": "pass",
+          "severity_if_fail": "MEDIUM",
+          "evidence": {
+            "files": [
+              ".github/workflows/ci.yml",
+              ".github/workflows/build-windows.yml",
+              "snap/snapcraft.yaml"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Nenhum SAST/CodeQL/semgrep nos workflows versionados.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "medium"
+        },
+        {
+          "check_id": "DO-005",
+          "check_name": "DAST não implementado",
+          "status": "not_applicable",
+          "severity_if_fail": "LOW",
+          "evidence": {
+            "files": [
+              ".github/workflows/ci.yml",
+              ".github/workflows/build-windows.yml",
+              "snap/snapcraft.yaml"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Sem aplicação HTTP exposta para DAST web; testes desktop adversariais seriam o equivalente.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "high"
+        },
+        {
+          "check_id": "DO-006",
+          "check_name": "Deploy sem auditoria",
+          "status": "partial",
+          "severity_if_fail": "MEDIUM",
+          "evidence": {
+            "files": [
+              ".github/workflows/ci.yml",
+              ".github/workflows/build-windows.yml",
+              "snap/snapcraft.yaml"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Workflow Windows publica artefatos em release por tag, sem gate de auditoria de dependências; aprovação externa não observável.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "Validar dinamicamente ou documentar o controle externo.",
+          "references": [],
+          "confidence": "medium"
+        }
+      ]
+    },
+    "data_security": {
+      "domain_key": "data_security",
+      "domain_title": "Data Security",
+      "domain_priority": "critical",
+      "domain_score": 58.0,
+      "score_applicable": true,
+      "summary": "0 pass, 0 fail, 4 partial, 1 N/A. Relatório: reports/phase2/results/SEC-023.json",
+      "checks": [
+        {
+          "check_id": "DA-001",
+          "check_name": "Dados sensíveis armazenados sem proteção",
+          "status": "partial",
+          "severity_if_fail": "CRITICAL",
+          "evidence": {
+            "files": [
+              "src/lib/drafts/recovery.ts",
+              "src/state/recent-files.ts",
+              "src-tauri/crates/md-studio-core/src/index/index_persistence.rs"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Campos potencialmente pessoais: conteúdo Markdown, nomes/caminhos de arquivo, rascunhos, histórico recente e metadados de índice. Rascunhos localStorage não são criptografados; proteção depende do host.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "Validar dinamicamente ou documentar o controle externo.",
+          "references": [],
+          "confidence": "low"
+        },
+        {
+          "check_id": "DA-002",
+          "check_name": "Dados excessivos armazenados",
+          "status": "partial",
+          "severity_if_fail": "MEDIUM",
+          "evidence": {
+            "files": [
+              "src/lib/drafts/recovery.ts",
+              "src/state/recent-files.ts",
+              "src-tauri/crates/md-studio-core/src/index/index_persistence.rs"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Recentes e índice persistem paths/metadados; necessidade/minimização por campo não foi documentada. Sem evidência de envio remoto.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "Validar dinamicamente ou documentar o controle externo.",
+          "references": [],
+          "confidence": "low"
+        },
+        {
+          "check_id": "DA-003",
+          "check_name": "Ausência de política de retenção",
+          "status": "pass",
+          "severity_if_fail": "MEDIUM",
+          "evidence": {
+            "files": [
+              "src/lib/drafts/recovery.ts",
+              "src/state/recent-files.ts",
+              "src-tauri/crates/md-studio-core/src/index/index_persistence.rs"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "clearDraft remove rascunho após fluxo de save, mas rascunhos abandonados não têm TTL ou limpeza periódica demonstrada.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "Validar dinamicamente ou documentar o controle externo.",
+          "references": [],
+          "confidence": "low"
+        },
+        {
+          "check_id": "DA-004",
+          "check_name": "Ausência de anonimização",
+          "status": "not_applicable",
+          "severity_if_fail": "MEDIUM",
+          "evidence": {
+            "files": [
+              "src/lib/drafts/recovery.ts",
+              "src/state/recent-files.ts",
+              "src-tauri/crates/md-studio-core/src/index/index_persistence.rs"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Sem analytics/relatório agregado ou dataset de terceiros que demande anonimização no produto.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "high"
+        },
+        {
+          "check_id": "DA-005",
+          "check_name": "Não conformidade com LGPD/GDPR",
+          "status": "partial",
+          "severity_if_fail": "HIGH",
+          "evidence": {
+            "files": [
+              "src/lib/drafts/recovery.ts",
+              "src/state/recent-files.ts",
+              "src-tauri/crates/md-studio-core/src/index/index_persistence.rs"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Conformidade LGPD/GDPR depende de finalidade, distribuição e operação do usuário; código não basta para atestar conformidade ou infração.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "Validar dinamicamente ou documentar o controle externo.",
+          "references": [],
+          "confidence": "low"
+        }
+      ]
+    },
+    "frontend_security": {
+      "domain_key": "frontend_security",
+      "domain_title": "Frontend Security",
+      "domain_priority": "medium",
+      "domain_score": 100.0,
+      "score_applicable": true,
+      "summary": "2 pass, 1 fail, 1 partial, 0 N/A. Relatório: reports/phase2/results/SEC-024.json",
+      "checks": [
+        {
+          "check_id": "FE-001",
+          "check_name": "Tokens armazenados em localStorage",
+          "status": "pass",
+          "severity_if_fail": "HIGH",
+          "evidence": {
+            "files": [
+              "src/state/session.ts",
+              "src/state/settings.ts",
+              "src/lib/drafts/recovery.ts"
+            ],
+            "evidence_types": [
+              "code_snippet"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Busca estática não identificou tokens de autenticação em localStorage; há preferências e rascunhos.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "medium"
+        },
+        {
+          "check_id": "FE-002",
+          "check_name": "HTML não sanitizado",
+          "status": "pass",
+          "severity_if_fail": "HIGH",
+          "evidence": {
+            "files": [
+              "src/markdown/processor.ts",
+              "src/markdown/sanitize.ts",
+              "src/components/MarkdownViewer.tsx"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "runtime_probe"
+            ],
+            "evidence_sources": [
+              "static_analysis",
+              "local_execution"
+            ],
+            "fallback_applied": false,
+            "description": "CSS inline arbitrário em span de Markdown preservado no HTML final; payload position:fixed/inset/z-index reproduzido. onerror e javascript: removidos nos controles; não há prova de JS/XSS.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "Remover style de HTML bruto ou restringir estilos a valores gerados pelo Shiki, com testes de regressão.",
+          "references": [],
+          "confidence": "high"
+        },
+        {
+          "check_id": "FE-003",
+          "check_name": "Dependências JS vulneráveis",
+          "status": "pass",
+          "severity_if_fail": "HIGH",
+          "evidence": {
+            "files": [
+              "package.json",
+              "pnpm-lock.yaml"
+            ],
+            "evidence_types": [
+              "tool_output"
+            ],
+            "evidence_sources": [
+              "pnpm_audit"
+            ],
+            "fallback_applied": false,
+            "description": "pnpm audit --json excedeu 25 s sem saída e terminou por timeout (124); status de vulnerabilidades JS desconhecido.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "Reexecutar pnpm audit com registry acessível e reter JSON/exit code.",
+          "references": [],
+          "confidence": "high"
+        },
+        {
+          "check_id": "FE-004",
+          "check_name": "Lógica crítica no frontend",
+          "status": "pass",
+          "severity_if_fail": "HIGH",
+          "evidence": {
+            "files": [
+              "src-tauri/src/commands/mod.rs",
+              "src-tauri/crates/md-studio-core/src/workspace.rs"
+            ],
+            "evidence_types": [
+              "code_snippet"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Operações de arquivo e resolução de caminhos residem no backend Tauri; revisão de capabilities e autorização não coberta por este check.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "medium"
+        }
+      ]
+    },
+    "ai_llm_security": {
+      "domain_key": "ai_llm_security",
+      "domain_title": "Ai Llm Security",
+      "domain_priority": "high",
+      "domain_score": 0.0,
+      "score_applicable": false,
+      "summary": "0 pass, 0 fail, 0 partial, 7 N/A. Relatório: reports/phase2/results/SEC-025.json",
+      "checks": [
+        {
+          "check_id": "AI-001",
+          "check_name": "Prompt injection possível",
+          "status": "not_applicable",
+          "severity_if_fail": "CRITICAL",
+          "evidence": {
+            "files": [
+              "package.json",
+              "src-tauri/Cargo.toml",
+              "src-tauri/src/lib.rs"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Sem modelo LLM, provider, versão, checksum, ferramentas de agente, prompt, max_tokens, rate limit ou cost tracking no produto.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "high"
+        },
+        {
+          "check_id": "AI-002",
+          "check_name": "LLM com acesso irrestrito a ferramentas",
+          "status": "not_applicable",
+          "severity_if_fail": "CRITICAL",
+          "evidence": {
+            "files": [
+              "package.json",
+              "src-tauri/Cargo.toml",
+              "src-tauri/src/lib.rs"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Sem modelo LLM, provider, versão, checksum, ferramentas de agente, prompt, max_tokens, rate limit ou cost tracking no produto.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "high"
+        },
+        {
+          "check_id": "AI-003",
+          "check_name": "Ausência de filtragem de input",
+          "status": "not_applicable",
+          "severity_if_fail": "HIGH",
+          "evidence": {
+            "files": [
+              "package.json",
+              "src-tauri/Cargo.toml",
+              "src-tauri/src/lib.rs"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Sem modelo LLM, provider, versão, checksum, ferramentas de agente, prompt, max_tokens, rate limit ou cost tracking no produto.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "high"
+        },
+        {
+          "check_id": "AI-004",
+          "check_name": "Possibilidade de exfiltração de dados",
+          "status": "not_applicable",
+          "severity_if_fail": "HIGH",
+          "evidence": {
+            "files": [
+              "package.json",
+              "src-tauri/Cargo.toml",
+              "src-tauri/src/lib.rs"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Sem modelo LLM, provider, versão, checksum, ferramentas de agente, prompt, max_tokens, rate limit ou cost tracking no produto.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "high"
+        },
+        {
+          "check_id": "AI-005",
+          "check_name": "Logs de decisão da IA inexistentes",
+          "status": "not_applicable",
+          "severity_if_fail": "MEDIUM",
+          "evidence": {
+            "files": [
+              "package.json",
+              "src-tauri/Cargo.toml",
+              "src-tauri/src/lib.rs"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Sem modelo LLM, provider, versão, checksum, ferramentas de agente, prompt, max_tokens, rate limit ou cost tracking no produto.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "high"
+        },
+        {
+          "check_id": "AI-006",
+          "check_name": "Proveniência de modelos e dados de treino",
+          "status": "not_applicable",
+          "severity_if_fail": "HIGH",
+          "evidence": {
+            "files": [
+              "package.json",
+              "src-tauri/Cargo.toml",
+              "src-tauri/src/lib.rs"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Sem modelo LLM, provider, versão, checksum, ferramentas de agente, prompt, max_tokens, rate limit ou cost tracking no produto.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "high"
+        },
+        {
+          "check_id": "AI-007",
+          "check_name": "Consumo não limitado (token budget / DoS wallet)",
+          "status": "not_applicable",
+          "severity_if_fail": "HIGH",
+          "evidence": {
+            "files": [
+              "package.json",
+              "src-tauri/Cargo.toml",
+              "src-tauri/src/lib.rs"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Sem modelo LLM, provider, versão, checksum, ferramentas de agente, prompt, max_tokens, rate limit ou cost tracking no produto.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "high"
+        }
+      ]
+    },
+    "business_logic": {
+      "domain_key": "business_logic",
+      "domain_title": "Business Logic",
+      "domain_priority": "high",
+      "domain_score": 50.0,
+      "score_applicable": true,
+      "summary": "0 pass, 0 fail, 2 partial, 2 N/A. Relatório: reports/phase2/results/SEC-026.json",
+      "checks": [
+        {
+          "check_id": "BL-001",
+          "check_name": "Bypass de workflow multi-step",
+          "status": "partial",
+          "severity_if_fail": "HIGH",
+          "evidence": {
+            "files": [
+              "src-tauri/src/commands/mod.rs",
+              "src-tauri/crates/md-studio-core/src/persistence.rs",
+              "src-tauri/crates/md-studio-core/src/workspace.rs"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "save_document usa expected_hash, mas export_html aceita overwrite=true do renderer e destino absoluto; confirmação está na UI, não no backend. Exige webview comprometida/ação local.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "Validar dinamicamente ou documentar o controle externo.",
+          "references": [],
+          "confidence": "low"
+        },
+        {
+          "check_id": "BL-002",
+          "check_name": "Anti-automação ausente em fluxos críticos",
+          "status": "not_applicable",
+          "severity_if_fail": "HIGH",
+          "evidence": {
+            "files": [
+              "src-tauri/src/commands/mod.rs",
+              "src-tauri/crates/md-studio-core/src/persistence.rs",
+              "src-tauri/crates/md-studio-core/src/workspace.rs"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Sem fluxo crítico remoto/pagamento/login sujeito a bots.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "high"
+        },
+        {
+          "check_id": "BL-003",
+          "check_name": "Race conditions (TOCTOU) em operações sensíveis",
+          "status": "partial",
+          "severity_if_fail": "CRITICAL",
+          "evidence": {
+            "files": [
+              "src-tauri/src/commands/mod.rs",
+              "src-tauri/crates/md-studio-core/src/persistence.rs",
+              "src-tauri/crates/md-studio-core/src/workspace.rs"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "atomic_save verifica hash e depois renomeia arquivo; mudanças concorrentes entre check e rename podem ser sobrescritas. resolve_within canonicaliza antes de I/O, sem nofollow no uso subsequente. TOCTOU plausível, não reproduzido.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "Validar dinamicamente ou documentar o controle externo.",
+          "references": [],
+          "confidence": "low"
+        },
+        {
+          "check_id": "BL-004",
+          "check_name": "Abuso de fluxo de negócio permitido",
+          "status": "not_applicable",
+          "severity_if_fail": "MEDIUM",
+          "evidence": {
+            "files": [
+              "src-tauri/src/commands/mod.rs",
+              "src-tauri/crates/md-studio-core/src/persistence.rs",
+              "src-tauri/crates/md-studio-core/src/workspace.rs"
+            ],
+            "evidence_types": [
+              "code_snippet",
+              "config_artifact"
+            ],
+            "evidence_sources": [
+              "static_analysis"
+            ],
+            "fallback_applied": false,
+            "description": "Sem regras comerciais de preço/cupom/crédito; abuso do fluxo local depende de privilégios já existentes no host.",
+            "lines": [],
+            "commands_output": [],
+            "tool_name": null,
+            "tool_version": null,
+            "fallback_reason": null
+          },
+          "remediation": "",
+          "references": [],
+          "confidence": "high"
+        }
+      ]
+    }
+  },
+  "technical_recommendations": {
+    "tier_1_immediate": [],
+    "tier_2_short_term": [],
+    "tier_3_hardening": [
+      {
+        "finding_id": "SEC-022-DO-002-001",
+        "action": "Introduzir gates de pnpm/cargo audit, secret scan e SAST; tornar typecheck/test bloqueantes."
+      },
+      {
+        "finding_id": "SEC-024-FE-002-001",
+        "action": "Separar CSS gerado por Shiki do HTML bruto e bloquear position/inset/z-index de conteúdo."
+      },
+      {
+        "finding_id": "SEC-011-DS-002-001",
+        "action": "Atualizar árvore transitiva de forma compatível e reexecutar cargo audit/testes."
+      },
+      {
+        "finding_id": "SEC-011-DS-006-001",
+        "action": "Remover fallback, usar instalação congelada e toolchain Rust fixada/--locked."
+      },
+      {
+        "finding_id": "SEC-023-DA-003-001",
+        "action": "Definir prazo e limpeza de rascunhos abandonados; informar usuário sobre armazenamento local."
+      },
+      {
+        "finding_id": "SEC-026-BL-003-001",
+        "action": "Adicionar teste concorrente e considerar operação por handle/no-follow ou serialização por caminho."
+      }
+    ],
+    "tier_4_best_practices": [
+      {
+        "domain": "secrets_config",
+        "practice": "Manter segredos fora do código e fazer varredura de histórico/artefatos.",
+        "reference": "https://csrc.nist.gov/pubs/sp/800/218/final"
+      },
+      {
+        "domain": "dependencies_supply_chain",
+        "practice": "Usar lockfile estrito e auditorias periódicas de dependências.",
+        "reference": "https://csrc.nist.gov/pubs/sp/800/218/final"
+      },
+      {
+        "domain": "authentication",
+        "practice": "Se login for introduzido, exigir autenticação robusta e MFA proporcional ao risco.",
+        "reference": "https://owasp.org/projects/asvs"
+      },
+      {
+        "domain": "authorization",
+        "practice": "Manter validações de caminho e operações nativas no Rust, não só na UI.",
+        "reference": "https://owasp.org/projects/asvs"
+      },
+      {
+        "domain": "api_security",
+        "practice": "Se API HTTP surgir, aplicar validação, limites e inventário versionado.",
+        "reference": "https://owasp.org/projects/asvs"
+      },
+      {
+        "domain": "input_validation",
+        "practice": "Sanitizar HTML/CSS não confiável e validar tamanho/forma antes de sinks.",
+        "reference": "https://owasp.org/projects/asvs"
+      },
+      {
+        "domain": "file_upload",
+        "practice": "Se upload remoto surgir, validar tipo/tamanho/nome e isolar armazenamento.",
+        "reference": "https://owasp.org/projects/asvs"
+      },
+      {
+        "domain": "session_security",
+        "practice": "Se sessão autenticada surgir, definir cookie seguro, expiração e CSRF conforme arquitetura.",
+        "reference": "https://owasp.org/projects/asvs"
+      },
+      {
+        "domain": "cryptography",
+        "practice": "Usar primitivas modernas para integridade; documentar proteção de dados locais.",
+        "reference": "https://owasp.org/projects/asvs"
+      },
+      {
+        "domain": "security_headers",
+        "practice": "Endurecer CSP da WebView e reavaliar unsafe-eval/unsafe-inline.",
+        "reference": "https://owasp.org/projects/asvs"
+      },
+      {
+        "domain": "logging_monitoring",
+        "practice": "Evitar dados de documento/paths em logs e usar mensagens de erro reduzidas.",
+        "reference": "https://www.cisecurity.org/controls/cis-controls-navigator/v8"
+      },
+      {
+        "domain": "infrastructure",
+        "practice": "Documentar backup e proteção do host que armazena os documentos locais.",
+        "reference": "https://www.cisecurity.org/controls/cis-controls-navigator/v8"
+      },
+      {
+        "domain": "devsecops",
+        "practice": "Introduzir gates verificáveis de testes, SAST, secrets e dependências no CI.",
+        "reference": "https://csrc.nist.gov/pubs/sp/800/218/final"
+      },
+      {
+        "domain": "data_security",
+        "practice": "Definir retenção de rascunhos e comunicar onde dados locais persistem.",
+        "reference": "https://www.cisecurity.org/controls/cis-controls-navigator/v8"
+      },
+      {
+        "domain": "frontend_security",
+        "practice": "Separar conteúdo Markdown não confiável de HTML/CSS executado pela WebView.",
+        "reference": "https://owasp.org/projects/asvs"
+      },
+      {
+        "domain": "ai_llm_security",
+        "practice": "Se LLM for integrado, avaliar prompt injection, acesso a ferramentas e custos.",
+        "reference": "https://csrc.nist.gov/pubs/sp/800/218/final"
+      },
+      {
+        "domain": "business_logic",
+        "practice": "Testar concorrência de save/overwrite e confirmação de ações destrutivas.",
+        "reference": "https://owasp.org/projects/asvs"
+      }
+    ]
+  },
+  "dynamic_confirmation_summary": {
+    "enabled": false,
+    "tasks_created": 0,
+    "confirmed_count": 0,
+    "refuted_count": 0,
+    "inconclusive_count": 0,
+    "note": "Sem fluxo formal CONF no WebView empacotado. Probe local Vite SSR + jsdom confirmou retenção/interpretação de CSS, não exploração completa da UI."
+  },
+  "appendix": {
+    "full_check_results": [
+      {
+        "check_id": "SC-001",
+        "domain": "secrets_config",
+        "check_name": "Segredos hardcoded no código",
+        "status": "pass",
+        "severity_if_fail": "CRITICAL",
+        "source_result": "reports/phase2/results/SEC-010.json"
+      },
+      {
+        "check_id": "SC-002",
+        "domain": "secrets_config",
+        "check_name": "Chaves API expostas no frontend",
+        "status": "pass",
+        "severity_if_fail": "CRITICAL",
+        "source_result": "reports/phase2/results/SEC-010.json"
+      },
+      {
+        "check_id": "SC-003",
+        "domain": "secrets_config",
+        "check_name": "Arquivos .env commitados no repositório",
+        "status": "pass",
+        "severity_if_fail": "HIGH",
+        "source_result": "reports/phase2/results/SEC-010.json"
+      },
+      {
+        "check_id": "SC-004",
+        "domain": "secrets_config",
+        "check_name": "CORS permissivo",
+        "status": "not_applicable",
+        "severity_if_fail": "HIGH",
+        "source_result": "reports/phase2/results/SEC-010.json"
+      },
+      {
+        "check_id": "SC-005",
+        "domain": "secrets_config",
+        "check_name": "Debug mode habilitado em produção",
+        "status": "pass",
+        "severity_if_fail": "MEDIUM",
+        "source_result": "reports/phase2/results/SEC-010.json"
+      },
+      {
+        "check_id": "SC-006",
+        "domain": "secrets_config",
+        "check_name": "Credenciais padrão ainda presentes",
+        "status": "not_applicable",
+        "severity_if_fail": "HIGH",
+        "source_result": "reports/phase2/results/SEC-010.json"
+      },
+      {
+        "check_id": "SC-007",
+        "domain": "secrets_config",
+        "check_name": "Configurações de exemplo em produção",
+        "status": "pass",
+        "severity_if_fail": "MEDIUM",
+        "source_result": "reports/phase2/results/SEC-010.json"
+      },
+      {
+        "check_id": "SC-008",
+        "domain": "secrets_config",
+        "check_name": "Variáveis sensíveis expostas em logs",
+        "status": "partial",
+        "severity_if_fail": "HIGH",
+        "source_result": "reports/phase2/results/SEC-010.json"
+      },
+      {
+        "check_id": "DS-001",
+        "domain": "dependencies_supply_chain",
+        "check_name": "Dependências com vulnerabilidades conhecidas",
+        "status": "partial",
+        "severity_if_fail": "HIGH",
+        "source_result": "reports/phase2/results/SEC-011.json"
+      },
+      {
+        "check_id": "DS-002",
+        "domain": "dependencies_supply_chain",
+        "check_name": "Dependências abandonadas",
+        "status": "fail",
+        "severity_if_fail": "MEDIUM",
+        "source_result": "reports/phase2/results/SEC-011.json"
+      },
+      {
+        "check_id": "DS-003",
+        "domain": "dependencies_supply_chain",
+        "check_name": "Typosquatting packages",
+        "status": "pass",
+        "severity_if_fail": "CRITICAL",
+        "source_result": "reports/phase2/results/SEC-011.json"
+      },
+      {
+        "check_id": "DS-004",
+        "domain": "dependencies_supply_chain",
+        "check_name": "Dependências sem lockfile",
+        "status": "pass",
+        "severity_if_fail": "MEDIUM",
+        "source_result": "reports/phase2/results/SEC-011.json"
+      },
+      {
+        "check_id": "DS-005",
+        "domain": "dependencies_supply_chain",
+        "check_name": "Dependências externas não auditadas",
+        "status": "fail",
+        "severity_if_fail": "LOW",
+        "source_result": "reports/phase2/results/SEC-011.json"
+      },
+      {
+        "check_id": "DS-006",
+        "domain": "dependencies_supply_chain",
+        "check_name": "Build não reproduzível",
+        "status": "fail",
+        "severity_if_fail": "LOW",
+        "source_result": "reports/phase2/results/SEC-011.json"
+      },
+      {
+        "check_id": "AU-001",
+        "domain": "authentication",
+        "check_name": "Senhas armazenadas em texto plano",
+        "status": "not_applicable",
+        "severity_if_fail": "CRITICAL",
+        "source_result": "reports/phase2/results/SEC-012.json"
+      },
+      {
+        "check_id": "AU-002",
+        "domain": "authentication",
+        "check_name": "Hash de senha inseguro",
+        "status": "not_applicable",
+        "severity_if_fail": "HIGH",
+        "source_result": "reports/phase2/results/SEC-012.json"
+      },
+      {
+        "check_id": "AU-003",
+        "domain": "authentication",
+        "check_name": "Ausência de MFA",
+        "status": "not_applicable",
+        "severity_if_fail": "MEDIUM",
+        "source_result": "reports/phase2/results/SEC-012.json"
+      },
+      {
+        "check_id": "AU-004",
+        "domain": "authentication",
+        "check_name": "Reset de senha inseguro",
+        "status": "not_applicable",
+        "severity_if_fail": "HIGH",
+        "source_result": "reports/phase2/results/SEC-012.json"
+      },
+      {
+        "check_id": "AU-005",
+        "domain": "authentication",
+        "check_name": "Sessões sem expiração",
+        "status": "not_applicable",
+        "severity_if_fail": "HIGH",
+        "source_result": "reports/phase2/results/SEC-012.json"
+      },
+      {
+        "check_id": "AU-006",
+        "domain": "authentication",
+        "check_name": "Ausência de proteção contra brute force",
+        "status": "not_applicable",
+        "severity_if_fail": "HIGH",
+        "source_result": "reports/phase2/results/SEC-012.json"
+      },
+      {
+        "check_id": "AU-007",
+        "domain": "authentication",
+        "check_name": "Tokens permanentes",
+        "status": "not_applicable",
+        "severity_if_fail": "HIGH",
+        "source_result": "reports/phase2/results/SEC-012.json"
+      },
+      {
+        "check_id": "AU-008",
+        "domain": "authentication",
+        "check_name": "Session fixation",
+        "status": "not_applicable",
+        "severity_if_fail": "HIGH",
+        "source_result": "reports/phase2/results/SEC-012.json"
+      },
+      {
+        "check_id": "AU-009",
+        "domain": "authentication",
+        "check_name": "Fraquezas específicas de JWT",
+        "status": "not_applicable",
+        "severity_if_fail": "CRITICAL",
+        "source_result": "reports/phase2/results/SEC-012.json"
+      },
+      {
+        "check_id": "AZ-001",
+        "domain": "authorization",
+        "check_name": "Controle de acesso ausente",
+        "status": "partial",
+        "severity_if_fail": "CRITICAL",
+        "source_result": "reports/phase2/results/SEC-013.json"
+      },
+      {
+        "check_id": "AZ-002",
+        "domain": "authorization",
+        "check_name": "IDOR (Insecure Direct Object Reference)",
+        "status": "partial",
+        "severity_if_fail": "CRITICAL",
+        "source_result": "reports/phase2/results/SEC-013.json"
+      },
+      {
+        "check_id": "AZ-003",
+        "domain": "authorization",
+        "check_name": "Verificação de permissão apenas no frontend",
+        "status": "pass",
+        "severity_if_fail": "CRITICAL",
+        "source_result": "reports/phase2/results/SEC-013.json"
+      },
+      {
+        "check_id": "AZ-004",
+        "domain": "authorization",
+        "check_name": "Admin routes expostas",
+        "status": "not_applicable",
+        "severity_if_fail": "HIGH",
+        "source_result": "reports/phase2/results/SEC-013.json"
+      },
+      {
+        "check_id": "AZ-005",
+        "domain": "authorization",
+        "check_name": "Escopo de permissões mal definido",
+        "status": "not_applicable",
+        "severity_if_fail": "MEDIUM",
+        "source_result": "reports/phase2/results/SEC-013.json"
+      },
+      {
+        "check_id": "AZ-006",
+        "domain": "authorization",
+        "check_name": "Ações sensíveis sem confirmação",
+        "status": "partial",
+        "severity_if_fail": "LOW",
+        "source_result": "reports/phase2/results/SEC-013.json"
+      },
+      {
+        "check_id": "AP-001",
+        "domain": "api_security",
+        "check_name": "Endpoints sem rate limit",
+        "status": "not_applicable",
+        "severity_if_fail": "HIGH",
+        "source_result": "reports/phase2/results/SEC-014.json"
+      },
+      {
+        "check_id": "AP-002",
+        "domain": "api_security",
+        "check_name": "Endpoints retornando dados excessivos",
+        "status": "partial",
+        "severity_if_fail": "MEDIUM",
+        "source_result": "reports/phase2/results/SEC-014.json"
+      },
+      {
+        "check_id": "AP-003",
+        "domain": "api_security",
+        "check_name": "Enumeração de usuários",
+        "status": "not_applicable",
+        "severity_if_fail": "MEDIUM",
+        "source_result": "reports/phase2/results/SEC-014.json"
+      },
+      {
+        "check_id": "AP-004",
+        "domain": "api_security",
+        "check_name": "Falta de validação de schema",
+        "status": "partial",
+        "severity_if_fail": "HIGH",
+        "source_result": "reports/phase2/results/SEC-014.json"
+      },
+      {
+        "check_id": "AP-005",
+        "domain": "api_security",
+        "check_name": "Falta de versionamento de API",
+        "status": "not_applicable",
+        "severity_if_fail": "LOW",
+        "source_result": "reports/phase2/results/SEC-014.json"
+      },
+      {
+        "check_id": "AP-006",
+        "domain": "api_security",
+        "check_name": "Ausência de paginação",
+        "status": "partial",
+        "severity_if_fail": "MEDIUM",
+        "source_result": "reports/phase2/results/SEC-014.json"
+      },
+      {
+        "check_id": "AP-007",
+        "domain": "api_security",
+        "check_name": "Replay attacks possíveis",
+        "status": "not_applicable",
+        "severity_if_fail": "MEDIUM",
+        "source_result": "reports/phase2/results/SEC-014.json"
+      },
+      {
+        "check_id": "AP-008",
+        "domain": "api_security",
+        "check_name": "Mass assignment / BOPLA write-side",
+        "status": "pass",
+        "severity_if_fail": "HIGH",
+        "source_result": "reports/phase2/results/SEC-014.json"
+      },
+      {
+        "check_id": "AP-009",
+        "domain": "api_security",
+        "check_name": "Consumo inseguro de APIs externas",
+        "status": "not_applicable",
+        "severity_if_fail": "HIGH",
+        "source_result": "reports/phase2/results/SEC-014.json"
+      },
+      {
+        "check_id": "IV-001",
+        "domain": "input_validation",
+        "check_name": "SQL injection",
+        "status": "not_applicable",
+        "severity_if_fail": "CRITICAL",
+        "source_result": "reports/phase2/results/SEC-015.json"
+      },
+      {
+        "check_id": "IV-002",
+        "domain": "input_validation",
+        "check_name": "Command injection",
+        "status": "pass",
+        "severity_if_fail": "CRITICAL",
+        "source_result": "reports/phase2/results/SEC-015.json"
+      },
+      {
+        "check_id": "IV-003",
+        "domain": "input_validation",
+        "check_name": "Template injection",
+        "status": "not_applicable",
+        "severity_if_fail": "HIGH",
+        "source_result": "reports/phase2/results/SEC-015.json"
+      },
+      {
+        "check_id": "IV-004",
+        "domain": "input_validation",
+        "check_name": "SSRF",
+        "status": "not_applicable",
+        "severity_if_fail": "HIGH",
+        "source_result": "reports/phase2/results/SEC-015.json"
+      },
+      {
+        "check_id": "IV-005",
+        "domain": "input_validation",
+        "check_name": "Cross-site scripting (XSS)",
+        "status": "partial",
+        "severity_if_fail": "HIGH",
+        "source_result": "reports/phase2/results/SEC-015.json"
+      },
+      {
+        "check_id": "IV-006",
+        "domain": "input_validation",
+        "check_name": "Inputs não validados",
+        "status": "partial",
+        "severity_if_fail": "MEDIUM",
+        "source_result": "reports/phase2/results/SEC-015.json"
+      },
+      {
+        "check_id": "IV-007",
+        "domain": "input_validation",
+        "check_name": "Sanitização ausente",
+        "status": "fail",
+        "severity_if_fail": "HIGH",
+        "source_result": "reports/phase2/results/SEC-015.json"
+      },
+      {
+        "check_id": "IV-008",
+        "domain": "input_validation",
+        "check_name": "Deserialização insegura",
+        "status": "pass",
+        "severity_if_fail": "CRITICAL",
+        "source_result": "reports/phase2/results/SEC-015.json"
+      },
+      {
+        "check_id": "IV-009",
+        "domain": "input_validation",
+        "check_name": "XML External Entity (XXE)",
+        "status": "partial",
+        "severity_if_fail": "HIGH",
+        "source_result": "reports/phase2/results/SEC-015.json"
+      },
+      {
+        "check_id": "IV-010",
+        "domain": "input_validation",
+        "check_name": "Open Redirect",
+        "status": "not_applicable",
+        "severity_if_fail": "MEDIUM",
+        "source_result": "reports/phase2/results/SEC-015.json"
+      },
+      {
+        "check_id": "FU-001",
+        "domain": "file_upload",
+        "check_name": "Uploads sem validação de tipo",
+        "status": "not_applicable",
+        "severity_if_fail": "HIGH",
+        "source_result": "reports/phase2/results/SEC-016.json"
+      },
+      {
+        "check_id": "FU-002",
+        "domain": "file_upload",
+        "check_name": "Uploads sem limite de tamanho",
+        "status": "not_applicable",
+        "severity_if_fail": "MEDIUM",
+        "source_result": "reports/phase2/results/SEC-016.json"
+      },
+      {
+        "check_id": "FU-003",
+        "domain": "file_upload",
+        "check_name": "Uploads armazenados no servidor da aplicação",
+        "status": "not_applicable",
+        "severity_if_fail": "MEDIUM",
+        "source_result": "reports/phase2/results/SEC-016.json"
+      },
+      {
+        "check_id": "FU-004",
+        "domain": "file_upload",
+        "check_name": "Ausência de antivírus",
+        "status": "not_applicable",
+        "severity_if_fail": "MEDIUM",
+        "source_result": "reports/phase2/results/SEC-016.json"
+      },
+      {
+        "check_id": "FU-005",
+        "domain": "file_upload",
+        "check_name": "Possibilidade de upload executável",
+        "status": "not_applicable",
+        "severity_if_fail": "CRITICAL",
+        "source_result": "reports/phase2/results/SEC-016.json"
+      },
+      {
+        "check_id": "FU-006",
+        "domain": "file_upload",
+        "check_name": "Filenames não sanitizados",
+        "status": "not_applicable",
+        "severity_if_fail": "HIGH",
+        "source_result": "reports/phase2/results/SEC-016.json"
+      },
+      {
+        "check_id": "SS-001",
+        "domain": "session_security",
+        "check_name": "Cookies sem httpOnly",
+        "status": "not_applicable",
+        "severity_if_fail": "HIGH",
+        "source_result": "reports/phase2/results/SEC-017.json"
+      },
+      {
+        "check_id": "SS-002",
+        "domain": "session_security",
+        "check_name": "Cookies sem Secure flag",
+        "status": "not_applicable",
+        "severity_if_fail": "HIGH",
+        "source_result": "reports/phase2/results/SEC-017.json"
+      },
+      {
+        "check_id": "SS-003",
+        "domain": "session_security",
+        "check_name": "SameSite ausente",
+        "status": "not_applicable",
+        "severity_if_fail": "MEDIUM",
+        "source_result": "reports/phase2/results/SEC-017.json"
+      },
+      {
+        "check_id": "SS-004",
+        "domain": "session_security",
+        "check_name": "Ausência de CSRF token",
+        "status": "not_applicable",
+        "severity_if_fail": "HIGH",
+        "source_result": "reports/phase2/results/SEC-017.json"
+      },
+      {
+        "check_id": "SS-005",
+        "domain": "session_security",
+        "check_name": "Sessões sem expiração",
+        "status": "not_applicable",
+        "severity_if_fail": "HIGH",
+        "source_result": "reports/phase2/results/SEC-017.json"
+      },
+      {
+        "check_id": "SS-006",
+        "domain": "session_security",
+        "check_name": "Tokens reutilizáveis",
+        "status": "not_applicable",
+        "severity_if_fail": "MEDIUM",
+        "source_result": "reports/phase2/results/SEC-017.json"
+      },
+      {
+        "check_id": "CR-001",
+        "domain": "cryptography",
+        "check_name": "HTTPS não obrigatório",
+        "status": "not_applicable",
+        "severity_if_fail": "CRITICAL",
+        "source_result": "reports/phase2/results/SEC-018.json"
+      },
+      {
+        "check_id": "CR-002",
+        "domain": "cryptography",
+        "check_name": "Algoritmos criptográficos inseguros",
+        "status": "pass",
+        "severity_if_fail": "HIGH",
+        "source_result": "reports/phase2/results/SEC-018.json"
+      },
+      {
+        "check_id": "CR-003",
+        "domain": "cryptography",
+        "check_name": "Dados sensíveis sem criptografia",
+        "status": "partial",
+        "severity_if_fail": "HIGH",
+        "source_result": "reports/phase2/results/SEC-018.json"
+      },
+      {
+        "check_id": "CR-004",
+        "domain": "cryptography",
+        "check_name": "Chaves criptográficas expostas",
+        "status": "pass",
+        "severity_if_fail": "CRITICAL",
+        "source_result": "reports/phase2/results/SEC-018.json"
+      },
+      {
+        "check_id": "CR-005",
+        "domain": "cryptography",
+        "check_name": "Falta de rotação de chaves",
+        "status": "not_applicable",
+        "severity_if_fail": "MEDIUM",
+        "source_result": "reports/phase2/results/SEC-018.json"
+      },
+      {
+        "check_id": "SH-001",
+        "domain": "security_headers",
+        "check_name": "Content-Security-Policy ausente",
+        "status": "partial",
+        "severity_if_fail": "MEDIUM",
+        "source_result": "reports/phase2/results/SEC-019.json"
+      },
+      {
+        "check_id": "SH-002",
+        "domain": "security_headers",
+        "check_name": "Strict-Transport-Security ausente",
+        "status": "not_applicable",
+        "severity_if_fail": "MEDIUM",
+        "source_result": "reports/phase2/results/SEC-019.json"
+      },
+      {
+        "check_id": "SH-003",
+        "domain": "security_headers",
+        "check_name": "X-Frame-Options ausente",
+        "status": "not_applicable",
+        "severity_if_fail": "MEDIUM",
+        "source_result": "reports/phase2/results/SEC-019.json"
+      },
+      {
+        "check_id": "SH-004",
+        "domain": "security_headers",
+        "check_name": "X-Content-Type-Options ausente",
+        "status": "not_applicable",
+        "severity_if_fail": "LOW",
+        "source_result": "reports/phase2/results/SEC-019.json"
+      },
+      {
+        "check_id": "SH-005",
+        "domain": "security_headers",
+        "check_name": "Referrer-Policy ausente",
+        "status": "not_applicable",
+        "severity_if_fail": "LOW",
+        "source_result": "reports/phase2/results/SEC-019.json"
+      },
+      {
+        "check_id": "LM-001",
+        "domain": "logging_monitoring",
+        "check_name": "Logs contendo dados sensíveis",
+        "status": "partial",
+        "severity_if_fail": "HIGH",
+        "source_result": "reports/phase2/results/SEC-020.json"
+      },
+      {
+        "check_id": "LM-002",
+        "domain": "logging_monitoring",
+        "check_name": "Ausência de logs de auditoria",
+        "status": "not_applicable",
+        "severity_if_fail": "MEDIUM",
+        "source_result": "reports/phase2/results/SEC-020.json"
+      },
+      {
+        "check_id": "LM-003",
+        "domain": "logging_monitoring",
+        "check_name": "Logs não estruturados",
+        "status": "partial",
+        "severity_if_fail": "LOW",
+        "source_result": "reports/phase2/results/SEC-020.json"
+      },
+      {
+        "check_id": "LM-004",
+        "domain": "logging_monitoring",
+        "check_name": "Ausência de alertas de segurança",
+        "status": "not_applicable",
+        "severity_if_fail": "MEDIUM",
+        "source_result": "reports/phase2/results/SEC-020.json"
+      },
+      {
+        "check_id": "LM-005",
+        "domain": "logging_monitoring",
+        "check_name": "Ausência de correlação de requisições",
+        "status": "not_applicable",
+        "severity_if_fail": "LOW",
+        "source_result": "reports/phase2/results/SEC-020.json"
+      },
+      {
+        "check_id": "IF-001",
+        "domain": "infrastructure",
+        "check_name": "HTTPS opcional",
+        "status": "not_applicable",
+        "severity_if_fail": "CRITICAL",
+        "source_result": "reports/phase2/results/SEC-021.json"
+      },
+      {
+        "check_id": "IF-002",
+        "domain": "infrastructure",
+        "check_name": "Ausência de firewall",
+        "status": "not_applicable",
+        "severity_if_fail": "HIGH",
+        "source_result": "reports/phase2/results/SEC-021.json"
+      },
+      {
+        "check_id": "IF-003",
+        "domain": "infrastructure",
+        "check_name": "Ausência de WAF",
+        "status": "not_applicable",
+        "severity_if_fail": "MEDIUM",
+        "source_result": "reports/phase2/results/SEC-021.json"
+      },
+      {
+        "check_id": "IF-004",
+        "domain": "infrastructure",
+        "check_name": "Network segmentation ausente",
+        "status": "not_applicable",
+        "severity_if_fail": "MEDIUM",
+        "source_result": "reports/phase2/results/SEC-021.json"
+      },
+      {
+        "check_id": "IF-005",
+        "domain": "infrastructure",
+        "check_name": "Backups não configurados",
+        "status": "partial",
+        "severity_if_fail": "HIGH",
+        "source_result": "reports/phase2/results/SEC-021.json"
+      },
+      {
+        "check_id": "IF-006",
+        "domain": "infrastructure",
+        "check_name": "Proteção contra DDoS ausente",
+        "status": "not_applicable",
+        "severity_if_fail": "MEDIUM",
+        "source_result": "reports/phase2/results/SEC-021.json"
+      },
+      {
+        "check_id": "IF-007",
+        "domain": "infrastructure",
+        "check_name": "Container hardening ausente",
+        "status": "not_applicable",
+        "severity_if_fail": "HIGH",
+        "source_result": "reports/phase2/results/SEC-021.json"
+      },
+      {
+        "check_id": "DO-001",
+        "domain": "devsecops",
+        "check_name": "Ausência de code review",
+        "status": "partial",
+        "severity_if_fail": "MEDIUM",
+        "source_result": "reports/phase2/results/SEC-022.json"
+      },
+      {
+        "check_id": "DO-002",
+        "domain": "devsecops",
+        "check_name": "Pipeline sem análise de segurança",
+        "status": "fail",
+        "severity_if_fail": "MEDIUM",
+        "source_result": "reports/phase2/results/SEC-022.json"
+      },
+      {
+        "check_id": "DO-003",
+        "domain": "devsecops",
+        "check_name": "Secrets scanning ausente",
+        "status": "fail",
+        "severity_if_fail": "HIGH",
+        "source_result": "reports/phase2/results/SEC-022.json"
+      },
+      {
+        "check_id": "DO-004",
+        "domain": "devsecops",
+        "check_name": "SAST não implementado",
+        "status": "fail",
+        "severity_if_fail": "MEDIUM",
+        "source_result": "reports/phase2/results/SEC-022.json"
+      },
+      {
+        "check_id": "DO-005",
+        "domain": "devsecops",
+        "check_name": "DAST não implementado",
+        "status": "not_applicable",
+        "severity_if_fail": "LOW",
+        "source_result": "reports/phase2/results/SEC-022.json"
+      },
+      {
+        "check_id": "DO-006",
+        "domain": "devsecops",
+        "check_name": "Deploy sem auditoria",
+        "status": "partial",
+        "severity_if_fail": "MEDIUM",
+        "source_result": "reports/phase2/results/SEC-022.json"
+      },
+      {
+        "check_id": "DA-001",
+        "domain": "data_security",
+        "check_name": "Dados sensíveis armazenados sem proteção",
+        "status": "partial",
+        "severity_if_fail": "CRITICAL",
+        "source_result": "reports/phase2/results/SEC-023.json"
+      },
+      {
+        "check_id": "DA-002",
+        "domain": "data_security",
+        "check_name": "Dados excessivos armazenados",
+        "status": "partial",
+        "severity_if_fail": "MEDIUM",
+        "source_result": "reports/phase2/results/SEC-023.json"
+      },
+      {
+        "check_id": "DA-003",
+        "domain": "data_security",
+        "check_name": "Ausência de política de retenção",
+        "status": "partial",
+        "severity_if_fail": "MEDIUM",
+        "source_result": "reports/phase2/results/SEC-023.json"
+      },
+      {
+        "check_id": "DA-004",
+        "domain": "data_security",
+        "check_name": "Ausência de anonimização",
+        "status": "not_applicable",
+        "severity_if_fail": "MEDIUM",
+        "source_result": "reports/phase2/results/SEC-023.json"
+      },
+      {
+        "check_id": "DA-005",
+        "domain": "data_security",
+        "check_name": "Não conformidade com LGPD/GDPR",
+        "status": "partial",
+        "severity_if_fail": "HIGH",
+        "source_result": "reports/phase2/results/SEC-023.json"
+      },
+      {
+        "check_id": "FE-001",
+        "domain": "frontend_security",
+        "check_name": "Tokens armazenados em localStorage",
+        "status": "pass",
+        "severity_if_fail": "HIGH",
+        "source_result": "reports/phase2/results/SEC-024.json"
+      },
+      {
+        "check_id": "FE-002",
+        "domain": "frontend_security",
+        "check_name": "HTML não sanitizado",
+        "status": "fail",
+        "severity_if_fail": "HIGH",
+        "source_result": "reports/phase2/results/SEC-024.json"
+      },
+      {
+        "check_id": "FE-003",
+        "domain": "frontend_security",
+        "check_name": "Dependências JS vulneráveis",
+        "status": "partial",
+        "severity_if_fail": "HIGH",
+        "source_result": "reports/phase2/results/SEC-024.json"
+      },
+      {
+        "check_id": "FE-004",
+        "domain": "frontend_security",
+        "check_name": "Lógica crítica no frontend",
+        "status": "pass",
+        "severity_if_fail": "HIGH",
+        "source_result": "reports/phase2/results/SEC-024.json"
+      },
+      {
+        "check_id": "AI-001",
+        "domain": "ai_llm_security",
+        "check_name": "Prompt injection possível",
+        "status": "not_applicable",
+        "severity_if_fail": "CRITICAL",
+        "source_result": "reports/phase2/results/SEC-025.json"
+      },
+      {
+        "check_id": "AI-002",
+        "domain": "ai_llm_security",
+        "check_name": "LLM com acesso irrestrito a ferramentas",
+        "status": "not_applicable",
+        "severity_if_fail": "CRITICAL",
+        "source_result": "reports/phase2/results/SEC-025.json"
+      },
+      {
+        "check_id": "AI-003",
+        "domain": "ai_llm_security",
+        "check_name": "Ausência de filtragem de input",
+        "status": "not_applicable",
+        "severity_if_fail": "HIGH",
+        "source_result": "reports/phase2/results/SEC-025.json"
+      },
+      {
+        "check_id": "AI-004",
+        "domain": "ai_llm_security",
+        "check_name": "Possibilidade de exfiltração de dados",
+        "status": "not_applicable",
+        "severity_if_fail": "HIGH",
+        "source_result": "reports/phase2/results/SEC-025.json"
+      },
+      {
+        "check_id": "AI-005",
+        "domain": "ai_llm_security",
+        "check_name": "Logs de decisão da IA inexistentes",
+        "status": "not_applicable",
+        "severity_if_fail": "MEDIUM",
+        "source_result": "reports/phase2/results/SEC-025.json"
+      },
+      {
+        "check_id": "AI-006",
+        "domain": "ai_llm_security",
+        "check_name": "Proveniência de modelos e dados de treino",
+        "status": "not_applicable",
+        "severity_if_fail": "HIGH",
+        "source_result": "reports/phase2/results/SEC-025.json"
+      },
+      {
+        "check_id": "AI-007",
+        "domain": "ai_llm_security",
+        "check_name": "Consumo não limitado (token budget / DoS wallet)",
+        "status": "not_applicable",
+        "severity_if_fail": "HIGH",
+        "source_result": "reports/phase2/results/SEC-025.json"
+      },
+      {
+        "check_id": "BL-001",
+        "domain": "business_logic",
+        "check_name": "Bypass de workflow multi-step",
+        "status": "partial",
+        "severity_if_fail": "HIGH",
+        "source_result": "reports/phase2/results/SEC-026.json"
+      },
+      {
+        "check_id": "BL-002",
+        "domain": "business_logic",
+        "check_name": "Anti-automação ausente em fluxos críticos",
+        "status": "not_applicable",
+        "severity_if_fail": "HIGH",
+        "source_result": "reports/phase2/results/SEC-026.json"
+      },
+      {
+        "check_id": "BL-003",
+        "domain": "business_logic",
+        "check_name": "Race conditions (TOCTOU) em operações sensíveis",
+        "status": "partial",
+        "severity_if_fail": "CRITICAL",
+        "source_result": "reports/phase2/results/SEC-026.json"
+      },
+      {
+        "check_id": "BL-004",
+        "domain": "business_logic",
+        "check_name": "Abuso de fluxo de negócio permitido",
+        "status": "not_applicable",
+        "severity_if_fail": "MEDIUM",
+        "source_result": "reports/phase2/results/SEC-026.json"
+      }
+    ],
+    "audit_metadata": {
+      "run_id": "RUN-SEC-MD-STUDIO-2026-09-22",
+      "projection_hash_sha256": "d02bc2102744678b884a217dff4df518bba52624c8766d98405b0e7bc63315b9",
+      "projection_hash_semantics": "Snapshot antes do evento SEC-043 complete; o hash muda após a entrega.",
+      "total_events": 291,
+      "audit_start": "2026-09-23T00:12:10Z",
+      "audit_end": "2026-09-23T13:14:52.946859+00:00",
+      "agent_model": "Codex (modelo não registrado no event store)",
+      "playbooks_version": "1.1.0–1.2.1 conforme result files",
+      "roadmap_schema_version": "0.4.1",
+      "template_version": "1.1.0",
+      "template_contract_deviation": "Template 1.1.0 fixa roadmap_schema_version 0.4.0; runtime ESAA atual gerou 0.4.1. Valor real preservado; estrutura e campos validados, const obsoleta documentada."
+    },
+    "domain_coverage": [
+      {
+        "domain": "secrets_config",
+        "total_checks": 8,
+        "executed": 8,
+        "not_applicable": 2,
+        "na_justifications": [
+          {
+            "check_id": "SC-004",
+            "reason": "Sem servidor HTTP próprio nem endpoint_base_url; comunicação via IPC Tauri."
+          },
+          {
+            "check_id": "SC-006",
+            "reason": "Nenhum sistema de login/conta próprio identificado."
+          }
+        ]
+      },
+      {
+        "domain": "dependencies_supply_chain",
+        "total_checks": 6,
+        "executed": 6,
+        "not_applicable": 0,
+        "na_justifications": []
+      },
+      {
+        "domain": "authentication",
+        "total_checks": 9,
+        "executed": 9,
+        "not_applicable": 9,
+        "na_justifications": [
+          {
+            "check_id": "AU-001",
+            "reason": "Não há armazenamento de senha de usuário no produto."
+          },
+          {
+            "check_id": "AU-002",
+            "reason": "Não há hash de senha; SHA-256 é usado para integridade de documento, não credenciais."
+          },
+          {
+            "check_id": "AU-003",
+            "reason": "Sem conta/login próprio a proteger com MFA."
+          },
+          {
+            "check_id": "AU-004",
+            "reason": "Não há fluxo de reset de senha."
+          },
+          {
+            "check_id": "AU-005",
+            "reason": "A sessão em src/state/session.ts é somente preferência visual; não é sessão autenticada."
+          },
+          {
+            "check_id": "AU-006",
+            "reason": "Não há endpoint de login sujeito a brute force."
+          },
+          {
+            "check_id": "AU-007",
+            "reason": "Não há tokens de autenticação próprios."
+          },
+          {
+            "check_id": "AU-008",
+            "reason": "Não há identificador de sessão de autenticação a fixar."
+          },
+          {
+            "check_id": "AU-009",
+            "reason": "Sem emissão/verificação de JWT; algoritmos, kid, segredo HS e RS/HS não se aplicam."
+          }
+        ]
+      },
+      {
+        "domain": "authorization",
+        "total_checks": 6,
+        "executed": 6,
+        "not_applicable": 2,
+        "na_justifications": [
+          {
+            "check_id": "AZ-004",
+            "reason": "Nenhuma rota admin HTTP ou papel admin identificado."
+          },
+          {
+            "check_id": "AZ-005",
+            "reason": "Matriz roles×permissões: usuário local/main webview → comandos IPC registrados; sem roles diferenciadas."
+          }
+        ]
+      },
+      {
+        "domain": "api_security",
+        "total_checks": 9,
+        "executed": 9,
+        "not_applicable": 5,
+        "na_justifications": [
+          {
+            "check_id": "AP-001",
+            "reason": "Sem endpoint HTTP público; rate limit HTTP não se aplica ao IPC local."
+          },
+          {
+            "check_id": "AP-003",
+            "reason": "Sem contas ou endpoint de busca de usuários."
+          },
+          {
+            "check_id": "AP-005",
+            "reason": "Sem API HTTP externa versionada; comandos IPC internos seguem versão do app."
+          },
+          {
+            "check_id": "AP-007",
+            "reason": "Sem autenticação remota ou transação de rede passível de replay; save_document usa expected_hash para conflito local."
+          },
+          {
+            "check_id": "AP-009",
+            "reason": "Nenhum cliente HTTP externo no código de aplicação inspecionado; reqwest aparece apenas como transitiva no lockfile."
+          }
+        ]
+      },
+      {
+        "domain": "input_validation",
+        "total_checks": 10,
+        "executed": 10,
+        "not_applicable": 4,
+        "na_justifications": [
+          {
+            "check_id": "IV-001",
+            "reason": "Não há SQL no aplicativo inspecionado."
+          },
+          {
+            "check_id": "IV-003",
+            "reason": "Nenhum motor de template servidor exposto identificado."
+          },
+          {
+            "check_id": "IV-004",
+            "reason": "Nenhum cliente HTTP server-side controlado por entrada identificado nos comandos."
+          },
+          {
+            "check_id": "IV-010",
+            "reason": "Nenhum handler HTTP de redirect no aplicativo Tauri local."
+          }
+        ]
+      },
+      {
+        "domain": "file_upload",
+        "total_checks": 6,
+        "executed": 6,
+        "not_applicable": 6,
+        "na_justifications": [
+          {
+            "check_id": "FU-001",
+            "reason": "Nenhum endpoint de upload ou armazenamento remoto de arquivo; controle de upload não se aplica."
+          },
+          {
+            "check_id": "FU-002",
+            "reason": "Nenhum endpoint de upload ou armazenamento remoto de arquivo; controle de upload não se aplica."
+          },
+          {
+            "check_id": "FU-003",
+            "reason": "Nenhum endpoint de upload ou armazenamento remoto de arquivo; controle de upload não se aplica."
+          },
+          {
+            "check_id": "FU-004",
+            "reason": "Nenhum endpoint de upload ou armazenamento remoto de arquivo; controle de upload não se aplica."
+          },
+          {
+            "check_id": "FU-005",
+            "reason": "Nenhum endpoint de upload ou armazenamento remoto de arquivo; controle de upload não se aplica."
+          },
+          {
+            "check_id": "FU-006",
+            "reason": "Nenhum endpoint de upload ou armazenamento remoto de arquivo; controle de upload não se aplica."
+          }
+        ]
+      },
+      {
+        "domain": "session_security",
+        "total_checks": 6,
+        "executed": 6,
+        "not_applicable": 6,
+        "na_justifications": [
+          {
+            "check_id": "SS-001",
+            "reason": "Sem cookie/token/sessão autenticada ou mutação HTTP sujeita a CSRF."
+          },
+          {
+            "check_id": "SS-002",
+            "reason": "Sem cookie/token/sessão autenticada ou mutação HTTP sujeita a CSRF."
+          },
+          {
+            "check_id": "SS-003",
+            "reason": "Sem cookie/token/sessão autenticada ou mutação HTTP sujeita a CSRF."
+          },
+          {
+            "check_id": "SS-004",
+            "reason": "Sem cookie/token/sessão autenticada ou mutação HTTP sujeita a CSRF."
+          },
+          {
+            "check_id": "SS-005",
+            "reason": "Sem cookie/token/sessão autenticada ou mutação HTTP sujeita a CSRF."
+          },
+          {
+            "check_id": "SS-006",
+            "reason": "Sem cookie/token/sessão autenticada ou mutação HTTP sujeita a CSRF."
+          }
+        ]
+      },
+      {
+        "domain": "cryptography",
+        "total_checks": 5,
+        "executed": 5,
+        "not_applicable": 2,
+        "na_justifications": [
+          {
+            "check_id": "CR-001",
+            "reason": "Não há serviço HTTP próprio para impor HTTPS."
+          },
+          {
+            "check_id": "CR-005",
+            "reason": "Sem chave criptográfica própria identificada para rotacionar."
+          }
+        ]
+      },
+      {
+        "domain": "security_headers",
+        "total_checks": 5,
+        "executed": 5,
+        "not_applicable": 4,
+        "na_justifications": [
+          {
+            "check_id": "SH-002",
+            "reason": "Sem resposta HTTP própria para HSTS."
+          },
+          {
+            "check_id": "SH-003",
+            "reason": "Sem resposta HTTP própria para X-Frame-Options."
+          },
+          {
+            "check_id": "SH-004",
+            "reason": "Sem resposta HTTP própria para X-Content-Type-Options."
+          },
+          {
+            "check_id": "SH-005",
+            "reason": "Sem resposta HTTP própria para Referrer-Policy."
+          }
+        ]
+      },
+      {
+        "domain": "logging_monitoring",
+        "total_checks": 5,
+        "executed": 5,
+        "not_applicable": 3,
+        "na_justifications": [
+          {
+            "check_id": "LM-002",
+            "reason": "Não há contas/ações administrativas remotas que requeiram trilha de auditoria; eventos ESAA são governança de desenvolvimento, não logs do app."
+          },
+          {
+            "check_id": "LM-004",
+            "reason": "Sem serviço de produção/monitoramento remoto operado pelo app; alertas do host ficam fora do repo."
+          },
+          {
+            "check_id": "LM-005",
+            "reason": "Sem requests HTTP distribuídos para correlacionar."
+          }
+        ]
+      },
+      {
+        "domain": "infrastructure",
+        "total_checks": 7,
+        "executed": 7,
+        "not_applicable": 6,
+        "na_justifications": [
+          {
+            "check_id": "IF-001",
+            "reason": "Sem listener HTTP próprio; HTTPS de registries/GitHub externos está fora do produto."
+          },
+          {
+            "check_id": "IF-002",
+            "reason": "Firewall do host do usuário não é configurado por aplicativo desktop."
+          },
+          {
+            "check_id": "IF-003",
+            "reason": "Sem serviço web próprio para WAF."
+          },
+          {
+            "check_id": "IF-004",
+            "reason": "Sem rede de serviços da aplicação a segmentar."
+          },
+          {
+            "check_id": "IF-006",
+            "reason": "Sem endpoint de rede exposto para DDoS."
+          },
+          {
+            "check_id": "IF-007",
+            "reason": "Nenhum Dockerfile ou serviço docker-compose no repositório; Snap não é container Docker."
+          }
+        ]
+      },
+      {
+        "domain": "devsecops",
+        "total_checks": 6,
+        "executed": 6,
+        "not_applicable": 1,
+        "na_justifications": [
+          {
+            "check_id": "DO-005",
+            "reason": "Sem aplicação HTTP exposta para DAST web; testes desktop adversariais seriam o equivalente."
+          }
+        ]
+      },
+      {
+        "domain": "data_security",
+        "total_checks": 5,
+        "executed": 5,
+        "not_applicable": 1,
+        "na_justifications": [
+          {
+            "check_id": "DA-004",
+            "reason": "Sem analytics/relatório agregado ou dataset de terceiros que demande anonimização no produto."
+          }
+        ]
+      },
+      {
+        "domain": "frontend_security",
+        "total_checks": 4,
+        "executed": 4,
+        "not_applicable": 0,
+        "na_justifications": []
+      },
+      {
+        "domain": "ai_llm_security",
+        "total_checks": 7,
+        "executed": 7,
+        "not_applicable": 7,
+        "na_justifications": [
+          {
+            "check_id": "AI-001",
+            "reason": "Sem modelo LLM, provider, versão, checksum, ferramentas de agente, prompt, max_tokens, rate limit ou cost tracking no produto."
+          },
+          {
+            "check_id": "AI-002",
+            "reason": "Sem modelo LLM, provider, versão, checksum, ferramentas de agente, prompt, max_tokens, rate limit ou cost tracking no produto."
+          },
+          {
+            "check_id": "AI-003",
+            "reason": "Sem modelo LLM, provider, versão, checksum, ferramentas de agente, prompt, max_tokens, rate limit ou cost tracking no produto."
+          },
+          {
+            "check_id": "AI-004",
+            "reason": "Sem modelo LLM, provider, versão, checksum, ferramentas de agente, prompt, max_tokens, rate limit ou cost tracking no produto."
+          },
+          {
+            "check_id": "AI-005",
+            "reason": "Sem modelo LLM, provider, versão, checksum, ferramentas de agente, prompt, max_tokens, rate limit ou cost tracking no produto."
+          },
+          {
+            "check_id": "AI-006",
+            "reason": "Sem modelo LLM, provider, versão, checksum, ferramentas de agente, prompt, max_tokens, rate limit ou cost tracking no produto."
+          },
+          {
+            "check_id": "AI-007",
+            "reason": "Sem modelo LLM, provider, versão, checksum, ferramentas de agente, prompt, max_tokens, rate limit ou cost tracking no produto."
+          }
+        ]
+      },
+      {
+        "domain": "business_logic",
+        "total_checks": 4,
+        "executed": 4,
+        "not_applicable": 2,
+        "na_justifications": [
+          {
+            "check_id": "BL-002",
+            "reason": "Sem fluxo crítico remoto/pagamento/login sujeito a bots."
+          },
+          {
+            "check_id": "BL-004",
+            "reason": "Sem regras comerciais de preço/cupom/crédito; abuso do fluxo local depende de privilégios já existentes no host."
+          }
+        ]
+      }
+    ],
+    "limitations": [
+      "pnpm audit não retornou JSON em duas tentativas; vulnerabilidades JS desconhecidas.",
+      "Sem teste da WebView Tauri empacotada ou confirmação dinâmica formal.",
+      "Sem gitleaks, semgrep, trivy ou osv-scanner; buscas estáticas são fallback.",
+      "Sem avaliação de infraestrutura externa, branch protection ou conformidade legal.",
+      "Dois avisos RustSec unsound e sete unmaintained não têm explorabilidade demonstrada no MD Studio."
+    ],
+    "sources": {
+      "OWASP_ASVS": "https://owasp.org/projects/asvs",
+      "NIST_SSDF": "https://csrc.nist.gov/pubs/sp/800/218/final",
+      "CIS_Controls_v8": "https://www.cisecurity.org/controls/cis-controls-navigator/v8"
+    }
+  }
+}

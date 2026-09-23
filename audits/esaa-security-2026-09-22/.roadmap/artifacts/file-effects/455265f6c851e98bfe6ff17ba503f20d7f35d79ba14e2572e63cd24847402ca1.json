@@ -1,0 +1,13 @@
+{
+  "after_sha256": "608b220741380159972ddcd86862b528bbc1c9eae46ae4d438377100e9b451b0",
+  "artifact_id": "ART-608b220741380159972ddcd86862b528bbc1c9eae46ae4d438377100e9b451b0",
+  "artifact_sha256": "455265f6c851e98bfe6ff17ba503f20d7f35d79ba14e2572e63cd24847402ca1",
+  "before_sha256": null,
+  "bytes": 1518,
+  "content": "# SEC-021 — Auditar Infraestrutura\n\nMD Studio, HEAD f8eaf22. Revisão estática do produto local Tauri; nenhum código foi alterado.\n\nDesktop local; controles de rede de servidor não se aplicam. Inventário de deploy versionado inclui Snap e workflows, mas nenhum Dockerfile/docker-compose.\n\n| Check | Resultado | Evidência/limite |\n| --- | --- | --- |\n| IF-001 HTTPS opcional | not_applicable | Sem listener HTTP próprio; HTTPS de registries/GitHub externos está fora do produto. |\n| IF-002 Ausência de firewall | not_applicable | Firewall do host do usuário não é configurado por aplicativo desktop. |\n| IF-003 Ausência de WAF | not_applicable | Sem serviço web próprio para WAF. |\n| IF-004 Network segmentation ausente | not_applicable | Sem rede de serviços da aplicação a segmentar. |\n| IF-005 Backups não configurados | partial | Documentos ficam em diretórios escolhidos pelo usuário; estratégia de backup do usuário/host não é observável no repositório. |\n| IF-006 Proteção contra DDoS ausente | not_applicable | Sem endpoint de rede exposto para DDoS. |\n| IF-007 Container hardening ausente | not_applicable | Nenhum Dockerfile ou serviço docker-compose no repositório; Snap não é container Docker. |\n\nFontes inspecionadas: `snap/snapcraft.yaml`, `.github/workflows/ci.yml`, `.github/workflows/build-windows.yml`, `src-tauri/tauri.conf.json`.\n\nLimite geral: sem teste do pacote Tauri instalado, sem infraestrutura externa e sem afirmação de exploração para checks parciais.\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "reports/phase2/infrastructure-audit.md",
+  "source_path": "reports/phase2/infrastructure-audit.md",
+  "ts": "2026-09-23T13:06:25Z"
+}

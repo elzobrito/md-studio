@@ -1,0 +1,137 @@
+{
+  "rows": [
+    {
+      "finding_id": "SEC-022-DO-002-001",
+      "domain": "devsecops",
+      "severity": "MEDIUM",
+      "cia": {
+        "c": 1,
+        "i": 1,
+        "a": 1
+      },
+      "owasp_mapping": [
+        "A05:2021",
+        "A08:2021",
+        "CWE-1357"
+      ],
+      "recommendation_summary": "Introduzir gates de pnpm/cargo audit, secret scan e SAST; tornar typecheck/test bloqueantes.",
+      "effort_estimate": "M",
+      "source_check": "DO-002",
+      "status": "fail",
+      "confidence": "high"
+    },
+    {
+      "finding_id": "SEC-024-FE-002-001",
+      "domain": "frontend_security",
+      "severity": "MEDIUM",
+      "cia": {
+        "c": 0,
+        "i": 2,
+        "a": 1
+      },
+      "owasp_mapping": [
+        "A03:2021",
+        "A07:2021",
+        "CWE-79",
+        "CWE-922"
+      ],
+      "recommendation_summary": "Separar CSS gerado por Shiki do HTML bruto e bloquear position/inset/z-index de conteúdo.",
+      "effort_estimate": "M",
+      "source_check": "FE-002",
+      "status": "fail",
+      "confidence": "high"
+    },
+    {
+      "finding_id": "SEC-011-DS-002-001",
+      "domain": "dependencies_supply_chain",
+      "severity": "LOW",
+      "cia": {
+        "c": 0,
+        "i": 0,
+        "a": 1
+      },
+      "owasp_mapping": [
+        "A06:2021",
+        "A08:2021",
+        "CWE-1104",
+        "CWE-1357"
+      ],
+      "recommendation_summary": "Atualizar árvore transitiva de forma compatível e reexecutar cargo audit/testes.",
+      "effort_estimate": "M",
+      "source_check": "DS-002",
+      "status": "fail",
+      "confidence": "high"
+    },
+    {
+      "finding_id": "SEC-011-DS-006-001",
+      "domain": "dependencies_supply_chain",
+      "severity": "LOW",
+      "cia": {
+        "c": 0,
+        "i": 1,
+        "a": 1
+      },
+      "owasp_mapping": [
+        "A06:2021",
+        "A08:2021",
+        "CWE-1104",
+        "CWE-1357"
+      ],
+      "recommendation_summary": "Remover fallback, usar instalação congelada e toolchain Rust fixada/--locked.",
+      "effort_estimate": "S",
+      "source_check": "DS-006",
+      "status": "fail",
+      "confidence": "high"
+    },
+    {
+      "finding_id": "SEC-023-DA-003-001",
+      "domain": "data_security",
+      "severity": "LOW",
+      "cia": {
+        "c": 1,
+        "i": 0,
+        "a": 0
+      },
+      "owasp_mapping": [
+        "A02:2021",
+        "A04:2021",
+        "CWE-359",
+        "CWE-312"
+      ],
+      "recommendation_summary": "Definir prazo e limpeza de rascunhos abandonados; informar usuário sobre armazenamento local.",
+      "effort_estimate": "S",
+      "source_check": "DA-003",
+      "status": "partial",
+      "confidence": "medium"
+    },
+    {
+      "finding_id": "SEC-026-BL-003-001",
+      "domain": "business_logic",
+      "severity": "INFO",
+      "cia": {
+        "c": 0,
+        "i": 1,
+        "a": 1
+      },
+      "owasp_mapping": [
+        "A04:2021",
+        "API6:2023",
+        "CWE-840",
+        "CWE-362",
+        "CWE-367",
+        "CWE-841"
+      ],
+      "recommendation_summary": "Adicionar teste concorrente e considerar operação por handle/no-follow ou serialização por caminho.",
+      "effort_estimate": "M",
+      "source_check": "BL-003",
+      "status": "partial",
+      "confidence": "low"
+    }
+  ],
+  "scale": {
+    "c": "0-3",
+    "i": "0-3",
+    "a": "0-3"
+  },
+  "note": "Achados INFO/parciais são observações condicionais, não exploits confirmados."
+}

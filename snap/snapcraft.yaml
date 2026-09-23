@@ -1,13 +1,13 @@
 name: md-studio
 title: MD Studio
 base: core24 # Base Ubuntu 24.04 LTS
-version: '0.2.0'
+version: "0.2.1"
 summary: Editor Markdown local para documentação técnica e engenharia no Linux
 description: |
   O MD Studio é um editor Markdown local-first, leve e 100% offline para Linux, construído com Tauri 2 (Rust) e React 19 / TypeScript.
-  
+
   Projetado para engenheiros de software, autores técnicos e equipes de tecnologia que mantêm sua documentação em arquivos .md no próprio disco, o MD Studio reúne direto da caixa:
-  
+
   * Realce e Formatação de Código: Shiki (TextMate dual-themes claro/escuro) e formatação híbrida (Prettier Web + formatadores nativos como ruff, rustfmt, gofmt, clang-format).
   * Diagramas Interativos: Mermaid.js com zoom, pan fluido e exportação fiel para SVG e PNG com estilos computados embutidos.
   * Interconexão de Documentos: Wiki links ([[nota]]), autocompletar instantâneo e painel de backlinks com busca contextual no workspace.
@@ -30,9 +30,9 @@ apps:
     command: bin/md-studio
     extensions: [gnome] # Já injeta WebKitGTK, Wayland/X11, fontes e temas GTK
     plugs:
-      - home             # Leitura/escrita na home do usuário (~/)
+      - home # Leitura/escrita na home do usuário (~/)
       - removable-media # Permite abrir e salvar arquivos em pendrives (/media, /mnt)
-      - network         # Para downloads de dependências/assets externos (se aplicável)
+      - network # Para downloads de dependências/assets externos (se aplicável)
 
 parts:
   md-studio:
@@ -50,23 +50,21 @@ parts:
       - librsvg2-dev
       - pkg-config
       - xz-utils
+      - python3-venv
     override-build: |
-      # 1. Se dist/ não existir, compila o frontend
-      if [ ! -d "dist" ]; then
-        curl -fsSL https://nodejs.org/dist/v22.14.0/node-v22.14.0-linux-x64.tar.xz | tar -xJ -C /usr/local --strip-components=1
-        corepack enable
-        corepack prepare pnpm@9.15.4 --activate
-        rm -rf node_modules
-        pnpm install --frozen-lockfile --config.confirmModulesPurge=false
-        pnpm build
-      fi
-
-      # 2. Instalar toolchain Rust estável oficial
-      curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain stable
+      # Always rebuild and scan this source; an existing dist/ is not trusted.
+      curl -fsSL https://nodejs.org/dist/v22.14.0/node-v22.14.0-linux-x64.tar.xz | tar -xJ -C /usr/local --strip-components=1
+      curl -fsSL https://go.dev/dl/go1.23.8.linux-amd64.tar.gz | tar -xz -C /usr/local
+      export PATH="/usr/local/go/bin:$PATH"
+      corepack enable
+      corepack prepare pnpm@9.15.4 --activate
+      pnpm install --frozen-lockfile --config.confirmModulesPurge=false
+      curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain 1.96.1
       . "$HOME/.cargo/env"
+      bash scripts/install-security-tools.sh
+      pnpm build
 
-      # 3. Compilar o binário Tauri em release
-      cargo build --release --manifest-path src-tauri/Cargo.toml
+      cargo build --release --locked --manifest-path src-tauri/Cargo.toml
 
       # 4. Instalar o executável no snap
       mkdir -p "$SNAPCRAFT_PART_INSTALL/bin"

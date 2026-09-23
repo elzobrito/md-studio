@@ -2,7 +2,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { ipc, isTauriRuntime, pickSaveMarkdownFile, subscribeWorkspaceWatch } from "../lib/ipc";
 import { persistDocument } from "../services/save";
 import type { DocumentSnapshot, WorkspaceDescriptor } from "../contracts/types";
-import { loadDraft, saveDraft } from "../lib/drafts/recovery";
+import { clearDraft, loadDraft, saveDraft } from "../lib/drafts/recovery";
+import { getBrowserDraftIdentity } from "../lib/browserFs";
 import { recentFilesStore } from "./recent-files";
 import { editorStore } from "./editor";
 import { settingsStore } from "./settings";
@@ -18,6 +19,10 @@ function parentDir(p: string): string {
   if (i === 0) return "/";
   if (i < 0) return ".";
   return norm.slice(0, i);
+}
+
+function draftRoot(ws: WorkspaceDescriptor): string {
+  return isTauriRuntime() ? ws.rootLabel : getBrowserDraftIdentity();
 }
 
 export function useDocumentState() {
@@ -65,8 +70,8 @@ export function useDocumentState() {
       const rel = relativePathRef.current;
 
       // 1. Rascunho imediato no localStorage
-      if (ws?.id && rel) {
-        saveDraft(ws.id, rel, v);
+      if (ws && rel && !saveDraft(draftRoot(ws), rel, v)) {
+        setDiagnostics((previous) => [...previous, "Aviso: rascunho local não pôde ser armazenado"]);
       }
 
       // 2. Auto-save no disco com debounce se habilitado
@@ -136,7 +141,7 @@ export function useDocumentState() {
       setStatus("loading");
       try {
         const snap = await ipc.readDocument(ws.id, clean);
-        const draft = loadDraft(ws.id, clean);
+        const draft = loadDraft(draftRoot(ws), clean);
         setSnapshot(snap);
         setRelativePath(clean);
         setContentState(draft ?? snap.content);
@@ -299,6 +304,9 @@ export function useDocumentState() {
         return;
       }
 
+      if (workspace && relativePath) clearDraft(draftRoot(workspace), relativePath);
+      clearDraft(draftRoot(ws), name);
+
       setSnapshot(result.snapshot);
       snapshotRef.current = result.snapshot;
       setRelativePath(name);
@@ -323,7 +331,12 @@ export function useDocumentState() {
       return saveAs();
     }
     editorStore.setSaveStatus("saving");
-    const result = await persistDocument(currentSnap, currentContent);
+    const root = workspaceRef.current ? draftRoot(workspaceRef.current) : null;
+    if (!root) {
+      editorStore.setSaveStatus("error", "Workspace indisponível para salvar");
+      return;
+    }
+    const result = await persistDocument(currentSnap, currentContent, root);
     if (!result.ok) {
       editorStore.setSaveStatus("error", result.message);
       setDiagnostics([`Conflito/erro: ${result.code} — ${result.message}`]);

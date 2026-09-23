@@ -5,8 +5,9 @@ import { clearDraft, saveDraft } from "../lib/drafts/recovery";
 export async function persistDocument(
   snapshot: DocumentSnapshot,
   content: string,
+  workspaceRoot: string,
 ): Promise<SaveResult> {
-  saveDraft(snapshot.workspaceId, snapshot.relativePath, content);
+  saveDraft(workspaceRoot, snapshot.relativePath, content);
   const result = await ipc.saveDocument({
     workspaceId: snapshot.workspaceId,
     relativePath: snapshot.relativePath,
@@ -14,7 +15,7 @@ export async function persistDocument(
     content,
   });
   if (result.ok) {
-    clearDraft(snapshot.workspaceId, snapshot.relativePath);
+    clearDraft(workspaceRoot, snapshot.relativePath);
   }
   return result;
 }

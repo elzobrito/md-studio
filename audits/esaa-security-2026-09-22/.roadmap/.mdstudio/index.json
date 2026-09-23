@@ -1,0 +1,47 @@
+{
+  "documents": {
+    "PROJECTION_SPEC.md": {
+      "path": "PROJECTION_SPEC.md",
+      "title": "ESAA v0.4.x — Projection + Verify (Canonical)",
+      "headings": [
+        {
+          "depth": 1,
+          "text": "ESAA v0.4.x — Projection + Verify (Canonical)",
+          "anchor": "esaa-v04x-projection-verify-canonical"
+        },
+        {
+          "depth": 2,
+          "text": "Event envelope",
+          "anchor": "event-envelope"
+        },
+        {
+          "depth": 2,
+          "text": "Canonical vocabulary",
+          "anchor": "canonical-vocabulary"
+        },
+        {
+          "depth": 2,
+          "text": "Projection function",
+          "anchor": "projection-function"
+        },
+        {
+          "depth": 2,
+          "text": "Verify",
+          "anchor": "verify"
+        }
+      ],
+      "links": [],
+      "wikiLinks": [],
+      "tags": [],
+      "images": [],
+      "tables": 0,
+      "mermaidBlocks": 0,
+      "katexBlocks": 0,
+      "wordCount": 196,
+      "lineCount": 68,
+      "lastModified": 1790122284
+    }
+  },
+  "version": 1,
+  "indexedAt": 1790176370
+}

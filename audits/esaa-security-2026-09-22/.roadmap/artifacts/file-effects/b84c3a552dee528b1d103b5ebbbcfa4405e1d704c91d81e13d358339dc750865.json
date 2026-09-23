@@ -1,0 +1,13 @@
+{
+  "after_sha256": "76359142ef3862433b29f9499189b4d70ddfd16afacb870d5afd9a5b45fb8739",
+  "artifact_id": "ART-76359142ef3862433b29f9499189b4d70ddfd16afacb870d5afd9a5b45fb8739",
+  "artifact_sha256": "b84c3a552dee528b1d103b5ebbbcfa4405e1d704c91d81e13d358339dc750865",
+  "before_sha256": null,
+  "bytes": 1047,
+  "content": "# Matriz de riscos — MD Studio\n\n| Finding | Severidade | C/I/A | Esforço | Recomendação |\n| --- | --- | --- | --- | --- |\n| SEC-022-DO-002-001 | MEDIUM | 1/1/1 | M | Introduzir gates de pnpm/cargo audit, secret scan e SAST; tornar typecheck/test bloqueantes. |\n| SEC-024-FE-002-001 | MEDIUM | 0/2/1 | M | Separar CSS gerado por Shiki do HTML bruto e bloquear position/inset/z-index de conteúdo. |\n| SEC-011-DS-002-001 | LOW | 0/0/1 | M | Atualizar árvore transitiva de forma compatível e reexecutar cargo audit/testes. |\n| SEC-011-DS-006-001 | LOW | 0/1/1 | S | Remover fallback, usar instalação congelada e toolchain Rust fixada/--locked. |\n| SEC-023-DA-003-001 | LOW | 1/0/0 | S | Definir prazo e limpeza de rascunhos abandonados; informar usuário sobre armazenamento local. |\n| SEC-026-BL-003-001 | INFO | 0/1/1 | M | Adicionar teste concorrente e considerar operação por handle/no-follow ou serialização por caminho. |\n\nEscala CIA: 0 nenhum, 3 alto. Severidades refletem pré-condições de uso local e nível de comprovação.\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "reports/phase3/risk-matrix.md",
+  "source_path": "reports/phase3/risk-matrix.md",
+  "ts": "2026-09-23T13:09:59Z"
+}

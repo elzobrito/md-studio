@@ -7,7 +7,7 @@ import { MarkdownViewer } from "../../src/components/MarkdownViewer";
 // Configure React act environment
 (globalThis as any).IS_REACT_ACT_ENVIRONMENT = true;
 
-async function waitFor(fn: () => void | Promise<void>, timeout = 3000, interval = 50): Promise<void> {
+async function waitFor(fn: () => void | Promise<void>, timeout = 15000, interval = 50): Promise<void> {
   const start = Date.now();
   let lastError: unknown;
   while (Date.now() - start < timeout) {

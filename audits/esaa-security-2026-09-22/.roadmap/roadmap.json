@@ -1,0 +1,1152 @@
+{
+  "meta": {
+    "schema_version": "0.4.1",
+    "esaa_version": "0.4.x",
+    "immutable_done": true,
+    "master_correlation_id": "CID-ESAA-INIT",
+    "run": {
+      "run_id": "RUN-SEC-MD-STUDIO-2026-09-22",
+      "status": "success",
+      "last_event_seq": 302,
+      "projection_hash_sha256": "8412af0ffea208274c9a9a9f4b92a8e5b6721807671a707456e45ea201084213",
+      "verify_status": "ok"
+    },
+    "updated_at": "2026-09-23T13:14:55Z"
+  },
+  "project": {
+    "name": "PARCER Security Audit",
+    "audit_scope": "installed plugin roadmaps"
+  },
+  "tasks": [
+    {
+      "task_id": "security-audit-md-studio-sec-2026-09-22-SEC-001",
+      "task_kind": "spec",
+      "title": "Identificar stack tecnológica",
+      "description": "Mapear linguagens, frameworks, bancos de dados, serviços cloud, runtimes e dependências externas. Produzir inventário versionado que servirá de base para todos os checks subsequentes.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "package.json",
+        "requirements.txt",
+        "go.mod",
+        "Cargo.toml",
+        "composer.json",
+        "Gemfile",
+        "pom.xml",
+        "build.gradle",
+        "Dockerfile",
+        "docker-compose.yml",
+        "pyproject.toml"
+      ],
+      "outputs": {
+        "files": [
+          "reports/phase1/tech-stack-inventory.md",
+          "reports/phase1/tool-capabilities.json"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "plugin": {
+        "id": "security-audit",
+        "execution_id": "md-studio-sec-2026-09-22",
+        "local_task_id": "SEC-001"
+      },
+      "assigned_to": "agent-spec",
+      "started_at": "2026-09-23T00:12:58Z",
+      "verification": {
+        "checks": [
+          "package.json, Cargo.toml e código Tauri inspecionados",
+          "Linguagens e versões de frontend/backend identificadas",
+          "Banco, cache, broker e SaaS classificados como não identificados/ausentes no produto",
+          "Template de relatório verificado como ausente na instância",
+          "Ambiente e utilitários detectados por comandos locais",
+          "tool-capabilities.json validado contra schema ESAA-Security"
+        ]
+      },
+      "completed_at": "2026-09-23T00:15:13Z"
+    },
+    {
+      "task_id": "security-audit-md-studio-sec-2026-09-22-SEC-002",
+      "task_kind": "spec",
+      "title": "Identificar arquitetura do sistema",
+      "description": "Documentar componentes, fluxos de dados, pontos de integração, fronteiras de confiança, zonas de rede e dependências entre serviços.",
+      "status": "done",
+      "depends_on": [
+        "security-audit-md-studio-sec-2026-09-22-SEC-001"
+      ],
+      "targets": [
+        "docker-compose.yml",
+        "k8s/",
+        "terraform/",
+        "docs/architecture.md",
+        "README.md",
+        ".github/workflows/"
+      ],
+      "outputs": {
+        "files": [
+          "reports/phase1/architecture-map.md",
+          "reports/phase1/data-flow-diagram.md"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "plugin": {
+        "id": "security-audit",
+        "execution_id": "md-studio-sec-2026-09-22",
+        "local_task_id": "SEC-002"
+      },
+      "assigned_to": "agent-spec",
+      "started_at": "2026-09-23T00:15:54Z",
+      "verification": {
+        "checks": [
+          "Fluxos Markdown, IPC, persistência e exportação rastreados em código",
+          "Fronteiras de confiança desktop explicitadas",
+          "Ausência de backend HTTP/cloud e runtime endpoint documentada",
+          "Ambientes dev e distribuição diferenciados"
+        ]
+      },
+      "completed_at": "2026-09-23T00:16:34Z"
+    },
+    {
+      "task_id": "security-audit-md-studio-sec-2026-09-22-SEC-003",
+      "task_kind": "spec",
+      "title": "Identificar superfícies de ataque",
+      "description": "Enumerar todos os pontos de entrada do sistema: endpoints HTTP, handlers de upload, WebSockets, webhooks, filas, APIs externas consumidas e pontos de execução de código. Produzir attack-surface-inventory reutilizável pelos checks de impl.",
+      "status": "done",
+      "depends_on": [
+        "security-audit-md-studio-sec-2026-09-22-SEC-002"
+      ],
+      "targets": [
+        "src/routes/",
+        "src/controllers/",
+        "src/handlers/",
+        "src/api/",
+        "openapi.yaml",
+        "swagger.json",
+        "routes.php",
+        "urls.py"
+      ],
+      "outputs": {
+        "files": [
+          "reports/phase1/attack-surface-inventory.md",
+          "reports/phase1/endpoints-inventory.json"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "plugin": {
+        "id": "security-audit",
+        "execution_id": "md-studio-sec-2026-09-22",
+        "local_task_id": "SEC-003"
+      },
+      "assigned_to": "agent-spec",
+      "started_at": "2026-09-23T00:16:49Z",
+      "verification": {
+        "checks": [
+          "Todos os 20 comandos invoke_handler enumerados com handler",
+          "Endpoint HTTP inexistente documentado como não aplicável",
+          "Entradas de arquivo, Markdown, Mermaid e formatador mapeadas",
+          "Inventário JSON estável validado sintaticamente"
+        ]
+      },
+      "completed_at": "2026-09-23T00:17:25Z"
+    },
+    {
+      "task_id": "security-audit-md-studio-sec-2026-09-22-SEC-010",
+      "task_kind": "impl",
+      "title": "Auditar Secrets & Configuração",
+      "description": "Verificar exposição de segredos hardcoded, chaves API no frontend, .env commitados, CORS permissivo, debug mode em produção, credenciais padrão, configs de exemplo e variáveis sensíveis em logs.",
+      "status": "done",
+      "depends_on": [
+        "security-audit-md-studio-sec-2026-09-22-SEC-003"
+      ],
+      "targets": [
+        "**/*.{js,ts,py,go,java,php,rb,cs,rs}",
+        "**/*.{json,yaml,yml,toml,xml,ini,cfg}",
+        ".env*",
+        ".gitignore",
+        "docker-compose*.yml",
+        "reports/phase1/tool-capabilities.json"
+      ],
+      "outputs": {
+        "files": [
+          "reports/phase2/secrets-config-audit.md",
+          "reports/phase2/results/SEC-010.json"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "plugin": {
+        "id": "security-audit",
+        "execution_id": "md-studio-sec-2026-09-22",
+        "local_task_id": "SEC-010"
+      },
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-23T00:27:20Z",
+      "verification": {
+        "checks": [
+          "SC-001..SC-008 avaliados com N/A e limites justificados",
+          "Busca estática sem exposição de valores sensíveis"
+        ]
+      },
+      "completed_at": "2026-09-23T00:28:11Z"
+    },
+    {
+      "task_id": "security-audit-md-studio-sec-2026-09-22-SEC-011",
+      "task_kind": "impl",
+      "title": "Auditar Dependências e Supply Chain",
+      "description": "Analisar dependências com CVEs conhecidos, pacotes abandonados, typosquatting, presença de lockfile, builds não reproduzíveis e scripts de postinstall suspeitos.",
+      "status": "done",
+      "depends_on": [
+        "security-audit-md-studio-sec-2026-09-22-SEC-001"
+      ],
+      "targets": [
+        "package.json",
+        "package-lock.json",
+        "yarn.lock",
+        "requirements.txt",
+        "Pipfile.lock",
+        "poetry.lock",
+        "go.sum",
+        "Cargo.lock",
+        "composer.lock",
+        "Gemfile.lock",
+        "Dockerfile",
+        "reports/phase1/tool-capabilities.json"
+      ],
+      "outputs": {
+        "files": [
+          "reports/phase2/dependencies-audit.md",
+          "reports/phase2/results/SEC-011.json"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "plugin": {
+        "id": "security-audit",
+        "execution_id": "md-studio-sec-2026-09-22",
+        "local_task_id": "SEC-011"
+      },
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-23T00:22:47Z",
+      "verification": {
+        "checks": [
+          "DS-001..DS-006 avaliados com resultados e limites",
+          "cargo audit executado; pnpm audit timeout documentado"
+        ]
+      },
+      "completed_at": "2026-09-23T00:23:54Z"
+    },
+    {
+      "task_id": "security-audit-md-studio-sec-2026-09-22-SEC-012",
+      "task_kind": "impl",
+      "title": "Auditar Autenticação",
+      "description": "Avaliar hash de senhas, MFA, reset de senha, expiração de sessão, proteção contra brute force, tokens permanentes, session fixation e fraquezas específicas de JWT (alg=none, HS256 com segredo fraco, kid injection, algorithm confusion).",
+      "status": "done",
+      "depends_on": [
+        "security-audit-md-studio-sec-2026-09-22-SEC-003"
+      ],
+      "targets": [
+        "src/models/user*",
+        "src/auth/",
+        "src/middleware/auth*",
+        "src/controllers/auth*",
+        "src/routes/auth*",
+        "src/services/jwt*",
+        "src/config/auth*",
+        "reports/phase1/tool-capabilities.json"
+      ],
+      "outputs": {
+        "files": [
+          "reports/phase2/authentication-audit.md",
+          "reports/phase2/results/SEC-012.json"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "plugin": {
+        "id": "security-audit",
+        "execution_id": "md-studio-sec-2026-09-22",
+        "local_task_id": "SEC-012"
+      },
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-23T13:06:06Z",
+      "verification": {
+        "checks": [
+          "Todos os 9 checks do domínio classificados com evidência e limites"
+        ]
+      },
+      "completed_at": "2026-09-23T13:06:07Z"
+    },
+    {
+      "task_id": "security-audit-md-studio-sec-2026-09-22-SEC-013",
+      "task_kind": "impl",
+      "title": "Auditar Autorização",
+      "description": "Verificar controle de acesso em todas as rotas, IDOR, verificação de permissão apenas no frontend, admin routes expostas, escopo de permissões e confirmação em ações destrutivas.",
+      "status": "done",
+      "depends_on": [
+        "security-audit-md-studio-sec-2026-09-22-SEC-012"
+      ],
+      "targets": [
+        "src/middleware/",
+        "src/policies/",
+        "src/guards/",
+        "src/routes/",
+        "src/controllers/",
+        "reports/phase1/endpoints-inventory.json",
+        "reports/phase1/tool-capabilities.json"
+      ],
+      "outputs": {
+        "files": [
+          "reports/phase2/authorization-audit.md",
+          "reports/phase2/results/SEC-013.json"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "plugin": {
+        "id": "security-audit",
+        "execution_id": "md-studio-sec-2026-09-22",
+        "local_task_id": "SEC-013"
+      },
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-23T13:06:12Z",
+      "verification": {
+        "checks": [
+          "Todos os 6 checks do domínio classificados com evidência e limites"
+        ]
+      },
+      "completed_at": "2026-09-23T13:06:13Z"
+    },
+    {
+      "task_id": "security-audit-md-studio-sec-2026-09-22-SEC-014",
+      "task_kind": "impl",
+      "title": "Auditar Segurança de API",
+      "description": "Avaliar rate limiting, over-fetching, enumeração de usuários, validação de schema, versionamento, paginação, proteção contra replay, mass assignment (BOPLA write-side) e consumo inseguro de APIs externas.",
+      "status": "done",
+      "depends_on": [
+        "security-audit-md-studio-sec-2026-09-22-SEC-003"
+      ],
+      "targets": [
+        "src/routes/",
+        "src/controllers/",
+        "src/middleware/rateLimit*",
+        "src/validators/",
+        "src/serializers/",
+        "src/services/http*",
+        "src/clients/",
+        "reports/phase1/tool-capabilities.json"
+      ],
+      "outputs": {
+        "files": [
+          "reports/phase2/api-security-audit.md",
+          "reports/phase2/results/SEC-014.json"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "plugin": {
+        "id": "security-audit",
+        "execution_id": "md-studio-sec-2026-09-22",
+        "local_task_id": "SEC-014"
+      },
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-23T13:06:13Z",
+      "verification": {
+        "checks": [
+          "Todos os 9 checks do domínio classificados com evidência e limites"
+        ]
+      },
+      "completed_at": "2026-09-23T13:06:14Z"
+    },
+    {
+      "task_id": "security-audit-md-studio-sec-2026-09-22-SEC-015",
+      "task_kind": "impl",
+      "title": "Auditar Validação de Entrada",
+      "description": "Testar SQL injection, command injection, template injection, SSRF, XSS, inputs não validados, sanitização ausente, deserialização insegura (pickle/yaml.load/unserialize/readObject), XML External Entity (XXE) e open redirect.",
+      "status": "done",
+      "depends_on": [
+        "security-audit-md-studio-sec-2026-09-22-SEC-003"
+      ],
+      "targets": [
+        "src/controllers/",
+        "src/handlers/",
+        "src/routes/",
+        "src/models/",
+        "src/repositories/",
+        "src/templates/",
+        "src/utils/serializ*",
+        "src/parsers/",
+        "reports/phase1/tool-capabilities.json"
+      ],
+      "outputs": {
+        "files": [
+          "reports/phase2/input-validation-audit.md",
+          "reports/phase2/results/SEC-015.json"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "plugin": {
+        "id": "security-audit",
+        "execution_id": "md-studio-sec-2026-09-22",
+        "local_task_id": "SEC-015"
+      },
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-23T00:25:47Z",
+      "verification": {
+        "checks": [
+          "IV-001..IV-010 avaliados com evidência e N/A justificados",
+          "Sinks de deserialização, parser XML e redirects inventariados"
+        ]
+      },
+      "completed_at": "2026-09-23T00:26:49Z"
+    },
+    {
+      "task_id": "security-audit-md-studio-sec-2026-09-22-SEC-016",
+      "task_kind": "impl",
+      "title": "Auditar Upload de Arquivos",
+      "description": "Verificar validação de tipo por magic bytes, limite de tamanho, storage em object store externo, scan antivírus, bloqueio de extensões executáveis e sanitização de filenames.",
+      "status": "done",
+      "depends_on": [
+        "security-audit-md-studio-sec-2026-09-22-SEC-003"
+      ],
+      "targets": [
+        "src/controllers/upload*",
+        "src/middleware/upload*",
+        "src/services/storage*",
+        "src/config/multer*",
+        "src/handlers/file*",
+        "reports/phase1/tool-capabilities.json"
+      ],
+      "outputs": {
+        "files": [
+          "reports/phase2/file-upload-audit.md",
+          "reports/phase2/results/SEC-016.json"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "plugin": {
+        "id": "security-audit",
+        "execution_id": "md-studio-sec-2026-09-22",
+        "local_task_id": "SEC-016"
+      },
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-23T13:06:14Z",
+      "verification": {
+        "checks": [
+          "Todos os 6 checks do domínio classificados com evidência e limites"
+        ]
+      },
+      "completed_at": "2026-09-23T13:06:15Z"
+    },
+    {
+      "task_id": "security-audit-md-studio-sec-2026-09-22-SEC-017",
+      "task_kind": "impl",
+      "title": "Auditar Segurança de Sessão",
+      "description": "Avaliar flags httpOnly/Secure/SameSite em cookies, CSRF tokens, expiração de sessão, idle timeout e reutilização de tokens de ação única.",
+      "status": "done",
+      "depends_on": [
+        "security-audit-md-studio-sec-2026-09-22-SEC-012"
+      ],
+      "targets": [
+        "src/config/session*",
+        "src/middleware/csrf*",
+        "src/middleware/session*",
+        "src/auth/",
+        "reports/phase1/tool-capabilities.json"
+      ],
+      "outputs": {
+        "files": [
+          "reports/phase2/session-security-audit.md",
+          "reports/phase2/results/SEC-017.json"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "plugin": {
+        "id": "security-audit",
+        "execution_id": "md-studio-sec-2026-09-22",
+        "local_task_id": "SEC-017"
+      },
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-23T13:06:16Z",
+      "verification": {
+        "checks": [
+          "Todos os 6 checks do domínio classificados com evidência e limites"
+        ]
+      },
+      "completed_at": "2026-09-23T13:06:16Z"
+    },
+    {
+      "task_id": "security-audit-md-studio-sec-2026-09-22-SEC-018",
+      "task_kind": "impl",
+      "title": "Auditar Criptografia",
+      "description": "Verificar HTTPS obrigatório, algoritmos criptográficos modernos, encryption at-rest, proteção de chaves e política de rotação.",
+      "status": "done",
+      "depends_on": [
+        "security-audit-md-studio-sec-2026-09-22-SEC-003"
+      ],
+      "targets": [
+        "src/config/",
+        "src/utils/crypto*",
+        "src/services/encrypt*",
+        "nginx.conf",
+        "infra/",
+        "reports/phase1/tool-capabilities.json"
+      ],
+      "outputs": {
+        "files": [
+          "reports/phase2/cryptography-audit.md",
+          "reports/phase2/results/SEC-018.json"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "plugin": {
+        "id": "security-audit",
+        "execution_id": "md-studio-sec-2026-09-22",
+        "local_task_id": "SEC-018"
+      },
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-23T13:06:21Z",
+      "verification": {
+        "checks": [
+          "Todos os 5 checks do domínio classificados com evidência e limites"
+        ]
+      },
+      "completed_at": "2026-09-23T13:06:21Z"
+    },
+    {
+      "task_id": "security-audit-md-studio-sec-2026-09-22-SEC-019",
+      "task_kind": "impl",
+      "title": "Auditar Headers de Segurança",
+      "description": "Verificar presença e configuração de Content-Security-Policy, Strict-Transport-Security, X-Frame-Options, X-Content-Type-Options e Referrer-Policy.",
+      "status": "done",
+      "depends_on": [
+        "security-audit-md-studio-sec-2026-09-22-SEC-003"
+      ],
+      "targets": [
+        "src/middleware/helmet*",
+        "src/middleware/headers*",
+        "src/config/security*",
+        "nginx.conf",
+        "reports/phase1/tool-capabilities.json"
+      ],
+      "outputs": {
+        "files": [
+          "reports/phase2/security-headers-audit.md",
+          "reports/phase2/results/SEC-019.json"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "plugin": {
+        "id": "security-audit",
+        "execution_id": "md-studio-sec-2026-09-22",
+        "local_task_id": "SEC-019"
+      },
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-23T13:06:22Z",
+      "verification": {
+        "checks": [
+          "Todos os 5 checks do domínio classificados com evidência e limites"
+        ]
+      },
+      "completed_at": "2026-09-23T13:06:23Z"
+    },
+    {
+      "task_id": "security-audit-md-studio-sec-2026-09-22-SEC-020",
+      "task_kind": "impl",
+      "title": "Auditar Logs e Monitoramento",
+      "description": "Avaliar exposição de dados sensíveis em logs, presença de audit trail, logs estruturados, alertas de segurança e correlation IDs.",
+      "status": "done",
+      "depends_on": [
+        "security-audit-md-studio-sec-2026-09-22-SEC-003"
+      ],
+      "targets": [
+        "src/config/logger*",
+        "src/middleware/logging*",
+        "src/utils/logger*",
+        "src/services/alert*",
+        "reports/phase1/tool-capabilities.json"
+      ],
+      "outputs": {
+        "files": [
+          "reports/phase2/logging-monitoring-audit.md",
+          "reports/phase2/results/SEC-020.json"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "plugin": {
+        "id": "security-audit",
+        "execution_id": "md-studio-sec-2026-09-22",
+        "local_task_id": "SEC-020"
+      },
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-23T13:06:23Z",
+      "verification": {
+        "checks": [
+          "Todos os 5 checks do domínio classificados com evidência e limites"
+        ]
+      },
+      "completed_at": "2026-09-23T13:06:24Z"
+    },
+    {
+      "task_id": "security-audit-md-studio-sec-2026-09-22-SEC-021",
+      "task_kind": "impl",
+      "title": "Auditar Infraestrutura",
+      "description": "Avaliar a postura de infraestrutura observável em código e configuração versionada local: indícios de HTTPS/TLS, firewall, WAF, segmentação de rede, backups, proteção DDoS e hardening de containers (root user, privileged mode, docker.sock, tags imutáveis, resource limits).",
+      "status": "done",
+      "depends_on": [
+        "security-audit-md-studio-sec-2026-09-22-SEC-002"
+      ],
+      "targets": [
+        "docker-compose*.yml",
+        "Dockerfile*",
+        "k8s/",
+        "terraform/",
+        "nginx.conf",
+        "infra/",
+        ".dockerignore",
+        "reports/phase1/tool-capabilities.json"
+      ],
+      "outputs": {
+        "files": [
+          "reports/phase2/infrastructure-audit.md",
+          "reports/phase2/results/SEC-021.json"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "plugin": {
+        "id": "security-audit",
+        "execution_id": "md-studio-sec-2026-09-22",
+        "local_task_id": "SEC-021"
+      },
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-23T13:06:25Z",
+      "verification": {
+        "checks": [
+          "Todos os 7 checks do domínio classificados com evidência e limites"
+        ]
+      },
+      "completed_at": "2026-09-23T13:06:26Z"
+    },
+    {
+      "task_id": "security-audit-md-studio-sec-2026-09-22-SEC-022",
+      "task_kind": "impl",
+      "title": "Auditar DevSecOps",
+      "description": "Avaliar a postura DevSecOps observável em CI e configuração versionada: code review, pipeline com análise de segurança, secrets scanning, SAST, DAST e audit trail de deploys.",
+      "status": "done",
+      "depends_on": [
+        "security-audit-md-studio-sec-2026-09-22-SEC-011"
+      ],
+      "targets": [
+        ".github/workflows/",
+        ".gitlab-ci.yml",
+        "Jenkinsfile",
+        ".pre-commit-config.yaml",
+        "CODEOWNERS",
+        ".github/CODEOWNERS",
+        "sonar-project.properties",
+        "reports/phase1/tool-capabilities.json"
+      ],
+      "outputs": {
+        "files": [
+          "reports/phase2/devsecops-audit.md",
+          "reports/phase2/results/SEC-022.json"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "plugin": {
+        "id": "security-audit",
+        "execution_id": "md-studio-sec-2026-09-22",
+        "local_task_id": "SEC-022"
+      },
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-23T13:06:26Z",
+      "verification": {
+        "checks": [
+          "Todos os 6 checks do domínio classificados com evidência e limites"
+        ]
+      },
+      "completed_at": "2026-09-23T13:06:28Z"
+    },
+    {
+      "task_id": "security-audit-md-studio-sec-2026-09-22-SEC-023",
+      "task_kind": "impl",
+      "title": "Auditar Segurança de Dados",
+      "description": "Verificar proteção de PII, minimização de coleta, política de retenção, anonimização e conformidade LGPD/GDPR (consentimento, portabilidade, direito ao esquecimento, ROPA).",
+      "status": "done",
+      "depends_on": [
+        "security-audit-md-studio-sec-2026-09-22-SEC-003"
+      ],
+      "targets": [
+        "src/models/",
+        "src/migrations/",
+        "src/schemas/",
+        "docs/privacy*",
+        "docs/lgpd*",
+        "docs/gdpr*",
+        "reports/phase1/tool-capabilities.json"
+      ],
+      "outputs": {
+        "files": [
+          "reports/phase2/data-security-audit.md",
+          "reports/phase2/results/SEC-023.json"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "plugin": {
+        "id": "security-audit",
+        "execution_id": "md-studio-sec-2026-09-22",
+        "local_task_id": "SEC-023"
+      },
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-23T13:06:28Z",
+      "verification": {
+        "checks": [
+          "Todos os 5 checks do domínio classificados com evidência e limites"
+        ]
+      },
+      "completed_at": "2026-09-23T13:06:30Z"
+    },
+    {
+      "task_id": "security-audit-md-studio-sec-2026-09-22-SEC-024",
+      "task_kind": "impl",
+      "title": "Auditar Segurança de Frontend",
+      "description": "Verificar tokens em localStorage, HTML não sanitizado, dependências JS vulneráveis, Subresource Integrity em scripts CDN e presença de lógica crítica no frontend.",
+      "status": "done",
+      "depends_on": [
+        "security-audit-md-studio-sec-2026-09-22-SEC-003"
+      ],
+      "targets": [
+        "src/components/",
+        "src/pages/",
+        "src/views/",
+        "src/stores/",
+        "public/",
+        "client/",
+        "static/",
+        "reports/phase1/tool-capabilities.json"
+      ],
+      "outputs": {
+        "files": [
+          "reports/phase2/frontend-security-audit.md",
+          "reports/phase2/results/SEC-024.json"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "plugin": {
+        "id": "security-audit",
+        "execution_id": "md-studio-sec-2026-09-22",
+        "local_task_id": "SEC-024"
+      },
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-23T00:21:23Z",
+      "verification": {
+        "checks": [
+          "FE-001..FE-004 avaliados com evidência e limites",
+          "Cross-reference IV-005 e DS-001 registrado"
+        ]
+      },
+      "completed_at": "2026-09-23T00:22:22Z"
+    },
+    {
+      "task_id": "security-audit-md-studio-sec-2026-09-22-SEC-025",
+      "task_kind": "impl",
+      "title": "Auditar Segurança de IA/LLM",
+      "description": "Avaliar, a partir de integrações e guardrails observáveis no código local, prompt injection, escopo de ferramentas do LLM, filtragem de input, exfiltração via output, audit log de decisões, proveniência de modelos/dados de treino e controle de consumo (token budget, quotas).",
+      "status": "done",
+      "depends_on": [
+        "security-audit-md-studio-sec-2026-09-22-SEC-003"
+      ],
+      "targets": [
+        "src/ai/",
+        "src/agents/",
+        "src/llm/",
+        "src/prompts/",
+        "src/tools/",
+        "src/services/ai*",
+        "src/services/llm*",
+        "src/rag/",
+        "src/vectors/",
+        "reports/phase1/tool-capabilities.json"
+      ],
+      "outputs": {
+        "files": [
+          "reports/phase2/ai-llm-security-audit.md",
+          "reports/phase2/results/SEC-025.json"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "plugin": {
+        "id": "security-audit",
+        "execution_id": "md-studio-sec-2026-09-22",
+        "local_task_id": "SEC-025"
+      },
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-23T13:06:30Z",
+      "verification": {
+        "checks": [
+          "Todos os 7 checks do domínio classificados com evidência e limites"
+        ]
+      },
+      "completed_at": "2026-09-23T13:06:32Z"
+    },
+    {
+      "task_id": "security-audit-md-studio-sec-2026-09-22-SEC-026",
+      "task_kind": "impl",
+      "title": "Auditar Lógica de Negócio e Anti-Automação",
+      "description": "Avaliar, por inspeção de fluxos e invariantes observáveis no código local, falhas de lógica de negócio que permitem bypass de workflow, exploração de race conditions (TOCTOU) em operações sensíveis (pagamento, transferência, alteração de saldo/permissão), ausência de anti-automação em fluxos críticos (checkout, cadastro, review, cupom) e possibilidade de abuso de fluxos negocialmente permitidos (OWASP API6:2023 - Unrestricted Access to Sensitive Business Flows).",
+      "status": "done",
+      "depends_on": [
+        "security-audit-md-studio-sec-2026-09-22-SEC-003",
+        "security-audit-md-studio-sec-2026-09-22-SEC-013"
+      ],
+      "targets": [
+        "src/controllers/",
+        "src/services/",
+        "src/workflows/",
+        "src/handlers/payment*",
+        "src/handlers/checkout*",
+        "src/handlers/transfer*",
+        "src/handlers/order*",
+        "src/handlers/coupon*",
+        "src/handlers/review*",
+        "reports/phase1/endpoints-inventory.json",
+        "reports/phase1/tool-capabilities.json"
+      ],
+      "outputs": {
+        "files": [
+          "reports/phase2/business-logic-audit.md",
+          "reports/phase2/results/SEC-026.json"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "plugin": {
+        "id": "security-audit",
+        "execution_id": "md-studio-sec-2026-09-22",
+        "local_task_id": "SEC-026"
+      },
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-23T13:06:33Z",
+      "verification": {
+        "checks": [
+          "Todos os 4 checks do domínio classificados com evidência e limites"
+        ]
+      },
+      "completed_at": "2026-09-23T13:06:34Z"
+    },
+    {
+      "task_id": "security-audit-md-studio-sec-2026-09-22-SEC-030",
+      "task_kind": "qa",
+      "title": "Consolidar vulnerabilidades identificadas",
+      "description": "Agregar todas as vulnerabilidades encontradas na fase 2 em inventário único, com IDs estáveis, domínio de origem, check_id de proveniência, evidências técnicas e deduplicação multi-source. Código + tooling local + runtime confirmatório do mesmo achado devem compor um único finding_id.",
+      "status": "done",
+      "depends_on": [
+        "security-audit-md-studio-sec-2026-09-22-SEC-010",
+        "security-audit-md-studio-sec-2026-09-22-SEC-011",
+        "security-audit-md-studio-sec-2026-09-22-SEC-012",
+        "security-audit-md-studio-sec-2026-09-22-SEC-013",
+        "security-audit-md-studio-sec-2026-09-22-SEC-014",
+        "security-audit-md-studio-sec-2026-09-22-SEC-015",
+        "security-audit-md-studio-sec-2026-09-22-SEC-016",
+        "security-audit-md-studio-sec-2026-09-22-SEC-017",
+        "security-audit-md-studio-sec-2026-09-22-SEC-018",
+        "security-audit-md-studio-sec-2026-09-22-SEC-019",
+        "security-audit-md-studio-sec-2026-09-22-SEC-020",
+        "security-audit-md-studio-sec-2026-09-22-SEC-021",
+        "security-audit-md-studio-sec-2026-09-22-SEC-022",
+        "security-audit-md-studio-sec-2026-09-22-SEC-023",
+        "security-audit-md-studio-sec-2026-09-22-SEC-024",
+        "security-audit-md-studio-sec-2026-09-22-SEC-025",
+        "security-audit-md-studio-sec-2026-09-22-SEC-026"
+      ],
+      "targets": [
+        "reports/phase2/results/"
+      ],
+      "outputs": {
+        "files": [
+          "reports/phase3/vulnerability-inventory.json"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "plugin": {
+        "id": "security-audit",
+        "execution_id": "md-studio-sec-2026-09-22",
+        "local_task_id": "SEC-030"
+      },
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-23T13:09:52Z",
+      "verification": {
+        "checks": [
+          "17 arquivos de resultados e 108 checks processados; duplicatas consolidadas e confidence sinalizada"
+        ]
+      },
+      "completed_at": "2026-09-23T13:09:54Z"
+    },
+    {
+      "task_id": "security-audit-md-studio-sec-2026-09-22-SEC-031",
+      "task_kind": "qa",
+      "title": "Classificar severidade e impacto",
+      "description": "Atribuir severidade final (CRITICAL/HIGH/MEDIUM/LOW/INFO) e avaliar impacto CIA de cada vulnerabilidade com justificativa técnica. Reclassificar findings de confidence=low como INFO quando não corroborados e evitar inflar findings medium sem confirmação forte.",
+      "status": "done",
+      "depends_on": [
+        "security-audit-md-studio-sec-2026-09-22-SEC-030"
+      ],
+      "targets": [
+        "reports/phase3/vulnerability-inventory.json"
+      ],
+      "outputs": {
+        "files": [
+          "reports/phase3/classified-vulnerabilities.json"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "plugin": {
+        "id": "security-audit",
+        "execution_id": "md-studio-sec-2026-09-22",
+        "local_task_id": "SEC-031"
+      },
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-23T13:09:55Z",
+      "verification": {
+        "checks": [
+          "Cada finding classificado com severidade, CIA 0-3 e rationale; low confidence reclassificado INFO"
+        ]
+      },
+      "completed_at": "2026-09-23T13:09:57Z"
+    },
+    {
+      "task_id": "security-audit-md-studio-sec-2026-09-22-SEC-032",
+      "task_kind": "qa",
+      "title": "Gerar Matriz de Riscos",
+      "description": "Produzir matriz consolidada: vulnerabilidade × categoria × severidade × impacto CIA × recomendação, ordenada por severidade decrescente e priorizada por explorabilidade.",
+      "status": "done",
+      "depends_on": [
+        "security-audit-md-studio-sec-2026-09-22-SEC-031"
+      ],
+      "targets": [
+        "reports/phase3/classified-vulnerabilities.json"
+      ],
+      "outputs": {
+        "files": [
+          "reports/phase3/risk-matrix.json",
+          "reports/phase3/risk-matrix.md"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "plugin": {
+        "id": "security-audit",
+        "execution_id": "md-studio-sec-2026-09-22",
+        "local_task_id": "SEC-032"
+      },
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-23T13:09:58Z",
+      "verification": {
+        "checks": [
+          "Matriz JSON/Markdown contém finding, domínio, severidade, CIA, OWASP, recomendação e esforço"
+        ]
+      },
+      "completed_at": "2026-09-23T13:09:59Z"
+    },
+    {
+      "task_id": "security-audit-md-studio-sec-2026-09-22-SEC-040",
+      "task_kind": "spec",
+      "title": "Propor correções técnicas",
+      "description": "Para cada vulnerabilidade CRITICAL e HIGH, detalhar correção técnica específica com snippets de código/configuração, referência ao check de origem e esforço estimado. Para MEDIUM/LOW, fornecer recomendação resumida.",
+      "status": "done",
+      "depends_on": [
+        "security-audit-md-studio-sec-2026-09-22-SEC-032"
+      ],
+      "targets": [
+        "reports/phase3/risk-matrix.json"
+      ],
+      "outputs": {
+        "files": [
+          "reports/phase4/technical-remediations.md"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "plugin": {
+        "id": "security-audit",
+        "execution_id": "md-studio-sec-2026-09-22",
+        "local_task_id": "SEC-040"
+      },
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-23T13:12:39Z",
+      "verification": {
+        "checks": [
+          "Todos os findings classificados têm remediação e esforço",
+          "Ausência de HIGH/CRITICAL explicitada; MEDIUM/LOW agrupados e priorizados"
+        ]
+      },
+      "completed_at": "2026-09-23T13:12:40Z"
+    },
+    {
+      "task_id": "security-audit-md-studio-sec-2026-09-22-SEC-041",
+      "task_kind": "spec",
+      "title": "Documentar boas práticas",
+      "description": "Consolidar boas práticas de segurança organizadas por domínio, com referências a OWASP, CIS, NIST SSDF, verificando aplicabilidade ao contexto da stack identificada.",
+      "status": "done",
+      "depends_on": [
+        "security-audit-md-studio-sec-2026-09-22-SEC-032"
+      ],
+      "targets": [
+        "reports/phase3/risk-matrix.json",
+        "reports/phase2/results/"
+      ],
+      "outputs": {
+        "files": [
+          "reports/phase4/best-practices.md"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "plugin": {
+        "id": "security-audit",
+        "execution_id": "md-studio-sec-2026-09-22",
+        "local_task_id": "SEC-041"
+      },
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-23T13:12:41Z",
+      "verification": {
+        "checks": [
+          "17 seções correspondem aos 17 playbooks",
+          "Cada recomendação indica aplicabilidade e fonte oficial"
+        ]
+      },
+      "completed_at": "2026-09-23T13:12:43Z"
+    },
+    {
+      "task_id": "security-audit-md-studio-sec-2026-09-22-SEC-042",
+      "task_kind": "qa",
+      "title": "Gerar Resumo Executivo",
+      "description": "Produzir resumo executivo (máximo 1 página) com score final de segurança (0-100) calculado pela fórmula determinística em report-template.security.json (severity_weights × domain_priority_weights com penalty_rules), top 5 riscos prioritários e recomendações de ação imediata.",
+      "status": "done",
+      "depends_on": [
+        "security-audit-md-studio-sec-2026-09-22-SEC-040",
+        "security-audit-md-studio-sec-2026-09-22-SEC-041"
+      ],
+      "targets": [
+        "reports/phase4/technical-remediations.md",
+        "reports/phase4/best-practices.md",
+        "reports/phase3/risk-matrix.json",
+        "report-template.security.json"
+      ],
+      "outputs": {
+        "files": [
+          "reports/phase4/executive-summary.md"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "plugin": {
+        "id": "security-audit",
+        "execution_id": "md-studio-sec-2026-09-22",
+        "local_task_id": "SEC-042"
+      },
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-23T13:12:44Z",
+      "verification": {
+        "checks": [
+          "Score 0-100 calculado pela fórmula versionada e reproduzível",
+          "Cinco riscos com severidade e ação; resumo de uma página"
+        ]
+      },
+      "completed_at": "2026-09-23T13:12:45Z"
+    },
+    {
+      "task_id": "security-audit-md-studio-sec-2026-09-22-SEC-043",
+      "task_kind": "qa",
+      "title": "Compilar Relatório Final de Auditoria",
+      "description": "Montar relatório completo projetando dados dos result files no report-template.security.json (schema) e REPORT_TEMPLATE.md (formato de renderização). Seções: header, executive_summary (com score), vulnerability_matrix, detailed_analysis por domínio, priority_risks com cenários de exploração, technical_recommendations em 4 tiers (imediato/curto/médio/longo prazo) e appendix com resultados completos e metadados de auditoria. Todos os achados rastreáveis aos checks via check_id e finding_id.",
+      "status": "done",
+      "depends_on": [
+        "security-audit-md-studio-sec-2026-09-22-SEC-042"
+      ],
+      "targets": [
+        "report-template.security.json",
+        "REPORT_TEMPLATE.md",
+        "reports/phase4/executive-summary.md",
+        "reports/phase3/risk-matrix.json",
+        "reports/phase4/technical-remediations.md",
+        "reports/phase4/best-practices.md",
+        "reports/phase2/results/"
+      ],
+      "outputs": {
+        "files": [
+          "reports/final/security-audit-report.md",
+          "reports/final/security-audit-report.json"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "plugin": {
+        "id": "security-audit",
+        "execution_id": "md-studio-sec-2026-09-22",
+        "local_task_id": "SEC-043"
+      },
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-23T13:14:53Z",
+      "verification": {
+        "checks": [
+          "Relatório Markdown completo e JSON com seções do template 1.1.0; divergência de constante 0.4.0/0.4.1 explicitada",
+          "108 checks, 17 domínios e todos os findings rastreáveis a result files",
+          "Score reproduzido e metadados de run/projection registrados"
+        ]
+      },
+      "completed_at": "2026-09-23T13:14:55Z"
+    }
+  ],
+  "indexes": {
+    "by_status": {
+      "done": 27
+    },
+    "by_kind": {
+      "impl": 17,
+      "qa": 5,
+      "spec": 5
+    }
+  }
+}

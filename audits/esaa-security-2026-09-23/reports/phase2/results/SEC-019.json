@@ -1,0 +1,135 @@
+{
+  "task_id": "SEC-019",
+  "domain": "security_headers",
+  "playbook_version": "1.2.1",
+  "checks_total": 5,
+  "checks_pass": 0,
+  "checks_fail": 0,
+  "checks_partial": 1,
+  "checks_na": 4,
+  "checks_error": 0,
+  "worst_severity": "INFO",
+  "duration_ms": 0,
+  "results": [
+    {
+      "check_id": "SH-001",
+      "check_name": "Content-Security-Policy ausente",
+      "status": "partial",
+      "severity_if_fail": "MEDIUM",
+      "confidence": "medium",
+      "evidence": {
+        "files": [
+          "src-tauri/tauri.conf.json",
+          "src-tauri/capabilities/default.json"
+        ],
+        "evidence_types": [
+          "code_reference",
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "CSP existe em tauri.conf.json, mas style-src permite unsafe-inline e script-src permite unsafe-eval; a extensão de style arbitrário é demonstrada em FE-002/IV-007."
+      },
+      "remediation": "Validar dinamicamente ou documentar o controle externo.",
+      "cross_refs": []
+    },
+    {
+      "check_id": "SH-002",
+      "check_name": "Strict-Transport-Security ausente",
+      "status": "not_applicable",
+      "severity_if_fail": "MEDIUM",
+      "confidence": "high",
+      "evidence": {
+        "files": [
+          "src-tauri/tauri.conf.json",
+          "src-tauri/capabilities/default.json"
+        ],
+        "evidence_types": [
+          "code_reference",
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Sem resposta HTTP própria para HSTS."
+      },
+      "remediation": "",
+      "cross_refs": []
+    },
+    {
+      "check_id": "SH-003",
+      "check_name": "X-Frame-Options ausente",
+      "status": "not_applicable",
+      "severity_if_fail": "MEDIUM",
+      "confidence": "high",
+      "evidence": {
+        "files": [
+          "src-tauri/tauri.conf.json",
+          "src-tauri/capabilities/default.json"
+        ],
+        "evidence_types": [
+          "code_reference",
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Sem resposta HTTP própria para X-Frame-Options."
+      },
+      "remediation": "",
+      "cross_refs": []
+    },
+    {
+      "check_id": "SH-004",
+      "check_name": "X-Content-Type-Options ausente",
+      "status": "not_applicable",
+      "severity_if_fail": "LOW",
+      "confidence": "high",
+      "evidence": {
+        "files": [
+          "src-tauri/tauri.conf.json",
+          "src-tauri/capabilities/default.json"
+        ],
+        "evidence_types": [
+          "code_reference",
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Sem resposta HTTP própria para X-Content-Type-Options."
+      },
+      "remediation": "",
+      "cross_refs": []
+    },
+    {
+      "check_id": "SH-005",
+      "check_name": "Referrer-Policy ausente",
+      "status": "not_applicable",
+      "severity_if_fail": "LOW",
+      "confidence": "high",
+      "evidence": {
+        "files": [
+          "src-tauri/tauri.conf.json",
+          "src-tauri/capabilities/default.json"
+        ],
+        "evidence_types": [
+          "code_reference",
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Sem resposta HTTP própria para Referrer-Policy."
+      },
+      "remediation": "",
+      "cross_refs": []
+    }
+  ]
+}

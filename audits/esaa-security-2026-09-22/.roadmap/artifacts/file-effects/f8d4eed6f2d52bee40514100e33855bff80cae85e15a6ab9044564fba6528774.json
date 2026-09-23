@@ -1,0 +1,13 @@
+{
+  "after_sha256": "b1f1836d44460bd680adda01f97cdafd6d6f89e6e1ba58d933d8ee80b8906897",
+  "artifact_id": "ART-b1f1836d44460bd680adda01f97cdafd6d6f89e6e1ba58d933d8ee80b8906897",
+  "artifact_sha256": "f8d4eed6f2d52bee40514100e33855bff80cae85e15a6ab9044564fba6528774",
+  "before_sha256": null,
+  "bytes": 1794,
+  "content": "# SEC-003 — Inventário de superfícies de ataque\n\nAlvo: MD Studio 0.2.0, revisão `f8eaf22`.\n\n## Entradas existentes\n\n- 20 comandos Tauri IPC registrados em `src-tauri/src/lib.rs:70-90`, enumerados individualmente em `endpoints-inventory.json`. A classificação `local_webview` descreve o chamador esperado; não é autenticação de usuário.\n- Caminho de arquivo fornecido pelo SO no cold start e na segunda instância (`src-tauri/src/lib.rs:27-50`), propagado à UI por `get_launch_path`/evento.\n- Conteúdo `.md`, YAML frontmatter, wiki links, HTML embutido, URLs, imagens, código fenced e Mermaid entram pelo parser (`src/markdown/processor.ts`).\n- `open_workspace` recebe caminho absoluto e estabelece raiz local; leitura, salvamento, índice e watcher recebem workspace ID e caminhos relativos. `export_html` recebe caminho absoluto de saída. `format_code` recebe idioma e texto e invoca formatadores locais selecionados.\n- Arquivos de configuração e lockfiles entram no build/CI.\n\n## Ausências e enquadramento\n\nNão há endpoint HTTP do produto, upload via rede, WebSocket, webhook, fila, usuário autenticado ou papel admin. Assim, checks de autenticação, sessão, IDOR multiusuário, rate limiting HTTP e headers de servidor tendem a `not_applicable`. A ausência de endpoint HTTP não elimina as fronteiras arquivo → WebView, WebView → IPC, IPC → filesystem/processo.\n\n## Controles a verificar na fase 2\n\nContenção de caminhos e symlinks, conteúdo não confiável no preview e no HTML exportado, execução de formatadores sem shell, dependências, limites de recursos e configuração de CSP/Tauri capabilities. Inventário derivado de `invoke_handler` e comandos anotados `#[tauri::command]`, não de suposição baseada na estrutura de pastas web do playbook.\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "reports/phase1/attack-surface-inventory.md",
+  "source_path": "reports/phase1/attack-surface-inventory.md",
+  "ts": "2026-09-23T00:17:24Z"
+}

@@ -1,0 +1,13 @@
+{
+  "after_sha256": "2d773fbca27836bb4c5732299899274c5ffff3d3e574566237493e37439a8368",
+  "artifact_id": "ART-2d773fbca27836bb4c5732299899274c5ffff3d3e574566237493e37439a8368",
+  "artifact_sha256": "143f7698aef0eab849710d63529702911d3876c5f45f87e58d953cad0d3e5ed1",
+  "before_sha256": null,
+  "bytes": 1660,
+  "content": "# SEC-012 — Auditar Autenticação\n\nMD Studio, HEAD f8eaf22. Revisão estática do produto local Tauri; nenhum código foi alterado.\n\nAplicativo Tauri local sem contas, login, senha, MFA, reset, token ou JWT próprios. Não se está auditando a autenticação do sistema operacional.\n\n| Check | Resultado | Evidência/limite |\n| --- | --- | --- |\n| AU-001 Senhas armazenadas em texto plano | not_applicable | Não há armazenamento de senha de usuário no produto. |\n| AU-002 Hash de senha inseguro | not_applicable | Não há hash de senha; SHA-256 é usado para integridade de documento, não credenciais. |\n| AU-003 Ausência de MFA | not_applicable | Sem conta/login próprio a proteger com MFA. |\n| AU-004 Reset de senha inseguro | not_applicable | Não há fluxo de reset de senha. |\n| AU-005 Sessões sem expiração | not_applicable | A sessão em src/state/session.ts é somente preferência visual; não é sessão autenticada. |\n| AU-006 Ausência de proteção contra brute force | not_applicable | Não há endpoint de login sujeito a brute force. |\n| AU-007 Tokens permanentes | not_applicable | Não há tokens de autenticação próprios. |\n| AU-008 Session fixation | not_applicable | Não há identificador de sessão de autenticação a fixar. |\n| AU-009 Fraquezas específicas de JWT | not_applicable | Sem emissão/verificação de JWT; algoritmos, kid, segredo HS e RS/HS não se aplicam. |\n\nFontes inspecionadas: `src-tauri/src/lib.rs`, `src-tauri/capabilities/default.json`, `src/state/session.ts`.\n\nLimite geral: sem teste do pacote Tauri instalado, sem infraestrutura externa e sem afirmação de exploração para checks parciais.\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "reports/phase2/authentication-audit.md",
+  "source_path": "reports/phase2/authentication-audit.md",
+  "ts": "2026-09-23T13:06:06Z"
+}

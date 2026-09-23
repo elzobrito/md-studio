@@ -1,0 +1,13 @@
+{
+  "after_sha256": "3f23783b70b6f0f0f887557673a0c689abf23e68d7e95b81c972ef8764f356e2",
+  "artifact_id": "ART-3f23783b70b6f0f0f887557673a0c689abf23e68d7e95b81c972ef8764f356e2",
+  "artifact_sha256": "3e8fd2dbda8949757aad917c8778e4f4ff16195b48312de6dd5725dce6a81a75",
+  "before_sha256": null,
+  "bytes": 1435,
+  "content": "# SEC-022 — Auditar DevSecOps\n\nMD Studio, HEAD f8eaf22. Revisão estática do produto local Tauri; nenhum código foi alterado.\n\nWorkflows versionados lidos: ci.yml, build-windows.yml e configuração Snap. Configurações externas do GitHub (branch protection e approvals) não foram consultadas.\n\n| Check | Resultado | Evidência/limite |\n| --- | --- | --- |\n| DO-001 Ausência de code review | partial | PR aciona CI, mas branch protection/revisores obrigatórios são configuração externa não observada. |\n| DO-002 Pipeline sem análise de segurança | fail | CI não executa pnpm audit/cargo audit; typecheck e testes do workflow principal usam || true. |\n| DO-003 Secrets scanning ausente | fail | Nenhum gitleaks/secret scan nos workflows versionados. |\n| DO-004 SAST não implementado | fail | Nenhum SAST/CodeQL/semgrep nos workflows versionados. |\n| DO-005 DAST não implementado | not_applicable | Sem aplicação HTTP exposta para DAST web; testes desktop adversariais seriam o equivalente. |\n| DO-006 Deploy sem auditoria | partial | Workflow Windows publica artefatos em release por tag, sem gate de auditoria de dependências; aprovação externa não observável. |\n\nFontes inspecionadas: `.github/workflows/ci.yml`, `.github/workflows/build-windows.yml`, `snap/snapcraft.yaml`.\n\nLimite geral: sem teste do pacote Tauri instalado, sem infraestrutura externa e sem afirmação de exploração para checks parciais.\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "reports/phase2/devsecops-audit.md",
+  "source_path": "reports/phase2/devsecops-audit.md",
+  "ts": "2026-09-23T13:06:27Z"
+}

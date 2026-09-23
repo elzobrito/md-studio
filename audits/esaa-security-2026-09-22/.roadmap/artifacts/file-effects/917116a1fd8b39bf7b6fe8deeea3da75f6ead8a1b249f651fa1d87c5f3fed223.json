@@ -1,0 +1,13 @@
+{
+  "after_sha256": "4e964eb98df86cc5a2227170ee9009187df2dab48651b783d6d68d81ffe8c3bc",
+  "artifact_id": "ART-4e964eb98df86cc5a2227170ee9009187df2dab48651b783d6d68d81ffe8c3bc",
+  "artifact_sha256": "917116a1fd8b39bf7b6fe8deeea3da75f6ead8a1b249f651fa1d87c5f3fed223",
+  "before_sha256": null,
+  "bytes": 869,
+  "content": "# SEC-002 — Fluxo de dados\n\n```text\nMarkdown local (não confiável)\n    │ read_document / watcher / índice\n    ▼\nRust Tauri ──IPC──► WebView: CodeMirror, parser, preview, Mermaid\n    ▲                                  │\n    │ save_document + expected_hash    ├── sanitização → HTML exportado\n    │ format_code (idioma + código)    └── impressão → PDF\n    │                                  │\n    └───────── filesystem local ◄─────┘\n\nGitHub Actions + registros npm/crates.io → artefatos de build → binário distribuído\n```\n\nFronteiras analisadas: arquivo Markdown → parser/DOM; WebView → IPC; IPC → filesystem; IPC → subprocessos; registries/CI → binário. O workspace de auditoria em `audits/esaa-security-2026-09-22` é saída da análise, não superfície do produto.\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "reports/phase1/data-flow-diagram.md",
+  "source_path": "reports/phase1/data-flow-diagram.md",
+  "ts": "2026-09-23T00:16:33Z"
+}

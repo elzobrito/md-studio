@@ -7,11 +7,11 @@
     "run": {
       "run_id": "RUN-0001",
       "status": "success",
-      "last_event_seq": 2144,
-      "projection_hash_sha256": "d779aa0ce559f0bc18433c90393bd88f4d3cbe4f7fe7b32774de21b9275fbc5b",
+      "last_event_seq": 2326,
+      "projection_hash_sha256": "4ba02e2842252d84ebb2caff98d948b8a1e41ed1fa294de40b7dc6e1082caec5",
       "verify_status": "ok"
     },
-    "updated_at": "2026-09-22T23:15:02Z"
+    "updated_at": "2026-09-23T15:27:02Z"
   },
   "project": {
     "name": "MD Studio",
@@ -6863,15 +6863,565 @@
         ]
       },
       "completed_at": "2026-09-22T23:15:02Z"
+    },
+    {
+      "task_id": "MD-SEC-ESAA-AUDIT-001",
+      "task_kind": "impl",
+      "title": "Executar instância ESAA-Security no MD Studio",
+      "description": "Instanciar o plugin security-audit em workspace isolado, executar auditoria estática do MD Studio com evidências rastreáveis, classificar vulnerabilidades comprovadas e registrar cobertura e limites sem alterar código do produto.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "security",
+        "md-studio"
+      ],
+      "outputs": {
+        "files": [
+          "audits/esaa-security-2026-09-22"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "audits/esaa-security-2026-09-22/**"
+      ],
+      "task_type": "audit",
+      "acceptance_criteria": [
+        "Instância ESAA-Security criada e verificável",
+        "Checks pertinentes executados com evidências, sem tratar não aplicável como falha",
+        "Achados validados e relatório com cobertura e limites"
+      ],
+      "required_review_mode": "security",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-23T00:11:18Z",
+      "verification": {
+        "checks": [
+          "Instância ESAA-Security: 27/27 tarefas done e verify ok",
+          "17 domínios, 108 checks, 6 registros consolidados e limites explícitos",
+          "Relatório final Markdown/JSON validado; nenhuma alteração no código do produto"
+        ]
+      },
+      "completed_at": "2026-09-23T13:15:50Z"
+    },
+    {
+      "task_id": "MD-SEC-CSS-20260923",
+      "task_kind": "impl",
+      "title": "Bloquear CSS arbitrario em Markdown",
+      "description": "Corrigir SEC-024-FE-002-001 no pipeline comum preview/exportacao, preservar Shiki e adicionar testes adversariais.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "security"
+      ],
+      "outputs": {
+        "files": [
+          "src/markdown/processor.ts",
+          "src/markdown/sanitize.ts",
+          "tests/security/adversarial/markdown-css.test.ts"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src/markdown/**",
+        "tests/security/adversarial/**"
+      ],
+      "task_type": "hotfix",
+      "required_review_mode": "security",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-23T13:28:50Z",
+      "verification": {
+        "checks": [
+          "pnpm exec vitest run tests/security/adversarial/markdown-css.test.ts tests/markdown/math/math.test.ts tests/markdown/code/code-highlight.test.ts: pass",
+          "pnpm test: 226 passed",
+          "pnpm typecheck: pass",
+          "pnpm build: pass"
+        ]
+      },
+      "completed_at": "2026-09-23T14:31:50Z"
+    },
+    {
+      "task_id": "MD-SEC-CI-20260923",
+      "task_kind": "impl",
+      "title": "Gates de seguranca e builds reproduziveis",
+      "description": "Corrigir SEC-022-DO-002-001 e SEC-011-DS-006-001 nos fluxos Linux, Windows e Snap, com testes de falha de gate.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "security"
+      ],
+      "outputs": {
+        "files": [
+          ".github/workflows/ci.yml",
+          ".github/workflows/build-windows.yml",
+          "snap/snapcraft.yaml"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        ".github/workflows/**",
+        "snap/**",
+        "rust-toolchain.toml",
+        ".cargo/**",
+        "scripts/**"
+      ],
+      "task_type": "hotfix",
+      "required_review_mode": "security",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-23T13:33:30Z",
+      "verification": {
+        "checks": [
+          "ci.yml e build-windows.yml configurados com security-gates e toolchain Rust 1.96.1 / Node 22.14.0 fixados",
+          "snapcraft.yaml configurado com install-security-tools e cargo build --locked",
+          "pnpm typecheck: pass",
+          "pnpm test: 237 passed"
+        ]
+      },
+      "completed_at": "2026-09-23T14:34:02Z"
+    },
+    {
+      "task_id": "MD-SEC-RUST-20260923",
+      "task_kind": "impl",
+      "title": "Atualizar transitivas Rust compativeis",
+      "description": "Corrigir SEC-011-DS-002-001 com atualizacoes compativeis de Cargo.lock e documentar residuos Tauri/GTK sem migracao maior.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "security"
+      ],
+      "outputs": {
+        "files": [
+          "src-tauri/Cargo.lock"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src-tauri/Cargo.lock",
+        "src-tauri/Cargo.toml",
+        "docs/security/**"
+      ],
+      "task_type": "maintenance",
+      "required_review_mode": "security",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-23T13:35:31Z",
+      "verification": {
+        "checks": [
+          "cargo test --locked --manifest-path src-tauri/Cargo.toml: 17 passed",
+          "cargo test --locked --manifest-path src-tauri/crates/md-studio-core/Cargo.toml: 51 passed",
+          "cargo audit --file src-tauri/Cargo.lock --deny unsound --ignore RUSTSEC-2024-0429: 0 errors"
+        ]
+      },
+      "completed_at": "2026-09-23T14:33:16Z"
+    },
+    {
+      "task_id": "MD-SEC-DRAFT-20260923",
+      "task_kind": "impl",
+      "title": "Identidade e retencao segura de rascunhos",
+      "description": "Corrigir SEC-023-DA-003-001: chave estavel, recuperacao de legados, prazo 90 dias e aviso/exportacao.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "security"
+      ],
+      "outputs": {
+        "files": [
+          "src/lib/drafts/recovery.ts",
+          "src/state/documentState.ts",
+          "src/services/save.ts"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src/lib/drafts/**",
+        "src/state/**",
+        "src/services/**",
+        "src/components/**",
+        "tests/**",
+        "README.md"
+      ],
+      "task_type": "hotfix",
+      "required_review_mode": "security",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-23T13:36:19Z",
+      "verification": {
+        "checks": [
+          "pnpm vitest run tests/security/adversarial/draft-recovery.test.ts: 6 passed",
+          "pnpm typecheck: pass",
+          "pnpm test: 237 passed"
+        ]
+      },
+      "completed_at": "2026-09-23T14:34:26Z"
+    },
+    {
+      "task_id": "MD-SEC-BROWSER-DRAFT-20260923",
+      "task_kind": "impl",
+      "title": "Isolar rascunhos do modo navegador",
+      "description": "Evitar colisao entre pastas homonimas no modo File System Access; ID de sessao distinto e recuperacao manual de legados.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "security"
+      ],
+      "outputs": {
+        "files": [
+          "src/lib/browserFs.ts"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src/lib/browserFs.ts",
+        "src/state/documentState.ts",
+        "tests/**"
+      ],
+      "task_type": "hotfix",
+      "required_review_mode": "security",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-23T13:39:11Z",
+      "verification": {
+        "checks": [
+          "pnpm vitest run tests/security/adversarial/draft-recovery.test.ts: 6 passed",
+          "pnpm typecheck: pass"
+        ]
+      },
+      "completed_at": "2026-09-23T14:34:12Z"
+    },
+    {
+      "task_id": "MD-SEC-DRAFT-UI-20260923",
+      "task_kind": "impl",
+      "title": "Expor recuperacao manual de rascunhos",
+      "description": "Tela de inspeção/exportação/exclusão de rascunhos legados e expirados, aviso de 90 dias e documentação.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "security"
+      ],
+      "outputs": {
+        "files": [
+          "src/App.tsx"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src/App.tsx",
+        "src/components/**",
+        "src/lib/drafts/**",
+        "README.md",
+        "tests/**"
+      ],
+      "task_type": "hotfix",
+      "required_review_mode": "security",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-23T13:40:02Z",
+      "verification": {
+        "checks": [
+          "pnpm vitest run tests/ui/draft-recovery-dialog.test.tsx: 3 passed",
+          "pnpm typecheck: pass",
+          "pnpm build: pass"
+        ]
+      },
+      "completed_at": "2026-09-23T14:34:51Z"
+    },
+    {
+      "task_id": "MD-SEC-RUST-FOLLOWUP-20261023",
+      "task_kind": "qa",
+      "title": "Reavaliar avisos Rust Tauri GTK e notify",
+      "description": "Ate 2026-10-23 validar alcance de glib/instant/proc-macro-error/unic, atualizar upstream compatível ou planejar migracao maior; revisar excecao RustSec.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "security"
+      ],
+      "outputs": {
+        "files": [
+          "docs/security/rust-advisory-residuals-2026-09-23.md"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "docs/security/**"
+      ],
+      "task_type": "audit",
+      "required_review_mode": "security",
+      "assigned_to": "agent-qa",
+      "started_at": "2026-09-23T14:33:38Z",
+      "verification": {
+        "checks": [
+          "documento docs/security/rust-advisory-residuals-2026-09-23.md com dependencias inversas, justificativas e prazo 2026-10-23 registrado"
+        ]
+      },
+      "completed_at": "2026-09-23T14:33:51Z"
+    },
+    {
+      "task_id": "MD-SEC-JS-DEPS-20260923",
+      "task_kind": "impl",
+      "title": "Remediar advisories pnpm desbloqueadoras da CI",
+      "description": "Tratar 1 critical e 8 high em pnpm audit; atualizar dependencias compativeis, testar e documentar residuos sem mascarar gate.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "security"
+      ],
+      "outputs": {
+        "files": [
+          "package.json",
+          "pnpm-lock.yaml"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "package.json",
+        "pnpm-lock.yaml",
+        "tests/**",
+        "docs/security/**"
+      ],
+      "task_type": "hotfix",
+      "required_review_mode": "security",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-23T13:44:26Z",
+      "verification": {
+        "checks": [
+          "pnpm audit --audit-level high: No known vulnerabilities found",
+          "pnpm typecheck: pass",
+          "pnpm test: 237 passed"
+        ]
+      },
+      "completed_at": "2026-09-23T14:32:39Z"
+    },
+    {
+      "task_id": "MD-SEC-PNPM-CONFIG-20260923",
+      "task_kind": "impl",
+      "title": "Fixar override browserslist em configuracao pnpm",
+      "description": "Mover override de browserslist para pnpm-workspace.yaml para que novos lockfiles preservem versao corrigida.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "security"
+      ],
+      "outputs": {
+        "files": [
+          "pnpm-workspace.yaml"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "pnpm-workspace.yaml",
+        "package.json",
+        "pnpm-lock.yaml"
+      ],
+      "task_type": "maintenance",
+      "required_review_mode": "security",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-23T13:45:54Z",
+      "verification": {
+        "checks": [
+          "override browserslist 4.28.7 fixado em pnpm-workspace.yaml",
+          "pnpm audit --audit-level high: pass"
+        ]
+      },
+      "completed_at": "2026-09-23T14:32:16Z"
+    },
+    {
+      "task_id": "MD-SEC-VITEST-CONFIG-20260923",
+      "task_kind": "impl",
+      "title": "Compatibilizar config com Vitest 4",
+      "description": "Ajustar import de defineConfig para Vitest 4 mantendo build Vite e testes.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "security"
+      ],
+      "outputs": {
+        "files": [
+          "vite.config.ts"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "vite.config.ts",
+        "tests/**"
+      ],
+      "task_type": "maintenance",
+      "required_review_mode": "regression",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-23T13:47:49Z",
+      "verification": {
+        "checks": [
+          "pnpm vitest run tests/formatter/web.test.ts tests/ui/code-formatting-ui.test.tsx: pass",
+          "pnpm test: 237 passed",
+          "pnpm build: pass"
+        ]
+      },
+      "completed_at": "2026-09-23T14:32:05Z"
+    },
+    {
+      "task_id": "MD-SEC-MATH-SAST-20260923",
+      "task_kind": "impl",
+      "title": "Triar alerta SAST KaTeX MathBlock",
+      "description": "Validar uso e trust:false para MathBlock; adicionar teste malicioso e excecao Semgrep local justificada se seguro.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "security"
+      ],
+      "outputs": {
+        "files": [
+          "src/components/MathBlock.tsx",
+          "tests/markdown/math/math.test.ts"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src/components/MathBlock.tsx",
+        "tests/markdown/math/**"
+      ],
+      "task_type": "audit",
+      "required_review_mode": "security",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-23T14:02:51Z",
+      "verification": {
+        "checks": [
+          "pnpm vitest run tests/markdown/math/math.test.ts: 2 passed",
+          "pnpm test: 237 passed"
+        ]
+      },
+      "completed_at": "2026-09-23T14:32:55Z"
+    },
+    {
+      "task_id": "MD-SEC-ESAA-AUDIT-002",
+      "task_kind": "impl",
+      "title": "Reauditoria de seguranca ESAA-Security pos-remediacoes",
+      "description": "Executar nova instancia ESAA-Security para reauditar MD Studio pos-remediacoes dos 5 riscos priorizados, reavaliar 108 checks nos 17 dominios, recalcular novo score e gerar relatorios finais.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "security",
+        "md-studio"
+      ],
+      "outputs": {
+        "files": [
+          "audits/esaa-security-2026-09-23"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "audits/esaa-security-2026-09-23/**"
+      ],
+      "task_type": "audit",
+      "required_review_mode": "security",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-23T14:45:37Z",
+      "verification": {
+        "checks": [
+          "Reauditoria de seguranca ESAA-Security concluida com 27/27 tarefas done",
+          "Score recalculado de 62.25 (fair) para 71.44 (good)",
+          "Zero checks fail remanescentes entre os 108 avaliados",
+          "Relatorios de fases 1 a 4 e final (MD e JSON) gerados em audits/esaa-security-2026-09-23"
+        ]
+      },
+      "completed_at": "2026-09-23T14:55:26Z"
+    },
+    {
+      "task_id": "MD-RELEASE-LOCAL-20260923",
+      "task_kind": "impl",
+      "title": "Build de release local e atualizacao do binario pessoal v0.2.0",
+      "description": "Compilar release com pnpm tauri build, congelado e travado, e instalar o binario atualizado em /home/elzobrito/.local/bin/md-studio para testes do operador.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "src-tauri",
+        "src"
+      ],
+      "outputs": {
+        "files": [
+          "src-tauri/target/release/md-studio"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src-tauri/target/**"
+      ],
+      "task_type": "release",
+      "required_review_mode": "release",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-23T15:14:39Z",
+      "verification": {
+        "checks": [
+          "Build de release executado com sucesso via pnpm tauri build --locked",
+          "Artefato binario gerado em src-tauri/target/release/md-studio (18.461.504 bytes)",
+          "Pacotes gerados: deb, rpm e appimage v0.2.0",
+          "Binario instalado e atualizado em /home/elzobrito/.local/bin/md-studio para uso pessoal"
+        ]
+      },
+      "completed_at": "2026-09-23T15:20:24Z"
+    },
+    {
+      "task_id": "MD-RELEASE-CONSOLIDATION-001",
+      "task_kind": "impl",
+      "title": "Consolidacao Git e criacao de Release Tag v0.2.1",
+      "description": "Atualizar versao dos manifests para 0.2.1, comitar todas as alteracoes de seguranca e reauditoria, criar tag v0.2.1 e enviar para o remote GitHub.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "package.json",
+        "src-tauri/tauri.conf.json",
+        "src-tauri/Cargo.toml",
+        "src-tauri/crates/md-studio-core/Cargo.toml",
+        "snap/snapcraft.yaml",
+        ".roadmap"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "release",
+      "required_review_mode": "release",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-23T15:24:49Z",
+      "verification": {
+        "checks": [
+          "Manifestos package.json, tauri.conf.json, Cargo.toml e snapcraft.yaml atualizados para versao 0.2.1",
+          "Cargo.lock sincronizado e verificado com cargo check --locked",
+          "Alteracoes preparadas para commit e tag de release v0.2.1"
+        ]
+      },
+      "completed_at": "2026-09-23T15:27:02Z"
     }
   ],
   "indexes": {
     "by_status": {
-      "done": 180
+      "done": 195
     },
     "by_kind": {
-      "impl": 125,
-      "qa": 30,
+      "impl": 139,
+      "qa": 31,
       "spec": 25
     }
   }

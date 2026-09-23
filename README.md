@@ -158,7 +158,8 @@ cargo test --manifest-path src-tauri/Cargo.toml  # Testes unitários do backend 
    Para evitar que a gravação do próprio Auto-Save dispare falsos positivos no diálogo de concorrência (`ConflictDialog`), o backend Rust registra o hash SHA-256 e o timestamp das gravações originadas pelo MD Studio. Eventos emitidos pelo `inotify` com o mesmo hash gravado internamente são consumidos de forma transparente, alertando o usuário apenas se outro processo externo (ex.: `git pull`, terminal, outro editor) modificar o arquivo.
 
 4. **Rascunhos de Recuperação Instantânea:**
-   Alterações não salvas também são sincronizadas imediatamente em armazenamento local (`localStorage`), garantindo restauração automática com aviso na interface caso o aplicativo seja encerrado bruscamente antes do flush físico no disco.
+   Alterações não salvas são copiadas para o armazenamento local (`localStorage`) deste dispositivo. No aplicativo nativo, a recuperação usa a raiz canônica da pasta e o caminho do arquivo; uma cópia válida pode ser restaurada após reiniciar. O navegador não expõe o caminho canônico da pasta: cada seleção é isolada para evitar carregar rascunhos de outra pasta homônima, e rascunhos de sessões anteriores exigem exportação manual.
+   O prazo é de 90 dias desde a última edição, verificado ao abrir o aplicativo. O aviso aparece a partir do dia 75; se a próxima abertura ocorrer após a expiração, há uma última oportunidade para inspecionar e exportar antes da exclusão ao fechar a tela. Chaves antigas e rascunhos do navegador sem origem verificável não são associados automaticamente a arquivos: ficam disponíveis para exportação ou exclusão manual.
 
 ---
 

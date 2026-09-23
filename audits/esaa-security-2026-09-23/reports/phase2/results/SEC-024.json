@@ -1,0 +1,115 @@
+{
+  "task_id": "SEC-024",
+  "domain": "frontend_security",
+  "playbook_version": "1.2.1",
+  "checks_total": 4,
+  "checks_pass": 4,
+  "checks_fail": 0,
+  "checks_partial": 0,
+  "checks_na": 0,
+  "checks_error": 0,
+  "worst_severity": "INFO",
+  "duration_ms": 0,
+  "results": [
+    {
+      "check_id": "FE-001",
+      "check_name": "Tokens armazenados em localStorage",
+      "status": "pass",
+      "severity_if_fail": "HIGH",
+      "confidence": "medium",
+      "evidence": {
+        "files": [
+          "src/state/session.ts",
+          "src/state/settings.ts",
+          "src/lib/drafts/recovery.ts"
+        ],
+        "evidence_types": [
+          "code_reference"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Busca estática não identificou tokens de autenticação em localStorage; há preferências e rascunhos."
+      },
+      "remediation": "",
+      "cross_refs": []
+    },
+    {
+      "check_id": "FE-002",
+      "check_name": "HTML não sanitizado",
+      "status": "pass",
+      "severity_if_fail": "HIGH",
+      "confidence": "high",
+      "evidence": {
+        "files": [
+          "src/markdown/processor.ts",
+          "src/markdown/sanitize.ts",
+          "src/components/MarkdownViewer.tsx"
+        ],
+        "evidence_types": [
+          "code_reference",
+          "dynamic_test"
+        ],
+        "evidence_sources": [
+          "static_analysis",
+          "local_execution"
+        ],
+        "fallback_applied": false,
+        "description": "CSS inline arbitrario removido no pipeline de renderizacao antes do highlight; tokens controlados do Shiki preservados; position/inset/z-index completamente bloqueados. Validado com markdown-css.test.ts."
+      },
+      "remediation": "Remover style de HTML bruto ou restringir estilos a valores gerados pelo Shiki, com testes de regressão.",
+      "cross_refs": [
+        "IV-005"
+      ]
+    },
+    {
+      "check_id": "FE-003",
+      "check_name": "Dependências JS vulneráveis",
+      "status": "pass",
+      "severity_if_fail": "HIGH",
+      "confidence": "high",
+      "evidence": {
+        "files": [
+          "package.json",
+          "pnpm-lock.yaml"
+        ],
+        "evidence_types": [
+          "tool_output"
+        ],
+        "evidence_sources": [
+          "pnpm_audit"
+        ],
+        "fallback_applied": false,
+        "description": "pnpm audit --audit-level high executado com sucesso: 0 vulnerabilidades conhecidas encontradas nas dependencias JavaScript."
+      },
+      "remediation": "Reexecutar pnpm audit com registry acessível e reter JSON/exit code.",
+      "cross_refs": [
+        "DS-001"
+      ]
+    },
+    {
+      "check_id": "FE-004",
+      "check_name": "Lógica crítica no frontend",
+      "status": "pass",
+      "severity_if_fail": "HIGH",
+      "confidence": "medium",
+      "evidence": {
+        "files": [
+          "src-tauri/src/commands/mod.rs",
+          "src-tauri/crates/md-studio-core/src/workspace.rs"
+        ],
+        "evidence_types": [
+          "code_reference"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Operações de arquivo e resolução de caminhos residem no backend Tauri; revisão de capabilities e autorização não coberta por este check."
+      },
+      "remediation": "",
+      "cross_refs": []
+    }
+  ]
+}

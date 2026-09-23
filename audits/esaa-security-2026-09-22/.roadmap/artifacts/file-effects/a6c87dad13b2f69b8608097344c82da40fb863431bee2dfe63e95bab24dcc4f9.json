@@ -1,0 +1,13 @@
+{
+  "after_sha256": "3f7ccc0f067712830848f8290dcfd196497ff5ff0c435f6638d6806566c6a413",
+  "artifact_id": "ART-3f7ccc0f067712830848f8290dcfd196497ff5ff0c435f6638d6806566c6a413",
+  "artifact_sha256": "a6c87dad13b2f69b8608097344c82da40fb863431bee2dfe63e95bab24dcc4f9",
+  "before_sha256": null,
+  "bytes": 1663,
+  "content": "# SEC-023 — Auditar Segurança de Dados\n\nMD Studio, HEAD f8eaf22. Revisão estática do produto local Tauri; nenhum código foi alterado.\n\nDados principais são Markdown do usuário em pasta escolhida; rascunhos ficam em localStorage. Não há backend multiusuário ou coleta analítica própria identificada.\n\n| Check | Resultado | Evidência/limite |\n| --- | --- | --- |\n| DA-001 Dados sensíveis armazenados sem proteção | partial | Campos potencialmente pessoais: conteúdo Markdown, nomes/caminhos de arquivo, rascunhos, histórico recente e metadados de índice. Rascunhos localStorage não são criptografados; proteção depende do host. |\n| DA-002 Dados excessivos armazenados | partial | Recentes e índice persistem paths/metadados; necessidade/minimização por campo não foi documentada. Sem evidência de envio remoto. |\n| DA-003 Ausência de política de retenção | partial | clearDraft remove rascunho após fluxo de save, mas rascunhos abandonados não têm TTL ou limpeza periódica demonstrada. |\n| DA-004 Ausência de anonimização | not_applicable | Sem analytics/relatório agregado ou dataset de terceiros que demande anonimização no produto. |\n| DA-005 Não conformidade com LGPD/GDPR | partial | Conformidade LGPD/GDPR depende de finalidade, distribuição e operação do usuário; código não basta para atestar conformidade ou infração. |\n\nFontes inspecionadas: `src/lib/drafts/recovery.ts`, `src/state/recent-files.ts`, `src-tauri/crates/md-studio-core/src/index/index_persistence.rs`.\n\nLimite geral: sem teste do pacote Tauri instalado, sem infraestrutura externa e sem afirmação de exploração para checks parciais.\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "reports/phase2/data-security-audit.md",
+  "source_path": "reports/phase2/data-security-audit.md",
+  "ts": "2026-09-23T13:06:29Z"
+}

@@ -2,19 +2,22 @@ name: Build Windows App
 
 on:
   push:
-    branches: [ main ]
-    tags: [ 'v*' ]
+    branches: [main]
+    tags: ["v*"]
   pull_request:
-    branches: [ main ]
+    branches: [main]
   workflow_dispatch:
     inputs:
       release_tag:
-        description: 'Tag do Release para anexar os executáveis (ex: v0.2.0)'
+        description: "Tag do Release para anexar os executáveis (ex: v0.2.0)"
         required: false
-        default: ''
+        default: ""
 
 jobs:
+  security:
+    uses: ./.github/workflows/security-gates.yml
   build-windows:
+    needs: security
     runs-on: windows-latest
     permissions:
       contents: write
@@ -29,24 +32,26 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22
-          cache: 'pnpm'
+          node-version: "22.14.0"
+          cache: "pnpm"
 
       - name: Setup Rust stable
         uses: dtolnay/rust-toolchain@stable
         with:
+          toolchain: "1.96.1"
+          components: rustfmt
           targets: x86_64-pc-windows-msvc
 
       - name: Rust Cache
         uses: swatinem/rust-cache@v2
         with:
-          workspaces: './src-tauri -> target'
+          workspaces: "./src-tauri -> target"
 
       - name: Install Frontend Dependencies
         run: pnpm install --frozen-lockfile
 
       - name: Build Windows Executable and Installer
-        run: pnpm tauri build
+        run: pnpm tauri build -- --locked
 
       - name: Upload Windows Artifacts
         uses: actions/upload-artifact@v4

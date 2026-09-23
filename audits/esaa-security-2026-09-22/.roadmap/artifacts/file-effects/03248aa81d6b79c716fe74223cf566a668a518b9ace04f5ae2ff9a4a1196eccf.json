@@ -1,0 +1,13 @@
+{
+  "after_sha256": "b05a553c22e91c2cdbac998a5e333b0e57645afed4e99ff81243c723f66167d1",
+  "artifact_id": "ART-b05a553c22e91c2cdbac998a5e333b0e57645afed4e99ff81243c723f66167d1",
+  "artifact_sha256": "03248aa81d6b79c716fe74223cf566a668a518b9ace04f5ae2ff9a4a1196eccf",
+  "before_sha256": null,
+  "bytes": 1292,
+  "content": "# SEC-017 — Auditar Segurança de Sessão\n\nMD Studio, HEAD f8eaf22. Revisão estática do produto local Tauri; nenhum código foi alterado.\n\nO estado persistido em src/state/session.ts são preferências visuais, não sessão autenticada. Sem cookies de login, token, HTTP ou CSRF.\n\n| Check | Resultado | Evidência/limite |\n| --- | --- | --- |\n| SS-001 Cookies sem httpOnly | not_applicable | Sem cookie/token/sessão autenticada ou mutação HTTP sujeita a CSRF. |\n| SS-002 Cookies sem Secure flag | not_applicable | Sem cookie/token/sessão autenticada ou mutação HTTP sujeita a CSRF. |\n| SS-003 SameSite ausente | not_applicable | Sem cookie/token/sessão autenticada ou mutação HTTP sujeita a CSRF. |\n| SS-004 Ausência de CSRF token | not_applicable | Sem cookie/token/sessão autenticada ou mutação HTTP sujeita a CSRF. |\n| SS-005 Sessões sem expiração | not_applicable | Sem cookie/token/sessão autenticada ou mutação HTTP sujeita a CSRF. |\n| SS-006 Tokens reutilizáveis | not_applicable | Sem cookie/token/sessão autenticada ou mutação HTTP sujeita a CSRF. |\n\nFontes inspecionadas: `src/state/session.ts`, `src-tauri/src/lib.rs`.\n\nLimite geral: sem teste do pacote Tauri instalado, sem infraestrutura externa e sem afirmação de exploração para checks parciais.\n",
+  "effect_scope": "workspace",
+  "encoding": "utf-8",
+  "path": "reports/phase2/session-security-audit.md",
+  "source_path": "reports/phase2/session-security-audit.md",
+  "ts": "2026-09-23T13:06:16Z"
+}

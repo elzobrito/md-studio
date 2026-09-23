@@ -1,0 +1,198 @@
+{
+  "task_id": "SEC-010",
+  "domain": "secrets_config",
+  "playbook_version": "1.2.1",
+  "checks_total": 8,
+  "checks_pass": 5,
+  "checks_fail": 0,
+  "checks_partial": 1,
+  "checks_na": 2,
+  "checks_error": 0,
+  "worst_severity": "INFO",
+  "duration_ms": 0,
+  "results": [
+    {
+      "check_id": "SC-001",
+      "check_name": "Segredos hardcoded no código",
+      "status": "pass",
+      "severity_if_fail": "CRITICAL",
+      "confidence": "low",
+      "evidence": {
+        "files": [],
+        "evidence_types": [
+          "tool_output"
+        ],
+        "evidence_sources": [
+          "git_grep"
+        ],
+        "fallback_applied": true,
+        "fallback_reason": "gitleaks indisponível",
+        "description": "Busca heurística de padrões em arquivos rastreados sem matches; histórico/ignorados não varridos."
+      },
+      "remediation": "Rodar scanner dedicado no histórico e releases.",
+      "cross_refs": []
+    },
+    {
+      "check_id": "SC-002",
+      "check_name": "Chaves API expostas no frontend",
+      "status": "pass",
+      "severity_if_fail": "CRITICAL",
+      "confidence": "medium",
+      "evidence": {
+        "files": [
+          "src/state/session.ts",
+          "src/state/settings.ts"
+        ],
+        "evidence_types": [
+          "code_reference"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Busca em src/ sem referências a API key/token de autenticação; armazenamento local observado é de preferências e rascunhos."
+      },
+      "remediation": "",
+      "cross_refs": [
+        "FE-001"
+      ]
+    },
+    {
+      "check_id": "SC-003",
+      "check_name": "Arquivos .env commitados no repositório",
+      "status": "pass",
+      "severity_if_fail": "HIGH",
+      "confidence": "high",
+      "evidence": {
+        "files": [
+          ".gitignore"
+        ],
+        "evidence_types": [
+          "tool_output",
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "git_ls_files",
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Nenhum .env rastreado no HEAD; .gitignore não contém regra .env*."
+      },
+      "remediation": "Adicionar proteção .env* ao ignore sem alterar arquivos locais.",
+      "cross_refs": []
+    },
+    {
+      "check_id": "SC-004",
+      "check_name": "CORS permissivo",
+      "status": "not_applicable",
+      "severity_if_fail": "HIGH",
+      "confidence": "high",
+      "evidence": {
+        "files": [
+          "src-tauri/src/lib.rs"
+        ],
+        "evidence_types": [
+          "code_reference"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Sem servidor HTTP próprio nem endpoint_base_url; comunicação via IPC Tauri."
+      },
+      "remediation": "",
+      "cross_refs": []
+    },
+    {
+      "check_id": "SC-005",
+      "check_name": "Debug mode habilitado em produção",
+      "status": "pass",
+      "severity_if_fail": "MEDIUM",
+      "confidence": "medium",
+      "evidence": {
+        "files": [
+          "src-tauri/tauri.conf.json"
+        ],
+        "evidence_types": [
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "devUrl distinto de frontendDist; binário de release não inspecionado. CSP permissiva não equivale a debug mode."
+      },
+      "remediation": "Revisar CSP separadamente.",
+      "cross_refs": [
+        "FE-002"
+      ]
+    },
+    {
+      "check_id": "SC-006",
+      "check_name": "Credenciais padrão ainda presentes",
+      "status": "not_applicable",
+      "severity_if_fail": "HIGH",
+      "confidence": "medium",
+      "evidence": {
+        "files": [],
+        "evidence_types": [
+          "code_reference"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Nenhum sistema de login/conta próprio identificado."
+      },
+      "remediation": "",
+      "cross_refs": []
+    },
+    {
+      "check_id": "SC-007",
+      "check_name": "Configurações de exemplo em produção",
+      "status": "pass",
+      "severity_if_fail": "MEDIUM",
+      "confidence": "medium",
+      "evidence": {
+        "files": [
+          "src-tauri/tauri.conf.json",
+          "src-tauri/capabilities/default.json"
+        ],
+        "evidence_types": [
+          "config_artifact"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Nenhuma configuração de demo/credencial de exemplo identificada nos arquivos rastreados; artefato final não inspecionado."
+      },
+      "remediation": "",
+      "cross_refs": []
+    },
+    {
+      "check_id": "SC-008",
+      "check_name": "Variáveis sensíveis expostas em logs",
+      "status": "partial",
+      "severity_if_fail": "HIGH",
+      "confidence": "medium",
+      "evidence": {
+        "files": [
+          "src/App.tsx",
+          "src/state/documentState.ts",
+          "src/components/MarkdownViewer.tsx"
+        ],
+        "evidence_types": [
+          "code_reference"
+        ],
+        "evidence_sources": [
+          "static_analysis"
+        ],
+        "fallback_applied": false,
+        "description": "Sem log explícito de token/env; console.error de objetos de erro pode revelar caminhos, sem teste dinâmico de mensagens."
+      },
+      "remediation": "Redigir mensagens e exercitar erros de I/O no runtime.",
+      "cross_refs": []
+    }
+  ]
+}
