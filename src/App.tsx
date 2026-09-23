@@ -37,6 +37,9 @@ import { NewDocumentModal } from "./components/editor/NewDocumentModal";
 import { DraftRecoveryDialog } from "./components/DraftRecoveryDialog";
 import { listRecoverableDrafts, removeDraftKey } from "./lib/drafts/recovery";
 import type { Template } from "./templates";
+import { PresentationMode } from "./presentation/PresentationMode";
+import { capturePreviousUiState } from "./presentation/presentation-session";
+import type { PreviousUiState } from "./presentation/types";
 import "./styles/print.css";
 
 const VIEW_OPTIONS: { id: ViewMode; label: string; title: string }[] = [
@@ -91,6 +94,48 @@ export function App() {
   const handleOpenNewDocument = useCallback(() => {
     setNewDocModalOpen(true);
   }, []);
+
+  const [presentationOpen, setPresentationOpen] = useState(false);
+  const savedUiState = useRef<PreviousUiState | null>(null);
+
+  const handleStartPresentation = useCallback(() => {
+    if (!hasActiveDocument) return;
+    const cursor = editorStore.getCursor();
+    const editorEl = document.querySelector('.cm-scroller');
+    const previewEl = document.querySelector('.preview-body');
+    savedUiState.current = capturePreviousUiState({
+      viewMode: session.viewMode,
+      leftOpen: session.leftOpen,
+      rightOpen: session.rightOpen,
+      cursorLine: cursor.line,
+      cursorCol: cursor.col,
+      editorScrollTop: editorEl?.scrollTop ?? 0,
+      previewScrollTop: previewEl?.scrollTop ?? 0,
+    });
+    setPresentationOpen(true);
+  }, [hasActiveDocument, session.viewMode, session.leftOpen, session.rightOpen]);
+
+  const handleClosePresentation = useCallback(() => {
+    setPresentationOpen(false);
+    if (savedUiState.current) {
+      const saved = savedUiState.current;
+      session.setViewMode(saved.viewMode);
+      if (saved.cursorFrom) {
+        editorStore.goToLine(saved.cursorFrom);
+      }
+      requestAnimationFrame(() => {
+        const editorEl = document.querySelector('.cm-scroller');
+        if (editorEl && saved.editorScrollTop) {
+          editorEl.scrollTop = saved.editorScrollTop;
+        }
+        const previewEl = document.querySelector('.preview-body');
+        if (previewEl && saved.previewScrollTop) {
+          previewEl.scrollTop = saved.previewScrollTop;
+        }
+      });
+      savedUiState.current = null;
+    }
+  }, [session]);
 
   const handleSelectTemplate = useCallback(
     (template: Template) => {
@@ -266,6 +311,20 @@ export function App() {
         category: "Visualização",
       },
       {
+        key: "F5",
+        action: () => {
+          if (hasActiveDocument) {
+            if (presentationOpen) {
+              handleClosePresentation();
+            } else {
+              handleStartPresentation();
+            }
+          }
+        },
+        description: "Alternar Modo Apresentação",
+        category: "Visualização",
+      },
+      {
         key: "n",
         ctrl: true,
         action: handleOpenNewDocument,
@@ -392,6 +451,10 @@ export function App() {
       handleOpenFileFromWelcome,
       handleOpenFolderFromWelcome,
       handleOpenNewDocument,
+      hasActiveDocument,
+      presentationOpen,
+      handleStartPresentation,
+      handleClosePresentation,
     ],
   );
 
@@ -471,6 +534,7 @@ export function App() {
               : undefined
         }
         onNewDocument={handleOpenNewDocument}
+        onStartPresentation={hasActiveDocument ? handleStartPresentation : undefined}
         onOpenSettings={() => setSettingsOpen(true)}
         onOpenShortcuts={() => setShortcutsModalOpen(true)}
         breadcrumb={
@@ -720,6 +784,13 @@ export function App() {
         />
       )}
     </div>
+      <PresentationMode
+        isOpen={presentationOpen}
+        content={doc.content}
+        activePath={doc.relativePath}
+        appTheme={settings.theme}
+        onClose={handleClosePresentation}
+      />
       <ConflictDialog
         open={!!doc.conflictPath}
         relativePath={doc.conflictPath ?? ""}

@@ -7,11 +7,11 @@
     "run": {
       "run_id": "RUN-0001",
       "status": "success",
-      "last_event_seq": 2437,
-      "projection_hash_sha256": "8a8ec0becbe67ad127781fc9fad991da6fec6580d1fdd1f139246a6b73aee2b0",
+      "last_event_seq": 2482,
+      "projection_hash_sha256": "52c28281dbe141374fdea2cebcf87d29166c6dab8c25e20bcc59b6b7339a167b",
       "verify_status": "ok"
     },
-    "updated_at": "2026-09-23T23:31:15Z"
+    "updated_at": "2026-09-23T23:47:54Z"
   },
   "project": {
     "name": "MD Studio",
@@ -7723,7 +7723,7 @@
       "task_kind": "impl",
       "title": "Reveal.js renderer local e gerenciamento de lifecycle",
       "description": "Empacotar Reveal.js localmente, carregar de forma lazy (sem CDN/rede), montar DOM de apresentação e gerenciar destruição limpa de listeners e recursos ao sair.",
-      "status": "todo",
+      "status": "done",
       "depends_on": [
         "MD-PRES-002"
       ],
@@ -7744,14 +7744,25 @@
         "tests/presentation/**"
       ],
       "task_type": "feature",
-      "required_review_mode": "functional"
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-23T23:32:01Z",
+      "verification": {
+        "checks": [
+          "Instalação e empacotamento local de reveal.js e @types/reveal.js (sem CDN e sem dependências remotas)",
+          "Implementação do controlador de lifecycle PresentationDeck com carregamento lazy e destruição limpa de listeners e DOM",
+          "Criação do componente PresentationStage e estilização CSS dedicada para projeção em telas grandes e projetores",
+          "Testes unitários de inicialização e destruição do deck aprovados com sucesso"
+        ]
+      },
+      "completed_at": "2026-09-23T23:34:15Z"
     },
     {
       "task_id": "MD-PRES-004",
       "task_kind": "impl",
       "title": "Integração de conteúdo rico nos slides (Shiki, KaTeX, Mermaid, assets locais)",
       "description": "Garantir renderização de blocos de código com Shiki, fórmulas com KaTeX, diagramas Mermaid com fallbacks e resolução de imagens locais conforme política de segurança.",
-      "status": "todo",
+      "status": "done",
       "depends_on": [
         "MD-PRES-002"
       ],
@@ -7770,14 +7781,23 @@
         "tests/presentation/**"
       ],
       "task_type": "feature",
-      "required_review_mode": "functional"
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-23T23:34:29Z",
+      "verification": {
+        "checks": [
+          "pnpm vitest run tests/presentation/rich-content.test.ts",
+          "pnpm typecheck"
+        ]
+      },
+      "completed_at": "2026-09-23T23:37:24Z"
     },
     {
       "task_id": "MD-PRES-005",
       "task_kind": "impl",
       "title": "Acionamento F5, navegação por teclado, fullscreen e restauração de UI",
       "description": "Vincular F5 para entrar/sair, navegação integral por teclado, overlay dominante, ativação graciosa de fullscreen e restauração precisa do estado do editor/preview.",
-      "status": "todo",
+      "status": "done",
       "depends_on": [
         "MD-PRES-003",
         "MD-PRES-004"
@@ -7798,14 +7818,23 @@
         "tests/presentation/**"
       ],
       "task_type": "feature",
-      "required_review_mode": "functional"
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-23T23:37:45Z",
+      "verification": {
+        "checks": [
+          "pnpm vitest run tests/presentation/session.test.tsx",
+          "pnpm typecheck"
+        ]
+      },
+      "completed_at": "2026-09-23T23:43:37Z"
     },
     {
       "task_id": "MD-PRES-006",
       "task_kind": "impl",
       "title": "Tratamento de fallbacks, acessibilidade e prefers-reduced-motion",
       "description": "Implementar degradação graciosa para erros de fórmulas/diagramas, suporte a reduced motion, contraste adequado e estados vazios.",
-      "status": "todo",
+      "status": "done",
       "depends_on": [
         "MD-PRES-005"
       ],
@@ -7825,14 +7854,23 @@
         "tests/presentation/**"
       ],
       "task_type": "feature",
-      "required_review_mode": "functional"
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-23T23:43:51Z",
+      "verification": {
+        "checks": [
+          "pnpm vitest run tests/presentation/accessibility.test.ts",
+          "pnpm typecheck"
+        ]
+      },
+      "completed_at": "2026-09-23T23:46:05Z"
     },
     {
       "task_id": "MD-PRES-007",
       "task_kind": "qa",
       "title": "QA, suíte de regressão, testes de performance e encerramento da Onda-PRES",
       "description": "Validar todos os 82-85 critérios de aceitação, testes de ciclo repetido, regressão do editor/preview/autosave e fechamento da capability v0.2.3.",
-      "status": "todo",
+      "status": "done",
       "depends_on": [
         "MD-PRES-006"
       ],
@@ -7851,13 +7889,22 @@
         "docs/**"
       ],
       "task_type": "feature",
-      "required_review_mode": "regression"
+      "required_review_mode": "regression",
+      "assigned_to": "agent-qa",
+      "started_at": "2026-09-23T23:46:31Z",
+      "verification": {
+        "checks": [
+          "pnpm vitest run tests/presentation/lifecycle.test.ts",
+          "pnpm test",
+          "pnpm typecheck"
+        ]
+      },
+      "completed_at": "2026-09-23T23:47:53Z"
     }
   ],
   "indexes": {
     "by_status": {
-      "done": 203,
-      "todo": 5
+      "done": 208
     },
     "by_kind": {
       "impl": 151,

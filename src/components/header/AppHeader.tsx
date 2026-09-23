@@ -25,6 +25,7 @@ interface Props {
   onOpenSearch?: () => void;
   onOpenSettings?: () => void;
   onOpenShortcuts?: () => void;
+  onStartPresentation?: () => void;
   breadcrumb?: ReactNode;
 }
 
@@ -45,6 +46,7 @@ export function AppHeader({
   onOpenSearch,
   onOpenSettings,
   onOpenShortcuts,
+  onStartPresentation,
   breadcrumb,
 }: Props) {
   const { status, errorMessage } = useSaveStatus(fileName);
@@ -112,6 +114,18 @@ export function AppHeader({
           >
             ≡
           </button>
+
+          {onStartPresentation && (
+            <button
+              type="button"
+              className="toolbar-action-btn"
+              onClick={onStartPresentation}
+              title="Modo Apresentação (F5)"
+              aria-label="Modo Apresentação"
+            >
+              📽️
+            </button>
+          )}
 
           <SaveButton
             status={status}

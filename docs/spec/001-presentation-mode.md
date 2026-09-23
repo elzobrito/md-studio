@@ -2031,20 +2031,20 @@ Roteiro mínimo:
 A capability estará funcionalmente aceita quando:
 
 ```text
-[ ] F5 inicia Presentation Mode com documento ativo
-[ ] documento em memória é a fonte
-[ ] entrar no modo não altera Markdown
-[ ] entrar no modo não força save
-[ ] slides são derivados deterministicamente
-[ ] Reveal.js é carregado localmente
-[ ] navegação por teclado funciona
-[ ] Shiki funciona
-[ ] KaTeX funciona
-[ ] Mermaid funciona ou degrada com fallback
-[ ] imagens locais funcionam ou mostram placeholder
-[ ] sair restaura o contexto anterior
-[ ] múltiplas sessões não duplicam listeners
-[ ] nenhum acesso remoto é necessário
+[x] F5 inicia Presentation Mode com documento ativo
+[x] documento em memória é a fonte
+[x] entrar no modo não altera Markdown
+[x] entrar no modo não força save
+[x] slides são derivados deterministicamente
+[x] Reveal.js é carregado localmente
+[x] navegação por teclado funciona
+[x] Shiki funciona
+[x] KaTeX funciona
+[x] Mermaid funciona ou degrada com fallback
+[x] imagens locais funcionam ou mostram placeholder
+[x] sair restaura o contexto anterior
+[x] múltiplas sessões não duplicam listeners
+[x] nenhum acesso remoto é necessário
 ```
 
 ---
@@ -2052,15 +2052,15 @@ A capability estará funcionalmente aceita quando:
 ## 83. Critérios de aceitação arquiteturais
 
 ```text
-[ ] parser Markdown não foi duplicado
-[ ] pipeline existente foi reutilizado
-[ ] PresentationModel é derivado e descartável
-[ ] nenhuma nova fonte de verdade foi criada
-[ ] sem armazenamento paralelo dos slides
-[ ] sem IPC desnecessário
-[ ] sem dependência cloud
-[ ] sem execução de código
-[ ] capability isolada da futura Command Palette
+[x] parser Markdown não foi duplicado
+[x] pipeline existente foi reutilizado
+[x] PresentationModel é derivado e descartável
+[x] nenhuma nova fonte de verdade foi criada
+[x] sem armazenamento paralelo dos slides
+[x] sem IPC desnecessário
+[x] sem dependência cloud
+[x] sem execução de código
+[x] capability isolada da futura Command Palette
 ```
 
 ---
@@ -2068,14 +2068,14 @@ A capability estará funcionalmente aceita quando:
 ## 84. Critérios de aceitação de segurança
 
 ```text
-[ ] rehype-sanitize/política equivalente preservada
-[ ] script do Markdown não executa
-[ ] handlers inline não executam
-[ ] Reveal.js não usa CDN
-[ ] assets externos não são buscados automaticamente
-[ ] paths locais seguem política existente
-[ ] nenhum conteúdo é enviado por rede
-[ ] nenhuma telemetria é criada
+[x] rehype-sanitize/política equivalente preservada
+[x] script do Markdown não executa
+[x] handlers inline não executam
+[x] Reveal.js não usa CDN
+[x] assets externos não são buscados automaticamente
+[x] paths locais seguem política existente
+[x] nenhum conteúdo é enviado por rede
+[x] nenhuma telemetria é criada
 ```
 
 ---
@@ -2083,14 +2083,14 @@ A capability estará funcionalmente aceita quando:
 ## 85. Critérios de aceitação de UX
 
 ```text
-[ ] entrada previsível
-[ ] saída previsível
-[ ] sem flash branco relevante
-[ ] apresentação domina viewport
-[ ] controles não poluem o slide
-[ ] tema claro/escuro coerente
-[ ] slide number/progress legíveis
-[ ] conteúdo nunca desaparece silenciosamente
+[x] entrada previsível
+[x] saída previsível
+[x] sem flash branco relevante
+[x] apresentação domina viewport
+[x] controles não poluem o slide
+[x] tema claro/escuro coerente
+[x] slide number/progress legíveis
+[x] conteúdo nunca desaparece silenciosamente
 ```
 
 ---

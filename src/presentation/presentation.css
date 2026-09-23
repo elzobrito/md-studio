@@ -1,0 +1,391 @@
+/**
+ * Estilos do Presentation Mode (MD Studio / Onda-PRES)
+ */
+
+@import "reveal.js/reveal.css";
+
+.md-presentation-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: var(--pres-bg, #0f141c);
+  color: var(--pres-text, #e6edf3);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  user-select: text;
+}
+
+/* Tema Escuro (Padrão) */
+.md-presentation-overlay.theme-dark {
+  --pres-bg: #0d1117;
+  --pres-text: #e6edf3;
+  --pres-heading: #58a6ff;
+  --pres-code-bg: #161b22;
+  --pres-border: #30363d;
+  --pres-accent: #2f81f7;
+}
+
+/* Tema Claro */
+.md-presentation-overlay.theme-light {
+  --pres-bg: #ffffff;
+  --pres-text: #1f2328;
+  --pres-heading: #0969da;
+  --pres-code-bg: #f6f8fa;
+  --pres-border: #d0d7de;
+  --pres-accent: #0969da;
+}
+
+/* Palco de Slides Reveal */
+.md-presentation-overlay .reveal {
+  width: 100%;
+  height: 100%;
+}
+
+.md-presentation-overlay .reveal .slides {
+  text-align: left;
+}
+
+.md-presentation-overlay .reveal .slides section {
+  padding: 2.5rem 3rem;
+  box-sizing: border-box;
+  font-size: 1.6rem;
+  line-height: 1.6;
+}
+
+/* Tipografia de Apresentação */
+.md-presentation-overlay h1,
+.md-presentation-overlay h2,
+.md-presentation-overlay h3,
+.md-presentation-overlay h4,
+.md-presentation-overlay h5,
+.md-presentation-overlay h6 {
+  color: var(--pres-heading);
+  font-weight: 700;
+  margin-top: 0;
+  margin-bottom: 1.2rem;
+  line-height: 1.25;
+}
+
+.md-presentation-overlay h1 {
+  font-size: 2.8rem;
+  border-bottom: 2px solid var(--pres-border);
+  padding-bottom: 0.6rem;
+}
+
+.md-presentation-overlay h2 {
+  font-size: 2.2rem;
+  border-bottom: 1px solid var(--pres-border);
+  padding-bottom: 0.4rem;
+}
+
+.md-presentation-overlay h3 {
+  font-size: 1.7rem;
+}
+
+.md-presentation-overlay p,
+.md-presentation-overlay ul,
+.md-presentation-overlay ol {
+  margin-bottom: 1.2rem;
+}
+
+.md-presentation-overlay ul,
+.md-presentation-overlay ol {
+  padding-left: 2rem;
+}
+
+.md-presentation-overlay li {
+  margin-bottom: 0.5rem;
+}
+
+/* Blocos de Código e Shiki */
+.md-presentation-overlay pre {
+  background: var(--pres-code-bg);
+  border: 1px solid var(--pres-border);
+  border-radius: 8px;
+  padding: 1.2rem 1.4rem;
+  overflow-x: auto;
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 1.25rem;
+  line-height: 1.5;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.md-presentation-overlay code:not(pre code) {
+  background: var(--pres-code-bg);
+  border: 1px solid var(--pres-border);
+  border-radius: 4px;
+  padding: 0.2rem 0.4rem;
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 1.2rem;
+}
+
+/* Tabelas */
+.md-presentation-overlay table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 1.3rem;
+}
+
+.md-presentation-overlay th,
+.md-presentation-overlay td {
+  border: 1px solid var(--pres-border);
+  padding: 0.8rem 1rem;
+}
+
+.md-presentation-overlay th {
+  background: var(--pres-code-bg);
+  font-weight: 600;
+}
+
+/* Botão Discreto de Saída */
+.md-presentation-exit-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  z-index: 10000;
+  background: rgba(0, 0, 0, 0.45);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 6px;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  opacity: 0.35;
+  transition: opacity 0.2s ease, background 0.2s ease;
+}
+
+.md-presentation-exit-btn:hover {
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.85);
+}
+
+/* Diagramas Mermaid e KaTeX */
+.md-presentation-overlay .mermaid-diagram-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1.5rem 0;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.md-presentation-overlay .mermaid-rendered svg {
+  max-width: 100%;
+  height: auto;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.25));
+}
+
+.md-presentation-overlay .mermaid-presentation-error {
+  width: 100%;
+  border: 1px dashed #d29922;
+  border-radius: 8px;
+  background: rgba(210, 153, 34, 0.1);
+  padding: 1rem;
+}
+
+.md-presentation-overlay .mermaid-error-badge {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #d29922;
+  margin-bottom: 0.8rem;
+}
+
+.md-presentation-overlay .katex-display {
+  margin: 1.5rem 0;
+  font-size: 1.8rem;
+}
+
+/* Fallback de Imagem Ausente */
+.md-presentation-overlay .presentation-image-fallback {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 2rem;
+  border: 2px dashed var(--pres-border);
+  border-radius: 8px;
+  background: rgba(128, 128, 128, 0.08);
+  color: var(--pres-text);
+  margin: 1rem 0;
+}
+
+.md-presentation-overlay .presentation-image-fallback .fallback-icon {
+  font-size: 2.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.md-presentation-overlay .presentation-image-fallback .fallback-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 0.3rem;
+  opacity: 0.9;
+}
+
+.md-presentation-overlay .presentation-image-fallback .fallback-src {
+  font-family: ui-monospace, SFMono-Regular, monospace;
+  font-size: 0.9rem;
+  opacity: 0.6;
+}
+
+.md-presentation-overlay .presentation-image-fallback .fallback-alt {
+  font-size: 0.85rem;
+  font-style: italic;
+  margin-top: 0.3rem;
+  opacity: 0.7;
+}
+
+/* Badge de Linguagem em Blocos de Código */
+.md-presentation-overlay .presentation-code-badge {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.8rem;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid var(--pres-border);
+  border-radius: 4px;
+  padding: 0.15rem 0.5rem;
+  font-size: 0.75rem;
+  font-family: inherit;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+/* Fallback de Erro de Slide */
+.md-presentation-overlay .slide-error-fallback {
+  border: 2px dashed #f85149;
+  border-radius: 8px;
+  padding: 1.5rem;
+  background: rgba(248, 81, 73, 0.1);
+}
+
+/* Indicador de Preparação (Loading) */
+.md-presentation-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.md-presentation-loading-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1.2rem;
+  color: var(--pres-text);
+}
+
+.md-presentation-spinner {
+  width: 42px;
+  height: 42px;
+  border: 3px solid rgba(255, 255, 255, 0.2);
+  border-top-color: var(--pres-heading);
+  border-radius: 50%;
+  animation: md-pres-spin 0.8s linear infinite;
+}
+
+@keyframes md-pres-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Tela de Erro de Apresentação */
+.md-presentation-error-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.md-presentation-error-card {
+  max-width: 500px;
+  background: var(--pres-code-bg);
+  border: 1px solid #f85149;
+  border-radius: 10px;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.md-presentation-error-card h2 {
+  color: #f85149;
+  margin-bottom: 1rem;
+}
+
+.md-presentation-back-btn {
+  margin-top: 1.5rem;
+  background: var(--pres-heading);
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* Tela de Apresentação Vazia */
+.md-presentation-empty-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.md-presentation-empty-card {
+  max-width: 480px;
+  background: var(--pres-code-bg);
+  border: 1px solid var(--pres-border);
+  border-radius: 12px;
+  padding: 2.5rem 2rem;
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+}
+
+.md-presentation-empty-icon {
+  font-size: 3rem;
+  margin-bottom: 0.8rem;
+}
+
+.md-presentation-empty-card h2 {
+  font-size: 1.8rem;
+  margin-bottom: 0.6rem;
+  color: var(--pres-heading);
+}
+
+.md-presentation-empty-card p {
+  color: var(--pres-text);
+  opacity: 0.85;
+  font-size: 1.15rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Foco Acessível */
+.md-presentation-overlay button:focus-visible,
+.md-presentation-overlay a:focus-visible {
+  outline: 2px solid var(--pres-heading);
+  outline-offset: 3px;
+}
+
+/* Redução de Movimento (Acessibilidade) */
+@media (prefers-reduced-motion: reduce) {
+  .md-presentation-overlay *,
+  .md-presentation-overlay *::before,
+  .md-presentation-overlay *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  .md-presentation-spinner {
+    animation: none !important;
+  }
+}
+
+
+
