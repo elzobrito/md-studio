@@ -14,56 +14,71 @@ Projetado especificamente para engenheiros de software, autores técnicos e equi
 
 ---
 
-## Downloads e Instalação (v0.2.0)
+## Downloads e Instalação (v0.2.1)
 
-Você pode baixar os pacotes pré-compilados diretamente da página de [Releases do GitHub](https://github.com/elzobrito/md-studio/releases/latest):
+Você pode baixar os pacotes pré-compilados diretamente da página de [Releases do GitHub](https://github.com/elzobrito/md-studio/releases/latest) ou instalar via Ubuntu Snap Store:
 
-### Windows (Instalador `.exe` NSIS)
-Recomendado para a maioria dos usuários Windows (Windows 10 e 11 x64):
-```powershell
-# 1. Baixar o instalador da versão v0.2.0
-Invoke-WebRequest -Uri "https://github.com/elzobrito/md-studio/releases/download/v0.2.0/MD.Studio_0.2.0_x64-setup.exe" -OutFile "MD.Studio_0.2.0_x64-setup.exe"
-
-# 2. Executar o instalador
-Start-Process .\MD.Studio_0.2.0_x64-setup.exe
+### Linux — Ubuntu Snap Store (Oficial)
+Disponível nos canais oficiais da Canonical Snap Store para distribuições Ubuntu e sistemas com suporte a Snap:
+```bash
+sudo snap install md-studio
 ```
-*Ou baixe diretamente pelo navegador:* [MD.Studio_0.2.0_x64-setup.exe](https://github.com/elzobrito/md-studio/releases/download/v0.2.0/MD.Studio_0.2.0_x64-setup.exe)
-
-### Windows (Pacote MSI `.msi`)
-Recomendado para ambientes corporativos e instalação automatizada / silenciosa:
-```powershell
-# 1. Baixar o pacote MSI da versão v0.2.0
-Invoke-WebRequest -Uri "https://github.com/elzobrito/md-studio/releases/download/v0.2.0/MD.Studio_0.2.0_x64_en-US.msi" -OutFile "MD.Studio_0.2.0_x64_en-US.msi"
-
-# 2. Instalação silenciosa via linha de comando
-msiexec /i MD.Studio_0.2.0_x64_en-US.msi /quiet /qn
-```
-*Ou baixe diretamente pelo navegador:* [MD.Studio_0.2.0_x64_en-US.msi](https://github.com/elzobrito/md-studio/releases/download/v0.2.0/MD.Studio_0.2.0_x64_en-US.msi)
+*(Ou busque por **MD Studio** na Central de Aplicativos / Ubuntu Software).*
 
 ### Linux — Pacote Debian / Ubuntu (`.deb`)
 ```bash
-# 1. Baixar o arquivo .deb da versão v0.2.0
-wget https://github.com/elzobrito/md-studio/releases/download/v0.2.0/md-studio_0.2.0_amd64.deb
+# 1. Baixar o arquivo .deb da versão v0.2.1
+wget https://github.com/elzobrito/md-studio/releases/download/v0.2.1/md-studio_0.2.1_amd64.deb
 
 # 2. Instalar no sistema
-sudo apt install ./md-studio_0.2.0_amd64.deb
+sudo apt install ./md-studio_0.2.1_amd64.deb
 
 # 3. Executar pelo lançador de aplicativos ou via terminal:
 md-studio
 ```
 
 ### Linux — Executável Portátil (`AppImage`)
-Compatível com qualquer distribuição Linux (Ubuntu, Debian, Fedora, Arch, openSUSE):
+Compatível com distribuições Linux (Ubuntu, Debian, Fedora, Arch, openSUSE, Slackware):
 ```bash
-# 1. Baixar o AppImage da versão v0.2.0
-wget https://github.com/elzobrito/md-studio/releases/download/v0.2.0/md-studio_0.2.0_amd64.AppImage
+# 1. Baixar o AppImage da versão v0.2.1
+wget https://github.com/elzobrito/md-studio/releases/download/v0.2.1/md-studio_0.2.1_amd64.AppImage
 
 # 2. Dar permissão de execução
-chmod +x md-studio_0.2.0_amd64.AppImage
+chmod +x md-studio_0.2.1_amd64.AppImage
 
 # 3. Executar diretamente
-./md-studio_0.2.0_amd64.AppImage
+./md-studio_0.2.1_amd64.AppImage
 ```
+
+> **Dica de Compatibilidade Gráfica (ex.: Slackware ou drivers gráficos legados):**  
+> Em algumas distribuições (como Slackware) ou ambientes com drivers gráficos NVIDIA/Mesa onde o WebKitGTK exibe uma janela vazia/em branco por conflito de aceleração de hardware via DMA-BUF, inicie a aplicação com a variável `WEBKIT_DISABLE_DMABUF_RENDERER=1`:
+> ```bash
+> WEBKIT_DISABLE_DMABUF_RENDERER=1 md-studio
+> # ou para AppImage:
+> WEBKIT_DISABLE_DMABUF_RENDERER=1 ./md-studio_0.2.1_amd64.AppImage
+> ```
+
+### Windows (Instalador `.exe` NSIS)
+Recomendado para a maioria dos usuários Windows (Windows 10 e 11 x64):
+```powershell
+# 1. Baixar o instalador da versão v0.2.1
+Invoke-WebRequest -Uri "https://github.com/elzobrito/md-studio/releases/download/v0.2.1/MD.Studio_0.2.1_x64-setup.exe" -OutFile "MD.Studio_0.2.1_x64-setup.exe"
+
+# 2. Executar o instalador
+Start-Process .\MD.Studio_0.2.1_x64-setup.exe
+```
+*Ou baixe diretamente pelo navegador:* [MD.Studio_0.2.1_x64-setup.exe](https://github.com/elzobrito/md-studio/releases/download/v0.2.1/MD.Studio_0.2.1_x64-setup.exe)
+
+### Windows (Pacote MSI `.msi`)
+Recomendado para ambientes corporativos e instalação automatizada / silenciosa:
+```powershell
+# 1. Baixar o pacote MSI da versão v0.2.1
+Invoke-WebRequest -Uri "https://github.com/elzobrito/md-studio/releases/download/v0.2.1/MD.Studio_0.2.1_x64_en-US.msi" -OutFile "MD.Studio_0.2.1_x64_en-US.msi"
+
+# 2. Instalação silenciosa via linha de comando
+msiexec /i MD.Studio_0.2.1_x64_en-US.msi /quiet /qn
+```
+*Ou baixe diretamente pelo navegador:* [MD.Studio_0.2.1_x64_en-US.msi](https://github.com/elzobrito/md-studio/releases/download/v0.2.1/MD.Studio_0.2.1_x64_en-US.msi)
 
 ![Tela inicial do MD Studio](docs/screenshots/welcome.png)
 
@@ -200,6 +215,15 @@ Os pacotes gerados ficam disponíveis em:
   - `src-tauri/target/release/bundle/msi/*.msi`
 
 Consulte detalhes adicionais em [docs/release/PACKAGING.md](docs/release/PACKAGING.md).
+
+---
+
+## Documentação Técnica e Guias
+
+- **[Índice Mestre de Documentação Técnica](docs/README.md):** Mapa centralizado da arquitetura, contratos IPC, PRDs, modelo de segurança e engenharia.
+- **[Mapa de Funcionalidades, Funções e Rotas](docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md):** Catálogo exaustivo de todos os 20 comandos IPC Tauri, 2 canais de eventos, hooks e cadeias de execução.
+- **[Guia Técnico de Autoria e Sintaxe](docs/user-guide/MARKDOWN_GUIDE.md):** Manual completo de recursos (TextMate Shiki, KaTeX, Mermaid, Wiki Links, Backlinks e formatadores CLI).
+- **[Relatório da Auditoria de Segurança Formal](audits/esaa-security-2026-09-23/reports/final/security-audit-report.md):** Auditoria ESAA-Security com score formal de **71.44/100 (Bom)**.
 
 ---
 

@@ -22,15 +22,18 @@ sobrescrita de alterações externas.
 
 - Editor CodeMirror 6 com documento ativo único na v1, desfazer/refazer,
   atalhos e indicador dirty.
-- `Ctrl+S` é o mecanismo padrão de persistência; autosave do arquivo-fonte fica
-  desligado.
+- Persistência explícita via `Ctrl+S` e salvamento automático (*Auto-Save*)
+  configurável com debounce (1000ms a 5000ms, padrão 1500ms).
+- O Auto-Save integra-se com o `WatcherHub` no Rust para registrar o hash SHA-256
+  e timestamp das escritas internas, suprimindo eventos de eco do `inotify` e
+  prevenindo falsos positivos de conflito durante a digitação.
 - A leitura retorna conteúdo, encoding suportado, mtime e hash. O salvamento
   envia o hash esperado e falha com conflito se o arquivo mudou externamente.
 - A gravação é atômica: arquivo temporário no mesmo filesystem, flush/fsync e
   rename, preservando o original quando qualquer etapa falhar.
-- Rascunhos de recuperação são separados do arquivo-fonte, identificados pelo
-  workspace/documento e descartados somente após salvamento confirmado ou
-  decisão explícita do usuário.
+- Rascunhos de recuperação são armazenados localmente (`localStorage`), separados
+  do arquivo-fonte, com retenção máxima de 90 dias, aviso visual a partir de 75 dias
+  e expiração/limpeza segura.
 - Conflitos oferecem recarregar, comparar ou salvar como novo arquivo; nunca
   sobrescrevem silenciosamente.
 

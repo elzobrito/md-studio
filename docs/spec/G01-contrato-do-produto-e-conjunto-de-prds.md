@@ -7,7 +7,7 @@ Congelar o contrato executável da v1 do MD Studio sem decisões pendentes de pr
 - Editor Markdown em código-fonte (CodeMirror 6), sem WYSIWYG.
 - Preview seguro CommonMark/GFM + extensões documentadas (alertas, diretivas, Mermaid, KaTeX).
 - Workspace local: árvore, busca, watcher, sessão recente.
-- Persistência explícita (Ctrl+S), hash de versão, conflitos e rascunho de recuperação fora da fonte.
+- Persistência explícita (Ctrl+S) e Auto-Save silencioso com debounce configurável e supressão interna via WatcherHub, hash de versão, controle de conflitos e rascunhos de recuperação locais (90 dias).
 - Export HTML autossuficiente + impressão/PDF via sistema.
 - Linux-first, offline, single-user, sem telemetria.
 - Wiki Links internos (Onda 2) e Backlinks internos sob demanda (Onda 3).
@@ -26,7 +26,7 @@ WYSIWYG, colaboração, cloud sync, plugins JS, Obsidian completo, Pandoc, BibTe
 ## Critérios de aceite G01
 1. PRDs e PROJETO.md cobrem fluxos principais e exclusões.
 2. Stack aprovada: Tauri 2, Rust, React, TS, CodeMirror 6, Unified.
-3. Nenhuma ambiguidade sobre autosave da fonte (desligado) e gravação atômica.
+3. Nenhuma ambiguidade sobre persistência atômica, salvamento automático com debounce/supressão de eco no WatcherHub e rascunhos de recuperação.
 4. Extensões não-GFM rotuladas como próprias do produto.
 5. Documento de spec (este arquivo) é a referência de SPEC para o grupo.
 

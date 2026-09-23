@@ -7,11 +7,11 @@
     "run": {
       "run_id": "RUN-0001",
       "status": "success",
-      "last_event_seq": 2338,
-      "projection_hash_sha256": "aa5ca6945717a00d78ce920be78c1480fff1e334e77726fc0d86e3a620ac90fb",
+      "last_event_seq": 2350,
+      "projection_hash_sha256": "b99bbaac41585ecf7dcf335023c5d39874de574d65e9af8aa6680c72d0ebb2c0",
       "verify_status": "ok"
     },
-    "updated_at": "2026-09-23T15:57:05Z"
+    "updated_at": "2026-09-23T16:43:37Z"
   },
   "project": {
     "name": "MD Studio",
@@ -7448,14 +7448,57 @@
         ]
       },
       "completed_at": "2026-09-23T15:57:05Z"
+    },
+    {
+      "task_id": "MD-DOCS-CONSOLIDATION-001",
+      "task_kind": "impl",
+      "title": "Consolidacao e harmonizacao da documentacao tecnica do MD Studio v0.2.1",
+      "description": "Atualizar README para v0.2.1 e canal snap, documentar WEBKIT_DISABLE_DMABUF_RENDERER=1, harmonizar PRD e G01 com autosave real, criar indice mestre docs/README.md, atualizar PACKAGING.md e criar docs/user-guide/MARKDOWN_GUIDE.md.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "README.md",
+        "docs/README.md",
+        "docs/release/PACKAGING.md",
+        "docs/operations/diagnostics.md",
+        "app/PRD-MD-STUDIO-CORE.md",
+        "docs/spec/G01-contrato-do-produto-e-conjunto-de-prds.md",
+        "docs/user-guide/MARKDOWN_GUIDE.md"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "docs/**",
+        "app/**",
+        "README.md"
+      ],
+      "task_type": "maintenance",
+      "required_review_mode": "docs",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-23T16:41:04Z",
+      "verification": {
+        "checks": [
+          "README.md atualizado para v0.2.1, incluindo instalacao do Snap oficial e guia de compatibilidade grafica",
+          "docs/release/PACKAGING.md enriquecido com empacotamento Snap core24, publicacao na Snap Store e WEBKIT_DISABLE_DMABUF_RENDERER=1",
+          "docs/operations/diagnostics.md expandido com codigos IPC, troubleshooting de tela em branco no WebKitGTK e limites de inotify",
+          "PRD-MD-STUDIO-CORE.md e G01 harmonizados com Auto-Save atômico, debounce e supressao WatcherHub",
+          "docs/README.md criado como indice mestre central de navegacao da documentacao tecnica do produto",
+          "docs/user-guide/MARKDOWN_GUIDE.md criado como manual tecnico completo de autoria, sintaxe, formatadores CLI e diagramas"
+        ]
+      },
+      "completed_at": "2026-09-23T16:43:37Z"
     }
   ],
   "indexes": {
     "by_status": {
-      "done": 196
+      "done": 197
     },
     "by_kind": {
-      "impl": 140,
+      "impl": 141,
       "qa": 31,
       "spec": 25
     }
