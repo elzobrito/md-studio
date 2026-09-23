@@ -14,7 +14,7 @@ Projetado especificamente para engenheiros de software, autores técnicos e equi
 
 ---
 
-## Downloads e Instalação (v0.2.1)
+## Downloads e Instalação (v0.2.2)
 
 Você pode baixar os pacotes pré-compilados diretamente da página de [Releases do GitHub](https://github.com/elzobrito/md-studio/releases/latest) ou instalar via Ubuntu Snap Store:
 
@@ -27,11 +27,11 @@ sudo snap install md-studio
 
 ### Linux — Pacote Debian / Ubuntu (`.deb`)
 ```bash
-# 1. Baixar o arquivo .deb da versão v0.2.1
-wget https://github.com/elzobrito/md-studio/releases/download/v0.2.1/md-studio_0.2.1_amd64.deb
+# 1. Baixar o arquivo .deb da versão v0.2.2
+wget https://github.com/elzobrito/md-studio/releases/download/v0.2.2/md-studio_0.2.2_amd64.deb
 
 # 2. Instalar no sistema
-sudo apt install ./md-studio_0.2.1_amd64.deb
+sudo apt install ./md-studio_0.2.2_amd64.deb
 
 # 3. Executar pelo lançador de aplicativos ou via terminal:
 md-studio
@@ -40,14 +40,25 @@ md-studio
 ### Linux — Executável Portátil (`AppImage`)
 Compatível com distribuições Linux (Ubuntu, Debian, Fedora, Arch, openSUSE, Slackware):
 ```bash
-# 1. Baixar o AppImage da versão v0.2.1
-wget https://github.com/elzobrito/md-studio/releases/download/v0.2.1/md-studio_0.2.1_amd64.AppImage
+# 1. Baixar o AppImage da versão v0.2.2
+wget https://github.com/elzobrito/md-studio/releases/download/v0.2.2/md-studio_0.2.2_amd64.AppImage
 
 # 2. Dar permissão de execução
-chmod +x md-studio_0.2.1_amd64.AppImage
+chmod +x md-studio_0.2.2_amd64.AppImage
 
 # 3. Executar diretamente
-./md-studio_0.2.1_amd64.AppImage
+./md-studio_0.2.2_amd64.AppImage
+```
+
+### Linux — Pacote Fedora / Red Hat / openSUSE (`.rpm`)
+```bash
+# 1. Baixar o pacote .rpm da versão v0.2.2
+wget https://github.com/elzobrito/md-studio/releases/download/v0.2.2/md-studio-0.2.2-1.x86_64.rpm
+
+# 2. Instalar no sistema
+sudo dnf install ./md-studio-0.2.2-1.x86_64.rpm
+# ou no openSUSE:
+# sudo zypper install ./md-studio-0.2.2-1.x86_64.rpm
 ```
 
 > **Dica de Compatibilidade Gráfica (ex.: Slackware ou drivers gráficos legados):**  
@@ -55,30 +66,30 @@ chmod +x md-studio_0.2.1_amd64.AppImage
 > ```bash
 > WEBKIT_DISABLE_DMABUF_RENDERER=1 md-studio
 > # ou para AppImage:
-> WEBKIT_DISABLE_DMABUF_RENDERER=1 ./md-studio_0.2.1_amd64.AppImage
+> WEBKIT_DISABLE_DMABUF_RENDERER=1 ./md-studio_0.2.2_amd64.AppImage
 > ```
 
 ### Windows (Instalador `.exe` NSIS)
 Recomendado para a maioria dos usuários Windows (Windows 10 e 11 x64):
 ```powershell
-# 1. Baixar o instalador da versão v0.2.1
-Invoke-WebRequest -Uri "https://github.com/elzobrito/md-studio/releases/download/v0.2.1/MD.Studio_0.2.1_x64-setup.exe" -OutFile "MD.Studio_0.2.1_x64-setup.exe"
+# 1. Baixar o instalador da versão v0.2.2
+Invoke-WebRequest -Uri "https://github.com/elzobrito/md-studio/releases/download/v0.2.2/MD.Studio_0.2.2_x64-setup.exe" -OutFile "MD.Studio_0.2.2_x64-setup.exe"
 
 # 2. Executar o instalador
-Start-Process .\MD.Studio_0.2.1_x64-setup.exe
+Start-Process .\MD.Studio_0.2.2_x64-setup.exe
 ```
-*Ou baixe diretamente pelo navegador:* [MD.Studio_0.2.1_x64-setup.exe](https://github.com/elzobrito/md-studio/releases/download/v0.2.1/MD.Studio_0.2.1_x64-setup.exe)
+*Ou baixe diretamente pelo navegador:* [MD.Studio_0.2.2_x64-setup.exe](https://github.com/elzobrito/md-studio/releases/download/v0.2.2/MD.Studio_0.2.2_x64-setup.exe)
 
 ### Windows (Pacote MSI `.msi`)
 Recomendado para ambientes corporativos e instalação automatizada / silenciosa:
 ```powershell
-# 1. Baixar o pacote MSI da versão v0.2.1
-Invoke-WebRequest -Uri "https://github.com/elzobrito/md-studio/releases/download/v0.2.1/MD.Studio_0.2.1_x64_en-US.msi" -OutFile "MD.Studio_0.2.1_x64_en-US.msi"
+# 1. Baixar o pacote MSI da versão v0.2.2
+Invoke-WebRequest -Uri "https://github.com/elzobrito/md-studio/releases/download/v0.2.2/MD.Studio_0.2.2_x64_en-US.msi" -OutFile "MD.Studio_0.2.2_x64_en-US.msi"
 
 # 2. Instalação silenciosa via linha de comando
-msiexec /i MD.Studio_0.2.1_x64_en-US.msi /quiet /qn
+msiexec /i MD.Studio_0.2.2_x64_en-US.msi /quiet /qn
 ```
-*Ou baixe diretamente pelo navegador:* [MD.Studio_0.2.1_x64_en-US.msi](https://github.com/elzobrito/md-studio/releases/download/v0.2.1/MD.Studio_0.2.1_x64_en-US.msi)
+*Ou baixe diretamente pelo navegador:* [MD.Studio_0.2.2_x64_en-US.msi](https://github.com/elzobrito/md-studio/releases/download/v0.2.2/MD.Studio_0.2.2_x64_en-US.msi)
 
 ![Tela inicial do MD Studio](docs/screenshots/welcome.png)
 

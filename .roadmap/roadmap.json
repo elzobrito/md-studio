@@ -7,11 +7,11 @@
     "run": {
       "run_id": "RUN-0001",
       "status": "success",
-      "last_event_seq": 2386,
-      "projection_hash_sha256": "104aa552f8f17becce2ebdecd3932c3c48ea8fa76a9482abdd8f99148b204661",
+      "last_event_seq": 2398,
+      "projection_hash_sha256": "c1c8acc1ad9d5ad3033410296241e91622fd9577c5b7f3e9337fa490c93d2250",
       "verify_status": "ok"
     },
-    "updated_at": "2026-09-23T17:41:15Z"
+    "updated_at": "2026-09-23T18:02:10Z"
   },
   "project": {
     "name": "MD Studio",
@@ -7605,14 +7605,49 @@
         ]
       },
       "completed_at": "2026-09-23T17:41:15Z"
+    },
+    {
+      "task_id": "MD-RELEASE-ASSETS-LINUX-001",
+      "task_kind": "impl",
+      "title": "Empacotamento Linux v0.2.2, GitHub Release upload, workflow build-linux e atualização do README",
+      "description": "Gerar instaladores Linux v0.2.2 (.deb, .AppImage, .rpm), anexar ao release v0.2.2 no GitHub junto ao .snap, criar workflow de CI Linux para releases e atualizar o README.md com v0.2.2 e instruções de instalação completas para Linux e Windows.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "README.md",
+        ".github/workflows/build-linux.yml"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src-tauri/target/**",
+        "*.snap"
+      ],
+      "task_type": "release",
+      "required_review_mode": "release",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-23T17:56:46Z",
+      "verification": {
+        "checks": [
+          "Geração dos pacotes Linux v0.2.2 (.deb, .AppImage, .rpm) via pnpm tauri build",
+          "Upload dos 4 pacotes Linux (.deb, .AppImage, .rpm, .snap) para o release v0.2.2 no GitHub Releases",
+          "Criação do workflow automatizado .github/workflows/build-linux.yml para releases multiplataforma no GitHub Actions",
+          "Atualização do README.md para v0.2.2 com links de download e comandos de instalação para Linux (.deb, AppImage, .rpm, Snap) e Windows (.exe, .msi)"
+        ]
+      },
+      "completed_at": "2026-09-23T18:02:10Z"
     }
   ],
   "indexes": {
     "by_status": {
-      "done": 200
+      "done": 201
     },
     "by_kind": {
-      "impl": 144,
+      "impl": 145,
       "qa": 31,
       "spec": 25
     }
