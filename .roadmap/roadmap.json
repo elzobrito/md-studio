@@ -7,11 +7,11 @@
     "run": {
       "run_id": "RUN-0001",
       "status": "success",
-      "last_event_seq": 2362,
-      "projection_hash_sha256": "0b26d3d0ba36bb07db83fa192f0a8e993ccc5c26059958c7150dc6869bb8220b",
+      "last_event_seq": 2374,
+      "projection_hash_sha256": "52047884ea253299a304a64f5400e2aadc8669783f0a1720de094ceb1826596d",
       "verify_status": "ok"
     },
-    "updated_at": "2026-09-23T17:02:19Z"
+    "updated_at": "2026-09-23T17:08:14Z"
   },
   "project": {
     "name": "MD Studio",
@@ -7528,14 +7528,48 @@
         ]
       },
       "completed_at": "2026-09-23T17:02:18Z"
+    },
+    {
+      "task_id": "MD-RELEASE-LOCAL-HOTFIX-001",
+      "task_kind": "impl",
+      "title": "Build de release local com hotfix de links e atualizacao do binario pessoal",
+      "description": "Compilar release com pnpm tauri build e atualizar o executavel em /home/elzobrito/.local/bin/md-studio com o hotfix de navegacao de links",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "src-tauri",
+        "src"
+      ],
+      "outputs": {
+        "files": [
+          "src-tauri/target/release/md-studio"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src-tauri/target/**"
+      ],
+      "task_type": "release",
+      "required_review_mode": "release",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-23T17:03:18Z",
+      "verification": {
+        "checks": [
+          "Compilação de release com pnpm tauri build concluída com sucesso",
+          "Atualização de /home/elzobrito/.local/bin/md-studio concluída"
+        ]
+      },
+      "completed_at": "2026-09-23T17:08:14Z"
     }
   ],
   "indexes": {
     "by_status": {
-      "done": 198
+      "done": 199
     },
     "by_kind": {
-      "impl": 142,
+      "impl": 143,
       "qa": 31,
       "spec": 25
     }
