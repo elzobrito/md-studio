@@ -7,11 +7,11 @@
     "run": {
       "run_id": "RUN-0001",
       "status": "success",
-      "last_event_seq": 2398,
-      "projection_hash_sha256": "c1c8acc1ad9d5ad3033410296241e91622fd9577c5b7f3e9337fa490c93d2250",
+      "last_event_seq": 2428,
+      "projection_hash_sha256": "abd04f5ddc1e7afb08f48999cfd43e6f5a99f851fe67457ed6729b7538a67aea",
       "verify_status": "ok"
     },
-    "updated_at": "2026-09-23T18:02:10Z"
+    "updated_at": "2026-09-23T23:28:42Z"
   },
   "project": {
     "name": "MD Studio",
@@ -7640,15 +7640,217 @@
         ]
       },
       "completed_at": "2026-09-23T18:02:10Z"
+    },
+    {
+      "task_id": "MD-PRES-001",
+      "task_kind": "impl",
+      "title": "PresentationModel e segmentação determinística de slides",
+      "description": "Implementar os contratos de dados PresentationModel, PresentationSlide, PresentationMetadata, PresentationConfig e o motor de segmentação por H2, marcadores explícitos <!-- md-studio:slide --> e preservação de <hr>.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "docs/spec/001-presentation-mode.md",
+        "src/presentation/types.ts",
+        "src/presentation/config.ts",
+        "src/presentation/segmentation.ts",
+        "tests/presentation/segmentation.test.ts",
+        "tests/presentation/config.test.ts"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src/presentation/**",
+        "tests/presentation/**"
+      ],
+      "task_type": "feature",
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-23T23:25:45Z",
+      "verification": {
+        "checks": [
+          "Persistência formal da especificação em docs/spec/001-presentation-mode.md",
+          "Contratos de dados em src/presentation/types.ts (PresentationModel, PresentationSlide, PresentationMetadata, PresentationConfig, PresentationSession)",
+          "Parsing e validação segura de configuração em src/presentation/config.ts",
+          "Segmentação determinística de slides por H2 e <!-- md-studio:slide --> com proteção de code blocks em src/presentation/segmentation.ts",
+          "Suítes de testes unitários aprovadas com 12/12 testes e regressão total de 254 testes aprovados"
+        ]
+      },
+      "completed_at": "2026-09-23T23:28:42Z"
+    },
+    {
+      "task_id": "MD-PRES-002",
+      "task_kind": "impl",
+      "title": "Presentation processor reutilizando pipeline Unified/Remark/Rehype",
+      "description": "Ramificar o pipeline Markdown do MD Studio para compilar os slides segmentados em HTML sanitizado por slide sem duplicar o parser nem comprometer segurança.",
+      "status": "todo",
+      "depends_on": [
+        "MD-PRES-001"
+      ],
+      "targets": [
+        "src/presentation/processor.ts",
+        "tests/presentation/processor.test.ts"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src/presentation/**",
+        "tests/presentation/**"
+      ],
+      "task_type": "feature",
+      "required_review_mode": "functional"
+    },
+    {
+      "task_id": "MD-PRES-003",
+      "task_kind": "impl",
+      "title": "Reveal.js renderer local e gerenciamento de lifecycle",
+      "description": "Empacotar Reveal.js localmente, carregar de forma lazy (sem CDN/rede), montar DOM de apresentação e gerenciar destruição limpa de listeners e recursos ao sair.",
+      "status": "todo",
+      "depends_on": [
+        "MD-PRES-002"
+      ],
+      "targets": [
+        "package.json",
+        "src/presentation/PresentationStage.tsx",
+        "src/presentation/presentation-deck.ts",
+        "src/presentation/presentation.css"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src/presentation/**",
+        "tests/presentation/**"
+      ],
+      "task_type": "feature",
+      "required_review_mode": "functional"
+    },
+    {
+      "task_id": "MD-PRES-004",
+      "task_kind": "impl",
+      "title": "Integração de conteúdo rico nos slides (Shiki, KaTeX, Mermaid, assets locais)",
+      "description": "Garantir renderização de blocos de código com Shiki, fórmulas com KaTeX, diagramas Mermaid com fallbacks e resolução de imagens locais conforme política de segurança.",
+      "status": "todo",
+      "depends_on": [
+        "MD-PRES-002"
+      ],
+      "targets": [
+        "src/presentation/rich-content.ts",
+        "tests/presentation/rich-content.test.ts"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src/presentation/**",
+        "tests/presentation/**"
+      ],
+      "task_type": "feature",
+      "required_review_mode": "functional"
+    },
+    {
+      "task_id": "MD-PRES-005",
+      "task_kind": "impl",
+      "title": "Acionamento F5, navegação por teclado, fullscreen e restauração de UI",
+      "description": "Vincular F5 para entrar/sair, navegação integral por teclado, overlay dominante, ativação graciosa de fullscreen e restauração precisa do estado do editor/preview.",
+      "status": "todo",
+      "depends_on": [
+        "MD-PRES-003",
+        "MD-PRES-004"
+      ],
+      "targets": [
+        "src/presentation/PresentationMode.tsx",
+        "src/presentation/presentation-session.ts",
+        "src/App.tsx"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src/presentation/**",
+        "tests/presentation/**"
+      ],
+      "task_type": "feature",
+      "required_review_mode": "functional"
+    },
+    {
+      "task_id": "MD-PRES-006",
+      "task_kind": "impl",
+      "title": "Tratamento de fallbacks, acessibilidade e prefers-reduced-motion",
+      "description": "Implementar degradação graciosa para erros de fórmulas/diagramas, suporte a reduced motion, contraste adequado e estados vazios.",
+      "status": "todo",
+      "depends_on": [
+        "MD-PRES-005"
+      ],
+      "targets": [
+        "src/presentation/PresentationMode.tsx",
+        "src/presentation/presentation-theme.ts",
+        "tests/presentation/accessibility.test.ts"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src/presentation/**",
+        "tests/presentation/**"
+      ],
+      "task_type": "feature",
+      "required_review_mode": "functional"
+    },
+    {
+      "task_id": "MD-PRES-007",
+      "task_kind": "qa",
+      "title": "QA, suíte de regressão, testes de performance e encerramento da Onda-PRES",
+      "description": "Validar todos os 82-85 critérios de aceitação, testes de ciclo repetido, regressão do editor/preview/autosave e fechamento da capability v0.2.3.",
+      "status": "todo",
+      "depends_on": [
+        "MD-PRES-006"
+      ],
+      "targets": [
+        "tests/presentation/lifecycle.test.ts",
+        "docs/spec/001-presentation-mode.md"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "tests/presentation/**",
+        "docs/**"
+      ],
+      "task_type": "feature",
+      "required_review_mode": "regression"
     }
   ],
   "indexes": {
     "by_status": {
-      "done": 201
+      "done": 202,
+      "todo": 6
     },
     "by_kind": {
-      "impl": 145,
-      "qa": 31,
+      "impl": 151,
+      "qa": 32,
       "spec": 25
     }
   }
