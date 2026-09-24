@@ -2,10 +2,10 @@
 
 ## Objetivo
 
-MD Studio é um aplicativo desktop local para Linux destinado à leitura, edição,
-visualização e exportação segura de documentos Markdown. A v1 combina editor de
-fonte, preview, navegação por workspace e renderizadores controlados para código,
-matemática e diagramas.
+MD Studio é um aplicativo desktop local para **Linux e Windows** destinado à
+leitura, edição, visualização e exportação segura de documentos Markdown. A
+linha v0.2 combina editor de fonte, preview, navegação por workspace e
+renderizadores controlados para código, matemática e diagramas.
 
 ## Público
 
@@ -25,14 +25,26 @@ documentos a serviços externos.
 - React e TypeScript para interface.
 - CodeMirror 6 para edição de fonte.
 - Unified, Remark e Rehype para o pipeline Markdown.
-- Mermaid, KaTeX e highlight.js por adaptadores isolados.
+- Mermaid, KaTeX e **Shiki** (TextMate dual-themes) por adaptadores isolados.
 
-## Limites da v1
+## Distribuição (v0.2.2)
 
-A v1 é local, Linux-first e inclui backlinks de Wiki Links internos. Não inclui
-WYSIWYG, colaboração, autenticação, backend remoto, sincronização em nuvem,
-plugins JavaScript, grafo de documentos / Knowledge Graph (previsto para a Onda 4),
-compatibilidade Obsidian completa, Pandoc ou BibTeX.
+- Linux: Snap Store (`sudo snap install md-studio`, canal `stable` desde
+  2026-09-23), `.deb`, AppImage e `.rpm`.
+- Windows: instaladores NSIS (`.exe`) e MSI.
+- Detalhes de build/publicação: `docs/release/PACKAGING.md`.
+
+## Limites da linha v0.2
+
+O produto é local-first (Linux e Windows) e inclui backlinks de Wiki Links
+internos. Não inclui WYSIWYG, colaboração, autenticação, backend remoto,
+sincronização em nuvem, plugins JavaScript, grafo de documentos / Knowledge
+Graph (previsto para a Onda 4), compatibilidade Obsidian completa, Pandoc ou
+BibTeX.
+
+**Presentation Mode** (F5 / Reveal.js) está **implementado e em teste**, com
+alvo de liberação **v0.2.3** — não faz parte do release v0.2.2. Ver
+`docs/spec/001-presentation-mode.md`.
 
 ## Política de entrega
 

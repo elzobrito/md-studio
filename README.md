@@ -10,6 +10,7 @@ Projetado especificamente para engenheiros de software, autores técnicos e equi
 - **Motor de Diagramas Interativos:** Mermaid com suporte a zoom/pan fluido, tolerância a digitação de sintaxe incompleta e exportação fiel em SVG/PNG com estilos computados embutidos.
 - **Interconexão de Documentos:** Wiki links (`[[nota]]`), autocompleção instantânea e painel de backlinks com busca contextual no workspace.
 - **Persistência Atômica & Auto-Save Silencioso:** Gravação atômica com `fsync` e supressão de notificações internas no `inotify`, prevenindo falsos positivos de conflito durante a digitação.
+- **Modo de Apresentação (*Presentation Mode*):** **em teste (previsto para v0.2.3)** — não liberado no v0.2.2; entrada `F5`, Reveal.js local. Spec: [`docs/spec/001-presentation-mode.md`](docs/spec/001-presentation-mode.md).
 - **Segurança Rigorosa (Zero-XSS):** Pipeline AST unificado e sanitizado via `rehype-sanitize` e isolamento estrito de caminhos (*Path Fencing*) em Rust.
 
 ---
@@ -248,4 +249,4 @@ Consulte detalhes adicionais em [docs/release/PACKAGING.md](docs/release/PACKAGI
 
 ## Licença
 
-MIT — Livre para uso, adaptação e redistribuição.
+MIT — Livre para uso, adaptação e redistribuição. Ver [`LICENSE`](LICENSE). Copyright (c) 2026 Elzo Brito.

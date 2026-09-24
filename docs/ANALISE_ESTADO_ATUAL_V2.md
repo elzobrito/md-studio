@@ -7,6 +7,8 @@
 
 ---
 
+> **Atualização 2026-09-24:** este documento é uma análise histórica da Onda 0 / fundação UX (set/2026). O realce de código em produção passou a **Shiki** (TextMate dual-themes) a partir da v0.2.0; `highlight.js` abaixo descreve o estado à época da análise. Versão liberada atual: **v0.2.2**. Plataformas: Linux (Snap / `.deb` / AppImage / `.rpm`) e Windows (NSIS / MSI).
+
 ## 1. Sumário Executivo
 
 O **MD Studio V2** atingiu com sucesso o encerramento da **Onda 0 (UX & GUI Foundation)** e da integração profunda com o motor de persistência seguro em Rust (**md-studio-core**). O aplicativo foi transformado de uma interface prototípica elementar em um **editor desktop moderno, de alta fidelidade visual, com suporte a escrita imediata de Markdown, gerenciamento de workspaces locais e conformidade técnica rigorosa**.

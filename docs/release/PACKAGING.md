@@ -1,45 +1,58 @@
-# Empacotamento e Distribuição — MD Studio (Linux)
+# Empacotamento e Distribuição — MD Studio (v0.2.2)
 
 ## Alvos Oficiais
 
-| Formato   | Uso típico                          | Onde sai após build | Ferramenta / Configuração |
-|-----------|--------------------------------------|----------------------------------|---------------------------|
-| **Snap** (`.snap`) | Ubuntu Software / Snap Store canônica | `./md-studio_*.snap` | `snapcraft` (`snap/snapcraft.yaml`, base `core24`, `strict`) |
-| **Debian** (`.deb`) | Debian, Ubuntu e derivados nativos | `src-tauri/target/release/bundle/deb/` | Tauri Bundler (`src-tauri/tauri.conf.json`) |
-| **AppImage** | Distribuições gerais, portabilidade (Fedora, Arch, openSUSE, Slackware) | `src-tauri/target/release/bundle/appimage/` | Tauri Bundler (`src-tauri/tauri.conf.json`) |
+| Formato | Plataforma | Uso típico | Onde sai após build | Ferramenta / Configuração |
+|---------|------------|------------|---------------------|---------------------------|
+| **Snap** (`.snap`) | Linux | Ubuntu Software / Snap Store | `./md-studio_*.snap` (raiz) | `snapcraft` ([`snap/snapcraft.yaml`](../../snap/snapcraft.yaml): `base: core24`, `confinement: strict`, `grade: stable`) |
+| **Debian** (`.deb`) | Linux | Debian, Ubuntu e derivados | `src-tauri/target/release/bundle/deb/` | Tauri Bundler (`src-tauri/tauri.conf.json`) |
+| **AppImage** | Linux | Portabilidade (Fedora, Arch, openSUSE, Slackware, …) | `src-tauri/target/release/bundle/appimage/` | Tauri Bundler |
+| **RPM** (`.rpm`) | Linux | Fedora, RHEL, openSUSE | `src-tauri/target/release/bundle/rpm/` | Tauri Bundler |
+| **NSIS** (`.exe`) | Windows | Instalador interativo (Win 10/11 x64) | `src-tauri/target/release/bundle/nsis/` | Tauri Bundler + CI `build-windows.yml` |
+| **MSI** (`.msi`) | Windows | Instalação corporativa / silenciosa | `src-tauri/target/release/bundle/msi/` | Tauri Bundler + CI `build-windows.yml` |
+
+CI oficial: [`.github/workflows/build-linux.yml`](../../.github/workflows/build-linux.yml) (`.deb` / AppImage / `.rpm`) e [`.github/workflows/build-windows.yml`](../../.github/workflows/build-windows.yml) (NSIS / MSI).  
+**A CI não publica na Snap Store** — o upload é manual/local (ver §1).
+
+Instalação para usuários finais: ver [`README.md`](../../README.md) (v0.2.2).
 
 ---
 
 ## 1. Empacotamento Snap (Canonical Snap Store)
 
-O pacote Snap é o formato canônico de distribuição oficial na Central de Aplicativos do Ubuntu. Configurado em [`snap/snapcraft.yaml`](file:///home/elzobrito/desenvolvimento/md-studio/snap/snapcraft.yaml) com base **Ubuntu 24.04 LTS (`core24`)** e confinamento estrito (`confinement: strict`).
+Configurado em [`snap/snapcraft.yaml`](../../snap/snapcraft.yaml):
 
-### Compilação do Snap via LXD (Recomendado / Isolado)
+- **base:** `core24` (Ubuntu 24.04 LTS)
+- **confinement:** `strict`
+- **grade:** `stable`
+- **license:** MIT
+- **Canal público:** `stable` desde **2026-09-23** (`sudo snap install md-studio`)
+
+### Compilação via LXD (recomendado / isolado)
 
 ```bash
-# Executa build isolada no contêiner gerenciado Ubuntu 24.04
 snapcraft pack --use-lxd
 ```
-*Gera o artefato na raiz do workspace:* `md-studio_<versão>_amd64.snap`.
 
-### Publicação na Canonical Snap Store
+Gera na raiz do workspace: `md-studio_<versão>_amd64.snap` (ex.: `md-studio_0.2.2_amd64.snap`).
+
+### Publicação na Snap Store (manual / local)
+
+A publicação **não** é feita pela CI. No host autenticado:
 
 ```bash
-# Autenticar na Canonical Snap Store (se necessário)
 snapcraft login
-
-# Enviar e publicar nos canais oficiais (edge, candidate e stable)
-snapcraft upload --release=edge,candidate,stable md-studio_0.2.1_amd64.snap
-
-# Verificar status das revisões nos canais
+snapcraft upload --release=stable md-studio_0.2.2_amd64.snap
 snapcraft status md-studio
 ```
 
+Canais `edge` / `candidate` são opcionais conforme a política de release.
+
 ---
 
-## 2. Empacotamento Nativo Tauri (.deb e AppImage)
+## 2. Empacotamento nativo Tauri no Linux (`.deb`, AppImage, `.rpm`)
 
-### Dependências de build no host (Ubuntu/Debian)
+### Dependências de build (Ubuntu/Debian)
 
 ```bash
 sudo apt update
@@ -48,56 +61,82 @@ sudo apt install -y \
   librsvg2-dev patchelf libssl-dev pkg-config build-essential
 ```
 
-Toolchains: Node.js (≥20 LTS), pnpm (≥9), Rust (≥1.88 estável, sincronizado via `Cargo.lock`).
+Toolchains: Node.js (≥20 LTS), pnpm (≥9), Rust estável (sincronizado via `Cargo.lock` / `rust-toolchain.toml`).
 
-### Compilação dos Pacotes Locais
+### Compilação local
 
 ```bash
 pnpm install
 pnpm tauri build
 ```
 
-Artefatos gerados:
-- `.deb`: `src-tauri/target/release/bundle/deb/md-studio_0.2.1_amd64.deb`
-- `AppImage`: `src-tauri/target/release/bundle/appimage/md-studio_0.2.1_amd64.AppImage`
+Artefatos típicos (v0.2.2):
 
-### Instalação e Teste Rápido
+- `.deb`: `src-tauri/target/release/bundle/deb/md-studio_0.2.2_amd64.deb`
+- `AppImage`: `src-tauri/target/release/bundle/appimage/md-studio_0.2.2_amd64.AppImage`
+- `.rpm`: `src-tauri/target/release/bundle/rpm/md-studio-0.2.2-1.x86_64.rpm`
+
+### Instalação e teste rápido
 
 ```bash
-# Instalação do .deb
+# .deb
 sudo apt install ./src-tauri/target/release/bundle/deb/md-studio_*.deb
 
-# Execução do AppImage
+# AppImage
 chmod +x src-tauri/target/release/bundle/appimage/*.AppImage
 ./src-tauri/target/release/bundle/appimage/*.AppImage
+
+# .rpm (Fedora/RHEL)
+sudo dnf install ./src-tauri/target/release/bundle/rpm/*.rpm
+# openSUSE:
+# sudo zypper install ./src-tauri/target/release/bundle/rpm/*.rpm
+```
+
+Workflow CI equivalente: `build-linux.yml` (upload dos três formatos para a GitHub Release quando disparado com tag).
+
+---
+
+## 3. Empacotamento Windows (NSIS `.exe` e MSI)
+
+Build em runner Windows (`windows-latest`), alvo `x86_64-pc-windows-msvc`. Ver [`.github/workflows/build-windows.yml`](../../.github/workflows/build-windows.yml).
+
+Artefatos típicos (v0.2.2):
+
+- NSIS: `MD.Studio_0.2.2_x64-setup.exe`
+- MSI: `MD.Studio_0.2.2_x64_en-US.msi`
+
+Localmente (em host Windows com toolchain Tauri):
+
+```powershell
+pnpm install
+pnpm tauri build
+```
+
+Saída esperada sob `src-tauri/target/release/bundle/nsis/` e `.../msi/`.
+
+Instalação silenciosa MSI:
+
+```powershell
+msiexec /i MD.Studio_0.2.2_x64_en-US.msi /quiet /qn
 ```
 
 ---
 
-## 3. Compatibilidade Gráfica e Execução em Distros Diversas (Ex.: Slackware)
+## 4. Compatibilidade gráfica Linux (DMA-BUF / tela em branco)
 
-Em distribuições Linux não-Debian (como **Slackware**) ou em computadores com drivers proprietários legados (como NVIDIA com drivers antigos ou certos chipsets Intel/Mesa), a inicialização do WebKitGTK pode apresentar uma **tela em branco ou interface completamente vazia**.
-
-Isso decorre de conflitos no renderizador por aceleração de hardware via buffers compartilhados (**DMA-BUF**).
-
-### Solução Universal
-
-Defina a variável de ambiente `WEBKIT_DISABLE_DMABUF_RENDERER=1` ao inicializar a aplicação:
+Em algumas distros (ex.: Slackware) ou drivers NVIDIA/Mesa legados, o WebKitGTK pode abrir janela vazia por conflito com DMA-BUF.
 
 ```bash
-# Execução direta do binário ou atalho
 WEBKIT_DISABLE_DMABUF_RENDERER=1 md-studio
-
-# Execução via AppImage
-WEBKIT_DISABLE_DMABUF_RENDERER=1 ./md-studio_0.2.1_amd64.AppImage
+# ou
+WEBKIT_DISABLE_DMABUF_RENDERER=1 ./md-studio_0.2.2_amd64.AppImage
 ```
-
-Essa diretiva instrui o WebKitGTK a ignorar o pipeline de renderização DMA-BUF, garantindo exibição de 100% da interface do usuário com aceleração padrão por software/OpenGL estável sem impacto perceptível de performance.
 
 ---
 
-## 4. Notas de Governança e Segurança
+## 5. Governança e segurança do pacote
 
-- Ícones vetoriais e bitmaps em `src-tauri/icons/`.
-- CSP e capabilities mínimas em `src-tauri/capabilities/default.json` (inclui permissões mínimas de diálogo e bloqueio rígido contra APIs não-autorizadas).
-- Builds oficiais devem ser executadas com `--locked` no Cargo para garantir reprodutibilidade estrita de dependências.
+- Ícones em `src-tauri/icons/`.
+- CSP e capabilities mínimas em `src-tauri/capabilities/default.json`.
+- Builds oficiais com Cargo `--locked` para reprodutibilidade.
+- Versão canônica alinhada em `package.json`, `src-tauri/tauri.conf.json`, `src-tauri/Cargo.toml` e `snap/snapcraft.yaml` (**0.2.2** neste release).

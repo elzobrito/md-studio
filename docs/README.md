@@ -1,10 +1,13 @@
 # Documentação Técnica do MD Studio
 
-**Versão Atual:** v0.2.1  
+**Versão Atual:** v0.2.2
 **Arquitetura:** Tauri 2 (Rust) + React 19 (TypeScript) + CodeMirror 6 + Unified AST  
 **Classificação:** Desktop Local-First / 100% Offline / Linux-First & Windows
 
 Bem-vindo ao **Portal Central da Documentação Técnica do MD Studio**. Este diretório consolida a arquitetura, os contratos de interface, as especificações normativas, o modelo de segurança e as instruções operacionais para engenheiros, mantenedores e auditores.
+
+> **Nota (2026-09-24):** o *Presentation Mode* (F5 / Reveal.js) está **implementado e em teste**, previsto para **v0.2.3** — não está liberado no v0.2.2. Ver [`spec/001-presentation-mode.md`](./spec/001-presentation-mode.md).
+
 
 ---
 

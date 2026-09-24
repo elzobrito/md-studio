@@ -49,8 +49,8 @@
 
 ## RNF-PORT-01 — Plataforma e release
 
-- Ubuntu/Linux é a plataforma de aceite da v1, com `.deb` e AppImage.
-- Fronteiras Tauri/React não assumem separador de caminho, shell ou URI Linux.
+- Aceite multiplataforma: **Linux** (Snap Store `stable`, `.deb`, AppImage, `.rpm`) e **Windows** (NSIS `.exe`, MSI). Ubuntu/Linux permanece referência de QA Linux; artefatos oficiais alinhados ao release v0.2.2 (ver `docs/release/PACKAGING.md`).
+- Fronteiras Tauri/React não assumem separador de caminho, shell ou URI de um único SO.
 - Build é reproduzível com versões fixadas; nenhuma dependência permanece em
   `latest`.
 - Testes incluem Rust, Vitest e E2E WebDriver do Tauri, além de inspeção dos

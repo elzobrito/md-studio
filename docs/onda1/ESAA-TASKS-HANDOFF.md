@@ -1,3 +1,5 @@
+> **Status atualizado em 2026-09-24:** todas as tarefas da Onda 1 (MD-FOUNDATION-001–010) estão **concluídas** (`done` no ESAA). Este handoff permanece como registro histórico; ver `.roadmap/roadmap.json` / `activity.jsonl`.
+
 # Onda 1 — Handoff ESAA (Knowledge Foundation)
 
 **Repo:** https://github.com/elzobrito/md-studio  

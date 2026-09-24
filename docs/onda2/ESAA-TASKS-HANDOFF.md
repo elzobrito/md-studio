@@ -1,3 +1,5 @@
+> **Status atualizado em 2026-09-24:** todas as tarefas da Onda 2 (MD-WIKI-001–008) estão **concluídas** (`done` no ESAA). Os backlinks, listados abaixo como “fora da v1”, foram entregues na **Onda 3** (MD-BACKLINK-*). Este handoff permanece como registro histórico; ver `.roadmap/roadmap.json` / `activity.jsonl` e `docs/onda3/`.
+
 # Onda 2 — Pacote para o agente executor
 
 Repo: `/home/elzobrito/desenvolvimento/md-studio`  

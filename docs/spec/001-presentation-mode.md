@@ -6,8 +6,8 @@
 **Stack base:** Tauri 2 + React 19 + TypeScript + Unified/Remark/Rehype + Shiki + KaTeX + Mermaid  
 **Engine de apresentação:** Reveal.js, empacotado localmente  
 **Entrada principal:** `F5`  
-**Fonte normativa superior:** `ROADMAP-CANONICO-MD-STUDIO-v0.3-v0.5.md` + instrução ESAA/Onda-PRES já existente  
-**Status:** especificação de desenvolvimento detalhada
+**Fonte normativa superior:** instrução ESAA / Onda-PRES no event store do projeto (`MD-PRES-*`). O arquivo `ROADMAP-CANONICO-MD-STUDIO-v0.3-v0.5.md` **não existe** neste repositório (roadmap v0.3–v0.5 permanece apenas como especificação futura fora da árvore).  
+**Status:** implementado, **em teste**; alvo de liberação **v0.2.3** (não incluído no release v0.2.2)
 
 > Este documento expande a especificação resumida de Presentation Mode. Quando uma decisão já estiver formalmente fechada na instrução ESAA da Onda-PRES, a instrução ESAA prevalece. As decisões abaixo que não existiam na especificação resumida devem ser tratadas como fechamento técnico recomendado para a implementação.
 

@@ -3,6 +3,7 @@ name = "md-studio"
 version = "0.2.2"
 description = "MD Studio — secure local Markdown editor"
 authors = ["MD Studio"]
+license = "MIT"
 edition = "2021"
 rust-version = "1.77"
 

@@ -1,3 +1,5 @@
+> **Status atualizado em 2026-09-24:** todas as tarefas da Onda 0B (MD-GM-001–008) estão **concluídas** (`done` no ESAA). Este handoff permanece como registro histórico; ver `.roadmap/roadmap.json` / `activity.jsonl`.
+
 # Onda 0B — Guided Markdown — Handoff ESAA
 
 **Repo:** https://github.com/elzobrito/md-studio
