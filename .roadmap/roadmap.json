@@ -7,11 +7,11 @@
     "run": {
       "run_id": "RUN-0001",
       "status": "success",
-      "last_event_seq": 2482,
-      "projection_hash_sha256": "52c28281dbe141374fdea2cebcf87d29166c6dab8c25e20bcc59b6b7339a167b",
+      "last_event_seq": 2494,
+      "projection_hash_sha256": "68625fcea4135ea5882374b8a73ba8a55d95321db122774474511bf00fd79e82",
       "verify_status": "ok"
     },
-    "updated_at": "2026-09-23T23:47:54Z"
+    "updated_at": "2026-09-24T00:30:56Z"
   },
   "project": {
     "name": "MD Studio",
@@ -7900,14 +7900,46 @@
         ]
       },
       "completed_at": "2026-09-23T23:47:53Z"
+    },
+    {
+      "task_id": "MD-BUILD-LOCAL-001",
+      "task_kind": "impl",
+      "title": "Compilar e atualizar o binario local do MD Studio com Presentation Mode",
+      "description": "Executar o build de producao do frontend e backend Tauri e atualizar o executavel em ~/.local/bin/md-studio",
+      "status": "done",
+      "depends_on": [],
+      "targets": [],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "maintenance",
+      "acceptance_criteria": [
+        "Frontend compilado em dist com pnpm build",
+        "Binario Tauri compilado com sucesso",
+        "Binario atualizado em ~/.local/bin/md-studio"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-24T00:28:39Z",
+      "verification": {
+        "checks": [
+          "pnpm build concluido com sucesso",
+          "cargo build --release concluido",
+          "binario atualizado em ~/.local/bin/md-studio"
+        ]
+      },
+      "completed_at": "2026-09-24T00:30:56Z"
     }
   ],
   "indexes": {
     "by_status": {
-      "done": 208
+      "done": 209
     },
     "by_kind": {
-      "impl": 151,
+      "impl": 152,
       "qa": 32,
       "spec": 25
     }
