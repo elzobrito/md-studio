@@ -5,10 +5,10 @@
   height: 26px;
   min-height: 26px;
   padding: 0 12px;
-  background-color: var(--bg-secondary, #181825);
-  border-top: 1px solid var(--border, #313244);
+  background-color: var(--bg-secondary);
+  border-top: 1px solid var(--border);
   font-size: 11px;
-  color: var(--text-secondary, #a6adc8);
+  color: var(--text-secondary);
   user-select: none;
   z-index: 50;
 }
@@ -39,11 +39,11 @@
 
 .status-bar-item.clickable:hover {
   background: var(--bg-hover, rgba(255, 255, 255, 0.08));
-  color: var(--text-primary, #cdd6f4);
+  color: var(--text-primary);
 }
 
 .status-bar-separator {
-  color: var(--border, #313244);
+  color: var(--border);
 }
 
 .save-status-badge {
@@ -54,19 +54,19 @@
 }
 
 .save-status-badge.status-saved {
-  color: var(--color-success, #a6e3a1);
+  color: var(--color-success);
 }
 
 .save-status-badge.status-modified {
-  color: var(--color-warning, #f9e2af);
+  color: var(--color-warning);
 }
 
 .save-status-badge.status-saving {
-  color: var(--color-accent, #89b4fa);
+  color: var(--color-accent);
 }
 
 .save-status-badge.status-error {
-  color: var(--color-error, #f38ba8);
+  color: var(--color-error);
 }
 
 .status-bar-btn {
@@ -74,7 +74,7 @@
   border: none;
   padding: 2px 6px;
   font-size: 11px;
-  color: var(--text-secondary, #a6adc8);
+  color: var(--text-secondary);
   cursor: pointer;
   border-radius: 3px;
   display: inline-flex;
@@ -84,20 +84,20 @@
 
 .status-bar-btn:hover {
   background: var(--bg-hover, rgba(255, 255, 255, 0.08));
-  color: var(--text-primary, #cdd6f4);
+  color: var(--text-primary);
 }
 
 .status-bar-btn.active {
-  color: var(--color-accent, #89b4fa);
+  color: var(--color-accent);
 }
 
 .status-bar-summary-btn {
   font-weight: 500;
-  color: var(--color-accent, #89b4fa);
+  color: var(--color-accent);
 }
 
 .status-bar-summary-btn:hover {
   background: var(--bg-hover, rgba(255, 255, 255, 0.12));
-  color: var(--text-primary, #ffffff);
+  color: var(--text-primary);
 }
 

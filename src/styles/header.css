@@ -1,8 +1,8 @@
 .app-header {
   display: flex;
   flex-direction: column;
-  background-color: var(--bg-elevated, #181825);
-  border-bottom: 1px solid var(--border, #313244);
+  background-color: var(--bg-elevated);
+  border-bottom: 1px solid var(--border);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
   z-index: 100;
 }
@@ -35,32 +35,32 @@
   align-items: center;
   justify-content: center;
   border-radius: 4px;
-  border: 1px solid var(--border, #313244);
-  background-color: var(--bg-secondary, #181825);
-  color: var(--text-secondary, #a6adc8);
+  border: 1px solid var(--border);
+  background-color: var(--bg-secondary);
+  color: var(--text-secondary);
   font-size: 13px;
   cursor: pointer;
   transition: all 150ms ease;
 }
 
 .toolbar-action-btn:hover {
-  background-color: var(--color-hover, #2a2a3c);
-  color: var(--text-primary, #cdd6f4);
+  background-color: var(--color-hover);
+  color: var(--text-primary);
 }
 
 .view-mode-toggle {
   display: inline-flex;
   align-items: stretch;
-  border: 1px solid var(--border, #313244);
+  border: 1px solid var(--border);
   border-radius: 6px;
   overflow: hidden;
-  background-color: var(--bg-secondary, #181825);
+  background-color: var(--bg-secondary);
 }
 
 .view-mode-btn {
   border: none;
   background: transparent;
-  color: var(--text-secondary, #a6adc8);
+  color: var(--text-secondary);
   padding: 4px 10px;
   font-size: 12px;
   font-weight: 500;
@@ -69,17 +69,17 @@
 }
 
 .view-mode-btn + .view-mode-btn {
-  border-left: 1px solid var(--border, #313244);
+  border-left: 1px solid var(--border);
 }
 
 .view-mode-btn:hover {
-  color: var(--text-primary, #cdd6f4);
-  background-color: var(--color-hover, #2a2a3c);
+  color: var(--text-primary);
+  background-color: var(--color-hover);
 }
 
 .view-mode-btn.is-active {
-  background-color: var(--color-accent, #89b4fa);
-  color: #11111b;
+  background-color: var(--color-accent);
+  color: var(--text-inverse);
   font-weight: 600;
 }
 
@@ -97,18 +97,18 @@
 }
 
 .save-btn.saved {
-  background-color: var(--bg-secondary, #181825);
-  border-color: var(--border, #313244);
-  color: var(--text-primary, #cdd6f4);
+  background-color: var(--bg-secondary);
+  border-color: var(--border);
+  color: var(--text-primary);
 }
 
 .save-btn.saved:hover:not(:disabled) {
-  background-color: var(--color-hover, #2a2a3c);
+  background-color: var(--color-hover);
 }
 
 .save-btn.modified {
-  background-color: var(--color-accent, #89b4fa);
-  color: #11111b;
+  background-color: var(--color-accent);
+  color: var(--text-inverse);
   font-weight: 600;
 }
 
@@ -117,14 +117,14 @@
 }
 
 .save-btn.saving {
-  background-color: var(--bg-secondary, #181825);
-  color: var(--text-secondary, #a6adc8);
+  background-color: var(--bg-secondary);
+  color: var(--text-secondary);
   cursor: wait;
 }
 
 .save-btn.error {
-  background-color: #f38ba8;
-  color: #11111b;
+  background-color: var(--color-error);
+  color: var(--text-inverse);
 }
 
 .save-btn:disabled {

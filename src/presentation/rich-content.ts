@@ -170,7 +170,20 @@ export function decoratePresentationCodeBlocks(container: HTMLElement): void {
       }
     }
 
-    if (lang && lang !== 'code') {
+    // Remove qualquer elemento de cópia ou header do preview que possa ter vazado
+    pre.querySelectorAll('.code-block-actions, .btn-action, .code-block-header').forEach((el) => el.remove());
+
+    const isPlain =
+      !lang ||
+      lang === 'text' ||
+      lang === 'txt' ||
+      lang === 'plain' ||
+      lang === 'plaintext' ||
+      lang === 'code';
+
+    if (isPlain) {
+      pre.classList.add('presentation-pre-plain');
+    } else {
       const badge = document.createElement('span');
       badge.className = 'presentation-code-badge';
       badge.textContent = lang;

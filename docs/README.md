@@ -1,13 +1,12 @@
 # Documentação Técnica do MD Studio
 
-**Versão Atual:** v0.2.2
+**Versão Atual:** v0.2.3
 **Arquitetura:** Tauri 2 (Rust) + React 19 (TypeScript) + CodeMirror 6 + Unified AST  
 **Classificação:** Desktop Local-First / 100% Offline / Linux-First & Windows
 
 Bem-vindo ao **Portal Central da Documentação Técnica do MD Studio**. Este diretório consolida a arquitetura, os contratos de interface, as especificações normativas, o modelo de segurança e as instruções operacionais para engenheiros, mantenedores e auditores.
 
-> **Nota (2026-09-24):** o *Presentation Mode* (F5 / Reveal.js) está **implementado e em teste**, previsto para **v0.2.3** — não está liberado no v0.2.2. Ver [`spec/001-presentation-mode.md`](./spec/001-presentation-mode.md).
-
+> **Nota (v0.2.3):** O *Presentation Mode* (F5 / Reveal.js) e a *Exportação EPUB 3* estão **oficialmente incorporados e liberados** nesta versão. Ver [`spec/001-presentation-mode.md`](./spec/001-presentation-mode.md) e [`docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md`](./FUNCIONALIDADES_FUNCOES_E_ROTAS.md).
 
 ---
 
@@ -17,7 +16,7 @@ Bem-vindo ao **Portal Central da Documentação Técnica do MD Studio**. Este di
 ┌────────────────────────────────────────────────────────────────────────┐
 │                        SHELL TAURI 2 (RUST)                            │
 │  - Janela nativa GTK3 / WebKitGTK 4.1                                  │
-│  - Barramento IPC assíncrono tipado (20 comandos + 2 canais de eventos)│
+│  - Barramento IPC assíncrono tipado (21 comandos + 2 canais de eventos)│
 │  - Single Instance Lock e Diálogos nativos do sistema operacional      │
 │  - Sandbox e Path Fencing rigoroso contra Path Traversal (../)        │
 └──────────────────────────────────┬─────────────────────────────────────┘

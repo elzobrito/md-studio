@@ -1,14 +1,59 @@
 import { useSettings } from "../../hooks/useSettings";
-import { PREVIEW_FONT_FAMILY_OPTIONS } from "../../state/settings";
+import {
+  PREVIEW_FONT_FAMILY_OPTIONS,
+  PREVIEW_READING_WIDTH_OPTIONS,
+  type PreviewReadingWidth,
+} from "../../state/settings";
 
 export function PreviewSettings() {
-  const { previewFontSize, previewFontFamily, setPreviewFontSize, setPreviewFontFamily } =
-    useSettings();
+  const {
+    previewFontSize,
+    previewFontFamily,
+    previewReadingWidth,
+    setPreviewFontSize,
+    setPreviewFontFamily,
+    setPreviewReadingWidth,
+  } = useSettings();
 
   return (
     <div className="settings-tab-content">
       <div className="settings-section" aria-label="Configurações de Preview">
-        <h3 className="settings-section-title">Fonte do Preview</h3>
+        <h3 className="settings-section-title">Medida de Leitura</h3>
+
+        <div className="settings-field">
+          <label className="settings-label" htmlFor="preview-reading-width-select">
+            Largura no Modo Formatado
+          </label>
+          <select
+            id="preview-reading-width-select"
+            className="settings-select"
+            value={previewReadingWidth}
+            onChange={(e) =>
+              setPreviewReadingWidth(e.target.value as PreviewReadingWidth)
+            }
+          >
+            {PREVIEW_READING_WIDTH_OPTIONS.map((opt) => (
+              <option key={opt.value} value={opt.value}>
+                {opt.label} — {opt.description}
+              </option>
+            ))}
+          </select>
+          <p
+            className="settings-hint"
+            style={{
+              fontSize: "0.75rem",
+              color: "var(--text-muted)",
+              marginTop: "4px",
+            }}
+          >
+            Controla a largura máxima de leitura no modo Formatado. O modo Dividida
+            mantém o aproveitamento total da coluna.
+          </p>
+        </div>
+
+        <h3 className="settings-section-title" style={{ marginTop: "1.5rem" }}>
+          Fonte do Preview
+        </h3>
 
         <div className="settings-field">
           <label className="settings-label" htmlFor="preview-font-family-select">

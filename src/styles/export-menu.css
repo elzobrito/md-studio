@@ -1,0 +1,112 @@
+.export-menu-container {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.export-menu-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.55rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--text, #cdd6f4);
+  background: var(--btn-secondary-bg, rgba(255, 255, 255, 0.06));
+  border: 1px solid var(--border, #313244);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  user-select: none;
+}
+
+.export-menu-trigger:hover:not(:disabled) {
+  background: var(--btn-secondary-hover, rgba(255, 255, 255, 0.12));
+  border-color: var(--border-hover, #45475a);
+}
+
+.export-menu-trigger:focus-visible {
+  outline: 2px solid var(--accent, #89b4fa);
+  outline-offset: 1px;
+}
+
+.export-menu-trigger:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.export-menu-icon {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.85rem;
+}
+
+.export-menu-arrow {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.7rem;
+  margin-left: 0.15rem;
+  transition: transform 0.15s ease;
+}
+
+.export-menu-trigger[aria-expanded="true"] .export-menu-arrow {
+  transform: rotate(180deg);
+}
+
+.export-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  min-width: 170px;
+  padding: 4px;
+  margin: 0;
+  list-style: none;
+  background: var(--panel, #1e1e2e);
+  border: 1px solid var(--border, #313244);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.export-dropdown-menu[hidden] {
+  display: none !important;
+}
+
+.export-menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.35rem 0.65rem;
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--text, #cdd6f4);
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+
+.export-menu-item:hover:not(:disabled),
+.export-menu-item:focus-visible {
+  background: var(--btn-secondary-hover, rgba(255, 255, 255, 0.1));
+  color: var(--text-highlight, #ffffff);
+  outline: none;
+}
+
+.export-menu-item:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.export-menu-item-ext {
+  font-size: 0.72rem;
+  color: var(--text-muted, #a6adc8);
+  margin-left: 0.5rem;
+}

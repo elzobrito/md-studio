@@ -1,9 +1,9 @@
 .mermaid-chrome {
   margin: 1rem 0;
-  border: 1px solid var(--border, #313244);
+  border: 1px solid var(--border);
   border-radius: 8px;
   overflow: hidden;
-  background: var(--surface, #1e1e2e);
+  background: var(--bg-base);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
@@ -14,8 +14,8 @@
   flex-wrap: wrap;
   gap: 0.5rem;
   padding: 0.4rem 0.65rem;
-  border-bottom: 1px solid var(--border, #313244);
-  background: var(--surface-2, #252538);
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-surface);
 }
 
 .mermaid-toolbar-group {
@@ -27,7 +27,7 @@
 .mermaid-badge-title {
   font-size: 0.75rem;
   font-weight: 600;
-  color: var(--text-secondary, #a6adc8);
+  color: var(--text-secondary);
   margin-right: 0.25rem;
   display: flex;
   align-items: center;
@@ -36,7 +36,7 @@
 
 .mermaid-badge-degraded {
   font-size: 0.7rem;
-  color: #f9e2af;
+  color: var(--color-warning);
   background: rgba(249, 226, 175, 0.15);
   border: 1px solid rgba(249, 226, 175, 0.3);
   border-radius: 4px;
@@ -49,9 +49,9 @@
   font-size: 0.75rem;
   padding: 0.25rem 0.55rem;
   border-radius: 6px;
-  border: 1px solid var(--border, #45475a);
-  background: var(--surface, #1e1e2e);
-  color: var(--text-secondary, #a6adc8);
+  border: 1px solid var(--border);
+  background: var(--bg-base);
+  color: var(--text-secondary);
   cursor: pointer;
   display: inline-flex;
   align-items: center;
@@ -61,9 +61,9 @@
 }
 
 .mermaid-chrome-toolbar button:hover:not(:disabled) {
-  color: var(--text-primary, #cdd6f4);
-  border-color: var(--accent, #89b4fa);
-  background: var(--surface-hover, #313244);
+  color: var(--text-primary);
+  border-color: var(--accent);
+  background: var(--color-hover);
 }
 
 .mermaid-chrome-toolbar button:disabled {
@@ -88,7 +88,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--surface, #1e1e2e);
+  background: var(--bg-base);
 }
 
 .mermaid-chrome-viewport:active {
@@ -115,9 +115,9 @@
   overflow: auto;
   font-size: 0.85rem;
   font-family: var(--editor-font-family, monospace);
-  background: var(--surface, #1e1e2e);
-  color: var(--text-primary, #cdd6f4);
-  border-top: 1px solid var(--border, #313244);
+  background: var(--bg-base);
+  color: var(--text-primary);
+  border-top: 1px solid var(--border);
 }
 
 .mermaid-error {
@@ -126,13 +126,13 @@
   background: rgba(243, 139, 168, 0.12);
   border: 1px solid rgba(243, 139, 168, 0.3);
   border-radius: 6px;
-  color: var(--danger, #f38ba8);
+  color: var(--danger);
   font-size: 0.85rem;
 }
 
 .mermaid-loading {
   padding: 2rem;
   text-align: center;
-  color: var(--text-secondary, #a6adc8);
+  color: var(--text-secondary);
   font-size: 0.85rem;
 }

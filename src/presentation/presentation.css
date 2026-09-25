@@ -11,36 +11,52 @@
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  background-color: var(--pres-bg, #0f141c);
-  color: var(--pres-text, #e6edf3);
+  background-color: var(--pres-bg, var(--slide-bg));
+  color: var(--pres-text, var(--slide-text));
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   user-select: text;
 }
 
 /* Tema Escuro (Padrão) */
 .md-presentation-overlay.theme-dark {
-  --pres-bg: #0d1117;
-  --pres-text: #e6edf3;
-  --pres-heading: #58a6ff;
-  --pres-code-bg: #161b22;
-  --pres-border: #30363d;
-  --pres-accent: #2f81f7;
+  --pres-bg: var(--slide-bg);
+  --pres-text: var(--slide-text);
+  --pres-heading: var(--slide-heading);
+  --pres-code-bg: var(--code-bg);
+  --pres-border: var(--slide-border);
+  --pres-accent: var(--color-accent);
 }
 
 /* Tema Claro */
 .md-presentation-overlay.theme-light {
-  --pres-bg: #ffffff;
-  --pres-text: #1f2328;
-  --pres-heading: #0969da;
-  --pres-code-bg: #f6f8fa;
-  --pres-border: #d0d7de;
-  --pres-accent: #0969da;
+  --pres-bg: var(--slide-bg);
+  --pres-text: var(--slide-text);
+  --pres-heading: var(--slide-heading);
+  --pres-code-bg: var(--code-bg);
+  --pres-border: var(--slide-border);
+  --pres-accent: var(--color-accent);
 }
 
-/* Palco de Slides Reveal */
+/* Palco de Slides Reveal.
+   reveal.css força `html:not(.print-pdf) .reveal { background:#fff }`.
+   No tema escuro isso deixa o corpo (texto claro) invisível e só o heading azul aparece. */
+html:not(.print-pdf) .md-presentation-overlay .reveal {
+  background: var(--pres-bg, var(--slide-bg)) !important;
+  color: var(--pres-text, var(--slide-text));
+}
+
 .md-presentation-overlay .reveal {
+  --r-background-color: var(--pres-bg);
+  --r-main-color: var(--pres-text);
+  --r-heading-color: var(--pres-heading);
+  color: var(--pres-text);
   width: 100%;
   height: 100%;
+}
+
+html:not(.print-pdf) .md-presentation-overlay .reveal .slides section {
+  color: var(--pres-text, var(--slide-text));
+  background: transparent;
 }
 
 .md-presentation-overlay .reveal .slides {
@@ -52,6 +68,58 @@
   box-sizing: border-box;
   font-size: 1.6rem;
   line-height: 1.6;
+  max-height: 100%;
+  overflow-y: auto !important;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  scrollbar-width: auto;
+  scrollbar-color: var(--pres-border) transparent;
+}
+
+.md-presentation-overlay .reveal .slides section::-webkit-scrollbar {
+  width: 10px;
+}
+
+.md-presentation-overlay .reveal .slides section::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.md-presentation-overlay .reveal .slides section::-webkit-scrollbar-thumb {
+  background: var(--pres-border);
+  border-radius: 3px;
+}
+
+.md-presentation-overlay .reveal .slides section::-webkit-scrollbar-thumb:hover {
+  background: var(--pres-accent);
+}
+
+/* Indicador visual discreto de overflow no rodapé do slide */
+.md-presentation-overlay .reveal .slides section.has-more-content::after {
+  content: '▼ Mais conteúdo abaixo';
+  position: sticky;
+  bottom: 0.5rem;
+  float: right;
+  display: inline-block;
+  background: var(--pres-code-bg);
+  color: var(--pres-heading);
+  border: 1px solid var(--pres-border);
+  border-radius: 20px;
+  padding: 0.2rem 0.8rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  opacity: 0.85;
+  pointer-events: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  animation: md-pres-bounce 1.5s infinite ease-in-out;
+}
+
+@keyframes md-pres-bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
 }
 
 /* Tipografia de Apresentação */
@@ -101,8 +169,9 @@
 
 /* Blocos de Código e Shiki */
 .md-presentation-overlay pre {
-  background: var(--pres-code-bg);
-  border: 1px solid var(--pres-border);
+  background: var(--code-bg, var(--pres-code-bg));
+  color: var(--code-color, var(--pres-text));
+  border: 1px solid var(--code-border, var(--pres-border));
   border-radius: 8px;
   padding: 1.2rem 1.4rem;
   overflow-x: auto;
@@ -113,12 +182,56 @@
 }
 
 .md-presentation-overlay code:not(pre code) {
-  background: var(--pres-code-bg);
-  border: 1px solid var(--pres-border);
+  background: var(--inline-code-bg, var(--pres-code-bg));
+  color: var(--inline-code-color, inherit);
+  border: 1px solid var(--inline-code-border, var(--pres-border));
   border-radius: 4px;
   padding: 0.2rem 0.4rem;
   font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
   font-size: 1.2rem;
+}
+
+/* Shiki Dual Theme no Presentation Mode */
+.md-presentation-overlay pre.shiki {
+  position: relative;
+  background-color: var(--code-bg, var(--pres-code-bg)) !important;
+  color: var(--code-color, var(--pres-text)) !important;
+  border-color: var(--code-border, var(--pres-border));
+}
+
+.md-presentation-overlay pre.shiki code {
+  display: block;
+  padding: 0;
+  background: transparent !important;
+  border: none !important;
+  font-family: inherit;
+}
+
+.md-presentation-overlay pre.shiki .line {
+  display: block;
+  min-height: 1.25rem;
+}
+
+/* Light Mode nos Slides */
+.md-presentation-overlay.theme-light pre.shiki {
+  background-color: var(--code-bg, var(--shiki-light-bg)) !important;
+  color: var(--code-color, var(--shiki-light)) !important;
+  border-color: var(--code-border, var(--pres-border));
+}
+
+.md-presentation-overlay.theme-light pre.shiki span {
+  color: var(--shiki-light, inherit);
+}
+
+/* Dark Mode nos Slides */
+.md-presentation-overlay.theme-dark pre.shiki {
+  background-color: var(--code-bg, var(--shiki-dark-bg)) !important;
+  color: var(--code-color, var(--shiki-dark)) !important;
+  border-color: var(--code-border, var(--pres-border));
+}
+
+.md-presentation-overlay.theme-dark pre.shiki span {
+  color: var(--shiki-dark, inherit);
 }
 
 /* Tabelas */
@@ -131,12 +244,12 @@
 
 .md-presentation-overlay th,
 .md-presentation-overlay td {
-  border: 1px solid var(--pres-border);
+  border: 1px solid var(--slide-border);
   padding: 0.8rem 1rem;
 }
 
 .md-presentation-overlay th {
-  background: var(--pres-code-bg);
+  background: var(--slide-surface);
   font-weight: 600;
 }
 
@@ -147,7 +260,7 @@
   right: 1.5rem;
   z-index: 10000;
   background: rgba(0, 0, 0, 0.45);
-  color: #ffffff;
+  color: var(--slide-text);
   border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: 6px;
   padding: 0.4rem 0.8rem;
@@ -180,7 +293,7 @@
 
 .md-presentation-overlay .mermaid-presentation-error {
   width: 100%;
-  border: 1px dashed #d29922;
+  border: 1px dashed var(--color-warning);
   border-radius: 8px;
   background: rgba(210, 153, 34, 0.1);
   padding: 1rem;
@@ -189,7 +302,7 @@
 .md-presentation-overlay .mermaid-error-badge {
   font-size: 1rem;
   font-weight: 600;
-  color: #d29922;
+  color: var(--color-warning);
   margin-bottom: 0.8rem;
 }
 
@@ -242,8 +355,9 @@
   position: absolute;
   top: 0.6rem;
   right: 0.8rem;
-  background: rgba(255, 255, 255, 0.12);
-  border: 1px solid var(--pres-border);
+  background: var(--code-badge-bg, rgba(255, 255, 255, 0.12));
+  color: var(--code-badge-color, inherit);
+  border: 1px solid var(--code-border, var(--pres-border));
   border-radius: 4px;
   padding: 0.15rem 0.5rem;
   font-size: 0.75rem;
@@ -255,12 +369,53 @@
   pointer-events: none;
 }
 
+/* Ocultar cabeçalhos, botões de ação e botões de cópia em slides */
+.md-presentation-overlay .code-block-header,
+.md-presentation-overlay .code-block-actions,
+.md-presentation-overlay .btn-action,
+.md-presentation-overlay .code-block-action-copy,
+.md-presentation-overlay .code-block-action-format {
+  display: none !important;
+}
+
+/* Blocos de texto pré-formatado simples / Diagramas ASCII sem fence técnica */
+.md-presentation-overlay pre.presentation-pre-plain,
+.md-presentation-overlay pre[data-language="text"],
+.md-presentation-overlay pre[data-language="plain"],
+.md-presentation-overlay pre[data-language="plaintext"] {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0.5rem 0 !important;
+  color: var(--pres-text) !important;
+  font-size: 1.15rem;
+  line-height: 1.45;
+}
+
+.md-presentation-overlay pre.presentation-pre-plain code,
+.md-presentation-overlay pre[data-language="text"] code,
+.md-presentation-overlay pre[data-language="plain"] code,
+.md-presentation-overlay pre[data-language="plaintext"] code {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: inherit !important;
+  padding: 0 !important;
+}
+
+.md-presentation-overlay pre.presentation-pre-plain .presentation-code-badge,
+.md-presentation-overlay pre[data-language="text"] .presentation-code-badge,
+.md-presentation-overlay pre[data-language="plain"] .presentation-code-badge,
+.md-presentation-overlay pre[data-language="plaintext"] .presentation-code-badge {
+  display: none !important;
+}
+
 /* Fallback de Erro de Slide */
 .md-presentation-overlay .slide-error-fallback {
-  border: 2px dashed #f85149;
+  border: 2px dashed var(--color-error);
   border-radius: 8px;
   padding: 1.5rem;
-  background: rgba(248, 81, 73, 0.1);
+  background: color-mix(in srgb, var(--color-error) 10%, transparent);
 }
 
 /* Indicador de Preparação (Loading) */
@@ -305,7 +460,7 @@
 .md-presentation-error-card {
   max-width: 500px;
   background: var(--pres-code-bg);
-  border: 1px solid #f85149;
+  border: 1px solid var(--color-error);
   border-radius: 10px;
   padding: 2rem;
   text-align: center;
@@ -313,14 +468,14 @@
 }
 
 .md-presentation-error-card h2 {
-  color: #f85149;
+  color: var(--color-error);
   margin-bottom: 1rem;
 }
 
 .md-presentation-back-btn {
   margin-top: 1.5rem;
   background: var(--pres-heading);
-  color: #ffffff;
+  color: var(--text-inverse);
   border: none;
   border-radius: 6px;
   padding: 0.6rem 1.2rem;
@@ -386,6 +541,5 @@
     animation: none !important;
   }
 }
-
 
 

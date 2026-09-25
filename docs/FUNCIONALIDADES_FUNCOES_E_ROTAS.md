@@ -1,6 +1,6 @@
 # Mapa de Funcionalidades, Funções e Rotas — MD Studio
 
-**Versão do Produto:** v0.2.2 (Ondas 0–3 + Shiki & Hub Híbrido de Formatação; Presentation Mode em teste → v0.2.3)
+**Versão do Produto:** v0.2.3. Este mapa descreve todas as funcionalidades ativas e consolidadas no produto: Editor CodeMirror 6, Presentation Mode, exportação EPUB 3 e HTML, exportação PDF por impressão, Shiki dual-themes e hub híbrido de formatação.
 **Stack:** Tauri 2 (Rust) + React 19 + TypeScript + CodeMirror 6 + Unified  
 **Repositório:** [github.com/elzobrito/md-studio](https://github.com/elzobrito/md-studio)  
 **Ambiente:** Desktop Linux e Windows (Local-first / Offline) — distribuição via Snap Store, `.deb`, AppImage, `.rpm`, NSIS `.exe` e MSI
@@ -38,7 +38,7 @@
   - **Resiliência a Digitação em Tempo Real:** Captura segura de erros de compilação durante digitação parcial; retém o último diagrama válido com indicador sutil `[Sintaxe incompleta]`, prevenindo quebras e poluição do DOM.
   - **Exportação Fiel (SVG e PNG):** Utilitário `diagramExport.ts` que embute regras de estilo geradas pelo tema ativo dentro de `<defs><style>` do SVG antes do salvamento ou cópia para o clipboard, assegurando fidelidade visual no Inkscape, Figma ou navegadores.
   - **Alternância Diagrama / Código-Fonte:** Botão para alternar a exibição do diagrama renderizado e do código-fonte Mermaid com um clique.
-- **Shiki Syntax Highlighting (TextMate Dual Themes):** Realce de sintaxe de alta precisão via Shiki (`@shikijs/rehype`) com suporte nativo a temas duplos simultâneos (`github-light` e `github-dark`) mapeados para variáveis CSS (`.theme-light`, `.theme-dark`, auto). Singleton Wasm com overhead zero de inicialização.
+- **Shiki Syntax Highlighting (TextMate Dual Themes):** Realce de sintaxe de alta precisão via Shiki (`@shikijs/rehype`) com temas duplos simultâneos `catppuccin-latte` (claro) e `catppuccin-mocha` (escuro), mapeados para as classes `.theme-light`, `.theme-dark` e auto. O seletor de tema da interface continua sendo Claro, Escuro ou Automático. Singleton Wasm com overhead zero de inicialização.
 - **Alertas / Callouts GFM:** Suporte a `> [!NOTE]`, `> [!TIP]`, `> [!IMPORTANT]`, `> [!WARNING]` e `> [!CAUTION]`.
 
 ### 1.4. Wiki Links e Conexões Bidirecionais
@@ -59,7 +59,9 @@
 - **Detecção de Conflitos Concorrentes:** Verificação de SHA-256 antes da gravação. Se o arquivo no disco foi alterado externamente por outro processo, o diálogo `ConflictDialog` oferece opções: *Recarregar do Disco*, *Manter Edição Local* ou *Salvar Como*.
 - **Observador de Arquivos (*Watcher FS*):** Motor `notify` em Rust observando modificações em tempo real com debounce estável e supressão inteligente de eventos internos.
 - **Rascunhos de Recuperação Instantânea:** Armazenamento local imediato (`localStorage`) para restauração de edições não salvas após encerramento forçado do processo.
-- **Exportação HTML Autossuficiente:** Botão `[⇩ Exportar HTML]` no cabeçalho; gera documento HTML autônomo com estilos embutidos e scripts seguros. Protegido para só ficar habilitado com arquivo ativo.
+- **Exportação HTML Autossuficiente:** Item `Exportar HTML` no menu `Exportar` do cabeçalho; gera documento HTML autônomo com estilos embutidos e scripts seguros. Protegido para só ficar habilitado com arquivo ativo.
+- **Exportação EPUB 3:** Item `Exportar EPUB` no mesmo menu. Só no aplicativo desktop. `exportActiveDocumentEpub` monta o payload com `processEpubMarkdown`, captura SVGs Mermaid do preview com `captureMermaidSvgsFromDom` e grava o `.epub` via `export_epub`. Imagens precisam estar dentro do workspace aberto; o destino é um caminho absoluto escolhido pelo usuário. `getMermaidPromptDecision` calcula se faltam diagramas renderizados; o serviço atual segue com o fallback de código quando o SVG não foi capturado.
+- **Exportação PDF:** Item `Exportar PDF` no mesmo menu. Não há comando IPC: `handleExportPdf` muda para o modo `preview` quando a vista está em `source` e chama `window.print()` sobre o HTML já sanitizado.
 
 ### 1.6. Hub Híbrido de Formatação de Código (Frontend Web + Backend Rust)
 - **Camada Web (Prettier Standalone):** Formatação local instantânea no navegador sem dependências nativas para JavaScript, TypeScript, JSX, TSX, HTML, CSS, SCSS, Less, JSON, YAML e Markdown.
@@ -84,6 +86,7 @@ O MD Studio adota uma arquitetura de rotas orientada a estados de visão e layou
 | **Formatado** | `preview` | Visualização renderizada somente leitura com o pipeline completo (GFM, KaTeX, Mermaid, Wiki Links). |
 | **Dividida** | `split` | Edição e preview lado a lado com sincronização bidirecional de rolagem (*Scroll Sync*). |
 | **Zen** | `zen` | Modo tela cheia imersivo ativado por `F11`, ocultando barras de ferramentas e painéis. |
+| **Apresentação** | overlay `presentationOpen` | Slides locais com Reveal.js sobre o documento ativo. `F5` abre e fecha; `Esc` sai. Não substitui `viewMode`. |
 
 ### 2.2. Telas de Estado da Aplicação
 | Tela | Condição | Descrição |
@@ -118,6 +121,7 @@ O MD Studio dispõe de um barramento de atalhos globais gerenciado por [`useKeyb
 | **Visualização** | `Ctrl + 2` | Rota para o modo **Formatado** (`preview`). |
 | **Visualização** | `Ctrl + 3` | Rota para o modo **Dividida** (`split`). |
 | **Visualização** | `F11` | Alterna para o modo **Zen** (imersão em tela cheia sem barras). |
+| **Visualização** | `F5` | Abre ou fecha o Presentation Mode quando há documento ativo. `Esc`, dentro do palco, também sai. |
 | **Visualização** | `Ctrl + B` ou `Ctrl + \` | Alterna exibição da Barra Lateral Esquerda (Explorador de Arquivos). |
 | **Visualização** | `Ctrl + J` ou `Ctrl + Shift + \` | Alterna exibição do Painel Direito (Sumário / Links / Backlinks). |
 | **Visualização** | `Alt + S` | Alterna a sincronização de rolagem (*Scroll Sync*) no modo split. |
@@ -149,7 +153,7 @@ O MD Studio dispõe de um barramento de atalhos globais gerenciado por [`useKeyb
 
 Todas as rotas IPC e canais de eventos estão registrados em [`src-tauri/src/lib.rs`](../src-tauri/src/lib.rs) e expostos com tipagem TypeScript segura em [`src/lib/ipc/`](../src/lib/ipc).
 
-### 3.1. Comandos IPC de Requisição e Resposta (Tauri Invokes — 20 Comandos)
+### 3.1. Comandos IPC de Requisição e Resposta (Tauri Invokes — 21 Comandos)
 
 | Comando IPC (Rota) | Módulo Rust | Parâmetros de Entrada | Retorno (Payload) | Descrição e Regras de Segurança |
 |---|---|---|---|---|
@@ -159,6 +163,7 @@ Todas as rotas IPC e canais de eventos estão registrados em [`src-tauri/src/lib
 | `save_document` | `commands::mod` | `payload: SavePayload` | `SaveResult` | Gravação atômica com validação de hash esperado (`expectedHash`). Dispara atualização incremental do índice. |
 | `search_workspace` | `commands::mod` | `workspace_id: String, query: String` | `Vec<SearchResult>` | Busca textual e por títulos em todos os arquivos do workspace. |
 | `export_html` | `commands::mod` | `path: String, html: String, overwrite: bool` | `ExportResult` | Grava arquivo `.html` autossuficiente no caminho absoluto fornecido. Rejeita sobrescrita sem confirmação explícita. |
+| `export_epub` | `commands::mod` | `req: { workspaceId, destination, overwrite, payload }` em camelCase | `EpubExportResult` (`outputPath`, `imageCount`, `mermaidCount`, `mermaidFallbackCount`, `warnings`) | Chama `md_studio_core::export::build_epub`. Exige workspace conhecido. O destino tem de ser absoluto. Se o arquivo existe e `overwrite` é falso, devolve `ExportTargetExists`. Imagem fora do workspace é rejeitada pelo path fence. |
 | `get_launch_path` | `commands::mod` | — | `Option<String>` | Obtém caminho de arquivo `.md` passado via linha de comando ou clique duplo do sistema operacional. |
 | `close_splash` | `commands::mod` | — | `()` | Fecha a janela temporária de splash e exibe a janela principal de 1280x800 com foco. |
 | `format_code` | `commands::formatter` | `language: String, code: String` | `FormatResult` | Formata bloco de código via ferramentas CLI locais (`ruff`, `rustfmt`, `gofmt`, `clang-format`) com timeout de 2s e fallback seguro. |
@@ -191,7 +196,7 @@ O MD Studio integra três plugins oficiais do ecossistema Tauri 2 para comunica�
 |---|---|---|---|
 | **`tauri-plugin-dialog`** | `open({ directory: true })` | `pickFolder()` | Abre caixa de diálogo nativa do desktop para seleção de pasta raiz do workspace. |
 | **`tauri-plugin-dialog`** | `open({ directory: false, filters })` | `pickMarkdownFile()` | Abre diálogo nativo do sistema filtrado para extensões `.md` e `.markdown`. |
-| **`tauri-plugin-dialog`** | `save({ filters })` | `pickSaveMarkdownFile()` / `pickSaveHtmlFile()` | Diálogo nativo para escolha de destino ao salvar novos arquivos Markdown ou exportar HTML. |
+| **`tauri-plugin-dialog`** | `save({ filters })` | `pickSaveMarkdownFile()` / `pickSaveHtmlFile()` / `pickSaveEpubFile()` | Diálogo nativo para escolha de destino ao salvar novos arquivos Markdown, exportar HTML ou exportar EPUB (filtro `.epub`). Cancelar devolve `null`. |
 | **`tauri-plugin-dialog`** | `ask(message, { kind: "warning" })` | `confirmOverwrite(path)` | Alerta nativo modal do SO solicitando confirmação do usuário antes de sobrescrever arquivo existente. |
 | **`tauri-plugin-single-instance`** | Callback de inicialização única | Interceptador no Rust | Garante uma única instância do processo do app: se executado novamente, redireciona o arquivo para a janela aberta via `app://open-file`, fecha o splash secundário e foca a janela principal. |
 | **`tauri-plugin-opener`** | `openUrl` / Invocação segura | Handler de links externos | Abre links externos (`http://`, `https://`) com segurança no navegador padrão do usuário do Linux, sem executar código inseguro dentro do Webview. |
@@ -241,6 +246,14 @@ O MD Studio integra três plugins oficiais do ecossistema Tauri 2 para comunica�
   - `renderMermaid(id, code, options)`: Wrapper seguro em torno de `mermaid.render()`. Trata limpeza de nós de erro vazados no DOM, sincronização de tema (dark/light) e geração determinística de identificadores de diagrama.
 - **`formatCode` ([`src/services/formatter/index.ts`](../src/services/formatter/index.ts)):**
   - Hub híbrido de formatação: seleciona entre execução Prettier local (Web) e comando IPC Tauri `format_code` (Rust) para ferramentas de linha de comando nativas.
+- **`exportActiveDocumentEpub` ([`src/services/exportEpub.ts`](../src/services/exportEpub.ts)):**
+  - Recusa a exportação fora do Tauri. Chama `processEpubMarkdown`, `captureMermaidSvgsFromDom`, `pickSaveEpubFile` e `ipc.exportEpub`. Cancelamento do diálogo devolve `{ ok: false, cancelled: true }` sem gravar. `ExportTargetExists` passa por `confirmOverwrite` e repete com `overwrite: true`.
+- **`processEpubMarkdown` ([`src/export/epubProcessor.ts`](../src/export/epubProcessor.ts)):**
+  - Lê frontmatter, título e imagens locais e devolve `EpubExportPayload`. O tema de código padrão do EPUB é `catppuccin-latte`, com alternativa `catppuccin-mocha`.
+- **`captureMermaidSvgsFromDom` e `getMermaidPromptDecision` ([`src/export/mermaidCapture.ts`](../src/export/mermaidCapture.ts)):**
+  - A primeira copia o SVG já renderizado no preview para o slot. A segunda decide se o preview inativo ou um diagrama faltante deveria avisar o usuário antes do fallback em código.
+- **`processPresentation` e `createPresentationModel` ([`src/presentation/processor.ts`](../src/presentation/processor.ts), [`segmentation.ts`](../src/presentation/segmentation.ts)):**
+  - `createPresentationModel` parte o Markdown em slides. `processPresentation` renderiza cada slide no pipeline Unified já usado pelo preview, com Shiki, KaTeX e Mermaid. `PresentationMode` pede fullscreen e monta o deck Reveal.js em `PresentationStage`. `F5` e `Esc` saem e restauram a vista anterior.
 
 ---
 
@@ -248,7 +261,7 @@ O MD Studio integra três plugins oficiais do ecossistema Tauri 2 para comunica�
 
 Esta seção mapeia a cadeia de execução completa de ponta a ponta: do evento que dispara a rota até o efeito colateral no frontend e no backend Rust.
 
-### 5.1. Comandos IPC do Backend (19 Invokes Tauri 2)
+### 5.1. Comandos IPC do Backend (21 Invokes Tauri 2)
 
 #### 1. `open_workspace`
 * **Gatilho / Origem:** Clique em "Abrir pasta" no cabeçalho ou na tela inicial (`Ctrl+Shift+O`).
@@ -291,7 +304,7 @@ Esta seção mapeia a cadeia de execução completa de ponta a ponta: do evento 
 * **Efeito Colateral & Estado:** Retorna `Vec<SearchResult>` contendo `relative_path`, número da linha e snippet formatado, alimentando a lista de resultados da interface.
 
 #### 6. `export_html`
-* **Gatilho / Origem:** Clique no botão `[⇩ Exportar HTML]` no cabeçalho da aplicação.
+* **Gatilho / Origem:** Item `Exportar HTML` no menu `Exportar` (`ExportMenu`) do cabeçalho.
 * **Funções Frontend:** `handleExportHtml()` no [`App.tsx`](../src/App.tsx) ➔ `exportActiveDocumentHtml(content, defaultName)` no [`exportHtml.ts`](../src/services/exportHtml.ts) ➔ dispara diálogo nativo `pickSaveHtmlFile()` ➔ gera documento HTML completo via `processMarkdown()`.
 * **Cliente IPC:** `ipc.exportHtml(path, html, overwrite)` no [`client.ts`](../src/lib/ipc/client.ts).
 * **Funções Backend Rust:** `commands::export_html` ➔ verifica se arquivo já existe e respeita o booleano `overwrite` ➔ cria diretórios pais caso necessário ➔ grava o arquivo com `fsync`.
@@ -391,6 +404,20 @@ Esta seção mapeia a cadeia de execução completa de ponta a ponta: do evento 
   4. Retorna `Vec<BacklinkOccurrence>`.
 * **Efeito Colateral & Estado:** Popula o [`BacklinksPanel`](../src/components/wiki/BacklinksPanel.tsx) com lista de referências agrupadas por nota de origem, prontas para salto direto ao clique.
 
+#### 20. `format_code`
+* **Gatilho / Origem:** Botão **Formatar** no bloco de código do preview, atalho `Shift+Alt+F` no CodeMirror ou botão da `FormattingToolbar`.
+* **Funções Frontend:** `formatCode` em [`src/services/formatter/index.ts`](../src/services/formatter/index.ts). Linguagens web usam Prettier no próprio frontend; as demais descem para o IPC.
+* **Cliente IPC:** `invoke("format_code", { language, code })`.
+* **Funções Backend Rust:** `commands::formatter::format_code` executa o formatador CLI do sistema (`ruff`, `rustfmt`, `gofmt`, `clang-format` e equivalentes) com timeout de 2 segundos. Se a ferramenta falta ou o código é inválido, devolve o texto original.
+* **Efeito Colateral & Estado:** Substitui só o bloco cercado sob o cursor, sem gravar o arquivo por conta própria.
+
+#### 21. `export_epub`
+* **Gatilho / Origem:** Item `Exportar EPUB` no `ExportMenu`, com documento ativo e runtime Tauri.
+* **Funções Frontend:** `handleExportEpub()` no [`App.tsx`](../src/App.tsx) ➔ `exportActiveDocumentEpub` em [`exportEpub.ts`](../src/services/exportEpub.ts) ➔ `processEpubMarkdown` ➔ `captureMermaidSvgsFromDom` ➔ `pickSaveEpubFile()`. Cancelar o diálogo encerra a cadeia sem IPC.
+* **Cliente IPC:** `ipc.exportEpub(payload, destination, overwrite, workspaceId)` envia `{ req: { workspaceId, destination, overwrite, payload } }`.
+* **Funções Backend Rust:** `commands::export_epub` ➔ `export_epub_in` exige workspace registrado e destino absoluto ➔ `build_epub` no `md-studio-core`. Path fence rejeita imagem fora do workspace. Destino existente com `overwrite = false` devolve `ExportTargetExists`; o frontend confirma com `confirmOverwrite` e repete com `overwrite: true`.
+* **Efeito Colateral & Estado:** Grava um `.epub` (ZIP) no caminho escolhido. O resultado traz `outputPath` e as contagens de imagens e de diagramas Mermaid. Fora do Tauri o serviço devolve erro e não chama o comando.
+
 ---
 
 ### 5.2. Canais de Eventos Assíncronos (Tauri Event Channels)
@@ -426,6 +453,7 @@ Esta seção mapeia a cadeia de execução completa de ponta a ponta: do evento 
 | **`tauri-plugin-dialog`** | `pickMarkdownFile()` | `dialog.open({ directory: false, filters })` | Retorna caminho do arquivo ➔ dispara `doc.openFile(path)`. |
 | **`tauri-plugin-dialog`** | `pickSaveMarkdownFile()` | `dialog.save({ filters: ["md"] })` | Retorna novo caminho de destino ➔ dispara `save_document` com novo caminho. |
 | **`tauri-plugin-dialog`** | `pickSaveHtmlFile()` | `dialog.save({ filters: ["html"] })` | Retorna caminho de destino para HTML ➔ dispara `export_html`. |
+| **`tauri-plugin-dialog`** | `pickSaveEpubFile()` | `dialog.save({ filters: ["epub"] })` | Retorna caminho de destino para EPUB ➔ dispara `export_epub`. `null` significa cancelamento, sem erro e sem gravação. |
 | **`tauri-plugin-dialog`** | `confirmOverwrite(path)` | `dialog.ask("O arquivo já existe...\nSobrescrever?", { kind: "warning" })` | Retorna booleano: se `true`, permite a sobrescrita; se `false`, cancela a operação de exportação. |
 | **`tauri-plugin-single-instance`** | Callback nativo de nova instância | Hook de IPC no kernel do SO | Evita abertura de janelas duplicadas; encaminha argumentos para a janela ativa via canal `app://open-file`. |
 | **`tauri-plugin-opener`** | `openUrl(url)` | Chamada XDG do desktop Linux | Lança o link externo no navegador padrão do sistema (ex: Firefox ou Chrome), isolado do webview. |
@@ -447,6 +475,9 @@ Esta seção mapeia a cadeia de execução completa de ponta a ponta: do evento 
 * **Modo `zen` (`F11`):**
   - Disparador: `session.toggleZen()`.
   - Execução: Inverte booleano `session.isZen`; oculta `AppHeader`, barras laterais e `StatusBar`; define layout para tela cheia imersiva focada no texto.
+* **Presentation Mode (`F5`, saída também por `Esc`):**
+  - Disparador: `handleStartPresentation()` / `handleClosePresentation()` no [`App.tsx`](../src/App.tsx), com `presentationOpen`.
+  - Execução: Guarda `viewMode`, painéis, cursor e rolagem. `PresentationMode` chama `processPresentation`, que usa `createPresentationModel` para segmentar os slides e o pipeline Unified para Shiki (Catppuccin), KaTeX e Mermaid. `PresentationStage` sobe o deck Reveal.js local. Ao sair, restaura a vista anterior. Não há comando IPC.
 
 #### 2. Modais e Diálogos de Interação
 * **`NewDocumentModal` (`Ctrl+N` / Botão `+`):**
@@ -478,6 +509,10 @@ Esta seção mapeia a cadeia de execução completa de ponta a ponta: do evento 
 * **Navegação de Backlinks (`BacklinksPanel.tsx`):**
   - Disparador: Clique em snippet de ocorrência.
   - Execução: Executa `openRelative(occurrence.sourcePath)` e dispara `queueGoToLine(occurrence.line)`, abrindo o arquivo de origem e saltando imediatamente para a linha que contém o link.
+
+#### 4. Exportar PDF e menu de exportação
+* **`ExportMenu`:** botão `Exportar` no cabeçalho, habilitado só com documento ativo. Itens: `Exportar HTML`, `Exportar PDF` e `Exportar EPUB`.
+* **PDF:** `handleExportPdf()` não chama Rust. Se `viewMode` é `source`, troca para `preview` e, após o render, executa `window.print()` sobre o DOM sanitizado. Nos outros modos imprime na hora.
 
 ---
 

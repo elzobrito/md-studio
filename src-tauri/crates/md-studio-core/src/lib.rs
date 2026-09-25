@@ -1,9 +1,14 @@
+pub mod export;
 pub mod index;
 pub mod launch;
 pub mod parser;
 pub mod persistence;
 pub mod workspace;
 
+pub use export::{
+    build_epub, extract_headings, html_to_xhtml, EpubExportPayload, EpubExportResult, EpubMetadata,
+    MermaidSlot,
+};
 pub use index::{
     clear_index, extract_metadata, extract_metadata_from_str, index_path, load_index, save_index,
     BacklinkGroup, BacklinkIndex, BacklinkOccurrence, BacklinkResult, DocumentMetadata, Heading,

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { TEMPLATES, type Template } from "../../templates";
 import { TemplateCard } from "./TemplateCard";
@@ -17,24 +17,22 @@ export function NewDocumentModal({
   onSelectTemplate,
 }: NewDocumentModalProps) {
   const [selectedId, setSelectedId] = useState<string>("blank");
+  const gridRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!isOpen) return;
 
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        e.preventDefault();
-        onClose();
-      }
-    };
+    setSelectedId("blank");
 
-    window.addEventListener("keydown", handleKeyDown);
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [isOpen, onClose]);
+    const timer = setTimeout(() => {
+      const btn = gridRef.current?.querySelector<HTMLButtonElement>(
+        `[data-template-id="blank"]`
+      );
+      btn?.focus();
+    }, 50);
 
-  if (!isOpen) return null;
+    return () => clearTimeout(timer);
+  }, [isOpen]);
 
   const handleConfirm = () => {
     const tpl = TEMPLATES.find((t) => t.id === selectedId) || TEMPLATES[0];
@@ -43,6 +41,61 @@ export function NewDocumentModal({
       onClose();
     }
   };
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        onClose();
+        return;
+      }
+
+      const currentIndex = TEMPLATES.findIndex((t) => t.id === selectedId);
+      if (currentIndex === -1) return;
+
+      let nextIndex = currentIndex;
+
+      if (e.key === "ArrowRight") {
+        e.preventDefault();
+        nextIndex = (currentIndex + 1) % TEMPLATES.length;
+      } else if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        nextIndex = (currentIndex - 1 + TEMPLATES.length) % TEMPLATES.length;
+      } else if (e.key === "ArrowDown") {
+        e.preventDefault();
+        if (currentIndex + 3 < TEMPLATES.length) {
+          nextIndex = currentIndex + 3;
+        }
+      } else if (e.key === "ArrowUp") {
+        e.preventDefault();
+        if (currentIndex - 3 >= 0) {
+          nextIndex = currentIndex - 3;
+        }
+      } else if (e.key === "Enter" && !e.repeat) {
+        e.preventDefault();
+        handleConfirm();
+        return;
+      }
+
+      if (nextIndex !== currentIndex) {
+        const nextTpl = TEMPLATES[nextIndex];
+        setSelectedId(nextTpl.id);
+        const nextBtn = gridRef.current?.querySelector<HTMLButtonElement>(
+          `[data-template-id="${nextTpl.id}"]`
+        );
+        nextBtn?.focus();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isOpen, selectedId, onClose]);
+
+  if (!isOpen) return null;
 
   return createPortal(
     <div
@@ -67,7 +120,12 @@ export function NewDocumentModal({
           </button>
         </header>
 
-        <div className="new-doc-modal-grid">
+        <div
+          className="new-doc-modal-grid"
+          ref={gridRef}
+          role="radiogroup"
+          aria-label="Modelos de documento"
+        >
           {TEMPLATES.map((tpl) => (
             <TemplateCard
               key={tpl.id}
@@ -82,17 +140,7 @@ export function NewDocumentModal({
           ))}
         </div>
 
-        <footer
-          className="new-doc-modal-footer"
-          style={{
-            display: "flex",
-            justifyContent: "flex-end",
-            gap: "8px",
-            marginTop: "16px",
-            paddingTop: "12px",
-            borderTop: "1px solid var(--border, #313244)",
-          }}
-        >
+        <footer className="new-doc-modal-footer">
           <Button variant="secondary" size="md" onClick={onClose}>
             Cancelar
           </Button>

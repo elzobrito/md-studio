@@ -22,7 +22,7 @@ describe("untrusted Markdown styles", () => {
 
   it("preserves Shiki's generated literal token colors", async () => {
     const html = (await processMarkdown("```javascript\nconst answer = 42\n```")).html;
-    expect(html).toContain('class="shiki shiki-themes github-light github-dark"');
+    expect(html).toContain('class="shiki shiki-themes catppuccin-latte catppuccin-mocha"');
     expect(html).toMatch(/--shiki-light:#[0-9a-fA-F]{3,8}/);
     expect(html).toMatch(/--shiki-dark:#[0-9a-fA-F]{3,8}/);
   });

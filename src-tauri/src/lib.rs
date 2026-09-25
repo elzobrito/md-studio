@@ -74,6 +74,7 @@ pub fn run() {
             commands::save_document,
             commands::search_workspace,
             commands::export_html,
+            commands::export_epub,
             commands::get_launch_path,
             commands::metadata::get_workspace_stats,
             commands::metadata::get_document_metadata,

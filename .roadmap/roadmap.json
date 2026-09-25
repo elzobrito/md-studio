@@ -7,11 +7,11 @@
     "run": {
       "run_id": "RUN-0001",
       "status": "success",
-      "last_event_seq": 2494,
-      "projection_hash_sha256": "68625fcea4135ea5882374b8a73ba8a55d95321db122774474511bf00fd79e82",
+      "last_event_seq": 3047,
+      "projection_hash_sha256": "563a4133c03925b7e7a929326c241a9278f5ebef7c6a61e5e6c4d95da48c70a4",
       "verify_status": "ok"
     },
-    "updated_at": "2026-09-24T00:30:56Z"
+    "updated_at": "2026-09-25T00:31:35Z"
   },
   "project": {
     "name": "MD Studio",
@@ -7932,15 +7932,1802 @@
         ]
       },
       "completed_at": "2026-09-24T00:30:56Z"
+    },
+    {
+      "task_id": "MD-DOCS-SYNC-001",
+      "task_kind": "impl",
+      "title": "Sincronizar documentação com v0.2.2",
+      "description": "Alinhar documentação do repositório à versão liberada 0.2.2: versões stale, stack Shiki, plataformas de distribuição (Snap/.deb/AppImage/.rpm/Windows), links file:// absolutos, LICENSE MIT + CHANGELOG mínimo, Presentation Mode como em teste (alvo v0.2.3), notas de status nos handoffs das ondas. Sem alteração de código da aplicação; sem commit/push.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "docs/**",
+        "README.md",
+        "PROJETO.md",
+        "LICENSE",
+        "CHANGELOG.md",
+        "app/PRD-MD-STUDIO-QUALITY.md",
+        "package.json",
+        "src-tauri/Cargo.toml"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "docs/**",
+        "README.md",
+        "PROJETO.md",
+        "LICENSE",
+        "CHANGELOG.md",
+        "app/**",
+        "package.json",
+        "src-tauri/Cargo.toml"
+      ],
+      "task_type": "maintenance",
+      "acceptance_criteria": [
+        "Versões em docs/README.md, FUNCIONALIDADES, PACKAGING e release/README alinhadas a 0.2.2 (confirmado em package.json/tauri.conf.json/Cargo.toml/snapcraft.yaml)",
+        "Afirmações de estado atual usam Shiki (não highlight.js); docs históricos com nota datada se necessário",
+        "Plataformas documentadas: Snap Store, .deb, AppImage, .rpm e instaladores Windows; PACKAGING cobre rpm/Windows/Snap e upload manual do Snap",
+        "Nenhum link file:///home no repositório (exceto node_modules/target/.git/dist); links relativos resolvem",
+        "LICENSE MIT na raiz (Copyright 2026 Elzo Brito) e CHANGELOG.md só com fontes reais; license MIT consistente em package.json/Cargo.toml",
+        "Presentation Mode documentado como em teste (previsto v0.2.3); spec 001 sem referência dangling a ROADMAP-CANONICO",
+        "Handoffs onda0b/onda1/onda2 com nota de status 2026-09-24 no topo"
+      ],
+      "required_review_mode": "docs",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-24T07:53:49Z",
+      "verification": {
+        "checks": [
+          "Versões docs alinhadas a 0.2.2 (package.json/tauri.conf.json/Cargo.toml/snapcraft.yaml concordam)",
+          "Afirmações de estado atual usam Shiki; ANALISE_ESTADO_ATUAL_V2 com nota histórica 2026-09-24 para highlight.js",
+          "PACKAGING e PROJETO/PRD cobrem Snap/.deb/AppImage/.rpm/Windows; upload Snap documentado como manual",
+          "grep file:///home em docs/app/README/PROJETO = vazio; links relativos resolvem (0 missing)",
+          "LICENSE MIT Copyright 2026 Elzo Brito + CHANGELOG só de tags/gh/release notes; license MIT em package.json e Cargo.toml",
+          "Presentation Mode documentado como em teste (v0.2.3); spec 001 sem referência dangling ativa a ROADMAP-CANONICO",
+          "Handoffs onda0b/onda1/onda2 com status 2026-09-24 no topo"
+        ]
+      },
+      "completed_at": "2026-09-24T07:56:18Z"
+    },
+    {
+      "task_id": "MD-PRES-TEST-FLAKY-001",
+      "task_kind": "impl",
+      "title": "Eliminar erro não tratado do reveal.js após teardown nos testes do Presentation Mode",
+      "description": "Build Windows App run 35972651670 falhou no job security: pnpm test com 286 testes OK mas 1 unhandled error ReferenceError document is not defined em reveal.js Timeout originado em tests/presentation/session.test.tsx. Corrigir cleanup do deck (destroy/clear timeouts) e reforçar teardown nos testes. Sem swallow global de unhandled errors. Sem mudança de comportamento além do cleanup correto.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "src/presentation/**",
+        "tests/presentation/**",
+        "docs/qa/**"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src/presentation/**",
+        "tests/presentation/**",
+        "docs/qa/**"
+      ],
+      "task_type": "hotfix",
+      "acceptance_criteria": [
+        "Nenhum unhandled error de reveal.js nos testes de presentation em loops repetidos (20+)",
+        "pnpm test completo verde com 0 unhandled errors",
+        "pnpm typecheck ok",
+        "Sem mudança de comportamento do app além de cleanup correto do deck ao sair/unmount"
+      ],
+      "required_review_mode": "regression",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-24T11:54:16Z",
+      "verification": {
+        "checks": [
+          "presentation loop 25x: 0 unhandled / 0 fails",
+          "session.test.tsx --pool=forks 20x: 0 fails",
+          "pnpm test 3x: 52 files / 286 tests, 0 unhandled errors",
+          "pnpm typecheck ok",
+          "bash scripts/install-security-tools.sh exit 0 (security-gates CI path)",
+          "evidência docs/qa/MD-PRES-TEST-FLAKY-001.md"
+        ]
+      },
+      "completed_at": "2026-09-24T12:04:31Z"
+    },
+    {
+      "task_id": "MD-HOTFIX-THEME-001",
+      "task_kind": "impl",
+      "title": "Definir variaveis CSS de codigo para tema claro",
+      "description": "Garantir variaveis CSS padronizadas para code blocks, inline code e badges em src/styles/themes/light.css e src/styles/themes/dark.css",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "src/styles/themes/light.css",
+        "src/styles/themes/dark.css"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "hotfix",
+      "acceptance_criteria": [
+        "Tema claro possui variaveis de codigo proprias",
+        "Tema escuro possui variaveis equivalentes"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-24T15:00:57Z",
+      "verification": {
+        "checks": [
+          "pnpm typecheck",
+          "pnpm test"
+        ]
+      },
+      "completed_at": "2026-09-24T15:02:44Z"
+    },
+    {
+      "task_id": "MD-HOTFIX-THEME-002",
+      "task_kind": "impl",
+      "title": "Aplicar variaveis em preview e apresentacao",
+      "description": "Substituir cores hardcoded por variaveis CSS nos componentes de code block, inline code e badge de copia",
+      "status": "done",
+      "depends_on": [
+        "MD-HOTFIX-THEME-001"
+      ],
+      "targets": [
+        "src/styles/syntax.css",
+        "src/styles/themes.css",
+        "src/presentation/presentation.css"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "hotfix",
+      "acceptance_criteria": [
+        "Code block usa variaveis CSS",
+        "Inline code usa variaveis CSS"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-24T15:03:10Z",
+      "verification": {
+        "checks": [
+          "Code block usa variaveis CSS em syntax.css e presentation.css",
+          "Inline code usa variaveis CSS em themes.css e presentation.css"
+        ]
+      },
+      "completed_at": "2026-09-24T15:06:04Z"
+    },
+    {
+      "task_id": "MD-HOTFIX-THEME-003",
+      "task_kind": "impl",
+      "title": "Shiki com tema dual light/dark",
+      "description": "Garantir mapeamento consistente de cores Shiki light e dark para preview e apresentacao",
+      "status": "done",
+      "depends_on": [
+        "MD-HOTFIX-THEME-001"
+      ],
+      "targets": [
+        "src/markdown/processor.ts",
+        "src/presentation/presentation.css"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "hotfix",
+      "acceptance_criteria": [
+        "Tokens Shiki legiveis em modo claro e escuro"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-24T15:06:22Z",
+      "verification": {
+        "checks": [
+          "Tokens Shiki legiveis em modo claro e escuro em syntax.css e presentation.css",
+          "Shiki dual-theme configurado com fallback e estilos para overlay theme-light e theme-dark"
+        ]
+      },
+      "completed_at": "2026-09-24T15:08:09Z"
+    },
+    {
+      "task_id": "MD-HOTFIX-THEME-004",
+      "task_kind": "impl",
+      "title": "Badge oculto em slides e blocos sem linguagem normalizados",
+      "description": "Ocultar badge de copia nos slides e normalizar blocos sem linguagem para texto preformatado simples",
+      "status": "done",
+      "depends_on": [
+        "MD-HOTFIX-THEME-002"
+      ],
+      "targets": [
+        "src/presentation/presentation.css",
+        "src/presentation/rich-content.ts"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "hotfix",
+      "acceptance_criteria": [
+        "Badge de copia oculto em slides",
+        "Blocos sem linguagem sem estilo de code tecnico nos slides"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-24T15:08:23Z",
+      "verification": {
+        "checks": [
+          "Badge de copia oculto em slides em presentation.css e rich-content.ts",
+          "Blocos sem linguagem normalizados para texto preformatado simples com classe presentation-pre-plain e seletores sem fundo escuro"
+        ]
+      },
+      "completed_at": "2026-09-24T15:09:44Z"
+    },
+    {
+      "task_id": "MD-HOTFIX-THEME-005",
+      "task_kind": "impl",
+      "title": "Overflow controlado com scroll em slides",
+      "description": "Implementar scroll interno controlado e nao-intrusivo para slides longos sem cortar conteudo silenciosamente",
+      "status": "done",
+      "depends_on": [
+        "MD-HOTFIX-THEME-004"
+      ],
+      "targets": [
+        "src/presentation/presentation.css",
+        "src/presentation/PresentationStage.tsx"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "hotfix",
+      "acceptance_criteria": [
+        "Slides longos tem scroll interno funcional"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-24T15:09:56Z",
+      "verification": {
+        "checks": [
+          "Slides longos tem scroll interno funcional com max-height e overflow-y auto",
+          "Indicador visual discreto has-more-content e listener de scroll em PresentationStage.tsx"
+        ]
+      },
+      "completed_at": "2026-09-24T15:11:17Z"
+    },
+    {
+      "task_id": "MD-HOTFIX-THEME-006",
+      "task_kind": "qa",
+      "title": "QA e regressao completa da hotfix de tema",
+      "description": "Validar regressao completa, testes, typecheck, build e gerar docs/qa/hotfix-theme-v2.3.md",
+      "status": "done",
+      "depends_on": [
+        "MD-HOTFIX-THEME-001",
+        "MD-HOTFIX-THEME-002",
+        "MD-HOTFIX-THEME-003",
+        "MD-HOTFIX-THEME-004",
+        "MD-HOTFIX-THEME-005"
+      ],
+      "targets": [
+        "docs/qa/hotfix-theme-v2.3.md"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "hotfix",
+      "acceptance_criteria": [
+        "Todos os 286+ testes aprovados",
+        "Relatorio QA gerado em docs/qa/hotfix-theme-v2.3.md"
+      ],
+      "required_review_mode": "regression",
+      "assigned_to": "agent-qa",
+      "started_at": "2026-09-24T15:11:33Z",
+      "verification": {
+        "checks": [
+          "Todos os 286+ testes aprovados sem falhas",
+          "Relatorio QA gerado em docs/qa/hotfix-theme-v2.3.md",
+          "Build de producao e typecheck concluidos com sucesso"
+        ]
+      },
+      "completed_at": "2026-09-24T15:13:27Z"
+    },
+    {
+      "task_id": "MD-BUILD-LOCAL-002",
+      "task_kind": "impl",
+      "title": "Compilar e atualizar o binario local do MD Studio para show app",
+      "description": "Executar build de producao do frontend e backend Tauri e atualizar o executavel em ~/.local/bin/md-studio",
+      "status": "done",
+      "depends_on": [],
+      "targets": [],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "maintenance",
+      "acceptance_criteria": [
+        "Frontend compilado com pnpm build",
+        "Binario Tauri compilado com cargo build --release",
+        "Binario atualizado em ~/.local/bin/md-studio"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-24T15:16:46Z",
+      "verification": {
+        "checks": [
+          "Frontend compilado com pnpm build em dist",
+          "Binario Tauri compilado com cargo build --release",
+          "Binario atualizado em ~/.local/bin/md-studio"
+        ]
+      },
+      "completed_at": "2026-09-24T15:18:34Z"
+    },
+    {
+      "task_id": "MD-DS-001",
+      "task_kind": "impl",
+      "title": "Substituir paleta light mode por Catppuccin Latte",
+      "description": "Objetivo: substituir a paleta do modo claro pela variante Catppuccin Latte para corrigir baixa legibilidade em blocos de código, tabelas, preview e slides. Contexto: a base declarada no pedido é MD Studio v0.2.3, commit-base 6b59266; conferir o estado real do checkout antes de aplicar. Escopo: inspecionar o bloco :root[data-theme=\"light\"] em src/styles/themes/light.css; inventariar tokens e usos existentes; aplicar os valores Latte abaixo, preservando tokens adicionais usados pelo produto e registrando qualquer divergência necessária. Não remover tokens em uso sem migrar todos os consumidores. Esta tarefa não altera o tema escuro, processadores Shiki nem a causa estrutural dos slides.\n\nPaleta obrigatória: superfícies --bg-base:#eff1f5; --bg-surface:#e6e9ef; --bg-overlay:#dce0e8; --bg-mantle:#e6e9ef; --bg-crust:#dce0e8. Texto --text-primary:#4c4f69; --text-secondary:#6c6f85; --text-muted:#8c8fa1; --text-disabled:#acafc4; --text-inverse:#eff1f5. Acentos --color-accent:#1e66f5; --color-accent-2:#8839ef; --color-accent-3:#04a5e5. Semânticas --color-success:#40a02b; --color-warning:#df8e1d; --color-error:#d20f39; --color-info:#1e66f5. Bordas --border:#ccd0da; --border-strong:#acafc4. Interação --color-hover:#dce0e8; --color-selection:#ccd0da; --color-focus:#1e66f5. Código --code-bg:#dce0e8; --code-color:#4c4f69; --code-border:#ccd0da; --inline-code-bg:#e6e9ef; --inline-code-color:#d20f39; --inline-code-border:#ccd0da; --code-badge-bg:#ccd0da; --code-badge-color:#6c6f85; --code-badge-hover:#acafc4. Slides --slide-bg:#eff1f5; --slide-text:#4c4f69; --slide-heading:#1e66f5; --slide-border:#ccd0da; --slide-preformatted:#4c4f69; --slide-surface:#dce0e8.\n\nProcedimento: confirmar consumidores com busca no repositório; distinguir valores de tokens usados por terceiros/gerados; registrar tokens substituídos, adicionados, preservados e divergentes. Não mudar componentes fora desta tarefa. Prioridade crítica por regressão de legibilidade. Saída: src/styles/themes/light.css. Evidência no complete deve listar inventário antes/depois e comandos de busca executados. Critérios: bloco light contém os valores acima; especialmente --text-primary, --code-color, --slide-text e --slide-preformatted são #4c4f69, --bg-base #eff1f5 e --code-bg #dce0e8; nenhum token em uso foi removido sem migração; divergências/tokens extras estão justificados; validação focada não revela regressão óbvia.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [],
+      "outputs": {
+        "files": [
+          "src/styles/themes/light.css"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "hotfix",
+      "acceptance_criteria": [
+        "Bloco light contém os tokens e valores Latte especificados na descrição.",
+        "--text-primary, --code-color, --slide-text e --slide-preformatted são #4c4f69; --bg-base é #eff1f5 e --code-bg é #dce0e8.",
+        "Inventário registra tokens substituídos, adicionados, preservados e consumidores; nenhum token usado foi removido sem migração.",
+        "Evidência reproduzível de busca e ausência de regressão focada."
+      ],
+      "required_review_mode": "regression",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-24T15:38:27Z",
+      "verification": {
+        "checks": [
+          "Inventário e consumidores CSS inspecionados antes da alteração.",
+          "Paleta Catppuccin Latte aplicada com os tokens requeridos; tokens legados preservados como aliases.",
+          "Verificação de conteúdo do bloco light e git diff --check aprovados."
+        ]
+      },
+      "completed_at": "2026-09-24T15:41:06Z"
+    },
+    {
+      "task_id": "MD-DS-002",
+      "task_kind": "impl",
+      "title": "Confirmar e ajustar paleta dark mode Catppuccin Mocha",
+      "description": "Objetivo: verificar e, somente onde necessário, alinhar o modo escuro com Catppuccin Mocha, preservando o tema funcional atual quando uma divergência for intencional e visualmente adequada. Contexto: tarefa paralela a MD-DS-001, não deve reescrever o modo claro. Inspecionar :root[data-theme=\"dark\"] em src/styles/themes/dark.css, inventariar consumidores dos tokens e comparar com os valores de referência.\n\nReferência Mocha: superfícies --bg-base:#1e1e2e; --bg-surface:#181825; --bg-overlay:#313244; --bg-mantle:#181825; --bg-crust:#11111b. Texto --text-primary:#cdd6f4; --text-secondary:#a6adc8; --text-muted:#7f849c; --text-disabled:#585b70; --text-inverse:#1e1e2e. Acentos --color-accent:#89b4fa; --color-accent-2:#cba6f7; --color-accent-3:#89dceb. Semânticas --color-success:#a6e3a1; --color-warning:#f9e2af; --color-error:#f38ba8; --color-info:#89b4fa. Bordas --border:#313244; --border-strong:#45475a. Interação --color-hover:#313244; --color-selection:#45475a; --color-focus:#89b4fa. Código --code-bg:#181825; --code-color:#cdd6f4; --code-border:#313244; --inline-code-bg:#313244; --inline-code-color:#f38ba8; --inline-code-border:#45475a; --code-badge-bg:#45475a; --code-badge-color:#a6adc8; --code-badge-hover:#585b70. Slides --slide-bg:#1e1e2e; --slide-text:#cdd6f4; --slide-heading:#89b4fa; --slide-border:#313244; --slide-preformatted:#cdd6f4; --slide-surface:#313244.\n\nPara cada diferença, decidir entre manter Mocha, corrigir token ausente/incorreto ou preservar valor distinto por motivo de funcionamento; registrar decisão e justificativa em docs/qa/design-system-palette.md. Não alterar valores apenas por uniformidade e não reduzir contraste. Saídas: src/styles/themes/dark.css e docs/qa/design-system-palette.md (se a inspeção confirmar que já está correto, a evidência pode registrar isso sem mudança de código). Evidências: tabela/token diff, busca de consumidores e verificação de código/tokens. Critérios: comparação cobre todos os tokens acima; --text-primary aproxima #cdd6f4 e --code-bg #181825 salvo justificativa baseada em contraste/tema; divergências são explícitas; dark mode mantém legibilidade e não sofre regressão.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [],
+      "outputs": {
+        "files": [
+          "src/styles/themes/dark.css",
+          "docs/qa/design-system-palette.md"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "hotfix",
+      "acceptance_criteria": [
+        "Todos os tokens da referência Mocha foram comparados com o tema atual.",
+        "Divergências mantidas ou corrigidas têm justificativa registrada.",
+        "--text-primary aproxima #cdd6f4 e --code-bg #181825, salvo exceção justificada.",
+        "Evidência de tokens e consumidores; sem regressão no modo escuro."
+      ],
+      "required_review_mode": "regression",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-24T15:38:42Z",
+      "verification": {
+        "checks": [
+          "Comparação integral da referência Mocha concluída; correções nos tokens escuros aplicadas e aliases compatíveis preservados.",
+          "Valores-chave confirmados: text-primary #cdd6f4, text-muted #7f849c, code-bg #181825, inline-code-color #f38ba8, slide-text #cdd6f4.",
+          "git diff --check e verificações focadas Latte/Mocha passaram; parser PostCSS indisponível na raiz e será coberto pelo build final."
+        ]
+      },
+      "completed_at": "2026-09-24T15:46:58Z"
+    },
+    {
+      "task_id": "MD-DS-003",
+      "task_kind": "impl",
+      "title": "Aplicar variáveis de tema nos componentes afetados",
+      "description": "Objetivo: aplicar os tokens de tema de modo consistente nos consumidores de texto, superfícies, blocos de código, código inline, badges, tabelas e apresentação, removendo cores de tema hardcoded nos componentes próprios abrangidos. Pré-condições: MD-DS-001 e MD-DS-002 concluídas. Escopo de inspeção inclui src/styles/syntax.css, src/styles/themes.css, src/presentation/presentation.css, estilos do preview e componentes React que definem cor inline. Localizar cores hardcoded #1e1e2e, #eff1f5, #cdd6f4, #4c4f69, branco/#fff e preto/#000; excluir node_modules, dist, artefatos gerados e código de terceiros.\n\nMapeamento esperado: blocos pre usam --code-bg/--code-color; inline code usa --inline-code-bg/--inline-code-color; controles de cópia usam --code-badge-bg/--code-badge-color/--code-badge-hover; apresentação usa --slide-bg/--slide-text, headings --slide-heading, preformatado sem linguagem --slide-preformatted, superfícies e bordas usam tokens correspondentes. Validar tabelas (texto e bordas) em ambos os temas. Preservar cores necessárias a semântica, estados, Shiki e conteúdo de terceiros quando não forem cores de tema; não fazer substituição mecânica só por correspondência hexadecimal.\n\nSaídas iniciais: src/styles/syntax.css, src/styles/themes.css, src/presentation/presentation.css e consumidores próprios adicionais somente se identificados e listados no complete; não ampliar para CSS de terceiros/gerados. Registrar arquivos e tokens alterados. Critérios: componentes centrais usam tokens sem hardcodes de tema residuais não justificados; blocos, inline code, badges, slides, tabelas e blocos sem linguagem usam o token correto; cores de semântica/terceiros permanecem justificadas; revisão de busca comprova escopo e ausência de remoções de token incompatíveis. Não reivindicar QA visual final desta tarefa; esse gate pertence a MD-DS-007.",
+      "status": "done",
+      "depends_on": [
+        "MD-DS-001",
+        "MD-DS-002"
+      ],
+      "targets": [],
+      "outputs": {
+        "files": [
+          "src/styles/syntax.css",
+          "src/styles/themes.css",
+          "src/presentation/presentation.css",
+          "src/components/CodeBlock.tsx"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "hotfix",
+      "acceptance_criteria": [
+        "Blocos, inline code, badges, tabelas e slides usam tokens semânticos corretos.",
+        "Busca documentada não encontra hardcodes de tema não justificados nos arquivos próprios abrangidos.",
+        "Cores de Shiki, semântica e terceiros são preservadas quando aplicável.",
+        "Relatório lista cada arquivo/tokens modificados e revisão de escopo."
+      ],
+      "required_review_mode": "regression",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-24T15:46:59Z",
+      "verification": {
+        "checks": [
+          "Todos os consumidores CSS próprios identificados para tokens de fundo/texto/acento/código/tabela foram migrados para tokens semânticos; busca revisada em 23 arquivos.",
+          "Fallbacks de Shiki e highlight.js respeitam a paleta light/dark; estilos de preview e apresentação usam tokens de código e slide.",
+          "Cores de estado persistem como tokens semânticos de success/error/warning; cores de impressão permanecem intencionais.",
+          "pnpm typecheck passou e git diff --check passou; a suíte completa e build ficam para MD-DS-007."
+        ]
+      },
+      "completed_at": "2026-09-24T15:58:23Z"
+    },
+    {
+      "task_id": "MD-DS-004",
+      "task_kind": "impl",
+      "title": "Corrigir regressão de texto invisível em slides",
+      "description": "Objetivo: corrigir texto quase invisível no modo claro da apresentação, em especial tabelas, parágrafos, listas e blocos preformatados sem linguagem. Pré-condições: MD-DS-001 e MD-DS-003 concluídas. Contexto: relatos de impressão/capturas indicam contraste próximo de 1.5:1, possivelmente por herança de cor clara em contexto com fundo claro. Escopo: diagnosticar regras em .reveal, .presentation-* e .slide-* e corrigir em src/presentation/presentation.css (e arquivos diretamente necessários explicitamente registrados), usando --slide-text, --slide-preformatted, --slide-bg e --border.\n\nNão assumir a causa nem aplicar !important ou seletores globais indiscriminadamente: identificar a regra vencedora e o modo em que ocorre; limitar a correção ao escopo da apresentação e preservar contraste Shiki, código com linguagem, preview fora da apresentação e tema escuro. Evitar mascarar o problema com overrides que quebrem cascata. Verificação visual: abrir o documento INSTRUCAO-HOTFIX-THEME-V2.3.md em F5 e avaliar o slide “3. Impacto cruzado” (tabela); confirmar contraste mínimo 4.5:1 para texto normal contra o fundo. Verificar também texto de bloco sem linguagem, parágrafo e lista.\n\nSaídas: src/presentation/presentation.css e docs/qa/design-system-palette.md (acrescentar evidência do diagnóstico/contraste). Critérios: texto normal, tabela e bloco preformatado legíveis no modo claro com contraste >=4.5:1; tema escuro e preview sem regressão; evidência informa seletor/regra e tokens efetivamente aplicados, método de contraste e captura/observação visual; não encerrar com base apenas em CSS estático.",
+      "status": "done",
+      "depends_on": [
+        "MD-DS-001",
+        "MD-DS-003"
+      ],
+      "targets": [],
+      "outputs": {
+        "files": [
+          "src/presentation/presentation.css",
+          "docs/qa/design-system-palette.md"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "hotfix",
+      "acceptance_criteria": [
+        "Tabela, texto normal, listas e blocos sem linguagem têm contraste >=4.5:1 no modo claro.",
+        "Diagnóstico identifica regra/seletor vencedor e correção baseada em tokens.",
+        "Modo escuro e preview fora da apresentação não sofrem regressão.",
+        "Observação visual/cálculo de contraste anexados como evidência."
+      ],
+      "required_review_mode": "regression",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-24T15:58:37Z",
+      "verification": {
+        "checks": [
+          "Cascade CSS do Reveal identificado: --r-main-color controlava o texto interno e não estava ligado ao tema ESAA.",
+          "MD Presentation agora conecta --r-main-color, --r-heading-color e --r-background-color aos tokens ativos do slide.",
+          "pnpm exec vitest run tests/presentation/session.test.tsx: 8 testes passaram.",
+          "git diff --check passou."
+        ]
+      },
+      "completed_at": "2026-09-24T16:01:52Z"
+    },
+    {
+      "task_id": "MD-DS-005",
+      "task_kind": "impl",
+      "title": "Corrigir regressão de conteúdo desaparecido nos slides",
+      "description": "Objetivo: restaurar todo o corpo dos slides que atualmente exibem apenas o heading. Alvos relatados: “INSTRUCAO-HOTFIX-THEME-V2.3” e “MD Studio — Hotfix de Tema e Presentation Mode”. Pré-condições conforme plano: MD-DS-001 e MD-DS-003 concluídas; tarefa é paralela a MD-DS-004 e não deve sobrescrever correções independentes de contraste. Antes de editar, reproduzir no app e inspecionar DevTools/WebView no slide afetado. Registrar: se o conteúdo existe no DOM/HTML; computed color; display, visibility e opacity; dimensões/overflow e clipping; resultado do segmentador e quantidade/conteúdo dos slides.\n\nInvestigar em ordem: (1) texto claro herdado sobre fundo claro; (2) conteúdo omitido, segmentado ou descartado na geração de slides; (3) overflow/visibility/display que oculta filhos. A correção deve corresponder à causa comprovada. Se o texto está no DOM, corrigir estilo/cascata restritamente; se foi descartado, corrigir segmentação/transformação; se há clipping, ajustar layout e rolagem preservando navegação. Não inserir regra genérica de visibility:visible em todos os descendentes sem demonstrar necessidade, não alterar conteúdo do Markdown e não declarar verificação visual se o runtime não pôde ser observado.\n\nSaídas: src/presentation/PresentationStage.tsx, src/presentation/presentation-deck.ts, src/presentation/rich-content.ts e, apenas se o diagnóstico apontar causa CSS, src/presentation/presentation.css; relatório docs/qa/design-system-palette.md. Critérios: diagnóstico exato documentado com evidência do DOM/computed styles; ambos os documentos-alvo exibem heading e corpo completo; outros slides permanecem intactos; dark mode não regrede; registrar limitações ambientais se houver e deixar QA final pendente quando a observação real não for possível.",
+      "status": "done",
+      "depends_on": [
+        "MD-DS-001",
+        "MD-DS-003"
+      ],
+      "targets": [],
+      "outputs": {
+        "files": [
+          "src/presentation/PresentationStage.tsx",
+          "src/presentation/presentation-deck.ts",
+          "src/presentation/rich-content.ts",
+          "src/presentation/presentation.css",
+          "docs/qa/design-system-palette.md"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "hotfix",
+      "acceptance_criteria": [
+        "Causa exata registrada com evidência do DOM, computed styles e segmentação/layout.",
+        "Os dois documentos-alvo exibem heading e corpo completo; nenhum outro slide perde conteúdo.",
+        "Correção é restrita à causa comprovada e preserva o modo escuro.",
+        "Limitação de WebView/DevTools é explicitada; não alegar inspeção visual não realizada."
+      ],
+      "required_review_mode": "regression",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-24T16:02:09Z",
+      "verification": {
+        "checks": [
+          "Chrome 1920x905: slide INSTRUCAO tem H1, parágrafo, tabela e lista visíveis; pre e parágrafo final entram após wheel deltaY 280 (scrollTop 0 para 280).",
+          "Cores calculadas no claro: texto rgb(76,79,105) sobre fundo rgb(239,241,245); no escuro texto rgb(205,214,244) sobre rgb(30,30,46).",
+          "segmentMarkdown preserva o corpo dos dois documentos; vitest tests/presentation/ds005-repro-segment.test.ts e session.test.tsx passaram.",
+          "pnpm test: 53 arquivos, 287 testes, exit 0. pnpm typecheck exit 0. pnpm build exit 0."
+        ]
+      },
+      "completed_at": "2026-09-24T16:23:26Z"
+    },
+    {
+      "task_id": "MD-DS-006",
+      "task_kind": "impl",
+      "title": "Configurar Shiki com temas claro e escuro Catppuccin",
+      "description": "Objetivo: usar highlighting com contraste correspondente ao modo ativo em preview e Presentation Mode. Pré-condições: MD-DS-001 e MD-DS-002. Inspecionar versão e temas disponíveis no pacote Shiki efetivamente instalado antes de editar; preferência catppuccin-latte para claro e catppuccin-mocha para escuro. Se indisponíveis ou incompatíveis com a versão, escolher alternativas apropriadas (github-light/min-light e github-dark/one-dark-pro) e registrar a justificativa.\n\nPreservar linguagens, aliases, instanciação lazy/cacheada e pipeline atual. Configurar os dois temas no highlighter sem criar múltiplas instâncias concorrentes; selecionar tema a partir do tema real do app no momento de renderizar/abrir F5. Preview deve atualizar de forma coerente quando o tema muda; apresentação deve usar o modo correspondente. Inspecionar src/markdown/shiki.ts e o caminho de processamento de código da apresentação antes de decidir mudanças. Confirmar que tokens --shiki-light/dark e backgrounds não entram em conflito com variáveis CSS e sanitizer.\n\nSaídas: src/markdown/shiki.ts, src/presentation/rich-content.ts e/ou src/presentation/presentation-deck.ts conforme consumidores efetivos, e teste focado tests/markdown/code/code-highlight.test.ts; documentar arquivos reais alterados no complete. Critérios: tema claro e escuro disponíveis/configurados; preview e slides escolhem o tema certo; linguagens existentes preservadas; tokens de amostra legíveis em ambos os fundos sem texto claro sobre fundo claro nem escuro sobre escuro; testes focados cobrem seleção dos temas e renderização; alternativa usada está justificada.",
+      "status": "done",
+      "depends_on": [
+        "MD-DS-001",
+        "MD-DS-002"
+      ],
+      "targets": [],
+      "outputs": {
+        "files": [
+          "src/markdown/shiki.ts",
+          "src/presentation/rich-content.ts",
+          "src/presentation/presentation-deck.ts",
+          "tests/markdown/code/code-highlight.test.ts"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "hotfix",
+      "acceptance_criteria": [
+        "Temas disponíveis verificados na versão instalada e seleção segue tema do app.",
+        "Preview e Presentation Mode usam tema claro/escuro correto e mantêm linguagens suportadas.",
+        "Tokens de amostra são legíveis em ambos os fundos.",
+        "Testes focados cobrem seleção e renderização; fallback é documentado se usado."
+      ],
+      "required_review_mode": "regression",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-24T15:58:38Z",
+      "verification": {
+        "checks": [
+          "Shiki instalado confirma catppuccin-latte e catppuccin-mocha como temas disponíveis.",
+          "pnpm exec vitest run tests/markdown/code/code-highlight.test.ts: 3 testes passaram, incluindo linguagens e CSS de temas.",
+          "Inspeção do pipeline confirmou highlighter único cacheado e temas duplos consumidos por preview e apresentação.",
+          "git diff --check passou."
+        ]
+      },
+      "completed_at": "2026-09-24T16:01:49Z"
+    },
+    {
+      "task_id": "MD-DS-007",
+      "task_kind": "qa",
+      "title": "QA visual e regressão completa do design system de cores",
+      "description": "Objetivo: integrar o trabalho MD-DS-001..006 e emitir QA verificável da paleta e das regressões, sem substituir aceitação visual por testes automatizados. Dependências obrigatórias: MD-DS-001, 002, 003, 004, 005 e 006. Não alterar implementação nesta tarefa, salvo correção de documentação QA e arquivo de referência especificados; defeitos devem voltar à tarefa corretiva apropriada ou gerar tarefa ESAA separada.\n\nExecutar e registrar comandos: pnpm test; pnpm typecheck; pnpm build; git diff --check; python3 -m esaa --root . verify. Registrar códigos de saída, total de testes, commit/estado testado e limitações. Fazer inspeção visual real de preview e Presentation Mode nos modos claro e escuro, cobrindo texto, heading, lista, tabela, inline code, code block com linguagem, bloco preformatado sem linguagem, badges ausentes, rolagem e conteúdo completo dos dois documentos de referência. Para cores de texto normal, comprovar contraste WCAG AA >=4.5:1 com cálculo reproduzível; não copiar números do plano sem confirmar. Confirmar que tema escuro mantém aparência/legibilidade e que apresentações longas não cortam conteúdo.\n\nCriar docs/design-system/color-palette.md com tokens centrais Latte/Mocha (incluindo superfícies, textos, acentos, semânticas, bordas, interação, código, slides e temas Shiki) e referências oficiais do Catppuccin. Criar/atualizar docs/qa/design-system-palette.md com data, commit, testes, regressões, verificações visuais por modo, contraste medido, arquivos/documento criados e limitações.\n\nCritérios: todos os checks passam; verify_status ok; preview e slides têm texto e conteúdo integral visíveis nos quatro contextos (preview/apresentação x claro/escuro); tabelas e código legíveis; badges de cópia ausentes dos slides; critérios de contraste aprovados com valores calculados; dois documentos existem e refletem implementação; qualquer lacuna visual/runtime bloqueia o gate final design_system_palette_complete e deve ser relatada sem overclaim. Saídas exclusivas: docs/design-system/color-palette.md e docs/qa/design-system-palette.md. Revisão exigida: regression.",
+      "status": "done",
+      "depends_on": [
+        "MD-DS-001",
+        "MD-DS-002",
+        "MD-DS-003",
+        "MD-DS-004",
+        "MD-DS-005",
+        "MD-DS-006"
+      ],
+      "targets": [],
+      "outputs": {
+        "files": [
+          "docs/design-system/color-palette.md",
+          "docs/qa/design-system-palette.md"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "audit",
+      "acceptance_criteria": [
+        "pnpm test, pnpm typecheck, pnpm build, git diff --check e ESAA verify passam com evidência e códigos de saída.",
+        "Preview e apresentação verificados visualmente em modo claro e escuro; texto e conteúdo completo visíveis.",
+        "Contraste >=4.5:1 confirmado por cálculo reproduzível para texto normal.",
+        "Documento de paleta e relatório QA existem e descrevem o estado efetivamente verificado.",
+        "Gate design_system_palette_complete só é declarado quando todos os critérios, inclusive inspeção visual real, estão comprovados."
+      ],
+      "required_review_mode": "regression",
+      "assigned_to": "agent-qa",
+      "started_at": "2026-09-24T16:23:38Z",
+      "verification": {
+        "checks": [
+          "pnpm test exit 0: 53 arquivos, 287 testes. pnpm typecheck exit 0. pnpm build exit 0. git diff --check exit 0.",
+          "Preview e slides, claro e escuro: heading, parágrafo, lista, tabela e bloco visíveis. Texto normal 7.06:1 no claro e 11.34:1 no escuro.",
+          "Documentos de reprodução em docs/qa/repro. Paleta submetida em docs/qa/color-palette.md; o mesmo texto está em docs/design-system/color-palette.md.",
+          "Gate design_system_palette_complete com limitação explícita: inspeção no Chrome com o CSS e o Reveal do repositório, sem captura do WebView GTK."
+        ]
+      },
+      "completed_at": "2026-09-24T16:24:28Z"
+    },
+    {
+      "task_id": "MD-BUILD-LOCAL-003",
+      "task_kind": "impl",
+      "title": "Recompilar e substituir o binario local do Show Apps",
+      "description": "O atalho ~/.local/share/applications/md-studio.desktop abre /home/elzobrito/.local/bin/md-studio. Esse executavel foi gerado em 2026-09-24 12:18 -0300, antes da paleta Catppuccin (MD-DS-001..007) e da rolagem de slides longos (MD-DS-005). Recompilar o frontend com pnpm build, compilar o release Tauri com cargo build --release a partir de src-tauri, e substituir ~/.local/bin/md-studio pelo binario novo. O SHA-256 do destino deve ser identico ao de src-tauri/target/release/md-studio. Nao gerar deb/snap nesta tarefa. O operador precisa fechar e reabrir o app para carregar o binario novo.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "maintenance",
+      "acceptance_criteria": [
+        "pnpm build termina com codigo 0 e atualiza dist.",
+        "cargo build --release termina com codigo 0 e gera src-tauri/target/release/md-studio.",
+        "SHA-256 de ~/.local/bin/md-studio e identico ao do binario de release e o mtime e posterior a 2026-09-24 12:18 -0300."
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-24T16:42:43Z",
+      "verification": {
+        "checks": [
+          "pnpm build exit 0; dist/assets/index-CnZ8EtZU.css contem overscroll-behavior:contain.",
+          "cargo build --release exit 0 em 59.98s; binario src-tauri/target/release/md-studio de 18509864 bytes.",
+          "SHA-256 bb4fb651767752b645ebd8393c62c69bb0274722362131f9ee5c4d2e2b48ded8 identico em src-tauri/target/release/md-studio e ~/.local/bin/md-studio; mtime 2026-09-24 13:44:42 -0300."
+        ]
+      },
+      "completed_at": "2026-09-24T16:45:03Z"
+    },
+    {
+      "task_id": "MD-PRES-VISIBLE-001",
+      "task_kind": "impl",
+      "title": "Tornar o corpo dos slides visivel no tema do app",
+      "description": "O Reveal.js aplica html:not(.print-pdf) .reveal { background:#fff }, que vence o fundo do overlay. Com o app em tema escuro, o texto do corpo fica claro sobre esse branco e desaparece; os headings azuis continuam visiveis. O arquivo INSTRUCAO-DESIGN-SYSTEM-PALETA.md abre no slide 1/33 so com o H1, porque o H1 e imediatamente seguido de H2 e o segmentador cria um slide sem corpo. Corrigir o fundo e a cor do texto da apresentacao para seguirem o tema efetivo, e unir um slide que so tenha headings ao slide seguinte para o documento nao abrir numa tela vazia. Depois recompilar o release e substituir ~/.local/bin/md-studio.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "hotfix",
+      "acceptance_criteria": [
+        "O fundo do .reveal na apresentacao usa --pres-bg, nao o branco fixo do Reveal.",
+        "Um H1 imediatamente seguido de H2 nao vira um slide sem corpo.",
+        "O binario ~/.local/bin/md-studio e substituido pelo release que contem a correcao, com SHA-256 identico."
+      ],
+      "required_review_mode": "regression",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-24T17:14:25Z",
+      "verification": {
+        "checks": [
+          "Chrome: tema escuro fundo rgb(30,30,46) e paragrafo rgb(205,214,244); tema claro fundo rgb(239,241,245) e paragrafo rgb(76,79,105).",
+          "segmentMarkdown une H1 imediato a H2 no primeiro slide com corpo; suite presentation 18 testes, exit 0.",
+          "SHA-256 3f2df34903b193cb567aa16fea4a5656f379f2e0316b3e4ff7db42c2bcd622a4 identico em src-tauri/target/release/md-studio e ~/.local/bin/md-studio; mtime 2026-09-24 14:16:51 -0300; asset index-DL96h_u5.css."
+        ]
+      },
+      "completed_at": "2026-09-24T17:17:05Z"
+    },
+    {
+      "task_id": "MD-BUILD-UBUNTU-001",
+      "task_kind": "impl",
+      "title": "Compilar MD Studio e disponibilizar no Show Apps do Ubuntu",
+      "description": "Compilar bundle de producao frontend e backend Tauri, atualizar executavel local em ~/.local/bin/md-studio, sincronizar desktop entry para GNOME Show Apps e gerar pacote deb",
+      "status": "done",
+      "depends_on": [],
+      "targets": [],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "maintenance",
+      "acceptance_criteria": [
+        "Frontend compilado com pnpm build em dist",
+        "Binario Tauri de release compilado e copiado para ~/.local/bin/md-studio",
+        "Desktop entry no ~/.local/share/applications/ configurado e atualizado no GNOME"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-24T17:27:23Z",
+      "verification": {
+        "checks": [
+          "Frontend compilado com pnpm build em dist",
+          "Binario Tauri de release compilado e copiado para ~/.local/bin/md-studio",
+          "Desktop entry no ~/.local/share/applications/ configurado e atualizado no GNOME",
+          "Pacotes deb e AppImage gerados em target/release/bundle/"
+        ]
+      },
+      "completed_at": "2026-09-24T17:34:18Z"
+    },
+    {
+      "task_id": "MD-EPUB-003",
+      "task_kind": "impl",
+      "title": "EpubBuilder no núcleo Rust",
+      "description": "Implementa o módulo export/ em md-studio-core: tipos EpubExportPayload, HTML→XHTML, sumário nav.xhtml e toc.ncx, content.opf, CSS conservador, path fence de imagens e escrita atômica do .epub via epub-builder. Contrato congelado em INSTRUCAO-EPUB-EXPORT.md. A carga Grok autoriza início após MD-BACKLINK-000; o espelho TypeScript permanece em MD-EPUB-001, ainda não admitido. MD-EPUB-004 continua bloqueado por MD-EPUB-002.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "MD-EPUB-003",
+        "md_epub_003_builder_pass"
+      ],
+      "outputs": {
+        "files": [
+          "src-tauri/crates/md-studio-core/src/export/mod.rs",
+          "src-tauri/crates/md-studio-core/src/export/epub_builder.rs",
+          "src-tauri/crates/md-studio-core/src/export/epub_types.rs",
+          "src-tauri/crates/md-studio-core/src/export/xhtml_converter.rs",
+          "src-tauri/crates/md-studio-core/src/export/nav_generator.rs",
+          "src-tauri/crates/md-studio-core/src/export/css_templates.rs",
+          "src-tauri/crates/md-studio-core/src/lib.rs",
+          "src-tauri/crates/md-studio-core/Cargo.toml",
+          "src-tauri/crates/md-studio-core/tests/epub_builder.rs",
+          "src-tauri/Cargo.lock"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src-tauri/crates/md-studio-core/**",
+        "src-tauri/Cargo.lock"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "epub-builder e zip declarados no Cargo.toml do core",
+        "EpubExportPayload desserializa em camelCase e espelha o contrato",
+        "HTML vira XHTML; headings, nav.xhtml, toc.ncx e content.opf são gerados",
+        "Mermaid com SVG vira imagem; svg nulo vira bloco de código",
+        "Imagem local entra no ZIP; caminho fora do workspace é rejeitado",
+        "Verify: md_epub_003_builder_pass"
+      ],
+      "required_review_mode": "security",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-24T18:31:15Z",
+      "verification": {
+        "checks": [
+          "md_epub_003_builder_pass"
+        ]
+      },
+      "completed_at": "2026-09-24T18:43:14Z"
+    },
+    {
+      "task_id": "MD-EPUB-001",
+      "task_kind": "impl",
+      "title": "Processador de exportação EPUB no frontend",
+      "description": "Processador de exportação EPUB no frontend: KaTeX → MathML, Shiki → estilos inline, Wiki Links → texto simples, Alerts → prefixo textual, Frontmatter → metadados, montagem de EpubExportPayload e extração de image refs e mermaid slots.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [],
+      "outputs": {
+        "files": [
+          "src/export/epubProcessor.ts",
+          "src/export/epubTypes.ts",
+          "tests/export/epubProcessor.test.ts"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src/**",
+        "tests/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "KaTeX emite MathML puro para compatibilidade EPUB 3",
+        "Shiki emite estilos inline sem classes de tema dinâmico",
+        "Wiki links são convertidos para texto simples",
+        "Alerts recebem prefixo textual legível",
+        "Frontmatter extrai EpubMetadata com fallback seguro",
+        "Montagem do contrato EpubExportPayload compatível com Rust",
+        "Verify: md_epub_001_processor_pass"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-24T19:00:20Z",
+      "verification": {
+        "checks": [
+          "KaTeX emite MathML puro para compatibilidade EPUB 3",
+          "Shiki emite estilos inline sem dependência de classes dinâmicas",
+          "Wiki links convertidos para texto simples",
+          "Alerts recebem prefixo textual legível",
+          "Frontmatter extrai metadados completos com fallback seguro",
+          "Contrato EpubExportPayload compatível com Rust",
+          "Suíte de testes vitest tests/export/epubProcessor.test.ts (9/9) e suíte global (297/297) aprovadas"
+        ]
+      },
+      "completed_at": "2026-09-24T19:05:49Z"
+    },
+    {
+      "task_id": "MD-EPUB-002",
+      "task_kind": "impl",
+      "title": "Captura e sanitização de SVG do Mermaid pré-exportação EPUB",
+      "description": "Captura de SVGs do Mermaid no DOM antes de empacotar o EPUB, sanitização e limpeza de SVG (remoção de scripts, garantia de viewBox e largura responsiva), e verificação/prompt quando a pré-visualização não está ativa no editor.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [],
+      "outputs": {
+        "files": [
+          "src/export/mermaidCapture.ts",
+          "tests/export/mermaidCapture.test.ts"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src/**",
+        "tests/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Captura de SVGs do Mermaid diretamente do DOM para preencher mermaidSlots",
+        "Limpeza de SVG: remoção de scripts, atributos on*, garantia de viewBox e width/height responsivos",
+        "Detecção e prompt quando o preview não estiver ativo ou não renderizou SVGs",
+        "Verify: md_epub_002_mermaid_capture_pass"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-24T19:09:01Z",
+      "verification": {
+        "checks": [
+          "Captura de SVGs do Mermaid diretamente do DOM para preencher mermaidSlots",
+          "Limpeza de SVG: remoção de scripts, atributos on*, garantia de viewBox e width/height responsivos",
+          "Detecção e prompt quando o preview não estiver ativo ou não renderizou SVGs",
+          "Suíte vitest tests/export/mermaidCapture.test.ts (7/7) e suíte global (304/304) aprovadas"
+        ]
+      },
+      "completed_at": "2026-09-24T19:10:45Z"
+    },
+    {
+      "task_id": "MD-UI-009",
+      "task_kind": "impl",
+      "title": "Novo Documento com iconografia consistente",
+      "description": "Substituição de emojis por ícones vetoriais SVG consistentes no modal de Novo Documento (Ctrl+N), preservação de IDs e conteúdo dos templates, e melhoria de navegação por teclado e estados visuais.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [],
+      "outputs": {
+        "files": [
+          "src/components/editor/TemplateIcons.tsx",
+          "src/components/editor/TemplateCard.tsx",
+          "src/components/editor/NewDocumentModal.tsx",
+          "src/styles/new-document-modal.css",
+          "tests/templates/new-document-modal.test.tsx"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src/**",
+        "tests/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Nenhum card de template depende de emoji; uso de ícones vetoriais SVG com currentColor",
+        "Preservação exata de todos os 7 IDs, ordem e conteúdos dos templates",
+        "Suporte a navegação por teclado (Enter, Escape, setas direcionais)",
+        "Visual consistente em temas claro (Catppuccin Latte) e escuro (Catppuccin Mocha)",
+        "Verify: md_ui_009_templates_pass"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-24T19:12:42Z",
+      "verification": {
+        "checks": [
+          "Nenhum card de template depende de emoji; uso de ícones vetoriais SVG com currentColor",
+          "Preservação exata de todos os 7 IDs, ordem e conteúdos dos templates",
+          "Suporte a navegação por teclado (Enter, Escape, setas direcionais)",
+          "Visual consistente em temas claro (Catppuccin Latte) e escuro (Catppuccin Mocha)",
+          "Suíte vitest tests/templates/new-document-modal.test.tsx (6/6) e templates.test.ts (10/10) aprovadas"
+        ]
+      },
+      "completed_at": "2026-09-24T19:15:19Z"
+    },
+    {
+      "task_id": "MD-UI-002",
+      "task_kind": "impl",
+      "title": "Inventário Estrutural e Arquitetura do UI Shell",
+      "description": "Inventário estrutural obrigatório do UI Shell conforme especificação 002-ui-shell-simplificado: mapeamento de regiões superiores, duplicidade de controles, hierarquia de ações, painéis laterais e fundação técnica para a Onda 0D.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [],
+      "outputs": {
+        "files": [
+          "docs/architecture/ui-shell-inventory.md"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "docs/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Inventário completo de componentes do shell (App, AppHeader, MarkdownEditor, FileExplorer, StatusBar)",
+        "Mapeamento da redundância de controles (duplicação do comando Salvar e faixas de cabeçalho)",
+        "Definição do layout canônico em 3 regiões (Workspace, Document, Inspector) sem quebra de contratos",
+        "Documentação técnica publicada em docs/architecture/ui-shell-inventory.md",
+        "Verify: md_ui_002_inventory_pass"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-24T19:17:17Z",
+      "verification": {
+        "checks": [
+          "Inventário completo de componentes do shell (App, AppHeader, MarkdownEditor, FileExplorer, StatusBar)",
+          "Mapeamento da redundância de controles (duplicação do comando Salvar e faixas de cabeçalho)",
+          "Definição do layout canônico em 3 regiões (Workspace, Document, Inspector) sem quebra de contratos",
+          "Documentação técnica publicada em docs/architecture/ui-shell-inventory.md"
+        ]
+      },
+      "completed_at": "2026-09-24T19:17:55Z"
+    },
+    {
+      "task_id": "MD-UI-003",
+      "task_kind": "impl",
+      "title": "Remover duplicação do comando Salvar (Salvar Único)",
+      "description": "Consolidação da affordance de persistência conforme especificação 003-salvar-unico: remoção do cabeçalho redundante com botão salvar e badge de modificação interno no MarkdownEditor, manutenção do comando único de Save no AppHeader, preservação de Ctrl+S/Mod-s, autosave e status canônicos.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [],
+      "outputs": {
+        "files": [
+          "src/components/MarkdownEditor.tsx",
+          "tests/editor/singleSave.test.tsx"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src/**",
+        "tests/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Remoção da duplicação visual do botão Salvar e badge de estado no painel MarkdownEditor",
+        "Preservação da ação manual canônica no AppHeader com SaveButton acessível",
+        "Preservação de atalho de teclado Mod-s / Ctrl+S disparando persistência do documento",
+        "Preservação de estados canônicos de persistência (saved, modified, saving, error) sem falsos clean",
+        "Verify: md_ui_003_single_save_pass"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-24T19:27:46Z",
+      "verification": {
+        "checks": [
+          "Remoção da duplicação visual do botão Salvar e badge de estado no painel MarkdownEditor",
+          "Preservação da ação manual canônica no AppHeader com SaveButton acessível",
+          "Preservação de atalho de teclado Mod-s / Ctrl+S disparando persistência do documento",
+          "Preservação de estados canônicos de persistência (saved, modified, saving, error) sem falsos clean",
+          "Suíte vitest tests/editor/singleSave.test.tsx (4/4) e regressão completa (314/314) aprovadas"
+        ]
+      },
+      "completed_at": "2026-09-24T19:29:25Z"
+    },
+    {
+      "task_id": "MD-UI-004",
+      "task_kind": "impl",
+      "title": "Exportar como menu único (ExportMenu)",
+      "description": "Consolidação da superfície de exportação no AppHeader conforme especificação 004-menu-exportar: substituição dos botões isolados de exportação por um componente ExportMenu acessível com dropdown [ Exportar ▾ ], preservando os handlers e compatibilidade existentes para HTML e PDF, e preparando a entrada de EPUB.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [],
+      "outputs": {
+        "files": [
+          "src/components/header/ExportMenu.tsx",
+          "src/styles/export-menu.css",
+          "src/components/header/AppHeader.tsx",
+          "tests/header/exportMenu.test.tsx"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src/**",
+        "tests/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Trigger único [ Exportar ▾ ] com dropdown no AppHeader",
+        "Preservação integral dos handlers existentes de HTML e PDF sem alteração de pipeline",
+        "Navegação completa por teclado (ArrowDown, ArrowUp, Enter, Escape com retorno de foco ao trigger)",
+        "Suporte a fechamento ao clicar fora (click-outside)",
+        "Verify: md_ui_004_menu_pass"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-24T19:30:16Z",
+      "verification": {
+        "checks": [
+          "Trigger único [ Exportar ▾ ] com dropdown no AppHeader",
+          "Preservação integral dos handlers existentes de HTML e PDF sem alteração de pipeline",
+          "Navegação completa por teclado (ArrowDown, ArrowUp, Enter, Escape com retorno de foco ao trigger)",
+          "Suporte a fechamento ao clicar fora (click-outside)",
+          "Suíte vitest tests/header/exportMenu.test.tsx (6/6), topBar (6/6) e export-pdf (5/5) aprovadas"
+        ]
+      },
+      "completed_at": "2026-09-24T19:31:35Z"
+    },
+    {
+      "task_id": "MD-UI-005",
+      "task_kind": "impl",
+      "title": "Preview com largura controlada (reading measure)",
+      "description": "Implementação de medida editorial configurável no modo Formatado conforme especificação 005-preview-largura-controlada: 4 presets (estreita 760px, confortável 920px, ampla 1100px, total none), persistência em settingsStore, aplicação via CSS variable --preview-reading-width com centralização no modo Formatado e preservação de largura total no modo Dividida.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [],
+      "outputs": {
+        "files": [
+          "src/state/settings.ts",
+          "src/hooks/useSettings.ts",
+          "src/styles/themes.css",
+          "src/components/settings/PreviewSettings.tsx",
+          "tests/settings/previewReadingWidth.test.tsx"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src/**",
+        "tests/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Suporte aos 4 presets de largura de leitura: narrow (760px), comfortable (920px), wide (1100px), full (none)",
+        "Aplicação do max-width e centralização editorial estritamente no modo Formatado",
+        "Modo Dividida (split) preserva largura total da coluna sem constrição editorial rígida",
+        "Controle de seleção acessível nas Configurações de Preview e persistência reativa em settingsStore",
+        "Verify: md_ui_005_reading_width_pass"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-24T19:32:41Z",
+      "verification": {
+        "checks": [
+          "Suporte aos 4 presets de largura de leitura: narrow (760px), comfortable (920px), wide (1100px), full (none)",
+          "Aplicação do max-width e centralização editorial estritamente no modo Formatado",
+          "Modo Dividida (split) preserva largura total da coluna sem constrição editorial rígida",
+          "Controle de seleção acessível nas Configurações de Preview e persistência reativa em settingsStore",
+          "Suíte vitest tests/settings/previewReadingWidth.test.tsx (5/5) e settingsStore (5/5) aprovadas"
+        ]
+      },
+      "completed_at": "2026-09-24T19:34:55Z"
+    },
+    {
+      "task_id": "MD-UI-006",
+      "task_kind": "impl",
+      "title": "Correção visual do gutter CodeMirror",
+      "description": "Ajuste do gutter, números de linha e active line no CodeMirror 6 conforme especificação 006-gutter-codemirror: eliminação de superfícies claras dissonantes no dark mode, integração de cores com Catppuccin Mocha/Latte via theme extension e CSS, suporte a highlightActiveLine e highlightActiveLineGutter.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [],
+      "outputs": {
+        "files": [
+          "src/components/MarkdownEditor.tsx",
+          "src/styles/themes.css",
+          "tests/editor/gutter.test.ts"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src/**",
+        "tests/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Gutter do CodeMirror estilizado com variáveis de superfície do tema (sem fundo branco no dark mode)",
+        "Numeração de linha com contraste suave e active line number com destaque tipográfico",
+        "Integração horizontal entre linha ativa e gutter da linha ativa (highlightActiveLine e highlightActiveLineGutter)",
+        "Suporte visual consistente em temas claro (Latte), escuro (Mocha) e auto",
+        "Verify: md_ui_006_gutter_pass"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-24T19:36:05Z",
+      "verification": {
+        "checks": [
+          "Gutter do CodeMirror estilizado com variáveis de superfície do tema (sem fundo branco no dark mode)",
+          "Numeração de linha com contraste suave e active line number com destaque tipográfico",
+          "Integração horizontal entre linha ativa e gutter da linha ativa (highlightActiveLine e highlightActiveLineGutter)",
+          "Suporte visual consistente em temas claro (Latte), escuro (Mocha) e auto",
+          "Suíte vitest tests/editor/gutter.test.ts (2/2) e cursor.test.ts (1/1) aprovadas"
+        ]
+      },
+      "completed_at": "2026-09-24T19:37:48Z"
+    },
+    {
+      "task_id": "MD-UI-007",
+      "task_kind": "impl",
+      "title": "Workspace Rail à esquerda (Activity Rail + Workspace Panel)",
+      "description": "Refatoração estrutural da lateral esquerda conforme especificação 007-workspace-rail: introdução da Workspace Rail fixa (48px) com ícones vetoriais acessíveis, integração com o Workspace Panel redimensionável (FileExplorer), comportamento de toggle ao clicar na activity ativa e preservação de atalhos.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [],
+      "outputs": {
+        "files": [
+          "src/components/workspace/WorkspaceRail.tsx",
+          "src/styles/workspace-rail.css",
+          "src/App.tsx",
+          "src/styles/themes.css",
+          "tests/workspace/workspaceRail.test.tsx"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src/**",
+        "tests/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Separação arquitetural entre Activity Rail (48px fixa) e Workspace Panel (redimensionável)",
+        "Explorer registrado como activity primária com ícone SVG limpo e acessível",
+        "Clique na activity ativa alterna visibilidade do painel (abrir/recolher) com persistência",
+        "Rail permanece estável e visível quando o painel de arquivos é recolhido",
+        "Verify: md_ui_007_rail_pass"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-24T19:38:58Z",
+      "verification": {
+        "checks": [
+          "Separação arquitetural entre Activity Rail (48px fixa) e Workspace Panel (redimensionável)",
+          "Explorer registrado como activity primária com ícone SVG limpo e acessível",
+          "Clique na activity ativa alterna visibilidade do painel (abrir/recolher) com persistência",
+          "Rail permanece estável e visível quando o painel de arquivos é recolhido",
+          "Suíte vitest tests/workspace/workspaceRail.test.tsx (4/4) aprovada"
+        ]
+      },
+      "completed_at": "2026-09-24T19:40:43Z"
+    },
+    {
+      "task_id": "MD-UI-008",
+      "task_kind": "impl",
+      "title": "Toolbar Markdown escalável (FormattingToolbar com menu Inserir)",
+      "description": "Reorganização da FormattingToolbar conforme especificação 008-toolbar-markdown-escalavel: consolidação horizontal em grupos compactos (Headings, Inline, Links/Código), introdução do menu dropdown '+ Inserir' para estruturas de documento (Tabela, Listas, Citação, Separador, Modelos), e substituição de emojis por ícones vetoriais com suporte completo a teclado.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [],
+      "outputs": {
+        "files": [
+          "src/components/editor/FormattingToolbar.tsx",
+          "src/styles/formatting-toolbar.css",
+          "tests/editor/formattingToolbar.test.tsx"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src/**",
+        "tests/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Estrutura compacta da toolbar mantendo comandos frequentes one-click (H1-H3, B, I, S, Link, Imagem, Código)",
+        "Introdução do menu acessível [+ Inserir ▾] para tabelas, listas, citação, divisor e modelos",
+        "Preservação integral dos handlers de formatação e do TableToolbar contextual",
+        "Navegação por teclado no menu de inserção (ArrowDown, ArrowUp, Enter, Escape)",
+        "Verify: md_ui_008_toolbar_pass"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-24T19:44:28Z",
+      "verification": {
+        "checks": [
+          "Estrutura compacta da toolbar mantendo comandos frequentes one-click",
+          "Introdução do menu acessível [+ Inserir ▾] para tabelas, listas, citação, divisor e modelos",
+          "Preservação integral dos handlers de formatação e do TableToolbar contextual",
+          "Navegação por teclado no menu de inserção (ArrowDown, ArrowUp, Enter, Escape)",
+          "Verify: md_ui_008_toolbar_pass"
+        ]
+      },
+      "completed_at": "2026-09-24T19:46:34Z"
+    },
+    {
+      "task_id": "MD-UI-010",
+      "task_kind": "impl",
+      "title": "Settings refinado (arquitetura de preferências e acessibilidade)",
+      "description": "Refinamento do SettingsPanel conforme especificação 010-settings-refinado: substituição de emojis por ícones vetoriais nos seletores de categoria e cabeçalho, substituição do botão 'Concluído' por 'Fechar', navegação acessível por teclado na tablist (ArrowUp, ArrowDown, Home, End), associação ARIA coerente e preservação estrita de todos os settings e contratos existentes.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [],
+      "outputs": {
+        "files": [
+          "src/components/settings/SettingsPanel.tsx",
+          "tests/settings/settingsPanel.test.tsx"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src/**",
+        "tests/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Categorias canônicas com ícones vetoriais em substituição aos emojis",
+        "Botão de encerramento do modal alterado de 'Concluído' para 'Fechar'",
+        "Navegação por teclado completa na tablist (ArrowUp, ArrowDown, Home, End, Enter)",
+        "Acessibilidade ARIA com roles tablist, tab e tabpanel e atributos associados",
+        "Preservação de todos os settings, defaults e integração com Ctrl+,",
+        "Verify: md_ui_010_settings_pass"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-24T19:48:34Z",
+      "verification": {
+        "checks": [
+          "Categorias canônicas com ícones vetoriais em substituição aos emojis",
+          "Botão de encerramento do modal alterado de 'Concluído' para 'Fechar'",
+          "Navegação por teclado completa na tablist (ArrowUp, ArrowDown, Home, End, Enter)",
+          "Acessibilidade ARIA com roles tablist, tab e tabpanel e atributos associados",
+          "Preservação de todos os settings, defaults e integração com Ctrl+,",
+          "Verify: md_ui_010_settings_pass"
+        ]
+      },
+      "completed_at": "2026-09-24T19:50:25Z"
+    },
+    {
+      "task_id": "MD-UI-011",
+      "task_kind": "impl",
+      "title": "Split View refinado (divisor arrastável, presets e acessibilidade)",
+      "description": "Refinamento da visualização dividida (Split View) conforme especificação 011-split-view-refinado: divisor arrastável com drag contínuo e hit-target confortável, suporte a presets (50/50, 60/40, 40/60), double-click para resetar para 50/50, limites mínimos de segurança para as panes, persistência de layout no localStorage, acessibilidade ARIA e teclado completos (role separator, ArrowLeft/Right), sem recriar instâncias do CodeMirror nem do Preview.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [],
+      "outputs": {
+        "files": [
+          "src/components/layout/SplitDivider.tsx",
+          "src/styles/split-view.css",
+          "tests/layout/splitView.test.tsx"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src/**",
+        "tests/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Divisor visual arrastável no modo Dividida com feedback imediato",
+        "Presets 50/50, 60/40 e 40/60 com reset em double-click para 50/50",
+        "Limites mínimos seguros para Source e Preview (clamp dinâmico)",
+        "Acessibilidade ARIA com role separator, aria-valuenow e navegação por teclado",
+        "Persistência do ratio em localStorage sem remount de editor ou preview",
+        "Verify: md_ui_011_split_pass"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-24T19:52:01Z",
+      "verification": {
+        "checks": [
+          "Divisor visual arrastável no modo Dividida com feedback imediato",
+          "Presets 50/50, 60/40 e 40/60 com reset em double-click para 50/50",
+          "Limites mínimos seguros para Source e Preview (clamp dinâmico)",
+          "Acessibilidade ARIA com role separator, aria-valuenow e navegação por teclado",
+          "Persistência do ratio em localStorage sem remount de editor ou preview",
+          "Verify: md_ui_011_split_pass"
+        ]
+      },
+      "completed_at": "2026-09-24T19:54:28Z"
+    },
+    {
+      "task_id": "MD-UI-0D-QA-001",
+      "task_kind": "qa",
+      "title": "Onda 0D: QA unificada e regressão completa (UI Polish Incremental)",
+      "description": "Execução da validação unificada e regressão de todos os entregáveis da Onda 0D (MD-UI-002 a MD-UI-011): UI Shell simplificado, Salvar único, Menu exportar, Preview largura controlada, Gutter CodeMirror Catppuccin, Workspace Rail 48px, Toolbar Markdown escalável (+ Inserir), Novo Documento iconografia, Settings refinado e Split View refinado. Geração da evidência documental em docs/qa/onda0d-ui-polish.md.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [],
+      "outputs": {
+        "files": [
+          "docs/qa/onda0d-ui-polish.md"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "docs/qa/**",
+        "src/**",
+        "tests/**"
+      ],
+      "task_type": "audit",
+      "acceptance_criteria": [
+        "Todos os entregáveis da Onda 0D (002 a 011) validados",
+        "Suíte completa vitest passando sem falhas (300+ testes verdes)",
+        "Typecheck TypeScript rigoroso sem erros",
+        "Evidência documental registrada em docs/qa/onda0d-ui-polish.md",
+        "Verify: onda_0d_ui_polish_complete"
+      ],
+      "required_review_mode": "regression",
+      "assigned_to": "agent-qa",
+      "started_at": "2026-09-24T19:54:54Z",
+      "verification": {
+        "checks": [
+          "Todos os entregáveis da Onda 0D (002 a 011) validados",
+          "Suíte completa vitest passando sem falhas (300+ testes verdes)",
+          "Typecheck TypeScript rigoroso sem erros",
+          "Evidência documental registrada em docs/qa/onda0d-ui-polish.md",
+          "Verify: onda_0d_ui_polish_complete"
+        ]
+      },
+      "completed_at": "2026-09-24T19:58:15Z"
+    },
+    {
+      "task_id": "MD-EPUB-004",
+      "task_kind": "impl",
+      "title": "Estrutura e empacotamento EPUB 3 no núcleo Rust",
+      "description": "Validação e garantia da conformidade estrutural do pacote EPUB 3: mimetype uncompressed como primeiro arquivo, META-INF/container.xml, content.opf com manifest/spine, nav.xhtml e toc.ncx coerentes, proteção de colisão de basenames de imagens e path fencing.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src-tauri/crates/md-studio-core/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Mimetype gravado no início do arquivo ZIP como primeiro entry sem compressão",
+        "Estrutura OEBPS com content.opf, nav.xhtml, toc.ncx e styles/main.css válidos",
+        "Path fence e proteção contra colisão de basenames de imagens locais",
+        "Verify: md_epub_004_structure_pass"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-24T22:14:40Z",
+      "verification": {
+        "checks": [
+          "Mimetype gravado no início do arquivo ZIP como primeiro entry sem compressão",
+          "Estrutura OEBPS com content.opf, nav.xhtml, toc.ncx e styles/main.css válidos",
+          "Path fence e proteção contra colisão de basenames de imagens locais",
+          "Suíte de testes tests/epub_builder.rs aprovada com 7/7 testes",
+          "Verify: md_epub_004_structure_pass"
+        ]
+      },
+      "completed_at": "2026-09-24T22:15:25Z"
+    },
+    {
+      "task_id": "MD-EPUB-005",
+      "task_kind": "impl",
+      "title": "Comando IPC export_epub e integração de backend Tauri",
+      "description": "Implementação do comando Tauri export_epub com suporte a deserialização camelCase de EpubExportPayload, resolução segura de workspace root, validação de caminho absoluto de destino, controle de overwrite e ponte IPC no cliente TypeScript.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src/**",
+        "src-tauri/**",
+        "tests/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Comando Tauri export_epub registrado no invoke_handler e chamando md_studio_core::export::build_epub",
+        "Controle de destino absoluto e erro ExportTargetExists quando overwrite=false",
+        "Wrapper ipc.exportEpub e pickSaveEpubFile disponíveis no cliente TypeScript",
+        "Verify: md_epub_005_ipc_pass"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-24T22:17:29Z",
+      "verification": {
+        "checks": [
+          "Comando Tauri export_epub registrado no invoke_handler e chamando md_studio_core::export::build_epub",
+          "Controle de destino absoluto e erro ExportTargetExists quando overwrite=false",
+          "Wrapper ipc.exportEpub e pickSaveEpubFile disponíveis no cliente TypeScript",
+          "Suíte vitest tests/export/exportEpubService.test.ts (4/4) e cargo test commands::export_tests (4/4) aprovadas",
+          "Verify: md_epub_005_ipc_pass"
+        ]
+      },
+      "completed_at": "2026-09-24T22:26:35Z"
+    },
+    {
+      "task_id": "MD-EPUB-006",
+      "task_kind": "impl",
+      "title": "Integração UI da exportação EPUB no frontend",
+      "description": "Conexão do fluxo de exportação EPUB 3 na interface de usuário: habilitação da opção Exportar EPUB no ExportMenu através do AppHeader e App.tsx, acionamento do serviço exportActiveDocumentEpub e feedback de status ao usuário.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src/**",
+        "tests/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Item Exportar EPUB visível e acessível no dropdown ExportMenu quando disponível",
+        "AppHeader e App.tsx conectados ao serviço exportActiveDocumentEpub com resolução de workspace e nome de arquivo",
+        "Feedback visual e tratamento resiliente de erros ou cancelamentos",
+        "Verify: md_epub_006_ui_pass"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-24T22:29:33Z",
+      "verification": {
+        "checks": [
+          "Item Exportar EPUB visível e acessível no dropdown ExportMenu quando disponível",
+          "AppHeader e App.tsx conectados ao serviço exportActiveDocumentEpub com resolução de workspace e nome de arquivo",
+          "Feedback visual e tratamento resiliente de erros ou cancelamentos",
+          "Suíte vitest tests/header/exportMenu.test.tsx aprovada com 8/8 testes",
+          "Verify: md_epub_006_ui_pass"
+        ]
+      },
+      "completed_at": "2026-09-24T22:36:07Z"
+    },
+    {
+      "task_id": "MD-EPUB-007",
+      "task_kind": "qa",
+      "title": "QA integrada e homologação do portão epub_export_complete",
+      "description": "QA integrada e homologação final do pipeline completo de exportação EPUB 3 (processador frontend, captura Mermaid SVG, empacotamento Rust, comando IPC Tauri e interface de usuário), execução e aprovação de todas as suítes de testes (frontend e backend), validação de tipos TypeScript e emissão do relatório formal de evidências em docs/qa/epub-export.md.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "docs/qa/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Todos os entregáveis EPUB (MD-EPUB-001 a 006) integrados e aprovados",
+        "Suíte completa Vitest sem falhas (350+ testes verdes)",
+        "Suíte de testes Rust (core + tauri) com 100% de aprovação",
+        "Typecheck TypeScript rigoroso sem erros",
+        "Relatório formal de QA emitido em docs/qa/epub-export.md",
+        "Verify: md_epub_007_qa_pass"
+      ],
+      "required_review_mode": "regression",
+      "assigned_to": "agent-qa",
+      "started_at": "2026-09-24T22:37:22Z",
+      "verification": {
+        "checks": [
+          "Todos os entregáveis EPUB (MD-EPUB-001 a 006) integrados e aprovados",
+          "Suíte completa Vitest sem falhas (354 testes verdes em 65 arquivos)",
+          "Suíte de testes Rust com 100% de aprovação (58 no core e 18 na lib Tauri)",
+          "Typecheck TypeScript rigoroso sem erros (tsc -b)",
+          "Relatório formal de evidência emitido em docs/qa/epub-export.md",
+          "Gate: epub_export_complete",
+          "Verify: md_epub_007_qa_pass"
+        ]
+      },
+      "completed_at": "2026-09-24T22:38:50Z"
+    },
+    {
+      "task_id": "MD-BUILD-LOCAL-004",
+      "task_kind": "impl",
+      "title": "Compilar e atualizar binário local do MD Studio para Show Apps",
+      "description": "Recompilar frontend (pnpm build) e backend Tauri em modo release (cargo build --release), atualizando o executável em ~/.local/bin/md-studio utilizado pelo lançador do Show Apps (~/.local/share/applications/md-studio.desktop).",
+      "status": "done",
+      "depends_on": [],
+      "targets": [],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "dist/**",
+        "src-tauri/target/**"
+      ],
+      "task_type": "maintenance",
+      "acceptance_criteria": [
+        "Frontend compilado com pnpm build terminando com código 0",
+        "Backend compilado com cargo build --release gerando novo binário em src-tauri/target/release/md-studio",
+        "Binário atualizado em ~/.local/bin/md-studio com SHA-256 idêntico ao build de release"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-24T23:02:22Z",
+      "verification": {
+        "checks": [
+          "Frontend compilado com pnpm build terminando com código 0",
+          "Backend compilado com cargo build --release gerando novo binário em src-tauri/target/release/md-studio",
+          "Binário instalado em ~/.local/bin/md-studio com SHA-256 idêntico (2a9b3d6b8718dee8f455ae0cdcf6c83c8ed53d5bcf13a3b8c432ae6496030533)",
+          "Lançador do Show Apps validado em ~/.local/share/applications/md-studio.desktop e base de desktop atualizada"
+        ]
+      },
+      "completed_at": "2026-09-24T23:07:21Z"
+    },
+    {
+      "task_id": "HF-TOOLBAR-INSERT-001",
+      "task_kind": "impl",
+      "title": "Correção de overflow e visibilidade do menu Inserir na FormattingToolbar",
+      "description": "Corrigir o CSS da FormattingToolbar para permitir que o menu dropdown [+ Inserir ▾] transborde verticalmente sobre o editor com visibilidade desimpedida e z-index adequado, e ajustar o fechamento/foco para foco imediato no editor.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src/**",
+        "tests/**"
+      ],
+      "task_type": "hotfix",
+      "acceptance_criteria": [
+        "Garantia de overflow: visible e z-index na .formatting-toolbar para evitar corte do menu dropdown",
+        "Menu .toolbar-insert-menu com background de alta opacidade e z-index elevado sobre o editor",
+        "Execução de itens do menu transferindo foco imediato para o editor CodeMirror",
+        "Verify: hf_toolbar_insert_pass"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-24T23:14:13Z",
+      "verification": {
+        "checks": [
+          "Garantia de overflow: visible e z-index na .formatting-toolbar para evitar corte do menu dropdown",
+          "Menu .toolbar-insert-menu com background de alta opacidade e z-index elevado sobre o editor",
+          "Execução de itens do menu transferindo foco imediato para o editor CodeMirror",
+          "Suíte vitest tests/editor/formattingToolbar.test.tsx aprovada com 6/6 testes",
+          "Verify: hf_toolbar_insert_pass"
+        ]
+      },
+      "completed_at": "2026-09-24T23:17:17Z"
+    },
+    {
+      "task_id": "MD-BUILD-LOCAL-005",
+      "task_kind": "impl",
+      "title": "Atualizar binário local do MD Studio com hotfix da toolbar",
+      "description": "Recompilar frontend (pnpm build) e backend Tauri em modo release (cargo build --release), atualizando o executável em ~/.local/bin/md-studio com o hotfix de visibilidade do menu Inserir da FormattingToolbar.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "dist/**",
+        "src-tauri/target/**"
+      ],
+      "task_type": "maintenance",
+      "acceptance_criteria": [
+        "Frontend compilado com pnpm build terminando com código 0",
+        "Backend compilado com cargo build --release gerando novo binário em src-tauri/target/release/md-studio",
+        "Binário atualizado em ~/.local/bin/md-studio com SHA-256 idêntico ao build de release"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-24T23:17:39Z",
+      "verification": {
+        "checks": [
+          "Frontend compilado com pnpm build terminando com código 0",
+          "Backend compilado com cargo build --release gerando novo binário em src-tauri/target/release/md-studio",
+          "Binário atualizado em ~/.local/bin/md-studio com SHA-256 idêntico ao build de release"
+        ]
+      },
+      "completed_at": "2026-09-24T23:20:01Z"
+    },
+    {
+      "task_id": "HF-TOOLBAR-FORMAT-001",
+      "task_kind": "impl",
+      "title": "Corrigir e expandir ação do botão formatar (estrelinha) na FormattingToolbar",
+      "description": "Tornar o botão de formatar código (SparklesIcon) contextual e robusto: se o cursor estiver em bloco de código, formata o bloco; se estiver fora ou sem bloco, formata o documento Markdown completo com Prettier, retendo o foco e seleção no CodeMirror.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src/editor/formatting/**",
+        "src/components/editor/**",
+        "src/components/MarkdownEditor.tsx",
+        "tests/editor/**"
+      ],
+      "task_type": "hotfix",
+      "acceptance_criteria": [
+        "formatDocumentOrCodeBlock implementado para formatar bloco de código ou documento Markdown completo via Prettier",
+        "ToolbarButton previne perda de foco com onMouseDown e formatação restaura foco no editor",
+        "Atalhos Shift-Alt-F e botão com ícone de estrela da toolbar acionam formatação contextual",
+        "Testes automatizados cobrindo formatação in-place de bloco e formatação de documento passando no Vitest"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-24T23:50:39Z",
+      "verification": {
+        "checks": [
+          "formatDocumentOrCodeBlock implementado com suporte a formatação contextual de blocos e documento Markdown completo",
+          "ToolbarButton atualizado com onMouseDown preventDefault para retenção de foco no CodeMirror",
+          "Atalhos Shift-Alt-F e botão com ícone de estrela da toolbar acionando a formatação contextual",
+          "Testes automatizados cobrindo formatação in-place de bloco e formatação de documento passando no Vitest (12/12)"
+        ]
+      },
+      "completed_at": "2026-09-24T23:53:17Z"
+    },
+    {
+      "task_id": "MD-BUILD-LOCAL-006",
+      "task_kind": "impl",
+      "title": "Atualizar binário local do MD Studio com hotfix do botão formatar (estrelinha)",
+      "description": "Recompilar frontend (pnpm build) e backend Tauri em modo release (cargo build --release), atualizando o executável em ~/.local/bin/md-studio com o hotfix de formatação contextual (documento ou bloco de código) e retenção de foco da FormattingToolbar.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "dist/**",
+        "src-tauri/target/**"
+      ],
+      "task_type": "maintenance",
+      "acceptance_criteria": [
+        "Frontend compilado com pnpm build terminando com código 0",
+        "Backend compilado com cargo build --release gerando novo binário em src-tauri/target/release/md-studio",
+        "Binário atualizado em ~/.local/bin/md-studio com SHA-256 idêntico ao build de release"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-24T23:53:28Z",
+      "verification": {
+        "checks": [
+          "Frontend compilado com pnpm build terminando com código 0",
+          "Backend compilado com cargo build --release gerando novo binário em src-tauri/target/release/md-studio",
+          "Binário atualizado em ~/.local/bin/md-studio com SHA-256 idêntico ao build de release"
+        ]
+      },
+      "completed_at": "2026-09-24T23:55:14Z"
+    },
+    {
+      "task_id": "MD-DOCS-MAP-ROUTES-001",
+      "task_kind": "impl",
+      "title": "Atualizar o mapa de funcionalidades, funções e rotas",
+      "description": "Atualizar docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md para o código atual do MD Studio. O mapa está na v0.2.2 e omite o que já está done: exportação EPUB (processEpubMarkdown, captureMermaidSvgsFromDom, exportActiveDocumentEpub, export_epub, pickSaveEpubFile, item do ExportMenu), Presentation Mode (F5/Esc, PresentationMode, createPresentationModel), Exportar PDF e os temas Catppuccin Latte/Mocha no Shiki e no EPUB. A seção 3.1 lista 20 comandos e a 5.1 fala em 19; o invoke_handler em src-tauri/src/lib.rs tem 21, incluindo export_epub. Não remover rotas já documentadas. Não declarar release nova: as tarefas estão done e o working tree segue sujo. Fontes: o próprio código e docs/qa/epub-export.md, docs/qa/onda0d-ui-polish.md e docs/spec/001-presentation-mode.md.",
+      "status": "done",
+      "depends_on": [
+        "MD-EPUB-007"
+      ],
+      "targets": [
+        "MD-DOCS-MAP-ROUTES-001",
+        "md_docs_map_routes_pass"
+      ],
+      "outputs": {
+        "files": [
+          "docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md"
+      ],
+      "task_type": "maintenance",
+      "acceptance_criteria": [
+        "O cabeçalho registra apresentação, EPUB, PDF e Catppuccin Latte/Mocha sem anunciar uma release que não existe",
+        "A tabela de IPC inclui export_epub com workspaceId, destination, overwrite, payload e EpubExportResult, e as contagens do texto coincidem com o invoke_handler",
+        "pickSaveEpubFile entra nos diálogos nativos, ao lado de pickSaveHtmlFile",
+        "As seções de funcionalidades, rotas, funções e cadeias de execução cobrem EPUB, Presentation Mode (F5/Esc) e Exportar PDF",
+        "Nenhuma rota, função ou funcionalidade já descrita no mapa é removida",
+        "Verify: md_docs_map_routes_pass"
+      ],
+      "required_review_mode": "docs",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-25T00:06:23Z",
+      "verification": {
+        "checks": [
+          "md_docs_map_routes_pass"
+        ]
+      },
+      "completed_at": "2026-09-25T00:10:36Z"
+    },
+    {
+      "task_id": "MD-RELEASE-003",
+      "task_kind": "impl",
+      "title": "Publicar release v0.2.3 do MD Studio",
+      "description": "Atualizar manifestos para v0.2.3 (package.json, Cargo.toml, tauri.conf.json, snapcraft.yaml), consolidar Release Notes v0.2.3 com Presentation Mode, EPUB 3, Design System e correções da toolbar, executar suite de testes e preparar entrega.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "package.json",
+        "snap/snapcraft.yaml",
+        "src-tauri/**",
+        "docs/**",
+        "README.md",
+        "dist/**"
+      ],
+      "task_type": "release",
+      "acceptance_criteria": [
+        "Manifestos sincronizados em v0.2.3 (package.json, tauri.conf.json, Cargo.toml, snapcraft.yaml)",
+        "Notas de release docs/release/RELEASE_NOTES_v0.2.3.md geradas e documentação atualizada",
+        "Testes automatizados frontend e backend executados com sucesso",
+        "Build release do frontend e backend validado"
+      ],
+      "required_review_mode": "release",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-25T00:24:02Z",
+      "verification": {
+        "checks": [
+          "Manifestos sincronizados em v0.2.3 (package.json, tauri.conf.json, Cargo.toml, Cargo.lock, snapcraft.yaml)",
+          "Notas de release docs/release/RELEASE_NOTES_v0.2.3.md geradas e documentação atualizada",
+          "Testes automatizados frontend (66 files, 362 passed) e backend (21 unittests + 43 core tests) executados com 100% de sucesso",
+          "Build release do frontend e backend validado com geração do binário v0.2.3"
+        ]
+      },
+      "completed_at": "2026-09-25T00:31:35Z"
     }
   ],
   "indexes": {
     "by_status": {
-      "done": 209
+      "done": 253
     },
     "by_kind": {
-      "impl": 152,
-      "qa": 32,
+      "impl": 192,
+      "qa": 36,
       "spec": 25
     }
   }

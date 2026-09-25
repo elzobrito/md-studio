@@ -187,11 +187,43 @@ export function segmentMarkdown(markdown: string): {
   flushSlide();
 
   return {
-    segments,
+    segments: mergeHeadingOnlySlides(segments),
     documentTitle,
     frontmatter,
     warnings,
   };
+}
+
+/**
+ * Um slide só de headings (H1 seguido direto de H2, por exemplo) não tem corpo.
+ * Une esse slide ao seguinte para a apresentação não abrir numa tela vazia.
+ */
+function isHeadingOnlySlide(markdown: string): boolean {
+  let sawHeading = false;
+  for (const line of markdown.split('\n')) {
+    const trimmed = line.trim();
+    if (!trimmed) continue;
+    if (ANY_HEADING_REGEX.test(trimmed)) {
+      sawHeading = true;
+      continue;
+    }
+    return false;
+  }
+  return sawHeading;
+}
+
+function mergeHeadingOnlySlides(segments: RawSlideSegment[]): RawSlideSegment[] {
+  const merged: RawSlideSegment[] = [];
+  for (const segment of segments) {
+    const previous = merged[merged.length - 1];
+    if (previous && isHeadingOnlySlide(previous.markdown)) {
+      previous.markdown = `${previous.markdown.replace(/\s+$/, '')}\n\n${segment.markdown.replace(/^\s+/, '')}`;
+      previous.sourceEnd = segment.sourceEnd;
+      continue;
+    }
+    merged.push({ ...segment });
+  }
+  return merged.map((segment, index) => ({ ...segment, index }));
 }
 
 /**

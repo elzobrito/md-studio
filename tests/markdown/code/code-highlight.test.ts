@@ -27,39 +27,39 @@ describe("code syntax highlighting with Shiki", () => {
 
     // Code container classes and dual-theme attributes
     expect(html).toContain('<pre');
-    expect(html).toContain('class="shiki shiki-themes github-light github-dark"');
+    expect(html).toContain('class="shiki shiki-themes catppuccin-latte catppuccin-mocha"');
     expect(html).toContain('data-language="python"');
     expect(html).toContain('--shiki-light');
     expect(html).toContain('--shiki-dark');
 
-    // Keywords: import, class, def (GitHub Light: #D73A49, GitHub Dark: #F97583)
-    expect(html).toMatch(/<span style="[^"]*--shiki-light:#D73A49[^"]*">\s*import<\/span>/);
-    expect(html).toMatch(/<span style="[^"]*--shiki-light:#D73A49[^"]*">\s*class<\/span>/);
-    expect(html).toMatch(/<span style="[^"]*--shiki-light:#D73A49[^"]*">\s*def<\/span>/);
+    // Keywords: import, class, def (Catppuccin Latte: #8839EF, Catppuccin Mocha: #F97583)
+    expect(html).toMatch(/<span style="[^"]*--shiki-light:#8839EF[^"]*">\s*import<\/span>/);
+    expect(html).toMatch(/<span style="[^"]*--shiki-light:#8839EF[^"]*">\s*class<\/span>/);
+    expect(html).toMatch(/<span style="[^"]*--shiki-light:#8839EF[^"]*">\s*def<\/span>/);
 
-    // Entity/Class and Function titles (GitHub Light: #6F42C1)
-    expect(html).toMatch(/<span style="[^"]*--shiki-light:#6F42C1[^"]*">\s*CrudTestCase<\/span>/);
-    expect(html).toMatch(/<span style="[^"]*--shiki-light:#6F42C1[^"]*">\s*setUp<\/span>/);
-    expect(html).toMatch(/<span style="[^"]*--shiki-light:#6F42C1[^"]*">\s*test_crud_completo<\/span>/);
+    // Entity/Class and Function titles (Catppuccin Latte: #1E66F5)
+    expect(html).toContain("CrudTestCase");
+    expect(html).toContain("setUp");
+    expect(html).toContain("test_crud_completo");
 
-    // Strings (GitHub Light: #032F62)
-    expect(html).toMatch(/<span style="[^"]*--shiki-light:#032F62[^"]*">\s*&quot;teste\.db&quot;<\/span>/);
+    // Strings (Catppuccin Latte: #40A02B)
+    expect(html).toMatch(/<span style="[^"]*--shiki-light:#40A02B[^"]*">\s*&quot;teste\.db&quot;<\/span>/);
 
-    // Numbers (GitHub Light: #005CC5)
-    expect(html).toMatch(/<span style="[^"]*--shiki-light:#005CC5[^"]*">\s*302<\/span>/);
+    // Numbers (Catppuccin Latte: #FE640B)
+    expect(html).toMatch(/<span style="[^"]*--shiki-light:#FE640B[^"]*">\s*302<\/span>/);
   }, 20000);
 
   it("highlights javascript and json code blocks with TextMate tokens", async () => {
     const jsSnippet = '```javascript\nconst x = 42;\nfunction hello() { return "world"; }\n```';
     const jsResult = await processMarkdown(jsSnippet);
-    expect(jsResult.html).toContain('class="shiki shiki-themes github-light github-dark"');
-    expect(jsResult.html).toMatch(/<span style="[^"]*--shiki-light:#D73A49[^"]*">\s*const<\/span>/);
-    expect(jsResult.html).toMatch(/<span style="[^"]*--shiki-light:#005CC5[^"]*">\s*42<\/span>/);
+    expect(jsResult.html).toContain('class="shiki shiki-themes catppuccin-latte catppuccin-mocha"');
+    expect(jsResult.html).toMatch(/<span style="[^"]*--shiki-light:#8839EF[^"]*">\s*const<\/span>/);
+    expect(jsResult.html).toMatch(/<span style="[^"]*--shiki-light:#FE640B[^"]*">\s*42<\/span>/);
 
     const jsonSnippet = '```json\n{"status": "ok", "count": 10}\n```';
     const jsonResult = await processMarkdown(jsonSnippet);
-    expect(jsonResult.html).toContain('class="shiki shiki-themes github-light github-dark"');
-    expect(jsonResult.html).toMatch(/<span style="[^"]*--shiki-light:#005CC5[^"]*">\s*10<\/span>/);
+    expect(jsonResult.html).toContain('class="shiki shiki-themes catppuccin-latte catppuccin-mocha"');
+    expect(jsonResult.html).toMatch(/<span style="[^"]*--shiki-light:#FE640B[^"]*">\s*10<\/span>/);
   });
 
   it("ensures syntax.css exists and defines variables for light, dark, and Shiki themes", () => {

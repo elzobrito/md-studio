@@ -225,6 +225,48 @@ pub fn export_html(req: ExportHtmlRequest) -> Result<(), String> {
     Ok(())
 }
 
+#[derive(Debug, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct ExportEpubRequest {
+    pub workspace_id: Option<String>,
+    pub destination: String,
+    pub overwrite: bool,
+    pub payload: md_studio_core::export::EpubExportPayload,
+}
+
+fn resolve_workspace_root(state: &AppState, workspace_id: Option<&str>) -> Result<PathBuf, String> {
+    let Some(id) = workspace_id.map(str::trim).filter(|id| !id.is_empty()) else {
+        return Err("workspace required".into());
+    };
+    let reg = state.workspaces.lock();
+    reg.get(id)
+        .map(|ws| ws.root.clone())
+        .ok_or_else(|| "workspace not found".into())
+}
+
+fn export_epub_in(
+    req: ExportEpubRequest,
+    state: &AppState,
+) -> Result<md_studio_core::export::EpubExportResult, String> {
+    let dest = PathBuf::from(&req.destination);
+    if !dest.is_absolute() {
+        return Err("destination must be an absolute path".into());
+    }
+    if dest.exists() && !req.overwrite {
+        return Err("ExportTargetExists".into());
+    }
+    let root = resolve_workspace_root(state, req.workspace_id.as_deref())?;
+    md_studio_core::export::build_epub(&req.payload, &root, &dest).map_err(|err| err.to_string())
+}
+
+#[tauri::command]
+pub fn export_epub(
+    req: ExportEpubRequest,
+    state: State<'_, AppState>,
+) -> Result<md_studio_core::export::EpubExportResult, String> {
+    export_epub_in(req, &state)
+}
+
 #[cfg(test)]
 mod export_tests {
     use super::*;
@@ -273,6 +315,151 @@ mod export_tests {
         })
         .unwrap();
         assert!(fs::read_to_string(&dest).unwrap().contains("new"));
+    }
+
+    fn test_state() -> crate::AppState {
+        crate::AppState {
+            workspaces: std::sync::Arc::new(parking_lot::Mutex::new(
+                crate::workspace::WorkspaceRegistry::default(),
+            )),
+            watcher: std::sync::Arc::new(crate::watcher::WatcherHub::default()),
+            metadata_engine: std::sync::Arc::new(parking_lot::Mutex::new(None)),
+            launch_path: std::sync::Arc::new(parking_lot::Mutex::new(None)),
+        }
+    }
+
+    fn sample_payload(image: Option<String>) -> md_studio_core::export::EpubExportPayload {
+        use md_studio_core::export::{EpubExportPayload, EpubMetadata};
+        EpubExportPayload {
+            metadata: EpubMetadata {
+                title: "Arquitetura".into(),
+                ..EpubMetadata::default()
+            },
+            body_html: "<h1>Intro</h1>".into(),
+            mermaid_slots: vec![],
+            image_refs: image.into_iter().collect(),
+        }
+    }
+
+    #[test]
+    fn export_epub_request_deserializes_camel_case() {
+        let raw = r#"{
+            "workspaceId": "ws-1",
+            "destination": "/tmp/livro.epub",
+            "overwrite": false,
+            "payload": {
+                "metadata": {"title": "Arquitetura"},
+                "bodyHtml": "<p>Oi</p>",
+                "imageRefs": ["/tmp/figura.png"]
+            }
+        }"#;
+        let req: ExportEpubRequest = serde_json::from_str(raw).unwrap();
+        assert_eq!(req.workspace_id.as_deref(), Some("ws-1"));
+        assert_eq!(req.destination, "/tmp/livro.epub");
+        assert!(!req.overwrite);
+        assert_eq!(req.payload.body_html, "<p>Oi</p>");
+        assert_eq!(req.payload.image_refs, vec!["/tmp/figura.png".to_string()]);
+    }
+
+    #[test]
+    fn export_epub_refuses_non_absolute_destination() {
+        let state = test_state();
+        let err = export_epub_in(
+            ExportEpubRequest {
+                workspace_id: Some("ws".into()),
+                destination: "relative/path.epub".into(),
+                overwrite: false,
+                payload: sample_payload(None),
+            },
+            &state,
+        )
+        .unwrap_err();
+        assert_eq!(err, "destination must be an absolute path");
+    }
+
+    #[test]
+    fn export_epub_requires_known_workspace_and_rejects_escape() {
+        let root = tempdir().unwrap();
+        let outside = tempdir().unwrap();
+        let state = test_state();
+        let ws = state.workspaces.lock().open(root.path()).unwrap();
+        let dest = outside.path().join("livro.epub");
+        let missing = export_epub_in(
+            ExportEpubRequest {
+                workspace_id: None,
+                destination: dest.to_string_lossy().into_owned(),
+                overwrite: false,
+                payload: sample_payload(None),
+            },
+            &state,
+        )
+        .unwrap_err();
+        assert_eq!(missing, "workspace required");
+        assert!(!dest.exists());
+
+        let unknown = export_epub_in(
+            ExportEpubRequest {
+                workspace_id: Some("ausente".into()),
+                destination: dest.to_string_lossy().into_owned(),
+                overwrite: false,
+                payload: sample_payload(None),
+            },
+            &state,
+        )
+        .unwrap_err();
+        assert_eq!(unknown, "workspace not found");
+
+        let secret = outside.path().join("secret.png");
+        fs::write(&secret, b"secret").unwrap();
+        let fenced = export_epub_in(
+            ExportEpubRequest {
+                workspace_id: Some(ws.id.clone()),
+                destination: dest.to_string_lossy().into_owned(),
+                overwrite: false,
+                payload: sample_payload(Some(secret.to_string_lossy().into_owned())),
+            },
+            &state,
+        )
+        .unwrap_err();
+        assert!(fenced.contains("outside the workspace"));
+        assert!(!dest.exists());
+    }
+
+    #[test]
+    fn export_epub_writes_package_and_refuses_clobber() {
+        let root = tempdir().unwrap();
+        let figure = root.path().join("figura.png");
+        fs::write(&figure, b"\x89PNG-local").unwrap();
+        let state = test_state();
+        let ws = state.workspaces.lock().open(root.path()).unwrap();
+        let dest = root.path().join("livro.epub");
+        let result = export_epub_in(
+            ExportEpubRequest {
+                workspace_id: Some(ws.id.clone()),
+                destination: dest.to_string_lossy().into_owned(),
+                overwrite: false,
+                payload: sample_payload(Some(figure.to_string_lossy().into_owned())),
+            },
+            &state,
+        )
+        .unwrap();
+        assert_eq!(result.image_count, 1);
+        assert_eq!(result.mermaid_count, 0);
+        assert!(dest.is_file());
+        assert!(result.output_path.ends_with("livro.epub"));
+
+        let err = export_epub_in(
+            ExportEpubRequest {
+                workspace_id: Some(ws.id),
+                destination: dest.to_string_lossy().into_owned(),
+                overwrite: false,
+                payload: sample_payload(None),
+            },
+            &state,
+        )
+        .unwrap_err();
+        assert_eq!(err, "ExportTargetExists");
+        assert!(fs::read(&dest).unwrap().windows(4).any(|chunk| chunk == b"PK\x03\x04"));
     }
 }
 

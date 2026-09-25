@@ -7,6 +7,7 @@ import type {
   WorkspaceDescriptor,
   WatchEvent,
 } from "../../contracts/types";
+import type { EpubExportPayload, EpubExportResult } from "../../export/epubTypes";
 import {
   getBrowserFsMode,
   getBrowserRootLabel,
@@ -125,6 +126,15 @@ export const ipc = {
   exportHtml: (html: string, destination: string, overwrite: boolean) =>
     invoke<void>("export_html", {
       req: { html, destination, overwrite },
+    }),
+  exportEpub: (
+    payload: EpubExportPayload,
+    destination: string,
+    overwrite: boolean,
+    workspaceId?: string,
+  ) =>
+    invoke<EpubExportResult>("export_epub", {
+      req: { workspaceId, destination, overwrite, payload },
     }),
   startWatching: (workspaceId: string) => invoke<void>("start_watching", { workspaceId }),
   stopWatching: () => invoke<void>("stop_watching"),
@@ -271,6 +281,12 @@ async function browserInvoke<T>(cmd: string, args?: Record<string, unknown>): Pr
   if (cmd === "export_html") {
     throw new Error("export_html must use the browser download flow outside Tauri");
   }
+  if (cmd === "export_epub") {
+    throw new Error("export_epub must use the Tauri runtime");
+  }
+  if (cmd === "export_epub") {
+    throw new Error("export_epub is only available in Tauri desktop runtime");
+  }
   if (cmd === "get_launch_path") return null as T;
   throw new Error(`browser IPC missing: ${cmd}`);
 }
@@ -313,6 +329,25 @@ export async function subscribeWorkspaceWatch(
   return () => {
     void un();
   };
+}
+
+export type { EpubExportPayload, EpubExportResult };
+
+export async function pickSaveEpubFile(defaultName: string = "documento.epub"): Promise<string | null> {
+  if (isTauriRuntime()) {
+    const { save } = await import("@tauri-apps/plugin-dialog");
+    const selected = await save({
+      title: "Exportar EPUB",
+      defaultPath: defaultName,
+      filters: [{ name: "EPUB", extensions: ["epub"] }],
+    });
+    return typeof selected === "string" ? selected : null;
+  }
+  if (typeof window !== "undefined") {
+    const name = window.prompt("Salvar EPUB como:", defaultName);
+    return name || null;
+  }
+  return null;
 }
 
 export async function pickSaveHtmlFile(defaultName: string = "export.html"): Promise<string | null> {

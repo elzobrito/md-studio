@@ -23,6 +23,10 @@ export function ToolbarButton({
     <button
       type="button"
       className={`toolbar-button ${isActive ? "active" : ""}`}
+      onMouseDown={(e) => {
+        // Prevent stealing focus and selection from the active CodeMirror editor
+        e.preventDefault();
+      }}
       onClick={onClick}
       disabled={disabled}
       title={tooltip}

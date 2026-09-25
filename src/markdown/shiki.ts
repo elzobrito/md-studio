@@ -27,7 +27,7 @@ export const SHIKI_DEFAULT_LANGUAGES = [
 export function getHighlighter(): Promise<Highlighter | null> {
   if (!highlighterPromise) {
     highlighterPromise = createHighlighter({
-      themes: ["github-light", "github-dark"],
+      themes: ["catppuccin-latte", "catppuccin-mocha"],
       langs: [...SHIKI_DEFAULT_LANGUAGES],
     }).catch((err) => {
       console.warn("Failed to initialize Shiki highlighter:", err);

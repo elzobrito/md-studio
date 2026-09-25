@@ -29,6 +29,7 @@ export const PresentationStage: React.FC<PresentationStageProps> = ({
 
   useEffect(() => {
     let cancelled = false;
+    let activeController: DeckController | null = null;
 
     const initDeck = async () => {
       if (!containerRef.current) return;
@@ -50,21 +51,61 @@ export const PresentationStage: React.FC<PresentationStageProps> = ({
             progress: model.metadata.progress,
           },
           initialSlide,
-          onSlideChange
+          handleSlideChange
         );
 
         if (cancelled) {
           controller.destroy();
-        } else {
-          deckRef.current = controller;
-          controller.layout();
+          return;
         }
+
+        activeController = controller;
+        deckRef.current = controller;
+        controller.layout();
+
+        // O Reveal aplica a altura do slide depois do initialize. Uma segunda
+        // leitura no frame seguinte pega scrollHeight real e liga o indicador.
+        checkAllSlidesOverflow();
+        requestAnimationFrame(checkAllSlidesOverflow);
+        const sections = containerRef.current.querySelectorAll<HTMLElement>('.slides section');
+        sections.forEach((sec) => {
+          sec.addEventListener('scroll', checkAllSlidesOverflow, { passive: true });
+        });
       } catch (err) {
         console.error('Falha ao inicializar Reveal.js deck:', err);
       }
     };
 
+    const checkAllSlidesOverflow = () => {
+      if (!containerRef.current) return;
+      const sections = containerRef.current.querySelectorAll<HTMLElement>('.slides section');
+      sections.forEach((sec) => {
+        const hasOverflow = sec.scrollHeight > sec.clientHeight + 4;
+        if (hasOverflow) {
+          sec.classList.add('has-overflow');
+          const isAtBottom = sec.scrollTop + sec.clientHeight >= sec.scrollHeight - 8;
+          if (!isAtBottom) {
+            sec.classList.add('has-more-content');
+          } else {
+            sec.classList.remove('has-more-content');
+          }
+        } else {
+          sec.classList.remove('has-overflow', 'has-more-content');
+        }
+      });
+    };
+
+    const handleSlideChange = (index: number) => {
+      checkAllSlidesOverflow();
+      onSlideChange?.(index);
+    };
+
     void initDeck();
+
+    const onResize = () => {
+      checkAllSlidesOverflow();
+    };
+    window.addEventListener('resize', onResize);
 
     // Listener global de teclado para saída por F5 ou Escape
     const onKeyDown = (e: KeyboardEvent) => {
@@ -80,12 +121,21 @@ export const PresentationStage: React.FC<PresentationStageProps> = ({
     return () => {
       cancelled = true;
       window.removeEventListener('keydown', onKeyDown, { capture: true });
-      if (deckRef.current) {
-        deckRef.current.destroy();
-        deckRef.current = null;
+      window.removeEventListener('resize', onResize);
+      if (containerRef.current) {
+        const sections = containerRef.current.querySelectorAll<HTMLElement>('.slides section');
+        sections.forEach((sec) => {
+          sec.removeEventListener('scroll', checkAllSlidesOverflow);
+        });
       }
+      const controller = deckRef.current ?? activeController;
+      if (controller) {
+        controller.destroy();
+      }
+      deckRef.current = null;
+      activeController = null;
     };
-  }, [model, initialSlide, onExit, onSlideChange]);
+  }, [model, initialSlide, onExit, onSlideChange, effectiveTheme, accessibleTransition]);
 
   return (
     <div

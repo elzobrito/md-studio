@@ -27,6 +27,11 @@ describe('Presentation Session & Mode', () => {
       });
       root = null;
     }
+    // Drena o tick de "ready" interno do Reveal.js (setTimeout 1ms) e quaisquer
+    // macrotasks pendentes antes do próximo teste / reset do jsdom.
+    await act(async () => {
+      await new Promise((resolve) => setTimeout(resolve, 10));
+    });
     if (container.parentNode) {
       document.body.removeChild(container);
     }
@@ -153,11 +158,12 @@ describe('Presentation Session & Mode', () => {
         );
       });
 
-      // Aguarda compilação e renderização do palco Reveal
+      // Aguarda compilação, palco Reveal e classe `.ready` (pós-timeout interno 1ms)
       await vi.waitFor(() => {
         const exitBtn = container.querySelector<HTMLButtonElement>('.md-presentation-exit-btn');
         expect(exitBtn).not.toBeNull();
         expect(exitBtn?.textContent).toContain('Sair');
+        expect(container.querySelector('.reveal.ready')).not.toBeNull();
       });
 
       const exitBtn = container.querySelector<HTMLButtonElement>('.md-presentation-exit-btn');

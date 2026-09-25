@@ -13,8 +13,8 @@
   width: 680px;
   max-width: 92vw;
   max-height: 85vh;
-  background: var(--bg-secondary, #252526);
-  border: 1px solid var(--border, #3e3e42);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
   border-radius: 10px;
   box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5);
   display: flex;
@@ -27,7 +27,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 14px 20px;
-  border-bottom: 1px solid var(--border, #3e3e42);
+  border-bottom: 1px solid var(--border);
 }
 
 .cheatsheet-title {
@@ -37,14 +37,14 @@
   font-size: 16px;
   font-weight: 600;
   margin: 0;
-  color: var(--text-primary, #ffffff);
+  color: var(--text-primary);
 }
 
 .cheatsheet-close {
   background: transparent;
   border: none;
   font-size: 18px;
-  color: var(--text-secondary, #858585);
+  color: var(--text-secondary);
   cursor: pointer;
   padding: 4px 8px;
   border-radius: 4px;
@@ -52,7 +52,7 @@
 
 .cheatsheet-close:hover {
   background: var(--color-hover, rgba(255, 255, 255, 0.1));
-  color: var(--text-primary, #ffffff);
+  color: var(--text-primary);
 }
 
 .cheatsheet-body {
@@ -68,9 +68,9 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  color: var(--color-accent, #007acc);
+  color: var(--color-accent);
   margin-bottom: 8px;
-  border-bottom: 1px solid var(--border, #333333);
+  border-bottom: 1px solid var(--border);
   padding-bottom: 4px;
 }
 
@@ -95,14 +95,14 @@
 .cheatsheet-col-syntax {
   font-family: monospace;
   font-size: 12px;
-  color: var(--text-primary, #e0e0e0);
+  color: var(--text-primary);
   width: 38%;
   word-break: break-word;
 }
 
 .cheatsheet-col-result {
   font-size: 12px;
-  color: var(--text-secondary, #999999);
+  color: var(--text-secondary);
   width: 42%;
 }
 
@@ -115,20 +115,20 @@
   font-size: 11px;
   padding: 4px 8px;
   border-radius: 4px;
-  border: 1px solid var(--border, #3e3e42);
-  background: var(--bg-primary, #1e1e1e);
-  color: var(--text-secondary, #cccccc);
+  border: 1px solid var(--border);
+  background: var(--bg-primary);
+  color: var(--text-secondary);
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
 .cheatsheet-copy-btn:hover {
-  background: var(--color-hover, #333333);
-  color: var(--text-primary, #ffffff);
+  background: var(--color-hover);
+  color: var(--text-primary);
 }
 
 .cheatsheet-copy-btn.copied {
-  background: #2e7d32;
-  color: #ffffff;
-  border-color: #2e7d32;
+  background: var(--color-success);
+  color: var(--text-inverse);
+  border-color: var(--color-success);
 }

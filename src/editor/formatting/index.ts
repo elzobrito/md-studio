@@ -5,7 +5,7 @@ export { setHeading } from "./heading";
 export { insertLink } from "./link";
 export { insertImage } from "./image";
 export { toggleCode, insertCodeBlock } from "./code";
-export { formatCodeBlockAtCursor } from "./formatCodeBlock";
+export { formatCodeBlockAtCursor, formatDocumentOrCodeBlock } from "./formatCodeBlock";
 export { toggleList, type ListType } from "./list";
 export { insertBlockquote } from "./blockquote";
 export { insertDivider } from "./divider";

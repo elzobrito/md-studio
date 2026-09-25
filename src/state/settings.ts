@@ -1,4 +1,5 @@
 export type ThemeMode = "light" | "dark" | "auto";
+export type PreviewReadingWidth = "narrow" | "comfortable" | "wide" | "full";
 
 export interface SettingsState {
   fontSize: number;
@@ -8,6 +9,7 @@ export interface SettingsState {
   theme: ThemeMode;
   previewFontSize: number;
   previewFontFamily: string;
+  previewReadingWidth: PreviewReadingWidth;
   lineWrapping: boolean;
   lineNumbers: boolean;
   smartPaste: boolean;
@@ -60,6 +62,33 @@ export const PREVIEW_FONT_FAMILY_OPTIONS = [
   },
 ];
 
+export const PREVIEW_READING_WIDTH_OPTIONS: {
+  label: string;
+  value: PreviewReadingWidth;
+  description: string;
+}[] = [
+  {
+    label: "Estreita (760px)",
+    value: "narrow",
+    description: "Linhas curtas ideais para leitura contínua e foco editorial",
+  },
+  {
+    label: "Confortável (920px)",
+    value: "comfortable",
+    description: "Equilíbrio padrão para documentação técnica e artigos",
+  },
+  {
+    label: "Ampla (1100px)",
+    value: "wide",
+    description: "Espaço ampliado para dados, tabelas e código largo",
+  },
+  {
+    label: "Total (100%)",
+    value: "full",
+    description: "Sem restrição editorial de largura (aproveitamento total)",
+  },
+];
+
 export const DEFAULT_SETTINGS: SettingsState = {
   fontSize: 14,
   fontFamily: FONT_FAMILY_OPTIONS[0].value,
@@ -68,6 +97,7 @@ export const DEFAULT_SETTINGS: SettingsState = {
   theme: "dark",
   previewFontSize: 16,
   previewFontFamily: PREVIEW_FONT_FAMILY_OPTIONS[0].value,
+  previewReadingWidth: "comfortable",
   lineWrapping: true,
   lineNumbers: true,
   smartPaste: true,
@@ -97,9 +127,14 @@ class SettingsStore {
       const raw = localStorage.getItem(STORAGE_KEY);
       if (raw) {
         const parsed = JSON.parse(raw) as Partial<SettingsState>;
+        const validWidths: PreviewReadingWidth[] = ["narrow", "comfortable", "wide", "full"];
+        const readingWidth = validWidths.includes(parsed.previewReadingWidth as PreviewReadingWidth)
+          ? (parsed.previewReadingWidth as PreviewReadingWidth)
+          : "comfortable";
         this.state = {
           ...DEFAULT_SETTINGS,
           ...parsed,
+          previewReadingWidth: readingWidth,
         };
       }
     } catch {
@@ -123,9 +158,19 @@ class SettingsStore {
     docEl.style.setProperty("--editor-font-family", this.state.fontFamily);
     docEl.style.setProperty("--editor-line-height", `${this.state.lineHeight}`);
 
-    // Preview typography
+    // Preview typography and reading width
     docEl.style.setProperty("--preview-font-size", `${this.state.previewFontSize}px`);
     docEl.style.setProperty("--preview-font-family", this.state.previewFontFamily);
+    const widthMap: Record<PreviewReadingWidth, string> = {
+      narrow: "760px",
+      comfortable: "920px",
+      wide: "1100px",
+      full: "none",
+    };
+    docEl.style.setProperty(
+      "--preview-reading-width",
+      widthMap[this.state.previewReadingWidth] || "920px"
+    );
 
     // Zoom
     (docEl.style as unknown as { zoom: string }).zoom = `${this.state.zoom}%`;
@@ -133,6 +178,16 @@ class SettingsStore {
     // Theme class
     docEl.classList.remove("theme-light", "theme-dark", "theme-auto");
     docEl.classList.add(`theme-${this.state.theme}`);
+  }
+
+  public setPreviewReadingWidth(previewReadingWidth: PreviewReadingWidth) {
+    const valid: PreviewReadingWidth[] = ["narrow", "comfortable", "wide", "full"];
+    const safeWidth = valid.includes(previewReadingWidth) ? previewReadingWidth : "comfortable";
+    if (this.state.previewReadingWidth === safeWidth) return;
+    this.state = { ...this.state, previewReadingWidth: safeWidth };
+    this.save();
+    this.applyToDOM();
+    this.notify();
   }
 
   public setPreviewFontSize(previewFontSize: number) {

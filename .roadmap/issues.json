@@ -4,10 +4,68 @@
     "esaa_version": "0.4.x",
     "generated_by": "esaa.project",
     "source_event_store": ".roadmap/activity.jsonl",
-    "last_event_seq": 2494,
-    "updated_at": "2026-09-24T00:30:56Z"
+    "last_event_seq": 3047,
+    "updated_at": "2026-09-25T00:31:35Z"
   },
-  "issues": [],
+  "issues": [
+    {
+      "issue_id": "ISSUE-MD-DS-004-UNVERIFIED-VISUAL",
+      "status": "resolved",
+      "severity": "medium",
+      "title": "Aprovação de MD-DS-004 sem evidência visual exigida",
+      "baseline_id": null,
+      "affected": {},
+      "evidence": {
+        "symptom": "A tarefa foi concluída e aprovada após inspeção de CSS e testes automatizados, mas a aceitação também exigia abrir o documento-alvo em F5, observar texto/tabela/lista/código e anexar cálculo de contraste e observação visual. Esses critérios não foram verificados nesta sessão; o done permanece imutável e deve ser tratado como visual QA não comprovado.",
+        "repro_steps": [
+          "Inspecionar o complete/review de MD-DS-004: os checks registram cascade, tokens, 8 testes e diff check; não registram captura, computed styles do app nem cálculo WCAG.",
+          "Documentos fonte referidos pela tarefa não estão no checkout atual e a sessão CUA não tem API de controle nativo do WebView."
+        ]
+      },
+      "resolution": {
+        "status": "resolved_by_command",
+        "hotfix_task_id": "MD-DS-007"
+      },
+      "links": {
+        "reported_by_task_id": "MD-DS-004",
+        "fixes_task_id": null,
+        "hotfix_task_id": null
+      },
+      "timeline": {
+        "created_event_seq": 2683,
+        "resolved_event_seq": 2706
+      }
+    },
+    {
+      "issue_id": "ISSUE-MD-DS-005-VISUAL-REPRO",
+      "status": "resolved",
+      "severity": "medium",
+      "title": "Reprodução visual do conteúdo de slides bloqueada neste checkout",
+      "baseline_id": null,
+      "affected": {},
+      "evidence": {
+        "symptom": "Os documentos de origem citados na tarefa não estão presentes no checkout, e a interface CUA disponível nesta sessão não expõe controle nativo para inspecionar o WebView ativo. Portanto, computed styles, clipping e conteúdo visual dos dois slides não puderam ser observados; a causa não pode ser afirmada com segurança.",
+        "repro_steps": [
+          "Busca por INSTRUCAO-HOTFIX-THEME-V2.3 e pelo documento MD Studio — Hotfix de Tema e Presentation Mode no checkout: nenhum arquivo-fonte encontrado; somente relatório histórico docs/qa/hotfix-theme-v2.3.md.",
+          "Tentativa de abrir o processo MD Studio ativo via API CUA: getState lista browsers, mas não oferece apps nem a função getApp/listApps; ss -ltnp não encontrou servidor local do app para inspeção em browser.",
+          "Testes disponíveis passaram: tests/presentation/segmentation.test.ts, rich-content.test.ts e processor.test.ts (20 testes); esta evidência não substitui inspeção do DOM/runtime exigida."
+        ]
+      },
+      "resolution": {
+        "status": "resolved_by_command",
+        "hotfix_task_id": "MD-DS-005"
+      },
+      "links": {
+        "reported_by_task_id": "MD-DS-005",
+        "fixes_task_id": null,
+        "hotfix_task_id": null
+      },
+      "timeline": {
+        "created_event_seq": 2680,
+        "resolved_event_seq": 2703
+      }
+    }
+  ],
   "indexes": {
     "open_by_baseline": {}
   }

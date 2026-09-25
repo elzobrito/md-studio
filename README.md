@@ -10,12 +10,13 @@ Projetado especificamente para engenheiros de software, autores técnicos e equi
 - **Motor de Diagramas Interativos:** Mermaid com suporte a zoom/pan fluido, tolerância a digitação de sintaxe incompleta e exportação fiel em SVG/PNG com estilos computados embutidos.
 - **Interconexão de Documentos:** Wiki links (`[[nota]]`), autocompleção instantânea e painel de backlinks com busca contextual no workspace.
 - **Persistência Atômica & Auto-Save Silencioso:** Gravação atômica com `fsync` e supressão de notificações internas no `inotify`, prevenindo falsos positivos de conflito durante a digitação.
-- **Modo de Apresentação (*Presentation Mode*):** **em teste (previsto para v0.2.3)** — não liberado no v0.2.2; entrada `F5`, Reveal.js local. Spec: [`docs/spec/001-presentation-mode.md`](docs/spec/001-presentation-mode.md).
+- **Modo de Apresentação (*Presentation Mode*):** Apresentações técnicas elegantes diretamente do Markdown com segmentação por divisores (`---`), atalhos `F5` / `Esc`, Reveal.js integrado e renderização de diagramas Mermaid e fórmulas KaTeX em tela cheia.
+- **Exportação Multiformato (EPUB 3, HTML e PDF):** Empacotamento canônico de e-books em EPUB 3 via Rust (`epub-builder`), exportação HTML com estilos e exportação para PDF via impressão nativa.
 - **Segurança Rigorosa (Zero-XSS):** Pipeline AST unificado e sanitizado via `rehype-sanitize` e isolamento estrito de caminhos (*Path Fencing*) em Rust.
 
 ---
 
-## Downloads e Instalação (v0.2.2)
+## Downloads e Instalação (v0.2.3)
 
 Você pode baixar os pacotes pré-compilados diretamente da página de [Releases do GitHub](https://github.com/elzobrito/md-studio/releases/latest) ou instalar via Ubuntu Snap Store:
 
@@ -28,11 +29,11 @@ sudo snap install md-studio
 
 ### Linux — Pacote Debian / Ubuntu (`.deb`)
 ```bash
-# 1. Baixar o arquivo .deb da versão v0.2.2
-wget https://github.com/elzobrito/md-studio/releases/download/v0.2.2/md-studio_0.2.2_amd64.deb
+# 1. Baixar o arquivo .deb da versão v0.2.3
+wget https://github.com/elzobrito/md-studio/releases/download/v0.2.3/md-studio_0.2.3_amd64.deb
 
 # 2. Instalar no sistema
-sudo apt install ./md-studio_0.2.2_amd64.deb
+sudo apt install ./md-studio_0.2.3_amd64.deb
 
 # 3. Executar pelo lançador de aplicativos ou via terminal:
 md-studio
@@ -41,25 +42,25 @@ md-studio
 ### Linux — Executável Portátil (`AppImage`)
 Compatível com distribuições Linux (Ubuntu, Debian, Fedora, Arch, openSUSE, Slackware):
 ```bash
-# 1. Baixar o AppImage da versão v0.2.2
-wget https://github.com/elzobrito/md-studio/releases/download/v0.2.2/md-studio_0.2.2_amd64.AppImage
+# 1. Baixar o AppImage da versão v0.2.3
+wget https://github.com/elzobrito/md-studio/releases/download/v0.2.3/md-studio_0.2.3_amd64.AppImage
 
 # 2. Dar permissão de execução
-chmod +x md-studio_0.2.2_amd64.AppImage
+chmod +x md-studio_0.2.3_amd64.AppImage
 
 # 3. Executar diretamente
-./md-studio_0.2.2_amd64.AppImage
+./md-studio_0.2.3_amd64.AppImage
 ```
 
 ### Linux — Pacote Fedora / Red Hat / openSUSE (`.rpm`)
 ```bash
-# 1. Baixar o pacote .rpm da versão v0.2.2
-wget https://github.com/elzobrito/md-studio/releases/download/v0.2.2/md-studio-0.2.2-1.x86_64.rpm
+# 1. Baixar o pacote .rpm da versão v0.2.3
+wget https://github.com/elzobrito/md-studio/releases/download/v0.2.3/md-studio-0.2.3-1.x86_64.rpm
 
 # 2. Instalar no sistema
-sudo dnf install ./md-studio-0.2.2-1.x86_64.rpm
+sudo dnf install ./md-studio-0.2.3-1.x86_64.rpm
 # ou no openSUSE:
-# sudo zypper install ./md-studio-0.2.2-1.x86_64.rpm
+# sudo zypper install ./md-studio-0.2.3-1.x86_64.rpm
 ```
 
 > **Dica de Compatibilidade Gráfica (ex.: Slackware ou drivers gráficos legados):**  
@@ -67,30 +68,30 @@ sudo dnf install ./md-studio-0.2.2-1.x86_64.rpm
 > ```bash
 > WEBKIT_DISABLE_DMABUF_RENDERER=1 md-studio
 > # ou para AppImage:
-> WEBKIT_DISABLE_DMABUF_RENDERER=1 ./md-studio_0.2.2_amd64.AppImage
+> WEBKIT_DISABLE_DMABUF_RENDERER=1 ./md-studio_0.2.3_amd64.AppImage
 > ```
 
 ### Windows (Instalador `.exe` NSIS)
 Recomendado para a maioria dos usuários Windows (Windows 10 e 11 x64):
 ```powershell
-# 1. Baixar o instalador da versão v0.2.2
-Invoke-WebRequest -Uri "https://github.com/elzobrito/md-studio/releases/download/v0.2.2/MD.Studio_0.2.2_x64-setup.exe" -OutFile "MD.Studio_0.2.2_x64-setup.exe"
+# 1. Baixar o instalador da versão v0.2.3
+Invoke-WebRequest -Uri "https://github.com/elzobrito/md-studio/releases/download/v0.2.3/MD.Studio_0.2.3_x64-setup.exe" -OutFile "MD.Studio_0.2.3_x64-setup.exe"
 
 # 2. Executar o instalador
-Start-Process .\MD.Studio_0.2.2_x64-setup.exe
+Start-Process .\MD.Studio_0.2.3_x64-setup.exe
 ```
-*Ou baixe diretamente pelo navegador:* [MD.Studio_0.2.2_x64-setup.exe](https://github.com/elzobrito/md-studio/releases/download/v0.2.2/MD.Studio_0.2.2_x64-setup.exe)
+*Ou baixe diretamente pelo navegador:* [MD.Studio_0.2.3_x64-setup.exe](https://github.com/elzobrito/md-studio/releases/download/v0.2.3/MD.Studio_0.2.3_x64-setup.exe)
 
 ### Windows (Pacote MSI `.msi`)
 Recomendado para ambientes corporativos e instalação automatizada / silenciosa:
 ```powershell
-# 1. Baixar o pacote MSI da versão v0.2.2
-Invoke-WebRequest -Uri "https://github.com/elzobrito/md-studio/releases/download/v0.2.2/MD.Studio_0.2.2_x64_en-US.msi" -OutFile "MD.Studio_0.2.2_x64_en-US.msi"
+# 1. Baixar o pacote MSI da versão v0.2.3
+Invoke-WebRequest -Uri "https://github.com/elzobrito/md-studio/releases/download/v0.2.3/MD.Studio_0.2.3_x64_en-US.msi" -OutFile "MD.Studio_0.2.3_x64_en-US.msi"
 
 # 2. Instalação silenciosa via linha de comando
-msiexec /i MD.Studio_0.2.2_x64_en-US.msi /quiet /qn
+msiexec /i MD.Studio_0.2.3_x64_en-US.msi /quiet /qn
 ```
-*Ou baixe diretamente pelo navegador:* [MD.Studio_0.2.2_x64_en-US.msi](https://github.com/elzobrito/md-studio/releases/download/v0.2.2/MD.Studio_0.2.2_x64_en-US.msi)
+*Ou baixe diretamente pelo navegador:* [MD.Studio_0.2.3_x64_en-US.msi](https://github.com/elzobrito/md-studio/releases/download/v0.2.3/MD.Studio_0.2.3_x64_en-US.msi)
 
 ![Tela inicial do MD Studio](docs/screenshots/welcome.png)
 

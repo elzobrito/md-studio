@@ -39,8 +39,8 @@
 
 /* Variants */
 .btn-primary {
-  background-color: var(--color-accent, #89b4fa);
-  color: #11111b;
+  background-color: var(--color-accent);
+  color: var(--text-inverse);
   border-color: transparent;
 }
 
@@ -50,25 +50,25 @@
 }
 
 .btn-secondary {
-  background-color: var(--bg-secondary, #181825);
-  border-color: var(--border, #313244);
-  color: var(--text-primary, #cdd6f4);
+  background-color: var(--bg-secondary);
+  border-color: var(--border);
+  color: var(--text-primary);
 }
 
 .btn-secondary:hover:not(:disabled) {
-  background-color: var(--color-hover, #2a2a3c);
-  border-color: var(--border, #45475a);
+  background-color: var(--color-hover);
+  border-color: var(--border);
 }
 
 .btn-ghost {
   background-color: transparent;
   border-color: transparent;
-  color: var(--text-secondary, #a6adc8);
+  color: var(--text-secondary);
 }
 
 .btn-ghost:hover:not(:disabled) {
-  background-color: var(--color-hover, #2a2a3c);
-  color: var(--text-primary, #cdd6f4);
+  background-color: var(--color-hover);
+  color: var(--text-primary);
 }
 
 /* Full Width */

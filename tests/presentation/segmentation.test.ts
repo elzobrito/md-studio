@@ -22,6 +22,20 @@ presentation:
     expect(res.endOffset).toBeGreaterThan(0);
   });
 
+  it('keeps an H1 that is immediately followed by an H2 on the first content slide', () => {
+    const md = `# INSTRUCAO-DESIGN-SYSTEM-PALETA
+
+## MD Studio — Sistema de Cores Coerente
+
+**Versão base:** v0.2.3
+`;
+    const { segments } = segmentMarkdown(md);
+    expect(segments).toHaveLength(1);
+    expect(segments[0]!.markdown).toContain('# INSTRUCAO-DESIGN-SYSTEM-PALETA');
+    expect(segments[0]!.markdown).toContain('## MD Studio — Sistema de Cores Coerente');
+    expect(segments[0]!.markdown).toContain('**Versão base:** v0.2.3');
+  });
+
   it('segments by H1 and H2 boundaries as standard', () => {
     const md = `# Arquitetura do MD Studio
 

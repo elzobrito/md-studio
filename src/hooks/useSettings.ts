@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
-import { settingsStore, type SettingsState } from "../state/settings";
+import {
+  settingsStore,
+  type SettingsState,
+  type PreviewReadingWidth,
+} from "../state/settings";
 
 export function useSettings(): SettingsState & {
   setFontSize: (size: number) => void;
@@ -12,6 +16,7 @@ export function useSettings(): SettingsState & {
   setTheme: (theme: SettingsState["theme"]) => void;
   setPreviewFontSize: (size: number) => void;
   setPreviewFontFamily: (family: string) => void;
+  setPreviewReadingWidth: (width: PreviewReadingWidth) => void;
   setLineWrapping: (enabled: boolean) => void;
   setLineNumbers: (enabled: boolean) => void;
   setAutoSave: (enabled: boolean) => void;
@@ -38,6 +43,7 @@ export function useSettings(): SettingsState & {
     setTheme: (t) => settingsStore.setTheme(t),
     setPreviewFontSize: (pfs) => settingsStore.setPreviewFontSize(pfs),
     setPreviewFontFamily: (pff) => settingsStore.setPreviewFontFamily(pff),
+    setPreviewReadingWidth: (prw) => settingsStore.setPreviewReadingWidth(prw),
     setLineWrapping: (lw) => settingsStore.setLineWrapping(lw),
     setLineNumbers: (ln) => settingsStore.setLineNumbers(ln),
     setAutoSave: (as) => settingsStore.setAutoSave(as),

@@ -64,8 +64,8 @@ export async function processMarkdown(source: string, options: ProcessOptions = 
   if (highlighter) {
     processor = processor.use(rehypeShikiFromHighlighter, highlighter, {
       themes: {
-        light: "github-light",
-        dark: "github-dark",
+        light: "catppuccin-latte",
+        dark: "catppuccin-mocha",
       },
       defaultColor: false,
       fallbackLanguage: "text",

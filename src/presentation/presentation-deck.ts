@@ -11,6 +11,22 @@ export interface DeckController {
 }
 
 /**
+ * Reveal.js agenda, após `initialize()`, um `setTimeout(1ms)` que dispara o
+ * evento `ready` via `document.createEvent` **sem** verificar se `destroy()`
+ * já rodou. Se o deck for destruído nesse intervalo (unmount rápido / teardown
+ * de teste), o callback estoura com `ReferenceError: document is not defined`
+ * quando o ambiente jsdom já foi descartado.
+ *
+ * Flush explícito desse tick antes de devolver o controller garante que o
+ * timeout interno rode enquanto o DOM ainda existe.
+ */
+function flushRevealReadyTick(): Promise<void> {
+  return new Promise((resolve) => {
+    setTimeout(resolve, 2);
+  });
+}
+
+/**
  * Inicializa a instância local do Reveal.js de forma lazy e encapsulada.
  */
 export async function createPresentationDeck(
@@ -45,15 +61,34 @@ export async function createPresentationDeck(
 
   deck.on('slidechanged', slideChangeListener);
 
+  const onWheel = (event: WheelEvent) => {
+    const section = rootElement.querySelector<HTMLElement>('section.present');
+    if (!section) return;
+    const overflows = section.scrollHeight > section.clientHeight + 4;
+    if (!overflows || event.deltaY === 0) return;
+    const maxScroll = section.scrollHeight - section.clientHeight;
+    const next = Math.min(maxScroll, Math.max(0, section.scrollTop + event.deltaY));
+    if (next === section.scrollTop) return;
+    section.scrollTop = next;
+    event.preventDefault();
+  };
+  rootElement.addEventListener('wheel', onWheel, { passive: false });
+
   await deck.initialize();
+  await flushRevealReadyTick();
 
   if (initialSlide > 0) {
     deck.slide(initialSlide);
   }
 
+  let destroyed = false;
+
   return {
     destroy() {
+      if (destroyed) return;
+      destroyed = true;
       try {
+        rootElement.removeEventListener('wheel', onWheel);
         deck.off('slidechanged', slideChangeListener);
         deck.destroy();
       } catch {
@@ -61,21 +96,24 @@ export async function createPresentationDeck(
       }
     },
     next() {
-      deck.next();
+      if (!destroyed) deck.next();
     },
     prev() {
-      deck.prev();
+      if (!destroyed) deck.prev();
     },
     slide(index: number) {
-      deck.slide(index);
+      if (!destroyed) deck.slide(index);
     },
     getCurrentIndex() {
+      if (destroyed) return 0;
       return deck.getIndices().h;
     },
     getTotalSlides() {
+      if (destroyed) return 0;
       return deck.getTotalSlides();
     },
     layout() {
+      if (destroyed) return;
       try {
         deck.layout();
       } catch {

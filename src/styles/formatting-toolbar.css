@@ -1,4 +1,5 @@
 .formatting-toolbar {
+  min-height: 36px;
   height: 36px;
   display: flex;
   align-items: center;
@@ -7,7 +8,9 @@
   border-bottom: 1px solid var(--border);
   background: var(--bg-secondary);
   user-select: none;
-  overflow-x: auto;
+  position: relative;
+  z-index: 25;
+  overflow: visible;
 }
 
 .toolbar-group {
@@ -38,7 +41,7 @@
 
 .toolbar-button.active {
   background: var(--color-selection, rgba(59, 130, 246, 0.2));
-  color: var(--color-accent, #3b82f6);
+  color: var(--color-accent);
 }
 
 .toolbar-button:disabled {
@@ -52,4 +55,111 @@
   background: var(--border);
   margin: 0 6px;
   flex-shrink: 0;
+}
+
+.toolbar-insert-container {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.toolbar-insert-btn {
+  height: 28px;
+  padding: 0 8px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  background: var(--bg-elevated, transparent);
+  color: var(--text-primary);
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.toolbar-insert-btn:hover:not(:disabled) {
+  background: var(--color-hover, rgba(255, 255, 255, 0.08));
+  border-color: var(--color-accent);
+}
+
+.toolbar-insert-btn:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 1px;
+}
+
+.toolbar-insert-arrow {
+  font-size: 10px;
+  transition: transform 0.15s ease;
+}
+
+.toolbar-insert-btn[aria-expanded="true"] .toolbar-insert-arrow {
+  transform: rotate(180deg);
+}
+
+.toolbar-insert-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  min-width: 200px;
+  padding: 4px;
+  margin: 0;
+  list-style: none;
+  background: var(--bg-elevated, var(--panel, #1e1e2e));
+  border: 1px solid var(--border, #313244);
+  border-radius: 6px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.toolbar-insert-menu[hidden] {
+  display: none !important;
+}
+
+.toolbar-insert-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 6px 10px;
+  font-size: 12px;
+  color: var(--text-primary);
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 0.12s ease;
+}
+
+.toolbar-insert-item:hover,
+.toolbar-insert-item:focus-visible {
+  background: var(--color-hover, rgba(255, 255, 255, 0.08));
+  color: var(--text-highlight, #ffffff);
+  outline: none;
+}
+
+.toolbar-insert-item-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.toolbar-insert-item-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.toolbar-insert-item-shortcut {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-left: 12px;
 }

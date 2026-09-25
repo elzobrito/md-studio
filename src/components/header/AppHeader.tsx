@@ -3,8 +3,7 @@ import type { ViewMode } from "../../state/session";
 import { useSaveStatus } from "../../hooks/useSaveStatus";
 import { ViewModeToggle } from "./ViewModeToggle";
 import { SaveButton } from "./SaveButton";
-import { ExportHtmlButton } from "./ExportHtmlButton";
-import { ExportPdfButton } from "./ExportPdfButton";
+import { ExportMenu } from "./ExportMenu";
 import { PanelControls } from "./PanelControls";
 import "../../styles/header.css";
 
@@ -20,6 +19,7 @@ interface Props {
   canExport?: boolean;
   onExportHtml?: () => void;
   onExportPdf?: () => void;
+  onExportEpub?: () => void;
   fileName?: string;
   onNewDocument?: () => void;
   onOpenSearch?: () => void;
@@ -41,6 +41,7 @@ export function AppHeader({
   canExport,
   onExportHtml,
   onExportPdf,
+  onExportEpub,
   fileName,
   onNewDocument,
   onOpenSearch,
@@ -133,18 +134,14 @@ export function AppHeader({
             disabled={!canSave}
             errorMessage={errorMessage}
           />
-          {onExportHtml ? (
-            <ExportHtmlButton
-              onExport={onExportHtml}
+          {(onExportHtml || onExportPdf || onExportEpub) && (
+            <ExportMenu
               disabled={canExport !== undefined ? !canExport : !canSave}
+              onExportHtml={onExportHtml}
+              onExportPdf={onExportPdf}
+              onExportEpub={onExportEpub}
             />
-          ) : null}
-          {onExportPdf ? (
-            <ExportPdfButton
-              onExport={onExportPdf}
-              disabled={canExport !== undefined ? !canExport : !canSave}
-            />
-          ) : null}
+          )}
         </div>
       </div>
 

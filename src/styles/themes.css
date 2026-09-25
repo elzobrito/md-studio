@@ -4,17 +4,16 @@
 
 :root {
   color-scheme: light dark;
-  --bg: #f4f6f8;
-  --bg-elevated: #ffffff;
-  --fg: #0f172a;
-  --fg-muted: #64748b;
-  --panel: #f8fafc;
-  --border: #e2e8f0;
-  --accent: #2563eb;
-  --accent-hover: #1d4ed8;
-  --accent-soft: #dbeafe;
-  --editor-cursor-color: #1d4ed8;
-  --danger: #b91c1c;
+  --bg: var(--bg-base);
+  --bg-elevated: var(--bg-surface);
+  --fg: var(--text-primary);
+  --fg-muted: var(--text-secondary);
+  --panel: var(--bg-surface);
+  --accent: var(--color-accent);
+  --accent-hover: var(--color-accent-hover);
+  --accent-soft: var(--bg-overlay);
+  --editor-cursor-color: var(--color-accent-hover);
+  --danger: var(--color-error);
   --radius: 10px;
   --shadow: 0 1px 2px rgb(15 23 42 / 6%), 0 8px 24px rgb(15 23 42 / 6%);
   --font: "Segoe UI", system-ui, -apple-system, sans-serif;
@@ -22,31 +21,29 @@
 }
 
 .theme-dark {
-  --bg: #0b1220;
-  --bg-elevated: #111827;
-  --fg: #e5e7eb;
-  --fg-muted: #94a3b8;
-  --panel: #0f172a;
-  --border: #1e293b;
-  --accent: #3b82f6;
-  --accent-hover: #60a5fa;
-  --accent-soft: #1e3a5f;
-  --editor-cursor-color: #f9e2af;
+  --bg: var(--bg-base);
+  --bg-elevated: var(--bg-surface);
+  --fg: var(--text-primary);
+  --fg-muted: var(--text-secondary);
+  --panel: var(--bg-surface);
+  --accent: var(--color-accent);
+  --accent-hover: var(--color-accent-hover);
+  --accent-soft: var(--bg-overlay);
+  --editor-cursor-color: var(--color-accent-hover);
   --shadow: 0 1px 2px rgb(0 0 0 / 40%), 0 12px 32px rgb(0 0 0 / 35%);
 }
 
 @media (prefers-color-scheme: dark) {
   .theme-auto {
-    --bg: #0b1220;
-    --bg-elevated: #111827;
-    --fg: #e5e7eb;
-    --fg-muted: #94a3b8;
-    --panel: #0f172a;
-    --border: #1e293b;
-    --accent: #3b82f6;
-    --accent-hover: #60a5fa;
-    --accent-soft: #1e3a5f;
-    --editor-cursor-color: #f9e2af;
+    --bg: var(--bg-base);
+    --bg-elevated: var(--bg-surface);
+    --fg: var(--text-primary);
+    --fg-muted: var(--text-secondary);
+    --panel: var(--bg-surface);
+    --accent: var(--color-accent);
+    --accent-hover: var(--color-accent-hover);
+    --accent-soft: var(--bg-overlay);
+    --editor-cursor-color: var(--color-accent-hover);
     --shadow: 0 1px 2px rgb(0 0 0 / 40%), 0 12px 32px rgb(0 0 0 / 35%);
   }
 }
@@ -108,8 +105,8 @@ select {
   width: 2rem;
   height: 2rem;
   border-radius: 8px;
-  background: linear-gradient(145deg, var(--accent), #7c3aed);
-  color: white;
+  background: linear-gradient(145deg, var(--accent), var(--color-accent-2));
+  color: var(--text-inverse);
   font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.02em;
@@ -166,28 +163,28 @@ select {
 
 .view-toggle-btn.is-active {
   background: var(--accent);
-  color: #fff;
+  color: var(--text-inverse);
 }
 
 /* Workspace grid */
 .workspace {
   display: grid;
-  grid-template-columns: var(--left-width, 240px) minmax(0, 1fr) var(--right-width, 240px);
+  grid-template-columns: var(--left-width, 288px) minmax(0, 1fr) var(--right-width, 240px);
   flex: 1;
   min-height: 0;
   transition: grid-template-columns 0.15s ease;
 }
 
 .workspace.left-collapsed {
-  grid-template-columns: 44px minmax(0, 1fr) var(--right-width, 240px);
+  grid-template-columns: 48px minmax(0, 1fr) var(--right-width, 240px);
 }
 
 .workspace.right-collapsed {
-  grid-template-columns: var(--left-width, 240px) minmax(0, 1fr) 44px;
+  grid-template-columns: var(--left-width, 288px) minmax(0, 1fr) 44px;
 }
 
 .workspace.left-collapsed.right-collapsed {
-  grid-template-columns: 44px minmax(0, 1fr) 44px;
+  grid-template-columns: 48px minmax(0, 1fr) 44px;
 }
 
 .panel {
@@ -265,7 +262,7 @@ select {
 
 /* Side-by-side when split — full height each column */
 .center.mode-split {
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(280px, var(--split-source-ratio, 50%)) auto minmax(280px, 1fr);
   grid-template-rows: 1fr;
 }
 
@@ -318,7 +315,7 @@ select {
 
 .btn-primary {
   background: var(--accent);
-  color: #fff;
+  color: var(--text-inverse);
 }
 
 .btn-primary:hover:not(:disabled) {
@@ -533,7 +530,7 @@ select {
 }
 
 .center.mode-split .editor {
-  border-right: 1px solid var(--border);
+  border-right: none;
   border-bottom: 0;
 }
 
@@ -564,11 +561,36 @@ select {
   height: 100%;
   font-size: var(--editor-font-size, 14px);
   line-height: var(--editor-line-height, 1.5);
+  background-color: var(--bg-base);
+  color: var(--text-primary);
 }
 
 .editor .cm-scroller {
   font-family: var(--editor-font-family, var(--mono));
   height: 100%;
+}
+
+.editor .cm-gutters {
+  background-color: var(--bg-surface);
+  color: var(--text-muted);
+  border-right: 1px solid var(--border);
+}
+
+.editor .cm-lineNumbers .cm-gutterElement {
+  padding: 0 0.5rem 0 0.75rem;
+  min-width: 2.5rem;
+  text-align: right;
+  color: var(--text-muted);
+}
+
+.editor .cm-activeLineGutter {
+  background-color: var(--bg-overlay, var(--color-hover));
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.editor .cm-activeLine {
+  background-color: var(--bg-overlay, var(--color-hover));
 }
 
 .editor .cm-content {
@@ -601,10 +623,20 @@ select {
   scroll-behavior: smooth;
 }
 
-/* Keep line length readable only on ultra-wide centers without shrinking the pane */
+/* Controlled reading measure in formatted preview mode (Spec 005) */
 .center.mode-preview .preview-body {
+  max-width: var(--preview-reading-width, 920px);
+  margin-left: auto;
+  margin-right: auto;
   padding-left: clamp(1.25rem, 3vw, 2.5rem);
   padding-right: clamp(1.25rem, 3vw, 2.5rem);
+}
+
+/* Split mode preserves full column width without rigid editorial max-width */
+.center.mode-split .preview-body {
+  max-width: none;
+  margin-left: 0;
+  margin-right: 0;
 }
 
 .preview-body h1,
@@ -655,8 +687,9 @@ select {
 }
 
 .preview-body pre {
-  background: var(--panel);
-  border: 1px solid var(--border);
+  background: var(--code-bg, var(--panel));
+  color: var(--code-color, var(--fg));
+  border: 1px solid var(--code-border, var(--border));
   border-radius: 8px;
   padding: 0.75rem 1rem;
   overflow: auto;
@@ -666,6 +699,14 @@ select {
 .preview-body code {
   font-family: var(--mono);
   font-size: 0.88em;
+}
+
+.preview-body code:not(pre code) {
+  background: var(--inline-code-bg, rgba(128, 128, 128, 0.15));
+  color: var(--inline-code-color, inherit);
+  border: 1px solid var(--inline-code-border, transparent);
+  border-radius: 4px;
+  padding: 0.15em 0.35em;
 }
 
 .preview-body table {

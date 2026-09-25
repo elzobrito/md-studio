@@ -11,10 +11,13 @@ import { scrollToHeading } from "./services/navigation";
 import { WelcomeScreen } from "./components/empty/WelcomeScreen";
 import { ConflictDialog } from "./components/ConflictDialog";
 import { exportActiveDocumentHtml } from "./services/exportHtml";
+import { exportActiveDocumentEpub } from "./services/exportEpub";
 import { EmptyState } from "./components/empty/EmptyState";
 import { CommandPalette } from "./components/command/CommandPalette";
 import { ResizablePanel } from "./components/layout/ResizablePanel";
 import { useResizablePanel } from "./hooks/useResizablePanel";
+import { SplitDivider, loadSavedSplitRatio } from "./components/layout/SplitDivider";
+import { WorkspaceRail } from "./components/workspace/WorkspaceRail";
 import { PanelControls } from "./components/header/PanelControls";
 import { AppHeader } from "./components/header/AppHeader";
 import { Breadcrumb } from "./components/header/Breadcrumb";
@@ -70,6 +73,8 @@ export function App() {
   const announcedDrafts = useRef(new Set(recoveryDrafts.filter((draft) => draft.expiringSoon).map((draft) => `${draft.key}:${draft.expired ? "expired" : "warning"}`)));
   const [unresolvedWikiTarget, setUnresolvedWikiTarget] = useState<string | null>(null);
   const scrollSync = useScrollSync({ enabled: view === "split" });
+  const [splitRatio, setSplitRatio] = useState<number>(() => loadSavedSplitRatio());
+  const centerRef = useRef<HTMLElement | null>(null);
 
   const hasActiveDocument = Boolean(isWriting || doc.relativePath);
 
@@ -159,6 +164,24 @@ export function App() {
       );
     }
   }, [hasActiveDocument, doc.content, doc.relativePath]);
+
+  const handleExportEpub = useCallback(async () => {
+    if (!hasActiveDocument) return;
+    const base = doc.relativePath
+      ? (doc.relativePath.split("/").pop() || "export.md").replace(/\.md$/i, ".epub")
+      : "documento.epub";
+    const result = await exportActiveDocumentEpub({
+      markdown: doc.content,
+      defaultName: base,
+      workspaceId: doc.workspace?.id,
+    });
+    if (!result.ok && !result.cancelled) {
+      console.error(result.error ?? "export failed");
+      window.alert(
+        `Não foi possível exportar o EPUB.\n\n${result.error ?? "Erro desconhecido"}`,
+      );
+    }
+  }, [hasActiveDocument, doc.content, doc.relativePath, doc.workspace?.id]);
 
   const handleExportPdf = useCallback(() => {
     if (!hasActiveDocument) return;
@@ -526,6 +549,7 @@ export function App() {
           }
         }}
         onExportPdf={handleExportPdf}
+        onExportEpub={handleExportEpub}
         fileName={
           doc.relativePath
             ? doc.relativePath.split("/").pop()
@@ -562,51 +586,59 @@ export function App() {
           .join(" ")}
         style={
           {
-            "--left-width": `${leftPanel.width}px`,
+            "--left-width": `${leftPanel.width + 48}px`,
             "--right-width": `${rightPanel.width}px`,
           } as React.CSSProperties
         }
       >
-        {leftCollapsed ? (
-          <aside className="panel rail left-rail" aria-label="Explorador recolhido">
-            <button
-              type="button"
-              className="rail-btn"
-              onClick={() => session.setLeftOpen(true)}
-              title="Mostrar explorador de arquivos"
+        <div
+          className={`workspace-sidebar-container${leftCollapsed ? " is-collapsed" : ""}`}
+        >
+          <WorkspaceRail
+            activeActivity="explorer"
+            isPanelOpen={!leftCollapsed}
+            onToggleActivity={() => {
+              session.setLeftOpen(leftCollapsed);
+            }}
+          />
+          {!leftCollapsed && (
+            <ResizablePanel
+              side="left"
+              width={leftPanel.width}
+              onStartResize={leftPanel.startResize}
+              isResizing={leftPanel.isResizing}
+              aria-label="Workspace"
             >
-              📁
-            </button>
-          </aside>
-        ) : (
-          <ResizablePanel
-            side="left"
-            width={leftPanel.width}
-            onStartResize={leftPanel.startResize}
-            isResizing={leftPanel.isResizing}
-            aria-label="Workspace"
-          >
-            <FileExplorer
-              workspace={doc.workspace}
-              onOpenRelative={(path) => {
-                void doc.openRelative(path);
-                setIsWriting(true);
-              }}
-              onOpenRecent={(path) => {
-                void doc.openRecent(path);
-                setIsWriting(true);
-              }}
-              onOpenFolder={doc.openFolder}
-              onOpenFile={doc.openFile}
-              onWorkspaceReady={doc.onWorkspaceReady}
-              query={query}
-              onQuery={setQuery}
-              activePath={doc.relativePath}
-            />
-          </ResizablePanel>
-        )}
+              <FileExplorer
+                workspace={doc.workspace}
+                onOpenRelative={(path) => {
+                  void doc.openRelative(path);
+                  setIsWriting(true);
+                }}
+                onOpenRecent={(path) => {
+                  void doc.openRecent(path);
+                  setIsWriting(true);
+                }}
+                onOpenFolder={doc.openFolder}
+                onOpenFile={doc.openFile}
+                onWorkspaceReady={doc.onWorkspaceReady}
+                query={query}
+                onQuery={setQuery}
+                activePath={doc.relativePath}
+              />
+            </ResizablePanel>
+          )}
+        </div>
 
-        <main className={`center mode-${view}`}>
+        <main
+          ref={centerRef}
+          className={`center mode-${view}`}
+          style={
+            view === "split"
+              ? ({ "--split-source-ratio": `${(splitRatio * 100).toFixed(1)}%` } as React.CSSProperties)
+              : undefined
+          }
+        >
           {!isWriting && !doc.relativePath ? (
             !doc.workspace ? (
               <WelcomeScreen
@@ -638,6 +670,14 @@ export function App() {
                   onSave={doc.save}
                   onScroller={scrollSync.setEditorScroller}
                   wikiDocuments={metadata.allDocs}
+                />
+              )}
+              {view === "split" && (
+                <SplitDivider
+                  ratio={splitRatio}
+                  onChangeRatio={setSplitRatio}
+                  onReset={() => setSplitRatio(0.5)}
+                  containerRef={centerRef}
                 />
               )}
               {view !== "source" && (

@@ -1,6 +1,13 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { EditorState } from "@codemirror/state";
-import { EditorView, drawSelection, keymap, lineNumbers } from "@codemirror/view";
+import {
+  EditorView,
+  drawSelection,
+  keymap,
+  lineNumbers,
+  highlightActiveLine,
+  highlightActiveLineGutter,
+} from "@codemirror/view";
 import { defaultKeymap, history, historyKeymap } from "@codemirror/commands";
 import { searchKeymap, highlightSelectionMatches } from "@codemirror/search";
 import { markdown } from "@codemirror/lang-markdown";
@@ -21,6 +28,7 @@ import {
   insertLink,
   toggleCode,
   formatCodeBlockAtCursor,
+  formatDocumentOrCodeBlock,
 } from "../editor/formatting";
 import {
   createWikiCompletionExtensions,
@@ -42,6 +50,39 @@ export const editorCursorExtensions = [
       borderLeftWidth: "2px",
     },
   }),
+];
+
+export const editorGutterTheme = EditorView.theme({
+  "&": {
+    backgroundColor: "var(--bg-base)",
+    color: "var(--text-primary)",
+  },
+  ".cm-gutters": {
+    backgroundColor: "var(--bg-surface)",
+    color: "var(--text-muted)",
+    borderRight: "1px solid var(--border)",
+  },
+  ".cm-lineNumbers .cm-gutterElement": {
+    padding: "0 0.5rem 0 0.75rem",
+    minWidth: "2.5rem",
+    textAlign: "right",
+    color: "var(--text-muted)",
+  },
+  ".cm-activeLineGutter": {
+    backgroundColor: "var(--bg-overlay, var(--color-hover))",
+    color: "var(--text-primary)",
+    fontWeight: "600",
+  },
+  ".cm-activeLine": {
+    backgroundColor: "var(--bg-overlay, var(--color-hover))",
+  },
+});
+
+export const editorGutterExtensions = [
+  lineNumbers(),
+  highlightActiveLineGutter(),
+  highlightActiveLine(),
+  editorGutterTheme,
 ];
 
 export function MarkdownEditor(props: {
@@ -77,7 +118,7 @@ export function MarkdownEditor(props: {
     const state = EditorState.create({
       doc: props.value,
       extensions: [
-        lineNumbers(),
+        ...editorGutterExtensions,
         history(),
         markdown(),
         highlightSelectionMatches(),
@@ -127,21 +168,21 @@ export function MarkdownEditor(props: {
           {
             key: "Shift-Alt-f",
             run: (v) => {
-              void formatCodeBlockAtCursor(v);
+              void formatDocumentOrCodeBlock(v);
               return true;
             },
           },
           {
             key: "Shift-Alt-F",
             run: (v) => {
-              void formatCodeBlockAtCursor(v);
+              void formatDocumentOrCodeBlock(v);
               return true;
             },
           },
           {
             key: "Mod-s",
             run: () => {
-              props.onSave();
+              props.onSave?.();
               return true;
             },
           },
@@ -198,12 +239,6 @@ export function MarkdownEditor(props: {
 
   return (
     <section className="editor" aria-label="Editor Markdown">
-      <header>
-        <span>{props.dirty ? "Modificado" : "Salvo"}</span>
-        <button type="button" className="btn btn-secondary btn-sm" onClick={props.onSave}>
-          Salvar
-        </button>
-      </header>
       <FormattingToolbar view={editorView} />
       <div ref={parent} className="editor-host" />
       <SlashMenu
