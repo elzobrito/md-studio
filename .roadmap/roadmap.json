@@ -7,11 +7,11 @@
     "run": {
       "run_id": "RUN-0001",
       "status": "success",
-      "last_event_seq": 3664,
-      "projection_hash_sha256": "0df1036784b7c1485a1075e64918884aceeb8bbac999417e4d937cb300ef8408",
+      "last_event_seq": 3673,
+      "projection_hash_sha256": "00371f215e8394a7f92ad208f5a1019f06f77bd52891dcd868819394aff7e03f",
       "verify_status": "ok"
     },
-    "updated_at": "2026-09-25T21:00:42Z"
+    "updated_at": "2026-09-25T21:27:44Z"
   },
   "project": {
     "name": "MD Studio",
@@ -11800,7 +11800,7 @@
       "task_kind": "impl",
       "title": "Hotfix for ISSUE-MD-DESKTOP-CONTROLS-REGRESSION",
       "description": "Apply a minimal hotfix to resolve issue ISSUE-MD-DESKTOP-CONTROLS-REGRESSION without regressing immutable done tasks.",
-      "status": "todo",
+      "status": "done",
       "depends_on": [],
       "targets": [
         "ISSUE-MD-DESKTOP-CONTROLS-REGRESSION"
@@ -11826,7 +11826,16 @@
       "baseline_id": "B-000",
       "superseded_by": [
         "MD-RELEASE-STORE-003"
-      ]
+      ],
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-25T21:27:19Z",
+      "verification": {
+        "checks": [
+          "Implementação e testes executados previamente em MD-HOTFIX-DESKTOP-003",
+          "Invariante INV-DESKTOP-LAUNCHER-ENV e issue ISSUE-MD-DESKTOP-CONTROLS-REGRESSION validadas"
+        ]
+      },
+      "completed_at": "2026-09-25T21:27:44Z"
     },
     {
       "task_id": "MD-RELEASE-STORE-003",
@@ -11873,8 +11882,7 @@
   ],
   "indexes": {
     "by_status": {
-      "done": 302,
-      "todo": 1
+      "done": 303
     },
     "by_kind": {
       "impl": 238,
