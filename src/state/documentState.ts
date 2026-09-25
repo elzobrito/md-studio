@@ -461,6 +461,9 @@ export function useDocumentState() {
         return;
       }
       if (choice === "reload") {
+        // Explicit discard of local edits: drop the recovery draft so openRelative loads the disk content.
+        const ws = workspaceRef.current;
+        if (ws) clearDraft(draftRoot(ws), path);
         await openRelative(path);
         setDirty(false);
         setDiagnostics([`Recarregado do disco: ${path}`]);
