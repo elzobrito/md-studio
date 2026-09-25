@@ -1,0 +1,248 @@
+artifact: task-impact
+schema_version: 1
+trace_task: TRACE-017
+task_id: MD-HOTFIX-EXPAND-002
+projected_at: '2026-09-25T11:32:11-03:00'
+projected_before_change: true
+projection_inputs:
+- descrição da tarefa ESAA MD-HOTFIX-EXPAND-002
+- relatório de inspeção docs/qa/hotfix-preview-expand.md
+- .esaa/traceability/graph.json (source_commit 8eb7b6e18a672b94199397f1cc0d0ec7def6609c)
+- impact.py closure STO-SETTINGS
+spec: .esaa/tasks/MD-HOTFIX-EXPAND-002.yaml
+graph_source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+rationale:
+  STO-SETTINGS: adicionar sincronização de docEl.setAttribute("data-reading-width", ...) em applyToDOM para suporte às regras de layout css responsivo
+  TST-TS-SETTINGS-PREVIEWREADINGWIDTH: adicionar asserções de verificação do atributo data-reading-width
+justification: null
+expected_uncatalogued:
+- src/styles/themes.css (arquivo de estilo puro não catalogado no grafo AST)
+blast_radius:
+  change_target:
+  - STO-SETTINGS
+  expected_affected:
+  - TST-TS-SETTINGS-PREVIEWREADINGWIDTH
+  expected_affected_source: declared
+  suggested_expected_affected:
+  - TST-TS-EDITOR-AUTOSAVE
+  - TST-TS-EDITOR-HINTS
+  - TST-TS-EDITOR-SMART-PASTE
+  - TST-TS-SETTINGS-PREVIEWREADINGWIDTH
+  - TST-TS-SETTINGS-SETTINGSPANEL
+  - TST-TS-UX-SETTINGSSTORE
+  - TST-TS-UX-WIREFRAMEFIDELITY
+  authorized:
+  - STO-SETTINGS
+  - TST-TS-SETTINGS-PREVIEWREADINGWIDTH
+  potentially_affected:
+  - BTN-PREVIEW-FORMAT-CODE
+  - CMP-MARKDOWN-EDITOR
+  - HDL-APP-START-PRESENTATION
+  - HDL-DOC-SET-CONTENT
+  - SCR-APP
+  - STO-DOCUMENT-STATE
+  - STO-EDITOR
+  protected_in_closure:
+  - id: CTR-LSK-SETTINGS
+    reasons:
+    - contract_surface
+  - id: LSK-SETTINGS
+    reasons:
+    - contract_surface:CTR-LSK-SETTINGS
+    - declared_protected_extra
+    - persisted_data
+  protected_total: 139
+  protected_declared: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: false
+projected:
+  nodes:
+  - STO-SETTINGS
+  - TST-TS-SETTINGS-PREVIEWREADINGWIDTH
+  features:
+    direct:
+    - FEAT-AUTO-SAVE
+    - FEAT-DRAFT-RECOVERY
+    - FEAT-SETTINGS
+    - FEAT-WATCHER
+    indirect:
+    - FEAT-APP-SCREENS
+    - FEAT-BACKLINKS
+    - FEAT-CODE-FORMATTER
+    - FEAT-CONFLICT
+    - FEAT-CREATE-NOTE-FROM-WIKI
+    - FEAT-EDITOR
+    - FEAT-FORMATTING-TOOLBAR
+    - FEAT-KATEX
+    - FEAT-LAYOUT-PANELS
+    - FEAT-MERMAID
+    - FEAT-METADATA-INDEX
+    - FEAT-OPEN-FILE
+    - FEAT-OUTGOING-LINKS
+    - FEAT-PRESENTATION
+    - FEAT-PREVIEW
+    - FEAT-SANITIZE
+    - FEAT-SAVE
+    - FEAT-SHIKI
+    - FEAT-SHORTCUTS-HELP
+    - FEAT-SLASH-COMMANDS
+    - FEAT-SPLASH-PACKAGING
+    - FEAT-TEMPLATES
+    - FEAT-WIKI-LINKS
+  flows:
+  - FLOW-APP-BOOT
+  - FLOW-AUTO-SAVE
+  - FLOW-BACKLINKS-QUERY
+  - FLOW-CLOSE-FILE
+  - FLOW-CONFLICT-ON-SAVE
+  - FLOW-DRAFT-RECOVERY
+  - FLOW-EDITOR-COMMANDS
+  - FLOW-FORMAT-CODE-BLOCK
+  - FLOW-METADATA-REFRESH
+  - FLOW-NEW-DOCUMENT
+  - FLOW-PRESENTATION
+  - FLOW-PREVIEW-RENDER
+  - FLOW-SAVE-DOCUMENT
+  - FLOW-WIKI-LINK-RESOLVE
+  invariants: []
+  tests:
+    must_run:
+    - TST-TS-EDITOR-AUTOSAVE
+    - TST-TS-EDITOR-HINTS
+    - TST-TS-EDITOR-SMART-PASTE
+    - TST-TS-SETTINGS-PREVIEWREADINGWIDTH
+    - TST-TS-SETTINGS-SETTINGSPANEL
+    - TST-TS-UX-SETTINGSSTORE
+    - TST-TS-UX-WIREFRAMEFIDELITY
+    should_run:
+    - TST-TS-EDITOR-CONFLICTRELOAD
+    may_run:
+    - TST-TS-EDITOR-SINGLESAVE
+    - TST-TS-UX-EDITORSTORE
+  contracts:
+  - CTR-LSK-SETTINGS
+  data:
+  - LSK-SETTINGS
+  - STO-DOCUMENT-STATE
+  - STO-EDITOR
+  - STO-SETTINGS
+  events: []
+  entrypoints:
+  - ENT-BTN-PREVIEW-FORMAT-CODE
+  - ENT-HDL-DOC-SET-CONTENT
+  - ENT-SCR-APP
+  modules:
+  - MOD-APP-SHELL
+  - MOD-EDITOR
+  - MOD-FORMATTER
+  - MOD-PERSISTENCE
+  - MOD-PRESENTATION
+  - MOD-SETTINGS-SESSION
+closure:
+- id: STO-SETTINGS
+  kind: code
+  type: store
+  distance: 0
+  anchor: src/state/settings.ts
+  via: null
+  terminal: false
+- id: CTR-LSK-SETTINGS
+  kind: contract
+  type: contract
+  distance: 1
+  anchor: null
+  via:
+    node: STO-SETTINGS
+    relation: implemented_by
+    direction: reverse
+  terminal: false
+- id: HDL-DOC-SET-CONTENT
+  kind: code
+  type: handler
+  distance: 1
+  anchor: src/state/documentState.ts
+  via:
+    node: STO-SETTINGS
+    relation: reads
+    direction: reverse
+  terminal: false
+- id: LSK-SETTINGS
+  kind: code
+  type: local_storage_key
+  distance: 1
+  anchor: src/state/settings.ts
+  via:
+    node: STO-SETTINGS
+    relation: writes
+    direction: forward
+  terminal: false
+- id: BTN-PREVIEW-FORMAT-CODE
+  kind: code
+  type: button
+  distance: 2
+  anchor: src/components/MarkdownViewer.tsx
+  via:
+    node: HDL-DOC-SET-CONTENT
+    relation: calls
+    direction: reverse
+  terminal: false
+- id: CMP-MARKDOWN-EDITOR
+  kind: code
+  type: component
+  distance: 2
+  anchor: src/components/MarkdownEditor.tsx
+  via:
+    node: HDL-DOC-SET-CONTENT
+    relation: triggers
+    direction: reverse
+  terminal: false
+- id: STO-DOCUMENT-STATE
+  kind: code
+  type: store
+  distance: 2
+  anchor: src/state/documentState.ts
+  via:
+    node: HDL-DOC-SET-CONTENT
+    relation: contains
+    direction: reverse
+  terminal: false
+- id: STO-EDITOR
+  kind: code
+  type: store
+  distance: 2
+  anchor: src/state/editor.ts
+  via:
+    node: HDL-DOC-SET-CONTENT
+    relation: writes
+    direction: forward
+  terminal: false
+- id: HDL-APP-START-PRESENTATION
+  kind: code
+  type: handler
+  distance: 3
+  anchor: src/App.tsx
+  via:
+    node: STO-EDITOR
+    relation: reads
+    direction: reverse
+  terminal: true
+- id: SCR-APP
+  kind: code
+  type: screen
+  distance: 3
+  anchor: src/App.tsx
+  via:
+    node: STO-DOCUMENT-STATE
+    relation: calls
+    direction: reverse
+  terminal: true
+hubs: []
+stats:
+  closure_nodes: 10
+  by_distance:
+    '0': 1
+    '1': 3
+    '2': 4
+    '3': 2

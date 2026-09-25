@@ -1,5 +1,6 @@
 import { createHighlighter, type Highlighter } from "shiki";
-import rehypeShikiFromHighlighter from "@shikijs/rehype/core";
+import rawRehypeShikiFromHighlighter from "@shikijs/rehype/core";
+import { shikiAdvancedCodeBlockTransformer } from "./codeBlockMetadata";
 
 let highlighterPromise: Promise<Highlighter | null> | null = null;
 
@@ -37,4 +38,15 @@ export function getHighlighter(): Promise<Highlighter | null> {
   return highlighterPromise;
 }
 
-export { rehypeShikiFromHighlighter };
+const rehypeShikiFromHighlighter: any = (highlighter: any, options: any) => {
+  const mergedOptions = {
+    ...options,
+    transformers: [
+      shikiAdvancedCodeBlockTransformer(),
+      ...(options?.transformers || []),
+    ],
+  };
+  return (rawRehypeShikiFromHighlighter as any)(highlighter, mergedOptions);
+};
+
+export { rehypeShikiFromHighlighter, shikiAdvancedCodeBlockTransformer };

@@ -66,6 +66,18 @@ impl ReindexEngine {
         index.indexed_at = now;
         self.rebuild_backlinks_locked(&index);
 
+        // Validação estrutural do MD Doctor no ciclo de reindex
+        for doc in index.all() {
+            let abs_path = self.root.join(&doc.path);
+            let content = std::fs::read_to_string(&abs_path).unwrap_or_default();
+            let diags = crate::doctor::Doctor::diagnose(&doc.path, &content, doc, &index, &self.root);
+            for diag in diags {
+                if diag.severity == "error" {
+                    report.errors.push(format!("{}: {}", doc.path.display(), diag.message));
+                }
+            }
+        }
+
         Ok(report)
     }
 

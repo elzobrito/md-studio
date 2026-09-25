@@ -1,0 +1,38 @@
+artifact: task-traceability
+schema_version: 1
+task_id: MD-V03-015-SPIKE
+written_at: '2026-09-25T12:39:28-03:00'
+projected_before_change: true
+projection_inputs:
+- spec v0.3 correspondente a MD-V03-015-SPIKE
+- ROADMAP-CANONICO-MD-STUDIO-v0.3-v0.5.md
+- .esaa/traceability/graph.json (source_commit 8eb7b6e18a672b94199397f1cc0d0ec7def6609c)
+- caso .esaa/traceability/case-MD-HOTFIX-EXPAND-002.md
+graph:
+  path: .esaa/traceability/graph.json
+  source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+traceability:
+  targets:
+  - CMP-MARKDOWN-EDITOR
+  expected_affected: []
+  protected_extra:
+  - LSK-SETTINGS
+  - CFG-DEFAULT-SETTINGS
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: false
+  rationale:
+    CMP-MARKDOWN-EDITOR: Ponto de medição da latência no editor. O spike não altera
+      este nó.
+  justification:
+    LSK-SETTINGS: O spike não grava preferência nova.
+    CFG-DEFAULT-SETTINGS: Defaults não mudam nesta tarefa.
+artifacts:
+  impact: .esaa/analysis/MD-V03-015-SPIKE-impact.yaml
+  footprint: .esaa/analysis/MD-V03-015-SPIKE-footprint.yaml
+  drift: .esaa/analysis/MD-V03-015-SPIKE-drift.yaml
+expected_uncatalogued:
+- docs/spec/ADR-writing-quality-engine.md
+close_rule: O complete copia verdict. warning cita path e linhas. precision de nó
+  não cobre arquivo sem nó. must_run exige saída do comando. violation bloqueia.

@@ -52,6 +52,27 @@ export interface WorkspaceStats {
   totalKatex: number;
 }
 
+export interface DoctorQuickFix {
+  label: string;
+  replacement: string;
+  line: number;
+  startCol: number;
+  endCol: number;
+}
+
+export interface DoctorDiagnostic {
+  rule: string;
+  severity: "error" | "warning" | "info";
+  message: string;
+  path: string;
+  line: number;
+  startCol: number;
+  endCol: number;
+  target?: string | null;
+  suggestion?: string | null;
+  quickFix?: DoctorQuickFix | null;
+}
+
 export interface ReindexReport {
   indexed: number;
   skipped: number;

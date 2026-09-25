@@ -1,0 +1,87 @@
+artifact: task-footprint
+schema_version: 1
+trace_task: TRACE-018
+task_id: MD-V03-021
+diff:
+  base: 9eb9518dcdcb53553f120d785f56c7c97ca422c7
+  head: WORKTREE
+  paths_filter:
+  - src/services/formatter/index.ts
+  - src/services/formatter/capabilities.ts
+  - tests/services/formatterCapabilities.test.ts
+  excluded_set: []
+  command: git diff -U0 --no-color --no-ext-diff 9eb9518dcdcb53553f120d785f56c7c97ca422c7 -- src/services/formatter/index.ts src/services/formatter/capabilities.ts
+    tests/services/formatterCapabilities.test.ts
+graph_source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+notes: []
+changed_files:
+- path: src/services/formatter/capabilities.ts
+  status: A
+  added: 181
+  removed: 0
+  hunks:
+  - old:
+    - 0
+    - -1
+    new:
+    - 1
+    - 181
+  is_test: false
+  catalogued_nodes_in_file: 0
+- path: src/services/formatter/index.ts
+  status: M
+  added: 1
+  removed: 0
+  hunks:
+  - old:
+    - 5
+    - 4
+    new:
+    - 6
+    - 6
+  is_test: false
+  catalogued_nodes_in_file: 2
+- path: tests/services/formatterCapabilities.test.ts
+  status: A
+  added: 76
+  removed: 0
+  hunks:
+  - old:
+    - 0
+    - -1
+    new:
+    - 1
+    - 76
+  is_test: true
+  catalogued_nodes_in_file: 0
+changed_nodes: []
+enclosing_nodes: []
+uncatalogued:
+- path: src/services/formatter/index.ts
+  is_test: false
+  new_lines:
+  - - 6
+    - 6
+  trivial_lines: 0
+  substantive_lines:
+  - new:6
+new_files:
+- src/services/formatter/capabilities.ts
+new_test_files:
+- tests/services/formatterCapabilities.test.ts
+contracts_touched: []
+data_touched: []
+events_touched: []
+rollup:
+  features: []
+  invariants: []
+  flows: []
+stats:
+  files: 3
+  changed_nodes: 0
+  code_nodes: 0
+  test_nodes: 0
+  uncatalogued_files: 1
+  uncatalogued_substantive_lines: 1
+  new_files: 1
+  new_test_files: 1

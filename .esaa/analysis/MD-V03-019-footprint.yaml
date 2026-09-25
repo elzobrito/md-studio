@@ -1,0 +1,212 @@
+artifact: task-footprint
+schema_version: 1
+trace_task: TRACE-018
+task_id: MD-V03-019
+diff:
+  base: 9eb9518dcdcb53553f120d785f56c7c97ca422c7
+  head: WORKTREE
+  paths_filter:
+  - src/markdown/sourceMap.ts
+  - src/markdown/processor.ts
+  - src/components/MarkdownViewer.tsx
+  - tests/markdown/sourceMap.test.ts
+  excluded_set: []
+  command: git diff -U0 --no-color --no-ext-diff 9eb9518dcdcb53553f120d785f56c7c97ca422c7 -- src/markdown/sourceMap.ts src/markdown/processor.ts
+    src/components/MarkdownViewer.tsx tests/markdown/sourceMap.test.ts
+graph_source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+notes: []
+changed_files:
+- path: src/components/MarkdownViewer.tsx
+  status: M
+  added: 32
+  removed: 1
+  hunks:
+  - old:
+    - 8
+    - 7
+    new:
+    - 9
+    - 10
+  - old:
+    - 17
+    - 16
+    new:
+    - 20
+    - 20
+  - old:
+    - 58
+    - 58
+    new:
+    - 61
+    - 71
+  - old:
+    - 141
+    - 140
+    new:
+    - 155
+    - 158
+  - old:
+    - 145
+    - 144
+    new:
+    - 163
+    - 172
+  - old:
+    - 219
+    - 218
+    new:
+    - 247
+    - 250
+  is_test: false
+  catalogued_nodes_in_file: 3
+- path: src/markdown/processor.ts
+  status: M
+  added: 12
+  removed: 1
+  hunks:
+  - old:
+    - 17
+    - 16
+    new:
+    - 18
+    - 18
+  - old:
+    - 97
+    - 97
+    new:
+    - 98
+    - 106
+  - old:
+    - 98
+    - 97
+    new:
+    - 108
+    - 109
+  is_test: false
+  catalogued_nodes_in_file: 9
+- path: src/markdown/sourceMap.ts
+  status: A
+  added: 136
+  removed: 0
+  hunks:
+  - old:
+    - 0
+    - -1
+    new:
+    - 1
+    - 136
+  is_test: false
+  catalogued_nodes_in_file: 0
+- path: tests/markdown/sourceMap.test.ts
+  status: A
+  added: 69
+  removed: 0
+  hunks:
+  - old:
+    - 0
+    - -1
+    new:
+    - 1
+    - 69
+  is_test: true
+  catalogued_nodes_in_file: 0
+changed_nodes:
+- id: CMP-MARKDOWN-VIEWER
+  kind: code
+  type: component
+  path: src/components/MarkdownViewer.tsx
+  sides:
+  - new
+  lines_hit: 19
+  attribution: line
+  anchor_resolution:
+    old: exact
+    new: relocated
+  created_by_change: false
+- id: HDL-VIEWER-ON-CLICK
+  kind: code
+  type: handler
+  path: src/components/MarkdownViewer.tsx
+  sides:
+  - old
+  - new
+  lines_hit: 12
+  attribution: line
+  anchor_resolution:
+    old: exact
+    new: relocated
+  created_by_change: false
+- id: PIPE-HEADING-IDS
+  kind: code
+  type: pipeline_stage
+  path: src/markdown/processor.ts
+  sides:
+  - old
+  - new
+  lines_hit: 3
+  attribution: line
+  anchor_resolution:
+    old: exact
+    new: relocated
+  created_by_change: false
+enclosing_nodes: []
+uncatalogued:
+- path: src/components/MarkdownViewer.tsx
+  is_test: false
+  new_lines:
+  - - 9
+    - 10
+  trivial_lines: 2
+  substantive_lines: []
+- path: src/markdown/processor.ts
+  is_test: false
+  new_lines:
+  - - 18
+    - 18
+  - - 98
+    - 106
+  trivial_lines: 1
+  substantive_lines:
+  - new:98
+  - new:99
+  - new:100
+  - new:101
+  - new:102
+  - new:103
+  - new:104
+  - new:105
+  - new:106
+new_files:
+- src/markdown/sourceMap.ts
+new_test_files:
+- tests/markdown/sourceMap.test.ts
+contracts_touched:
+- id: CTR-SANITIZE-POLICY
+  how: consumer
+  node: CMP-MARKDOWN-VIEWER
+- id: CTR-TAURI-CSP
+  how: consumer
+  node: CMP-MARKDOWN-VIEWER
+data_touched:
+- id: STO-METADATA
+  how: read_by_changed
+  node: CMP-MARKDOWN-VIEWER
+events_touched: []
+rollup:
+  features:
+  - FEAT-OUTLINE
+  - FEAT-PREVIEW
+  - FEAT-WIKI-LINKS
+  invariants: []
+  flows:
+  - FLOW-PREVIEW-RENDER
+  - FLOW-WIKI-LINK-RESOLVE
+stats:
+  files: 4
+  changed_nodes: 3
+  code_nodes: 3
+  test_nodes: 0
+  uncatalogued_files: 2
+  uncatalogued_substantive_lines: 9
+  new_files: 1
+  new_test_files: 1

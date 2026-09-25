@@ -1,0 +1,45 @@
+artifact: task-traceability
+schema_version: 1
+task_id: MD-V03-025
+written_at: '2026-09-25T12:39:28-03:00'
+projected_before_change: true
+projection_inputs:
+- spec v0.3 correspondente a MD-V03-025
+- ROADMAP-CANONICO-MD-STUDIO-v0.3-v0.5.md
+- .esaa/traceability/graph.json (source_commit 8eb7b6e18a672b94199397f1cc0d0ec7def6609c)
+- caso .esaa/traceability/case-MD-HOTFIX-EXPAND-002.md
+graph:
+  path: .esaa/traceability/graph.json
+  source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+traceability:
+  targets:
+  - FN-WIKI-CANDIDATES
+  - CMP-MARKDOWN-VIEWER
+  expected_affected:
+  - IPC-RESOLVE-WIKI-LINK
+  - IPC-GET-DOCUMENT-METADATA
+  protected_extra:
+  - FN-RESOLVE-WITHIN
+  - FN-FENCE-RELATIVE
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: true
+  rationale:
+    FN-WIKI-CANDIDATES: O hover resolve a referência pelo índice local já usado no
+      autocomplete.
+    CMP-MARKDOWN-VIEWER: O mesmo contexto aparece no preview, sem navegar.
+    IPC-RESOLVE-WIKI-LINK: resolved, unresolved e ambiguous vêm do resolver existente.
+    IPC-GET-DOCUMENT-METADATA: Título, trecho e headings saem do MetadataIndex/cache,
+      sem releitura a cada movimento.
+  justification:
+    FN-RESOLVE-WITHIN: O popup só resolve destino dentro do workspace.
+    FN-FENCE-RELATIVE: Path fora do fence não é lido para montar o preview.
+artifacts:
+  impact: .esaa/analysis/MD-V03-025-impact.yaml
+  footprint: .esaa/analysis/MD-V03-025-footprint.yaml
+  drift: .esaa/analysis/MD-V03-025-drift.yaml
+expected_uncatalogued:
+- src/components/editor/HoverPreview.tsx
+close_rule: O complete copia verdict. warning cita path e linhas. precision de nó
+  não cobre arquivo sem nó. must_run exige saída do comando. violation bloqueia.

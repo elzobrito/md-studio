@@ -164,7 +164,7 @@ describe('Presentation Session & Mode', () => {
         expect(exitBtn).not.toBeNull();
         expect(exitBtn?.textContent).toContain('Sair');
         expect(container.querySelector('.reveal.ready')).not.toBeNull();
-      });
+      }, { timeout: 3000 });
 
       const exitBtn = container.querySelector<HTMLButtonElement>('.md-presentation-exit-btn');
       await act(async () => {

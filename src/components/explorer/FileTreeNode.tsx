@@ -12,11 +12,11 @@ export function FileTreeNode({ node, depth, isActive, onOpen }: Props) {
 
   return (
     <li
-      className={`file-tree-item file-node${isActive ? " is-active" : ""}`}
+      className={`file-tree-item file-node${isActive ? " is-active" : ""}${node.isInternal ? " is-internal" : ""}`}
       style={{ paddingLeft: `${indent + 18}px` }}
       onClick={() => onOpen(node.path)}
       onDoubleClick={() => onOpen(node.path)}
-      title={`${node.name} (${node.path})`}
+      title={`${node.name} (${node.path})${node.isInternal ? " [arquivo interno]" : ""}`}
       data-path={node.path}
       tabIndex={0}
       onKeyDown={(e) => {
@@ -24,9 +24,14 @@ export function FileTreeNode({ node, depth, isActive, onOpen }: Props) {
       }}
     >
       <span className="file-tree-icon" aria-hidden="true">
-        📄
+        {node.isInternal ? "⚙️" : "📄"}
       </span>
       <span className="file-tree-name">{node.name}</span>
+      {node.isInternal && (
+        <span className="file-tree-internal-badge" aria-label="Arquivo interno">
+          [interno]
+        </span>
+      )}
       {isActive && (
         <span className="file-tree-active-dot" aria-label="Arquivo ativo">
           ●

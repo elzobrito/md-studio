@@ -1,0 +1,84 @@
+artifact: task-drift
+schema_version: 1
+trace_task: TRACE-019
+task_id: MD-V03-020
+inputs:
+  impact: .esaa/analysis/MD-V03-020-impact.yaml
+  footprint: .esaa/analysis/MD-V03-020-footprint.yaml
+  graph_source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+notes: []
+rule: authorized = change_target ∪ expected_affected; ok ∈ authorized; violation ∈ protected; warning ∈ potentially_affected | out_of_closure
+  | uncatalogued substantive
+authorized:
+- DTO-TS-SEARCH-RESULT
+- IPC-SEARCH-WORKSPACE
+- IPCC-SEARCH-WORKSPACE
+observed:
+- IPCC-SEARCH-WORKSPACE
+classification:
+- id: IPCC-SEARCH-WORKSPACE
+  category: authorized
+  severity: ok
+  reasons: []
+drift: []
+other_findings:
+- path: src/lib/ipc/client.ts
+  category: uncatalogued_change
+  severity: warning
+  lines:
+  - new:115
+  - new:116
+  - new:117
+  - new:118
+  - new:119
+- path: src/components/workspace/WorkspaceSearch.tsx
+  category: new_production_file
+  severity: info
+- path: tests/workspace/workspaceSearch.test.tsx
+  category: new_test_file
+  severity: info
+not_touched:
+- DTO-TS-SEARCH-RESULT
+- IPC-SEARCH-WORKSPACE
+verdict: warning
+metrics:
+  nodes:
+    tp: 1
+    authorized: 3
+    observed: 1
+    precision: 0.333
+    recall: 1.0
+    closure_recall: 1.0
+  code_nodes_only:
+    tp: 1
+    authorized: 3
+    observed: 1
+    precision: 0.333
+    recall: 1.0
+  features:
+    projected_direct:
+    - FEAT-COMMAND-PALETTE
+    - FEAT-WORKSPACE-SEARCH
+    projected_all: 2
+    observed:
+    - FEAT-WORKSPACE-SEARCH
+    observed_in_projected_direct:
+    - FEAT-WORKSPACE-SEARCH
+    observed_missing_from_projection: []
+    precision_direct: 0.5
+    recall_all: 1.0
+  invariants:
+    projected: []
+    observed: []
+    missing_from_projection: []
+  tests:
+    projected_must_run: []
+    changed_test_nodes: []
+    new_test_files:
+    - tests/workspace/workspaceSearch.test.tsx
+  contracts_touched:
+  - id: CTR-IPC-SEARCH-WORKSPACE
+    how: consumer
+    node: IPCC-SEARCH-WORKSPACE
+  data_touched: []
+  events_touched: []

@@ -4,6 +4,7 @@ import { keymap, ViewPlugin, type EditorView, type ViewUpdate } from "@codemirro
 export interface WikiDocumentCandidate {
   path: string;
   title: string | null;
+  headings?: Array<{ depth: number; text: string; anchor: string }>;
 }
 
 export interface WikiCompletionItem {
@@ -24,9 +25,41 @@ export interface WikiCompletionState {
 export function wikiCandidates(
   documents: readonly WikiDocumentCandidate[],
   query: string,
+  options?: { exactMatch?: boolean; limit?: number },
 ): WikiCompletionItem[] {
   const needle = query.trim().toLocaleLowerCase();
   const seen = new Set<string>();
+  const limit = options?.limit ?? 12;
+  const exact = options?.exactMatch ?? false;
+
+  if (needle.includes("#")) {
+    const parts = needle.split("#");
+    const docQuery = parts[0].trim();
+    const headingQuery = parts.slice(1).join("#").trim();
+    const items: WikiCompletionItem[] = [];
+
+    for (const doc of documents) {
+      const normalized = doc.path.replace(/\\/g, "/");
+      const stem = normalized.split("/").pop()?.replace(/\.md$/i, "") || normalized;
+      const target = doc.title?.trim() || stem;
+
+      if (!docQuery || target.toLocaleLowerCase().includes(docQuery) || normalized.toLocaleLowerCase().includes(docQuery)) {
+        if (doc.headings) {
+          for (const h of doc.headings) {
+            if (!headingQuery || h.text.toLocaleLowerCase().includes(headingQuery) || h.anchor.includes(headingQuery)) {
+              items.push({
+                label: `${target}#${h.text}`,
+                detail: `${normalized} #${h.anchor}`,
+                target: `${target}#${h.text}`,
+              });
+            }
+          }
+        }
+      }
+    }
+    return items.slice(0, limit);
+  }
+
   return documents
     .map((document) => {
       const normalized = document.path.replace(/\\/g, "/");
@@ -37,14 +70,16 @@ export function wikiCandidates(
     .filter((item) => {
       const key = item.target.toLocaleLowerCase();
       const matches = !needle
-        || key.includes(needle)
-        || item.detail.toLocaleLowerCase().includes(needle);
+        ? true
+        : exact
+        ? key === needle || item.detail.toLocaleLowerCase() === needle
+        : key.includes(needle) || item.detail.toLocaleLowerCase().includes(needle);
       if (!matches || seen.has(key)) return false;
       seen.add(key);
       return true;
     })
     .sort((a, b) => a.label.localeCompare(b.label))
-    .slice(0, 12);
+    .slice(0, limit);
 }
 
 export function detectWikiCompletion(

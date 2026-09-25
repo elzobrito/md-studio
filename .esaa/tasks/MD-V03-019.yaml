@@ -1,0 +1,38 @@
+artifact: task-traceability
+schema_version: 1
+task_id: MD-V03-019
+written_at: '2026-09-25T12:39:28-03:00'
+projected_before_change: true
+projection_inputs:
+- spec v0.3 correspondente a MD-V03-019
+- ROADMAP-CANONICO-MD-STUDIO-v0.3-v0.5.md
+- .esaa/traceability/graph.json (source_commit 8eb7b6e18a672b94199397f1cc0d0ec7def6609c)
+- caso .esaa/traceability/case-MD-HOTFIX-EXPAND-002.md
+graph:
+  path: .esaa/traceability/graph.json
+  source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+traceability:
+  targets:
+  - CMP-MARKDOWN-VIEWER
+  - HDL-VIEWER-ON-CLICK
+  expected_affected:
+  - PIPE-HEADING-IDS
+  protected_extra: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: true
+  rationale:
+    CMP-MARKDOWN-VIEWER: O clique no bloco renderizado nasce no viewer já existente.
+    HDL-VIEWER-ON-CLICK: O handler de clique passa a posicionar o cursor no início
+      do bloco fonte quando há mapa.
+    PIPE-HEADING-IDS: A identidade do bloco reusa posições do AST. Não há segundo
+      parse.
+artifacts:
+  impact: .esaa/analysis/MD-V03-019-impact.yaml
+  footprint: .esaa/analysis/MD-V03-019-footprint.yaml
+  drift: .esaa/analysis/MD-V03-019-drift.yaml
+expected_uncatalogued:
+- src/markdown/sourceMap.ts
+close_rule: O complete copia verdict. warning cita path e linhas. precision de nó
+  não cobre arquivo sem nó. must_run exige saída do comando. violation bloqueia.

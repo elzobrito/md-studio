@@ -45,3 +45,24 @@ export function fuzzySearch<T extends { name: string; path: string }>(
   scored.sort((a, b) => b.score - a.score);
   return scored.map((s) => s.item);
 }
+
+export function fuzzySearchCommands<T extends { title: string; category?: string }>(
+  query: string,
+  items: T[],
+): T[] {
+  const clean = query.trim();
+  if (!clean) return items;
+
+  const scored: RankedItem<T>[] = [];
+  for (const item of items) {
+    const titleScore = fuzzyScore(clean, item.title) * 2;
+    const catScore = item.category ? fuzzyScore(clean, item.category) : 0;
+    const total = Math.max(titleScore, catScore);
+    if (total > 0) {
+      scored.push({ item, score: total });
+    }
+  }
+
+  scored.sort((a, b) => b.score - a.score);
+  return scored.map((s) => s.item);
+}

@@ -1,0 +1,113 @@
+artifact: task-drift
+schema_version: 1
+trace_task: TRACE-019
+task_id: MD-V03-019
+inputs:
+  impact: .esaa/analysis/MD-V03-019-impact.yaml
+  footprint: .esaa/analysis/MD-V03-019-footprint.yaml
+  graph_source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+notes: []
+rule: authorized = change_target ∪ expected_affected; ok ∈ authorized; violation ∈ protected; warning ∈ potentially_affected | out_of_closure
+  | uncatalogued substantive
+authorized:
+- CMP-MARKDOWN-VIEWER
+- HDL-VIEWER-ON-CLICK
+- PIPE-HEADING-IDS
+observed:
+- CMP-MARKDOWN-VIEWER
+- HDL-VIEWER-ON-CLICK
+- PIPE-HEADING-IDS
+classification:
+- id: CMP-MARKDOWN-VIEWER
+  category: authorized
+  severity: ok
+  reasons: []
+- id: HDL-VIEWER-ON-CLICK
+  category: authorized
+  severity: ok
+  reasons: []
+- id: PIPE-HEADING-IDS
+  category: authorized
+  severity: ok
+  reasons: []
+drift: []
+other_findings:
+- path: src/markdown/processor.ts
+  category: uncatalogued_change
+  severity: warning
+  lines:
+  - new:98
+  - new:99
+  - new:100
+  - new:101
+  - new:102
+  - new:103
+  - new:104
+  - new:105
+  - new:106
+- path: src/markdown/sourceMap.ts
+  category: new_production_file
+  severity: info
+- path: tests/markdown/sourceMap.test.ts
+  category: new_test_file
+  severity: info
+not_touched: []
+verdict: warning
+metrics:
+  nodes:
+    tp: 3
+    authorized: 3
+    observed: 3
+    precision: 1.0
+    recall: 1.0
+    closure_recall: 1.0
+  code_nodes_only:
+    tp: 3
+    authorized: 3
+    observed: 3
+    precision: 1.0
+    recall: 1.0
+  features:
+    projected_direct:
+    - FEAT-CREATE-NOTE-FROM-WIKI
+    - FEAT-KATEX
+    - FEAT-MERMAID
+    - FEAT-OUTGOING-LINKS
+    - FEAT-PREVIEW
+    - FEAT-SANITIZE
+    - FEAT-SHIKI
+    - FEAT-WIKI-LINKS
+    projected_all: 14
+    observed:
+    - FEAT-OUTLINE
+    - FEAT-PREVIEW
+    - FEAT-WIKI-LINKS
+    observed_in_projected_direct:
+    - FEAT-PREVIEW
+    - FEAT-WIKI-LINKS
+    observed_missing_from_projection:
+    - FEAT-OUTLINE
+    precision_direct: 0.25
+    recall_all: 0.667
+  invariants:
+    projected: []
+    observed: []
+    missing_from_projection: []
+  tests:
+    projected_must_run:
+    - TST-TS-UI-CODE-FORMATTING-UI
+    changed_test_nodes: []
+    new_test_files:
+    - tests/markdown/sourceMap.test.ts
+  contracts_touched:
+  - id: CTR-SANITIZE-POLICY
+    how: consumer
+    node: CMP-MARKDOWN-VIEWER
+  - id: CTR-TAURI-CSP
+    how: consumer
+    node: CMP-MARKDOWN-VIEWER
+  data_touched:
+  - id: STO-METADATA
+    how: read_by_changed
+    node: CMP-MARKDOWN-VIEWER
+  events_touched: []

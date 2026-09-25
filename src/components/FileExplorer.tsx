@@ -9,6 +9,8 @@ import { RecentFiles } from "./explorer/RecentFiles";
 import { Button } from "./ui/Button";
 import { useFileTree } from "../hooks/useFileTree";
 import { useTreeSearch } from "../hooks/useTreeSearch";
+import { settingsStore } from "../state/settings";
+import type { FileTreeNode } from "../types/file-tree";
 
 function parentRel(dir: string): string {
   if (!dir) return "";
@@ -18,6 +20,37 @@ function parentRel(dir: string): string {
 
 function isMarkdownName(name: string): boolean {
   return /\.(md|markdown|mdx)$/i.test(name);
+}
+
+function processInternalNodes(
+  nodes: FileTreeNode[],
+  showInternal: boolean,
+  parentInternal = false,
+): FileTreeNode[] {
+  const result: FileTreeNode[] = [];
+  for (const node of nodes) {
+    const isInternal =
+      parentInternal ||
+      node.name === ".mdstudio" ||
+      node.path === ".mdstudio" ||
+      node.path.startsWith(".mdstudio/") ||
+      node.path.includes("/.mdstudio");
+
+    if (isInternal && !showInternal) {
+      continue;
+    }
+
+    const children = node.children
+      ? processInternalNodes(node.children, showInternal, isInternal)
+      : undefined;
+
+    result.push({
+      ...node,
+      isInternal,
+      children,
+    });
+  }
+  return result;
 }
 
 export function FileExplorer(props: {
@@ -31,15 +64,30 @@ export function FileExplorer(props: {
   onQuery: (q: string) => void;
   activePath: string;
 }) {
+  const [showInternalFiles, setShowInternalFiles] = useState(() =>
+    settingsStore.getShowInternalFiles(),
+  );
+
+  useEffect(() => {
+    return settingsStore.subscribe(() => {
+      setShowInternalFiles(settingsStore.getShowInternalFiles());
+    });
+  }, []);
+
   const { tree, toggleFolder, reload, isLoading } = useFileTree(
     props.workspace,
     props.activePath,
   );
+
+  const visibleTree = useMemo(() => {
+    return processInternalNodes(tree, showInternalFiles);
+  }, [tree, showInternalFiles]);
+
   const {
     query: treeQuery,
     setQuery: setTreeQuery,
     filteredTree,
-  } = useTreeSearch(tree);
+  } = useTreeSearch(visibleTree);
   const [entries, setEntries] = useState<FileEntry[]>([]);
   const [cwd, setCwd] = useState(""); // relative dir inside workspace
   const [busy, setBusy] = useState(false);

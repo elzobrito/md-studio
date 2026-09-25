@@ -1,0 +1,219 @@
+artifact: task-drift
+schema_version: 1
+trace_task: TRACE-019
+task_id: MD-V03-024
+inputs:
+  impact: .esaa/analysis/MD-V03-024-impact.yaml
+  footprint: .esaa/analysis/MD-V03-024-footprint.yaml
+  graph_source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+notes: []
+rule: authorized = change_target ∪ expected_affected; ok ∈ authorized; violation ∈ protected; warning ∈ potentially_affected | out_of_closure
+  | uncatalogued substantive
+authorized:
+- CMP-FILE-EXPLORER
+- STO-SETTINGS
+observed:
+- CMP-FILE-EXPLORER
+- STO-SETTINGS
+classification:
+- id: CMP-FILE-EXPLORER
+  category: authorized
+  severity: ok
+  reasons: []
+- id: STO-SETTINGS
+  category: authorized
+  severity: ok
+  reasons: []
+drift: []
+other_findings:
+- path: src/components/FileExplorer.tsx
+  category: uncatalogued_change
+  severity: warning
+  lines:
+  - new:25
+  - new:26
+  - new:27
+  - new:28
+  - new:29
+  - new:30
+  - new:31
+  - new:32
+  - new:33
+  - new:34
+  - new:35
+  - new:36
+  - new:37
+  - new:39
+  - new:40
+  - new:41
+  - new:43
+  - new:44
+  - new:45
+  - new:47
+  - new:48
+  - new:51
+  - new:52
+  - new:53
+  - new:54
+- path: src/components/explorer/FileTree.tsx
+  category: uncatalogued_change
+  severity: warning
+  lines:
+  - old:21
+  - old:23
+  - new:20
+  - new:21
+  - new:23
+  - new:25
+- path: src/components/explorer/FileTreeFolder.tsx
+  category: uncatalogued_change
+  severity: warning
+  lines:
+  - old:16
+  - old:18
+  - old:21
+  - old:37
+  - new:16
+  - new:18
+  - new:21
+  - new:37
+  - new:40
+  - new:41
+  - new:42
+  - new:43
+  - new:44
+- path: src/components/explorer/FileTreeNode.tsx
+  category: uncatalogued_change
+  severity: warning
+  lines:
+  - old:15
+  - old:19
+  - old:27
+  - new:15
+  - new:19
+  - new:27
+  - new:30
+  - new:31
+  - new:32
+  - new:33
+  - new:34
+- path: src/components/settings/WorkspaceSettings.tsx
+  category: uncatalogued_change
+  severity: warning
+  lines:
+  - new:9
+  - new:10
+  - new:11
+  - new:13
+  - new:14
+  - new:15
+  - new:16
+  - new:17
+  - new:25
+  - new:26
+  - new:27
+  - new:48
+  - new:49
+  - new:50
+  - new:51
+  - new:52
+  - new:53
+  - new:54
+  - new:55
+  - new:56
+  - new:57
+  - new:58
+  - new:59
+  - new:60
+  - new:61
+  - new:62
+  - new:63
+  - new:64
+  - new:65
+  - new:66
+  - new:67
+- path: src/styles/file-tree.css
+  category: uncatalogued_change
+  severity: warning
+  lines:
+  - new:164
+  - new:165
+  - new:166
+  - new:167
+  - new:169
+  - new:170
+  - new:171
+  - new:172
+  - new:173
+  - new:174
+  - new:175
+- path: src/types/file-tree.ts
+  category: uncatalogued_change
+  severity: warning
+  lines:
+  - new:12
+- path: tests/components/hideInternalFiles.test.tsx
+  category: new_test_file
+  severity: info
+not_touched: []
+verdict: warning
+metrics:
+  nodes:
+    tp: 2
+    authorized: 2
+    observed: 2
+    precision: 1.0
+    recall: 1.0
+    closure_recall: 1.0
+  code_nodes_only:
+    tp: 2
+    authorized: 2
+    observed: 2
+    precision: 1.0
+    recall: 1.0
+  features:
+    projected_direct:
+    - FEAT-METADATA-INDEX
+    - FEAT-OPEN-WORKSPACE
+    projected_all: 14
+    observed:
+    - FEAT-AUTO-SAVE
+    - FEAT-OPEN-WORKSPACE
+    - FEAT-SETTINGS
+    observed_in_projected_direct:
+    - FEAT-OPEN-WORKSPACE
+    observed_missing_from_projection:
+    - FEAT-AUTO-SAVE
+    - FEAT-SETTINGS
+    precision_direct: 0.5
+    recall_all: 0.333
+  invariants:
+    projected: []
+    observed: []
+    missing_from_projection: []
+  tests:
+    projected_must_run: []
+    changed_test_nodes: []
+    new_test_files:
+    - tests/components/hideInternalFiles.test.tsx
+  contracts_touched:
+  - id: CTR-IPC-LIST-ENTRIES
+    how: consumer
+    node: CMP-FILE-EXPLORER
+  - id: CTR-LSK-SETTINGS
+    how: consumer
+    node: STO-SETTINGS
+  - id: CTR-LSK-SETTINGS
+    how: producer
+    node: STO-SETTINGS
+  data_touched:
+  - id: LSK-SETTINGS
+    how: read_by_changed
+    node: STO-SETTINGS
+  - id: LSK-SETTINGS
+    how: written_by_changed
+    node: STO-SETTINGS
+  - id: STO-SETTINGS
+    how: definition_changed
+    node: STO-SETTINGS
+  events_touched: []

@@ -1,0 +1,46 @@
+artifact: task-traceability
+schema_version: 1
+task_id: MD-V03-014
+written_at: '2026-09-25T12:39:28-03:00'
+projected_before_change: true
+projection_inputs:
+- spec v0.3 correspondente a MD-V03-014
+- ROADMAP-CANONICO-MD-STUDIO-v0.3-v0.5.md
+- .esaa/traceability/graph.json (source_commit 8eb7b6e18a672b94199397f1cc0d0ec7def6609c)
+- caso .esaa/traceability/case-MD-HOTFIX-EXPAND-002.md
+graph:
+  path: .esaa/traceability/graph.json
+  source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+traceability:
+  targets:
+  - FN-EXTRACT-METADATA
+  expected_affected:
+  - IPC-TRIGGER-REINDEX
+  protected_extra:
+  - FN-RESOLVE-WITHIN
+  - FN-FENCE-RELATIVE
+  - FN-ATOMIC-SAVE
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: true
+  rationale:
+    FN-EXTRACT-METADATA: O inventário de assets referenciados deriva do extrator já
+      usado pelo índice, não de um varredor paralelo.
+    IPC-TRIGGER-REINDEX: Depois da escrita confirmada, o índice existente observa
+      o arquivo novo.
+  justification:
+    FN-RESOLVE-WITHIN: O destino da imagem passa pelo path fence antes de qualquer
+      escrita.
+    FN-FENCE-RELATIVE: assets/ é resolvido dentro do workspace.
+    FN-ATOMIC-SAVE: A escrita do binário reusa a persistência atômica existente. Esta
+      tarefa não reescreve atomic_save.
+artifacts:
+  impact: .esaa/analysis/MD-V03-014-impact.yaml
+  footprint: .esaa/analysis/MD-V03-014-footprint.yaml
+  drift: .esaa/analysis/MD-V03-014-drift.yaml
+expected_uncatalogued:
+- src-tauri/crates/md-studio-core/src/assets/
+- src/services/assetPaste.ts
+close_rule: O complete copia verdict. warning cita path e linhas. precision de nó
+  não cobre arquivo sem nó. must_run exige saída do comando. violation bloqueia.

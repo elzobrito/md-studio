@@ -1,15 +1,29 @@
 import { useDocumentState } from "../../state/documentState";
 import { recentFilesStore } from "../../state/recent-files";
-import { useState } from "react";
+import { settingsStore } from "../../state/settings";
+import { useEffect, useState } from "react";
 
 export function WorkspaceSettings() {
   const doc = useDocumentState();
   const [cleared, setCleared] = useState(false);
+  const [showInternalFiles, setShowInternalFiles] = useState(() =>
+    settingsStore.getShowInternalFiles(),
+  );
+
+  useEffect(() => {
+    return settingsStore.subscribe(() => {
+      setShowInternalFiles(settingsStore.getShowInternalFiles());
+    });
+  }, []);
 
   const handleClearRecent = () => {
     recentFilesStore.clear();
     setCleared(true);
     window.setTimeout(() => setCleared(false), 2000);
+  };
+
+  const handleToggleInternalFiles = (e: React.ChangeEvent<HTMLInputElement>) => {
+    settingsStore.setShowInternalFiles(e.target.checked);
   };
 
   return (
@@ -29,6 +43,27 @@ export function WorkspaceSettings() {
             <div className="font-preview-box">{doc.relativePath}</div>
           </div>
         )}
+      </div>
+
+      <div className="settings-section">
+        <h3 className="settings-section-title">Visualização e Arquivos</h3>
+        <div className="settings-field">
+          <label
+            className="settings-label"
+            style={{ display: "flex", alignItems: "center", gap: "8px", cursor: "pointer" }}
+          >
+            <input
+              type="checkbox"
+              checked={showInternalFiles}
+              onChange={handleToggleInternalFiles}
+              aria-label="Mostrar arquivos internos (.mdstudio)"
+            />
+            Mostrar arquivos internos (.mdstudio)
+          </label>
+          <p className="settings-hint">
+            Exibe diretórios e arquivos de configuração interna como .mdstudio na árvore de arquivos. Arquivos internos continuam protegidos e com tratamento visual diferenciado.
+          </p>
+        </div>
       </div>
 
       <div className="settings-section">

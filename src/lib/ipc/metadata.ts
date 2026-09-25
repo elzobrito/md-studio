@@ -6,6 +6,7 @@ import type {
   ResolvedWikiLink,
   ReindexReport,
   BacklinkResult,
+  DoctorDiagnostic,
 } from "../../types/metadata";
 
 export const emptyBacklinks = (path = ""): BacklinkResult => ({
@@ -75,4 +76,90 @@ export const getTags = async (): Promise<string[]> => {
 export const getBacklinks = async (path: string): Promise<BacklinkResult> => {
   if (!isTauri()) return emptyBacklinks(path);
   return invoke("get_backlinks", { path });
+};
+
+export const getDoctorDiagnostics = async (
+  path: string,
+  content?: string
+): Promise<DoctorDiagnostic[]> => {
+  if (!isTauri()) return [];
+  const meta = await getDocumentMetadata(path);
+  if (!meta) return [];
+  const resolvedLinks = await getResolvedWikiLinksFor(path);
+  const diags: DoctorDiagnostic[] = [];
+
+  for (const rl of resolvedLinks) {
+    if (rl.status === "unresolved") {
+      diags.push({
+        rule: "broken-wiki-link",
+        severity: "warning",
+        message: `Wiki Link '[[${rl.target}]]' não encontrado no workspace`,
+        path,
+        line: rl.line,
+        startCol: 0,
+        endCol: 0,
+        target: rl.target,
+      });
+    }
+  }
+
+  const seen = new Set<string>();
+  for (const h of meta.headings) {
+    if (seen.has(h.anchor)) {
+      diags.push({
+        rule: "duplicate-heading-anchor",
+        severity: "warning",
+        message: `Cabeçalho '${h.text}' gera âncora duplicada '#${h.anchor}'`,
+        path,
+        line: 1,
+        startCol: 0,
+        endCol: 0,
+        target: h.anchor,
+        suggestion: `${h.anchor}-1`,
+      });
+    } else {
+      seen.add(h.anchor);
+    }
+  }
+
+  if (content) {
+    const lines = content.split("\n");
+    lines.forEach((line, idx) => {
+      const lineNo = idx + 1;
+      const trimmed = line.trim();
+      if (trimmed.startsWith("```") || trimmed.startsWith("~~~")) {
+        const info = trimmed.replace(/^[`~]+/, "").trim();
+        if (!info) {
+          diags.push({
+            rule: "unannotated-code-block",
+            severity: "info",
+            message: "Bloco de código sem especificação de linguagem",
+            path,
+            line: lineNo,
+            startCol: 0,
+            endCol: trimmed.length,
+            suggestion: "```markdown",
+          });
+        }
+      }
+
+      if (line.includes("![") && line.includes("](") && (line.includes("../") || line.includes("..\\"))) {
+        const match = line.match(/!\[.*?\]\((.*?)\)/);
+        if (match && match[1].startsWith("../")) {
+          diags.push({
+            rule: "insecure-asset-path",
+            severity: "error",
+            message: `Asset '${match[1]}' aponta para fora do workspace`,
+            path,
+            line: lineNo,
+            startCol: 0,
+            endCol: line.length,
+            target: match[1],
+          });
+        }
+      }
+    });
+  }
+
+  return diags;
 };

@@ -39,7 +39,7 @@ Item da lista:
     // Slide 2
     expect(model.slides[1]!.title).toBe('Segundo Slide');
     expect(model.slides[1]!.html).toContain('<h2');
-    expect(model.slides[1]!.html).toContain('<li>Opção A</li>');
+    expect(model.slides[1]!.html).toMatch(/<li[^>]*>Opção A<\/li>/);
   });
 
   it('sanitizes unsafe HTML in slides (zero-XSS enforcement)', async () => {

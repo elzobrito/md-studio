@@ -1,0 +1,212 @@
+artifact: task-impact
+schema_version: 1
+trace_task: TRACE-017
+task_id: MD-V03-023
+projected_at: '2026-09-25T12:39:44-03:00'
+projected_before_change: true
+projection_inputs:
+- spec v0.3 correspondente a MD-V03-023
+- ROADMAP-CANONICO-MD-STUDIO-v0.3-v0.5.md
+- .esaa/traceability/graph.json (source_commit 8eb7b6e18a672b94199397f1cc0d0ec7def6609c)
+- caso .esaa/traceability/case-MD-HOTFIX-EXPAND-002.md
+spec: .esaa/tasks/MD-V03-023.yaml
+graph_source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+rationale:
+  CMP-DOCUMENT-OUTLINE: O sumário atual vira árvore com filtro, profundidade e recolher.
+  FN-SCROLL-TO-HEADING: A navegação reusa o salto por heading. Heading duplicado continua distinguido pela posição.
+  PIPE-HEADING-IDS: Uma única extração de headings. O outline não faz outro parse.
+  HDL-APP-GO-TO-HEADING: O atalho de ir ao heading permanece coerente com o clique no outline.
+justification: null
+expected_uncatalogued: null
+blast_radius:
+  change_target:
+  - CMP-DOCUMENT-OUTLINE
+  - FN-SCROLL-TO-HEADING
+  expected_affected:
+  - HDL-APP-GO-TO-HEADING
+  - PIPE-HEADING-IDS
+  expected_affected_source: declared
+  suggested_expected_affected:
+  - SCR-APP
+  - TST-TS-PANEL-COLLAPSIBLEPANEL
+  authorized:
+  - CMP-DOCUMENT-OUTLINE
+  - FN-SCROLL-TO-HEADING
+  - HDL-APP-GO-TO-HEADING
+  - PIPE-HEADING-IDS
+  potentially_affected:
+  - CMP-MARKDOWN-VIEWER
+  - HDL-APP-EXPORT-PDF
+  - HDL-VIEWER-ON-CLICK
+  - SCR-APP
+  - STO-UI
+  protected_in_closure:
+  - id: CTR-LSK-UI-STATE
+    reasons:
+    - contract_surface
+  - id: LSK-UI-STATE
+    reasons:
+    - contract_surface:CTR-LSK-UI-STATE
+    - persisted_data
+  protected_total: 139
+  protected_declared: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: false
+projected:
+  nodes:
+  - CMP-DOCUMENT-OUTLINE
+  - FN-SCROLL-TO-HEADING
+  - HDL-APP-GO-TO-HEADING
+  - PIPE-HEADING-IDS
+  features:
+    direct:
+    - FEAT-OUTLINE
+    indirect:
+    - FEAT-APP-SCREENS
+    - FEAT-BACKLINKS
+    - FEAT-CREATE-NOTE-FROM-WIKI
+    - FEAT-EXPORT-PDF
+    - FEAT-KATEX
+    - FEAT-LAYOUT-PANELS
+    - FEAT-MERMAID
+    - FEAT-METADATA-INDEX
+    - FEAT-OUTGOING-LINKS
+    - FEAT-PREVIEW
+    - FEAT-SANITIZE
+    - FEAT-SETTINGS
+    - FEAT-SHIKI
+    - FEAT-SPLASH-PACKAGING
+    - FEAT-WIKI-LINKS
+  flows:
+  - FLOW-APP-BOOT
+  - FLOW-BACKLINKS-QUERY
+  - FLOW-EXPORT-PDF
+  - FLOW-METADATA-REFRESH
+  - FLOW-PREVIEW-RENDER
+  - FLOW-WIKI-LINK-RESOLVE
+  invariants: []
+  tests:
+    must_run:
+    - TST-TS-PANEL-COLLAPSIBLEPANEL
+    should_run: []
+    may_run:
+    - TST-TS-UI-CODE-FORMATTING-UI
+  contracts:
+  - CTR-LSK-UI-STATE
+  data:
+  - LSK-UI-STATE
+  - STO-UI
+  events: []
+  entrypoints:
+  - ENT-HDL-VIEWER-ON-CLICK
+  - ENT-SCR-APP
+  modules:
+  - MOD-APP-SHELL
+  - MOD-EXPORT
+  - MOD-PREVIEW
+  - MOD-SETTINGS-SESSION
+closure:
+- id: CMP-DOCUMENT-OUTLINE
+  kind: code
+  type: component
+  distance: 0
+  anchor: src/components/DocumentOutline.tsx
+  via: null
+  terminal: false
+- id: FN-SCROLL-TO-HEADING
+  kind: code
+  type: function
+  distance: 0
+  anchor: src/services/navigation.ts
+  via: null
+  terminal: false
+- id: HDL-APP-GO-TO-HEADING
+  kind: code
+  type: handler
+  distance: 1
+  anchor: src/App.tsx
+  via:
+    node: FN-SCROLL-TO-HEADING
+    relation: calls
+    direction: reverse
+  terminal: false
+- id: HDL-VIEWER-ON-CLICK
+  kind: code
+  type: handler
+  distance: 1
+  anchor: src/components/MarkdownViewer.tsx
+  via:
+    node: FN-SCROLL-TO-HEADING
+    relation: calls
+    direction: reverse
+  terminal: false
+- id: SCR-APP
+  kind: code
+  type: screen
+  distance: 1
+  anchor: src/App.tsx
+  via:
+    node: CMP-DOCUMENT-OUTLINE
+    relation: contains
+    direction: reverse
+  terminal: false
+- id: STO-UI
+  kind: code
+  type: store
+  distance: 1
+  anchor: src/state/ui.ts
+  via:
+    node: CMP-DOCUMENT-OUTLINE
+    relation: writes
+    direction: forward
+  terminal: false
+- id: CMP-MARKDOWN-VIEWER
+  kind: code
+  type: component
+  distance: 2
+  anchor: src/components/MarkdownViewer.tsx
+  via:
+    node: HDL-VIEWER-ON-CLICK
+    relation: contains
+    direction: reverse
+  terminal: false
+- id: CTR-LSK-UI-STATE
+  kind: contract
+  type: contract
+  distance: 2
+  anchor: null
+  via:
+    node: STO-UI
+    relation: implemented_by
+    direction: reverse
+  terminal: false
+- id: LSK-UI-STATE
+  kind: code
+  type: local_storage_key
+  distance: 2
+  anchor: src/state/ui.ts
+  via:
+    node: STO-UI
+    relation: writes
+    direction: forward
+  terminal: false
+- id: HDL-APP-EXPORT-PDF
+  kind: code
+  type: handler
+  distance: 3
+  anchor: src/App.tsx
+  via:
+    node: CMP-MARKDOWN-VIEWER
+    relation: depends_on
+    direction: reverse
+  terminal: true
+hubs: []
+stats:
+  closure_nodes: 10
+  by_distance:
+    '0': 2
+    '1': 4
+    '2': 3
+    '3': 1

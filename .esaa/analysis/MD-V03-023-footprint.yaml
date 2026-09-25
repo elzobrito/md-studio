@@ -1,0 +1,280 @@
+artifact: task-footprint
+schema_version: 1
+trace_task: TRACE-018
+task_id: MD-V03-023
+diff:
+  base: 9eb9518dcdcb53553f120d785f56c7c97ca422c7
+  head: WORKTREE
+  paths_filter:
+  - src/components/DocumentOutline.tsx
+  - src/services/navigation.ts
+  - tests/components/documentOutline.test.tsx
+  excluded_set: []
+  command: git diff -U0 --no-color --no-ext-diff 9eb9518dcdcb53553f120d785f56c7c97ca422c7 -- src/components/DocumentOutline.tsx src/services/navigation.ts
+    tests/components/documentOutline.test.tsx
+graph_source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+notes: []
+changed_files:
+- path: src/components/DocumentOutline.tsx
+  status: M
+  added: 107
+  removed: 21
+  hunks:
+  - old:
+    - 1
+    - 1
+    new:
+    - 1
+    - 1
+  - old:
+    - 10
+    - 10
+    new:
+    - 10
+    - 10
+  - old:
+    - 11
+    - 10
+    new:
+    - 12
+    - 12
+  - old:
+    - 14
+    - 14
+    new:
+    - 15
+    - 15
+  - old:
+    - 15
+    - 14
+    new:
+    - 17
+    - 17
+  - old:
+    - 17
+    - 16
+    new:
+    - 20
+    - 20
+  - old:
+    - 20
+    - 20
+    new:
+    - 23
+    - 39
+  - old:
+    - 33
+    - 32
+    new:
+    - 53
+    - 53
+  - old:
+    - 34
+    - 33
+    new:
+    - 55
+    - 58
+  - old:
+    - 36
+    - 38
+    new:
+    - 60
+    - 64
+  - old:
+    - 40
+    - 40
+    new:
+    - 66
+    - 66
+  - old:
+    - 42
+    - 46
+    new:
+    - 68
+    - 84
+  - old:
+    - 48
+    - 54
+    new:
+    - 86
+    - 103
+  - old:
+    - 95
+    - 94
+    new:
+    - 145
+    - 181
+  - old:
+    - 118
+    - 118
+    new:
+    - 204
+    - 204
+  is_test: false
+  catalogued_nodes_in_file: 1
+- path: src/services/navigation.ts
+  status: M
+  added: 14
+  removed: 6
+  hunks:
+  - old:
+    - 15
+    - 15
+    new:
+    - 15
+    - 15
+  - old:
+    - 17
+    - 17
+    new:
+    - 17
+    - 17
+  - old:
+    - 19
+    - 19
+    new:
+    - 19
+    - 20
+  - old:
+    - 27
+    - 27
+    new:
+    - 28
+    - 28
+  - old:
+    - 38
+    - 39
+    new:
+    - 39
+    - 40
+  - old:
+    - 40
+    - 39
+    new:
+    - 42
+    - 48
+  is_test: false
+  catalogued_nodes_in_file: 3
+- path: tests/components/documentOutline.test.tsx
+  status: A
+  added: 136
+  removed: 0
+  hunks:
+  - old:
+    - 0
+    - -1
+    new:
+    - 1
+    - 136
+  is_test: true
+  catalogued_nodes_in_file: 0
+changed_nodes:
+- id: CMP-DOCUMENT-OUTLINE
+  kind: code
+  type: component
+  path: src/components/DocumentOutline.tsx
+  sides:
+  - old
+  - new
+  lines_hit: 122
+  attribution: line
+  anchor_resolution:
+    old: exact
+    new: relocated
+  created_by_change: false
+- id: FN-SCROLL-TO-HEADING
+  kind: code
+  type: function
+  path: src/services/navigation.ts
+  sides:
+  - old
+  - new
+  lines_hit: 8
+  attribution: line
+  anchor_resolution:
+    old: exact
+    new: relocated
+  created_by_change: false
+enclosing_nodes: []
+uncatalogued:
+- path: src/components/DocumentOutline.tsx
+  is_test: false
+  old_lines:
+  - - 1
+    - 1
+  - - 10
+    - 10
+  new_lines:
+  - - 1
+    - 1
+  - - 10
+    - 10
+  - - 12
+    - 12
+  - - 15
+    - 15
+  trivial_lines: 2
+  substantive_lines:
+  - old:10
+  - new:10
+  - new:12
+  - new:15
+- path: src/services/navigation.ts
+  is_test: false
+  old_lines:
+  - - 15
+    - 15
+  - - 17
+    - 17
+  - - 19
+    - 19
+  - - 27
+    - 27
+  - - 38
+    - 38
+  new_lines:
+  - - 15
+    - 15
+  - - 17
+    - 17
+  - - 19
+    - 20
+  - - 28
+    - 28
+  - - 39
+    - 40
+  trivial_lines: 2
+  substantive_lines:
+  - old:15
+  - old:17
+  - old:19
+  - old:27
+  - new:15
+  - new:17
+  - new:19
+  - new:20
+  - new:28
+  - new:40
+new_files: []
+new_test_files:
+- tests/components/documentOutline.test.tsx
+contracts_touched: []
+data_touched:
+- id: STO-UI
+  how: written_by_changed
+  node: CMP-DOCUMENT-OUTLINE
+events_touched: []
+rollup:
+  features:
+  - FEAT-OUTLINE
+  invariants: []
+  flows: []
+stats:
+  files: 3
+  changed_nodes: 2
+  code_nodes: 2
+  test_nodes: 0
+  uncatalogued_files: 2
+  uncatalogued_substantive_lines: 14
+  new_files: 0
+  new_test_files: 1

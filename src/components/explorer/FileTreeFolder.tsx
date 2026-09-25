@@ -13,12 +13,12 @@ export function FileTreeFolder({ node, depth, onToggle, onFileOpen }: Props) {
   const indent = depth * 16;
 
   return (
-    <li className="file-tree-folder-group">
+    <li className={`file-tree-folder-group${node.isInternal ? " is-internal" : ""}`}>
       <div
-        className="file-tree-item folder-node"
+        className={`file-tree-item folder-node${node.isInternal ? " is-internal" : ""}`}
         style={{ paddingLeft: `${indent + 4}px` }}
         onClick={() => onToggle(node.path)}
-        title={node.path}
+        title={`${node.path}${node.isInternal ? " [pasta interna]" : ""}`}
         tabIndex={0}
         onKeyDown={(e) => {
           if (e.key === "Enter" || e.key === " ") {
@@ -34,9 +34,14 @@ export function FileTreeFolder({ node, depth, onToggle, onFileOpen }: Props) {
           ▶
         </span>
         <span className="file-tree-icon" aria-hidden="true">
-          {isExpanded ? "📂" : "📁"}
+          {node.isInternal ? "🔒" : isExpanded ? "📂" : "📁"}
         </span>
         <span className="file-tree-name">{node.name}</span>
+        {node.isInternal && (
+          <span className="file-tree-internal-badge" aria-label="Pasta interna">
+            [interno]
+          </span>
+        )}
       </div>
 
       {isExpanded && node.children && node.children.length > 0 && (

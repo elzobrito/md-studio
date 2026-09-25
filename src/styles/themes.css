@@ -630,6 +630,20 @@ select {
   margin-right: auto;
   padding-left: clamp(1.25rem, 3vw, 2.5rem);
   padding-right: clamp(1.25rem, 3vw, 2.5rem);
+  transition: max-width 200ms ease;
+}
+
+/* Responsive expansion when sidebars are collapsed (Hotfix Preview Expand) */
+:root:not([data-reading-width="full"]) .workspace.left-collapsed .center.mode-preview .preview-body {
+  max-width: min(calc(var(--preview-reading-width, 920px) + 200px), 1150px);
+}
+
+:root:not([data-reading-width="full"]) .workspace.right-collapsed .center.mode-preview .preview-body {
+  max-width: min(calc(var(--preview-reading-width, 920px) + 150px), 1100px);
+}
+
+:root:not([data-reading-width="full"]) .workspace.left-collapsed.right-collapsed .center.mode-preview .preview-body {
+  max-width: min(calc(var(--preview-reading-width, 920px) + 350px), 1200px);
 }
 
 /* Split mode preserves full column width without rigid editorial max-width */

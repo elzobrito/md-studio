@@ -1,0 +1,114 @@
+artifact: task-drift
+schema_version: 1
+trace_task: TRACE-019
+task_id: MD-V03-025
+inputs:
+  impact: .esaa/analysis/MD-V03-025-impact.yaml
+  footprint: .esaa/analysis/MD-V03-025-footprint.yaml
+  graph_source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+notes: []
+rule: authorized = change_target ∪ expected_affected; ok ∈ authorized; violation ∈ protected; warning ∈ potentially_affected | out_of_closure
+  | uncatalogued substantive
+authorized:
+- CMP-MARKDOWN-VIEWER
+- FN-WIKI-CANDIDATES
+- IPC-GET-DOCUMENT-METADATA
+- IPC-RESOLVE-WIKI-LINK
+observed:
+- CMP-MARKDOWN-VIEWER
+- FN-WIKI-CANDIDATES
+- HDL-VIEWER-ON-CLICK
+classification:
+- id: CMP-MARKDOWN-VIEWER
+  category: authorized
+  severity: ok
+  reasons: []
+- id: HDL-VIEWER-ON-CLICK
+  category: out_of_closure
+  severity: warning
+  reasons: []
+- id: FN-WIKI-CANDIDATES
+  category: authorized
+  severity: ok
+  reasons: []
+drift:
+- id: HDL-VIEWER-ON-CLICK
+  category: out_of_closure
+  severity: warning
+  reasons: []
+other_findings:
+- path: src/editor/wiki/wiki-completion.ts
+  category: uncatalogued_change
+  severity: warning
+  lines:
+  - new:7
+- path: src/components/editor/HoverPreview.tsx
+  category: new_production_file
+  severity: info
+- path: tests/components/hoverPreview.test.tsx
+  category: new_test_file
+  severity: info
+not_touched:
+- IPC-GET-DOCUMENT-METADATA
+- IPC-RESOLVE-WIKI-LINK
+verdict: warning
+metrics:
+  nodes:
+    tp: 2
+    authorized: 4
+    observed: 3
+    precision: 0.5
+    recall: 0.667
+    closure_recall: 0.667
+  code_nodes_only:
+    tp: 2
+    authorized: 4
+    observed: 3
+    precision: 0.5
+    recall: 0.667
+  features:
+    projected_direct:
+    - FEAT-CREATE-NOTE-FROM-WIKI
+    - FEAT-KATEX
+    - FEAT-MERMAID
+    - FEAT-OUTGOING-LINKS
+    - FEAT-PREVIEW
+    - FEAT-SANITIZE
+    - FEAT-SHIKI
+    - FEAT-WIKI-AUTOCOMPLETE
+    - FEAT-WIKI-LINKS
+    projected_all: 25
+    observed:
+    - FEAT-PREVIEW
+    - FEAT-WIKI-AUTOCOMPLETE
+    - FEAT-WIKI-LINKS
+    observed_in_projected_direct:
+    - FEAT-PREVIEW
+    - FEAT-WIKI-AUTOCOMPLETE
+    - FEAT-WIKI-LINKS
+    observed_missing_from_projection: []
+    precision_direct: 0.333
+    recall_all: 1.0
+  invariants:
+    projected: []
+    observed: []
+    missing_from_projection: []
+  tests:
+    projected_must_run:
+    - TST-TS-UI-CODE-FORMATTING-UI
+    - TST-TS-WIKI-WIKI-COMPLETION
+    changed_test_nodes: []
+    new_test_files:
+    - tests/components/hoverPreview.test.tsx
+  contracts_touched:
+  - id: CTR-SANITIZE-POLICY
+    how: consumer
+    node: CMP-MARKDOWN-VIEWER
+  - id: CTR-TAURI-CSP
+    how: consumer
+    node: CMP-MARKDOWN-VIEWER
+  data_touched:
+  - id: STO-METADATA
+    how: read_by_changed
+    node: CMP-MARKDOWN-VIEWER
+  events_touched: []

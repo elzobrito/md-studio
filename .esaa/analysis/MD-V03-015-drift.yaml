@@ -1,0 +1,72 @@
+artifact: task-drift
+schema_version: 1
+trace_task: TRACE-019
+task_id: MD-V03-015
+inputs:
+  impact: .esaa/analysis/MD-V03-015-impact.yaml
+  footprint: .esaa/analysis/MD-V03-015-footprint.yaml
+  graph_source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+notes: []
+rule: authorized = change_target ∪ expected_affected; ok ∈ authorized; violation ∈ protected; warning ∈ potentially_affected | out_of_closure
+  | uncatalogued substantive
+authorized:
+- CMP-MARKDOWN-EDITOR
+- STO-SETTINGS
+observed: []
+classification: []
+drift: []
+other_findings:
+- path: src/editor/spellcheck/spellChecker.ts
+  category: new_production_file
+  severity: info
+- path: src/editor/spellcheck/spellLinter.ts
+  category: new_production_file
+  severity: info
+- path: tests/editor/spellChecker.test.ts
+  category: new_test_file
+  severity: info
+not_touched:
+- CMP-MARKDOWN-EDITOR
+- STO-SETTINGS
+verdict: ok
+metrics:
+  nodes:
+    tp: 0
+    authorized: 2
+    observed: 0
+    precision: 0.0
+    recall: null
+    closure_recall: null
+  code_nodes_only:
+    tp: 0
+    authorized: 2
+    observed: 0
+    precision: 0.0
+    recall: null
+  features:
+    projected_direct:
+    - FEAT-AUTO-SAVE
+    - FEAT-DRAFT-RECOVERY
+    - FEAT-EDITOR
+    - FEAT-FORMATTING-TOOLBAR
+    - FEAT-SLASH-COMMANDS
+    - FEAT-WATCHER
+    projected_all: 24
+    observed: []
+    observed_in_projected_direct: []
+    observed_missing_from_projection: []
+    precision_direct: 0.0
+    recall_all: null
+  invariants:
+    projected: []
+    observed: []
+    missing_from_projection: []
+  tests:
+    projected_must_run:
+    - TST-TS-EDITOR-SINGLESAVE
+    changed_test_nodes: []
+    new_test_files:
+    - tests/editor/spellChecker.test.ts
+  contracts_touched: []
+  data_touched: []
+  events_touched: []

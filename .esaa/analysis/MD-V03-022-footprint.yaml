@@ -1,0 +1,197 @@
+artifact: task-footprint
+schema_version: 1
+trace_task: TRACE-018
+task_id: MD-V03-022
+diff:
+  base: 9eb9518dcdcb53553f120d785f56c7c97ca422c7
+  head: WORKTREE
+  paths_filter:
+  - src/components/settings/SettingsPanel.tsx
+  - src/components/settings/ToolingSettings.tsx
+  - tests/settings/settingsPanel.test.tsx
+  - tests/settings/toolingSettings.test.tsx
+  excluded_set: []
+  command: git diff -U0 --no-color --no-ext-diff 9eb9518dcdcb53553f120d785f56c7c97ca422c7 -- src/components/settings/SettingsPanel.tsx src/components/settings/ToolingSettings.tsx
+    tests/settings/settingsPanel.test.tsx tests/settings/toolingSettings.test.tsx
+graph_source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+notes: []
+changed_files:
+- path: src/components/settings/SettingsPanel.tsx
+  status: M
+  added: 22
+  removed: 1
+  hunks:
+  - old:
+    - 6
+    - 5
+    new:
+    - 7
+    - 7
+  - old:
+    - 11
+    - 11
+    new:
+    - 12
+    - 12
+  - old:
+    - 180
+    - 179
+    new:
+    - 182
+    - 199
+  - old:
+    - 186
+    - 185
+    new:
+    - 206
+    - 206
+  - old:
+    - 298
+    - 297
+    new:
+    - 319
+    - 319
+  is_test: false
+  catalogued_nodes_in_file: 1
+- path: src/components/settings/ToolingSettings.tsx
+  status: A
+  added: 206
+  removed: 0
+  hunks:
+  - old:
+    - 0
+    - -1
+    new:
+    - 1
+    - 206
+  is_test: false
+  catalogued_nodes_in_file: 0
+- path: tests/settings/settingsPanel.test.tsx
+  status: M
+  added: 4
+  removed: 4
+  hunks:
+  - old:
+    - 66
+    - 66
+    new:
+    - 66
+    - 66
+  - old:
+    - 68
+    - 68
+    new:
+    - 68
+    - 68
+  - old:
+    - 162
+    - 162
+    new:
+    - 162
+    - 162
+  - old:
+    - 167
+    - 167
+    new:
+    - 167
+    - 167
+  is_test: true
+  catalogued_nodes_in_file: 1
+- path: tests/settings/toolingSettings.test.tsx
+  status: A
+  added: 81
+  removed: 0
+  hunks:
+  - old:
+    - 0
+    - -1
+    new:
+    - 1
+    - 81
+  is_test: true
+  catalogued_nodes_in_file: 0
+changed_nodes:
+- id: CMP-SETTINGS-PANEL
+  kind: code
+  type: component
+  path: src/components/settings/SettingsPanel.tsx
+  sides:
+  - new
+  lines_hit: 1
+  attribution: line
+  anchor_resolution:
+    old: exact
+    new: relocated
+  created_by_change: false
+- id: TST-TS-SETTINGS-SETTINGSPANEL
+  kind: test
+  type: test
+  path: tests/settings/settingsPanel.test.tsx
+  sides:
+  - old
+  - new
+  lines_hit: 8
+  attribution: line
+  anchor_resolution:
+    old: exact
+    new: relocated
+  created_by_change: false
+enclosing_nodes: []
+uncatalogued:
+- path: src/components/settings/SettingsPanel.tsx
+  is_test: false
+  old_lines:
+  - - 11
+    - 11
+  new_lines:
+  - - 7
+    - 7
+  - - 12
+    - 12
+  - - 182
+    - 199
+  - - 206
+    - 206
+  trivial_lines: 2
+  substantive_lines:
+  - old:11
+  - new:12
+  - new:182
+  - new:183
+  - new:184
+  - new:185
+  - new:186
+  - new:187
+  - new:188
+  - new:189
+  - new:190
+  - new:191
+  - new:192
+  - new:193
+  - new:194
+  - new:195
+  - new:196
+  - new:197
+  - new:198
+  - new:206
+new_files:
+- src/components/settings/ToolingSettings.tsx
+new_test_files:
+- tests/settings/toolingSettings.test.tsx
+contracts_touched: []
+data_touched: []
+events_touched: []
+rollup:
+  features:
+  - FEAT-SETTINGS
+  invariants: []
+  flows: []
+stats:
+  files: 4
+  changed_nodes: 2
+  code_nodes: 1
+  test_nodes: 1
+  uncatalogued_files: 1
+  uncatalogued_substantive_lines: 20
+  new_files: 1
+  new_test_files: 1

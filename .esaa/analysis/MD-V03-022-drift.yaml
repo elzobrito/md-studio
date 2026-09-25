@@ -1,0 +1,113 @@
+artifact: task-drift
+schema_version: 1
+trace_task: TRACE-019
+task_id: MD-V03-022
+inputs:
+  impact: .esaa/analysis/MD-V03-022-impact.yaml
+  footprint: .esaa/analysis/MD-V03-022-footprint.yaml
+  graph_source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+notes: []
+rule: authorized = change_target ∪ expected_affected; ok ∈ authorized; violation ∈ protected; warning ∈ potentially_affected | out_of_closure
+  | uncatalogued substantive
+authorized:
+- CMP-SETTINGS-PANEL
+- STO-SETTINGS
+observed:
+- CMP-SETTINGS-PANEL
+- TST-TS-SETTINGS-SETTINGSPANEL
+classification:
+- id: CMP-SETTINGS-PANEL
+  category: authorized
+  severity: ok
+  reasons: []
+- id: TST-TS-SETTINGS-SETTINGSPANEL
+  category: out_of_closure
+  severity: warning
+  reasons: []
+drift:
+- id: TST-TS-SETTINGS-SETTINGSPANEL
+  category: out_of_closure
+  severity: warning
+  reasons: []
+other_findings:
+- path: src/components/settings/SettingsPanel.tsx
+  category: uncatalogued_change
+  severity: warning
+  lines:
+  - old:11
+  - new:12
+  - new:182
+  - new:183
+  - new:184
+  - new:185
+  - new:186
+  - new:187
+  - new:188
+  - new:189
+  - new:190
+  - new:191
+  - new:192
+  - new:193
+  - new:194
+  - new:195
+  - new:196
+  - new:197
+  - new:198
+  - new:206
+- path: src/components/settings/ToolingSettings.tsx
+  category: new_production_file
+  severity: info
+- path: tests/settings/toolingSettings.test.tsx
+  category: new_test_file
+  severity: info
+not_touched:
+- STO-SETTINGS
+verdict: warning
+metrics:
+  nodes:
+    tp: 1
+    authorized: 2
+    observed: 2
+    precision: 0.5
+    recall: 0.5
+    closure_recall: 0.5
+  code_nodes_only:
+    tp: 1
+    authorized: 2
+    observed: 1
+    precision: 0.5
+    recall: 1.0
+  features:
+    projected_direct:
+    - FEAT-AUTO-SAVE
+    - FEAT-DRAFT-RECOVERY
+    - FEAT-SETTINGS
+    - FEAT-WATCHER
+    projected_all: 27
+    observed:
+    - FEAT-SETTINGS
+    observed_in_projected_direct:
+    - FEAT-SETTINGS
+    observed_missing_from_projection: []
+    precision_direct: 0.25
+    recall_all: 1.0
+  invariants:
+    projected: []
+    observed: []
+    missing_from_projection: []
+  tests:
+    projected_must_run:
+    - TST-TS-EDITOR-AUTOSAVE
+    - TST-TS-EDITOR-HINTS
+    - TST-TS-EDITOR-SMART-PASTE
+    - TST-TS-SETTINGS-PREVIEWREADINGWIDTH
+    - TST-TS-SETTINGS-SETTINGSPANEL
+    - TST-TS-UX-SETTINGSSTORE
+    - TST-TS-UX-WIREFRAMEFIDELITY
+    changed_test_nodes:
+    - TST-TS-SETTINGS-SETTINGSPANEL
+    new_test_files:
+    - tests/settings/toolingSettings.test.tsx
+  contracts_touched: []
+  data_touched: []
+  events_touched: []

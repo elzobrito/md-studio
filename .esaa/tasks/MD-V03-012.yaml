@@ -1,0 +1,46 @@
+artifact: task-traceability
+schema_version: 1
+task_id: MD-V03-012
+written_at: '2026-09-25T12:39:28-03:00'
+projected_before_change: true
+projection_inputs:
+- spec v0.3 correspondente a MD-V03-012
+- ROADMAP-CANONICO-MD-STUDIO-v0.3-v0.5.md
+- .esaa/traceability/graph.json (source_commit 8eb7b6e18a672b94199397f1cc0d0ec7def6609c)
+- caso .esaa/traceability/case-MD-HOTFIX-EXPAND-002.md
+graph:
+  path: .esaa/traceability/graph.json
+  source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+traceability:
+  targets:
+  - IPC-TRIGGER-REINDEX
+  - FN-REINDEX-ENGINE-FULL-REINDEX
+  expected_affected:
+  - FN-EXTRACT-METADATA
+  - IPC-GET-DOCUMENT-METADATA
+  protected_extra:
+  - FN-RESOLVE-WITHIN
+  - FN-FENCE-RELATIVE
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: true
+  rationale:
+    IPC-TRIGGER-REINDEX: O Doctor roda no ciclo de reindex/debounce, não a cada tecla.
+    FN-REINDEX-ENGINE-FULL-REINDEX: A análise estrutural reutiliza o reindex existente
+      em vez de um segundo varredor.
+    FN-EXTRACT-METADATA: Headings, links e assets saem do extrator já usado pelo MetadataIndex.
+    IPC-GET-DOCUMENT-METADATA: A apresentação no editor consulta metadata já indexada.
+  justification:
+    FN-RESOLVE-WITHIN: Path fence não muda. O Doctor só diagnostica caminhos já aceitos
+      pelo fence.
+    FN-FENCE-RELATIVE: Nenhum diagnóstico pode abrir caminho fora do workspace.
+artifacts:
+  impact: .esaa/analysis/MD-V03-012-impact.yaml
+  footprint: .esaa/analysis/MD-V03-012-footprint.yaml
+  drift: .esaa/analysis/MD-V03-012-drift.yaml
+expected_uncatalogued:
+- src-tauri/crates/md-studio-core/src/doctor/ (módulo novo)
+- src/editor/mdDoctorLinter.ts (linter CodeMirror novo)
+close_rule: O complete copia verdict. warning cita path e linhas. precision de nó
+  não cobre arquivo sem nó. must_run exige saída do comando. violation bloqueia.

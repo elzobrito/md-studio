@@ -1,0 +1,178 @@
+artifact: task-footprint
+schema_version: 1
+trace_task: TRACE-018
+task_id: MD-HOTFIX-EXPAND-002
+diff:
+  base: 9eb9518dcdcb53553f120d785f56c7c97ca422c7
+  head: WORKTREE
+  paths_filter:
+  - src/state/settings.ts
+  - src/styles/themes.css
+  - tests/settings/previewReadingWidth.test.tsx
+  excluded_set: []
+  command: git diff -U0 --no-color --no-ext-diff 9eb9518dcdcb53553f120d785f56c7c97ca422c7 -- src/state/settings.ts src/styles/themes.css tests/settings/previewReadingWidth.test.tsx
+graph_source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+notes: []
+changed_files:
+- path: src/state/settings.ts
+  status: M
+  added: 1
+  removed: 0
+  hunks:
+  - old:
+    - 173
+    - 172
+    new:
+    - 174
+    - 174
+  is_test: false
+  catalogued_nodes_in_file: 3
+- path: src/styles/themes.css
+  status: M
+  added: 14
+  removed: 0
+  hunks:
+  - old:
+    - 632
+    - 631
+    new:
+    - 633
+    - 646
+  is_test: false
+  catalogued_nodes_in_file: 0
+- path: tests/settings/previewReadingWidth.test.tsx
+  status: M
+  added: 15
+  removed: 2
+  hunks:
+  - old:
+    - 28
+    - 28
+    new:
+    - 28
+    - 28
+  - old:
+    - 31
+    - 30
+    new:
+    - 32
+    - 32
+  - old:
+    - 34
+    - 34
+    new:
+    - 35
+    - 35
+  - old:
+    - 39
+    - 38
+    new:
+    - 41
+    - 41
+  - old:
+    - 43
+    - 42
+    new:
+    - 46
+    - 46
+  - old:
+    - 47
+    - 46
+    new:
+    - 51
+    - 51
+  - old:
+    - 51
+    - 50
+    new:
+    - 56
+    - 56
+  - old:
+    - 57
+    - 56
+    new:
+    - 63
+    - 70
+  is_test: true
+  catalogued_nodes_in_file: 1
+changed_nodes:
+- id: STO-SETTINGS
+  kind: code
+  type: store
+  path: src/state/settings.ts
+  sides:
+  - new
+  lines_hit: 1
+  attribution: line
+  anchor_resolution:
+    old: exact
+    new: relocated
+  created_by_change: false
+- id: TST-TS-SETTINGS-PREVIEWREADINGWIDTH
+  kind: test
+  type: test
+  path: tests/settings/previewReadingWidth.test.tsx
+  sides:
+  - old
+  - new
+  lines_hit: 17
+  attribution: line
+  anchor_resolution:
+    old: exact
+    new: relocated
+  created_by_change: false
+enclosing_nodes: []
+uncatalogued:
+- path: src/styles/themes.css
+  is_test: false
+  new_lines:
+  - - 633
+    - 646
+  trivial_lines: 4
+  substantive_lines:
+  - new:633
+  - new:634
+  - new:637
+  - new:638
+  - new:639
+  - new:641
+  - new:642
+  - new:643
+  - new:645
+  - new:646
+new_files: []
+new_test_files: []
+contracts_touched:
+- id: CTR-LSK-SETTINGS
+  how: consumer
+  node: STO-SETTINGS
+- id: CTR-LSK-SETTINGS
+  how: producer
+  node: STO-SETTINGS
+data_touched:
+- id: LSK-SETTINGS
+  how: read_by_changed
+  node: STO-SETTINGS
+- id: LSK-SETTINGS
+  how: written_by_changed
+  node: STO-SETTINGS
+- id: STO-SETTINGS
+  how: definition_changed
+  node: STO-SETTINGS
+events_touched: []
+rollup:
+  features:
+  - FEAT-AUTO-SAVE
+  - FEAT-SETTINGS
+  invariants: []
+  flows:
+  - FLOW-AUTO-SAVE
+stats:
+  files: 3
+  changed_nodes: 2
+  code_nodes: 1
+  test_nodes: 1
+  uncatalogued_files: 1
+  uncatalogued_substantive_lines: 10
+  new_files: 0
+  new_test_files: 0

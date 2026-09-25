@@ -1,0 +1,383 @@
+artifact: task-impact
+schema_version: 1
+trace_task: TRACE-017
+task_id: MD-V03-014
+projected_at: '2026-09-25T12:39:31-03:00'
+projected_before_change: true
+projection_inputs:
+- spec v0.3 correspondente a MD-V03-014
+- ROADMAP-CANONICO-MD-STUDIO-v0.3-v0.5.md
+- .esaa/traceability/graph.json (source_commit 8eb7b6e18a672b94199397f1cc0d0ec7def6609c)
+- caso .esaa/traceability/case-MD-HOTFIX-EXPAND-002.md
+spec: .esaa/tasks/MD-V03-014.yaml
+graph_source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+rationale:
+  FN-EXTRACT-METADATA: O inventário de assets referenciados deriva do extrator já usado pelo índice, não de um varredor paralelo.
+  IPC-TRIGGER-REINDEX: Depois da escrita confirmada, o índice existente observa o arquivo novo.
+justification:
+  FN-RESOLVE-WITHIN: O destino da imagem passa pelo path fence antes de qualquer escrita.
+  FN-FENCE-RELATIVE: assets/ é resolvido dentro do workspace.
+  FN-ATOMIC-SAVE: A escrita do binário reusa a persistência atômica existente. Esta tarefa não reescreve atomic_save.
+expected_uncatalogued: null
+blast_radius:
+  change_target:
+  - FN-EXTRACT-METADATA
+  expected_affected:
+  - IPC-TRIGGER-REINDEX
+  expected_affected_source: declared
+  suggested_expected_affected: []
+  authorized:
+  - FN-EXTRACT-METADATA
+  - IPC-TRIGGER-REINDEX
+  potentially_affected:
+  - FN-APPLY-WATCH-TO-ENGINE
+  - FN-REINDEX-ENGINE-APPLY-EXTERNAL-CHANGE
+  - FN-REINDEX-ENGINE-FULL-REINDEX
+  - FN-REINDEX-ENGINE-REINDEX-FILE
+  - FN-SAVE-INDEX
+  - FN-WORKSPACE-SCANNER-SCAN
+  - IPC-GET-ALL-DOCUMENTS
+  - IPC-GET-DOCUMENT-METADATA
+  - IPC-GET-RESOLVED-WIKI-LINKS-FOR
+  - IPC-GET-TAGS
+  - IPC-GET-WIKI-LINKS-FOR
+  - IPC-GET-WORKSPACE-STATS
+  - IPC-OPEN-WORKSPACE
+  - IPC-RESOLVE-WIKI-LINK
+  - IPCC-SAVE-DOCUMENT
+  - SVC-REINDEX-ENGINE
+  protected_in_closure:
+  - id: CTR-INDEX-JSON
+    reasons:
+    - contract_surface
+  - id: CTR-IPC-SAVE-DOCUMENT
+    reasons:
+    - contract_surface
+  - id: IPC-SAVE-DOCUMENT
+    reasons:
+    - invariant_member:INV-SHA256-CONFLICT
+    - invariant_member:INV-WATCHER-ECHO-SUPPRESSION
+  - id: REPO-METADATA-INDEX
+    reasons:
+    - contract_surface:CTR-INDEX-JSON
+  protected_total: 139
+  protected_declared: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: true
+projected:
+  nodes:
+  - FN-EXTRACT-METADATA
+  - IPC-TRIGGER-REINDEX
+  features:
+    direct:
+    - FEAT-METADATA-INDEX
+    indirect:
+    - FEAT-AUTO-SAVE
+    - FEAT-CONFLICT
+    - FEAT-CREATE-NOTE-FROM-WIKI
+    - FEAT-DRAFT-RECOVERY
+    - FEAT-OPEN-WORKSPACE
+    - FEAT-OUTGOING-LINKS
+    - FEAT-SAVE
+    - FEAT-SAVE-AS
+    - FEAT-WATCHER
+    - FEAT-WIKI-LINKS
+  flows:
+  - FLOW-AUTO-SAVE
+  - FLOW-CONFLICT-ON-SAVE
+  - FLOW-METADATA-REFRESH
+  - FLOW-OPEN-WORKSPACE
+  - FLOW-SAVE-AS
+  - FLOW-SAVE-DOCUMENT
+  - FLOW-WIKI-LINK-RESOLVE
+  invariants:
+  - id: INV-SHA256-CONFLICT
+    hit_by:
+    - IPC-SAVE-DOCUMENT
+    tests:
+    - TST-RS-DETECTS-CONFLICT
+  - id: INV-WATCHER-ECHO-SUPPRESSION
+    hit_by:
+    - IPC-SAVE-DOCUMENT
+    tests:
+    - TST-RS-INTERNAL-SAVE-SUPPRESSION-FLOW
+  tests:
+    must_run: []
+    should_run:
+    - TST-RS-ADD-AND-REMOVE-LINK-VIA-REINDEX-FILE-UPDATES-BACKLINKS
+    - TST-RS-CREATING-UNRESOLVED-TARGET-THEN-REINDEX-ESTABLISHES-RELATION
+    - TST-RS-DETECTS-CONFLICT
+    - TST-RS-INTERNAL-SAVE-SUPPRESSION-FLOW
+    - TST-RS-REBUILD-MATCHES-INCREMENTAL-AND-LOADED-SNAPSHOT
+    - TST-RS-RETARGET-A-TO-B-AND-MULTI-SAVE-DOES-NOT-DUPLICATE
+    - TST-RS-TEST-REINDEX-ENGINE-WORKFLOW
+    - TST-RS-TEST-SCANNER-EMPTY-WORKSPACE
+    - TST-RS-TEST-SCANNER-WITH-FILES-AND-EXCLUSIONS
+    may_run:
+    - TST-RS-DISCARDS-SELF-LINKS-BEFORE-PUBLIC-STORE
+    - TST-RS-EMPTY-WORKSPACE-HAS-NO-BACKLINKS
+    - TST-RS-EXTERNAL-DELETE-AND-WATCH-APPLY-REMOVE-BACKLINKS
+    - TST-RS-INDEXES-RESOLVED-ONLY-AND-IGNORES-ALIAS
+    - TST-RS-INDEXES-UNICODE-RESOLVED-TARGETS
+    - TST-RS-REMOVE-SOURCE-DROPS-INCOMING-EDGES
+    - TST-RS-REPLACE-SOURCE-IS-IDEMPOTENT-AND-DROPS-OLD-EDGES
+    - TST-RS-REPORTS-MISSING-UNSAFE-AND-AMBIGUOUS-TARGETS
+    - TST-RS-RESOLVE-ALL-PRESERVES-ALIAS-AND-SOURCE-LINE
+    - TST-RS-RESOLVES-EXACT-PATH-WITH-OR-WITHOUT-EXTENSION
+    - TST-RS-RESOLVES-STEM-AND-TITLE-CASE-INSENSITIVELY
+    - TST-RS-SKIPS-UNRESOLVED-AMBIGUOUS-AND-UNSAFE-TARGETS
+    - TST-RS-SORTS-GROUPS-BY-TITLE-CI-THEN-PATH-AND-OCCURRENCES-LINE-ASC
+    - TST-RS-TEST-INDEX-PERSISTENCE-LIFECYCLE
+    - TST-RS-TEST-METADATA-INDEX-OPERATIONS
+    - TST-RS-TEST-METADATA-INDEX-SERDE-ROUNDTRIP
+  contracts:
+  - CTR-INDEX-JSON
+  - CTR-IPC-SAVE-DOCUMENT
+  data:
+  - REPO-METADATA-INDEX
+  events: []
+  entrypoints:
+  - ENT-IPC-GET-ALL-DOCUMENTS
+  - ENT-IPC-GET-DOCUMENT-METADATA
+  - ENT-IPC-GET-RESOLVED-WIKI-LINKS-FOR
+  - ENT-IPC-GET-TAGS
+  - ENT-IPC-GET-WIKI-LINKS-FOR
+  - ENT-IPC-GET-WORKSPACE-STATS
+  - ENT-IPC-OPEN-WORKSPACE
+  - ENT-IPC-RESOLVE-WIKI-LINK
+  - ENT-IPC-SAVE-DOCUMENT
+  - ENT-IPC-TRIGGER-REINDEX
+  modules:
+  - MOD-METADATA-INDEX
+  - MOD-PERSISTENCE
+  - MOD-WATCHER
+  - MOD-WIKI-LINKS
+  - MOD-WORKSPACE-FS
+closure:
+- id: FN-EXTRACT-METADATA
+  kind: code
+  type: function
+  distance: 0
+  anchor: src-tauri/crates/md-studio-core/src/index/metadata_extractor.rs
+  via: null
+  terminal: false
+- id: FN-REINDEX-ENGINE-REINDEX-FILE
+  kind: code
+  type: function
+  distance: 1
+  anchor: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs
+  via:
+    node: FN-EXTRACT-METADATA
+    relation: calls
+    direction: reverse
+  terminal: false
+- id: FN-WORKSPACE-SCANNER-SCAN
+  kind: code
+  type: function
+  distance: 1
+  anchor: src-tauri/crates/md-studio-core/src/index/workspace_scanner.rs
+  via:
+    node: FN-EXTRACT-METADATA
+    relation: calls
+    direction: reverse
+  terminal: false
+- id: FN-REINDEX-ENGINE-APPLY-EXTERNAL-CHANGE
+  kind: code
+  type: function
+  distance: 2
+  anchor: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs
+  via:
+    node: FN-REINDEX-ENGINE-REINDEX-FILE
+    relation: calls
+    direction: reverse
+  terminal: false
+- id: FN-REINDEX-ENGINE-FULL-REINDEX
+  kind: code
+  type: function
+  distance: 2
+  anchor: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs
+  via:
+    node: FN-WORKSPACE-SCANNER-SCAN
+    relation: calls
+    direction: reverse
+  terminal: false
+- id: IPC-SAVE-DOCUMENT
+  kind: code
+  type: ipc_command
+  distance: 2
+  anchor: src-tauri/src/commands/mod.rs
+  via:
+    node: FN-REINDEX-ENGINE-REINDEX-FILE
+    relation: calls
+    direction: reverse
+  terminal: false
+- id: REPO-METADATA-INDEX
+  kind: code
+  type: repository
+  distance: 2
+  anchor: src-tauri/crates/md-studio-core/src/index/metadata_index.rs
+  via:
+    node: FN-REINDEX-ENGINE-REINDEX-FILE
+    relation: writes
+    direction: forward
+  terminal: false
+- id: SVC-REINDEX-ENGINE
+  kind: code
+  type: service
+  distance: 2
+  anchor: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs
+  via:
+    node: FN-REINDEX-ENGINE-REINDEX-FILE
+    relation: contains
+    direction: reverse
+  terminal: false
+- id: CTR-INDEX-JSON
+  kind: contract
+  type: contract
+  distance: 3
+  anchor: null
+  via:
+    node: REPO-METADATA-INDEX
+    relation: implements
+    direction: forward
+  terminal: true
+- id: CTR-IPC-SAVE-DOCUMENT
+  kind: contract
+  type: contract
+  distance: 3
+  anchor: null
+  via:
+    node: IPC-SAVE-DOCUMENT
+    relation: implemented_by
+    direction: reverse
+  terminal: true
+- id: FN-APPLY-WATCH-TO-ENGINE
+  kind: code
+  type: function
+  distance: 3
+  anchor: src-tauri/src/watcher/mod.rs
+  via:
+    node: FN-REINDEX-ENGINE-APPLY-EXTERNAL-CHANGE
+    relation: calls
+    direction: reverse
+  terminal: true
+- id: FN-SAVE-INDEX
+  kind: code
+  type: function
+  distance: 3
+  anchor: src-tauri/crates/md-studio-core/src/index/index_persistence.rs
+  via:
+    node: REPO-METADATA-INDEX
+    relation: reads
+    direction: reverse
+  terminal: true
+- id: IPC-GET-ALL-DOCUMENTS
+  kind: code
+  type: ipc_command
+  distance: 3
+  anchor: src-tauri/src/commands/metadata.rs
+  via:
+    node: REPO-METADATA-INDEX
+    relation: reads
+    direction: reverse
+  terminal: true
+- id: IPC-GET-DOCUMENT-METADATA
+  kind: code
+  type: ipc_command
+  distance: 3
+  anchor: src-tauri/src/commands/metadata.rs
+  via:
+    node: REPO-METADATA-INDEX
+    relation: reads
+    direction: reverse
+  terminal: true
+- id: IPC-GET-RESOLVED-WIKI-LINKS-FOR
+  kind: code
+  type: ipc_command
+  distance: 3
+  anchor: src-tauri/src/commands/metadata.rs
+  via:
+    node: REPO-METADATA-INDEX
+    relation: reads
+    direction: reverse
+  terminal: true
+- id: IPC-GET-TAGS
+  kind: code
+  type: ipc_command
+  distance: 3
+  anchor: src-tauri/src/commands/metadata.rs
+  via:
+    node: REPO-METADATA-INDEX
+    relation: reads
+    direction: reverse
+  terminal: true
+- id: IPC-GET-WIKI-LINKS-FOR
+  kind: code
+  type: ipc_command
+  distance: 3
+  anchor: src-tauri/src/commands/metadata.rs
+  via:
+    node: REPO-METADATA-INDEX
+    relation: reads
+    direction: reverse
+  terminal: true
+- id: IPC-GET-WORKSPACE-STATS
+  kind: code
+  type: ipc_command
+  distance: 3
+  anchor: src-tauri/src/commands/metadata.rs
+  via:
+    node: REPO-METADATA-INDEX
+    relation: reads
+    direction: reverse
+  terminal: true
+- id: IPC-OPEN-WORKSPACE
+  kind: code
+  type: ipc_command
+  distance: 3
+  anchor: src-tauri/src/commands/mod.rs
+  via:
+    node: FN-REINDEX-ENGINE-FULL-REINDEX
+    relation: calls
+    direction: reverse
+  terminal: true
+- id: IPC-RESOLVE-WIKI-LINK
+  kind: code
+  type: ipc_command
+  distance: 3
+  anchor: src-tauri/src/commands/metadata.rs
+  via:
+    node: REPO-METADATA-INDEX
+    relation: reads
+    direction: reverse
+  terminal: true
+- id: IPC-TRIGGER-REINDEX
+  kind: code
+  type: ipc_command
+  distance: 3
+  anchor: src-tauri/src/commands/metadata.rs
+  via:
+    node: FN-REINDEX-ENGINE-FULL-REINDEX
+    relation: calls
+    direction: reverse
+  terminal: true
+- id: IPCC-SAVE-DOCUMENT
+  kind: code
+  type: ipc_client
+  distance: 3
+  anchor: src/lib/ipc/client.ts
+  via:
+    node: IPC-SAVE-DOCUMENT
+    relation: calls
+    direction: reverse
+  terminal: true
+hubs: []
+stats:
+  closure_nodes: 22
+  by_distance:
+    '0': 1
+    '1': 2
+    '2': 5
+    '3': 14

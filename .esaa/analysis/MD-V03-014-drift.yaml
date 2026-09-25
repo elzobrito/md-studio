@@ -1,0 +1,79 @@
+artifact: task-drift
+schema_version: 1
+trace_task: TRACE-019
+task_id: MD-V03-014
+inputs:
+  impact: .esaa/analysis/MD-V03-014-impact.yaml
+  footprint: .esaa/analysis/MD-V03-014-footprint.yaml
+  graph_source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+notes: []
+rule: authorized = change_target ∪ expected_affected; ok ∈ authorized; violation ∈ protected; warning ∈ potentially_affected | out_of_closure
+  | uncatalogued substantive
+authorized:
+- FN-EXTRACT-METADATA
+- IPC-TRIGGER-REINDEX
+observed: []
+classification: []
+drift: []
+other_findings:
+- path: src-tauri/crates/md-studio-core/src/lib.rs
+  category: uncatalogued_change
+  severity: warning
+  lines:
+  - new:1
+  - new:2
+  - new:10
+  - new:11
+  - new:12
+  - new:13
+  - new:14
+- path: src-tauri/crates/md-studio-core/src/assets/mod.rs
+  category: new_production_file
+  severity: info
+- path: src/services/assetPaste.ts
+  category: new_production_file
+  severity: info
+- path: tests/services/assetPaste.test.ts
+  category: new_test_file
+  severity: info
+not_touched:
+- FN-EXTRACT-METADATA
+- IPC-TRIGGER-REINDEX
+verdict: warning
+metrics:
+  nodes:
+    tp: 0
+    authorized: 2
+    observed: 0
+    precision: 0.0
+    recall: null
+    closure_recall: null
+  code_nodes_only:
+    tp: 0
+    authorized: 2
+    observed: 0
+    precision: 0.0
+    recall: null
+  features:
+    projected_direct:
+    - FEAT-METADATA-INDEX
+    projected_all: 11
+    observed: []
+    observed_in_projected_direct: []
+    observed_missing_from_projection: []
+    precision_direct: 0.0
+    recall_all: null
+  invariants:
+    projected:
+    - INV-SHA256-CONFLICT
+    - INV-WATCHER-ECHO-SUPPRESSION
+    observed: []
+    missing_from_projection: []
+  tests:
+    projected_must_run: []
+    changed_test_nodes: []
+    new_test_files:
+    - tests/services/assetPaste.test.ts
+  contracts_touched: []
+  data_touched: []
+  events_touched: []

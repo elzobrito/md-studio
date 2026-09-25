@@ -1,0 +1,222 @@
+artifact: task-impact
+schema_version: 1
+trace_task: TRACE-017
+task_id: MD-V03-018
+projected_at: '2026-09-25T12:39:37-03:00'
+projected_before_change: true
+projection_inputs:
+- spec v0.3 correspondente a MD-V03-018
+- ROADMAP-CANONICO-MD-STUDIO-v0.3-v0.5.md
+- .esaa/traceability/graph.json (source_commit 8eb7b6e18a672b94199397f1cc0d0ec7def6609c)
+- caso .esaa/traceability/case-MD-HOTFIX-EXPAND-002.md
+spec: .esaa/tasks/MD-V03-018.yaml
+graph_source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+rationale:
+  PIPE-SHIKI: Filename, números de linha, highlight, diff, focus e abas são metadata do fence interpretada no pipeline que já chama o Shiki.
+  BTN-PREVIEW-FORMAT-CODE: O botão de cópia e o badge de linguagem permanecem. Não são reimplementados.
+justification: null
+expected_uncatalogued: null
+blast_radius:
+  change_target:
+  - PIPE-SHIKI
+  expected_affected:
+  - BTN-PREVIEW-FORMAT-CODE
+  expected_affected_source: declared
+  suggested_expected_affected: []
+  authorized:
+  - BTN-PREVIEW-FORMAT-CODE
+  - PIPE-SHIKI
+  potentially_affected:
+  - CMP-MARKDOWN-VIEWER
+  - HDL-APP-EXPORT-PDF
+  - SCR-PRESENTATION
+  protected_in_closure:
+  - id: CTR-EXPORT-HTML-DOCUMENT
+    reasons:
+    - contract_surface
+  - id: SVC-EXPORT-ACTIVE-DOCUMENT-HTML
+    reasons:
+    - invariant_member:INV-EXPORT-NO-SILENT-OVERWRITE
+  - id: SVC-EXPORT-HTML-DOCUMENT
+    reasons:
+    - invariant_member:INV-SANITIZE-PREVIEW-EXPORT
+  - id: SVC-PROCESS-MARKDOWN
+    reasons:
+    - invariant_member:INV-SANITIZE-PREVIEW-EXPORT
+  - id: SVC-PROCESS-PRESENTATION
+    reasons:
+    - invariant_member:INV-SANITIZE-PREVIEW-EXPORT
+  protected_total: 139
+  protected_declared: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: true
+projected:
+  nodes:
+  - BTN-PREVIEW-FORMAT-CODE
+  - PIPE-SHIKI
+  features:
+    direct:
+    - FEAT-KATEX
+    - FEAT-MERMAID
+    - FEAT-PREVIEW
+    - FEAT-SANITIZE
+    - FEAT-SHIKI
+    indirect:
+    - FEAT-CREATE-NOTE-FROM-WIKI
+    - FEAT-EXPORT-HTML
+    - FEAT-EXPORT-PDF
+    - FEAT-OUTGOING-LINKS
+    - FEAT-PRESENTATION
+    - FEAT-WIKI-LINKS
+  flows:
+  - FLOW-EXPORT-HTML
+  - FLOW-EXPORT-PDF
+  - FLOW-PRESENTATION
+  - FLOW-PREVIEW-RENDER
+  - FLOW-WIKI-LINK-RESOLVE
+  invariants:
+  - id: INV-EXPORT-NO-SILENT-OVERWRITE
+    hit_by:
+    - SVC-EXPORT-ACTIVE-DOCUMENT-HTML
+    tests:
+    - TST-RS-EXPORT-OVERWRITE-WHEN-ALLOWED
+    - TST-RS-EXPORT-REFUSES-OVERWRITE-WITHOUT-FLAG
+    - TST-TS-EXPORT-EXPORT-FLOW
+    - TST-TS-EXPORT-EXPORTEPUBSERVICE
+  - id: INV-SANITIZE-PREVIEW-EXPORT
+    hit_by:
+    - SVC-EXPORT-HTML-DOCUMENT
+    - SVC-PROCESS-MARKDOWN
+    - SVC-PROCESS-PRESENTATION
+    tests:
+    - TST-TS-EXPORT-EXPORT
+    - TST-TS-EXPORT-MERMAIDCAPTURE
+    - TST-TS-MARKDOWN-CORE-PROCESSOR
+    - TST-TS-PRESENTATION-PROCESSOR
+    - TST-TS-SECURITY-ADVERSARIAL-MARKDOWN-CSS
+  tests:
+    must_run: []
+    should_run:
+    - TST-RS-EXPORT-OVERWRITE-WHEN-ALLOWED
+    - TST-RS-EXPORT-REFUSES-OVERWRITE-WITHOUT-FLAG
+    - TST-TS-EXPORT-EXPORT
+    - TST-TS-EXPORT-EXPORT-FLOW
+    - TST-TS-EXPORT-EXPORTEPUBSERVICE
+    - TST-TS-EXPORT-MERMAIDCAPTURE
+    - TST-TS-MARKDOWN-CODE-CODE-HIGHLIGHT
+    - TST-TS-MARKDOWN-CORE-PROCESSOR
+    - TST-TS-MARKDOWN-MERMAID-MERMAID
+    - TST-TS-PRESENTATION-PROCESSOR
+    - TST-TS-SECURITY-ADVERSARIAL-MARKDOWN-CSS
+    may_run:
+    - TST-TS-PRESENTATION-ACCESSIBILITY
+    - TST-TS-PRESENTATION-LIFECYCLE
+    - TST-TS-PRESENTATION-SESSION
+    - TST-TS-UI-CODE-FORMATTING-UI
+  contracts:
+  - CTR-EXPORT-HTML-DOCUMENT
+  data: []
+  events: []
+  entrypoints: []
+  modules:
+  - MOD-EXPORT
+  - MOD-PRESENTATION
+  - MOD-PREVIEW
+closure:
+- id: PIPE-SHIKI
+  kind: code
+  type: pipeline_stage
+  distance: 0
+  anchor: src/markdown/shiki.ts
+  via: null
+  terminal: false
+- id: SVC-PROCESS-MARKDOWN
+  kind: code
+  type: service
+  distance: 1
+  anchor: src/markdown/processor.ts
+  via:
+    node: PIPE-SHIKI
+    relation: contains
+    direction: reverse
+  terminal: false
+- id: CMP-MARKDOWN-VIEWER
+  kind: code
+  type: component
+  distance: 2
+  anchor: src/components/MarkdownViewer.tsx
+  via:
+    node: SVC-PROCESS-MARKDOWN
+    relation: calls
+    direction: reverse
+  terminal: false
+- id: SVC-EXPORT-HTML-DOCUMENT
+  kind: code
+  type: service
+  distance: 2
+  anchor: src/services/export.ts
+  via:
+    node: SVC-PROCESS-MARKDOWN
+    relation: calls
+    direction: reverse
+  terminal: false
+- id: SVC-PROCESS-PRESENTATION
+  kind: code
+  type: service
+  distance: 2
+  anchor: src/presentation/processor.ts
+  via:
+    node: SVC-PROCESS-MARKDOWN
+    relation: calls
+    direction: reverse
+  terminal: false
+- id: CTR-EXPORT-HTML-DOCUMENT
+  kind: contract
+  type: contract
+  distance: 3
+  anchor: null
+  via:
+    node: SVC-EXPORT-HTML-DOCUMENT
+    relation: implemented_by
+    direction: reverse
+  terminal: true
+- id: HDL-APP-EXPORT-PDF
+  kind: code
+  type: handler
+  distance: 3
+  anchor: src/App.tsx
+  via:
+    node: CMP-MARKDOWN-VIEWER
+    relation: depends_on
+    direction: reverse
+  terminal: true
+- id: SCR-PRESENTATION
+  kind: code
+  type: screen
+  distance: 3
+  anchor: src/presentation/PresentationMode.tsx
+  via:
+    node: SVC-PROCESS-PRESENTATION
+    relation: calls
+    direction: reverse
+  terminal: true
+- id: SVC-EXPORT-ACTIVE-DOCUMENT-HTML
+  kind: code
+  type: service
+  distance: 3
+  anchor: src/services/exportHtml.ts
+  via:
+    node: SVC-EXPORT-HTML-DOCUMENT
+    relation: calls
+    direction: reverse
+  terminal: true
+hubs: []
+stats:
+  closure_nodes: 9
+  by_distance:
+    '0': 1
+    '1': 1
+    '2': 3
+    '3': 4

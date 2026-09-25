@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { extractOutline } from "../services/navigation";
 import { OutlineItem } from "./outline/OutlineItem";
 import { useScrollTracking } from "../hooks/useScrollTracking";
@@ -7,17 +7,36 @@ import "../styles/outline.css";
 
 interface Props {
   content: string;
-  onNavigate: (slug: string) => void;
+  onNavigate: (slug: string, line?: number) => void;
   onClose?: () => void;
+  cursorLine?: number;
 }
 
-export function DocumentOutline({ content, onNavigate, onClose }: Props) {
+export function DocumentOutline({ content, onNavigate, onClose, cursorLine }: Props) {
   const [filter, setFilter] = useState("");
+  const [maxDepth, setMaxDepth] = useState<number>(6); // 1 = H1, 2 = H1-H2, 3 = H1-H3, 6 = Todos
   const [collapsedIds, setCollapsedIds] = useState<Set<string>>(new Set());
 
+  // Um único parse por mudança no conteúdo. Scroll tracking não reparseia o documento.
   const allItems = useMemo(() => extractOutline(content), [content]);
   const allSlugs = useMemo(() => allItems.map((it) => it.id), [allItems]);
-  const activeSlug = useScrollTracking(allSlugs);
+  const scrollActiveSlug = useScrollTracking(allSlugs);
+
+  // Se houver cursorLine no editor, encontrar o heading ativo mais próximo
+  const activeSlug = useMemo(() => {
+    if (cursorLine !== undefined && allItems.length > 0) {
+      let current = allItems[0].id;
+      for (const item of allItems) {
+        if (item.line !== undefined && item.line <= cursorLine) {
+          current = item.id;
+        } else if (item.line !== undefined && item.line > cursorLine) {
+          break;
+        }
+      }
+      return current;
+    }
+    return scrollActiveSlug;
+  }, [cursorLine, allItems, scrollActiveSlug]);
 
   const toggleCollapse = (id: string) => {
     setCollapsedIds((prev) => {
@@ -31,27 +50,57 @@ export function DocumentOutline({ content, onNavigate, onClose }: Props) {
     });
   };
 
+  // Filtragem por texto e por profundidade H1/H2/H3+
   const filteredItems = useMemo(() => {
+    let list = allItems;
+    if (maxDepth < 6) {
+      list = list.filter((it) => it.level <= maxDepth);
+    }
     const q = filter.trim().toLowerCase();
-    if (!q) return allItems;
-    return allItems.filter((it) => it.text.toLowerCase().includes(q));
-  }, [allItems, filter]);
+    if (q) {
+      list = list.filter((it) => it.text.toLowerCase().includes(q));
+    }
+    return list;
+  }, [allItems, maxDepth, filter]);
 
-  // Determine which items have children in the original hierarchy
+  // Hierarquia e visibilidade de filhos recolhidos
   const itemsWithChildFlags = useMemo(() => {
-    return filteredItems.map((item, index) => {
-      let hasChildren = false;
-      const nextItem = allItems[allItems.findIndex((x) => x.id === item.id) + 1];
-      if (nextItem && nextItem.level > item.level) {
-        hasChildren = true;
+    const hiddenSlugs = new Set<string>();
+
+    // Marcar filhos de itens colapsados como ocultos
+    if (collapsedIds.size > 0 && !filter) {
+      let currentCollapsedLevel = -1;
+      for (const item of allItems) {
+        if (currentCollapsedLevel !== -1) {
+          if (item.level > currentCollapsedLevel) {
+            hiddenSlugs.add(item.id);
+            continue;
+          } else {
+            currentCollapsedLevel = -1;
+          }
+        }
+        if (collapsedIds.has(item.id)) {
+          currentCollapsedLevel = item.level;
+        }
       }
-      return {
-        ...item,
-        hasChildren,
-        isCollapsed: collapsedIds.has(item.id),
-      };
-    });
-  }, [filteredItems, allItems, collapsedIds]);
+    }
+
+    return filteredItems
+      .filter((item) => !hiddenSlugs.has(item.id))
+      .map((item) => {
+        let hasChildren = false;
+        const idx = allItems.findIndex((x) => x.id === item.id);
+        const nextItem = allItems[idx + 1];
+        if (nextItem && nextItem.level > item.level) {
+          hasChildren = true;
+        }
+        return {
+          ...item,
+          hasChildren,
+          isCollapsed: collapsedIds.has(item.id),
+        };
+      });
+  }, [filteredItems, allItems, collapsedIds, filter]);
 
   const handleClose = () => {
     if (onClose) {
@@ -93,6 +142,43 @@ export function DocumentOutline({ content, onNavigate, onClose }: Props) {
         </div>
       </div>
 
+      {/* Controles de Profundidade H1 / H2 / H3 / Todos */}
+      <div
+        className="outline-depth-controls"
+        style={{
+          display: "flex",
+          gap: "4px",
+          padding: "4px 8px",
+          borderBottom: "1px solid #313244",
+          fontSize: "11px",
+        }}
+      >
+        <span style={{ color: "#a6adc8", alignSelf: "center", marginRight: "2px" }}>Nível:</span>
+        {[
+          { label: "H1", val: 1 },
+          { label: "H2", val: 2 },
+          { label: "H3", val: 3 },
+          { label: "Todos", val: 6 },
+        ].map((btn) => (
+          <button
+            key={btn.label}
+            type="button"
+            onClick={() => setMaxDepth(btn.val)}
+            style={{
+              background: maxDepth === btn.val ? "#89b4fa" : "#181825",
+              color: maxDepth === btn.val ? "#11111b" : "#cdd6f4",
+              border: "1px solid #313244",
+              borderRadius: "3px",
+              padding: "2px 6px",
+              cursor: "pointer",
+              fontWeight: maxDepth === btn.val ? 600 : 400,
+            }}
+          >
+            {btn.label}
+          </button>
+        ))}
+      </div>
+
       {allItems.length > 3 && (
         <input
           type="text"
@@ -115,7 +201,7 @@ export function DocumentOutline({ content, onNavigate, onClose }: Props) {
               key={it.id}
               heading={it}
               isActive={activeSlug === it.id}
-              onClick={onNavigate}
+              onClick={(id) => onNavigate(id, it.line)}
               hasChildren={it.hasChildren}
               isCollapsed={it.isCollapsed}
               onToggleCollapse={() => toggleCollapse(it.id)}

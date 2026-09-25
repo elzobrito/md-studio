@@ -1,0 +1,36 @@
+artifact: task-traceability
+schema_version: 1
+task_id: MD-HOTFIX-EXPAND-002
+written_at: '2026-09-25T11:32:00-03:00'
+projected_before_change: true
+projection_inputs:
+  - 'descrição da tarefa ESAA MD-HOTFIX-EXPAND-002'
+  - 'relatório de inspeção docs/qa/hotfix-preview-expand.md'
+  - '.esaa/traceability/graph.json (source_commit 8eb7b6e18a672b94199397f1cc0d0ec7def6609c)'
+  - 'impact.py closure STO-SETTINGS'
+graph:
+  path: .esaa/traceability/graph.json
+  source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+traceability:
+  targets: [STO-SETTINGS]
+  expected_affected: [TST-TS-SETTINGS-PREVIEWREADINGWIDTH]
+  protected_extra: [CFG-DEFAULT-SETTINGS, LSK-SETTINGS]
+  change_policy: {mode: surgical, allow_new_tests: true, allow_new_production_nodes: false}
+  rationale:
+    STO-SETTINGS: 'adicionar sincronização de docEl.setAttribute("data-reading-width", ...) em applyToDOM para suporte às regras de layout css responsivo'
+    TST-TS-SETTINGS-PREVIEWREADINGWIDTH: 'adicionar asserções de verificação do atributo data-reading-width'
+  protected_extra_reason:
+    CFG-DEFAULT-SETTINGS: 'presets e defaults não devem ser alterados'
+    LSK-SETTINGS: 'persistência em localStorage permanece idêntica'
+  alternatives_rejected:
+    - 'modificar App.tsx: classes workspace já existem e contêm estado das sidebars'
+    - 'criar nova store: proibido pelas regras da instrução'
+    - 'container queries: suporte e complexidade superiores ao CSS seletor direto'
+  expected_graph_delta:
+    - 'atualização de testes em tests/settings/previewReadingWidth.test.tsx'
+  expected_uncatalogued:
+    - 'src/styles/themes.css (arquivo de estilo puro não catalogado no grafo AST)'
+artifacts:
+  impact: .esaa/analysis/MD-HOTFIX-EXPAND-002-impact.yaml
+  footprint: .esaa/analysis/MD-HOTFIX-EXPAND-002-footprint.yaml
+  drift: .esaa/analysis/MD-HOTFIX-EXPAND-002-drift.yaml

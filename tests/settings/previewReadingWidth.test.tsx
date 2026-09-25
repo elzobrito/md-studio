@@ -25,36 +25,49 @@ describe("MD-UI-005: Preview Controlled Reading Width", () => {
     }
   });
 
-  it("defaults to comfortable preset (920px) on root CSS property", () => {
+  it("defaults to comfortable preset (920px) on root CSS property and sets data-reading-width", () => {
     expect(settingsStore.getState().previewReadingWidth).toBe("comfortable");
     const docEl = document.documentElement;
     expect(docEl.style.getPropertyValue("--preview-reading-width")).toBe("920px");
+    expect(docEl.getAttribute("data-reading-width")).toBe("comfortable");
   });
 
-  it("updates CSS custom property when changing presets", () => {
+  it("updates CSS custom property and data attribute when changing presets", () => {
     const docEl = document.documentElement;
 
     settingsStore.setPreviewReadingWidth("narrow");
     expect(settingsStore.getState().previewReadingWidth).toBe("narrow");
     expect(docEl.style.getPropertyValue("--preview-reading-width")).toBe("760px");
+    expect(docEl.getAttribute("data-reading-width")).toBe("narrow");
 
     settingsStore.setPreviewReadingWidth("wide");
     expect(settingsStore.getState().previewReadingWidth).toBe("wide");
     expect(docEl.style.getPropertyValue("--preview-reading-width")).toBe("1100px");
+    expect(docEl.getAttribute("data-reading-width")).toBe("wide");
 
     settingsStore.setPreviewReadingWidth("full");
     expect(settingsStore.getState().previewReadingWidth).toBe("full");
     expect(docEl.style.getPropertyValue("--preview-reading-width")).toBe("none");
+    expect(docEl.getAttribute("data-reading-width")).toBe("full");
 
     settingsStore.setPreviewReadingWidth("comfortable");
     expect(settingsStore.getState().previewReadingWidth).toBe("comfortable");
     expect(docEl.style.getPropertyValue("--preview-reading-width")).toBe("920px");
+    expect(docEl.getAttribute("data-reading-width")).toBe("comfortable");
   });
 
   it("falls back safely to comfortable when an invalid preset is provided", () => {
     settingsStore.setPreviewReadingWidth("invalid" as unknown as PreviewReadingWidth);
     expect(settingsStore.getState().previewReadingWidth).toBe("comfortable");
     expect(document.documentElement.style.getPropertyValue("--preview-reading-width")).toBe("920px");
+    expect(document.documentElement.getAttribute("data-reading-width")).toBe("comfortable");
+  });
+
+  it("keeps data-reading-width in sync after resetToDefaults", () => {
+    settingsStore.setPreviewReadingWidth("narrow");
+    expect(document.documentElement.getAttribute("data-reading-width")).toBe("narrow");
+    settingsStore.resetToDefaults();
+    expect(document.documentElement.getAttribute("data-reading-width")).toBe("comfortable");
   });
 
   it("renders the 4 presets in PreviewSettings UI and updates settings on change", async () => {

@@ -9,6 +9,7 @@ export interface FileTreeNode {
   children?: FileTreeNode[];
   isExpanded?: boolean;
   isActive?: boolean;
+  isInternal?: boolean;
   lastModified?: Date;
   size?: number;
 }

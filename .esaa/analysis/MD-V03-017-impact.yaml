@@ -1,0 +1,158 @@
+artifact: task-impact
+schema_version: 1
+trace_task: TRACE-017
+task_id: MD-V03-017
+projected_at: '2026-09-25T12:39:36-03:00'
+projected_before_change: true
+projection_inputs:
+- spec v0.3 correspondente a MD-V03-017
+- ROADMAP-CANONICO-MD-STUDIO-v0.3-v0.5.md
+- .esaa/traceability/graph.json (source_commit 8eb7b6e18a672b94199397f1cc0d0ec7def6609c)
+- caso .esaa/traceability/case-MD-HOTFIX-EXPAND-002.md
+spec: .esaa/tasks/MD-V03-017.yaml
+graph_source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+rationale:
+  CMP-COMMAND-PALETTE: A palette de comandos passa a executar ações, separada da navegação.
+  FN-FUZZY-SEARCH: A busca fuzzy local é reusada. Não se cria um segundo rankeador.
+  CMP-QUICK-SWITCHER: O switcher de arquivos e headings permanece. A palette não o absorve.
+justification:
+  SHC-CTRL-P: Ctrl+P continua abrindo o Quick Switcher. O atalho não muda de semântica.
+expected_uncatalogued: null
+blast_radius:
+  change_target:
+  - CMP-COMMAND-PALETTE
+  - FN-FUZZY-SEARCH
+  expected_affected:
+  - CMP-QUICK-SWITCHER
+  expected_affected_source: declared
+  suggested_expected_affected:
+  - SCR-APP
+  - TST-TS-UX-FUZZYSEARCH
+  authorized:
+  - CMP-COMMAND-PALETTE
+  - CMP-QUICK-SWITCHER
+  - FN-FUZZY-SEARCH
+  potentially_affected:
+  - SCR-APP
+  - SCR-EMPTY-STATE
+  protected_in_closure:
+  - id: SHC-CTRL-P
+    reasons:
+    - declared_protected_extra
+  protected_total: 140
+  protected_declared: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: true
+projected:
+  nodes:
+  - CMP-COMMAND-PALETTE
+  - CMP-QUICK-SWITCHER
+  - FN-FUZZY-SEARCH
+  features:
+    direct:
+    - FEAT-APP-SCREENS
+    - FEAT-COMMAND-PALETTE
+    - FEAT-SPLASH-PACKAGING
+    - FEAT-WORKSPACE-SEARCH
+    indirect:
+    - FEAT-BACKLINKS
+    - FEAT-CREATE-NOTE-FROM-WIKI
+    - FEAT-KATEX
+    - FEAT-LAYOUT-PANELS
+    - FEAT-MERMAID
+    - FEAT-METADATA-INDEX
+    - FEAT-OUTGOING-LINKS
+    - FEAT-PREVIEW
+    - FEAT-SANITIZE
+    - FEAT-SHIKI
+    - FEAT-WIKI-LINKS
+  flows:
+  - FLOW-APP-BOOT
+  - FLOW-BACKLINKS-QUERY
+  - FLOW-METADATA-REFRESH
+  - FLOW-PREVIEW-RENDER
+  - FLOW-WIKI-LINK-RESOLVE
+  - FLOW-WORKSPACE-SEARCH
+  invariants: []
+  tests:
+    must_run:
+    - TST-TS-UX-FUZZYSEARCH
+    should_run: []
+    may_run:
+    - TST-TS-EMPTY-EMPTYSTATE
+    - TST-TS-UI-DESIGNSYSTEM
+  contracts: []
+  data: []
+  events: []
+  entrypoints:
+  - ENT-CMP-COMMAND-PALETTE
+  - ENT-SCR-APP
+  - ENT-SHC-CTRL-P
+  modules:
+  - MOD-APP-SHELL
+  - MOD-SEARCH
+closure:
+- id: CMP-COMMAND-PALETTE
+  kind: code
+  type: component
+  distance: 0
+  anchor: src/components/command/CommandPalette.tsx
+  via: null
+  terminal: false
+- id: FN-FUZZY-SEARCH
+  kind: code
+  type: function
+  distance: 0
+  anchor: src/utils/fuzzy-search.ts
+  via: null
+  terminal: false
+- id: CMP-QUICK-SWITCHER
+  kind: code
+  type: component
+  distance: 1
+  anchor: src/components/command/QuickSwitcher.tsx
+  via:
+    node: FN-FUZZY-SEARCH
+    relation: calls
+    direction: reverse
+  terminal: false
+- id: SCR-APP
+  kind: code
+  type: screen
+  distance: 1
+  anchor: src/App.tsx
+  via:
+    node: CMP-COMMAND-PALETTE
+    relation: contains
+    direction: reverse
+  terminal: false
+- id: SHC-CTRL-P
+  kind: code
+  type: shortcut
+  distance: 2
+  anchor: src/components/command/CommandPalette.tsx
+  via:
+    node: CMP-QUICK-SWITCHER
+    relation: triggers
+    direction: reverse
+  terminal: false
+- id: SCR-EMPTY-STATE
+  kind: code
+  type: screen
+  distance: 3
+  anchor: src/components/empty/EmptyState.tsx
+  via:
+    node: SHC-CTRL-P
+    relation: triggers
+    direction: reverse
+  terminal: true
+hubs: []
+stats:
+  closure_nodes: 6
+  by_distance:
+    '0': 2
+    '1': 2
+    '2': 1
+    '3': 1

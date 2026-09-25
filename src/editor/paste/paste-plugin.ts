@@ -1,6 +1,7 @@
 import { EditorView } from "@codemirror/view";
 import { htmlToMarkdown } from "./html-to-md";
 import { settingsStore } from "../../state/settings";
+import { handleTabularPaste } from "../tableDataPaste";
 
 export const smartPasteExtension = EditorView.domEventHandlers({
   paste(event, view) {
@@ -11,6 +12,13 @@ export const smartPasteExtension = EditorView.domEventHandlers({
 
     const clipboardData = event.clipboardData;
     if (!clipboardData) return false;
+
+    // Check if plain text contains tabular data (TSV / CSV)
+    const plainText = clipboardData.getData("text/plain");
+    if (plainText && handleTabularPaste(plainText, view)) {
+      event.preventDefault();
+      return true;
+    }
 
     // Check if there is HTML content in clipboard
     const html = clipboardData.getData("text/html");

@@ -15,6 +15,7 @@ import { rehypeWikiLinks, type WikiResolution } from "./plugins/wiki-links";
 import { parseFrontmatter } from "./frontmatter";
 import { normalizeLanguage } from "./code";
 import { slugify } from "../services/navigation";
+import { attachSourcePositionsToHast, recordPreCodePositions } from "./sourceMap";
 
 export interface ProcessOptions {
   profile?: MarkdownProfile;
@@ -94,8 +95,18 @@ export async function processMarkdown(source: string, options: ProcessOptions = 
 }
 
 /** Assign stable ids to h1–h6 (same algorithm as extractOutline). */
-function rehypeHeadingIds() {
+function rehypeHeadingIds(this: any) {
+  let prePositions: any[] = [];
+  if (typeof this?.use === "function") {
+    this.use(function rehypeSourceMapPostSanitize() {
+      return (tree: unknown) => {
+        attachSourcePositionsToHast(tree, prePositions);
+      };
+    });
+  }
   return (tree: unknown) => {
+    prePositions = recordPreCodePositions(tree);
+    attachSourcePositionsToHast(tree, prePositions);
     const seen = new Map<string, number>();
     visitHeadings(tree, (node) => {
       const text = headingText(node);

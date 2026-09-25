@@ -1,0 +1,121 @@
+artifact: task-footprint
+schema_version: 1
+trace_task: TRACE-018
+task_id: MD-V03-020
+diff:
+  base: 9eb9518dcdcb53553f120d785f56c7c97ca422c7
+  head: WORKTREE
+  paths_filter:
+  - src/lib/ipc/client.ts
+  - src/components/workspace/WorkspaceSearch.tsx
+  - tests/workspace/workspaceSearch.test.tsx
+  excluded_set: []
+  command: git diff -U0 --no-color --no-ext-diff 9eb9518dcdcb53553f120d785f56c7c97ca422c7 -- src/lib/ipc/client.ts src/components/workspace/WorkspaceSearch.tsx
+    tests/workspace/workspaceSearch.test.tsx
+graph_source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+notes: []
+changed_files:
+- path: src/components/workspace/WorkspaceSearch.tsx
+  status: A
+  added: 768
+  removed: 0
+  hunks:
+  - old:
+    - 0
+    - -1
+    new:
+    - 1
+    - 768
+  is_test: false
+  catalogued_nodes_in_file: 0
+- path: src/lib/ipc/client.ts
+  status: M
+  added: 11
+  removed: 2
+  hunks:
+  - old:
+    - 115
+    - 115
+    new:
+    - 115
+    - 119
+  - old:
+    - 117
+    - 117
+    new:
+    - 121
+    - 121
+  - old:
+    - 124
+    - 123
+    new:
+    - 129
+    - 133
+  is_test: false
+  catalogued_nodes_in_file: 22
+- path: tests/workspace/workspaceSearch.test.tsx
+  status: A
+  added: 174
+  removed: 0
+  hunks:
+  - old:
+    - 0
+    - -1
+    new:
+    - 1
+    - 174
+  is_test: true
+  catalogued_nodes_in_file: 0
+changed_nodes:
+- id: IPCC-SEARCH-WORKSPACE
+  kind: code
+  type: ipc_client
+  path: src/lib/ipc/client.ts
+  sides:
+  - old
+  - new
+  lines_hit: 8
+  attribution: line
+  anchor_resolution:
+    old: exact
+    new: relocated
+  created_by_change: false
+enclosing_nodes: []
+uncatalogued:
+- path: src/lib/ipc/client.ts
+  is_test: false
+  new_lines:
+  - - 115
+    - 119
+  trivial_lines: 0
+  substantive_lines:
+  - new:115
+  - new:116
+  - new:117
+  - new:118
+  - new:119
+new_files:
+- src/components/workspace/WorkspaceSearch.tsx
+new_test_files:
+- tests/workspace/workspaceSearch.test.tsx
+contracts_touched:
+- id: CTR-IPC-SEARCH-WORKSPACE
+  how: consumer
+  node: IPCC-SEARCH-WORKSPACE
+data_touched: []
+events_touched: []
+rollup:
+  features:
+  - FEAT-WORKSPACE-SEARCH
+  invariants: []
+  flows:
+  - FLOW-WORKSPACE-SEARCH
+stats:
+  files: 3
+  changed_nodes: 1
+  code_nodes: 1
+  test_nodes: 0
+  uncatalogued_files: 1
+  uncatalogued_substantive_lines: 5
+  new_files: 1
+  new_test_files: 1

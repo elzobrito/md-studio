@@ -1,0 +1,174 @@
+artifact: task-footprint
+schema_version: 1
+trace_task: TRACE-018
+task_id: MD-V03-018
+diff:
+  base: 9eb9518dcdcb53553f120d785f56c7c97ca422c7
+  head: WORKTREE
+  paths_filter:
+  - src/markdown/shiki.ts
+  - src/components/MarkdownViewer.tsx
+  - src/markdown/codeBlockMetadata.ts
+  - tests/markdown/codeBlockMetadata.test.ts
+  excluded_set: []
+  command: git diff -U0 --no-color --no-ext-diff 9eb9518dcdcb53553f120d785f56c7c97ca422c7 -- src/markdown/shiki.ts src/components/MarkdownViewer.tsx
+    src/markdown/codeBlockMetadata.ts tests/markdown/codeBlockMetadata.test.ts
+graph_source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+notes: []
+changed_files:
+- path: src/components/MarkdownViewer.tsx
+  status: M
+  added: 19
+  removed: 0
+  hunks:
+  - old:
+    - 8
+    - 7
+    new:
+    - 9
+    - 9
+  - old:
+    - 141
+    - 140
+    new:
+    - 143
+    - 146
+  - old:
+    - 145
+    - 144
+    new:
+    - 151
+    - 160
+  - old:
+    - 219
+    - 218
+    new:
+    - 235
+    - 238
+  is_test: false
+  catalogued_nodes_in_file: 3
+- path: src/markdown/codeBlockMetadata.ts
+  status: A
+  added: 258
+  removed: 0
+  hunks:
+  - old:
+    - 0
+    - -1
+    new:
+    - 1
+    - 258
+  is_test: false
+  catalogued_nodes_in_file: 0
+- path: src/markdown/shiki.ts
+  status: M
+  added: 14
+  removed: 2
+  hunks:
+  - old:
+    - 2
+    - 2
+    new:
+    - 2
+    - 3
+  - old:
+    - 40
+    - 40
+    new:
+    - 41
+    - 52
+  is_test: false
+  catalogued_nodes_in_file: 1
+- path: tests/markdown/codeBlockMetadata.test.ts
+  status: A
+  added: 82
+  removed: 0
+  hunks:
+  - old:
+    - 0
+    - -1
+    new:
+    - 1
+    - 82
+  is_test: true
+  catalogued_nodes_in_file: 0
+changed_nodes:
+- id: CMP-MARKDOWN-VIEWER
+  kind: code
+  type: component
+  path: src/components/MarkdownViewer.tsx
+  sides:
+  - new
+  lines_hit: 18
+  attribution: line
+  anchor_resolution:
+    old: exact
+    new: relocated
+  created_by_change: false
+enclosing_nodes: []
+uncatalogued:
+- path: src/components/MarkdownViewer.tsx
+  is_test: false
+  new_lines:
+  - - 9
+    - 9
+  trivial_lines: 1
+  substantive_lines: []
+- path: src/markdown/shiki.ts
+  is_test: false
+  old_lines:
+  - - 2
+    - 2
+  - - 40
+    - 40
+  new_lines:
+  - - 2
+    - 3
+  - - 41
+    - 52
+  trivial_lines: 4
+  substantive_lines:
+  - old:40
+  - new:41
+  - new:42
+  - new:43
+  - new:44
+  - new:45
+  - new:46
+  - new:47
+  - new:48
+  - new:49
+  - new:50
+  - new:52
+new_files:
+- src/markdown/codeBlockMetadata.ts
+new_test_files:
+- tests/markdown/codeBlockMetadata.test.ts
+contracts_touched:
+- id: CTR-SANITIZE-POLICY
+  how: consumer
+  node: CMP-MARKDOWN-VIEWER
+- id: CTR-TAURI-CSP
+  how: consumer
+  node: CMP-MARKDOWN-VIEWER
+data_touched:
+- id: STO-METADATA
+  how: read_by_changed
+  node: CMP-MARKDOWN-VIEWER
+events_touched: []
+rollup:
+  features:
+  - FEAT-PREVIEW
+  invariants: []
+  flows:
+  - FLOW-PREVIEW-RENDER
+  - FLOW-WIKI-LINK-RESOLVE
+stats:
+  files: 4
+  changed_nodes: 1
+  code_nodes: 1
+  test_nodes: 0
+  uncatalogued_files: 2
+  uncatalogued_substantive_lines: 12
+  new_files: 1
+  new_test_files: 1

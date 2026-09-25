@@ -111,6 +111,7 @@ type Listener = () => void;
 
 class SettingsStore {
   private state: SettingsState = DEFAULT_SETTINGS;
+  private showInternalFiles = false;
   private listeners: Set<Listener> = new Set();
 
   constructor() {
@@ -171,6 +172,7 @@ class SettingsStore {
       "--preview-reading-width",
       widthMap[this.state.previewReadingWidth] || "920px"
     );
+    docEl.setAttribute("data-reading-width", this.state.previewReadingWidth);
 
     // Zoom
     (docEl.style as unknown as { zoom: string }).zoom = `${this.state.zoom}%`;
@@ -264,6 +266,16 @@ class SettingsStore {
     this.state = { ...this.state, fontFamily };
     this.save();
     this.applyToDOM();
+    this.notify();
+  }
+
+  public getShowInternalFiles(): boolean {
+    return this.showInternalFiles;
+  }
+
+  public setShowInternalFiles(showInternalFiles: boolean) {
+    if (this.showInternalFiles === showInternalFiles) return;
+    this.showInternalFiles = showInternalFiles;
     this.notify();
   }
 

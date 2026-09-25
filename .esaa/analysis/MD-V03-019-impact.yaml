@@ -1,0 +1,142 @@
+artifact: task-impact
+schema_version: 1
+trace_task: TRACE-017
+task_id: MD-V03-019
+projected_at: '2026-09-25T12:39:38-03:00'
+projected_before_change: true
+projection_inputs:
+- spec v0.3 correspondente a MD-V03-019
+- ROADMAP-CANONICO-MD-STUDIO-v0.3-v0.5.md
+- .esaa/traceability/graph.json (source_commit 8eb7b6e18a672b94199397f1cc0d0ec7def6609c)
+- caso .esaa/traceability/case-MD-HOTFIX-EXPAND-002.md
+spec: .esaa/tasks/MD-V03-019.yaml
+graph_source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+rationale:
+  CMP-MARKDOWN-VIEWER: O clique no bloco renderizado nasce no viewer já existente.
+  HDL-VIEWER-ON-CLICK: O handler de clique passa a posicionar o cursor no início do bloco fonte quando há mapa.
+  PIPE-HEADING-IDS: A identidade do bloco reusa posições do AST. Não há segundo parse.
+justification: null
+expected_uncatalogued: null
+blast_radius:
+  change_target:
+  - CMP-MARKDOWN-VIEWER
+  - HDL-VIEWER-ON-CLICK
+  expected_affected:
+  - PIPE-HEADING-IDS
+  expected_affected_source: declared
+  suggested_expected_affected:
+  - SCR-APP
+  - TST-TS-UI-CODE-FORMATTING-UI
+  authorized:
+  - CMP-MARKDOWN-VIEWER
+  - HDL-VIEWER-ON-CLICK
+  - PIPE-HEADING-IDS
+  potentially_affected:
+  - BTN-EXPORT-PDF
+  - HDL-APP-EXPORT-PDF
+  - SCR-APP
+  protected_in_closure: []
+  protected_total: 139
+  protected_declared: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: true
+projected:
+  nodes:
+  - CMP-MARKDOWN-VIEWER
+  - HDL-VIEWER-ON-CLICK
+  - PIPE-HEADING-IDS
+  features:
+    direct:
+    - FEAT-CREATE-NOTE-FROM-WIKI
+    - FEAT-KATEX
+    - FEAT-MERMAID
+    - FEAT-OUTGOING-LINKS
+    - FEAT-PREVIEW
+    - FEAT-SANITIZE
+    - FEAT-SHIKI
+    - FEAT-WIKI-LINKS
+    indirect:
+    - FEAT-APP-SCREENS
+    - FEAT-BACKLINKS
+    - FEAT-EXPORT-PDF
+    - FEAT-LAYOUT-PANELS
+    - FEAT-METADATA-INDEX
+    - FEAT-SPLASH-PACKAGING
+  flows:
+  - FLOW-APP-BOOT
+  - FLOW-BACKLINKS-QUERY
+  - FLOW-EXPORT-PDF
+  - FLOW-METADATA-REFRESH
+  - FLOW-PREVIEW-RENDER
+  - FLOW-WIKI-LINK-RESOLVE
+  invariants: []
+  tests:
+    must_run:
+    - TST-TS-UI-CODE-FORMATTING-UI
+    should_run: []
+    may_run: []
+  contracts: []
+  data: []
+  events: []
+  entrypoints:
+  - ENT-BTN-EXPORT-PDF
+  - ENT-HDL-VIEWER-ON-CLICK
+  - ENT-SCR-APP
+  modules:
+  - MOD-APP-SHELL
+  - MOD-EXPORT
+  - MOD-PREVIEW
+closure:
+- id: CMP-MARKDOWN-VIEWER
+  kind: code
+  type: component
+  distance: 0
+  anchor: src/components/MarkdownViewer.tsx
+  via: null
+  terminal: false
+- id: HDL-VIEWER-ON-CLICK
+  kind: code
+  type: handler
+  distance: 0
+  anchor: src/components/MarkdownViewer.tsx
+  via: null
+  terminal: false
+- id: HDL-APP-EXPORT-PDF
+  kind: code
+  type: handler
+  distance: 1
+  anchor: src/App.tsx
+  via:
+    node: CMP-MARKDOWN-VIEWER
+    relation: depends_on
+    direction: reverse
+  terminal: false
+- id: SCR-APP
+  kind: code
+  type: screen
+  distance: 1
+  anchor: src/App.tsx
+  via:
+    node: CMP-MARKDOWN-VIEWER
+    relation: contains
+    direction: reverse
+  terminal: false
+- id: BTN-EXPORT-PDF
+  kind: code
+  type: button
+  distance: 2
+  anchor: src/components/header/ExportMenu.tsx
+  via:
+    node: HDL-APP-EXPORT-PDF
+    relation: triggers
+    direction: reverse
+  terminal: false
+hubs: []
+stats:
+  closure_nodes: 5
+  by_distance:
+    '0': 2
+    '1': 2
+    '2': 1

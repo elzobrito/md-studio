@@ -1,0 +1,40 @@
+artifact: task-traceability
+schema_version: 1
+task_id: MD-V03-021
+written_at: '2026-09-25T12:39:28-03:00'
+projected_before_change: true
+projection_inputs:
+- spec v0.3 correspondente a MD-V03-021
+- ROADMAP-CANONICO-MD-STUDIO-v0.3-v0.5.md
+- .esaa/traceability/graph.json (source_commit 8eb7b6e18a672b94199397f1cc0d0ec7def6609c)
+- caso .esaa/traceability/case-MD-HOTFIX-EXPAND-002.md
+graph:
+  path: .esaa/traceability/graph.json
+  source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+traceability:
+  targets:
+  - FN-GET-FORMATTER-SPEC
+  - IPC-FORMAT-CODE
+  expected_affected:
+  - FN-FIND-EXECUTABLE
+  - SVC-FORMAT-CODE
+  protected_extra: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: true
+  rationale:
+    FN-GET-FORMATTER-SPEC: O mapa linguagem → ferramenta já existe no Rust. A tarefa
+      o torna consultável.
+    IPC-FORMAT-CODE: Formatar continua este comando. Não nasce um segundo hub.
+    FN-FIND-EXECUTABLE: Discovery local do binário já usado pelo fallback.
+    SVC-FORMAT-CODE: O cliente TS passa a ler o snapshot de capabilities, sem mudar
+      o botão Formatar.
+artifacts:
+  impact: .esaa/analysis/MD-V03-021-impact.yaml
+  footprint: .esaa/analysis/MD-V03-021-footprint.yaml
+  drift: .esaa/analysis/MD-V03-021-drift.yaml
+expected_uncatalogued:
+- src/services/formatter/capabilities.ts
+close_rule: O complete copia verdict. warning cita path e linhas. precision de nó
+  não cobre arquivo sem nó. must_run exige saída do comando. violation bloqueia.

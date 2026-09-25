@@ -86,7 +86,11 @@ aborta em id desconhecido.
 5. **Footprint**: `footprint.py` intersecta os hunks do diff com as âncoras → `<id>-footprint.yaml`.
 6. **Drift**: `drift.py` classifica observado × autorizado → `<id>-drift.yaml`. Uma violation bloqueia o
    fechamento da tarefa ou exige justificativa e re-declaração, com nova projeção versionada.
+   `warning` não bloqueia, e entra na nota de `complete` com o `verdict` literal, o path e as linhas.
+   Omitir o warning é erro de fechamento. Caso: [`case-MD-HOTFIX-EXPAND-002.md`](case-MD-HOTFIX-EXPAND-002.md).
 7. **Fechar a tarefa** no ESAA (complete → review → verify). O sidecar e os artefatos ficam como evidência.
+   A projeção que grava o YAML de impacto é `impact.py project --spec .esaa/tasks/<id>.yaml`, antes da
+   primeira edição. `blast` só inspeciona.
 
 ## 5. Exemplo (ilustrativo)
 

@@ -1,0 +1,73 @@
+artifact: task-drift
+schema_version: 1
+trace_task: TRACE-019
+task_id: MD-V03-021
+inputs:
+  impact: .esaa/analysis/MD-V03-021-impact.yaml
+  footprint: .esaa/analysis/MD-V03-021-footprint.yaml
+  graph_source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+notes: []
+rule: authorized = change_target ∪ expected_affected; ok ∈ authorized; violation ∈ protected; warning ∈ potentially_affected | out_of_closure
+  | uncatalogued substantive
+authorized:
+- FN-FIND-EXECUTABLE
+- FN-GET-FORMATTER-SPEC
+- IPC-FORMAT-CODE
+- SVC-FORMAT-CODE
+observed: []
+classification: []
+drift: []
+other_findings:
+- path: src/services/formatter/index.ts
+  category: uncatalogued_change
+  severity: warning
+  lines:
+  - new:6
+- path: src/services/formatter/capabilities.ts
+  category: new_production_file
+  severity: info
+- path: tests/services/formatterCapabilities.test.ts
+  category: new_test_file
+  severity: info
+not_touched:
+- FN-FIND-EXECUTABLE
+- FN-GET-FORMATTER-SPEC
+- IPC-FORMAT-CODE
+- SVC-FORMAT-CODE
+verdict: warning
+metrics:
+  nodes:
+    tp: 0
+    authorized: 4
+    observed: 0
+    precision: 0.0
+    recall: null
+    closure_recall: null
+  code_nodes_only:
+    tp: 0
+    authorized: 4
+    observed: 0
+    precision: 0.0
+    recall: null
+  features:
+    projected_direct:
+    - FEAT-CODE-FORMATTER
+    projected_all: 1
+    observed: []
+    observed_in_projected_direct: []
+    observed_missing_from_projection: []
+    precision_direct: 0.0
+    recall_all: null
+  invariants:
+    projected: []
+    observed: []
+    missing_from_projection: []
+  tests:
+    projected_must_run:
+    - TST-RS-TEST-FORMATTER-SPEC-MAPPING
+    changed_test_nodes: []
+    new_test_files:
+    - tests/services/formatterCapabilities.test.ts
+  contracts_touched: []
+  data_touched: []
+  events_touched: []

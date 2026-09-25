@@ -1,0 +1,43 @@
+artifact: task-traceability
+schema_version: 1
+task_id: MD-V03-013
+written_at: '2026-09-25T12:39:28-03:00'
+projected_before_change: true
+projection_inputs:
+- spec v0.3 correspondente a MD-V03-013
+- ROADMAP-CANONICO-MD-STUDIO-v0.3-v0.5.md
+- .esaa/traceability/graph.json (source_commit 8eb7b6e18a672b94199397f1cc0d0ec7def6609c)
+- caso .esaa/traceability/case-MD-HOTFIX-EXPAND-002.md
+graph:
+  path: .esaa/traceability/graph.json
+  source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+traceability:
+  targets:
+  - FN-CREATE-WIKI-COMPLETION-EXTENSIONS
+  - FN-WIKI-CANDIDATES
+  expected_affected:
+  - IPC-RESOLVE-WIKI-LINK
+  protected_extra:
+  - FN-RESOLVE-WITHIN
+  - FN-FENCE-RELATIVE
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: true
+  rationale:
+    FN-CREATE-WIKI-COMPLETION-EXTENSIONS: O autocomplete de referências estende a
+      completion source já ligada ao CodeMirror, sem um segundo índice.
+    FN-WIKI-CANDIDATES: Candidatos saem do índice local já usado por [[ ]].
+    IPC-RESOLVE-WIKI-LINK: Go-to e estado unresolved/ambiguous reusam o resolver da
+      Onda 2.
+  justification:
+    FN-RESOLVE-WITHIN: Resolução de path relativo continua dentro do fence.
+    FN-FENCE-RELATIVE: Nenhuma sugestão aponta para fora do workspace.
+artifacts:
+  impact: .esaa/analysis/MD-V03-013-impact.yaml
+  footprint: .esaa/analysis/MD-V03-013-footprint.yaml
+  drift: .esaa/analysis/MD-V03-013-drift.yaml
+expected_uncatalogued:
+- src/editor/smartReferences.ts
+close_rule: O complete copia verdict. warning cita path e linhas. precision de nó
+  não cobre arquivo sem nó. must_run exige saída do comando. violation bloqueia.

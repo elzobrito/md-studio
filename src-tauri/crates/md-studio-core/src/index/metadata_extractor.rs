@@ -264,7 +264,7 @@ pub fn extract_metadata_from_str(path: &Path, content: &str, mtime: u64) -> Docu
 }
 
 /// Extrai pares [text](url) a partir da posição inicial do '['
-fn extract_bracket_paren(chars: &[char], start: usize) -> Option<(String, String, usize)> {
+pub fn extract_bracket_paren(chars: &[char], start: usize) -> Option<(String, String, usize)> {
     let len = chars.len();
     let mut bracket_end = None;
     let mut j = start + 1;

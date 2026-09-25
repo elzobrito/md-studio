@@ -1,0 +1,155 @@
+artifact: task-impact
+schema_version: 1
+trace_task: TRACE-017
+task_id: MD-V03-016
+projected_at: '2026-09-25T12:39:34-03:00'
+projected_before_change: true
+projection_inputs:
+- spec v0.3 correspondente a MD-V03-016
+- ROADMAP-CANONICO-MD-STUDIO-v0.3-v0.5.md
+- .esaa/traceability/graph.json (source_commit 8eb7b6e18a672b94199397f1cc0d0ec7def6609c)
+- caso .esaa/traceability/case-MD-HOTFIX-EXPAND-002.md
+spec: .esaa/tasks/MD-V03-016.yaml
+graph_source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+rationale:
+  FN-SMART-PASTE: A detecção de TSV/CSV entra no smart paste existente. O editor de tabelas não é reimplementado.
+justification: null
+expected_uncatalogued: null
+blast_radius:
+  change_target:
+  - FN-SMART-PASTE
+  expected_affected: []
+  expected_affected_source: declared
+  suggested_expected_affected: []
+  authorized:
+  - FN-SMART-PASTE
+  potentially_affected:
+  - CMP-MARKDOWN-EDITOR
+  - HDL-APP-START-PRESENTATION
+  - SCR-APP
+  - STO-EDITOR
+  protected_in_closure: []
+  protected_total: 139
+  protected_declared: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: true
+projected:
+  nodes:
+  - FN-SMART-PASTE
+  features:
+    direct:
+    - FEAT-SMART-PASTE
+    indirect:
+    - FEAT-APP-SCREENS
+    - FEAT-AUTO-SAVE
+    - FEAT-BACKLINKS
+    - FEAT-CONFLICT
+    - FEAT-CREATE-NOTE-FROM-WIKI
+    - FEAT-DRAFT-RECOVERY
+    - FEAT-EDITOR
+    - FEAT-FORMATTING-TOOLBAR
+    - FEAT-KATEX
+    - FEAT-LAYOUT-PANELS
+    - FEAT-MERMAID
+    - FEAT-METADATA-INDEX
+    - FEAT-OUTGOING-LINKS
+    - FEAT-PRESENTATION
+    - FEAT-PREVIEW
+    - FEAT-SANITIZE
+    - FEAT-SAVE
+    - FEAT-SHIKI
+    - FEAT-SHORTCUTS-HELP
+    - FEAT-SLASH-COMMANDS
+    - FEAT-SPLASH-PACKAGING
+    - FEAT-TEMPLATES
+    - FEAT-WATCHER
+    - FEAT-WIKI-LINKS
+  flows:
+  - FLOW-APP-BOOT
+  - FLOW-AUTO-SAVE
+  - FLOW-BACKLINKS-QUERY
+  - FLOW-CLOSE-FILE
+  - FLOW-CONFLICT-ON-SAVE
+  - FLOW-EDITOR-COMMANDS
+  - FLOW-METADATA-REFRESH
+  - FLOW-NEW-DOCUMENT
+  - FLOW-PRESENTATION
+  - FLOW-PREVIEW-RENDER
+  - FLOW-SAVE-DOCUMENT
+  - FLOW-WIKI-LINK-RESOLVE
+  invariants: []
+  tests:
+    must_run: []
+    should_run:
+    - TST-TS-EDITOR-SINGLESAVE
+    may_run:
+    - TST-TS-UX-EDITORSTORE
+    - TST-TS-UX-WIREFRAMEFIDELITY
+  contracts: []
+  data:
+  - STO-EDITOR
+  events: []
+  entrypoints:
+  - ENT-SCR-APP
+  modules:
+  - MOD-APP-SHELL
+  - MOD-EDITOR
+  - MOD-PRESENTATION
+closure:
+- id: FN-SMART-PASTE
+  kind: code
+  type: function
+  distance: 0
+  anchor: src/editor/paste/paste-plugin.ts
+  via: null
+  terminal: false
+- id: CMP-MARKDOWN-EDITOR
+  kind: code
+  type: component
+  distance: 1
+  anchor: src/components/MarkdownEditor.tsx
+  via:
+    node: FN-SMART-PASTE
+    relation: calls
+    direction: reverse
+  terminal: false
+- id: SCR-APP
+  kind: code
+  type: screen
+  distance: 2
+  anchor: src/App.tsx
+  via:
+    node: CMP-MARKDOWN-EDITOR
+    relation: contains
+    direction: reverse
+  terminal: false
+- id: STO-EDITOR
+  kind: code
+  type: store
+  distance: 2
+  anchor: src/state/editor.ts
+  via:
+    node: CMP-MARKDOWN-EDITOR
+    relation: writes
+    direction: forward
+  terminal: false
+- id: HDL-APP-START-PRESENTATION
+  kind: code
+  type: handler
+  distance: 3
+  anchor: src/App.tsx
+  via:
+    node: STO-EDITOR
+    relation: reads
+    direction: reverse
+  terminal: true
+hubs: []
+stats:
+  closure_nodes: 5
+  by_distance:
+    '0': 1
+    '1': 1
+    '2': 2
+    '3': 1

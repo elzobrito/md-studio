@@ -1,9 +1,17 @@
+pub mod assets;
+pub mod doctor;
 pub mod export;
 pub mod index;
 pub mod launch;
 pub mod parser;
 pub mod persistence;
 pub mod workspace;
+
+pub use assets::{
+    analyze_assets, calculate_sha256, save_pasted_asset, AssetDiagnostic, AssetDiagnosticKind,
+    AssetError, AssetRecord,
+};
+pub use doctor::{Doctor, DoctorDiagnostic, DoctorQuickFix};
 
 pub use export::{
     build_epub, extract_headings, html_to_xhtml, EpubExportPayload, EpubExportResult, EpubMetadata,

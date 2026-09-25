@@ -7,11 +7,11 @@
     "run": {
       "run_id": "RUN-0001",
       "status": "success",
-      "last_event_seq": 3324,
-      "projection_hash_sha256": "9eb55d1b22dd9caabf9d7e442d9033ab36591ccf21a4b097504a68ce9869ab26",
+      "last_event_seq": 3586,
+      "projection_hash_sha256": "e275de0aa9182ef998e1330bfa5e95fe6352d0fd80c07e56dac6df468cb17a08",
       "verify_status": "ok"
     },
-    "updated_at": "2026-09-25T02:24:26Z"
+    "updated_at": "2026-09-25T18:06:34Z"
   },
   "project": {
     "name": "MD Studio",
@@ -10610,16 +10610,1011 @@
         ]
       },
       "completed_at": "2026-09-25T02:23:30Z"
+    },
+    {
+      "task_id": "MD-HOTFIX-EXPAND-001",
+      "task_kind": "spec",
+      "title": "Inspecionar layout real e mapear estado das sidebars",
+      "description": "Inspecionar o seletor real da área de conteúdo, max-width atual, como o estado das sidebars é representado no DOM e presets de largura, documentando em docs/qa/hotfix-preview-expand.md sem modificar código.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "docs/qa/hotfix-preview-expand.md"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "docs/qa/**"
+      ],
+      "task_type": "hotfix",
+      "acceptance_criteria": [
+        "Seletor real da área de conteúdo identificado",
+        "max-width atual identificado e registrado",
+        "Estado das sidebars no DOM identificado",
+        "Presets de largura identificados (ou confirmada ausência)",
+        "Relatório docs/qa/hotfix-preview-expand.md criado com todos os achados",
+        "Nenhum arquivo de código modificado ainda"
+      ],
+      "required_review_mode": "docs",
+      "assigned_to": "agent-spec",
+      "started_at": "2026-09-25T14:09:21Z",
+      "verification": {
+        "checks": [
+          "Seletor real da área de conteúdo identificado",
+          "max-width atual identificado e registrado",
+          "Estado das sidebars no DOM identificado",
+          "Presets de largura identificados",
+          "Relatório docs/qa/hotfix-preview-expand.md criado com achados",
+          "Nenhum arquivo de código modificado ainda"
+        ]
+      },
+      "completed_at": "2026-09-25T14:29:53Z"
+    },
+    {
+      "task_id": "MD-HOTFIX-EXPAND-002",
+      "task_kind": "impl",
+      "title": "Implementar expansão da área de conteúdo proporcional ao estado das sidebars",
+      "description": "Fazer a área de conteúdo do preview crescer quando as sidebars são recolhidas (>=75% em 1440px), com transição suave, sem alterar presets do usuário, modo Split ou CodeMirror.",
+      "status": "done",
+      "depends_on": [
+        "MD-HOTFIX-EXPAND-001"
+      ],
+      "targets": [
+        ".esaa/tasks/MD-HOTFIX-EXPAND-002.yaml"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src/**",
+        "tests/**",
+        ".esaa/tasks/MD-HOTFIX-EXPAND-002.yaml",
+        ".esaa/analysis/**"
+      ],
+      "task_type": "hotfix",
+      "acceptance_criteria": [
+        "Com ambas as sidebars recolhidas, o conteúdo ocupa >= 75% da largura disponível em janela de 1440px",
+        "Com sidebar esquerda recolhida, conteúdo cresce proporcionalmente ao espaço liberado",
+        "Com sidebar direita recolhida, conteúdo cresce proporcionalmente ao espaço liberado",
+        "Transição suave (180-220ms) ao recolher/abrir sidebars",
+        "Preset salvo pelo usuário não é alterado e modo Split e Source não são afetados",
+        "traceability: ver .esaa/tasks/MD-HOTFIX-EXPAND-002.yaml; drift sem violation"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-25T14:31:20Z",
+      "verification": {
+        "checks": [
+          "Com ambas as sidebars recolhidas, o conteúdo ocupa >= 75% da largura em 1440px",
+          "Com sidebar esquerda recolhida, conteúdo cresce proporcionalmente (+200px)",
+          "Com sidebar direita recolhida, conteúdo cresce proporcionalmente (+150px)",
+          "Transição suave de 200ms aplicada ao max-width do preview",
+          "Preset salvo pelo usuário e modos Split e Source preservados sem regressão",
+          "traceability: sidecar, impact, footprint e drift sem violation"
+        ]
+      },
+      "completed_at": "2026-09-25T14:35:51Z"
+    },
+    {
+      "task_id": "MD-HOTFIX-EXPAND-003",
+      "task_kind": "qa",
+      "title": "QA e regressão do hotfix de expansão",
+      "description": "Executar pnpm test, pnpm typecheck, pnpm build, git diff --check, checklist visual por estado e atualizar docs/qa/hotfix-preview-expand.md.",
+      "status": "done",
+      "depends_on": [
+        "MD-HOTFIX-EXPAND-001",
+        "MD-HOTFIX-EXPAND-002"
+      ],
+      "targets": [
+        "docs/qa/hotfix-preview-expand.md"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "docs/qa/**",
+        "tests/**"
+      ],
+      "task_type": "hotfix",
+      "acceptance_criteria": [
+        "MD-HOTFIX-EXPAND-001 e 002 em done e verify_status ok",
+        "pnpm test, pnpm typecheck, pnpm build e git diff --check aprovados",
+        "Checklist visual de todos os estados validado",
+        "Modo Split e Modo Markdown sem regressão",
+        "Relatório docs/qa/hotfix-preview-expand.md atualizado"
+      ],
+      "required_review_mode": "regression",
+      "assigned_to": "agent-qa",
+      "started_at": "2026-09-25T14:36:02Z",
+      "verification": {
+        "checks": [
+          "MD-HOTFIX-EXPAND-001 e 002 em done e verify_status ok",
+          "pnpm test, pnpm typecheck, pnpm build e git diff --check aprovados",
+          "Checklist visual de todos os estados validado",
+          "Modo Split e Modo Markdown sem regressão",
+          "Relatório docs/qa/hotfix-preview-expand.md atualizado"
+        ]
+      },
+      "completed_at": "2026-09-25T14:36:53Z"
+    },
+    {
+      "task_id": "MD-TRACE-CASE-EXPAND-001",
+      "task_kind": "impl",
+      "title": "Registrar o desvio de governança do hotfix de expansão do preview",
+      "description": "Documentar, para os próximos agentes do MD Studio, a sequência real de MD-HOTFIX-EXPAND-002 e os pontos em que o fechamento se afastou do contrato Traceability-Guided Change Governance. O caso não altera código de aplicação. O veredito drift warning não pode ser relatado como sucesso limpo.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        ".esaa/traceability/case-MD-HOTFIX-EXPAND-002.md"
+      ],
+      "outputs": {
+        "files": [
+          ".esaa/traceability/case-MD-HOTFIX-EXPAND-002.md",
+          ".esaa/traceability/task-integration.md",
+          "AGENTS.md"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        ".esaa/traceability/**",
+        "AGENTS.md"
+      ],
+      "task_type": "maintenance",
+      "acceptance_criteria": [
+        "O caso lista os sete passos e marca onde MD-HOTFIX-EXPAND-002 cumpriu e onde errou",
+        "task-integration.md e AGENTS.md apontam para o caso e proíbem omitir verdict warning",
+        "Verify: md_trace_case_expand_001_pass"
+      ],
+      "required_review_mode": "docs",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-25T15:08:10Z",
+      "verification": {
+        "checks": [
+          "md_trace_case_expand_001_pass"
+        ]
+      },
+      "completed_at": "2026-09-25T15:09:02Z"
+    },
+    {
+      "task_id": "MD-V03-012",
+      "task_kind": "impl",
+      "title": "MD Doctor: diagnóstico estrutural local",
+      "description": "Implementar o MD Doctor da spec 012 (03-v0.3/012-md-doctor.md), sem escrever o documento por conta própria. O Doctor responde, em local e de forma determinística, se o documento está estruturalmente consistente: Wiki Links resolvíveis, assets existentes, headings com âncora válida, blocos técnicos com metadado mínimo. A análise mora no Rust/md-studio-core, reusa MetadataIndex e o extrator de metadata, e dispara no reindex ou em debounce. Não roda análise completa a cada keystroke. A apresentação é um linter do CodeMirror 6 alimentado por IPC. Cada diagnóstico traz linha/range, explicação e navegação até a origem. Quick fix só quando a correção é segura e reversível. Diagnóstico sem correção segura permanece manual. Fora de escopo: gramática, reescrita, rede, LLM, rename/move de assets, publicação. Path fence (INV-PATH-FENCE) não é afrouxado. Arquivo fora do workspace não vira destino de correção. Rastreabilidade: sidecar .esaa/tasks/MD-V03-012.yaml. Alvos IPC-TRIGGER-REINDEX e FN-REINDEX-ENGINE-FULL-REINDEX. O módulo doctor e o linter ainda não têm nó; entram como expected_uncatalogued e allow_new_production_nodes. Projeção antes do código. No complete, copiar verdict do drift. warning cita path e linhas. violation bloqueia. must_run da projeção entra na nota com o comando e a saída. file_updates obrigatório. Aceite: diagnóstico de link quebrado, asset ausente e heading duplicado aparece no editor após reindex; quick fix inseguro não é oferecido; teste de path fora do workspace rejeitado; suíte must_run executada; drift sem violation.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        ".esaa/tasks/MD-V03-012.yaml",
+        "IPC-TRIGGER-REINDEX",
+        "FN-REINDEX-ENGINE-FULL-REINDEX",
+        "FN-EXTRACT-METADATA",
+        "IPC-GET-DOCUMENT-METADATA"
+      ],
+      "outputs": {
+        "files": [
+          ".esaa/tasks/MD-V03-012.yaml",
+          ".esaa/analysis/MD-V03-012-impact.yaml"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        ".esaa/tasks/MD-V03-012.yaml",
+        ".esaa/analysis/**",
+        "src/**",
+        "src-tauri/**",
+        "tests/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "traceability: ver .esaa/tasks/MD-V03-012.yaml; drift sem violation",
+        "Diagnóstico estrutural roda no reindex/debounce e reusa MetadataIndex",
+        "Linter do CodeMirror mostra linha, explicação e navegação",
+        "Quick fix só existe quando a correção é segura e reversível",
+        "Caminho fora do workspace não é diagnosticado como destino editável nem corrigido",
+        "traceability: ver .esaa/tasks/MD-V03-012.yaml; drift sem violation"
+      ],
+      "required_review_mode": "security",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-25T16:00:27Z",
+      "verification": {
+        "checks": [
+          "traceability: ver .esaa/tasks/MD-V03-012.yaml; drift sem violation",
+          "Diagnóstico estrutural roda no reindex/debounce e reusa MetadataIndex",
+          "Linter do CodeMirror mostra linha, explicação e navegação",
+          "Quick fix só existe quando a correção é segura e reversível",
+          "Caminho fora do workspace não é diagnosticado como destino editável nem corrigido"
+        ]
+      },
+      "completed_at": "2026-09-25T16:15:47Z"
+    },
+    {
+      "task_id": "MD-V03-013",
+      "task_kind": "impl",
+      "title": "Smart References: autocomplete, resolução e go-to locais",
+      "description": "Implementar Smart References da spec 013. Durante a edição, referências Markdown e Wiki Links passam a ser assistidas: autocomplete de arquivos, assets, paths, headings e âncoras; resolução determinística; estados visuais unresolved e ambiguous; Ctrl+Click / go-to. Hover rico é a tarefa MD-V03-025, que depende desta. Reusar o resolver da Onda 2 e o MetadataIndex. A completion source consulta o índice local. Hover de metadado, quando esta tarefa só entregar o gancho, não relê disco a cada movimento do ponteiro. Meta de autocomplete abaixo de 50 ms no índice já em memória. Zero abertura automática de URL remota. Path fence permanece. Sugestão e go-to recusam destino fora do workspace. Não reimplementar o parser de Wiki Link. Não esconder o Markdown. Nomes de tipos novos são contrato a validar no código, não uma API paralela. Rastreabilidade: sidecar MD-V03-013.yaml. Alvos da completion existente. Projeção antes do código. Complete cita verdict. must_run com saída. file_updates obrigatório. Aceite: digitar um path relativo oferece candidatos do workspace; destino ausente fica unresolved; destino ambíguo fica ambiguous; Ctrl+Click em destino único posiciona o documento; URL http não abre; teste de fence; drift sem violation.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        ".esaa/tasks/MD-V03-013.yaml",
+        "FN-CREATE-WIKI-COMPLETION-EXTENSIONS",
+        "FN-WIKI-CANDIDATES",
+        "IPC-RESOLVE-WIKI-LINK"
+      ],
+      "outputs": {
+        "files": [
+          ".esaa/tasks/MD-V03-013.yaml",
+          ".esaa/analysis/MD-V03-013-impact.yaml"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        ".esaa/tasks/MD-V03-013.yaml",
+        ".esaa/analysis/**",
+        "src/**",
+        "src-tauri/**",
+        "tests/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "traceability: ver .esaa/tasks/MD-V03-013.yaml; drift sem violation",
+        "Autocomplete local de arquivo, path, heading e âncora em menos de 50 ms sobre o índice em memória",
+        "Estados unresolved e ambiguous permanecem visíveis",
+        "Ctrl+Click navega só para destino local único",
+        "Nenhuma URL remota é aberta automaticamente",
+        "traceability: ver .esaa/tasks/MD-V03-013.yaml; drift sem violation"
+      ],
+      "required_review_mode": "security",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-25T16:17:00Z",
+      "verification": {
+        "checks": [
+          "Autocomplete local de arquivo, path, heading e âncora em menos de 50 ms sobre o índice em memória",
+          "Estados unresolved e ambiguous permanecem visíveis",
+          "Ctrl+Click navega só para destino local único",
+          "Nenhuma URL remota é aberta automaticamente",
+          "traceability: ver .esaa/tasks/MD-V03-013.yaml; drift sem violation"
+        ]
+      },
+      "completed_at": "2026-09-25T16:19:12Z"
+    },
+    {
+      "task_id": "MD-V03-014",
+      "task_kind": "impl",
+      "title": "Asset Manager: colar imagem em assets/ com diagnóstico",
+      "description": "Implementar o Asset Manager da spec 014 no contrato conservador da v0.3. Fluxo: colar imagem do clipboard, validar o payload, gerar destino seguro em assets/ sem sobrescrever em silêncio, escrever o arquivo, só então inserir a referência Markdown no cursor, indexar hash SHA-256 e atualizar diagnóstico de asset ausente, órfão e duplicata. Fora de escopo, e isto é fronteira funcional, não comentário: não há rename, move nem delete de assets, e referências não são reescritas automaticamente. Não é Explorer, media library nem DAM. Path fence antes da escrita. Falha de escrita não insere o Markdown. Duplicata por SHA-256 é diagnóstico, não apaga o arquivo existente. Rastreabilidade: sidecar MD-V03-014.yaml. FN-ATOMIC-SAVE e o fence estão em protected_extra: usar, não modificar. Projeção antes do código. Complete cita verdict. file_updates obrigatório. Aceite: colar PNG cria arquivo em assets/ e insere o Markdown só depois da escrita; nome colide e pede outro destino; path escapando do workspace é rejeitado e nada é gravado; asset órfão e duplicata aparecem como diagnóstico; não existe comando de apagar asset; drift sem violation.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        ".esaa/tasks/MD-V03-014.yaml",
+        "FN-EXTRACT-METADATA",
+        "IPC-TRIGGER-REINDEX"
+      ],
+      "outputs": {
+        "files": [
+          ".esaa/tasks/MD-V03-014.yaml",
+          ".esaa/analysis/MD-V03-014-impact.yaml"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        ".esaa/tasks/MD-V03-014.yaml",
+        ".esaa/analysis/**",
+        "src/**",
+        "src-tauri/**",
+        "tests/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "traceability: ver .esaa/tasks/MD-V03-014.yaml; drift sem violation",
+        "Colar imagem grava em assets/ dentro do workspace e só então insere o Markdown",
+        "Falha de escrita ou path fora do fence não insere referência",
+        "Diagnóstico de ausente, órfão e duplicata por SHA-256",
+        "Não há rename, move, delete nem reescrita automática de referências",
+        "traceability: ver .esaa/tasks/MD-V03-014.yaml; drift sem violation"
+      ],
+      "required_review_mode": "security",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-25T16:22:20Z",
+      "verification": {
+        "checks": [
+          "Colar imagem grava em assets/ dentro do workspace e só então insere o Markdown",
+          "Falha de escrita ou path fora do fence não insere referência",
+          "Diagnóstico de ausente, órfão e duplicata por SHA-256",
+          "Não há rename, move, delete nem reescrita automática de referências",
+          "traceability: ver .esaa/tasks/MD-V03-014.yaml; drift sem violation"
+        ]
+      },
+      "completed_at": "2026-09-25T16:25:06Z"
+    },
+    {
+      "task_id": "MD-V03-015-SPIKE",
+      "task_kind": "spec",
+      "title": "Spike e ADR da engine de ortografia local",
+      "description": "Spike obrigatório da spec 015-writing-quality-fase-1.md. A implementação da ortografia está bloqueada até este spike e a ADR. Comparar, com evidência mensurável e offline, a engine do WebView e uma alternativa Rust para pt-BR e en-US. Medir latência após pausa de digitação, memória, tamanho do dicionário, comportamento com code fence ignorado e falha da engine sem derrubar o editor. Não enviar texto a rede. Não implementar sublinhado definitivo, dicionário pessoal nem ignore list nesta tarefa. Entrega: docs/spec/ADR-writing-quality-engine.md com a engine escolhida, os números e o que foi rejeitado. CMP-MARKDOWN-EDITOR é alvo de medição, não de edição. Se o diff de código de produção não for vazio, a tarefa errou o escopo. Rastreabilidade: sidecar MD-V03-015-SPIKE.yaml. Projeção antes de qualquer experimento que toque o repositório. Complete cita verdict. O único arquivo esperado é a ADR. Aceite: ADR registrada, números reproduzíveis no texto, nenhuma dependência de rede, nenhum arquivo em src/ ou src-tauri/ modificado.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        ".esaa/tasks/MD-V03-015-SPIKE.yaml",
+        "CMP-MARKDOWN-EDITOR"
+      ],
+      "outputs": {
+        "files": [
+          ".esaa/tasks/MD-V03-015-SPIKE.yaml",
+          ".esaa/analysis/MD-V03-015-SPIKE-impact.yaml"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        ".esaa/tasks/MD-V03-015-SPIKE.yaml",
+        ".esaa/analysis/**",
+        "docs/spec/**",
+        "docs/qa/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "traceability: ver .esaa/tasks/MD-V03-015-SPIKE.yaml; drift sem violation",
+        "ADR em docs/spec/ADR-writing-quality-engine.md escolhe uma engine com números de latência e memória",
+        "Nenhum arquivo em src/ ou src-tauri/ é modificado",
+        "O spike permanece offline",
+        "traceability: ver .esaa/tasks/MD-V03-015-SPIKE.yaml; drift sem violation"
+      ],
+      "required_review_mode": "docs",
+      "assigned_to": "agent-spec",
+      "started_at": "2026-09-25T16:19:41Z",
+      "verification": {
+        "checks": [
+          "ADR em docs/spec/ADR-writing-quality-engine.md escolhe uma engine com números de latência e memória",
+          "Nenhum arquivo em src/ ou src-tauri/ é modificado",
+          "O spike permanece offline",
+          "traceability: ver .esaa/tasks/MD-V03-015-SPIKE.yaml; drift sem violation"
+        ]
+      },
+      "completed_at": "2026-09-25T16:21:20Z"
+    },
+    {
+      "task_id": "MD-V03-015",
+      "task_kind": "impl",
+      "title": "Writing Quality fase 1: ortografia local pt-BR e en-US",
+      "description": "Implementar só a fase 1 de Writing Quality, depois da ADR de MD-V03-015-SPIKE. Enquanto o spike não estiver done, esta tarefa não é elegível. Escopo fechado: spell check local pt-BR e en-US, dicionário pessoal, ignore list, diagnóstico inline. Sublinhado discreto. Menu de contexto com sugestão, ignorar e adicionar ao dicionário. Idioma por aplicativo e, quando a ADR definir, por documento. Processar após pausa, só no texto relevante, ignorando code fence quando configurado. Interface SpellChecker independente da engine escolhida. Fora: gramática, style lint, reescrita, avaliação semântica, serviço remoto, LLM. Engine indisponível desliga a feature e deixa o editor intacto. Dicionário corrompido cai no default. Texto não sai da máquina. Rastreabilidade: sidecar MD-V03-015.yaml. Projeção já gerada antes do código. Complete cita verdict e a suíte must_run. file_updates obrigatório. Aceite: palavra errada em pt-BR recebe sublinhado e sugestão; code fence configurado para ignorar não é marcado; adicionar ao dicionário persiste local; engine ausente não quebra a digitação; drift sem violation.",
+      "status": "done",
+      "depends_on": [
+        "MD-V03-015-SPIKE"
+      ],
+      "targets": [
+        ".esaa/tasks/MD-V03-015.yaml",
+        "CMP-MARKDOWN-EDITOR",
+        "STO-SETTINGS"
+      ],
+      "outputs": {
+        "files": [
+          ".esaa/tasks/MD-V03-015.yaml",
+          ".esaa/analysis/MD-V03-015-impact.yaml"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        ".esaa/tasks/MD-V03-015.yaml",
+        ".esaa/analysis/**",
+        "src/**",
+        "tests/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "traceability: ver .esaa/tasks/MD-V03-015.yaml; drift sem violation",
+        "Spell check local pt-BR e en-US com sublinhado e sugestão",
+        "Dicionário pessoal e ignore list persistem só no local",
+        "Code fence pode ser ignorado",
+        "Falha da engine não impede editar",
+        "traceability: ver .esaa/tasks/MD-V03-015.yaml; drift sem violation"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-25T16:25:29Z",
+      "verification": {
+        "checks": [
+          "Spell check local pt-BR e en-US com sublinhado e sugestão",
+          "Dicionário pessoal e ignore list persistem só no local",
+          "Code fence pode ser ignorado",
+          "Falha da engine não impede editar",
+          "traceability: ver .esaa/tasks/MD-V03-015.yaml; drift sem violation"
+        ]
+      },
+      "completed_at": "2026-09-25T16:28:36Z"
+    },
+    {
+      "task_id": "MD-V03-016",
+      "task_kind": "impl",
+      "title": "Table Data Paste: clipboard tabular vira GFM",
+      "description": "Implementar Table Data Paste da spec 016. Ctrl+V com TSV ou CSV no clipboard abre preview, pede decisão explícita de cabeçalho e insere tabela GFM na posição do cursor via transação do CodeMirror. O Table Editor já existente assume a edição depois. É operação local e textual. Não lê arquivo, não acessa filesystem e não vira importador de CSV. Não duplica o editor de tabelas. Ambiguidade de cabeçalho não é resolvida por heurística silenciosa: o usuário confirma. Célula com pipe ou quebra de linha é escapada para o GFM continuar válido. Rastreabilidade: sidecar MD-V03-016.yaml, alvo FN-SMART-PASTE. Projeção antes do código. Complete cita verdict. file_updates obrigatório. Aceite: três colunas separadas por tabulação viram tabela GFM com cabeçalho confirmado; cancelar o preview não altera o documento; conteúdo não tabular segue o paste atual; drift sem violation.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        ".esaa/tasks/MD-V03-016.yaml",
+        "FN-SMART-PASTE"
+      ],
+      "outputs": {
+        "files": [
+          ".esaa/tasks/MD-V03-016.yaml",
+          ".esaa/analysis/MD-V03-016-impact.yaml"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        ".esaa/tasks/MD-V03-016.yaml",
+        ".esaa/analysis/**",
+        "src/**",
+        "tests/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "traceability: ver .esaa/tasks/MD-V03-016.yaml; drift sem violation",
+        "TSV/CSV do clipboard gera GFM só depois de preview e confirmação de cabeçalho",
+        "Cancelar não muda o documento",
+        "Não há leitura de arquivo nem importador de CSV",
+        "O editor de tabelas existente não é reescrito",
+        "traceability: ver .esaa/tasks/MD-V03-016.yaml; drift sem violation"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-25T16:29:09Z",
+      "verification": {
+        "checks": [
+          "TSV/CSV do clipboard gera GFM só depois de preview e confirmação de cabeçalho",
+          "Cancelar não muda o documento",
+          "Não há leitura de arquivo nem importador de CSV",
+          "O editor de tabelas existente não é reescrito",
+          "traceability: ver .esaa/tasks/MD-V03-016.yaml; drift sem violation"
+        ]
+      },
+      "completed_at": "2026-09-25T16:30:37Z"
+    },
+    {
+      "task_id": "MD-V03-017",
+      "task_kind": "impl",
+      "title": "Command Palette em Ctrl+Shift+P, sem absorver o Quick Switcher",
+      "description": "Implementar a Command Palette da spec 017. Decisão fechada: Ctrl+P continua o Quick Switcher (arquivos, headings, recentes). Ctrl+Shift+P abre a Command Palette (comandos, ações, alternâncias, abertura de ferramentas). A palette não substitui, não absorve e não muda a semântica do switcher. CommandRegistry é um registry em memória para ações discretas já existentes, expostas também por atalho, menu e toolbar. Não reimplementa a regra de negócio do recurso. Cada comando declara id, título, quando está habilitado e o handler já existente que chama. Fora: paleta que também abre arquivo; mudar Ctrl+P; rede; comandos que escrevem em disco sem passar pelo handler atual de save. Rastreabilidade: sidecar MD-V03-017.yaml. SHC-CTRL-P está protegido. Projeção antes do código. Complete cita verdict. Se o diff alterar o handler de Ctrl+P, é violation e o complete não segue. Aceite: Ctrl+Shift+P lista comandos e executa um comando já existente; Ctrl+P continua a navegação; comando desabilitado não roda; drift sem violation.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        ".esaa/tasks/MD-V03-017.yaml",
+        "CMP-COMMAND-PALETTE",
+        "FN-FUZZY-SEARCH",
+        "CMP-QUICK-SWITCHER"
+      ],
+      "outputs": {
+        "files": [
+          ".esaa/tasks/MD-V03-017.yaml",
+          ".esaa/analysis/MD-V03-017-impact.yaml"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        ".esaa/tasks/MD-V03-017.yaml",
+        ".esaa/analysis/**",
+        "src/**",
+        "tests/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "traceability: ver .esaa/tasks/MD-V03-017.yaml; drift sem violation",
+        "Ctrl+Shift+P abre a palette de comandos e executa handler já existente",
+        "Ctrl+P permanece o Quick Switcher",
+        "CommandRegistry não duplica a regra de negócio dos recursos",
+        "traceability: ver .esaa/tasks/MD-V03-017.yaml; drift sem violation"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-25T16:33:36Z",
+      "verification": {
+        "checks": [
+          "Ctrl+Shift+P abre a palette de comandos e executa handler já existente",
+          "Ctrl+P permanece o Quick Switcher",
+          "CommandRegistry não duplica a regra de negócio dos recursos",
+          "traceability: ver .esaa/tasks/MD-V03-017.yaml; drift sem violation"
+        ]
+      },
+      "completed_at": "2026-09-25T16:33:50Z"
+    },
+    {
+      "task_id": "MD-V03-018",
+      "task_kind": "impl",
+      "title": "Code blocks avançados sobre o Shiki existente",
+      "description": "Implementar Code Blocks avançados da spec 018. O que já existe permanece: highlighting Shiki, badge de linguagem e botão de cópia. O acréscimo é só metadata declarativa do fence: filename, line numbers opcionais, highlight de ranges, diff, focus e Code Groups com abas. Shiki continua a única fonte de cor. A metadata é interpretada no pipeline Unified. Código nunca é executado. Não há runtime de linguagem no preview. Rastreabilidade: sidecar MD-V03-018.yaml, alvo PIPE-SHIKI. Projeção antes do código. Complete cita verdict. file_updates obrigatório. Aceite: fence com filename e {1,3-5} mostra nome e linhas destacadas; grupo de abas troca o bloco sem reparsear o documento inteiro; bloco sem metadata nova renderiza como hoje; nenhum eval; drift sem violation.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        ".esaa/tasks/MD-V03-018.yaml",
+        "PIPE-SHIKI",
+        "BTN-PREVIEW-FORMAT-CODE"
+      ],
+      "outputs": {
+        "files": [
+          ".esaa/tasks/MD-V03-018.yaml",
+          ".esaa/analysis/MD-V03-018-impact.yaml"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        ".esaa/tasks/MD-V03-018.yaml",
+        ".esaa/analysis/**",
+        "src/**",
+        "tests/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "traceability: ver .esaa/tasks/MD-V03-018.yaml; drift sem violation",
+        "Filename, números de linha, highlight de range, diff, focus e abas saem da metadata do fence",
+        "Shiki, badge e cópia existentes não são reescritos",
+        "Código do bloco não é executado",
+        "traceability: ver .esaa/tasks/MD-V03-018.yaml; drift sem violation"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-25T16:34:49Z",
+      "verification": {
+        "checks": [
+          "Filename, números de linha, highlight de range, diff, focus e abas saem da metadata do fence",
+          "Shiki, badge e cópia existentes não são reescritos",
+          "Código do bloco não é executado",
+          "traceability: ver .esaa/tasks/MD-V03-018.yaml; drift sem violation"
+        ]
+      },
+      "completed_at": "2026-09-25T16:39:26Z"
+    },
+    {
+      "task_id": "MD-V03-019",
+      "task_kind": "impl",
+      "title": "Preview ↔ Source por bloco, separado do scroll sync",
+      "description": "Implementar Preview ↔ Source preciso da spec 019 longa (019-preview-source-preciso.md). A versão curta 019-preview-source-mapping.md é o mesmo escopo, não uma segunda feature. A v0.3 mapeia blocos, não caracteres inline. Obrigatório: headings, parágrafos, listas e code blocks. Clique no bloco renderizado coloca o cursor no início do bloco no Markdown. No sentido inverso, o bloco do preview pode receber destaque quando o mapeamento é confiável. Heading vai para a linha do heading. Code block vai para o fence inicial. Usar as posições do AST remark/Unified já produzidas pelo preview. Propagar uma identidade interna até o DOM. Arquiteturalmente separado do scroll sync. Proibido um segundo parse só para o mapa. Rastreabilidade: sidecar MD-V03-019.yaml. Projeção antes do código. Complete cita verdict. Não apresentar mapeamento de caractere como entregue. Aceite: clique num heading, num parágrafo, numa lista e num code block move o cursor para o início daquele bloco; scroll sync continua com o comportamento anterior; bloco sem posição confiável não pula para um offset inventado; drift sem violation.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        ".esaa/tasks/MD-V03-019.yaml",
+        "CMP-MARKDOWN-VIEWER",
+        "HDL-VIEWER-ON-CLICK",
+        "PIPE-HEADING-IDS"
+      ],
+      "outputs": {
+        "files": [
+          ".esaa/tasks/MD-V03-019.yaml",
+          ".esaa/analysis/MD-V03-019-impact.yaml"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        ".esaa/tasks/MD-V03-019.yaml",
+        ".esaa/analysis/**",
+        "src/**",
+        "tests/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "traceability: ver .esaa/tasks/MD-V03-019.yaml; drift sem violation",
+        "Clique no preview posiciona o cursor no início do bloco fonte para heading, parágrafo, lista e code block",
+        "O mapa sai do AST do preview, sem segundo parse",
+        "Scroll sync permanece um mecanismo separado",
+        "traceability: ver .esaa/tasks/MD-V03-019.yaml; drift sem violation"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-25T16:40:11Z",
+      "verification": {
+        "checks": [
+          "pnpm test tests/markdown/sourceMap.test.ts passou com 3 testes",
+          "pnpm test tests/ui/code-formatting-ui.test.tsx passou com 2 testes (must_run)",
+          "drift verdict: warning sem violacoes; 9 linhas em src/markdown/processor.ts"
+        ]
+      },
+      "completed_at": "2026-09-25T16:49:34Z"
+    },
+    {
+      "task_id": "MD-V03-020",
+      "task_kind": "impl",
+      "title": "Workspace Search com Replace All confirmado",
+      "description": "Implementar a superfície da spec 020 em cima de search_workspace. O comando Rust já existe e não tem gatilho de UI. Esta tarefa adiciona Ctrl+Shift+F, regex, case sensitive, filtro por pasta e arquivo, preview contextual e navegação arquivo/linha. Replace All é outro modo, explícito: mostra o plano de substituições, exige confirmação, e só então grava. Cada arquivo elegível passa por atomic_save. Arquivo aberto com mudança não salva não é modificado em silêncio. Arquivo fora do workspace não entra no plano. Não reescrever o motor de busca. Não transformar Replace All em gravação otimista. Rastreabilidade: sidecar MD-V03-020.yaml. atomic_save e o fence estão protegidos. Projeção antes do código. Complete cita verdict. Teste de arquivo sujo e de path escapando o workspace é obrigatório. Aceite: Ctrl+Shift+F lista ocorrências reais do comando existente; Replace All sem confirmação não grava; arquivo dirty aberto fica de fora; path fora do fence não é escrito; drift sem violation.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        ".esaa/tasks/MD-V03-020.yaml",
+        "IPC-SEARCH-WORKSPACE",
+        "IPCC-SEARCH-WORKSPACE",
+        "DTO-TS-SEARCH-RESULT"
+      ],
+      "outputs": {
+        "files": [
+          ".esaa/tasks/MD-V03-020.yaml",
+          ".esaa/analysis/MD-V03-020-impact.yaml"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        ".esaa/tasks/MD-V03-020.yaml",
+        ".esaa/analysis/**",
+        "src/**",
+        "src-tauri/**",
+        "tests/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "traceability: ver .esaa/tasks/MD-V03-020.yaml; drift sem violation",
+        "Ctrl+Shift+F usa search_workspace e mostra preview navegável",
+        "Replace All só grava depois de plano confirmado, via atomic_save",
+        "Arquivo aberto e sujo não é alterado em silêncio",
+        "Path fora do workspace não entra no plano",
+        "traceability: ver .esaa/tasks/MD-V03-020.yaml; drift sem violation"
+      ],
+      "required_review_mode": "security",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-25T16:50:05Z",
+      "verification": {
+        "checks": [
+          "pnpm test tests/workspace/workspaceSearch.test.tsx passou com 4 testes",
+          "drift verdict: warning sem violacoes; 5 linhas em src/lib/ipc/client.ts",
+          "Replace All sem confirmacao nao grava; dirty aberto e traversal fora do fence excluidos"
+        ]
+      },
+      "completed_at": "2026-09-25T16:53:11Z"
+    },
+    {
+      "task_id": "MD-V03-021",
+      "task_kind": "impl",
+      "title": "Formatter Capabilities: registry consultável do hub já existente",
+      "description": "Implementar Formatter Capabilities da spec 021. O hub híbrido já funciona: Prettier no frontend para linguagens web e CLIs no Rust para as demais. Esta tarefa não cria outro formatter e não muda a experiência básica de Formatar. Ela expõe um registry consultável: quais formatadores existem, qual runtime, quais linguagens, qual versão detectada e se o executável está disponível agora. Detecção local, sem download, instalação automática, shell arbitrário, telemetria ou rede. Ferramenta ausente é estado do snapshot, não erro global do editor. Rastreabilidade: sidecar MD-V03-021.yaml. Projeção antes do código. Complete cita verdict. MD-V03-022 depende deste registry e não deve ser implementada antes. Aceite: um snapshot lista Prettier e pelo menos um CLI com disponível/ausente; Formatar um bloco continua o caminho atual; ausência de rustfmt não impede abrir o editor; drift sem violation.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        ".esaa/tasks/MD-V03-021.yaml",
+        "FN-GET-FORMATTER-SPEC",
+        "IPC-FORMAT-CODE",
+        "FN-FIND-EXECUTABLE",
+        "SVC-FORMAT-CODE"
+      ],
+      "outputs": {
+        "files": [
+          ".esaa/tasks/MD-V03-021.yaml",
+          ".esaa/analysis/MD-V03-021-impact.yaml"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        ".esaa/tasks/MD-V03-021.yaml",
+        ".esaa/analysis/**",
+        "src/**",
+        "src-tauri/**",
+        "tests/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "traceability: ver .esaa/tasks/MD-V03-021.yaml; drift sem violation",
+        "Snapshot local lista formatador, runtime, linguagens e disponibilidade",
+        "O comando format_code e o botão Formatar permanecem o caminho de execução",
+        "Não há download, instalação automática nem rede",
+        "traceability: ver .esaa/tasks/MD-V03-021.yaml; drift sem violation"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-25T16:53:43Z",
+      "verification": {
+        "checks": [
+          "cargo test --manifest-path src-tauri/Cargo.toml test_formatter_spec_mapping passou (must_run)",
+          "pnpm test tests/services/formatterCapabilities.test.ts passou com 4 testes",
+          "drift verdict: warning sem violacoes; 1 linha em src/services/formatter/index.ts",
+          "Snapshot lista formatadores com disponibilidade local sem rede nem download"
+        ]
+      },
+      "completed_at": "2026-09-25T16:57:35Z"
+    },
+    {
+      "task_id": "MD-V03-022",
+      "task_kind": "impl",
+      "title": "Tooling Settings: painel informativo das ferramentas locais",
+      "description": "Implementar Tooling Settings da spec 022, somente depois de MD-V03-021 done. A seção Configurações > Ferramentas mostra, de forma lazy e assíncrona, o snapshot do registry: ferramenta, disponibilidade, versão detectada, linguagens e o que ela faz. Refresh manual repete o discovery local. Ausência de CLI opcional é estado normal. Falha de discovery é erro da seção, não do editor. Não instala ferramenta, não consulta a internet, não cadastra binário arbitrário e não substitui o registry do 021. Rastreabilidade: sidecar MD-V03-022.yaml. LSK-SETTINGS e os defaults estão protegidos: esta tela não persiste. Complete cita verdict. Se o diff gravar chave nova em localStorage, tratar como violation até re-projeção justificada. Aceite: abrir a seção não bloqueia o painel; ferramenta ausente aparece como indisponível; refresh atualiza o snapshot; o restante das configurações permanece; drift sem violation.",
+      "status": "done",
+      "depends_on": [
+        "MD-V03-021"
+      ],
+      "targets": [
+        ".esaa/tasks/MD-V03-022.yaml",
+        "CMP-SETTINGS-PANEL",
+        "STO-SETTINGS"
+      ],
+      "outputs": {
+        "files": [
+          ".esaa/tasks/MD-V03-022.yaml",
+          ".esaa/analysis/MD-V03-022-impact.yaml"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        ".esaa/tasks/MD-V03-022.yaml",
+        ".esaa/analysis/**",
+        "src/**",
+        "tests/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "traceability: ver .esaa/tasks/MD-V03-022.yaml; drift sem violation",
+        "Configurações > Ferramentas lê o snapshot do 021 de forma lazy",
+        "CLI ausente é estado normal e falha de discovery fica na seção",
+        "A seção não instala, não baixa e não grava preferência nova",
+        "traceability: ver .esaa/tasks/MD-V03-022.yaml; drift sem violation"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-25T16:58:17Z",
+      "verification": {
+        "checks": [
+          "pnpm test tests/settings/toolingSettings.test.tsx passou com 3 testes",
+          "must_run: 38 testes passaram em 7 suites (settingsPanel, autoSave, hints, settingsStore, etc.)",
+          "drift verdict: warning sem violacoes; 20 linhas em SettingsPanel.tsx e TST-TS-SETTINGS-SETTINGSPANEL",
+          "ToolingSettings consulta snapshot local de forma lazy sem rede nem localStorage"
+        ]
+      },
+      "completed_at": "2026-09-25T17:01:38Z"
+    },
+    {
+      "task_id": "MD-V03-023",
+      "task_kind": "impl",
+      "title": "Outline hierárquico, filtrável e sincronizado ao heading atual",
+      "description": "Implementar o Outline aprimorado da spec 023 em cima do sumário existente. Acrescentar filtro, expandir/recolher, controle de profundidade H1/H2/H3+, realce do heading atual e navegação imediata. Reusar o índice de headings do pipeline. Não manter um segundo extrator. Headings duplicados navegam pela posição de origem, não só pelo slug. Scroll spy não reparseia o Markdown durante o scroll. Rastreabilidade: sidecar MD-V03-023.yaml. Projeção antes do código. Complete cita verdict. Scroll que dispara parse completo é regressão. Aceite: documento com dezenas de headings filtra e limita profundidade; dois headings com o mesmo texto levam a posições diferentes; mover o cursor realça a seção sem reparse; drift sem violation.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        ".esaa/tasks/MD-V03-023.yaml",
+        "CMP-DOCUMENT-OUTLINE",
+        "FN-SCROLL-TO-HEADING",
+        "PIPE-HEADING-IDS",
+        "HDL-APP-GO-TO-HEADING"
+      ],
+      "outputs": {
+        "files": [
+          ".esaa/tasks/MD-V03-023.yaml",
+          ".esaa/analysis/MD-V03-023-impact.yaml"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        ".esaa/tasks/MD-V03-023.yaml",
+        ".esaa/analysis/**",
+        "src/**",
+        "tests/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "traceability: ver .esaa/tasks/MD-V03-023.yaml; drift sem violation",
+        "Outline filtra, recolhe e limita profundidade reusando o índice de headings",
+        "Heading duplicado navega pela posição de origem",
+        "Acompanhar a seção atual não reparseia o documento",
+        "traceability: ver .esaa/tasks/MD-V03-023.yaml; drift sem violation"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-25T17:02:31Z",
+      "verification": {
+        "checks": [
+          "pnpm test tests/components/documentOutline.test.tsx passou com 4 testes",
+          "pnpm test tests/panel/collapsiblePanel.test.tsx passou com 4 testes (must_run)",
+          "drift verdict: warning sem violacoes; 4 linhas em DocumentOutline.tsx e 10 linhas em navigation.ts",
+          "Headings duplicados navegam por posicao de origem; outline filtra e limita profundidade sem reparse no scroll"
+        ]
+      },
+      "completed_at": "2026-09-25T17:04:50Z"
+    },
+    {
+      "task_id": "MD-V03-024",
+      "task_kind": "impl",
+      "title": "Ocultar .mdstudio no File Tree, só como apresentação",
+      "description": "Implementar Arquivos internos ocultos da spec 024. .mdstudio fica oculto por padrão no File Tree. Configurações > Workspace tem Mostrar arquivos internos. Quando visíveis, os itens têm tratamento visual diferente do conteúdo do usuário. A ocultação é política de apresentação. Não é segurança, não remove do índice, não impede leitura, não apaga, não move e não renomeia. Path fence continua a fronteira. O toggle não é autorização. Busca, Doctor e Asset Manager, quando existirem, não tratam arquivo oculto como inexistente. Rastreabilidade: sidecar MD-V03-024.yaml. Índice e fence protegidos. Complete cita verdict. Um teste que prove que o arquivo some do disco é falha da tarefa. Aceite: árvore default não lista .mdstudio; o toggle mostra e diferencia o item; o índice ainda carrega; abrir o caminho por comando existente continua possível; drift sem violation.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        ".esaa/tasks/MD-V03-024.yaml",
+        "CMP-FILE-EXPLORER",
+        "STO-SETTINGS"
+      ],
+      "outputs": {
+        "files": [
+          ".esaa/tasks/MD-V03-024.yaml",
+          ".esaa/analysis/MD-V03-024-impact.yaml"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        ".esaa/tasks/MD-V03-024.yaml",
+        ".esaa/analysis/**",
+        "src/**",
+        "tests/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "traceability: ver .esaa/tasks/MD-V03-024.yaml; drift sem violation",
+        ".mdstudio fica oculto por padrão e reaparece com Mostrar arquivos internos",
+        "O toggle não apaga, não move e não tira o arquivo do índice",
+        "Path fence permanece a fronteira de acesso",
+        "traceability: ver .esaa/tasks/MD-V03-024.yaml; drift sem violation"
+      ],
+      "required_review_mode": "security",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-25T17:05:33Z",
+      "verification": {
+        "checks": [
+          "vitest tests/components/hideInternalFiles.test.tsx passed (4/4 tests)",
+          "vitest tests/settings/settingsPanel.test.tsx tests/settings/previewReadingWidth.test.tsx passed (12/12 tests)",
+          "drift: verdict: warning (0 violations, 7 uncatalogued warnings documented, 0 out_of_closure)",
+          "Presentation invariant: default hides .mdstudio, toggle reveals with visual distinction, no disk modification"
+        ]
+      },
+      "completed_at": "2026-09-25T17:12:47Z"
+    },
+    {
+      "task_id": "MD-V03-025",
+      "task_kind": "impl",
+      "title": "Hover Previews locais, sanitizados e canceláveis",
+      "description": "Implementar Hover Previews da spec 025, depois de MD-V03-013. Fecha o bloco funcional da v0.3. Mostrar contexto do destino sem navegar: Wiki Link, link Markdown local, smart reference e heading. Delay curto, cancelar quando o ponteiro sai, dados de MetadataIndex/cache. Exibir título, path, trecho curto, headings principais e metadata útil. Clique normal preservado. Estados resolved, unresolved e ambiguous tratados. Só dentro do workspace. Proibido no popup: documento inteiro, Mermaid, KaTeX, HTML não sanitizado e qualquer leitura fora do fence. Rastreabilidade: sidecar MD-V03-025.yaml. Projeção antes do código. Complete cita verdict. must_run com saída. Aceite: hover em link local mostra título e some ao sair; unresolved explica que o destino não existe; conteúdo do popup não executa diagrama; path fora do workspace não é lido; drift sem violation.",
+      "status": "done",
+      "depends_on": [
+        "MD-V03-013"
+      ],
+      "targets": [
+        ".esaa/tasks/MD-V03-025.yaml",
+        "FN-WIKI-CANDIDATES",
+        "CMP-MARKDOWN-VIEWER",
+        "IPC-RESOLVE-WIKI-LINK",
+        "IPC-GET-DOCUMENT-METADATA"
+      ],
+      "outputs": {
+        "files": [
+          ".esaa/tasks/MD-V03-025.yaml",
+          ".esaa/analysis/MD-V03-025-impact.yaml"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        ".esaa/tasks/MD-V03-025.yaml",
+        ".esaa/analysis/**",
+        "src/**",
+        "tests/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "traceability: ver .esaa/tasks/MD-V03-025.yaml; drift sem violation",
+        "Hover local mostra título, path e trecho e cancela ao sair",
+        "resolved, unresolved e ambiguous têm apresentação própria",
+        "O popup não renderiza Mermaid, KaTeX nem o documento inteiro",
+        "Destino fora do workspace não é lido",
+        "traceability: ver .esaa/tasks/MD-V03-025.yaml; drift sem violation"
+      ],
+      "required_review_mode": "security",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-25T17:13:21Z",
+      "verification": {
+        "checks": [
+          "must_run: vitest tests/ui/code-formatting-ui.test.tsx tests/wiki/wiki-completion.test.ts passed (4/4 tests)",
+          "vitest tests/components/hoverPreview.test.tsx passed (7/7 tests)",
+          "drift: verdict: warning (0 violations, 1 out_of_closure HDL-VIEWER-ON-CLICK, 1 uncatalogued line in wiki-completion.ts)",
+          "Hover security: local sanitized preview popover, path fence enforced, no Mermaid/KaTeX/HTML execution in popup, debounced & cancelable"
+        ]
+      },
+      "completed_at": "2026-09-25T17:22:47Z"
+    },
+    {
+      "task_id": "MD-BUILD-LOCAL-007",
+      "task_kind": "impl",
+      "title": "Compilar e atualizar binário local do MD Studio v0.3 para Show Apps",
+      "description": "Recompilar frontend (pnpm build) e backend Tauri em modo release (cargo build --release), atualizando o executável em ~/.local/bin/md-studio utilizado pelo lançador do Show Apps (~/.local/share/applications/md-studio.desktop).",
+      "status": "done",
+      "depends_on": [],
+      "targets": [],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "dist/**",
+        "src-tauri/target/**"
+      ],
+      "task_type": "maintenance",
+      "acceptance_criteria": [
+        "Frontend compilado com pnpm build terminando com código 0",
+        "Backend compilado com cargo build --release gerando novo binário em src-tauri/target/release/md-studio",
+        "Binário atualizado em ~/.local/bin/md-studio com SHA-256 idêntico ao build de release"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-25T17:58:08Z",
+      "verification": {
+        "checks": [
+          "Frontend compilado com pnpm build terminando com código 0",
+          "Backend compilado com cargo build --release gerando novo binário em src-tauri/target/release/md-studio",
+          "Binário atualizado em ~/.local/bin/md-studio com SHA-256 idêntico (8a51549e6af4ffa389fc9d6bdc53cd072a85a0da19cf0833f3dbfc93a1d09e0f)",
+          "Desktop database atualizado para Show Apps em ~/.local/share/applications/md-studio.desktop"
+        ]
+      },
+      "completed_at": "2026-09-25T18:01:47Z"
+    },
+    {
+      "task_id": "MD-TRACE-V03-001",
+      "task_kind": "impl",
+      "title": "Atualizar rastreabilidade de software pós-v0.3 preservando baseline G0",
+      "description": "Atualizar o sistema de rastreabilidade em .esaa/traceability/ para incorporar capabilities, contratos, fluxos e testes da onda v0.3. Preservar explicitamente a baseline G0. Criar commit reproduzível para G1 e registrar delta de rastreabilidade em v03-graph-delta.md.",
+      "status": "in_progress",
+      "depends_on": [],
+      "targets": [],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        ".esaa/traceability/**",
+        "tests/**"
+      ],
+      "task_type": "maintenance",
+      "acceptance_criteria": [
+        "Baseline G0 preservada explicitamente antes de qualquer modificação",
+        "Commit reproduzível da onda v0.3 definido como source_commit do G1",
+        "Fontes YAML em .esaa/traceability/ atualizadas com novas capabilities, contratos, testes e fluxos",
+        "build_graph.py e validate.py executados com sucesso gerando graph.json e validation.yaml",
+        "Relatório v03-graph-delta.md gerado com análise de débito antes vs depois"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-25T18:06:34Z"
     }
   ],
   "indexes": {
     "by_status": {
-      "done": 276
+      "done": 296,
+      "in_progress": 1
     },
     "by_kind": {
-      "impl": 215,
-      "qa": 36,
-      "spec": 25
+      "impl": 233,
+      "qa": 37,
+      "spec": 27
     }
   }
 }

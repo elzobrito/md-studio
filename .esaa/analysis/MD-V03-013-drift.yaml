@@ -1,0 +1,77 @@
+artifact: task-drift
+schema_version: 1
+trace_task: TRACE-019
+task_id: MD-V03-013
+inputs:
+  impact: .esaa/analysis/MD-V03-013-impact.yaml
+  footprint: .esaa/analysis/MD-V03-013-footprint.yaml
+  graph_source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+notes: []
+rule: authorized = change_target ∪ expected_affected; ok ∈ authorized; violation ∈ protected; warning ∈ potentially_affected | out_of_closure
+  | uncatalogued substantive
+authorized:
+- FN-CREATE-WIKI-COMPLETION-EXTENSIONS
+- FN-WIKI-CANDIDATES
+- IPC-RESOLVE-WIKI-LINK
+observed:
+- FN-WIKI-CANDIDATES
+classification:
+- id: FN-WIKI-CANDIDATES
+  category: authorized
+  severity: ok
+  reasons: []
+drift: []
+other_findings:
+- path: src/editor/wiki/wiki-completion.ts
+  category: uncatalogued_change
+  severity: warning
+  lines:
+  - new:7
+- path: src/editor/smartReferences.ts
+  category: new_production_file
+  severity: info
+- path: tests/editor/smartReferences.test.ts
+  category: new_test_file
+  severity: info
+not_touched:
+- FN-CREATE-WIKI-COMPLETION-EXTENSIONS
+- IPC-RESOLVE-WIKI-LINK
+verdict: warning
+metrics:
+  nodes:
+    tp: 1
+    authorized: 3
+    observed: 1
+    precision: 0.333
+    recall: 1.0
+    closure_recall: 1.0
+  code_nodes_only:
+    tp: 1
+    authorized: 3
+    observed: 1
+    precision: 0.333
+    recall: 1.0
+  features:
+    projected_direct:
+    - FEAT-WIKI-AUTOCOMPLETE
+    projected_all: 25
+    observed:
+    - FEAT-WIKI-AUTOCOMPLETE
+    observed_in_projected_direct:
+    - FEAT-WIKI-AUTOCOMPLETE
+    observed_missing_from_projection: []
+    precision_direct: 1.0
+    recall_all: 1.0
+  invariants:
+    projected: []
+    observed: []
+    missing_from_projection: []
+  tests:
+    projected_must_run:
+    - TST-TS-WIKI-WIKI-COMPLETION
+    changed_test_nodes: []
+    new_test_files:
+    - tests/editor/smartReferences.test.ts
+  contracts_touched: []
+  data_touched: []
+  events_touched: []

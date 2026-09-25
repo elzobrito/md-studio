@@ -1,0 +1,105 @@
+artifact: task-drift
+schema_version: 1
+trace_task: TRACE-019
+task_id: MD-V03-018
+inputs:
+  impact: .esaa/analysis/MD-V03-018-impact.yaml
+  footprint: .esaa/analysis/MD-V03-018-footprint.yaml
+  graph_source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+notes: []
+rule: authorized = change_target ∪ expected_affected; ok ∈ authorized; violation ∈ protected; warning ∈ potentially_affected | out_of_closure
+  | uncatalogued substantive
+authorized:
+- BTN-PREVIEW-FORMAT-CODE
+- PIPE-SHIKI
+observed:
+- CMP-MARKDOWN-VIEWER
+classification:
+- id: CMP-MARKDOWN-VIEWER
+  category: potentially_affected
+  severity: warning
+  reasons: []
+drift:
+- id: CMP-MARKDOWN-VIEWER
+  category: potentially_affected
+  severity: warning
+  reasons: []
+other_findings:
+- path: src/markdown/shiki.ts
+  category: uncatalogued_change
+  severity: warning
+  lines:
+  - old:40
+  - new:41
+  - new:42
+  - new:43
+  - new:44
+  - new:45
+  - new:46
+  - new:47
+  - new:48
+  - new:49
+  - new:50
+  - new:52
+- path: src/markdown/codeBlockMetadata.ts
+  category: new_production_file
+  severity: info
+- path: tests/markdown/codeBlockMetadata.test.ts
+  category: new_test_file
+  severity: info
+not_touched:
+- BTN-PREVIEW-FORMAT-CODE
+- PIPE-SHIKI
+verdict: warning
+metrics:
+  nodes:
+    tp: 0
+    authorized: 2
+    observed: 1
+    precision: 0.0
+    recall: 0.0
+    closure_recall: 1.0
+  code_nodes_only:
+    tp: 0
+    authorized: 2
+    observed: 1
+    precision: 0.0
+    recall: 0.0
+  features:
+    projected_direct:
+    - FEAT-KATEX
+    - FEAT-MERMAID
+    - FEAT-PREVIEW
+    - FEAT-SANITIZE
+    - FEAT-SHIKI
+    projected_all: 11
+    observed:
+    - FEAT-PREVIEW
+    observed_in_projected_direct:
+    - FEAT-PREVIEW
+    observed_missing_from_projection: []
+    precision_direct: 0.2
+    recall_all: 1.0
+  invariants:
+    projected:
+    - INV-EXPORT-NO-SILENT-OVERWRITE
+    - INV-SANITIZE-PREVIEW-EXPORT
+    observed: []
+    missing_from_projection: []
+  tests:
+    projected_must_run: []
+    changed_test_nodes: []
+    new_test_files:
+    - tests/markdown/codeBlockMetadata.test.ts
+  contracts_touched:
+  - id: CTR-SANITIZE-POLICY
+    how: consumer
+    node: CMP-MARKDOWN-VIEWER
+  - id: CTR-TAURI-CSP
+    how: consumer
+    node: CMP-MARKDOWN-VIEWER
+  data_touched:
+  - id: STO-METADATA
+    how: read_by_changed
+    node: CMP-MARKDOWN-VIEWER
+  events_touched: []

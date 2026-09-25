@@ -1,0 +1,108 @@
+artifact: task-drift
+schema_version: 1
+trace_task: TRACE-019
+task_id: MD-HOTFIX-EXPAND-002
+inputs:
+  impact: .esaa/analysis/MD-HOTFIX-EXPAND-002-impact.yaml
+  footprint: .esaa/analysis/MD-HOTFIX-EXPAND-002-footprint.yaml
+  graph_source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+notes: []
+rule: authorized = change_target ∪ expected_affected; ok ∈ authorized; violation ∈ protected; warning ∈ potentially_affected | out_of_closure
+  | uncatalogued substantive
+authorized:
+- STO-SETTINGS
+- TST-TS-SETTINGS-PREVIEWREADINGWIDTH
+observed:
+- STO-SETTINGS
+- TST-TS-SETTINGS-PREVIEWREADINGWIDTH
+classification:
+- id: STO-SETTINGS
+  category: authorized
+  severity: ok
+  reasons: []
+- id: TST-TS-SETTINGS-PREVIEWREADINGWIDTH
+  category: authorized
+  severity: ok
+  reasons: []
+drift: []
+other_findings:
+- path: src/styles/themes.css
+  category: uncatalogued_change
+  severity: warning
+  lines:
+  - new:633
+  - new:634
+  - new:637
+  - new:638
+  - new:639
+  - new:641
+  - new:642
+  - new:643
+  - new:645
+  - new:646
+not_touched: []
+verdict: warning
+metrics:
+  nodes:
+    tp: 2
+    authorized: 2
+    observed: 2
+    precision: 1.0
+    recall: 1.0
+    closure_recall: 1.0
+  code_nodes_only:
+    tp: 1
+    authorized: 1
+    observed: 1
+    precision: 1.0
+    recall: 1.0
+  features:
+    projected_direct:
+    - FEAT-AUTO-SAVE
+    - FEAT-DRAFT-RECOVERY
+    - FEAT-SETTINGS
+    - FEAT-WATCHER
+    projected_all: 27
+    observed:
+    - FEAT-AUTO-SAVE
+    - FEAT-SETTINGS
+    observed_in_projected_direct:
+    - FEAT-AUTO-SAVE
+    - FEAT-SETTINGS
+    observed_missing_from_projection: []
+    precision_direct: 0.5
+    recall_all: 1.0
+  invariants:
+    projected: []
+    observed: []
+    missing_from_projection: []
+  tests:
+    projected_must_run:
+    - TST-TS-EDITOR-AUTOSAVE
+    - TST-TS-EDITOR-HINTS
+    - TST-TS-EDITOR-SMART-PASTE
+    - TST-TS-SETTINGS-PREVIEWREADINGWIDTH
+    - TST-TS-SETTINGS-SETTINGSPANEL
+    - TST-TS-UX-SETTINGSSTORE
+    - TST-TS-UX-WIREFRAMEFIDELITY
+    changed_test_nodes:
+    - TST-TS-SETTINGS-PREVIEWREADINGWIDTH
+    new_test_files: []
+  contracts_touched:
+  - id: CTR-LSK-SETTINGS
+    how: consumer
+    node: STO-SETTINGS
+  - id: CTR-LSK-SETTINGS
+    how: producer
+    node: STO-SETTINGS
+  data_touched:
+  - id: LSK-SETTINGS
+    how: read_by_changed
+    node: STO-SETTINGS
+  - id: LSK-SETTINGS
+    how: written_by_changed
+    node: STO-SETTINGS
+  - id: STO-SETTINGS
+    how: definition_changed
+    node: STO-SETTINGS
+  events_touched: []

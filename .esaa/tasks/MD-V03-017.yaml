@@ -1,0 +1,41 @@
+artifact: task-traceability
+schema_version: 1
+task_id: MD-V03-017
+written_at: '2026-09-25T12:39:28-03:00'
+projected_before_change: true
+projection_inputs:
+- spec v0.3 correspondente a MD-V03-017
+- ROADMAP-CANONICO-MD-STUDIO-v0.3-v0.5.md
+- .esaa/traceability/graph.json (source_commit 8eb7b6e18a672b94199397f1cc0d0ec7def6609c)
+- caso .esaa/traceability/case-MD-HOTFIX-EXPAND-002.md
+graph:
+  path: .esaa/traceability/graph.json
+  source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+traceability:
+  targets:
+  - CMP-COMMAND-PALETTE
+  - FN-FUZZY-SEARCH
+  expected_affected:
+  - CMP-QUICK-SWITCHER
+  protected_extra:
+  - SHC-CTRL-P
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: true
+  rationale:
+    CMP-COMMAND-PALETTE: A palette de comandos passa a executar ações, separada da
+      navegação.
+    FN-FUZZY-SEARCH: A busca fuzzy local é reusada. Não se cria um segundo rankeador.
+    CMP-QUICK-SWITCHER: O switcher de arquivos e headings permanece. A palette não
+      o absorve.
+  justification:
+    SHC-CTRL-P: Ctrl+P continua abrindo o Quick Switcher. O atalho não muda de semântica.
+artifacts:
+  impact: .esaa/analysis/MD-V03-017-impact.yaml
+  footprint: .esaa/analysis/MD-V03-017-footprint.yaml
+  drift: .esaa/analysis/MD-V03-017-drift.yaml
+expected_uncatalogued:
+- src/commands/commandRegistry.ts
+close_rule: O complete copia verdict. warning cita path e linhas. precision de nó
+  não cobre arquivo sem nó. must_run exige saída do comando. violation bloqueia.

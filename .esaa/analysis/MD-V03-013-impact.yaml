@@ -1,0 +1,175 @@
+artifact: task-impact
+schema_version: 1
+trace_task: TRACE-017
+task_id: MD-V03-013
+projected_at: '2026-09-25T12:39:30-03:00'
+projected_before_change: true
+projection_inputs:
+- spec v0.3 correspondente a MD-V03-013
+- ROADMAP-CANONICO-MD-STUDIO-v0.3-v0.5.md
+- .esaa/traceability/graph.json (source_commit 8eb7b6e18a672b94199397f1cc0d0ec7def6609c)
+- caso .esaa/traceability/case-MD-HOTFIX-EXPAND-002.md
+spec: .esaa/tasks/MD-V03-013.yaml
+graph_source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+rationale:
+  FN-CREATE-WIKI-COMPLETION-EXTENSIONS: O autocomplete de referências estende a completion source já ligada ao CodeMirror, sem um segundo índice.
+  FN-WIKI-CANDIDATES: Candidatos saem do índice local já usado por [[ ]].
+  IPC-RESOLVE-WIKI-LINK: Go-to e estado unresolved/ambiguous reusam o resolver da Onda 2.
+justification:
+  FN-RESOLVE-WITHIN: Resolução de path relativo continua dentro do fence.
+  FN-FENCE-RELATIVE: Nenhuma sugestão aponta para fora do workspace.
+expected_uncatalogued: null
+blast_radius:
+  change_target:
+  - FN-CREATE-WIKI-COMPLETION-EXTENSIONS
+  - FN-WIKI-CANDIDATES
+  expected_affected:
+  - IPC-RESOLVE-WIKI-LINK
+  expected_affected_source: declared
+  suggested_expected_affected:
+  - TST-TS-WIKI-WIKI-COMPLETION
+  authorized:
+  - FN-CREATE-WIKI-COMPLETION-EXTENSIONS
+  - FN-WIKI-CANDIDATES
+  - IPC-RESOLVE-WIKI-LINK
+  potentially_affected:
+  - CMP-MARKDOWN-EDITOR
+  - HDL-APP-START-PRESENTATION
+  - SCR-APP
+  - STO-EDITOR
+  protected_in_closure: []
+  protected_total: 139
+  protected_declared: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: true
+projected:
+  nodes:
+  - FN-CREATE-WIKI-COMPLETION-EXTENSIONS
+  - FN-WIKI-CANDIDATES
+  - IPC-RESOLVE-WIKI-LINK
+  features:
+    direct:
+    - FEAT-WIKI-AUTOCOMPLETE
+    indirect:
+    - FEAT-APP-SCREENS
+    - FEAT-AUTO-SAVE
+    - FEAT-BACKLINKS
+    - FEAT-CONFLICT
+    - FEAT-CREATE-NOTE-FROM-WIKI
+    - FEAT-DRAFT-RECOVERY
+    - FEAT-EDITOR
+    - FEAT-FORMATTING-TOOLBAR
+    - FEAT-KATEX
+    - FEAT-LAYOUT-PANELS
+    - FEAT-MERMAID
+    - FEAT-METADATA-INDEX
+    - FEAT-OUTGOING-LINKS
+    - FEAT-PRESENTATION
+    - FEAT-PREVIEW
+    - FEAT-SANITIZE
+    - FEAT-SAVE
+    - FEAT-SHIKI
+    - FEAT-SHORTCUTS-HELP
+    - FEAT-SLASH-COMMANDS
+    - FEAT-SPLASH-PACKAGING
+    - FEAT-TEMPLATES
+    - FEAT-WATCHER
+    - FEAT-WIKI-LINKS
+  flows:
+  - FLOW-APP-BOOT
+  - FLOW-AUTO-SAVE
+  - FLOW-BACKLINKS-QUERY
+  - FLOW-CLOSE-FILE
+  - FLOW-CONFLICT-ON-SAVE
+  - FLOW-EDITOR-COMMANDS
+  - FLOW-METADATA-REFRESH
+  - FLOW-NEW-DOCUMENT
+  - FLOW-PRESENTATION
+  - FLOW-PREVIEW-RENDER
+  - FLOW-SAVE-DOCUMENT
+  - FLOW-WIKI-LINK-RESOLVE
+  invariants: []
+  tests:
+    must_run:
+    - TST-TS-WIKI-WIKI-COMPLETION
+    should_run:
+    - TST-TS-EDITOR-SINGLESAVE
+    may_run:
+    - TST-TS-UX-EDITORSTORE
+    - TST-TS-UX-WIREFRAMEFIDELITY
+  contracts: []
+  data:
+  - STO-EDITOR
+  events: []
+  entrypoints:
+  - ENT-SCR-APP
+  modules:
+  - MOD-APP-SHELL
+  - MOD-EDITOR
+  - MOD-PRESENTATION
+  - MOD-WIKI-LINKS
+closure:
+- id: FN-CREATE-WIKI-COMPLETION-EXTENSIONS
+  kind: code
+  type: function
+  distance: 0
+  anchor: src/editor/wiki/wiki-completion.ts
+  via: null
+  terminal: false
+- id: FN-WIKI-CANDIDATES
+  kind: code
+  type: function
+  distance: 0
+  anchor: src/editor/wiki/wiki-completion.ts
+  via: null
+  terminal: false
+- id: CMP-MARKDOWN-EDITOR
+  kind: code
+  type: component
+  distance: 1
+  anchor: src/components/MarkdownEditor.tsx
+  via:
+    node: FN-CREATE-WIKI-COMPLETION-EXTENSIONS
+    relation: calls
+    direction: reverse
+  terminal: false
+- id: SCR-APP
+  kind: code
+  type: screen
+  distance: 2
+  anchor: src/App.tsx
+  via:
+    node: CMP-MARKDOWN-EDITOR
+    relation: contains
+    direction: reverse
+  terminal: false
+- id: STO-EDITOR
+  kind: code
+  type: store
+  distance: 2
+  anchor: src/state/editor.ts
+  via:
+    node: CMP-MARKDOWN-EDITOR
+    relation: writes
+    direction: forward
+  terminal: false
+- id: HDL-APP-START-PRESENTATION
+  kind: code
+  type: handler
+  distance: 3
+  anchor: src/App.tsx
+  via:
+    node: STO-EDITOR
+    relation: reads
+    direction: reverse
+  terminal: true
+hubs: []
+stats:
+  closure_nodes: 6
+  by_distance:
+    '0': 2
+    '1': 1
+    '2': 2
+    '3': 1

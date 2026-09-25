@@ -1,0 +1,128 @@
+artifact: task-impact
+schema_version: 1
+trace_task: TRACE-017
+task_id: MD-V03-020
+projected_at: '2026-09-25T12:39:39-03:00'
+projected_before_change: true
+projection_inputs:
+- spec v0.3 correspondente a MD-V03-020
+- ROADMAP-CANONICO-MD-STUDIO-v0.3-v0.5.md
+- .esaa/traceability/graph.json (source_commit 8eb7b6e18a672b94199397f1cc0d0ec7def6609c)
+- caso .esaa/traceability/case-MD-HOTFIX-EXPAND-002.md
+spec: .esaa/tasks/MD-V03-020.yaml
+graph_source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+rationale:
+  IPC-SEARCH-WORKSPACE: A busca recursiva em Markdown já existe no Rust. A v0.3 não reimplementa o motor.
+  IPCC-SEARCH-WORKSPACE: A UI passa a chamar o cliente que hoje não tem gatilho.
+  DTO-TS-SEARCH-RESULT: O resultado já tipado alimenta a lista. Regex e filtros estendem o contrato sem um DTO paralelo silencioso.
+justification:
+  FN-ATOMIC-SAVE: Replace All grava cada arquivo pela atomic_save existente. A função não é reescrita.
+  FN-RESOLVE-WITHIN: Todo path de busca e de escrita passa pelo fence.
+  FN-FENCE-RELATIVE: Replace não alcança arquivo fora do workspace.
+expected_uncatalogued: null
+blast_radius:
+  change_target:
+  - IPC-SEARCH-WORKSPACE
+  - IPCC-SEARCH-WORKSPACE
+  expected_affected:
+  - DTO-TS-SEARCH-RESULT
+  expected_affected_source: declared
+  suggested_expected_affected: []
+  authorized:
+  - DTO-TS-SEARCH-RESULT
+  - IPC-SEARCH-WORKSPACE
+  - IPCC-SEARCH-WORKSPACE
+  potentially_affected: []
+  protected_in_closure:
+  - id: CTR-IPC-SEARCH-WORKSPACE
+    reasons:
+    - contract_surface
+  - id: DTO-RS-SEARCH-RESULT
+    reasons:
+    - contract_surface:CTR-IPC-SEARCH-WORKSPACE
+  protected_total: 138
+  protected_declared:
+  - id: DTO-TS-SEARCH-RESULT
+    reasons:
+    - contract_surface:CTR-IPC-SEARCH-WORKSPACE
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: true
+projected:
+  nodes:
+  - DTO-TS-SEARCH-RESULT
+  - IPC-SEARCH-WORKSPACE
+  - IPCC-SEARCH-WORKSPACE
+  features:
+    direct:
+    - FEAT-COMMAND-PALETTE
+    - FEAT-WORKSPACE-SEARCH
+    indirect: []
+  flows:
+  - FLOW-WORKSPACE-SEARCH
+  invariants: []
+  tests:
+    must_run: []
+    should_run: []
+    may_run: []
+  contracts:
+  - CTR-IPC-SEARCH-WORKSPACE
+  data: []
+  events: []
+  entrypoints:
+  - ENT-IPC-SEARCH-WORKSPACE
+  modules:
+  - MOD-SEARCH
+closure:
+- id: IPC-SEARCH-WORKSPACE
+  kind: code
+  type: ipc_command
+  distance: 0
+  anchor: src-tauri/src/commands/mod.rs
+  via: null
+  terminal: false
+- id: IPCC-SEARCH-WORKSPACE
+  kind: code
+  type: ipc_client
+  distance: 0
+  anchor: src/lib/ipc/client.ts
+  via: null
+  terminal: false
+- id: CTR-IPC-SEARCH-WORKSPACE
+  kind: contract
+  type: contract
+  distance: 1
+  anchor: null
+  via:
+    node: IPC-SEARCH-WORKSPACE
+    relation: implemented_by
+    direction: reverse
+  terminal: false
+- id: DTO-RS-SEARCH-RESULT
+  kind: code
+  type: dto
+  distance: 2
+  anchor: src-tauri/src/contracts/mod.rs
+  via:
+    node: CTR-IPC-SEARCH-WORKSPACE
+    relation: implements
+    direction: reverse
+  terminal: false
+- id: DTO-TS-SEARCH-RESULT
+  kind: code
+  type: dto
+  distance: 2
+  anchor: src/contracts/types.ts
+  via:
+    node: CTR-IPC-SEARCH-WORKSPACE
+    relation: implements
+    direction: reverse
+  terminal: false
+hubs: []
+stats:
+  closure_nodes: 5
+  by_distance:
+    '0': 2
+    '1': 1
+    '2': 2

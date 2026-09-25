@@ -1,0 +1,107 @@
+artifact: task-impact
+schema_version: 1
+trace_task: TRACE-017
+task_id: MD-V03-024
+projected_at: '2026-09-25T12:39:45-03:00'
+projected_before_change: true
+projection_inputs:
+- spec v0.3 correspondente a MD-V03-024
+- ROADMAP-CANONICO-MD-STUDIO-v0.3-v0.5.md
+- .esaa/traceability/graph.json (source_commit 8eb7b6e18a672b94199397f1cc0d0ec7def6609c)
+- caso .esaa/traceability/case-MD-HOTFIX-EXPAND-002.md
+spec: .esaa/tasks/MD-V03-024.yaml
+graph_source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+rationale:
+  CMP-FILE-EXPLORER: A política de visibilidade mora na árvore. O default esconde .mdstudio.
+  STO-SETTINGS: O toggle Mostrar arquivos internos é preferência de workspace na seção já existente.
+justification:
+  FN-RESOLVE-WITHIN: Ocultar na árvore não cria nem relaxa o path fence.
+  FN-FENCE-RELATIVE: Arquivo oculto continua sujeito ao mesmo fence.
+  FN-LOAD-INDEX: O índice em .mdstudio continua sendo lido. Ocultar não é negar acesso.
+  FN-SAVE-INDEX: A gravação do índice não passa a depender do toggle.
+expected_uncatalogued: null
+blast_radius:
+  change_target:
+  - CMP-FILE-EXPLORER
+  expected_affected:
+  - STO-SETTINGS
+  expected_affected_source: declared
+  suggested_expected_affected:
+  - SCR-APP
+  authorized:
+  - CMP-FILE-EXPLORER
+  - STO-SETTINGS
+  potentially_affected:
+  - SCR-APP
+  protected_in_closure: []
+  protected_total: 141
+  protected_declared: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: false
+projected:
+  nodes:
+  - CMP-FILE-EXPLORER
+  - STO-SETTINGS
+  features:
+    direct:
+    - FEAT-METADATA-INDEX
+    - FEAT-OPEN-WORKSPACE
+    indirect:
+    - FEAT-APP-SCREENS
+    - FEAT-BACKLINKS
+    - FEAT-CREATE-NOTE-FROM-WIKI
+    - FEAT-KATEX
+    - FEAT-LAYOUT-PANELS
+    - FEAT-MERMAID
+    - FEAT-OUTGOING-LINKS
+    - FEAT-PREVIEW
+    - FEAT-SANITIZE
+    - FEAT-SHIKI
+    - FEAT-SPLASH-PACKAGING
+    - FEAT-WIKI-LINKS
+  flows:
+  - FLOW-APP-BOOT
+  - FLOW-BACKLINKS-QUERY
+  - FLOW-METADATA-REFRESH
+  - FLOW-OPEN-WORKSPACE
+  - FLOW-PREVIEW-RENDER
+  - FLOW-WIKI-LINK-RESOLVE
+  invariants: []
+  tests:
+    must_run: []
+    should_run: []
+    may_run: []
+  contracts: []
+  data: []
+  events: []
+  entrypoints:
+  - ENT-SCR-APP
+  modules:
+  - MOD-APP-SHELL
+  - MOD-WORKSPACE-FS
+closure:
+- id: CMP-FILE-EXPLORER
+  kind: code
+  type: component
+  distance: 0
+  anchor: src/components/FileExplorer.tsx
+  via: null
+  terminal: false
+- id: SCR-APP
+  kind: code
+  type: screen
+  distance: 1
+  anchor: src/App.tsx
+  via:
+    node: CMP-FILE-EXPLORER
+    relation: contains
+    direction: reverse
+  terminal: false
+hubs: []
+stats:
+  closure_nodes: 2
+  by_distance:
+    '0': 1
+    '1': 1

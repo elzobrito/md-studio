@@ -1,0 +1,203 @@
+artifact: task-drift
+schema_version: 1
+trace_task: TRACE-019
+task_id: MD-V03-012
+inputs:
+  impact: .esaa/analysis/MD-V03-012-impact.yaml
+  footprint: .esaa/analysis/MD-V03-012-footprint.yaml
+  graph_source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+notes: []
+rule: authorized = change_target ∪ expected_affected; ok ∈ authorized; violation ∈ protected; warning ∈ potentially_affected | out_of_closure
+  | uncatalogued substantive
+authorized:
+- FN-EXTRACT-METADATA
+- FN-REINDEX-ENGINE-FULL-REINDEX
+- IPC-GET-DOCUMENT-METADATA
+- IPC-TRIGGER-REINDEX
+observed:
+- FN-REINDEX-ENGINE-FULL-REINDEX
+classification:
+- id: FN-REINDEX-ENGINE-FULL-REINDEX
+  category: authorized
+  severity: ok
+  reasons: []
+drift: []
+other_findings:
+- path: src-tauri/crates/md-studio-core/src/index/metadata_extractor.rs
+  category: uncatalogued_change
+  severity: warning
+  lines:
+  - old:267
+  - new:267
+- path: src-tauri/crates/md-studio-core/src/lib.rs
+  category: uncatalogued_change
+  severity: warning
+  lines:
+  - new:1
+  - new:9
+- path: src/lib/ipc/metadata.ts
+  category: uncatalogued_change
+  severity: warning
+  lines:
+  - new:81
+  - new:82
+  - new:83
+  - new:84
+  - new:85
+  - new:86
+  - new:87
+  - new:88
+  - new:89
+  - new:91
+  - new:92
+  - new:93
+  - new:94
+  - new:95
+  - new:96
+  - new:98
+  - new:99
+  - new:100
+  - new:101
+  - new:102
+  - new:103
+  - new:104
+  - new:106
+  - new:107
+  - new:108
+  - new:109
+  - new:110
+  - new:111
+  - new:112
+  - new:114
+  - new:115
+  - new:116
+  - new:117
+  - new:118
+  - new:119
+  - new:120
+  - new:121
+  - new:122
+  - new:123
+  - new:125
+  - new:126
+  - new:127
+  - new:128
+  - new:129
+  - new:130
+  - new:131
+  - new:132
+  - new:133
+  - new:134
+  - new:135
+  - new:136
+  - new:138
+  - new:139
+  - new:140
+  - new:141
+  - new:142
+  - new:143
+  - new:144
+  - new:146
+  - new:147
+  - new:148
+  - new:149
+  - new:150
+  - new:151
+  - new:152
+  - new:154
+  - new:155
+  - new:156
+  - new:157
+  - new:158
+  - new:159
+  - new:160
+  - new:161
+  - new:162
+  - new:164
+  - new:165
+- path: src/types/metadata.ts
+  category: uncatalogued_change
+  severity: warning
+  lines:
+  - new:55
+  - new:56
+  - new:57
+  - new:58
+  - new:59
+  - new:60
+  - new:61
+  - new:63
+  - new:64
+  - new:65
+  - new:66
+  - new:67
+  - new:68
+  - new:69
+  - new:70
+  - new:71
+  - new:72
+  - new:73
+  - new:74
+- path: src-tauri/crates/md-studio-core/src/doctor/mod.rs
+  category: new_production_file
+  severity: info
+- path: src/editor/mdDoctorLinter.ts
+  category: new_production_file
+  severity: info
+- path: tests/editor/mdDoctorLinter.test.ts
+  category: new_test_file
+  severity: info
+not_touched:
+- FN-EXTRACT-METADATA
+- IPC-GET-DOCUMENT-METADATA
+- IPC-TRIGGER-REINDEX
+verdict: warning
+metrics:
+  nodes:
+    tp: 1
+    authorized: 4
+    observed: 1
+    precision: 0.25
+    recall: 1.0
+    closure_recall: 1.0
+  code_nodes_only:
+    tp: 1
+    authorized: 4
+    observed: 1
+    precision: 0.25
+    recall: 1.0
+  features:
+    projected_direct:
+    - FEAT-METADATA-INDEX
+    - FEAT-OPEN-WORKSPACE
+    projected_all: 14
+    observed:
+    - FEAT-METADATA-INDEX
+    observed_in_projected_direct:
+    - FEAT-METADATA-INDEX
+    observed_missing_from_projection: []
+    precision_direct: 0.5
+    recall_all: 1.0
+  invariants:
+    projected:
+    - INV-SHA256-CONFLICT
+    - INV-WATCHER-ECHO-SUPPRESSION
+    observed: []
+    missing_from_projection: []
+  tests:
+    projected_must_run:
+    - TST-RS-ADD-AND-REMOVE-LINK-VIA-REINDEX-FILE-UPDATES-BACKLINKS
+    - TST-RS-CREATING-UNRESOLVED-TARGET-THEN-REINDEX-ESTABLISHES-RELATION
+    - TST-RS-EXTERNAL-DELETE-AND-WATCH-APPLY-REMOVE-BACKLINKS
+    - TST-RS-REBUILD-MATCHES-INCREMENTAL-AND-LOADED-SNAPSHOT
+    - TST-RS-RETARGET-A-TO-B-AND-MULTI-SAVE-DOES-NOT-DUPLICATE
+    - TST-RS-TEST-REINDEX-ENGINE-WORKFLOW
+    changed_test_nodes: []
+    new_test_files:
+    - tests/editor/mdDoctorLinter.test.ts
+  contracts_touched: []
+  data_touched:
+  - id: REPO-METADATA-INDEX
+    how: written_by_changed
+    node: FN-REINDEX-ENGINE-FULL-REINDEX
+  events_touched: []

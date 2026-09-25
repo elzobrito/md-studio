@@ -1,0 +1,249 @@
+artifact: task-drift
+schema_version: 1
+trace_task: TRACE-019
+task_id: MD-V03-017
+inputs:
+  impact: .esaa/analysis/MD-V03-017-impact.yaml
+  footprint: .esaa/analysis/MD-V03-017-footprint.yaml
+  graph_source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+notes: []
+rule: authorized = change_target ∪ expected_affected; ok ∈ authorized; violation ∈ protected; warning ∈ potentially_affected | out_of_closure
+  | uncatalogued substantive
+authorized:
+- CMP-COMMAND-PALETTE
+- CMP-QUICK-SWITCHER
+- FN-FUZZY-SEARCH
+observed:
+- CMP-COMMAND-PALETTE
+classification:
+- id: CMP-COMMAND-PALETTE
+  category: authorized
+  severity: ok
+  reasons: []
+drift: []
+other_findings:
+- path: src/components/command/CommandPalette.tsx
+  category: uncatalogued_change
+  severity: warning
+  lines:
+  - new:15
+  - new:18
+  - new:19
+  - new:20
+  - new:21
+  - new:22
+  - new:23
+  - new:25
+  - new:27
+  - new:28
+  - new:29
+  - new:31
+  - new:32
+  - new:33
+  - new:34
+  - new:35
+  - new:36
+  - new:38
+  - new:39
+  - new:41
+  - new:42
+  - new:43
+  - new:44
+  - new:45
+  - new:46
+  - new:47
+  - new:48
+  - new:49
+  - new:50
+  - new:51
+  - new:52
+  - new:53
+  - new:54
+  - new:55
+  - new:56
+  - new:57
+  - new:58
+  - new:59
+  - new:60
+  - new:61
+  - new:62
+  - new:63
+  - new:65
+  - new:66
+  - new:67
+  - new:69
+  - new:71
+  - new:72
+  - new:73
+  - new:74
+  - new:75
+  - new:76
+  - new:77
+  - new:78
+  - new:79
+  - new:80
+  - new:81
+  - new:82
+  - new:83
+  - new:84
+  - new:85
+  - new:86
+  - new:87
+  - new:88
+  - new:89
+  - new:90
+  - new:91
+  - new:92
+  - new:93
+  - new:94
+  - new:95
+  - new:96
+  - new:97
+  - new:98
+  - new:99
+  - new:100
+  - new:101
+  - new:102
+  - new:103
+  - new:104
+  - new:105
+  - new:106
+  - new:107
+  - new:108
+  - new:109
+  - new:110
+  - new:111
+  - new:112
+  - new:113
+  - new:114
+  - new:115
+  - new:116
+  - new:117
+  - new:118
+  - new:119
+  - new:120
+  - new:121
+  - new:122
+  - new:123
+  - new:124
+  - new:125
+  - new:126
+  - new:127
+  - new:128
+  - new:129
+  - new:130
+  - new:131
+  - new:132
+  - new:133
+  - new:134
+  - new:135
+  - new:136
+  - new:137
+  - new:138
+  - new:139
+  - new:140
+  - new:141
+  - new:142
+  - new:143
+  - new:144
+  - new:145
+  - new:146
+  - new:147
+  - new:148
+  - new:149
+  - new:150
+  - new:151
+  - new:152
+  - new:153
+  - new:154
+  - new:155
+  - new:156
+  - new:157
+  - new:158
+  - new:159
+  - new:160
+  - new:161
+  - new:162
+  - new:163
+  - new:164
+  - new:165
+  - new:166
+  - new:167
+  - new:168
+  - new:169
+  - new:170
+  - new:171
+  - new:172
+- path: src/utils/fuzzy-search.ts
+  category: uncatalogued_change
+  severity: warning
+  lines:
+  - new:49
+  - new:50
+  - new:51
+  - new:52
+  - new:53
+  - new:54
+  - new:56
+  - new:57
+  - new:58
+  - new:59
+  - new:60
+  - new:61
+  - new:62
+  - new:63
+  - new:64
+  - new:66
+  - new:67
+  - new:68
+- path: src/commands/commandRegistry.ts
+  category: new_production_file
+  severity: info
+- path: tests/commands/commandRegistry.test.ts
+  category: new_test_file
+  severity: info
+not_touched:
+- CMP-QUICK-SWITCHER
+- FN-FUZZY-SEARCH
+verdict: warning
+metrics:
+  nodes:
+    tp: 1
+    authorized: 3
+    observed: 1
+    precision: 0.333
+    recall: 1.0
+    closure_recall: 1.0
+  code_nodes_only:
+    tp: 1
+    authorized: 3
+    observed: 1
+    precision: 0.333
+    recall: 1.0
+  features:
+    projected_direct:
+    - FEAT-APP-SCREENS
+    - FEAT-COMMAND-PALETTE
+    - FEAT-SPLASH-PACKAGING
+    - FEAT-WORKSPACE-SEARCH
+    projected_all: 15
+    observed:
+    - FEAT-COMMAND-PALETTE
+    observed_in_projected_direct:
+    - FEAT-COMMAND-PALETTE
+    observed_missing_from_projection: []
+    precision_direct: 0.25
+    recall_all: 1.0
+  invariants:
+    projected: []
+    observed: []
+    missing_from_projection: []
+  tests:
+    projected_must_run:
+    - TST-TS-UX-FUZZYSEARCH
+    changed_test_nodes: []
+    new_test_files:
+    - tests/commands/commandRegistry.test.ts
+  contracts_touched: []
+  data_touched: []
+  events_touched: []

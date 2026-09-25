@@ -1,0 +1,258 @@
+artifact: task-impact
+schema_version: 1
+trace_task: TRACE-017
+task_id: MD-V03-021
+projected_at: '2026-09-25T12:39:40-03:00'
+projected_before_change: true
+projection_inputs:
+- spec v0.3 correspondente a MD-V03-021
+- ROADMAP-CANONICO-MD-STUDIO-v0.3-v0.5.md
+- .esaa/traceability/graph.json (source_commit 8eb7b6e18a672b94199397f1cc0d0ec7def6609c)
+- caso .esaa/traceability/case-MD-HOTFIX-EXPAND-002.md
+spec: .esaa/tasks/MD-V03-021.yaml
+graph_source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+rationale:
+  FN-GET-FORMATTER-SPEC: O mapa linguagem → ferramenta já existe no Rust. A tarefa o torna consultável.
+  IPC-FORMAT-CODE: Formatar continua este comando. Não nasce um segundo hub.
+  FN-FIND-EXECUTABLE: Discovery local do binário já usado pelo fallback.
+  SVC-FORMAT-CODE: O cliente TS passa a ler o snapshot de capabilities, sem mudar o botão Formatar.
+justification: null
+expected_uncatalogued: null
+blast_radius:
+  change_target:
+  - FN-GET-FORMATTER-SPEC
+  - IPC-FORMAT-CODE
+  expected_affected:
+  - FN-FIND-EXECUTABLE
+  - SVC-FORMAT-CODE
+  expected_affected_source: declared
+  suggested_expected_affected:
+  - TST-RS-TEST-FORMATTER-SPEC-MAPPING
+  authorized:
+  - FN-FIND-EXECUTABLE
+  - FN-GET-FORMATTER-SPEC
+  - IPC-FORMAT-CODE
+  - SVC-FORMAT-CODE
+  potentially_affected:
+  - BTN-PREVIEW-FORMAT-CODE
+  - BTN-TOOLBAR-FORMAT-CODE
+  - CMP-CODE-BLOCK
+  - FN-FORMAT-CODE-BLOCK-AT-CURSOR
+  - FN-FORMAT-CODE-INTERNAL
+  - FN-FORMAT-DOCUMENT-OR-CODE-BLOCK
+  - IPCC-FORMAT-CODE
+  - SHC-EDITOR-SHIFT-ALT-F
+  protected_in_closure:
+  - id: CTR-FORMATTER-RESPONSE
+    reasons:
+    - contract_surface
+  - id: CTR-IPC-FORMAT-CODE
+    reasons:
+    - contract_surface
+  - id: DTO-RS-FORMAT-RESULT
+    reasons:
+    - contract_surface:CTR-FORMATTER-RESPONSE
+    - contract_surface:CTR-IPC-FORMAT-CODE
+  - id: DTO-TS-FORMAT-RESPONSE
+    reasons:
+    - contract_surface:CTR-FORMATTER-RESPONSE
+    - contract_surface:CTR-IPC-FORMAT-CODE
+  protected_total: 139
+  protected_declared: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: true
+projected:
+  nodes:
+  - FN-FIND-EXECUTABLE
+  - FN-GET-FORMATTER-SPEC
+  - IPC-FORMAT-CODE
+  - SVC-FORMAT-CODE
+  features:
+    direct:
+    - FEAT-CODE-FORMATTER
+    indirect: []
+  flows:
+  - FLOW-FORMAT-CODE-BLOCK
+  invariants: []
+  tests:
+    must_run:
+    - TST-RS-TEST-FORMATTER-SPEC-MAPPING
+    should_run:
+    - TST-RS-TEST-FORMAT-EMPTY-CODE
+    - TST-RS-TEST-FORMAT-GO-WITH-GOFMT
+    - TST-RS-TEST-FORMAT-PYTHON-WITH-RUFF
+    - TST-RS-TEST-FORMAT-RUST-WITH-RUSTFMT
+    - TST-RS-TEST-FORMAT-SYNTAX-ERROR-RESILIENCE
+    - TST-RS-TEST-FORMAT-UNSUPPORTED-LANGUAGE
+    may_run:
+    - TST-TS-EDITOR-FORMATCODEBLOCK-FORMATCODEBLOCKATCURSOR-CODEMIRROR-6
+    - TST-TS-EDITOR-FORMATCODEBLOCK-FORMATDOCUMENTORCODEBLOCK-CODEMIRROR-6
+    - TST-TS-FORMATTER-WEB
+    - TST-TS-UI-CODE-FORMATTING-UI
+  contracts:
+  - CTR-FORMATTER-RESPONSE
+  - CTR-IPC-FORMAT-CODE
+  data: []
+  events: []
+  entrypoints:
+  - ENT-BTN-PREVIEW-FORMAT-CODE
+  - ENT-BTN-TOOLBAR-FORMAT-CODE
+  - ENT-IPC-FORMAT-CODE
+  - ENT-SHC-EDITOR-SHIFT-ALT-F
+  modules:
+  - MOD-FORMATTER
+closure:
+- id: FN-GET-FORMATTER-SPEC
+  kind: code
+  type: function
+  distance: 0
+  anchor: src-tauri/src/commands/formatter.rs
+  via: null
+  terminal: false
+- id: IPC-FORMAT-CODE
+  kind: code
+  type: ipc_command
+  distance: 0
+  anchor: src-tauri/src/commands/formatter.rs
+  via: null
+  terminal: false
+- id: CTR-FORMATTER-RESPONSE
+  kind: contract
+  type: contract
+  distance: 1
+  anchor: null
+  via:
+    node: IPC-FORMAT-CODE
+    relation: implemented_by
+    direction: reverse
+  terminal: false
+- id: CTR-IPC-FORMAT-CODE
+  kind: contract
+  type: contract
+  distance: 1
+  anchor: null
+  via:
+    node: IPC-FORMAT-CODE
+    relation: implemented_by
+    direction: reverse
+  terminal: false
+- id: FN-FORMAT-CODE-INTERNAL
+  kind: code
+  type: function
+  distance: 1
+  anchor: src-tauri/src/commands/formatter.rs
+  via:
+    node: FN-GET-FORMATTER-SPEC
+    relation: calls
+    direction: reverse
+  terminal: false
+- id: IPCC-FORMAT-CODE
+  kind: code
+  type: ipc_client
+  distance: 1
+  anchor: src/services/formatter/index.ts
+  via:
+    node: IPC-FORMAT-CODE
+    relation: calls
+    direction: reverse
+  terminal: false
+- id: BTN-PREVIEW-FORMAT-CODE
+  kind: code
+  type: button
+  distance: 2
+  anchor: src/components/MarkdownViewer.tsx
+  via:
+    node: CTR-FORMATTER-RESPONSE
+    relation: depends_on
+    direction: reverse
+  terminal: false
+- id: DTO-RS-FORMAT-RESULT
+  kind: code
+  type: dto
+  distance: 2
+  anchor: src-tauri/src/commands/formatter.rs
+  via:
+    node: CTR-FORMATTER-RESPONSE
+    relation: implements
+    direction: reverse
+  terminal: false
+- id: DTO-TS-FORMAT-RESPONSE
+  kind: code
+  type: dto
+  distance: 2
+  anchor: src/services/formatter/types.ts
+  via:
+    node: CTR-FORMATTER-RESPONSE
+    relation: implements
+    direction: reverse
+  terminal: false
+- id: FN-FORMAT-DOCUMENT-OR-CODE-BLOCK
+  kind: code
+  type: function
+  distance: 2
+  anchor: src/editor/formatting/formatCodeBlock.ts
+  via:
+    node: CTR-FORMATTER-RESPONSE
+    relation: depends_on
+    direction: reverse
+  terminal: false
+- id: SVC-FORMAT-CODE
+  kind: code
+  type: service
+  distance: 2
+  anchor: src/services/formatter/index.ts
+  via:
+    node: CTR-FORMATTER-RESPONSE
+    relation: depends_on
+    direction: reverse
+  terminal: false
+- id: BTN-TOOLBAR-FORMAT-CODE
+  kind: code
+  type: button
+  distance: 3
+  anchor: src/components/editor/FormattingToolbar.tsx
+  via:
+    node: FN-FORMAT-DOCUMENT-OR-CODE-BLOCK
+    relation: triggers
+    direction: reverse
+  terminal: true
+- id: CMP-CODE-BLOCK
+  kind: code
+  type: component
+  distance: 3
+  anchor: src/components/CodeBlock.tsx
+  via:
+    node: SVC-FORMAT-CODE
+    relation: calls
+    direction: reverse
+  terminal: true
+- id: FN-FORMAT-CODE-BLOCK-AT-CURSOR
+  kind: code
+  type: function
+  distance: 3
+  anchor: src/editor/formatting/formatCodeBlock.ts
+  via:
+    node: SVC-FORMAT-CODE
+    relation: calls
+    direction: reverse
+  terminal: true
+- id: SHC-EDITOR-SHIFT-ALT-F
+  kind: code
+  type: shortcut
+  distance: 3
+  anchor: src/components/MarkdownEditor.tsx
+  via:
+    node: FN-FORMAT-DOCUMENT-OR-CODE-BLOCK
+    relation: triggers
+    direction: reverse
+  terminal: true
+hubs: []
+stats:
+  closure_nodes: 15
+  by_distance:
+    '0': 2
+    '1': 4
+    '2': 5
+    '3': 4

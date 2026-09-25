@@ -1,0 +1,315 @@
+artifact: task-footprint
+schema_version: 1
+trace_task: TRACE-018
+task_id: MD-V03-012
+diff:
+  base: 9eb9518dcdcb53553f120d785f56c7c97ca422c7
+  head: WORKTREE
+  paths_filter:
+  - src-tauri/crates/md-studio-core/src/index/metadata_extractor.rs
+  - src-tauri/crates/md-studio-core/src/index/reindex_engine.rs
+  - src-tauri/crates/md-studio-core/src/lib.rs
+  - src/lib/ipc/metadata.ts
+  - src/types/metadata.ts
+  - src-tauri/crates/md-studio-core/src/doctor/mod.rs
+  - src/editor/mdDoctorLinter.ts
+  - tests/editor/mdDoctorLinter.test.ts
+  excluded_set: []
+  command: git diff -U0 --no-color --no-ext-diff 9eb9518dcdcb53553f120d785f56c7c97ca422c7 -- src-tauri/crates/md-studio-core/src/index/metadata_extractor.rs
+    src-tauri/crates/md-studio-core/src/index/reindex_engine.rs src-tauri/crates/md-studio-core/src/lib.rs src/lib/ipc/metadata.ts src/types/metadata.ts
+    src-tauri/crates/md-studio-core/src/doctor/mod.rs src/editor/mdDoctorLinter.ts tests/editor/mdDoctorLinter.test.ts
+graph_source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+notes: []
+changed_files:
+- path: src-tauri/crates/md-studio-core/src/doctor/mod.rs
+  status: A
+  added: 232
+  removed: 0
+  hunks:
+  - old:
+    - 0
+    - -1
+    new:
+    - 1
+    - 232
+  is_test: false
+  catalogued_nodes_in_file: 0
+- path: src-tauri/crates/md-studio-core/src/index/metadata_extractor.rs
+  status: M
+  added: 1
+  removed: 1
+  hunks:
+  - old:
+    - 267
+    - 267
+    new:
+    - 267
+    - 267
+  is_test: false
+  catalogued_nodes_in_file: 3
+- path: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs
+  status: M
+  added: 12
+  removed: 0
+  hunks:
+  - old:
+    - 68
+    - 67
+    new:
+    - 69
+    - 80
+  is_test: false
+  catalogued_nodes_in_file: 15
+- path: src-tauri/crates/md-studio-core/src/lib.rs
+  status: M
+  added: 3
+  removed: 0
+  hunks:
+  - old:
+    - 0
+    - -1
+    new:
+    - 1
+    - 1
+  - old:
+    - 7
+    - 6
+    new:
+    - 9
+    - 10
+  is_test: false
+  catalogued_nodes_in_file: 0
+- path: src/editor/mdDoctorLinter.ts
+  status: A
+  added: 180
+  removed: 0
+  hunks:
+  - old:
+    - 0
+    - -1
+    new:
+    - 1
+    - 180
+  is_test: false
+  catalogued_nodes_in_file: 0
+- path: src/lib/ipc/metadata.ts
+  status: M
+  added: 87
+  removed: 0
+  hunks:
+  - old:
+    - 8
+    - 7
+    new:
+    - 9
+    - 9
+  - old:
+    - 78
+    - 77
+    new:
+    - 80
+    - 165
+  is_test: false
+  catalogued_nodes_in_file: 9
+- path: src/types/metadata.ts
+  status: M
+  added: 21
+  removed: 0
+  hunks:
+  - old:
+    - 54
+    - 53
+    new:
+    - 55
+    - 75
+  is_test: false
+  catalogued_nodes_in_file: 5
+- path: tests/editor/mdDoctorLinter.test.ts
+  status: A
+  added: 101
+  removed: 0
+  hunks:
+  - old:
+    - 0
+    - -1
+    new:
+    - 1
+    - 101
+  is_test: true
+  catalogued_nodes_in_file: 0
+changed_nodes:
+- id: FN-REINDEX-ENGINE-FULL-REINDEX
+  kind: code
+  type: function
+  path: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs
+  sides:
+  - new
+  lines_hit: 12
+  attribution: line
+  anchor_resolution:
+    old: exact
+    new: relocated
+  created_by_change: false
+enclosing_nodes: []
+uncatalogued:
+- path: src-tauri/crates/md-studio-core/src/index/metadata_extractor.rs
+  is_test: false
+  old_lines:
+  - - 267
+    - 267
+  new_lines:
+  - - 267
+    - 267
+  trivial_lines: 0
+  substantive_lines:
+  - old:267
+  - new:267
+- path: src-tauri/crates/md-studio-core/src/lib.rs
+  is_test: false
+  new_lines:
+  - - 1
+    - 1
+  - - 9
+    - 10
+  trivial_lines: 1
+  substantive_lines:
+  - new:1
+  - new:9
+- path: src/lib/ipc/metadata.ts
+  is_test: false
+  new_lines:
+  - - 9
+    - 9
+  - - 80
+    - 165
+  trivial_lines: 11
+  substantive_lines:
+  - new:81
+  - new:82
+  - new:83
+  - new:84
+  - new:85
+  - new:86
+  - new:87
+  - new:88
+  - new:89
+  - new:91
+  - new:92
+  - new:93
+  - new:94
+  - new:95
+  - new:96
+  - new:98
+  - new:99
+  - new:100
+  - new:101
+  - new:102
+  - new:103
+  - new:104
+  - new:106
+  - new:107
+  - new:108
+  - new:109
+  - new:110
+  - new:111
+  - new:112
+  - new:114
+  - new:115
+  - new:116
+  - new:117
+  - new:118
+  - new:119
+  - new:120
+  - new:121
+  - new:122
+  - new:123
+  - new:125
+  - new:126
+  - new:127
+  - new:128
+  - new:129
+  - new:130
+  - new:131
+  - new:132
+  - new:133
+  - new:134
+  - new:135
+  - new:136
+  - new:138
+  - new:139
+  - new:140
+  - new:141
+  - new:142
+  - new:143
+  - new:144
+  - new:146
+  - new:147
+  - new:148
+  - new:149
+  - new:150
+  - new:151
+  - new:152
+  - new:154
+  - new:155
+  - new:156
+  - new:157
+  - new:158
+  - new:159
+  - new:160
+  - new:161
+  - new:162
+  - new:164
+  - new:165
+- path: src/types/metadata.ts
+  is_test: false
+  new_lines:
+  - - 55
+    - 75
+  trivial_lines: 2
+  substantive_lines:
+  - new:55
+  - new:56
+  - new:57
+  - new:58
+  - new:59
+  - new:60
+  - new:61
+  - new:63
+  - new:64
+  - new:65
+  - new:66
+  - new:67
+  - new:68
+  - new:69
+  - new:70
+  - new:71
+  - new:72
+  - new:73
+  - new:74
+new_files:
+- src-tauri/crates/md-studio-core/src/doctor/mod.rs
+- src/editor/mdDoctorLinter.ts
+new_test_files:
+- tests/editor/mdDoctorLinter.test.ts
+contracts_touched: []
+data_touched:
+- id: REPO-METADATA-INDEX
+  how: written_by_changed
+  node: FN-REINDEX-ENGINE-FULL-REINDEX
+events_touched: []
+rollup:
+  features:
+  - FEAT-METADATA-INDEX
+  invariants: []
+  flows:
+  - FLOW-METADATA-REFRESH
+  - FLOW-OPEN-WORKSPACE
+stats:
+  files: 8
+  changed_nodes: 1
+  code_nodes: 1
+  test_nodes: 0
+  uncatalogued_files: 4
+  uncatalogued_substantive_lines: 99
+  new_files: 2
+  new_test_files: 1

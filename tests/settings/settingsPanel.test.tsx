@@ -63,9 +63,9 @@ describe("MD-UI-010: Settings refinado (SettingsPanel)", () => {
     expect(tablist?.getAttribute("aria-label")).toBe("Categorias de configuração");
 
     const tabs = container.querySelectorAll<HTMLButtonElement>('[role="tab"]');
-    expect(tabs.length).toBe(6);
+    expect(tabs.length).toBe(7);
 
-    const expectedLabels = ["Aparência", "Editor", "Preview", "Workspace", "Atalhos", "Sobre"];
+    const expectedLabels = ["Aparência", "Editor", "Preview", "Workspace", "Atalhos", "Ferramentas", "Sobre"];
     tabs.forEach((tab, i) => {
       expect(tab.textContent).toContain(expectedLabels[i]);
       // Each tab button must render an SVG icon instead of emoji
@@ -159,12 +159,12 @@ describe("MD-UI-010: Settings refinado (SettingsPanel)", () => {
     await act(async () => {
       tabs[0].dispatchEvent(new KeyboardEvent("keydown", { key: "End", bubbles: true }));
     });
-    expect(tabs[5].getAttribute("aria-selected")).toBe("true");
+    expect(tabs[6].getAttribute("aria-selected")).toBe("true");
     expect(container.querySelector('[role="tabpanel"]')?.id).toBe("settings-tabpanel-about");
 
     // Press Home -> moves to first tab
     await act(async () => {
-      tabs[5].dispatchEvent(new KeyboardEvent("keydown", { key: "Home", bubbles: true }));
+      tabs[6].dispatchEvent(new KeyboardEvent("keydown", { key: "Home", bubbles: true }));
     });
     expect(tabs[0].getAttribute("aria-selected")).toBe("true");
 

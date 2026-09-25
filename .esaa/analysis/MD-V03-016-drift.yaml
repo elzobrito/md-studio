@@ -1,0 +1,67 @@
+artifact: task-drift
+schema_version: 1
+trace_task: TRACE-019
+task_id: MD-V03-016
+inputs:
+  impact: .esaa/analysis/MD-V03-016-impact.yaml
+  footprint: .esaa/analysis/MD-V03-016-footprint.yaml
+  graph_source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+notes: []
+rule: authorized = change_target ∪ expected_affected; ok ∈ authorized; violation ∈ protected; warning ∈ potentially_affected | out_of_closure
+  | uncatalogued substantive
+authorized:
+- FN-SMART-PASTE
+observed:
+- FN-SMART-PASTE
+classification:
+- id: FN-SMART-PASTE
+  category: authorized
+  severity: ok
+  reasons: []
+drift: []
+other_findings:
+- path: src/editor/tableDataPaste.ts
+  category: new_production_file
+  severity: info
+- path: tests/editor/tableDataPaste.test.ts
+  category: new_test_file
+  severity: info
+not_touched: []
+verdict: ok
+metrics:
+  nodes:
+    tp: 1
+    authorized: 1
+    observed: 1
+    precision: 1.0
+    recall: 1.0
+    closure_recall: 1.0
+  code_nodes_only:
+    tp: 1
+    authorized: 1
+    observed: 1
+    precision: 1.0
+    recall: 1.0
+  features:
+    projected_direct:
+    - FEAT-SMART-PASTE
+    projected_all: 25
+    observed:
+    - FEAT-SMART-PASTE
+    observed_in_projected_direct:
+    - FEAT-SMART-PASTE
+    observed_missing_from_projection: []
+    precision_direct: 1.0
+    recall_all: 1.0
+  invariants:
+    projected: []
+    observed: []
+    missing_from_projection: []
+  tests:
+    projected_must_run: []
+    changed_test_nodes: []
+    new_test_files:
+    - tests/editor/tableDataPaste.test.ts
+  contracts_touched: []
+  data_touched: []
+  events_touched: []

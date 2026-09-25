@@ -1,0 +1,46 @@
+artifact: task-traceability
+schema_version: 1
+task_id: MD-V03-020
+written_at: '2026-09-25T12:39:28-03:00'
+projected_before_change: true
+projection_inputs:
+- spec v0.3 correspondente a MD-V03-020
+- ROADMAP-CANONICO-MD-STUDIO-v0.3-v0.5.md
+- .esaa/traceability/graph.json (source_commit 8eb7b6e18a672b94199397f1cc0d0ec7def6609c)
+- caso .esaa/traceability/case-MD-HOTFIX-EXPAND-002.md
+graph:
+  path: .esaa/traceability/graph.json
+  source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+traceability:
+  targets:
+  - IPC-SEARCH-WORKSPACE
+  - IPCC-SEARCH-WORKSPACE
+  expected_affected:
+  - DTO-TS-SEARCH-RESULT
+  protected_extra:
+  - FN-ATOMIC-SAVE
+  - FN-RESOLVE-WITHIN
+  - FN-FENCE-RELATIVE
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: true
+  rationale:
+    IPC-SEARCH-WORKSPACE: A busca recursiva em Markdown já existe no Rust. A v0.3
+      não reimplementa o motor.
+    IPCC-SEARCH-WORKSPACE: A UI passa a chamar o cliente que hoje não tem gatilho.
+    DTO-TS-SEARCH-RESULT: O resultado já tipado alimenta a lista. Regex e filtros
+      estendem o contrato sem um DTO paralelo silencioso.
+  justification:
+    FN-ATOMIC-SAVE: Replace All grava cada arquivo pela atomic_save existente. A função
+      não é reescrita.
+    FN-RESOLVE-WITHIN: Todo path de busca e de escrita passa pelo fence.
+    FN-FENCE-RELATIVE: Replace não alcança arquivo fora do workspace.
+artifacts:
+  impact: .esaa/analysis/MD-V03-020-impact.yaml
+  footprint: .esaa/analysis/MD-V03-020-footprint.yaml
+  drift: .esaa/analysis/MD-V03-020-drift.yaml
+expected_uncatalogued:
+- src/components/workspace/WorkspaceSearch.tsx
+close_rule: O complete copia verdict. warning cita path e linhas. precision de nó
+  não cobre arquivo sem nó. must_run exige saída do comando. violation bloqueia.

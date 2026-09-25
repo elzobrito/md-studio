@@ -1,0 +1,106 @@
+artifact: task-footprint
+schema_version: 1
+trace_task: TRACE-018
+task_id: MD-V03-013
+diff:
+  base: 9eb9518dcdcb53553f120d785f56c7c97ca422c7
+  head: WORKTREE
+  paths_filter:
+  - src/editor/wiki/wiki-completion.ts
+  - src/editor/smartReferences.ts
+  - tests/editor/smartReferences.test.ts
+  excluded_set: []
+  command: git diff -U0 --no-color --no-ext-diff 9eb9518dcdcb53553f120d785f56c7c97ca422c7 -- src/editor/wiki/wiki-completion.ts src/editor/smartReferences.ts
+    tests/editor/smartReferences.test.ts
+graph_source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+notes: []
+changed_files:
+- path: src/editor/smartReferences.ts
+  status: A
+  added: 216
+  removed: 0
+  hunks:
+  - old:
+    - 0
+    - -1
+    new:
+    - 1
+    - 216
+  is_test: false
+  catalogued_nodes_in_file: 0
+- path: src/editor/wiki/wiki-completion.ts
+  status: M
+  added: 30
+  removed: 0
+  hunks:
+  - old:
+    - 6
+    - 5
+    new:
+    - 7
+    - 7
+  - old:
+    - 29
+    - 28
+    new:
+    - 31
+    - 59
+  is_test: false
+  catalogued_nodes_in_file: 2
+- path: tests/editor/smartReferences.test.ts
+  status: A
+  added: 100
+  removed: 0
+  hunks:
+  - old:
+    - 0
+    - -1
+    new:
+    - 1
+    - 100
+  is_test: true
+  catalogued_nodes_in_file: 0
+changed_nodes:
+- id: FN-WIKI-CANDIDATES
+  kind: code
+  type: function
+  path: src/editor/wiki/wiki-completion.ts
+  sides:
+  - new
+  lines_hit: 29
+  attribution: line
+  anchor_resolution:
+    old: exact
+    new: relocated
+  created_by_change: false
+enclosing_nodes: []
+uncatalogued:
+- path: src/editor/wiki/wiki-completion.ts
+  is_test: false
+  new_lines:
+  - - 7
+    - 7
+  trivial_lines: 0
+  substantive_lines:
+  - new:7
+new_files:
+- src/editor/smartReferences.ts
+new_test_files:
+- tests/editor/smartReferences.test.ts
+contracts_touched: []
+data_touched: []
+events_touched: []
+rollup:
+  features:
+  - FEAT-WIKI-AUTOCOMPLETE
+  invariants: []
+  flows: []
+stats:
+  files: 3
+  changed_nodes: 1
+  code_nodes: 1
+  test_nodes: 0
+  uncatalogued_files: 1
+  uncatalogued_substantive_lines: 1
+  new_files: 1
+  new_test_files: 1

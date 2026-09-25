@@ -1,0 +1,105 @@
+artifact: task-footprint
+schema_version: 1
+trace_task: TRACE-018
+task_id: MD-V03-016
+diff:
+  base: 9eb9518dcdcb53553f120d785f56c7c97ca422c7
+  head: WORKTREE
+  paths_filter:
+  - src/editor/paste/paste-plugin.ts
+  - src/editor/tableDataPaste.ts
+  - tests/editor/tableDataPaste.test.ts
+  excluded_set: []
+  command: git diff -U0 --no-color --no-ext-diff 9eb9518dcdcb53553f120d785f56c7c97ca422c7 -- src/editor/paste/paste-plugin.ts src/editor/tableDataPaste.ts
+    tests/editor/tableDataPaste.test.ts
+graph_source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+notes: []
+changed_files:
+- path: src/editor/paste/paste-plugin.ts
+  status: M
+  added: 8
+  removed: 0
+  hunks:
+  - old:
+    - 3
+    - 2
+    new:
+    - 4
+    - 4
+  - old:
+    - 14
+    - 13
+    new:
+    - 16
+    - 22
+  is_test: false
+  catalogued_nodes_in_file: 1
+- path: src/editor/tableDataPaste.ts
+  status: A
+  added: 273
+  removed: 0
+  hunks:
+  - old:
+    - 0
+    - -1
+    new:
+    - 1
+    - 273
+  is_test: false
+  catalogued_nodes_in_file: 0
+- path: tests/editor/tableDataPaste.test.ts
+  status: A
+  added: 118
+  removed: 0
+  hunks:
+  - old:
+    - 0
+    - -1
+    new:
+    - 1
+    - 118
+  is_test: true
+  catalogued_nodes_in_file: 0
+changed_nodes:
+- id: FN-SMART-PASTE
+  kind: code
+  type: function
+  path: src/editor/paste/paste-plugin.ts
+  sides:
+  - new
+  lines_hit: 7
+  attribution: line
+  anchor_resolution:
+    old: exact
+    new: relocated
+  created_by_change: false
+enclosing_nodes: []
+uncatalogued:
+- path: src/editor/paste/paste-plugin.ts
+  is_test: false
+  new_lines:
+  - - 4
+    - 4
+  trivial_lines: 1
+  substantive_lines: []
+new_files:
+- src/editor/tableDataPaste.ts
+new_test_files:
+- tests/editor/tableDataPaste.test.ts
+contracts_touched: []
+data_touched: []
+events_touched: []
+rollup:
+  features:
+  - FEAT-SMART-PASTE
+  invariants: []
+  flows: []
+stats:
+  files: 3
+  changed_nodes: 1
+  code_nodes: 1
+  test_nodes: 0
+  uncatalogued_files: 1
+  uncatalogued_substantive_lines: 0
+  new_files: 1
+  new_test_files: 1

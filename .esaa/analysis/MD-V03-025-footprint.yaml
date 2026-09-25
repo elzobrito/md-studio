@@ -1,0 +1,243 @@
+artifact: task-footprint
+schema_version: 1
+trace_task: TRACE-018
+task_id: MD-V03-025
+diff:
+  base: 9eb9518dcdcb53553f120d785f56c7c97ca422c7
+  head: WORKTREE
+  paths_filter:
+  - src/editor/wiki/wiki-completion.ts
+  - src/components/MarkdownViewer.tsx
+  - src/components/editor/HoverPreview.tsx
+  - tests/components/hoverPreview.test.tsx
+  excluded_set: []
+  command: git diff -U0 --no-color --no-ext-diff 9eb9518dcdcb53553f120d785f56c7c97ca422c7 -- src/editor/wiki/wiki-completion.ts src/components/MarkdownViewer.tsx
+    src/components/editor/HoverPreview.tsx tests/components/hoverPreview.test.tsx
+graph_source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+notes: []
+changed_files:
+- path: src/components/MarkdownViewer.tsx
+  status: M
+  added: 307
+  removed: 2
+  hunks:
+  - old:
+    - 4
+    - 4
+    new:
+    - 4
+    - 4
+  - old:
+    - 8
+    - 7
+    new:
+    - 9
+    - 12
+  - old:
+    - 17
+    - 16
+    new:
+    - 22
+    - 22
+  - old:
+    - 19
+    - 18
+    new:
+    - 25
+    - 31
+  - old:
+    - 58
+    - 58
+    new:
+    - 70
+    - 80
+  - old:
+    - 123
+    - 122
+    new:
+    - 146
+    - 390
+  - old:
+    - 141
+    - 140
+    new:
+    - 409
+    - 412
+  - old:
+    - 145
+    - 144
+    new:
+    - 417
+    - 426
+  - old:
+    - 219
+    - 218
+    new:
+    - 501
+    - 504
+  - old:
+    - 260
+    - 259
+    new:
+    - 546
+    - 565
+  is_test: false
+  catalogued_nodes_in_file: 3
+- path: src/components/editor/HoverPreview.tsx
+  status: A
+  added: 279
+  removed: 0
+  hunks:
+  - old:
+    - 0
+    - -1
+    new:
+    - 1
+    - 279
+  is_test: false
+  catalogued_nodes_in_file: 0
+- path: src/editor/wiki/wiki-completion.ts
+  status: M
+  added: 38
+  removed: 3
+  hunks:
+  - old:
+    - 6
+    - 5
+    new:
+    - 7
+    - 7
+  - old:
+    - 26
+    - 25
+    new:
+    - 28
+    - 28
+  - old:
+    - 29
+    - 28
+    new:
+    - 32
+    - 62
+  - old:
+    - 40
+    - 41
+    new:
+    - 73
+    - 76
+  - old:
+    - 47
+    - 47
+    new:
+    - 82
+    - 82
+  is_test: false
+  catalogued_nodes_in_file: 2
+- path: tests/components/hoverPreview.test.tsx
+  status: A
+  added: 286
+  removed: 0
+  hunks:
+  - old:
+    - 0
+    - -1
+    new:
+    - 1
+    - 286
+  is_test: true
+  catalogued_nodes_in_file: 0
+changed_nodes:
+- id: CMP-MARKDOWN-VIEWER
+  kind: code
+  type: component
+  path: src/components/MarkdownViewer.tsx
+  sides:
+  - new
+  lines_hit: 291
+  attribution: line
+  anchor_resolution:
+    old: exact
+    new: relocated
+  created_by_change: false
+- id: HDL-VIEWER-ON-CLICK
+  kind: code
+  type: handler
+  path: src/components/MarkdownViewer.tsx
+  sides:
+  - old
+  - new
+  lines_hit: 12
+  attribution: line
+  anchor_resolution:
+    old: exact
+    new: relocated
+  created_by_change: false
+- id: FN-WIKI-CANDIDATES
+  kind: code
+  type: function
+  path: src/editor/wiki/wiki-completion.ts
+  sides:
+  - old
+  - new
+  lines_hit: 40
+  attribution: line
+  anchor_resolution:
+    old: exact
+    new: relocated
+  created_by_change: false
+enclosing_nodes: []
+uncatalogued:
+- path: src/components/MarkdownViewer.tsx
+  is_test: false
+  old_lines:
+  - - 4
+    - 4
+  new_lines:
+  - - 4
+    - 4
+  - - 9
+    - 12
+  trivial_lines: 6
+  substantive_lines: []
+- path: src/editor/wiki/wiki-completion.ts
+  is_test: false
+  new_lines:
+  - - 7
+    - 7
+  trivial_lines: 0
+  substantive_lines:
+  - new:7
+new_files:
+- src/components/editor/HoverPreview.tsx
+new_test_files:
+- tests/components/hoverPreview.test.tsx
+contracts_touched:
+- id: CTR-SANITIZE-POLICY
+  how: consumer
+  node: CMP-MARKDOWN-VIEWER
+- id: CTR-TAURI-CSP
+  how: consumer
+  node: CMP-MARKDOWN-VIEWER
+data_touched:
+- id: STO-METADATA
+  how: read_by_changed
+  node: CMP-MARKDOWN-VIEWER
+events_touched: []
+rollup:
+  features:
+  - FEAT-PREVIEW
+  - FEAT-WIKI-AUTOCOMPLETE
+  - FEAT-WIKI-LINKS
+  invariants: []
+  flows:
+  - FLOW-PREVIEW-RENDER
+  - FLOW-WIKI-LINK-RESOLVE
+stats:
+  files: 4
+  changed_nodes: 3
+  code_nodes: 3
+  test_nodes: 0
+  uncatalogued_files: 2
+  uncatalogued_substantive_lines: 1
+  new_files: 1
+  new_test_files: 1

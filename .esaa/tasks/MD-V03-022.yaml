@@ -1,0 +1,39 @@
+artifact: task-traceability
+schema_version: 1
+task_id: MD-V03-022
+written_at: '2026-09-25T12:39:28-03:00'
+projected_before_change: true
+projection_inputs:
+- spec v0.3 correspondente a MD-V03-022
+- ROADMAP-CANONICO-MD-STUDIO-v0.3-v0.5.md
+- .esaa/traceability/graph.json (source_commit 8eb7b6e18a672b94199397f1cc0d0ec7def6609c)
+- caso .esaa/traceability/case-MD-HOTFIX-EXPAND-002.md
+graph:
+  path: .esaa/traceability/graph.json
+  source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+traceability:
+  targets:
+  - CMP-SETTINGS-PANEL
+  - STO-SETTINGS
+  expected_affected: []
+  protected_extra:
+  - CFG-DEFAULT-SETTINGS
+  - LSK-SETTINGS
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: true
+  rationale:
+    CMP-SETTINGS-PANEL: A seção Configurações > Ferramentas entra no painel existente.
+    STO-SETTINGS: A seção só lê snapshot. Não altera tema, zoom nem largura de leitura.
+  justification:
+    CFG-DEFAULT-SETTINGS: Nenhum default de produto muda.
+    LSK-SETTINGS: A seção não grava preferência nova. Refresh não persiste o snapshot.
+artifacts:
+  impact: .esaa/analysis/MD-V03-022-impact.yaml
+  footprint: .esaa/analysis/MD-V03-022-footprint.yaml
+  drift: .esaa/analysis/MD-V03-022-drift.yaml
+expected_uncatalogued:
+- src/components/settings/ToolingSettings.tsx
+close_rule: O complete copia verdict. warning cita path e linhas. precision de nó
+  não cobre arquivo sem nó. must_run exige saída do comando. violation bloqueia.

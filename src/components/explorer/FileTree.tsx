@@ -17,10 +17,12 @@ export function FileTree({ tree, activePath, onToggleFolder, onOpenFile, isLoadi
 
   useEffect(() => {
     if (!activePath || !containerRef.current) return;
+    const escapePath =
+      typeof CSS !== "undefined" && CSS.escape ? CSS.escape(activePath) : activePath;
     const activeEl = containerRef.current.querySelector(
-      `[data-path="${CSS.escape(activePath)}"]`,
+      `[data-path="${escapePath}"]`,
     );
-    if (activeEl) {
+    if (activeEl && typeof activeEl.scrollIntoView === "function") {
       activeEl.scrollIntoView({ block: "nearest", behavior: "smooth" });
     }
   }, [activePath, tree]);

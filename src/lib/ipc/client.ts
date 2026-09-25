@@ -112,9 +112,13 @@ export const ipc = {
       message: pickStr(o, "message", "message") || "Erro ao salvar",
     };
   },
-  searchWorkspace: async (workspaceId: string, query: string) => {
+  searchWorkspace: async (
+    workspaceId: string,
+    query: string,
+    options?: { caseSensitive?: boolean; isRegex?: boolean; pathFilter?: string }
+  ) => {
     const list = await invoke<unknown[]>("search_workspace", { workspaceId, query });
-    return (Array.isArray(list) ? list : []).map((item) => {
+    let results = (Array.isArray(list) ? list : []).map((item) => {
       const o = asRecord(item);
       return {
         relativePath: pickStr(o, "relativePath", "relative_path"),
@@ -122,6 +126,11 @@ export const ipc = {
         preview: pickStr(o, "preview", "preview"),
       } satisfies SearchResult;
     });
+    if (options?.pathFilter) {
+      const f = options.pathFilter.trim().toLowerCase();
+      results = results.filter((r) => r.relativePath.toLowerCase().includes(f));
+    }
+    return results;
   },
   exportHtml: (html: string, destination: string, overwrite: boolean) =>
     invoke<void>("export_html", {

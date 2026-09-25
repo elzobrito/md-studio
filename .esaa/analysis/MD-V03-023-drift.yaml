@@ -1,0 +1,100 @@
+artifact: task-drift
+schema_version: 1
+trace_task: TRACE-019
+task_id: MD-V03-023
+inputs:
+  impact: .esaa/analysis/MD-V03-023-impact.yaml
+  footprint: .esaa/analysis/MD-V03-023-footprint.yaml
+  graph_source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+notes: []
+rule: authorized = change_target ∪ expected_affected; ok ∈ authorized; violation ∈ protected; warning ∈ potentially_affected | out_of_closure
+  | uncatalogued substantive
+authorized:
+- CMP-DOCUMENT-OUTLINE
+- FN-SCROLL-TO-HEADING
+- HDL-APP-GO-TO-HEADING
+- PIPE-HEADING-IDS
+observed:
+- CMP-DOCUMENT-OUTLINE
+- FN-SCROLL-TO-HEADING
+classification:
+- id: CMP-DOCUMENT-OUTLINE
+  category: authorized
+  severity: ok
+  reasons: []
+- id: FN-SCROLL-TO-HEADING
+  category: authorized
+  severity: ok
+  reasons: []
+drift: []
+other_findings:
+- path: src/components/DocumentOutline.tsx
+  category: uncatalogued_change
+  severity: warning
+  lines:
+  - old:10
+  - new:10
+  - new:12
+  - new:15
+- path: src/services/navigation.ts
+  category: uncatalogued_change
+  severity: warning
+  lines:
+  - old:15
+  - old:17
+  - old:19
+  - old:27
+  - new:15
+  - new:17
+  - new:19
+  - new:20
+  - new:28
+  - new:40
+- path: tests/components/documentOutline.test.tsx
+  category: new_test_file
+  severity: info
+not_touched:
+- HDL-APP-GO-TO-HEADING
+- PIPE-HEADING-IDS
+verdict: warning
+metrics:
+  nodes:
+    tp: 2
+    authorized: 4
+    observed: 2
+    precision: 0.5
+    recall: 1.0
+    closure_recall: 1.0
+  code_nodes_only:
+    tp: 2
+    authorized: 4
+    observed: 2
+    precision: 0.5
+    recall: 1.0
+  features:
+    projected_direct:
+    - FEAT-OUTLINE
+    projected_all: 16
+    observed:
+    - FEAT-OUTLINE
+    observed_in_projected_direct:
+    - FEAT-OUTLINE
+    observed_missing_from_projection: []
+    precision_direct: 1.0
+    recall_all: 1.0
+  invariants:
+    projected: []
+    observed: []
+    missing_from_projection: []
+  tests:
+    projected_must_run:
+    - TST-TS-PANEL-COLLAPSIBLEPANEL
+    changed_test_nodes: []
+    new_test_files:
+    - tests/components/documentOutline.test.tsx
+  contracts_touched: []
+  data_touched:
+  - id: STO-UI
+    how: written_by_changed
+    node: CMP-DOCUMENT-OUTLINE
+  events_touched: []

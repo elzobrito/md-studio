@@ -12,4 +12,5 @@ target
 .craft
 .mdstudio
 .roadmap/artifacts/
-
+__pycache__/
+*.pyc

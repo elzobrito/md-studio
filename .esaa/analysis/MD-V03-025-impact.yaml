@@ -1,0 +1,206 @@
+artifact: task-impact
+schema_version: 1
+trace_task: TRACE-017
+task_id: MD-V03-025
+projected_at: '2026-09-25T12:39:47-03:00'
+projected_before_change: true
+projection_inputs:
+- spec v0.3 correspondente a MD-V03-025
+- ROADMAP-CANONICO-MD-STUDIO-v0.3-v0.5.md
+- .esaa/traceability/graph.json (source_commit 8eb7b6e18a672b94199397f1cc0d0ec7def6609c)
+- caso .esaa/traceability/case-MD-HOTFIX-EXPAND-002.md
+spec: .esaa/tasks/MD-V03-025.yaml
+graph_source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+rationale:
+  FN-WIKI-CANDIDATES: O hover resolve a referência pelo índice local já usado no autocomplete.
+  CMP-MARKDOWN-VIEWER: O mesmo contexto aparece no preview, sem navegar.
+  IPC-RESOLVE-WIKI-LINK: resolved, unresolved e ambiguous vêm do resolver existente.
+  IPC-GET-DOCUMENT-METADATA: Título, trecho e headings saem do MetadataIndex/cache, sem releitura a cada movimento.
+justification:
+  FN-RESOLVE-WITHIN: O popup só resolve destino dentro do workspace.
+  FN-FENCE-RELATIVE: Path fora do fence não é lido para montar o preview.
+expected_uncatalogued: null
+blast_radius:
+  change_target:
+  - FN-WIKI-CANDIDATES
+  - CMP-MARKDOWN-VIEWER
+  expected_affected:
+  - IPC-GET-DOCUMENT-METADATA
+  - IPC-RESOLVE-WIKI-LINK
+  expected_affected_source: declared
+  suggested_expected_affected:
+  - SCR-APP
+  - TST-TS-UI-CODE-FORMATTING-UI
+  - TST-TS-WIKI-WIKI-COMPLETION
+  authorized:
+  - CMP-MARKDOWN-VIEWER
+  - FN-WIKI-CANDIDATES
+  - IPC-GET-DOCUMENT-METADATA
+  - IPC-RESOLVE-WIKI-LINK
+  potentially_affected:
+  - BTN-EXPORT-PDF
+  - CMP-MARKDOWN-EDITOR
+  - FN-CREATE-WIKI-COMPLETION-EXTENSIONS
+  - HDL-APP-EXPORT-PDF
+  - SCR-APP
+  - STO-EDITOR
+  protected_in_closure: []
+  protected_total: 139
+  protected_declared: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: true
+projected:
+  nodes:
+  - CMP-MARKDOWN-VIEWER
+  - FN-WIKI-CANDIDATES
+  - IPC-GET-DOCUMENT-METADATA
+  - IPC-RESOLVE-WIKI-LINK
+  features:
+    direct:
+    - FEAT-CREATE-NOTE-FROM-WIKI
+    - FEAT-KATEX
+    - FEAT-MERMAID
+    - FEAT-OUTGOING-LINKS
+    - FEAT-PREVIEW
+    - FEAT-SANITIZE
+    - FEAT-SHIKI
+    - FEAT-WIKI-AUTOCOMPLETE
+    - FEAT-WIKI-LINKS
+    indirect:
+    - FEAT-APP-SCREENS
+    - FEAT-AUTO-SAVE
+    - FEAT-BACKLINKS
+    - FEAT-CONFLICT
+    - FEAT-DRAFT-RECOVERY
+    - FEAT-EDITOR
+    - FEAT-EXPORT-PDF
+    - FEAT-FORMATTING-TOOLBAR
+    - FEAT-LAYOUT-PANELS
+    - FEAT-METADATA-INDEX
+    - FEAT-SAVE
+    - FEAT-SHORTCUTS-HELP
+    - FEAT-SLASH-COMMANDS
+    - FEAT-SPLASH-PACKAGING
+    - FEAT-TEMPLATES
+    - FEAT-WATCHER
+  flows:
+  - FLOW-APP-BOOT
+  - FLOW-AUTO-SAVE
+  - FLOW-BACKLINKS-QUERY
+  - FLOW-CLOSE-FILE
+  - FLOW-CONFLICT-ON-SAVE
+  - FLOW-EDITOR-COMMANDS
+  - FLOW-EXPORT-PDF
+  - FLOW-METADATA-REFRESH
+  - FLOW-NEW-DOCUMENT
+  - FLOW-PREVIEW-RENDER
+  - FLOW-SAVE-DOCUMENT
+  - FLOW-WIKI-LINK-RESOLVE
+  invariants: []
+  tests:
+    must_run:
+    - TST-TS-UI-CODE-FORMATTING-UI
+    - TST-TS-WIKI-WIKI-COMPLETION
+    should_run: []
+    may_run:
+    - TST-TS-EDITOR-SINGLESAVE
+    - TST-TS-UX-EDITORSTORE
+    - TST-TS-UX-WIREFRAMEFIDELITY
+  contracts: []
+  data:
+  - STO-EDITOR
+  events: []
+  entrypoints:
+  - ENT-BTN-EXPORT-PDF
+  - ENT-SCR-APP
+  modules:
+  - MOD-APP-SHELL
+  - MOD-EDITOR
+  - MOD-EXPORT
+  - MOD-PREVIEW
+  - MOD-WIKI-LINKS
+closure:
+- id: CMP-MARKDOWN-VIEWER
+  kind: code
+  type: component
+  distance: 0
+  anchor: src/components/MarkdownViewer.tsx
+  via: null
+  terminal: false
+- id: FN-WIKI-CANDIDATES
+  kind: code
+  type: function
+  distance: 0
+  anchor: src/editor/wiki/wiki-completion.ts
+  via: null
+  terminal: false
+- id: FN-CREATE-WIKI-COMPLETION-EXTENSIONS
+  kind: code
+  type: function
+  distance: 1
+  anchor: src/editor/wiki/wiki-completion.ts
+  via:
+    node: FN-WIKI-CANDIDATES
+    relation: calls
+    direction: reverse
+  terminal: false
+- id: HDL-APP-EXPORT-PDF
+  kind: code
+  type: handler
+  distance: 1
+  anchor: src/App.tsx
+  via:
+    node: CMP-MARKDOWN-VIEWER
+    relation: depends_on
+    direction: reverse
+  terminal: false
+- id: SCR-APP
+  kind: code
+  type: screen
+  distance: 1
+  anchor: src/App.tsx
+  via:
+    node: CMP-MARKDOWN-VIEWER
+    relation: contains
+    direction: reverse
+  terminal: false
+- id: BTN-EXPORT-PDF
+  kind: code
+  type: button
+  distance: 2
+  anchor: src/components/header/ExportMenu.tsx
+  via:
+    node: HDL-APP-EXPORT-PDF
+    relation: triggers
+    direction: reverse
+  terminal: false
+- id: CMP-MARKDOWN-EDITOR
+  kind: code
+  type: component
+  distance: 2
+  anchor: src/components/MarkdownEditor.tsx
+  via:
+    node: FN-CREATE-WIKI-COMPLETION-EXTENSIONS
+    relation: calls
+    direction: reverse
+  terminal: false
+- id: STO-EDITOR
+  kind: code
+  type: store
+  distance: 3
+  anchor: src/state/editor.ts
+  via:
+    node: CMP-MARKDOWN-EDITOR
+    relation: writes
+    direction: forward
+  terminal: true
+hubs: []
+stats:
+  closure_nodes: 8
+  by_distance:
+    '0': 2
+    '1': 3
+    '2': 2
+    '3': 1

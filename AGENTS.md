@@ -75,6 +75,15 @@ claim/complete do ESAA-Core.
 3. `review` -> somente QA autorizado emite `review`
 4. `done` -> apenas `issue.report`
 
+## Rastreabilidade (só neste repositório)
+
+Alteração de código do MD Studio segue `.esaa/traceability/task-integration.md`.
+Antes do `complete`, o agente abre o YAML de drift e copia o campo `verdict`.
+`warning` não é sucesso limpo: a nota cita o path e as linhas substantivas.
+Precisão dos nós autorizados não cobre arquivo fora do grafo.
+O caso que fixa esse erro é `.esaa/traceability/case-MD-HOTFIX-EXPAND-002.md`.
+Este ciclo não se aplica a outros projetos.
+
 ## Lessons baseline
 
 - LES-0001: nunca colapsar `claim` + `complete`.

@@ -1,0 +1,80 @@
+artifact: task-footprint
+schema_version: 1
+trace_task: TRACE-018
+task_id: MD-V03-015
+diff:
+  base: 9eb9518dcdcb53553f120d785f56c7c97ca422c7
+  head: WORKTREE
+  paths_filter:
+  - src/editor/spellcheck/spellChecker.ts
+  - src/editor/spellcheck/spellLinter.ts
+  - tests/editor/spellChecker.test.ts
+  excluded_set: []
+  command: git diff -U0 --no-color --no-ext-diff 9eb9518dcdcb53553f120d785f56c7c97ca422c7 -- src/editor/spellcheck/spellChecker.ts src/editor/spellcheck/spellLinter.ts
+    tests/editor/spellChecker.test.ts
+graph_source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+notes: []
+changed_files:
+- path: src/editor/spellcheck/spellChecker.ts
+  status: A
+  added: 174
+  removed: 0
+  hunks:
+  - old:
+    - 0
+    - -1
+    new:
+    - 1
+    - 174
+  is_test: false
+  catalogued_nodes_in_file: 0
+- path: src/editor/spellcheck/spellLinter.ts
+  status: A
+  added: 263
+  removed: 0
+  hunks:
+  - old:
+    - 0
+    - -1
+    new:
+    - 1
+    - 263
+  is_test: false
+  catalogued_nodes_in_file: 0
+- path: tests/editor/spellChecker.test.ts
+  status: A
+  added: 90
+  removed: 0
+  hunks:
+  - old:
+    - 0
+    - -1
+    new:
+    - 1
+    - 90
+  is_test: true
+  catalogued_nodes_in_file: 0
+changed_nodes: []
+enclosing_nodes: []
+uncatalogued: []
+new_files:
+- src/editor/spellcheck/spellChecker.ts
+- src/editor/spellcheck/spellLinter.ts
+new_test_files:
+- tests/editor/spellChecker.test.ts
+contracts_touched: []
+data_touched: []
+events_touched: []
+rollup:
+  features: []
+  invariants: []
+  flows: []
+stats:
+  files: 3
+  changed_nodes: 0
+  code_nodes: 0
+  test_nodes: 0
+  uncatalogued_files: 0
+  uncatalogued_substantive_lines: 0
+  new_files: 2
+  new_test_files: 1

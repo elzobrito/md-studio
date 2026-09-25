@@ -1,0 +1,516 @@
+artifact: task-footprint
+schema_version: 1
+trace_task: TRACE-018
+task_id: MD-V03-024
+diff:
+  base: 9eb9518dcdcb53553f120d785f56c7c97ca422c7
+  head: WORKTREE
+  paths_filter:
+  - src/state/settings.ts
+  - src/components/FileExplorer.tsx
+  - src/types/file-tree.ts
+  - src/components/explorer/FileTree.tsx
+  - src/components/explorer/FileTreeNode.tsx
+  - src/components/explorer/FileTreeFolder.tsx
+  - src/styles/file-tree.css
+  - src/components/settings/WorkspaceSettings.tsx
+  - tests/components/hideInternalFiles.test.tsx
+  excluded_set: []
+  command: git diff -U0 --no-color --no-ext-diff 9eb9518dcdcb53553f120d785f56c7c97ca422c7 -- src/state/settings.ts src/components/FileExplorer.tsx
+    src/types/file-tree.ts src/components/explorer/FileTree.tsx src/components/explorer/FileTreeNode.tsx src/components/explorer/FileTreeFolder.tsx
+    src/styles/file-tree.css src/components/settings/WorkspaceSettings.tsx tests/components/hideInternalFiles.test.tsx
+graph_source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+notes: []
+changed_files:
+- path: src/components/FileExplorer.tsx
+  status: M
+  added: 49
+  removed: 1
+  hunks:
+  - old:
+    - 11
+    - 10
+    new:
+    - 12
+    - 13
+  - old:
+    - 22
+    - 21
+    new:
+    - 25
+    - 55
+  - old:
+    - 33
+    - 32
+    new:
+    - 67
+    - 76
+  - old:
+    - 37
+    - 36
+    new:
+    - 81
+    - 85
+  - old:
+    - 42
+    - 42
+    new:
+    - 90
+    - 90
+  is_test: false
+  catalogued_nodes_in_file: 6
+- path: src/components/explorer/FileTree.tsx
+  status: M
+  added: 4
+  removed: 2
+  hunks:
+  - old:
+    - 19
+    - 18
+    new:
+    - 20
+    - 21
+  - old:
+    - 21
+    - 21
+    new:
+    - 23
+    - 23
+  - old:
+    - 23
+    - 23
+    new:
+    - 25
+    - 25
+  is_test: false
+  catalogued_nodes_in_file: 0
+- path: src/components/explorer/FileTreeFolder.tsx
+  status: M
+  added: 9
+  removed: 4
+  hunks:
+  - old:
+    - 16
+    - 16
+    new:
+    - 16
+    - 16
+  - old:
+    - 18
+    - 18
+    new:
+    - 18
+    - 18
+  - old:
+    - 21
+    - 21
+    new:
+    - 21
+    - 21
+  - old:
+    - 37
+    - 37
+    new:
+    - 37
+    - 37
+  - old:
+    - 39
+    - 38
+    new:
+    - 40
+    - 44
+  is_test: false
+  catalogued_nodes_in_file: 0
+- path: src/components/explorer/FileTreeNode.tsx
+  status: M
+  added: 8
+  removed: 3
+  hunks:
+  - old:
+    - 15
+    - 15
+    new:
+    - 15
+    - 15
+  - old:
+    - 19
+    - 19
+    new:
+    - 19
+    - 19
+  - old:
+    - 27
+    - 27
+    new:
+    - 27
+    - 27
+  - old:
+    - 29
+    - 28
+    new:
+    - 30
+    - 34
+  is_test: false
+  catalogued_nodes_in_file: 0
+- path: src/components/settings/WorkspaceSettings.tsx
+  status: M
+  added: 36
+  removed: 1
+  hunks:
+  - old:
+    - 3
+    - 3
+    new:
+    - 3
+    - 4
+  - old:
+    - 7
+    - 6
+    new:
+    - 9
+    - 17
+  - old:
+    - 14
+    - 13
+    new:
+    - 25
+    - 28
+  - old:
+    - 33
+    - 32
+    new:
+    - 48
+    - 68
+  is_test: false
+  catalogued_nodes_in_file: 0
+- path: src/state/settings.ts
+  status: M
+  added: 12
+  removed: 0
+  hunks:
+  - old:
+    - 113
+    - 112
+    new:
+    - 114
+    - 114
+  - old:
+    - 173
+    - 172
+    new:
+    - 175
+    - 175
+  - old:
+    - 269
+    - 268
+    new:
+    - 272
+    - 281
+  is_test: false
+  catalogued_nodes_in_file: 3
+- path: src/styles/file-tree.css
+  status: M
+  added: 13
+  removed: 0
+  hunks:
+  - old:
+    - 163
+    - 162
+    new:
+    - 164
+    - 176
+  is_test: false
+  catalogued_nodes_in_file: 0
+- path: src/types/file-tree.ts
+  status: M
+  added: 1
+  removed: 0
+  hunks:
+  - old:
+    - 11
+    - 10
+    new:
+    - 12
+    - 12
+  is_test: false
+  catalogued_nodes_in_file: 0
+- path: tests/components/hideInternalFiles.test.tsx
+  status: A
+  added: 152
+  removed: 0
+  hunks:
+  - old:
+    - 0
+    - -1
+    new:
+    - 1
+    - 152
+  is_test: true
+  catalogued_nodes_in_file: 0
+changed_nodes:
+- id: CMP-FILE-EXPLORER
+  kind: code
+  type: component
+  path: src/components/FileExplorer.tsx
+  sides:
+  - old
+  - new
+  lines_hit: 17
+  attribution: line
+  anchor_resolution:
+    old: exact
+    new: relocated
+  created_by_change: false
+- id: STO-SETTINGS
+  kind: code
+  type: store
+  path: src/state/settings.ts
+  sides:
+  - new
+  lines_hit: 12
+  attribution: line
+  anchor_resolution:
+    old: exact
+    new: relocated
+  created_by_change: false
+enclosing_nodes: []
+uncatalogued:
+- path: src/components/FileExplorer.tsx
+  is_test: false
+  new_lines:
+  - - 12
+    - 13
+  - - 25
+    - 55
+  trivial_lines: 8
+  substantive_lines:
+  - new:25
+  - new:26
+  - new:27
+  - new:28
+  - new:29
+  - new:30
+  - new:31
+  - new:32
+  - new:33
+  - new:34
+  - new:35
+  - new:36
+  - new:37
+  - new:39
+  - new:40
+  - new:41
+  - new:43
+  - new:44
+  - new:45
+  - new:47
+  - new:48
+  - new:51
+  - new:52
+  - new:53
+  - new:54
+- path: src/components/explorer/FileTree.tsx
+  is_test: false
+  old_lines:
+  - - 21
+    - 21
+  - - 23
+    - 23
+  new_lines:
+  - - 20
+    - 21
+  - - 23
+    - 23
+  - - 25
+    - 25
+  trivial_lines: 0
+  substantive_lines:
+  - old:21
+  - old:23
+  - new:20
+  - new:21
+  - new:23
+  - new:25
+- path: src/components/explorer/FileTreeFolder.tsx
+  is_test: false
+  old_lines:
+  - - 16
+    - 16
+  - - 18
+    - 18
+  - - 21
+    - 21
+  - - 37
+    - 37
+  new_lines:
+  - - 16
+    - 16
+  - - 18
+    - 18
+  - - 21
+    - 21
+  - - 37
+    - 37
+  - - 40
+    - 44
+  trivial_lines: 0
+  substantive_lines:
+  - old:16
+  - old:18
+  - old:21
+  - old:37
+  - new:16
+  - new:18
+  - new:21
+  - new:37
+  - new:40
+  - new:41
+  - new:42
+  - new:43
+  - new:44
+- path: src/components/explorer/FileTreeNode.tsx
+  is_test: false
+  old_lines:
+  - - 15
+    - 15
+  - - 19
+    - 19
+  - - 27
+    - 27
+  new_lines:
+  - - 15
+    - 15
+  - - 19
+    - 19
+  - - 27
+    - 27
+  - - 30
+    - 34
+  trivial_lines: 0
+  substantive_lines:
+  - old:15
+  - old:19
+  - old:27
+  - new:15
+  - new:19
+  - new:27
+  - new:30
+  - new:31
+  - new:32
+  - new:33
+  - new:34
+- path: src/components/settings/WorkspaceSettings.tsx
+  is_test: false
+  old_lines:
+  - - 3
+    - 3
+  new_lines:
+  - - 3
+    - 4
+  - - 9
+    - 17
+  - - 25
+    - 28
+  - - 48
+    - 68
+  trivial_lines: 6
+  substantive_lines:
+  - new:9
+  - new:10
+  - new:11
+  - new:13
+  - new:14
+  - new:15
+  - new:16
+  - new:17
+  - new:25
+  - new:26
+  - new:27
+  - new:48
+  - new:49
+  - new:50
+  - new:51
+  - new:52
+  - new:53
+  - new:54
+  - new:55
+  - new:56
+  - new:57
+  - new:58
+  - new:59
+  - new:60
+  - new:61
+  - new:62
+  - new:63
+  - new:64
+  - new:65
+  - new:66
+  - new:67
+- path: src/styles/file-tree.css
+  is_test: false
+  new_lines:
+  - - 164
+    - 176
+  trivial_lines: 2
+  substantive_lines:
+  - new:164
+  - new:165
+  - new:166
+  - new:167
+  - new:169
+  - new:170
+  - new:171
+  - new:172
+  - new:173
+  - new:174
+  - new:175
+- path: src/types/file-tree.ts
+  is_test: false
+  new_lines:
+  - - 12
+    - 12
+  trivial_lines: 0
+  substantive_lines:
+  - new:12
+new_files: []
+new_test_files:
+- tests/components/hideInternalFiles.test.tsx
+contracts_touched:
+- id: CTR-IPC-LIST-ENTRIES
+  how: consumer
+  node: CMP-FILE-EXPLORER
+- id: CTR-LSK-SETTINGS
+  how: consumer
+  node: STO-SETTINGS
+- id: CTR-LSK-SETTINGS
+  how: producer
+  node: STO-SETTINGS
+data_touched:
+- id: LSK-SETTINGS
+  how: read_by_changed
+  node: STO-SETTINGS
+- id: LSK-SETTINGS
+  how: written_by_changed
+  node: STO-SETTINGS
+- id: STO-SETTINGS
+  how: definition_changed
+  node: STO-SETTINGS
+events_touched: []
+rollup:
+  features:
+  - FEAT-AUTO-SAVE
+  - FEAT-OPEN-WORKSPACE
+  - FEAT-SETTINGS
+  invariants: []
+  flows:
+  - FLOW-AUTO-SAVE
+  - FLOW-OPEN-WORKSPACE
+stats:
+  files: 9
+  changed_nodes: 2
+  code_nodes: 2
+  test_nodes: 0
+  uncatalogued_files: 7
+  uncatalogued_substantive_lines: 98
+  new_files: 0
+  new_test_files: 1

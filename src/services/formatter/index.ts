@@ -3,6 +3,7 @@ import type { FormatResponse } from "./types";
 import { normalizeLanguage } from "../../markdown/code";
 
 export * from "./types";
+export * from "./capabilities";
 export { isWebLanguage, formatWebCode };
 
 export async function formatCode(language: string, code: string): Promise<FormatResponse> {

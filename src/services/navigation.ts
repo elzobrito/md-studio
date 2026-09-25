@@ -12,11 +12,12 @@ export function slugify(heading: string): string {
     .replace(/-+/g, "-");
 }
 
-export function extractOutline(markdown: string): { level: number; text: string; id: string }[] {
+export function extractOutline(markdown: string): { level: number; text: string; id: string; line?: number }[] {
   const lines = markdown.split(/\n/);
-  const out: { level: number; text: string; id: string }[] = [];
+  const out: { level: number; text: string; id: string; line?: number }[] = [];
   const seen = new Map<string, number>();
-  for (const line of lines) {
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
     const m = /^(#{1,6})\s+(.+)$/.exec(line);
     if (m) {
       const text = m[2].replace(/#+\s*$/, "").trim();
@@ -24,7 +25,7 @@ export function extractOutline(markdown: string): { level: number; text: string;
       const n = seen.get(base) ?? 0;
       seen.set(base, n + 1);
       const id = n === 0 ? base : `${base}-${n}`;
-      out.push({ level: m[1].length, text, id });
+      out.push({ level: m[1].length, text, id, line: i + 1 });
     }
   }
   return out;
@@ -35,9 +36,16 @@ export function headingDomId(slug: string): string {
   return `${HEADING_ID_PREFIX}${slug}`;
 }
 
-/** Scroll preview pane to a heading slug from the outline. */
-export function scrollToHeading(slug: string, root?: ParentNode | null): boolean {
+/** Scroll preview pane to a heading slug or line position from the outline. */
+export function scrollToHeading(slug: string, root?: ParentNode | null, line?: number): boolean {
   const scope = root ?? document;
+  if (line !== undefined) {
+    const elByLine = (scope as Document | Element).querySelector?.(`[data-source-line="${line}"]`);
+    if (elByLine) {
+      elByLine.scrollIntoView({ behavior: "smooth", block: "start" });
+      return true;
+    }
+  }
   const el =
     (scope as Document | Element).querySelector?.(`#${CSS.escape(headingDomId(slug))}`) ??
     document.getElementById(headingDomId(slug));
