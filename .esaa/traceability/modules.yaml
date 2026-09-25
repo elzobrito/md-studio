@@ -1,0 +1,438 @@
+# TRACE-002 — Bounded contexts do md-studio. depends_on derivado de arestas observed entre módulos (edges.yaml).
+artifact: modules
+schema_version: 1
+source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+generated_at: '2026-09-24T23:08:29-03:00'
+module_count: 19
+modules:
+- id: MOD-APP-SHELL
+  name: Shell da aplicação
+  description: Composição React (App.tsx), header, atalhos globais, boot Tauri (run/AppState/generate_handler!), fachada IPC.
+  paths:
+  - src/App.tsx
+  - src/main.tsx
+  - src/components/header/**
+  - src/hooks/useKeyboardShortcuts.ts
+  - src/lib/ipc/client.ts (invoke/isTauriRuntime)
+  - src-tauri/src/lib.rs
+  - src-tauri/src/main.rs
+  node_count: 19
+  node_types:
+    class: 1
+    component: 2
+    configuration: 1
+    function: 5
+    handler: 3
+    ipc_client: 1
+    ipc_command: 1
+    route: 1
+    screen: 3
+    shortcut: 1
+  depends_on:
+  - MOD-DRAFTS
+  - MOD-EDITOR
+  - MOD-METADATA-INDEX
+  - MOD-PERSISTENCE
+  - MOD-PREVIEW
+  - MOD-SEARCH
+  - MOD-SETTINGS-SESSION
+  - MOD-WORKSPACE-FS
+- id: MOD-EDITOR
+  name: Editor
+  description: 'CodeMirror 6: keymaps, toolbar de formatação, slash menu, smart paste, estado do cursor.'
+  paths:
+  - src/components/MarkdownEditor.tsx
+  - src/components/editor/**
+  - src/editor/**
+  - src/state/editor.ts
+  node_count: 12
+  node_types:
+    component: 4
+    configuration: 1
+    function: 5
+    shortcut: 1
+    store: 1
+  depends_on:
+  - MOD-METADATA-INDEX
+  - MOD-PERSISTENCE
+  - MOD-TEMPLATES
+  - MOD-WIKI-LINKS
+- id: MOD-PREVIEW
+  name: Preview / pipeline Markdown
+  description: Pipeline unified/remark/rehype até HTML sanitizado; navegação por links e headings.
+  paths:
+  - src/components/MarkdownViewer.tsx
+  - src/components/DocumentOutline.tsx
+  - src/markdown/**
+  - src/services/navigation.ts
+  node_count: 19
+  node_types:
+    component: 2
+    configuration: 1
+    function: 3
+    handler: 2
+    os_integration: 1
+    pipeline_stage: 9
+    service: 1
+  depends_on:
+  - MOD-METADATA-INDEX
+  - MOD-SECURITY-POLICY
+  - MOD-SETTINGS-SESSION
+  - MOD-WIKI-LINKS
+  - MOD-WORKSPACE-FS
+- id: MOD-MERMAID
+  name: Mermaid
+  description: Blocos Mermaid no preview e captura de SVG para EPUB.
+  paths:
+  - src/components/MermaidBlock.tsx
+  - src/markdown/mermaid.ts
+  - src/export/mermaidCapture.ts
+  - src/services/diagramExport.ts
+  node_count: 8
+  node_types:
+    component: 1
+    function: 6
+    pipeline_stage: 1
+  depends_on: []
+- id: MOD-WORKSPACE-FS
+  name: Workspace e sistema de arquivos
+  description: Abrir pasta/arquivo, listar e ler documentos com cerca de caminho; launch por argv/SO; modo browser.
+  paths:
+  - src/components/FileExplorer.tsx
+  - src/components/explorer/**
+  - src/hooks/useFileTree.ts
+  - src/lib/browserFs.ts
+  - src-tauri/crates/md-studio-core/src/workspace.rs
+  - src-tauri/crates/md-studio-core/src/launch.rs
+  - src-tauri/src/commands/mod.rs (open_workspace, list_entries, read_document, get_launch_path)
+  node_count: 50
+  node_types:
+    button: 4
+    component: 1
+    consumer: 1
+    dto: 4
+    file_persisted: 1
+    function: 10
+    handler: 12
+    ipc_client: 4
+    ipc_command: 4
+    local_storage_key: 1
+    os_integration: 3
+    repository: 1
+    shortcut: 2
+    store: 1
+    tauri_event: 1
+  depends_on:
+  - MOD-APP-SHELL
+  - MOD-DRAFTS
+  - MOD-METADATA-INDEX
+  - MOD-PERSISTENCE
+  - MOD-SECURITY-POLICY
+  - MOD-SETTINGS-SESSION
+- id: MOD-PERSISTENCE
+  name: Persistência de documentos
+  description: Salvar/Salvar como com detecção de conflito por hash e escrita atômica.
+  paths:
+  - src/state/documentState.ts
+  - src/services/save.ts
+  - src/components/header/SaveButton.tsx
+  - src/contracts/types.ts
+  - src-tauri/crates/md-studio-core/src/persistence.rs
+  - src-tauri/src/commands/mod.rs (save_document)
+  node_count: 26
+  node_types:
+    button: 1
+    class: 1
+    component: 1
+    dto: 6
+    file_persisted: 1
+    function: 5
+    handler: 3
+    ipc_client: 1
+    ipc_command: 1
+    os_integration: 1
+    service: 1
+    shortcut: 3
+    store: 1
+  depends_on:
+  - MOD-APP-SHELL
+  - MOD-DRAFTS
+  - MOD-EDITOR
+  - MOD-METADATA-INDEX
+  - MOD-SETTINGS-SESSION
+  - MOD-WATCHER
+  - MOD-WORKSPACE-FS
+- id: MOD-WATCHER
+  name: Watcher e conflito externo
+  description: notify + debounce, supressão de eco do save interno, evento workspace://change, ConflictDialog.
+  paths:
+  - src-tauri/src/watcher/mod.rs
+  - src/components/ConflictDialog.tsx
+  - src/lib/ipc/client.ts (subscribeWorkspaceWatch)
+  node_count: 22
+  node_types:
+    button: 3
+    component: 1
+    configuration: 1
+    consumer: 1
+    dto: 2
+    function: 6
+    handler: 2
+    ipc_client: 2
+    ipc_command: 2
+    service: 1
+    tauri_event: 1
+  depends_on:
+  - MOD-APP-SHELL
+  - MOD-METADATA-INDEX
+  - MOD-PERSISTENCE
+  - MOD-WORKSPACE-FS
+- id: MOD-WIKI-LINKS
+  name: Wiki links
+  description: Parsing, resolução segura e renderização de [[links]], autocomplete e criação de nota.
+  paths:
+  - src-tauri/crates/md-studio-core/src/index/wiki_resolve.rs
+  - src-tauri/crates/md-studio-core/src/parser/wiki_link_parser.rs
+  - src/markdown/plugins/wiki-links.ts
+  - src/components/wiki/CreateNoteFromWiki.tsx
+  - src/components/wiki/OutgoingLinksPanel.tsx
+  - src/editor/wiki/**
+  node_count: 19
+  node_types:
+    component: 2
+    dto: 2
+    function: 7
+    handler: 1
+    ipc_client: 3
+    ipc_command: 3
+    pipeline_stage: 1
+  depends_on:
+  - MOD-METADATA-INDEX
+  - MOD-PERSISTENCE
+  - MOD-SECURITY-POLICY
+  - MOD-WORKSPACE-FS
+- id: MOD-BACKLINKS
+  name: Backlinks
+  description: Índice reverso de links resolvidos, cerca do alvo e contexto de linha; painel de backlinks.
+  paths:
+  - src-tauri/crates/md-studio-core/src/index/backlink_index.rs
+  - src-tauri/src/commands/metadata.rs (get_backlinks)
+  - src/components/wiki/BacklinksPanel.tsx
+  node_count: 16
+  node_types:
+    component: 1
+    dto: 2
+    function: 9
+    handler: 1
+    ipc_client: 1
+    ipc_command: 1
+    repository: 1
+  depends_on:
+  - MOD-EDITOR
+  - MOD-METADATA-INDEX
+  - MOD-SECURITY-POLICY
+  - MOD-WIKI-LINKS
+  - MOD-WORKSPACE-FS
+- id: MOD-METADATA-INDEX
+  name: Índice de metadados
+  description: ReindexEngine, extração de metadados, persistência .mdstudio/index.json, hook useMetadata.
+  paths:
+  - src-tauri/crates/md-studio-core/src/index/**
+  - src-tauri/crates/md-studio-core/src/parser/tag_parser.rs
+  - src-tauri/src/commands/metadata.rs
+  - src/lib/ipc/metadata.ts
+  - src/hooks/useMetadata.ts
+  - src/types/metadata.ts
+  node_count: 42
+  node_types:
+    button: 1
+    dto: 6
+    file_persisted: 2
+    function: 20
+    ipc_client: 5
+    ipc_command: 5
+    repository: 1
+    service: 1
+    store: 1
+  depends_on:
+  - MOD-BACKLINKS
+  - MOD-WIKI-LINKS
+  - MOD-WORKSPACE-FS
+- id: MOD-SEARCH
+  name: Busca
+  description: Quick switcher (fuzzy sobre recentes) e comando search_workspace (sem UI).
+  paths:
+  - src/components/command/**
+  - src/utils/fuzzy-search.ts
+  - src-tauri/src/commands/mod.rs (search_workspace)
+  - src-tauri/src/search/mod.rs
+  node_count: 9
+  node_types:
+    button: 1
+    component: 2
+    dto: 2
+    function: 1
+    ipc_client: 1
+    ipc_command: 1
+    shortcut: 1
+  depends_on:
+  - MOD-APP-SHELL
+  - MOD-SETTINGS-SESSION
+  - MOD-WORKSPACE-FS
+- id: MOD-FORMATTER
+  name: Formatador de código
+  description: Prettier (web) e CLIs nativas via format_code; formatação de blocos cercados.
+  paths:
+  - src/services/formatter/**
+  - src/editor/formatting/formatCodeBlock.ts
+  - src/markdown/fencedCode.ts
+  - src/components/CodeBlock.tsx
+  - src-tauri/src/commands/formatter.rs
+  node_count: 18
+  node_types:
+    button: 2
+    component: 1
+    dto: 2
+    function: 9
+    ipc_client: 1
+    ipc_command: 1
+    service: 1
+    shortcut: 1
+  depends_on:
+  - MOD-PERSISTENCE
+- id: MOD-EXPORT
+  name: Exportação
+  description: HTML (sanitizado, sem CSP), PDF (window.print) e EPUB 3 (core build_epub).
+  paths:
+  - src/services/export.ts
+  - src/services/exportHtml.ts
+  - src/services/exportEpub.ts
+  - src/export/**
+  - src/components/header/ExportMenu.tsx
+  - src-tauri/crates/md-studio-core/src/export/**
+  - src-tauri/src/commands/mod.rs (export_html, export_epub)
+  node_count: 34
+  node_types:
+    button: 3
+    component: 1
+    dto: 6
+    file_persisted: 2
+    function: 8
+    handler: 3
+    ipc_client: 2
+    ipc_command: 2
+    os_integration: 4
+    service: 3
+  depends_on:
+  - MOD-APP-SHELL
+  - MOD-MERMAID
+  - MOD-PERSISTENCE
+  - MOD-PREVIEW
+  - MOD-SECURITY-POLICY
+  - MOD-WORKSPACE-FS
+- id: MOD-TEMPLATES
+  name: Templates / novo documento
+  description: Modal de novo documento e catálogo de templates.
+  paths:
+  - src/templates/index.ts
+  - src/components/editor/NewDocumentModal.tsx
+  - src/components/editor/TemplateCard.tsx
+  node_count: 9
+  node_types:
+    button: 2
+    component: 1
+    configuration: 1
+    function: 1
+    handler: 3
+    shortcut: 1
+  depends_on:
+  - MOD-EDITOR
+- id: MOD-SETTINGS-SESSION
+  name: Configurações, sessão e recentes
+  description: Stores persistidos em localStorage (settings, sessão, UI, recentes, larguras de painel).
+  paths:
+  - src/state/settings.ts
+  - src/state/session.ts
+  - src/state/ui.ts
+  - src/state/recent-files.ts
+  - src/hooks/useSettings.ts
+  - src/hooks/useRecentFiles.ts
+  - src/hooks/useResizablePanel.ts
+  - src/components/settings/**
+  - src/components/layout/SplitDivider.tsx
+  node_count: 15
+  node_types:
+    component: 2
+    configuration: 1
+    function: 1
+    handler: 1
+    local_storage_key: 6
+    store: 4
+  depends_on:
+  - MOD-WORKSPACE-FS
+- id: MOD-DRAFTS
+  name: Rascunhos de recuperação
+  description: Rascunho local por documento, retenção 90d/aviso 75d e diálogo de recuperação.
+  paths:
+  - src/lib/drafts/recovery.ts
+  - src/components/DraftRecoveryDialog.tsx
+  - src/lib/browserFs.ts (getBrowserDraftIdentity)
+  node_count: 14
+  node_types:
+    component: 1
+    configuration: 2
+    function: 8
+    handler: 1
+    local_storage_key: 2
+  depends_on:
+  - MOD-APP-SHELL
+- id: MOD-PRESENTATION
+  name: Modo apresentação
+  description: Segmentação em slides, deck Reveal, sessão e restauração da UI (liberado em v0.2.3).
+  paths:
+  - src/presentation/**
+  node_count: 14
+  node_types:
+    button: 1
+    class: 1
+    component: 1
+    function: 6
+    handler: 2
+    screen: 1
+    service: 1
+    shortcut: 1
+  depends_on:
+  - MOD-EDITOR
+  - MOD-PREVIEW
+  - MOD-SETTINGS-SESSION
+- id: MOD-SECURITY-POLICY
+  name: Política de segurança
+  description: Sanitize/estilos do pipeline, CSP Tauri, capabilities, cercas de caminho, política de URL.
+  paths:
+  - src/markdown/sanitize.ts
+  - src/security/urlPolicy.ts
+  - src-tauri/tauri.conf.json (csp)
+  - src-tauri/capabilities/default.json
+  - src-tauri/crates/md-studio-core/src/workspace.rs (resolve_within)
+  node_count: 17
+  node_types:
+    configuration: 3
+    function: 5
+    permission: 5
+    pipeline_stage: 4
+  depends_on:
+  - MOD-PREVIEW
+  - MOD-WIKI-LINKS
+- id: MOD-PACKAGING
+  name: Empacotamento e integração com SO
+  description: Bundle Tauri, associação de arquivos, .desktop, single-instance, splash.
+  paths:
+  - src-tauri/tauri.conf.json
+  - src-tauri/linux/md-studio.desktop
+  - snap/**
+  - splashscreen.html
+  node_count: 4
+  node_types:
+    os_integration: 4
+  depends_on:
+  - MOD-WORKSPACE-FS

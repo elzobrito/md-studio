@@ -1,0 +1,244 @@
+artifact: task-impact
+schema_version: 1
+trace_task: TRACE-017
+task_id: MD-HOTFIX-PREVIEW-LINKS-001
+projected_at: '2026-09-24T23:17:25-03:00'
+projected_before_change: true
+projection_inputs:
+- 'roadmap.json: title + description de MD-HOTFIX-PREVIEW-LINKS-001 (acceptance_criteria = null; targets/outputs/verification NÃO usados)'
+- .esaa/traceability/graph.json (source_commit 5fe4f4d — POSTERIOR ao commit; ver bias)
+- busca por palavras-chave (link/anchor/viewer/opener/scroll/relative) em ids/nomes/caminhos do grafo
+- impact.py closure/blast
+spec: .esaa/analysis/MD-HOTFIX-PREVIEW-LINKS-001-traceability.yaml
+graph_source_commit: 5fe4f4d2230f039791d6196cb0f0ecfb438825ae
+rationale:
+  HDL-VIEWER-ON-CLICK: interceptar cliques em <a> no preview ("links ... não eram interceptados")
+  FN-RESOLVE-RELATIVE-LINK: '"resolução de links relativos"'
+  FN-SCROLL-TO-HEADING: '"navegação de âncoras" (#slug -> heading)'
+  OSI-OPEN-EXTERNAL-URL: '"abertura externa com tauri-plugin-opener"'
+  CMP-MARKDOWN-VIEWER: contêiner do handler (registro do listener/props)
+  PERM-OPENER-ALLOW-OPEN-URL: plugin opener exige capability opener:allow-open-url
+  FN-RS-RUN: registro do plugin no builder Tauri (.plugin(tauri_plugin_opener::init()))
+  TST-TS-MARKDOWN-CORE-NAVIGATION-RESOLVERELATIVELINK: teste da resolução relativa
+justification:
+  OSI-OPEN-EXTERNAL-URL: membro de INV-OFFLINE-NO-TELEMETRY; a tarefa pede explicitamente abertura externa — invariante deve continuar (só abre
+    por clique do usuário, nunca fetch automático)
+  PERM-OPENER-ALLOW-OPEN-URL: security_config + membro de INV-FS-ONLY-VIA-RUST/INV-OFFLINE-NO-TELEMETRY; exigido pelo plugin opener
+expected_uncatalogued:
+- package.json / pnpm-lock.yaml (dependência @tauri-apps/plugin-opener)
+- src-tauri/Cargo.toml / Cargo.lock (tauri-plugin-opener)
+- testes novos (tests/**)
+blast_radius:
+  change_target:
+  - HDL-VIEWER-ON-CLICK
+  - FN-RESOLVE-RELATIVE-LINK
+  - FN-SCROLL-TO-HEADING
+  - OSI-OPEN-EXTERNAL-URL
+  expected_affected:
+  - CMP-MARKDOWN-VIEWER
+  - FN-RS-RUN
+  - PERM-OPENER-ALLOW-OPEN-URL
+  - TST-TS-MARKDOWN-CORE-NAVIGATION-RESOLVERELATIVELINK
+  expected_affected_source: declared
+  suggested_expected_affected:
+  - CMP-MARKDOWN-VIEWER
+  - TST-TS-MARKDOWN-CORE-NAVIGATION-RESOLVERELATIVELINK
+  authorized:
+  - CMP-MARKDOWN-VIEWER
+  - FN-RESOLVE-RELATIVE-LINK
+  - FN-RS-RUN
+  - FN-SCROLL-TO-HEADING
+  - HDL-VIEWER-ON-CLICK
+  - OSI-OPEN-EXTERNAL-URL
+  - PERM-OPENER-ALLOW-OPEN-URL
+  - TST-TS-MARKDOWN-CORE-NAVIGATION-RESOLVERELATIVELINK
+  potentially_affected:
+  - BTN-EXPORT-PDF
+  - CMP-DOCUMENT-OUTLINE
+  - HDL-APP-EXPORT-PDF
+  - HDL-APP-GO-TO-HEADING
+  - SCR-APP
+  - STO-UI
+  protected_in_closure: []
+  protected_total: 137
+  protected_declared:
+  - id: OSI-OPEN-EXTERNAL-URL
+    reasons:
+    - invariant_member:INV-OFFLINE-NO-TELEMETRY
+  - id: PERM-OPENER-ALLOW-OPEN-URL
+    reasons:
+    - invariant_member:INV-FS-ONLY-VIA-RUST
+    - invariant_member:INV-OFFLINE-NO-TELEMETRY
+    - security_config
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: false
+projected:
+  nodes:
+  - CMP-MARKDOWN-VIEWER
+  - FN-RESOLVE-RELATIVE-LINK
+  - FN-RS-RUN
+  - FN-SCROLL-TO-HEADING
+  - HDL-VIEWER-ON-CLICK
+  - OSI-OPEN-EXTERNAL-URL
+  - PERM-OPENER-ALLOW-OPEN-URL
+  - TST-TS-MARKDOWN-CORE-NAVIGATION-RESOLVERELATIVELINK
+  features:
+    direct:
+    - FEAT-CREATE-NOTE-FROM-WIKI
+    - FEAT-KATEX
+    - FEAT-MERMAID
+    - FEAT-OUTGOING-LINKS
+    - FEAT-OUTLINE
+    - FEAT-PREVIEW
+    - FEAT-SANITIZE
+    - FEAT-SHIKI
+    - FEAT-WIKI-LINKS
+    indirect:
+    - FEAT-APP-SCREENS
+    - FEAT-BACKLINKS
+    - FEAT-EXPORT-PDF
+    - FEAT-LAYOUT-PANELS
+    - FEAT-METADATA-INDEX
+    - FEAT-SETTINGS
+    - FEAT-SPLASH-PACKAGING
+  flows:
+  - FLOW-APP-BOOT
+  - FLOW-BACKLINKS-QUERY
+  - FLOW-EXPORT-PDF
+  - FLOW-METADATA-REFRESH
+  - FLOW-PREVIEW-RENDER
+  - FLOW-WIKI-LINK-RESOLVE
+  invariants:
+  - id: INV-OFFLINE-NO-TELEMETRY
+    hit_by:
+    - OSI-OPEN-EXTERNAL-URL
+    tests: []
+  tests:
+    must_run:
+    - TST-TS-MARKDOWN-CORE-NAVIGATION-RESOLVERELATIVELINK
+    should_run:
+    - TST-TS-UI-CODE-FORMATTING-UI
+    may_run:
+    - TST-TS-PANEL-COLLAPSIBLEPANEL
+  contracts: []
+  data:
+  - STO-UI
+  events: []
+  entrypoints:
+  - ENT-BTN-EXPORT-PDF
+  - ENT-HDL-VIEWER-ON-CLICK
+  - ENT-SCR-APP
+  modules:
+  - MOD-APP-SHELL
+  - MOD-EXPORT
+  - MOD-PREVIEW
+  - MOD-SETTINGS-SESSION
+closure:
+- id: FN-RESOLVE-RELATIVE-LINK
+  kind: code
+  type: function
+  distance: 0
+  anchor: src/services/navigation.ts
+  via: null
+  terminal: false
+- id: FN-SCROLL-TO-HEADING
+  kind: code
+  type: function
+  distance: 0
+  anchor: src/services/navigation.ts
+  via: null
+  terminal: false
+- id: HDL-VIEWER-ON-CLICK
+  kind: code
+  type: handler
+  distance: 0
+  anchor: src/components/MarkdownViewer.tsx
+  via: null
+  terminal: false
+- id: OSI-OPEN-EXTERNAL-URL
+  kind: code
+  type: os_integration
+  distance: 0
+  anchor: src/services/navigation.ts
+  via: null
+  terminal: false
+- id: CMP-MARKDOWN-VIEWER
+  kind: code
+  type: component
+  distance: 1
+  anchor: src/components/MarkdownViewer.tsx
+  via:
+    node: HDL-VIEWER-ON-CLICK
+    relation: contains
+    direction: reverse
+  terminal: false
+- id: HDL-APP-GO-TO-HEADING
+  kind: code
+  type: handler
+  distance: 1
+  anchor: src/App.tsx
+  via:
+    node: FN-SCROLL-TO-HEADING
+    relation: calls
+    direction: reverse
+  terminal: false
+- id: CMP-DOCUMENT-OUTLINE
+  kind: code
+  type: component
+  distance: 2
+  anchor: src/components/DocumentOutline.tsx
+  via:
+    node: HDL-APP-GO-TO-HEADING
+    relation: triggers
+    direction: reverse
+  terminal: false
+- id: HDL-APP-EXPORT-PDF
+  kind: code
+  type: handler
+  distance: 2
+  anchor: src/App.tsx
+  via:
+    node: CMP-MARKDOWN-VIEWER
+    relation: depends_on
+    direction: reverse
+  terminal: false
+- id: SCR-APP
+  kind: code
+  type: screen
+  distance: 2
+  anchor: src/App.tsx
+  via:
+    node: CMP-MARKDOWN-VIEWER
+    relation: contains
+    direction: reverse
+  terminal: false
+- id: BTN-EXPORT-PDF
+  kind: code
+  type: button
+  distance: 3
+  anchor: src/components/header/ExportMenu.tsx
+  via:
+    node: HDL-APP-EXPORT-PDF
+    relation: triggers
+    direction: reverse
+  terminal: true
+- id: STO-UI
+  kind: code
+  type: store
+  distance: 3
+  anchor: src/state/ui.ts
+  via:
+    node: CMP-DOCUMENT-OUTLINE
+    relation: writes
+    direction: forward
+  terminal: true
+hubs: []
+stats:
+  closure_nodes: 11
+  by_distance:
+    '0': 4
+    '1': 2
+    '2': 3
+    '3': 2

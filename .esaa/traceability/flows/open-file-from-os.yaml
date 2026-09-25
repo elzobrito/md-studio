@@ -1,0 +1,201 @@
+# TRACE-009 — Abrir .md pelo sistema operacional (argv, associação, segunda instância). Passos ordenados; via = aresta de edges.yaml que liga o passo de origem (direction reverse = aresta no sentido oposto, ex.: consumes/reads/callback). trigger = início de ramo.
+artifact: open-file-from-os
+schema_version: 1
+source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+generated_at: '2026-09-24T23:03:41-03:00'
+id: FLOW-OPEN-FILE-FROM-OS
+name: Abrir .md pelo sistema operacional (argv, associação, segunda instância)
+required: true
+features:
+- FEAT-OPEN-FROM-OS
+- FEAT-OPEN-FILE
+entrypoints:
+- ENT-OSI-FILE-ASSOCIATIONS
+- ENT-OSI-DESKTOP-ENTRY
+- ENT-OSI-LAUNCH-ARGV
+- ENT-HDL-DOC-LAUNCH-EFFECT
+- ENT-IPC-GET-LAUNCH-PATH
+- ENT-IPC-READ-DOCUMENT
+- ENT-OSI-SINGLE-INSTANCE
+- ENT-TEV-APP-OPEN-FILE
+- ENT-HDL-DOC-LAUNCH-EFFECT
+outcome: Arquivo aberto no editor com a pasta pai como workspace.
+steps:
+- step: 1
+  node: OSI-FILE-ASSOCIATIONS
+  entrypoint: ENT-OSI-FILE-ASSOCIATIONS
+  trigger: Duplo clique em .md associado ao MD Studio
+- step: 2
+  node: OSI-DESKTOP-ENTRY
+  entrypoint: ENT-OSI-DESKTOP-ENTRY
+  trigger: 'Alternativa: ''Abrir com'' via .desktop (%F)'
+- step: 3
+  node: OSI-LAUNCH-ARGV
+  entrypoint: ENT-OSI-LAUNCH-ARGV
+  note: 'primeira instância: argv lido em run()'
+  via:
+  - from_step: 1
+    edge: OSI-FILE-ASSOCIATIONS|triggers|OSI-LAUNCH-ARGV
+    direction: forward
+    evidence:
+    - src-tauri/tauri.conf.json:49
+    - src-tauri/src/lib.rs:24
+    method: inferred
+  - from_step: 2
+    edge: OSI-DESKTOP-ENTRY|triggers|OSI-LAUNCH-ARGV
+    direction: forward
+    evidence:
+    - src-tauri/linux/md-studio.desktop:9
+    - src-tauri/src/lib.rs:24
+    method: inferred
+- step: 4
+  node: FN-FIRST-EXISTING-MARKDOWN-PATH
+  via:
+  - from_step: 3
+    edge: OSI-LAUNCH-ARGV|calls|FN-FIRST-EXISTING-MARKDOWN-PATH
+    direction: forward
+    evidence:
+    - src-tauri/src/lib.rs:24
+    method: observed
+- step: 5
+  node: CLS-APP-STATE
+  note: launch_path guardado no estado
+  via:
+  - from_step: 3
+    edge: OSI-LAUNCH-ARGV|writes|CLS-APP-STATE
+    direction: forward
+    evidence:
+    - src-tauri/src/lib.rs:33
+    method: observed
+- step: 6
+  node: HDL-DOC-LAUNCH-EFFECT
+  entrypoint: ENT-HDL-DOC-LAUNCH-EFFECT
+  trigger: 'Frontend montado: efeito de lançamento'
+- step: 7
+  node: IPCC-GET-LAUNCH-PATH
+  via:
+  - from_step: 6
+    edge: HDL-DOC-LAUNCH-EFFECT|calls|IPCC-GET-LAUNCH-PATH
+    direction: forward
+    evidence:
+    - src/state/documentState.ts:388
+    method: observed
+- step: 8
+  node: IPC-GET-LAUNCH-PATH
+  entrypoint: ENT-IPC-GET-LAUNCH-PATH
+  via:
+  - from_step: 7
+    edge: IPCC-GET-LAUNCH-PATH|calls|IPC-GET-LAUNCH-PATH
+    direction: forward
+    evidence:
+    - src/lib/ipc/client.ts:143
+    - src-tauri/src/commands/mod.rs:468
+    - src-tauri/src/lib.rs:78
+    method: observed
+- step: 9
+  node: CLS-APP-STATE
+  note: lê launch_path
+  via:
+  - from_step: 8
+    edge: IPC-GET-LAUNCH-PATH|reads|CLS-APP-STATE
+    direction: forward
+    evidence:
+    - src-tauri/src/commands/mod.rs:468
+    method: observed
+- step: 10
+  node: HDL-DOC-OPEN-FILE
+  note: abre arquivo retornado
+  via:
+  - from_step: 6
+    edge: HDL-DOC-LAUNCH-EFFECT|calls|HDL-DOC-OPEN-FILE
+    direction: forward
+    evidence: &id001
+    - src/state/documentState.ts:390
+    method: observed
+- step: 11
+  node: HDL-DOC-OPEN-WORKSPACE-PATH
+  note: workspace = pasta pai
+  via:
+  - from_step: 10
+    edge: HDL-DOC-OPEN-FILE|calls|HDL-DOC-OPEN-WORKSPACE-PATH
+    direction: forward
+    evidence:
+    - src/state/documentState.ts:201
+    method: observed
+- step: 12
+  node: HDL-DOC-OPEN-RELATIVE
+  via:
+  - from_step: 10
+    edge: HDL-DOC-OPEN-FILE|calls|HDL-DOC-OPEN-RELATIVE
+    direction: forward
+    evidence:
+    - src/state/documentState.ts:202
+    method: observed
+- step: 13
+  node: IPCC-READ-DOCUMENT
+  via:
+  - from_step: 12
+    edge: HDL-DOC-OPEN-RELATIVE|calls|IPCC-READ-DOCUMENT
+    direction: forward
+    evidence:
+    - src/state/documentState.ts:143
+    method: observed
+- step: 14
+  node: IPC-READ-DOCUMENT
+  entrypoint: ENT-IPC-READ-DOCUMENT
+  via:
+  - from_step: 13
+    edge: IPCC-READ-DOCUMENT|calls|IPC-READ-DOCUMENT
+    direction: forward
+    evidence:
+    - src/lib/ipc/client.ts:97
+    - src-tauri/src/commands/mod.rs:97
+    - src-tauri/src/lib.rs:73
+    method: observed
+- step: 15
+  node: OSI-SINGLE-INSTANCE
+  entrypoint: ENT-OSI-SINGLE-INSTANCE
+  trigger: 'Segunda instância: plugin single-instance recebe argv'
+- step: 16
+  node: TEV-APP-OPEN-FILE
+  entrypoint: ENT-TEV-APP-OPEN-FILE
+  note: emit app://open-file
+  via:
+  - from_step: 15
+    edge: OSI-SINGLE-INSTANCE|publishes|TEV-APP-OPEN-FILE
+    direction: forward
+    evidence:
+    - src-tauri/src/lib.rs:41
+    method: observed
+- step: 17
+  node: CNS-SUBSCRIBE-OPEN-FILE
+  note: listener assinado pelo efeito de lançamento
+  via:
+  - from_step: 16
+    edge: CNS-SUBSCRIBE-OPEN-FILE|consumes|TEV-APP-OPEN-FILE
+    direction: reverse
+    evidence:
+    - src/lib/ipc/client.ts:302
+    - src-tauri/src/lib.rs:41
+    method: observed
+- step: 18
+  node: HDL-DOC-LAUNCH-EFFECT
+  entrypoint: ENT-HDL-DOC-LAUNCH-EFFECT
+  note: callback do listener
+  via:
+  - from_step: 17
+    edge: HDL-DOC-LAUNCH-EFFECT|calls|CNS-SUBSCRIBE-OPEN-FILE
+    direction: reverse
+    evidence:
+    - src/state/documentState.ts:403
+    method: observed
+- step: 19
+  node: HDL-DOC-OPEN-FILE
+  note: mesmo caminho do passo 10
+  via:
+  - from_step: 18
+    edge: HDL-DOC-LAUNCH-EFFECT|calls|HDL-DOC-OPEN-FILE
+    direction: forward
+    evidence: *id001
+    method: observed
+trace_task: TRACE-009

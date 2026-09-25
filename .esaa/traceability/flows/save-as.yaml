@@ -1,0 +1,99 @@
+# TRACE-009 — Salvar como. Passos ordenados; via = aresta de edges.yaml que liga o passo de origem (direction reverse = aresta no sentido oposto, ex.: consumes/reads/callback). trigger = início de ramo.
+artifact: save-as
+schema_version: 1
+source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+generated_at: '2026-09-24T23:03:41-03:00'
+id: FLOW-SAVE-AS
+name: Salvar como
+required: false
+features:
+- FEAT-SAVE-AS
+entrypoints:
+- ENT-SHC-CTRL-SHIFT-S
+- ENT-OSI-PICK-SAVE-MARKDOWN
+- ENT-IPC-SAVE-DOCUMENT
+outcome: Cópia gravada no novo caminho e aberta.
+steps:
+- step: 1
+  node: SHC-CTRL-SHIFT-S
+  entrypoint: ENT-SHC-CTRL-SHIFT-S
+  trigger: Ctrl+Shift+S
+- step: 2
+  node: HDL-DOC-SAVE-AS
+  via:
+  - from_step: 1
+    edge: SHC-CTRL-SHIFT-S|triggers|HDL-DOC-SAVE-AS
+    direction: forward
+    evidence:
+    - src/App.tsx:374
+    method: observed
+- step: 3
+  node: OSI-PICK-SAVE-MARKDOWN
+  entrypoint: ENT-OSI-PICK-SAVE-MARKDOWN
+  via:
+  - from_step: 2
+    edge: HDL-DOC-SAVE-AS|calls|OSI-PICK-SAVE-MARKDOWN
+    direction: forward
+    evidence:
+    - src/state/documentState.ts:272
+    method: observed
+- step: 4
+  node: HDL-DOC-OPEN-WORKSPACE-PATH
+  via:
+  - from_step: 2
+    edge: HDL-DOC-SAVE-AS|calls|HDL-DOC-OPEN-WORKSPACE-PATH
+    direction: forward
+    evidence:
+    - src/state/documentState.ts:283
+    method: observed
+- step: 5
+  node: IPCC-SAVE-DOCUMENT
+  via:
+  - from_step: 2
+    edge: HDL-DOC-SAVE-AS|calls|IPCC-SAVE-DOCUMENT
+    direction: forward
+    evidence:
+    - src/state/documentState.ts:294
+    method: observed
+- step: 6
+  node: IPC-SAVE-DOCUMENT
+  entrypoint: ENT-IPC-SAVE-DOCUMENT
+  via:
+  - from_step: 5
+    edge: IPCC-SAVE-DOCUMENT|calls|IPC-SAVE-DOCUMENT
+    direction: forward
+    evidence:
+    - src/lib/ipc/client.ts:99
+    - src-tauri/src/commands/mod.rs:117
+    - src-tauri/src/lib.rs:74
+    method: observed
+- step: 7
+  node: FN-ATOMIC-SAVE
+  via:
+  - from_step: 6
+    edge: IPC-SAVE-DOCUMENT|calls|FN-ATOMIC-SAVE
+    direction: forward
+    evidence:
+    - src-tauri/src/commands/mod.rs:125
+    - src-tauri/src/commands/mod.rs:2
+    - src-tauri/src/persistence/mod.rs:1
+    method: observed
+- step: 8
+  node: FN-CLEAR-DRAFT
+  via:
+  - from_step: 2
+    edge: HDL-DOC-SAVE-AS|calls|FN-CLEAR-DRAFT
+    direction: forward
+    evidence:
+    - src/state/documentState.ts:307
+    method: observed
+- step: 9
+  node: STO-RECENT-FILES
+  via:
+  - from_step: 2
+    edge: HDL-DOC-SAVE-AS|writes|STO-RECENT-FILES
+    direction: forward
+    evidence:
+    - src/state/documentState.ts:316
+    method: observed
+trace_task: TRACE-009

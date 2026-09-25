@@ -1,0 +1,112 @@
+# TRACE-009 — Recuperação de rascunhos. Passos ordenados; via = aresta de edges.yaml que liga o passo de origem (direction reverse = aresta no sentido oposto, ex.: consumes/reads/callback). trigger = início de ramo.
+artifact: draft-recovery
+schema_version: 1
+source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+generated_at: '2026-09-24T23:03:41-03:00'
+id: FLOW-DRAFT-RECOVERY
+name: Recuperação de rascunhos
+required: true
+features:
+- FEAT-DRAFT-RECOVERY
+entrypoints:
+- ENT-HDL-DOC-SET-CONTENT
+- ENT-HDL-APP-DRAFT-RECOVERY-TIMER
+outcome: Rascunho reaplicado ao reabrir; rascunhos órfãos/expirando oferecidos para exportação ou exclusão.
+steps:
+- step: 1
+  node: HDL-DOC-SET-CONTENT
+  entrypoint: ENT-HDL-DOC-SET-CONTENT
+  trigger: Cada edição grava rascunho
+- step: 2
+  node: FN-SAVE-DRAFT
+  via:
+  - from_step: 1
+    edge: HDL-DOC-SET-CONTENT|calls|FN-SAVE-DRAFT
+    direction: forward
+    evidence:
+    - src/state/documentState.ts:73
+    method: observed
+- step: 3
+  node: FN-DRAFT-KEY
+  via:
+  - from_step: 2
+    edge: FN-SAVE-DRAFT|calls|FN-DRAFT-KEY
+    direction: forward
+    evidence:
+    - src/lib/drafts/recovery.ts:26
+    method: observed
+- step: 4
+  node: LSK-DRAFTS
+  via:
+  - from_step: 2
+    edge: FN-SAVE-DRAFT|writes|LSK-DRAFTS
+    direction: forward
+    evidence:
+    - src/lib/drafts/recovery.ts:26
+    method: observed
+- step: 5
+  node: HDL-DOC-OPEN-RELATIVE
+  trigger: Reabertura do arquivo após encerramento forçado
+- step: 6
+  node: FN-LOAD-DRAFT
+  note: rascunho válido da mesma raiz/caminho
+  via:
+  - from_step: 5
+    edge: HDL-DOC-OPEN-RELATIVE|calls|FN-LOAD-DRAFT
+    direction: forward
+    evidence:
+    - src/state/documentState.ts:144
+    method: observed
+- step: 7
+  node: LSK-DRAFTS
+  via:
+  - from_step: 6
+    edge: FN-LOAD-DRAFT|reads|LSK-DRAFTS
+    direction: forward
+    evidence:
+    - src/lib/drafts/recovery.ts:48
+    method: observed
+- step: 8
+  node: HDL-APP-DRAFT-RECOVERY-TIMER
+  entrypoint: ENT-HDL-APP-DRAFT-RECOVERY-TIMER
+  trigger: 'Ao abrir o app: verificação de retenção (90 dias, aviso a partir do dia 75)'
+- step: 9
+  node: FN-LIST-RECOVERABLE-DRAFTS
+  via:
+  - from_step: 8
+    edge: HDL-APP-DRAFT-RECOVERY-TIMER|calls|FN-LIST-RECOVERABLE-DRAFTS
+    direction: forward
+    evidence:
+    - src/App.tsx:83
+    method: observed
+- step: 10
+  node: LSK-DRAFTS-LEGACY
+  note: chaves antigas sem origem verificável
+  via:
+  - from_step: 9
+    edge: FN-LIST-RECOVERABLE-DRAFTS|reads|LSK-DRAFTS-LEGACY
+    direction: forward
+    evidence:
+    - src/lib/drafts/recovery.ts:61
+    method: observed
+- step: 11
+  node: CMP-DRAFT-RECOVERY-DIALOG
+  note: 'diálogo: exportar .md / excluir'
+  via:
+  - from_step: 8
+    edge: HDL-APP-DRAFT-RECOVERY-TIMER|writes|CMP-DRAFT-RECOVERY-DIALOG
+    direction: forward
+    evidence:
+    - src/App.tsx:93
+    method: observed
+- step: 12
+  node: FN-REMOVE-DRAFT-KEY
+  note: exclusão
+  via:
+  - from_step: 11
+    edge: CMP-DRAFT-RECOVERY-DIALOG|calls|FN-REMOVE-DRAFT-KEY
+    direction: forward
+    evidence:
+    - src/components/DraftRecoveryDialog.tsx:29
+    method: observed
+trace_task: TRACE-009

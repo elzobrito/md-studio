@@ -1,0 +1,46 @@
+artifact: task-traceability
+schema_version: 1
+task_id: MD-HOTFIX-PREVIEW-LINKS-001
+note: >-
+  Sidecar RETROATIVO (TRACE-020a / calibração). A tarefa já está done no ESAA (commit 31bc03f, 2026-09-23 14:02 BRT);
+  o bloco traceability foi escrito agora, em 2026-09-24 ~23:20 BRT, ANTES de olhar o diff (git show/diff/stat do commit não foram
+  consultados até o arquivo de impacto ser gravado). Fica em .esaa/analysis/ porque a tarefa não pode mais ser alterada.
+projected_before_change: true
+projection_inputs:
+  - 'roadmap.json: title + description de MD-HOTFIX-PREVIEW-LINKS-001 (acceptance_criteria = null; targets/outputs/verification NÃO usados)'
+  - '.esaa/traceability/graph.json (source_commit 5fe4f4d — POSTERIOR ao commit; ver bias)'
+  - 'busca por palavras-chave (link/anchor/viewer/opener/scroll/relative) em ids/nomes/caminhos do grafo'
+  - 'impact.py closure/blast'
+task_description_used: >-
+  "Corrigir bug onde cliques em links Markdown padrão e âncoras não eram interceptados, causando navegação acidental do Webview
+  para fora da SPA e reset para a tela de boas-vindas. Implementar resolução de links relativos, navegação de âncoras e abertura
+  externa com tauri-plugin-opener."
+bias: >-
+  O grafo foi construído em 5fe4f4d (depois do hotfix), então nós criados pelo próprio hotfix (ex.: resolveRelativeLink,
+  openExternalUrl, navigation.ts) já aparecem como nós existentes. Numa projeção real pré-mudança eles seriam 'nós novos'.
+  A projeção usa estrutura com vantagem de retrospectiva; o footprint re-localiza âncoras no commit (anchor_resolution) e marca
+  como missing o que não existia no pai.
+graph:
+  path: .esaa/traceability/graph.json
+  source_commit: 5fe4f4d2230f039791d6196cb0f0ecfb438825ae
+traceability:
+  targets: [HDL-VIEWER-ON-CLICK, FN-RESOLVE-RELATIVE-LINK, FN-SCROLL-TO-HEADING, OSI-OPEN-EXTERNAL-URL]
+  expected_affected: [CMP-MARKDOWN-VIEWER, PERM-OPENER-ALLOW-OPEN-URL, FN-RS-RUN, TST-TS-MARKDOWN-CORE-NAVIGATION-RESOLVERELATIVELINK]
+  protected_extra: []
+  change_policy: {mode: surgical, allow_new_tests: true, allow_new_production_nodes: false}
+  rationale:
+    HDL-VIEWER-ON-CLICK: 'interceptar cliques em <a> no preview ("links ... não eram interceptados")'
+    FN-RESOLVE-RELATIVE-LINK: '"resolução de links relativos"'
+    FN-SCROLL-TO-HEADING: '"navegação de âncoras" (#slug -> heading)'
+    OSI-OPEN-EXTERNAL-URL: '"abertura externa com tauri-plugin-opener"'
+    CMP-MARKDOWN-VIEWER: 'contêiner do handler (registro do listener/props)'
+    PERM-OPENER-ALLOW-OPEN-URL: 'plugin opener exige capability opener:allow-open-url'
+    FN-RS-RUN: 'registro do plugin no builder Tauri (.plugin(tauri_plugin_opener::init()))'
+    TST-TS-MARKDOWN-CORE-NAVIGATION-RESOLVERELATIVELINK: 'teste da resolução relativa'
+  justification:
+    OSI-OPEN-EXTERNAL-URL: 'membro de INV-OFFLINE-NO-TELEMETRY; a tarefa pede explicitamente abertura externa — invariante deve continuar (só abre por clique do usuário, nunca fetch automático)'
+    PERM-OPENER-ALLOW-OPEN-URL: 'security_config + membro de INV-FS-ONLY-VIA-RUST/INV-OFFLINE-NO-TELEMETRY; exigido pelo plugin opener'
+  expected_uncatalogued:
+    - 'package.json / pnpm-lock.yaml (dependência @tauri-apps/plugin-opener)'
+    - 'src-tauri/Cargo.toml / Cargo.lock (tauri-plugin-opener)'
+    - 'testes novos (tests/**)'

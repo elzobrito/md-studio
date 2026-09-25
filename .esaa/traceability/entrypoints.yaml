@@ -1,0 +1,751 @@
+# TRACE-003 — Entrypoints do md-studio. Evidência path:line no source_commit. ts_callers derivados de edges.yaml.
+artifact: entrypoints
+schema_version: 1
+source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+generated_at: '2026-09-24T22:53:06-03:00'
+summary:
+  total: 71
+  by_kind:
+    app_boot: 4
+    command_palette: 1
+    dialog: 6
+    ipc_command: 21
+    os_cli_args: 1
+    os_desktop_entry: 1
+    os_file_association: 1
+    os_single_instance: 1
+    shortcut: 11
+    slash_commands: 1
+    tauri_event: 2
+    timer: 1
+    ui_action: 18
+    ui_edit: 1
+    ui_link: 1
+  ipc_registered: 21
+  ipc_without_frontend_caller:
+  - IPC-SEARCH-WORKSPACE
+  - IPC-RESOLVE-WIKI-LINK
+entrypoints:
+- id: ENT-IPC-OPEN-WORKSPACE
+  kind: ipc_command
+  node: IPC-OPEN-WORKSPACE
+  name: open_workspace
+  evidence:
+  - src-tauri/src/commands/mod.rs:28
+  - src-tauri/src/lib.rs:71
+  handler:
+    node: IPC-OPEN-WORKSPACE
+    path: src-tauri/src/commands/mod.rs
+    symbol: open_workspace
+    lines:
+    - 28
+    - 56
+  registered_at: src-tauri/src/lib.rs:71
+  ts_clients:
+  - IPCC-OPEN-WORKSPACE
+  ts_callers:
+  - HDL-DOC-ON-WORKSPACE-READY
+  - HDL-DOC-OPEN-RELATIVE
+  - HDL-DOC-OPEN-WORKSPACE-PATH
+- id: ENT-IPC-LIST-ENTRIES
+  kind: ipc_command
+  node: IPC-LIST-ENTRIES
+  name: list_entries
+  evidence:
+  - src-tauri/src/commands/mod.rs:59
+  - src-tauri/src/lib.rs:72
+  handler:
+    node: IPC-LIST-ENTRIES
+    path: src-tauri/src/commands/mod.rs
+    symbol: list_entries
+    lines:
+    - 59
+    - 94
+  registered_at: src-tauri/src/lib.rs:72
+  ts_clients:
+  - IPCC-LIST-ENTRIES
+  ts_callers:
+  - CMP-FILE-EXPLORER
+  - FN-USE-FILE-TREE
+  - HDL-DOC-OPEN-FOLDER
+- id: ENT-IPC-READ-DOCUMENT
+  kind: ipc_command
+  node: IPC-READ-DOCUMENT
+  name: read_document
+  evidence:
+  - src-tauri/src/commands/mod.rs:97
+  - src-tauri/src/lib.rs:73
+  handler:
+    node: IPC-READ-DOCUMENT
+    path: src-tauri/src/commands/mod.rs
+    symbol: read_document
+    lines:
+    - 97
+    - 114
+  registered_at: src-tauri/src/lib.rs:73
+  ts_clients:
+  - IPCC-READ-DOCUMENT
+  ts_callers:
+  - HDL-DOC-OPEN-RELATIVE
+  - HDL-DOC-SAVE-AS
+- id: ENT-IPC-SAVE-DOCUMENT
+  kind: ipc_command
+  node: IPC-SAVE-DOCUMENT
+  name: save_document
+  evidence:
+  - src-tauri/src/commands/mod.rs:117
+  - src-tauri/src/lib.rs:74
+  handler:
+    node: IPC-SAVE-DOCUMENT
+    path: src-tauri/src/commands/mod.rs
+    symbol: save_document
+    lines:
+    - 117
+    - 160
+  registered_at: src-tauri/src/lib.rs:74
+  ts_clients:
+  - IPCC-SAVE-DOCUMENT
+  ts_callers:
+  - HDL-CREATE-NOTE
+  - HDL-DOC-SAVE-AS
+  - SVC-PERSIST-DOCUMENT
+- id: ENT-IPC-SEARCH-WORKSPACE
+  kind: ipc_command
+  node: IPC-SEARCH-WORKSPACE
+  name: search_workspace
+  evidence:
+  - src-tauri/src/commands/mod.rs:163
+  - src-tauri/src/lib.rs:75
+  handler:
+    node: IPC-SEARCH-WORKSPACE
+    path: src-tauri/src/commands/mod.rs
+    symbol: search_workspace
+    lines:
+    - 163
+    - 203
+  registered_at: src-tauri/src/lib.rs:75
+  ts_clients:
+  - IPCC-SEARCH-WORKSPACE
+  ts_callers: []
+  ts_callers_note: 'AUSÊNCIA EXPLÍCITA: nenhum código do frontend chama este cliente/comando.'
+  status: dead_code
+- id: ENT-IPC-EXPORT-HTML
+  kind: ipc_command
+  node: IPC-EXPORT-HTML
+  name: export_html
+  evidence:
+  - src-tauri/src/commands/mod.rs:216
+  - src-tauri/src/lib.rs:76
+  handler:
+    node: IPC-EXPORT-HTML
+    path: src-tauri/src/commands/mod.rs
+    symbol: export_html
+    lines:
+    - 216
+    - 226
+  registered_at: src-tauri/src/lib.rs:76
+  ts_clients:
+  - IPCC-EXPORT-HTML
+  ts_callers:
+  - SVC-EXPORT-ACTIVE-DOCUMENT-HTML
+- id: ENT-IPC-EXPORT-EPUB
+  kind: ipc_command
+  node: IPC-EXPORT-EPUB
+  name: export_epub
+  evidence:
+  - src-tauri/src/commands/mod.rs:263
+  - src-tauri/src/lib.rs:77
+  handler:
+    node: IPC-EXPORT-EPUB
+    path: src-tauri/src/commands/mod.rs
+    symbol: export_epub
+    lines:
+    - 263
+    - 268
+  registered_at: src-tauri/src/lib.rs:77
+  ts_clients:
+  - IPCC-EXPORT-EPUB
+  ts_callers:
+  - SVC-EXPORT-ACTIVE-DOCUMENT-EPUB
+- id: ENT-IPC-GET-LAUNCH-PATH
+  kind: ipc_command
+  node: IPC-GET-LAUNCH-PATH
+  name: get_launch_path
+  evidence:
+  - src-tauri/src/commands/mod.rs:468
+  - src-tauri/src/lib.rs:78
+  handler:
+    node: IPC-GET-LAUNCH-PATH
+    path: src-tauri/src/commands/mod.rs
+    symbol: get_launch_path
+    lines:
+    - 468
+    - 470
+  registered_at: src-tauri/src/lib.rs:78
+  ts_clients:
+  - IPCC-GET-LAUNCH-PATH
+  ts_callers:
+  - HDL-DOC-LAUNCH-EFFECT
+- id: ENT-IPC-CLOSE-SPLASH
+  kind: ipc_command
+  node: IPC-CLOSE-SPLASH
+  name: close_splash
+  evidence:
+  - src-tauri/src/commands/mod.rs:473
+  - src-tauri/src/lib.rs:88
+  handler:
+    node: IPC-CLOSE-SPLASH
+    path: src-tauri/src/commands/mod.rs
+    symbol: close_splash
+    lines:
+    - 473
+    - 483
+  registered_at: src-tauri/src/lib.rs:88
+  ts_clients:
+  - IPCC-CLOSE-SPLASH
+  ts_callers:
+  - HDL-APP-CLOSE-SPLASH-EFFECT
+- id: ENT-IPC-GET-WORKSPACE-STATS
+  kind: ipc_command
+  node: IPC-GET-WORKSPACE-STATS
+  name: get_workspace_stats
+  evidence:
+  - src-tauri/src/commands/metadata.rs:46
+  - src-tauri/src/lib.rs:79
+  handler:
+    node: IPC-GET-WORKSPACE-STATS
+    path: src-tauri/src/commands/metadata.rs
+    symbol: get_workspace_stats
+    lines:
+    - 46
+    - 87
+  registered_at: src-tauri/src/lib.rs:79
+  ts_clients:
+  - IPCC-GET-WORKSPACE-STATS
+  ts_callers:
+  - FN-USE-METADATA-REFRESH-STATS
+- id: ENT-IPC-GET-DOCUMENT-METADATA
+  kind: ipc_command
+  node: IPC-GET-DOCUMENT-METADATA
+  name: get_document_metadata
+  evidence:
+  - src-tauri/src/commands/metadata.rs:90
+  - src-tauri/src/lib.rs:80
+  handler:
+    node: IPC-GET-DOCUMENT-METADATA
+    path: src-tauri/src/commands/metadata.rs
+    symbol: get_document_metadata
+    lines:
+    - 90
+    - 101
+  registered_at: src-tauri/src/lib.rs:80
+  ts_clients:
+  - IPCC-GET-DOCUMENT-METADATA
+  ts_callers:
+  - FN-USE-METADATA-REFRESH-CURRENT-DOC
+- id: ENT-IPC-GET-ALL-DOCUMENTS
+  kind: ipc_command
+  node: IPC-GET-ALL-DOCUMENTS
+  name: get_all_documents
+  evidence:
+  - src-tauri/src/commands/metadata.rs:104
+  - src-tauri/src/lib.rs:81
+  handler:
+    node: IPC-GET-ALL-DOCUMENTS
+    path: src-tauri/src/commands/metadata.rs
+    symbol: get_all_documents
+    lines:
+    - 104
+    - 114
+  registered_at: src-tauri/src/lib.rs:81
+  ts_clients:
+  - IPCC-GET-ALL-DOCUMENTS
+  ts_callers:
+  - FN-USE-METADATA-REFRESH-ALL-DOCS
+- id: ENT-IPC-TRIGGER-REINDEX
+  kind: ipc_command
+  node: IPC-TRIGGER-REINDEX
+  name: trigger_reindex
+  evidence:
+  - src-tauri/src/commands/metadata.rs:117
+  - src-tauri/src/lib.rs:82
+  handler:
+    node: IPC-TRIGGER-REINDEX
+    path: src-tauri/src/commands/metadata.rs
+    symbol: trigger_reindex
+    lines:
+    - 117
+    - 128
+  registered_at: src-tauri/src/lib.rs:82
+  ts_clients:
+  - IPCC-TRIGGER-REINDEX
+  ts_callers:
+  - FN-USE-METADATA-REINDEX
+  - HDL-CREATE-NOTE
+- id: ENT-IPC-GET-WIKI-LINKS-FOR
+  kind: ipc_command
+  node: IPC-GET-WIKI-LINKS-FOR
+  name: get_wiki_links_for
+  evidence:
+  - src-tauri/src/commands/metadata.rs:131
+  - src-tauri/src/lib.rs:83
+  handler:
+    node: IPC-GET-WIKI-LINKS-FOR
+    path: src-tauri/src/commands/metadata.rs
+    symbol: get_wiki_links_for
+    lines:
+    - 131
+    - 144
+  registered_at: src-tauri/src/lib.rs:83
+  ts_clients:
+  - IPCC-GET-WIKI-LINKS-FOR
+  ts_callers:
+  - FN-USE-METADATA-REFRESH-CURRENT-DOC
+- id: ENT-IPC-RESOLVE-WIKI-LINK
+  kind: ipc_command
+  node: IPC-RESOLVE-WIKI-LINK
+  name: resolve_wiki_link
+  evidence:
+  - src-tauri/src/commands/metadata.rs:147
+  - src-tauri/src/lib.rs:84
+  handler:
+    node: IPC-RESOLVE-WIKI-LINK
+    path: src-tauri/src/commands/metadata.rs
+    symbol: resolve_wiki_link
+    lines:
+    - 147
+    - 155
+  registered_at: src-tauri/src/lib.rs:84
+  ts_clients:
+  - IPCC-RESOLVE-WIKI-LINK
+  ts_callers: []
+  ts_callers_note: 'AUSÊNCIA EXPLÍCITA: nenhum código do frontend chama este cliente/comando.'
+  status: dead_code
+- id: ENT-IPC-GET-RESOLVED-WIKI-LINKS-FOR
+  kind: ipc_command
+  node: IPC-GET-RESOLVED-WIKI-LINKS-FOR
+  name: get_resolved_wiki_links_for
+  evidence:
+  - src-tauri/src/commands/metadata.rs:158
+  - src-tauri/src/lib.rs:85
+  handler:
+    node: IPC-GET-RESOLVED-WIKI-LINKS-FOR
+    path: src-tauri/src/commands/metadata.rs
+    symbol: get_resolved_wiki_links_for
+    lines:
+    - 158
+    - 170
+  registered_at: src-tauri/src/lib.rs:85
+  ts_clients:
+  - IPCC-GET-RESOLVED-WIKI-LINKS-FOR
+  ts_callers:
+  - FN-USE-METADATA-REFRESH-CURRENT-DOC
+- id: ENT-IPC-GET-TAGS
+  kind: ipc_command
+  node: IPC-GET-TAGS
+  name: get_tags
+  evidence:
+  - src-tauri/src/commands/metadata.rs:173
+  - src-tauri/src/lib.rs:86
+  handler:
+    node: IPC-GET-TAGS
+    path: src-tauri/src/commands/metadata.rs
+    symbol: get_tags
+    lines:
+    - 173
+    - 192
+  registered_at: src-tauri/src/lib.rs:86
+  ts_clients:
+  - IPCC-GET-TAGS
+  ts_callers:
+  - FN-USE-METADATA-REFRESH-TAGS
+- id: ENT-IPC-GET-BACKLINKS
+  kind: ipc_command
+  node: IPC-GET-BACKLINKS
+  name: get_backlinks
+  evidence:
+  - src-tauri/src/commands/metadata.rs:233
+  - src-tauri/src/lib.rs:87
+  handler:
+    node: IPC-GET-BACKLINKS
+    path: src-tauri/src/commands/metadata.rs
+    symbol: get_backlinks
+    lines:
+    - 233
+    - 245
+  registered_at: src-tauri/src/lib.rs:87
+  ts_clients:
+  - IPCC-GET-BACKLINKS
+  ts_callers:
+  - FN-USE-METADATA-REFRESH-CURRENT-DOC
+- id: ENT-IPC-FORMAT-CODE
+  kind: ipc_command
+  node: IPC-FORMAT-CODE
+  name: format_code
+  evidence:
+  - src-tauri/src/commands/formatter.rs:343
+  - src-tauri/src/lib.rs:89
+  handler:
+    node: IPC-FORMAT-CODE
+    path: src-tauri/src/commands/formatter.rs
+    symbol: format_code
+    lines:
+    - 343
+    - 345
+  registered_at: src-tauri/src/lib.rs:89
+  ts_clients:
+  - IPCC-FORMAT-CODE
+  ts_callers:
+  - SVC-FORMAT-CODE
+- id: ENT-IPC-START-WATCHING
+  kind: ipc_command
+  node: IPC-START-WATCHING
+  name: start_watching
+  evidence:
+  - src-tauri/src/watcher/mod.rs:237
+  - src-tauri/src/lib.rs:90
+  handler:
+    node: IPC-START-WATCHING
+    path: src-tauri/src/watcher/mod.rs
+    symbol: start_watching
+    lines:
+    - 237
+    - 266
+  registered_at: src-tauri/src/lib.rs:90
+  ts_clients:
+  - IPCC-START-WATCHING
+  ts_callers:
+  - HDL-DOC-WATCH-EFFECT
+- id: ENT-IPC-STOP-WATCHING
+  kind: ipc_command
+  node: IPC-STOP-WATCHING
+  name: stop_watching
+  evidence:
+  - src-tauri/src/watcher/mod.rs:269
+  - src-tauri/src/lib.rs:91
+  handler:
+    node: IPC-STOP-WATCHING
+    path: src-tauri/src/watcher/mod.rs
+    symbol: stop_watching
+    lines:
+    - 269
+    - 272
+  registered_at: src-tauri/src/lib.rs:91
+  ts_clients:
+  - IPCC-STOP-WATCHING
+  ts_callers:
+  - HDL-DOC-WATCH-EFFECT
+- id: ENT-SHC-CTRL-S
+  kind: shortcut
+  node: SHC-CTRL-S
+  name: Ctrl+S Salvar documento
+  evidence:
+  - src/App.tsx:365
+- id: ENT-SHC-CTRL-SHIFT-S
+  kind: shortcut
+  node: SHC-CTRL-SHIFT-S
+  name: Ctrl+Shift+S Salvar como
+  evidence:
+  - src/App.tsx:377
+- id: ENT-SHC-CTRL-O
+  kind: shortcut
+  node: SHC-CTRL-O
+  name: Ctrl+O Abrir arquivo
+  evidence:
+  - src/App.tsx:402
+- id: ENT-SHC-CTRL-SHIFT-O
+  kind: shortcut
+  node: SHC-CTRL-SHIFT-O
+  name: Ctrl+Shift+O Abrir pasta
+  evidence:
+  - src/App.tsx:395
+- id: ENT-SHC-CTRL-N
+  kind: shortcut
+  node: SHC-CTRL-N
+  name: Ctrl+N Novo documento
+  evidence:
+  - src/App.tsx:354
+- id: ENT-SHC-CTRL-W
+  kind: shortcut
+  node: SHC-CTRL-W
+  name: Ctrl+W Fechar arquivo
+  evidence:
+  - src/App.tsx:387
+- id: ENT-SHC-F5
+  kind: shortcut
+  node: SHC-F5
+  name: F5 Modo Apresentação
+  evidence:
+  - src/App.tsx:347
+- id: ENT-SHC-CTRL-P
+  kind: shortcut
+  node: SHC-CTRL-P
+  name: Ctrl+P Command palette / quick switcher
+  evidence:
+  - src/components/command/CommandPalette.tsx:22
+- id: ENT-BTN-HEADER-NEW-DOCUMENT
+  kind: ui_action
+  node: BTN-HEADER-NEW-DOCUMENT
+  name: aria-label="Novo documento
+  evidence:
+  - src/components/header/AppHeader.tsx:78
+- id: ENT-BTN-HEADER-QUICK-SEARCH
+  kind: ui_action
+  node: BTN-HEADER-QUICK-SEARCH
+  name: aria-label="Busca rápida
+  evidence:
+  - src/components/header/AppHeader.tsx:90
+  status: dead_code
+  notes: 'onOpenSearch não é passado por App.tsx: botão não renderiza/aciona nada.'
+- id: ENT-BTN-HEADER-PRESENTATION
+  kind: ui_action
+  node: BTN-HEADER-PRESENTATION
+  name: aria-label="Modo Apresentação
+  evidence:
+  - src/components/header/AppHeader.tsx:125
+- id: ENT-BTN-SAVE
+  kind: ui_action
+  node: BTN-SAVE
+  name: onClick={onSave}
+  evidence:
+  - src/components/header/SaveButton.tsx:39
+- id: ENT-BTN-EXPORT-HTML
+  kind: ui_action
+  node: BTN-EXPORT-HTML
+  name: Exportar HTML
+  evidence:
+  - src/components/header/ExportMenu.tsx:36
+- id: ENT-BTN-EXPORT-PDF
+  kind: ui_action
+  node: BTN-EXPORT-PDF
+  name: Exportar PDF
+  evidence:
+  - src/components/header/ExportMenu.tsx:45
+- id: ENT-BTN-EXPORT-EPUB
+  kind: ui_action
+  node: BTN-EXPORT-EPUB
+  name: Exportar EPUB
+  evidence:
+  - src/components/header/ExportMenu.tsx:54
+- id: ENT-BTN-WELCOME-OPEN-FOLDER
+  kind: ui_action
+  node: BTN-WELCOME-OPEN-FOLDER
+  name: onClick={onOpenFolder}
+  evidence:
+  - src/components/empty/WelcomeScreen.tsx:30
+- id: ENT-BTN-WELCOME-OPEN-FILE
+  kind: ui_action
+  node: BTN-WELCOME-OPEN-FILE
+  name: onClick={onOpenFile}
+  evidence:
+  - src/components/empty/WelcomeScreen.tsx:40
+- id: ENT-BTN-WELCOME-NEW-DOCUMENT
+  kind: ui_action
+  node: BTN-WELCOME-NEW-DOCUMENT
+  name: onClick={onNewDocument}
+  evidence:
+  - src/components/empty/WelcomeScreen.tsx:51
+- id: ENT-TEV-APP-OPEN-FILE
+  kind: tauri_event
+  node: TEV-APP-OPEN-FILE
+  name: app://open-file
+  evidence:
+  - src-tauri/src/lib.rs:41
+  producers:
+  - OSI-SINGLE-INSTANCE
+  consumers:
+  - CNS-SUBSCRIBE-OPEN-FILE
+- id: ENT-TEV-WORKSPACE-CHANGE
+  kind: tauri_event
+  node: TEV-WORKSPACE-CHANGE
+  name: Evento "workspace://change"
+  evidence:
+  - src-tauri/src/watcher/mod.rs:19
+  producers:
+  - FN-SPAWN-WATCHER
+  consumers:
+  - CNS-SUBSCRIBE-WORKSPACE-WATCH
+- id: ENT-BTN-CONFLICT-RELOAD
+  kind: ui_action
+  node: BTN-CONFLICT-RELOAD
+  name: onChoose("reload")
+  evidence:
+  - src/components/ConflictDialog.tsx:29
+- id: ENT-BTN-CONFLICT-KEEP
+  kind: ui_action
+  node: BTN-CONFLICT-KEEP
+  name: onChoose("keep")
+  evidence:
+  - src/components/ConflictDialog.tsx:32
+- id: ENT-BTN-CONFLICT-SAVE-AS
+  kind: ui_action
+  node: BTN-CONFLICT-SAVE-AS
+  name: onChoose("saveAs")
+  evidence:
+  - src/components/ConflictDialog.tsx:35
+- id: ENT-BTN-EXPLORER-OPEN-FOLDER
+  kind: ui_action
+  node: BTN-EXPLORER-OPEN-FOLDER
+  name: onClick={() => void handleOpenFolder()}
+  evidence:
+  - src/components/FileExplorer.tsx:194
+- id: ENT-BTN-EXPLORER-OPEN-FILE
+  kind: ui_action
+  node: BTN-EXPLORER-OPEN-FILE
+  name: onClick={() => void handleOpenFile()}
+  evidence:
+  - src/components/FileExplorer.tsx:205
+- id: ENT-BTN-EXPLORER-REINDEX
+  kind: ui_action
+  node: BTN-EXPLORER-REINDEX
+  name: onClick={onReindex}
+  evidence:
+  - src/components/explorer/WorkspaceHeader.tsx:38
+  notes: Rotulado 'Reindexar workspace', mas FileExplorer liga onReindex a reload() da árvore (list_entries), não a trigger_reindex.
+- id: ENT-SHC-EDITOR-MOD-S
+  kind: shortcut
+  node: SHC-EDITOR-MOD-S
+  name: CodeMirror Mod-s -> onSave
+  evidence:
+  - src/components/MarkdownEditor.tsx:183
+- id: ENT-SHC-EDITOR-MOD-SHIFT-S
+  kind: shortcut
+  node: SHC-EDITOR-MOD-SHIFT-S
+  name: CodeMirror Mod-Shift-s -> tachado
+  evidence:
+  - src/components/MarkdownEditor.tsx:148
+  notes: Mesma combinação do atalho global Ctrl+Shift+S (Salvar como).
+- id: ENT-SHC-EDITOR-SHIFT-ALT-F
+  kind: shortcut
+  node: SHC-EDITOR-SHIFT-ALT-F
+  name: Shift+Alt+F formatar
+  evidence:
+  - src/components/MarkdownEditor.tsx:169
+- id: ENT-BTN-TOOLBAR-FORMAT-CODE
+  kind: ui_action
+  node: BTN-TOOLBAR-FORMAT-CODE
+  name: label="Formatar código
+  evidence:
+  - src/components/editor/FormattingToolbar.tsx:342
+- id: ENT-BTN-PREVIEW-FORMAT-CODE
+  kind: ui_action
+  node: BTN-PREVIEW-FORMAT-CODE
+  name: formatBtn.title = "Formatar bloco de código
+  evidence:
+  - src/components/MarkdownViewer.tsx:158
+- id: ENT-OSI-LAUNCH-ARGV
+  kind: os_cli_args
+  node: OSI-LAUNCH-ARGV
+  name: 'Cold start: argv -> launch_path'
+  evidence:
+  - src-tauri/src/lib.rs:24
+- id: ENT-OSI-SINGLE-INSTANCE
+  kind: os_single_instance
+  node: OSI-SINGLE-INSTANCE
+  name: 'Single instance: reencaminha argv p/ instância viva'
+  evidence:
+  - src-tauri/src/lib.rs:37
+- id: ENT-OSI-FILE-ASSOCIATIONS
+  kind: os_file_association
+  node: OSI-FILE-ASSOCIATIONS
+  name: fileAssociations
+  evidence:
+  - src-tauri/tauri.conf.json:49
+- id: ENT-OSI-DESKTOP-ENTRY
+  kind: os_desktop_entry
+  node: OSI-DESKTOP-ENTRY
+  name: Linux .desktop Exec %F
+  evidence:
+  - src-tauri/linux/md-studio.desktop:9
+- id: ENT-OSI-SPLASH-AUTOCLOSE
+  kind: app_boot
+  node: OSI-SPLASH-AUTOCLOSE
+  name: Fecha splash e mostra main após 6s
+  evidence:
+  - src-tauri/src/lib.rs:59
+- id: ENT-OSI-PICK-FOLDER
+  kind: dialog
+  node: OSI-PICK-FOLDER
+  name: pickFolder
+  evidence:
+  - src/lib/ipc/client.ts:153
+- id: ENT-OSI-PICK-MARKDOWN-FILE
+  kind: dialog
+  node: OSI-PICK-MARKDOWN-FILE
+  name: pickMarkdownFile
+  evidence:
+  - src/lib/ipc/client.ts:176
+- id: ENT-OSI-PICK-SAVE-MARKDOWN
+  kind: dialog
+  node: OSI-PICK-SAVE-MARKDOWN
+  name: pickSaveMarkdownFile
+  evidence:
+  - src/lib/ipc/client.ts:197
+- id: ENT-OSI-PICK-SAVE-HTML
+  kind: dialog
+  node: OSI-PICK-SAVE-HTML
+  name: pickSaveHtmlFile
+  evidence:
+  - src/lib/ipc/client.ts:353
+- id: ENT-OSI-PICK-SAVE-EPUB
+  kind: dialog
+  node: OSI-PICK-SAVE-EPUB
+  name: pickSaveEpubFile
+  evidence:
+  - src/lib/ipc/client.ts:336
+- id: ENT-OSI-CONFIRM-OVERWRITE
+  kind: dialog
+  node: OSI-CONFIRM-OVERWRITE
+  name: confirmOverwrite
+  evidence:
+  - src/lib/ipc/client.ts:369
+- id: ENT-FN-RS-MAIN
+  kind: app_boot
+  node: FN-RS-MAIN
+  name: main
+  evidence:
+  - src-tauri/src/main.rs:3
+- id: ENT-SCR-APP
+  kind: app_boot
+  node: SCR-APP
+  name: App (shell React)
+  evidence:
+  - src/App.tsx:54
+- id: ENT-CMP-COMMAND-PALETTE
+  kind: command_palette
+  node: CMP-COMMAND-PALETTE
+  name: CommandPalette
+  evidence:
+  - src/components/command/CommandPalette.tsx:14
+  notes: 'App.tsx não passa allFiles: quick switcher cobre só recentes.'
+- id: ENT-FN-CREATE-SLASH-PLUGIN
+  kind: slash_commands
+  node: FN-CREATE-SLASH-PLUGIN
+  name: Slash commands (/) no editor
+  evidence:
+  - src/editor/slash/slash-plugin.ts:84
+- id: ENT-HDL-VIEWER-ON-CLICK
+  kind: ui_link
+  node: HDL-VIEWER-ON-CLICK
+  name: Clique em links do preview
+  evidence:
+  - src/components/MarkdownViewer.tsx:54
+- id: ENT-HDL-APP-DRAFT-RECOVERY-TIMER
+  kind: timer
+  node: HDL-APP-DRAFT-RECOVERY-TIMER
+  name: Verificação horária de rascunhos expirando
+  evidence:
+  - src/App.tsx:82
+- id: ENT-HDL-DOC-LAUNCH-EFFECT
+  kind: app_boot
+  node: HDL-DOC-LAUNCH-EFFECT
+  name: Efeito de launch (get_launch_path + app://open-file)
+  evidence:
+  - src/state/documentState.ts:380
+- id: ENT-HDL-DOC-SET-CONTENT
+  kind: ui_edit
+  node: HDL-DOC-SET-CONTENT
+  name: useDocumentState.setContent
+  evidence:
+  - src/state/documentState.ts:61
+  description: Digitação no editor (onChange) — dispara rascunho e auto-save.

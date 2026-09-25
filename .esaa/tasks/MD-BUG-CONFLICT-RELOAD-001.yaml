@@ -1,0 +1,40 @@
+artifact: task-traceability
+schema_version: 1
+task_id: MD-BUG-CONFLICT-RELOAD-001
+written_at: '2026-09-24T23:21:00-03:00'
+projected_before_change: true
+projection_inputs:
+  - 'descrição da tarefa ESAA MD-BUG-CONFLICT-RELOAD-001 (criada 2026-09-24 23:20 BRT)'
+  - 'achado da fase A (leitura estática: resolveConflict -> openRelative -> loadDraft)'
+  - '.esaa/traceability/graph.json (source_commit 5fe4f4d == HEAD; documentState.ts sem mudanças locais, sha256 b583db1b…)'
+  - 'impact.py closure/blast'
+graph:
+  path: .esaa/traceability/graph.json
+  source_commit: 5fe4f4d2230f039791d6196cb0f0ecfb438825ae
+traceability:
+  targets: [HDL-DOC-RESOLVE-CONFLICT]
+  expected_affected: [STO-DOCUMENT-STATE]
+  protected_extra: [HDL-DOC-OPEN-RELATIVE, FN-LOAD-DRAFT, FN-CLEAR-DRAFT, CMP-CONFLICT-DIALOG]
+  change_policy: {mode: surgical, allow_new_tests: true, allow_new_production_nodes: false}
+  rationale:
+    HDL-DOC-RESOLVE-CONFLICT: 'ramo reload deve descartar o rascunho do caminho em conflito antes de reabrir (clearDraft(draftRoot(ws), path))'
+    STO-DOCUMENT-STATE: 'contêiner (hook useDocumentState); deps do useCallback podem mudar (workspace)'
+  protected_extra_reason:
+    HDL-DOC-OPEN-RELATIVE: 'chamado por 10 handlers (hub); mudar a semântica de rascunho aqui afetaria abrir arquivo/recentes/wiki/backlinks/recuperação'
+    FN-LOAD-DRAFT: 'API de recuperação de rascunhos (FEAT-DRAFT-RECOVERY); fora do escopo'
+    FN-CLEAR-DRAFT: 'reutilizar sem alterar'
+    CMP-CONFLICT-DIALOG: 'membro de INV-SHA256-CONFLICT; UI não muda'
+  alternatives_rejected:
+    - 'opção ignoreDraft em openRelative: altera nó hub (10 chamadores) -> scope expansion'
+    - 'limpar rascunho em loadDraft quando conteúdo == disco: muda FEAT-DRAFT-RECOVERY'
+  expected_graph_delta:
+    - 'nova aresta HDL-DOC-RESOLVE-CONFLICT calls FN-CLEAR-DRAFT (observed)'
+    - 'possível nova aresta HDL-DOC-RESOLVE-CONFLICT calls FN-DRAFT-ROOT'
+    - 'novo nó de teste para tests/editor/conflictReload.test.tsx + covered_by HDL-DOC-RESOLVE-CONFLICT'
+    - 'âncoras de documentState.ts deslocam após a linha da correção (re-âncora)'
+  expected_uncatalogued:
+    - 'tests/editor/conflictReload.test.tsx (teste novo)'
+artifacts:
+  impact: .esaa/analysis/MD-BUG-CONFLICT-RELOAD-001-impact.yaml
+  footprint: .esaa/analysis/MD-BUG-CONFLICT-RELOAD-001-footprint.yaml
+  drift: .esaa/analysis/MD-BUG-CONFLICT-RELOAD-001-drift.yaml

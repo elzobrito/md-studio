@@ -1,0 +1,222 @@
+artifact: task-footprint
+schema_version: 1
+trace_task: TRACE-018
+task_id: MD-HOTFIX-PREVIEW-LINKS-001
+diff:
+  base: 3dbe8b2cd3136099fac430ce66588d2026761bf7
+  head: 31bc03fc728119934839a0e7017dc8170d5df890
+  paths_filter:
+  - src/components/MarkdownViewer.tsx
+  - src/services/navigation.ts
+  - tests/markdown/core/navigation.test.ts
+  excluded_set: []
+  command: git diff -U0 --no-color --no-ext-diff 3dbe8b2cd3136099fac430ce66588d2026761bf7 31bc03fc728119934839a0e7017dc8170d5df890 -- src/components/MarkdownViewer.tsx
+    src/services/navigation.ts tests/markdown/core/navigation.test.ts
+graph_source_commit: 5fe4f4d2230f039791d6196cb0f0ecfb438825ae
+notes:
+- 'diff do commit 31bc03f (2026-09-23 14:02 BRT); .roadmap/* (activity/issues/lessons/roadmap.json) excluídos: projeções do event store ESAA,
+  não código'
+- 'grafo em 5fe4f4d (posterior): âncoras re-localizadas por alinhamento difflib em 31bc03f^ (old) e 31bc03f (new)'
+changed_files:
+- path: src/components/MarkdownViewer.tsx
+  status: M
+  added: 60
+  removed: 10
+  hunks:
+  - old:
+    - 7
+    - 6
+    new:
+    - 8
+    - 8
+  - old:
+    - 49
+    - 49
+    new:
+    - 50
+    - 50
+  - old:
+    - 56
+    - 56
+    new:
+    - 57
+    - 57
+  - old:
+    - 57
+    - 56
+    new:
+    - 59
+    - 60
+  - old:
+    - 61
+    - 67
+    new:
+    - 64
+    - 117
+  - old:
+    - 72
+    - 72
+    new:
+    - 122
+    - 122
+  is_test: false
+  catalogued_nodes_in_file: 3
+- path: src/services/navigation.ts
+  status: M
+  added: 54
+  removed: 0
+  hunks:
+  - old:
+    - 47
+    - 46
+    new:
+    - 48
+    - 101
+  is_test: false
+  catalogued_nodes_in_file: 3
+- path: tests/markdown/core/navigation.test.ts
+  status: M
+  added: 26
+  removed: 0
+  hunks:
+  - old:
+    - 4
+    - 3
+    new:
+    - 5
+    - 5
+  - old:
+    - 22
+    - 21
+    new:
+    - 24
+    - 48
+  is_test: true
+  catalogued_nodes_in_file: 2
+changed_nodes:
+- id: CMP-MARKDOWN-VIEWER
+  kind: code
+  type: component
+  path: src/components/MarkdownViewer.tsx
+  sides:
+  - old
+  - new
+  lines_hit: 4
+  attribution: line
+  anchor_resolution:
+    old: relocated
+    new: exact
+  created_by_change: false
+- id: HDL-VIEWER-ON-CLICK
+  kind: code
+  type: handler
+  path: src/components/MarkdownViewer.tsx
+  sides:
+  - old
+  - new
+  lines_hit: 65
+  attribution: line
+  anchor_resolution:
+    old: partial
+    new: exact
+  created_by_change: false
+- id: FN-RESOLVE-RELATIVE-LINK
+  kind: code
+  type: function
+  path: src/services/navigation.ts
+  sides:
+  - new
+  lines_hit: 30
+  attribution: line
+  anchor_resolution:
+    old: missing
+    new: exact
+  created_by_change: true
+- id: OSI-OPEN-EXTERNAL-URL
+  kind: code
+  type: os_integration
+  path: src/services/navigation.ts
+  sides:
+  - new
+  lines_hit: 8
+  attribution: line
+  anchor_resolution:
+    old: missing
+    new: exact
+  created_by_change: true
+- id: TST-TS-MARKDOWN-CORE-NAVIGATION-RESOLVERELATIVELINK
+  kind: test
+  type: test
+  path: tests/markdown/core/navigation.test.ts
+  sides:
+  - new
+  lines_hit: 24
+  attribution: line
+  anchor_resolution:
+    old: missing
+    new: exact
+  created_by_change: true
+enclosing_nodes: []
+uncatalogued:
+- path: src/components/MarkdownViewer.tsx
+  is_test: false
+  new_lines:
+  - - 8
+    - 8
+  trivial_lines: 1
+  substantive_lines: []
+- path: src/services/navigation.ts
+  is_test: false
+  new_lines:
+  - - 48
+    - 57
+  - - 88
+    - 92
+  - - 101
+    - 101
+  trivial_lines: 16
+  substantive_lines: []
+- path: tests/markdown/core/navigation.test.ts
+  is_test: true
+  new_lines:
+  - - 5
+    - 5
+  - - 24
+    - 24
+  trivial_lines: 2
+  substantive_lines: []
+new_files: []
+new_test_files: []
+contracts_touched:
+- id: CTR-SANITIZE-POLICY
+  how: consumer
+  node: CMP-MARKDOWN-VIEWER
+- id: CTR-TAURI-CSP
+  how: consumer
+  node: CMP-MARKDOWN-VIEWER
+- id: CTR-CAPABILITIES
+  how: consumer
+  node: OSI-OPEN-EXTERNAL-URL
+data_touched:
+- id: STO-METADATA
+  how: read_by_changed
+  node: CMP-MARKDOWN-VIEWER
+events_touched: []
+rollup:
+  features:
+  - FEAT-PREVIEW
+  - FEAT-WIKI-LINKS
+  invariants:
+  - INV-OFFLINE-NO-TELEMETRY
+  flows:
+  - FLOW-PREVIEW-RENDER
+  - FLOW-WIKI-LINK-RESOLVE
+stats:
+  files: 3
+  changed_nodes: 5
+  code_nodes: 4
+  test_nodes: 1
+  uncatalogued_files: 3
+  uncatalogued_substantive_lines: 0
+  new_files: 0
+  new_test_files: 0

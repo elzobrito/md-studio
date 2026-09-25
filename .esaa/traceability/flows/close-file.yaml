@@ -1,0 +1,37 @@
+# TRACE-009 — Fechar documento. Passos ordenados; via = aresta de edges.yaml que liga o passo de origem (direction reverse = aresta no sentido oposto, ex.: consumes/reads/callback). trigger = início de ramo.
+artifact: close-file
+schema_version: 1
+source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+generated_at: '2026-09-24T23:03:41-03:00'
+id: FLOW-CLOSE-FILE
+name: Fechar documento
+required: false
+features:
+- FEAT-SHORTCUTS-HELP
+entrypoints:
+- ENT-SHC-CTRL-W
+outcome: Volta à tela inicial/vazia.
+steps:
+- step: 1
+  node: SHC-CTRL-W
+  entrypoint: ENT-SHC-CTRL-W
+  trigger: Ctrl+W
+- step: 2
+  node: HDL-DOC-CLOSE-FILE
+  via:
+  - from_step: 1
+    edge: SHC-CTRL-W|triggers|HDL-DOC-CLOSE-FILE
+    direction: forward
+    evidence:
+    - src/App.tsx:384
+    method: observed
+- step: 3
+  node: STO-EDITOR
+  via:
+  - from_step: 2
+    edge: HDL-DOC-CLOSE-FILE|writes|STO-EDITOR
+    direction: forward
+    evidence:
+    - src/state/documentState.ts:370
+    method: observed
+trace_task: TRACE-009

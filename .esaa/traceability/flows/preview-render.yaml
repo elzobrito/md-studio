@@ -1,0 +1,228 @@
+# TRACE-009 — Renderizar preview. Passos ordenados; via = aresta de edges.yaml que liga o passo de origem (direction reverse = aresta no sentido oposto, ex.: consumes/reads/callback). trigger = início de ramo.
+artifact: preview-render
+schema_version: 1
+source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+generated_at: '2026-09-24T23:03:41-03:00'
+id: FLOW-PREVIEW-RENDER
+name: Renderizar preview
+required: true
+features:
+- FEAT-PREVIEW
+- FEAT-SANITIZE
+- FEAT-MERMAID
+- FEAT-SHIKI
+- FEAT-KATEX
+entrypoints:
+- ENT-SCR-APP
+- ENT-HDL-VIEWER-ON-CLICK
+outcome: HTML sanitizado exibido; Mermaid/KaTeX/Shiki aplicados.
+steps:
+- step: 1
+  node: SCR-APP
+  entrypoint: ENT-SCR-APP
+  trigger: Conteúdo muda (doc.content) em modo preview/split
+- step: 2
+  node: CMP-MARKDOWN-VIEWER
+  via:
+  - from_step: 1
+    edge: SCR-APP|contains|CMP-MARKDOWN-VIEWER
+    direction: forward
+    evidence:
+    - src/App.tsx:684
+    method: observed
+- step: 3
+  node: SVC-PROCESS-MARKDOWN
+  note: processMarkdown(md, opções)
+  via:
+  - from_step: 2
+    edge: CMP-MARKDOWN-VIEWER|calls|SVC-PROCESS-MARKDOWN
+    direction: forward
+    evidence:
+    - src/components/MarkdownViewer.tsx:33
+    method: observed
+- step: 4
+  node: PIPE-GITHUB-ALERTS
+  note: ordem de execução no processor.ts
+  via:
+  - from_step: 3
+    edge: SVC-PROCESS-MARKDOWN|contains|PIPE-GITHUB-ALERTS
+    direction: forward
+    evidence:
+    - src/markdown/processor.ts:36
+    method: observed
+- step: 5
+  node: PIPE-FRONTMATTER
+  note: ordem de execução no processor.ts
+  via:
+  - from_step: 3
+    edge: SVC-PROCESS-MARKDOWN|contains|PIPE-FRONTMATTER
+    direction: forward
+    evidence:
+    - src/markdown/processor.ts:42
+    method: observed
+- step: 6
+  node: PIPE-REMARK-GFM
+  note: ordem de execução no processor.ts
+  via:
+  - from_step: 3
+    edge: SVC-PROCESS-MARKDOWN|contains|PIPE-REMARK-GFM
+    direction: forward
+    evidence:
+    - src/markdown/processor.ts:49
+    method: observed
+- step: 7
+  node: PIPE-REMARK-MATH
+  note: ordem de execução no processor.ts
+  via:
+  - from_step: 3
+    edge: SVC-PROCESS-MARKDOWN|contains|PIPE-REMARK-MATH
+    direction: forward
+    evidence:
+    - src/markdown/processor.ts:51
+    method: observed
+- step: 8
+  node: PIPE-REMARK-REHYPE
+  note: ordem de execução no processor.ts
+  via:
+  - from_step: 3
+    edge: SVC-PROCESS-MARKDOWN|contains|PIPE-REMARK-REHYPE
+    direction: forward
+    evidence:
+    - src/markdown/processor.ts:57
+    method: observed
+- step: 9
+  node: PIPE-REHYPE-RAW
+  note: ordem de execução no processor.ts
+  via:
+  - from_step: 3
+    edge: SVC-PROCESS-MARKDOWN|contains|PIPE-REHYPE-RAW
+    direction: forward
+    evidence:
+    - src/markdown/processor.ts:58
+    method: observed
+- step: 10
+  node: PIPE-STRIP-MARKDOWN-STYLES
+  note: ordem de execução no processor.ts
+  via:
+  - from_step: 3
+    edge: SVC-PROCESS-MARKDOWN|contains|PIPE-STRIP-MARKDOWN-STYLES
+    direction: forward
+    evidence:
+    - src/markdown/processor.ts:59
+    method: observed
+- step: 11
+  node: PIPE-WIKI-LINKS
+  note: ordem de execução no processor.ts
+  via:
+  - from_step: 3
+    edge: SVC-PROCESS-MARKDOWN|contains|PIPE-WIKI-LINKS
+    direction: forward
+    evidence:
+    - src/markdown/processor.ts:60
+    method: observed
+- step: 12
+  node: PIPE-HEADING-IDS
+  note: ordem de execução no processor.ts
+  via:
+  - from_step: 3
+    edge: SVC-PROCESS-MARKDOWN|contains|PIPE-HEADING-IDS
+    direction: forward
+    evidence:
+    - src/markdown/processor.ts:61
+    method: observed
+- step: 13
+  node: PIPE-MERMAID-BLOCKS
+  note: ordem de execução no processor.ts
+  via:
+  - from_step: 3
+    edge: SVC-PROCESS-MARKDOWN|contains|PIPE-MERMAID-BLOCKS
+    direction: forward
+    evidence:
+    - src/markdown/processor.ts:62
+    method: observed
+- step: 14
+  node: PIPE-SHIKI
+  note: ordem de execução no processor.ts
+  via:
+  - from_step: 3
+    edge: SVC-PROCESS-MARKDOWN|contains|PIPE-SHIKI
+    direction: forward
+    evidence:
+    - src/markdown/processor.ts:54
+    method: observed
+- step: 15
+  node: PIPE-RESTRICT-RENDERER-STYLES
+  note: ordem de execução no processor.ts
+  via:
+  - from_step: 3
+    edge: SVC-PROCESS-MARKDOWN|contains|PIPE-RESTRICT-RENDERER-STYLES
+    direction: forward
+    evidence:
+    - src/markdown/processor.ts:86
+    method: observed
+- step: 16
+  node: PIPE-KATEX
+  note: ordem de execução no processor.ts
+  via:
+  - from_step: 3
+    edge: SVC-PROCESS-MARKDOWN|contains|PIPE-KATEX
+    direction: forward
+    evidence:
+    - src/markdown/processor.ts:87
+    method: observed
+- step: 17
+  node: PIPE-SANITIZE
+  note: ordem de execução no processor.ts
+  via:
+  - from_step: 3
+    edge: SVC-PROCESS-MARKDOWN|contains|PIPE-SANITIZE
+    direction: forward
+    evidence:
+    - src/markdown/processor.ts:88
+    method: observed
+- step: 18
+  node: PIPE-HAST-TO-HTML
+  note: ordem de execução no processor.ts
+  via:
+  - from_step: 3
+    edge: SVC-PROCESS-MARKDOWN|contains|PIPE-HAST-TO-HTML
+    direction: forward
+    evidence:
+    - src/markdown/processor.ts:92
+    method: observed
+- step: 19
+  node: CMP-MERMAID-BLOCK
+  note: hidrata contêineres mermaid
+  via:
+  - from_step: 2
+    edge: CMP-MARKDOWN-VIEWER|contains|CMP-MERMAID-BLOCK
+    direction: forward
+    evidence:
+    - src/components/MarkdownViewer.tsx:239
+    method: observed
+- step: 20
+  node: FN-RENDER-MERMAID
+  via:
+  - from_step: 19
+    edge: CMP-MERMAID-BLOCK|calls|FN-RENDER-MERMAID
+    direction: forward
+    evidence:
+    - src/components/MermaidBlock.tsx:32
+    method: observed
+- step: 21
+  node: HDL-VIEWER-ON-CLICK
+  entrypoint: ENT-HDL-VIEWER-ON-CLICK
+  note: intercepta cliques em links
+  via:
+  - from_step: 2
+    edge: CMP-MARKDOWN-VIEWER|contains|HDL-VIEWER-ON-CLICK
+    direction: forward
+    evidence:
+    - src/components/MarkdownViewer.tsx:54
+    method: observed
+gaps:
+- description: 'Recursos remotos: urlPolicy.allowUrl não é aplicado no pipeline (ProcessOptions.allowRemote não é usado).'
+  evidence:
+  - src/security/urlPolicy.ts:7
+  method: observed
+trace_task: TRACE-009

@@ -1,0 +1,213 @@
+# TRACE-009 — Salvar documento (Ctrl+S / botão / Mod-S no editor). Passos ordenados; via = aresta de edges.yaml que liga o passo de origem (direction reverse = aresta no sentido oposto, ex.: consumes/reads/callback). trigger = início de ramo.
+artifact: save-document
+schema_version: 1
+source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+generated_at: '2026-09-24T23:03:40-03:00'
+id: FLOW-SAVE-DOCUMENT
+name: Salvar documento (Ctrl+S / botão / Mod-S no editor)
+required: true
+features:
+- FEAT-SAVE
+entrypoints:
+- ENT-SHC-CTRL-S
+- ENT-BTN-SAVE
+- ENT-SHC-EDITOR-MOD-S
+- ENT-IPC-SAVE-DOCUMENT
+outcome: Arquivo gravado atomicamente, hash novo no snapshot, rascunho limpo, índice atualizado.
+steps:
+- step: 1
+  node: SHC-CTRL-S
+  entrypoint: ENT-SHC-CTRL-S
+  trigger: Usuário pressiona Ctrl+S (atalho global)
+- step: 2
+  node: BTN-SAVE
+  entrypoint: ENT-BTN-SAVE
+  trigger: 'Alternativa: clique no botão Salvar'
+- step: 3
+  node: SHC-EDITOR-MOD-S
+  entrypoint: ENT-SHC-EDITOR-MOD-S
+  trigger: 'Alternativa: Mod-S com foco no CodeMirror'
+- step: 4
+  node: HDL-DOC-SAVE
+  note: documentState.save
+  via:
+  - from_step: 1
+    edge: SHC-CTRL-S|triggers|HDL-DOC-SAVE
+    direction: forward
+    evidence:
+    - src/App.tsx:362
+    method: observed
+  - from_step: 2
+    edge: BTN-SAVE|triggers|HDL-DOC-SAVE
+    direction: forward
+    evidence:
+    - src/components/header/SaveButton.tsx:39
+    - src/components/header/AppHeader.tsx:133
+    - src/App.tsx:541
+    method: observed
+  - from_step: 3
+    edge: SHC-EDITOR-MOD-S|triggers|HDL-DOC-SAVE
+    direction: forward
+    evidence:
+    - src/components/MarkdownEditor.tsx:185
+    - src/App.tsx:670
+    method: observed
+- step: 5
+  node: SVC-PERSIST-DOCUMENT
+  note: 'persistDocument: grava rascunho e chama IPC'
+  via:
+  - from_step: 4
+    edge: HDL-DOC-SAVE|calls|SVC-PERSIST-DOCUMENT
+    direction: forward
+    evidence:
+    - src/state/documentState.ts:339
+    method: observed
+- step: 6
+  node: FN-SAVE-DRAFT
+  note: rascunho imediato no localStorage antes do IPC
+  via:
+  - from_step: 5
+    edge: SVC-PERSIST-DOCUMENT|calls|FN-SAVE-DRAFT
+    direction: forward
+    evidence:
+    - src/services/save.ts:10
+    method: observed
+- step: 7
+  node: IPCC-SAVE-DOCUMENT
+  note: ipc.saveDocument
+  via:
+  - from_step: 5
+    edge: SVC-PERSIST-DOCUMENT|calls|IPCC-SAVE-DOCUMENT
+    direction: forward
+    evidence:
+    - src/services/save.ts:11
+    method: observed
+- step: 8
+  node: IPC-SAVE-DOCUMENT
+  entrypoint: ENT-IPC-SAVE-DOCUMENT
+  note: fronteira IPC (invoke save_document)
+  via:
+  - from_step: 7
+    edge: IPCC-SAVE-DOCUMENT|calls|IPC-SAVE-DOCUMENT
+    direction: forward
+    evidence:
+    - src/lib/ipc/client.ts:99
+    - src-tauri/src/commands/mod.rs:117
+    - src-tauri/src/lib.rs:74
+    method: observed
+- step: 9
+  node: FN-WORKSPACE-REGISTRY-RESOLVE
+  note: 'path fence: resolve relativo dentro da raiz'
+  via:
+  - from_step: 8
+    edge: IPC-SAVE-DOCUMENT|calls|FN-WORKSPACE-REGISTRY-RESOLVE
+    direction: forward
+    evidence:
+    - src-tauri/src/commands/mod.rs:123
+    method: observed
+- step: 10
+  node: FN-WATCHER-REGISTER-INTERNAL-SAVE
+  note: registra hash da escrita interna (supressão de eco)
+  via:
+  - from_step: 8
+    edge: IPC-SAVE-DOCUMENT|calls|FN-WATCHER-REGISTER-INTERNAL-SAVE
+    direction: forward
+    evidence:
+    - src-tauri/src/commands/mod.rs:128
+    method: observed
+- step: 11
+  node: FN-ATOMIC-SAVE
+  note: compara SHA-256 esperado x disco e grava
+  via:
+  - from_step: 8
+    edge: IPC-SAVE-DOCUMENT|calls|FN-ATOMIC-SAVE
+    direction: forward
+    evidence:
+    - src-tauri/src/commands/mod.rs:125
+    - src-tauri/src/commands/mod.rs:2
+    - src-tauri/src/persistence/mod.rs:1
+    method: observed
+- step: 12
+  node: FN-CONTENT-HASH
+  note: SHA-256 do conteúdo atual em disco
+  via:
+  - from_step: 11
+    edge: FN-ATOMIC-SAVE|calls|FN-CONTENT-HASH
+    direction: forward
+    evidence:
+    - src-tauri/crates/md-studio-core/src/persistence.rs:61
+    method: observed
+- step: 13
+  node: FILE-SAVE-TMP
+  note: escreve .{nome}.tmp-{pid} + fsync
+  via:
+  - from_step: 11
+    edge: FN-ATOMIC-SAVE|writes|FILE-SAVE-TMP
+    direction: forward
+    evidence:
+    - src-tauri/crates/md-studio-core/src/persistence.rs:55
+    method: observed
+- step: 14
+  node: FILE-MARKDOWN-DOCUMENT
+  note: rename atômico sobre o arquivo
+  via:
+  - from_step: 11
+    edge: FN-ATOMIC-SAVE|writes|FILE-MARKDOWN-DOCUMENT
+    direction: forward
+    evidence:
+    - src-tauri/crates/md-studio-core/src/persistence.rs:59
+    method: observed
+- step: 15
+  node: FN-REINDEX-ENGINE-REINDEX-FILE
+  note: reindexa metadados do arquivo salvo
+  via:
+  - from_step: 8
+    edge: IPC-SAVE-DOCUMENT|calls|FN-REINDEX-ENGINE-REINDEX-FILE
+    direction: forward
+    evidence:
+    - src-tauri/src/commands/mod.rs:132
+    method: observed
+- step: 16
+  node: FN-SAVE-INDEX
+  note: persiste .mdstudio/index.json
+  via:
+  - from_step: 8
+    edge: IPC-SAVE-DOCUMENT|calls|FN-SAVE-INDEX
+    direction: forward
+    evidence:
+    - src-tauri/src/commands/mod.rs:134
+    method: observed
+- step: 17
+  node: FN-CLEAR-DRAFT
+  note: 'ok: remove rascunho'
+  via:
+  - from_step: 5
+    edge: SVC-PERSIST-DOCUMENT|calls|FN-CLEAR-DRAFT
+    direction: forward
+    evidence:
+    - src/services/save.ts:18
+    method: observed
+- step: 18
+  node: STO-EDITOR
+  note: status 'saved' (ou 'error' com mensagem)
+  via:
+  - from_step: 4
+    edge: HDL-DOC-SAVE|writes|STO-EDITOR
+    direction: forward
+    evidence:
+    - src/state/documentState.ts:333
+    method: observed
+gaps:
+- description: 'SaveResult ''OutsideWorkspace'' nunca é emitido: violação de fence vira Err (promise rejeitada).'
+  evidence:
+  - src/contracts/types.ts:36
+  method: observed
+- description: 'atomic_save grava mesmo se o arquivo foi removido externamente com expected_hash não vazio (ramo else vazio: sem detecção de deleção).'
+  evidence:
+  - src-tauri/crates/md-studio-core/src/persistence.rs:43
+  method: observed
+- description: fsync do diretório pai omitido após rename (durabilidade do rename não garantida em queda de energia).
+  evidence:
+  - src-tauri/crates/md-studio-core/src/persistence.rs:60
+  method: observed
+trace_task: TRACE-009

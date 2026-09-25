@@ -1,0 +1,60 @@
+artifact: graph-delta
+schema_version: 1
+task_id: MD-BUG-CONFLICT-RELOAD-001
+base_source_commit: 5fe4f4d2230f039791d6196cb0f0ecfb438825ae
+target_revision: 'WORKTREE (não commitado; regra da tarefa: sem commit/push)'
+generated_at: '2026-09-24T23:24:00-03:00'
+policy: >-
+  staleness_rule do schema.yaml: re-âncora exige avançar source_commit. Como a correção não pode ser commitada,
+  os artefatos canônicos (nodes/edges/tests/graph.json) permanecem ancorados em 5fe4f4d (validate: 0 critical, working tree
+  drift reportado como warning). Este delta registra, com evidência no WORKTREE, o que deve ser aplicado quando a correção
+  for commitada: aplicar -> source_commit = <sha do commit> -> build_graph.py -> validate.py.
+reanchor:
+  - {id: HDL-DOC-RESOLVE-CONFLICT, path: src/state/documentState.ts, from: [454, 474], to: [454, 477], resolution: relocated}
+  - {id: STO-DOCUMENT-STATE, path: src/state/documentState.ts, from: [28, 496], to: [28, 499], resolution: relocated}
+evidence_shift:
+  - {edge: 'HDL-DOC-RESOLVE-CONFLICT|calls|HDL-DOC-OPEN-RELATIVE', from: 'src/state/documentState.ts:464', to: 'src/state/documentState.ts:467'}
+  - {edge: 'FLOW-CONFLICT-ON-SAVE|contains|HDL-DOC-OPEN-RELATIVE', from: 'src/state/documentState.ts:464', to: 'src/state/documentState.ts:467'}
+  - {edge: 'HDL-DOC-RESOLVE-CONFLICT|calls|HDL-DOC-SAVE-AS', from: 'src/state/documentState.ts:470', to: 'src/state/documentState.ts:473'}
+  - {edge: 'FLOW-CONFLICT-ON-SAVE|contains|HDL-DOC-SAVE-AS', from: 'src/state/documentState.ts:470', to: 'src/state/documentState.ts:473'}
+new_edges:
+  - id: HDL-DOC-RESOLVE-CONFLICT|calls|FN-CLEAR-DRAFT
+    from: HDL-DOC-RESOLVE-CONFLICT
+    to: FN-CLEAR-DRAFT
+    relation: calls
+    evidence: [src/state/documentState.ts:466]
+    method: observed
+    trace_task: MD-BUG-CONFLICT-RELOAD-001
+new_tests:
+  - id: TST-TS-EDITOR-CONFLICTRELOAD
+    framework: vitest
+    kind: integration
+    path: tests/editor/conflictReload.test.tsx
+    symbol: '"MD-BUG-CONFLICT-RELOAD-001: ConflictDialog ''Recarregar do disco''"'
+    lines: [49, 134]
+    cases:
+      - reload shows the disk content, clears dirty state and discards the local draft
+      - keep preserves the local edit and its recovery draft
+    covers: [HDL-DOC-RESOLVE-CONFLICT, HDL-DOC-OPEN-FILE, HDL-DOC-SET-CONTENT, HDL-DOC-WATCH-EFFECT, FN-LOAD-DRAFT]
+    covers_evidence:
+      HDL-DOC-RESOLVE-CONFLICT: [tests/editor/conflictReload.test.tsx:112, tests/editor/conflictReload.test.tsx:126]
+      HDL-DOC-OPEN-FILE: [tests/editor/conflictReload.test.tsx:64]
+      HDL-DOC-SET-CONTENT: [tests/editor/conflictReload.test.tsx:74]
+      HDL-DOC-WATCH-EFFECT: [tests/editor/conflictReload.test.tsx:82]
+      FN-LOAD-DRAFT: [tests/editor/conflictReload.test.tsx:76, tests/editor/conflictReload.test.tsx:119]
+    validates: []
+    verifies: []
+    features: [FEAT-CONFLICT, FEAT-DRAFT-RECOVERY, FEAT-OPEN-FILE, FEAT-WATCHER]
+    trace_task: MD-BUG-CONFLICT-RELOAD-001
+new_nodes: []
+removed: []
+applied:
+  at: '2026-09-25T08:10:00-03:00'
+  commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+  source_commit_moved: '5fe4f4d -> 8eb7b6e (artefatos canônicos de .esaa/traceability; analysis/ e tasks/ permanecem históricos em 5fe4f4d)'
+  changes:
+    - 'nodes.yaml: re-âncora HDL-DOC-RESOLVE-CONFLICT [454,477], STO-DOCUMENT-STATE [28,499]; + TST-TS-EDITOR-CONFLICTRELOAD (516 nós)'
+    - 'edges.yaml: evidências :464->:467, :470->:473 (nota do reload atualizada); + calls FN-CLEAR-DRAFT (:466); + 5 covered_by -> TST-TS-EDITOR-CONFLICTRELOAD (909 arestas)'
+    - 'tests.yaml: + TST-TS-EDITOR-CONFLICTRELOAD (149 testes)'
+    - 'flows/conflict-on-save.yaml: evidências deslocadas; + passo 25 FN-CLEAR-DRAFT; gap do reload movido para resolved_gaps; index.yaml steps 25'
+  result: 'build_graph: 724 nós / 2500 arestas; validate: pass, 0 critical, 26 warnings (drift de documentState.ts eliminado; resta só xhtml_converter.rs de MD-SEC-AUDIT-CI-001 no working tree)'

@@ -1,0 +1,90 @@
+artifact: impact-model
+schema_version: 1
+source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+trace_task: TRACE-014
+generated_at: '2026-09-24T23:40:00-03:00'
+input: .esaa/traceability/graph.json (TRACE-012; nós code/test/module/entrypoint/contract/feature/flow/invariant)
+tool: .esaa/traceability/tools/impact.py (ferramenta descartável de validação; stdlib + PyYAML; lê este arquivo e graph.json)
+purpose: >-
+  Definir como, a partir de um conjunto de nós alterados (change set / targets), se calcula o
+  fechamento de impacto: quais nós podem ter comportamento afetado (upstream = quem depende do nó
+  alterado), quais features/fluxos/módulos agregam esses nós, quais invariantes precisam continuar
+  valendo e quais testes devem ser executados.
+vocabulary:
+  changed: nó cujo código/definição muda (distance 0).
+  upstream: nós que DEPENDEM do nó alterado (chamadores, disparadores, contêineres, consumidores de
+    contrato, leitores de dado). Mudança se propaga para upstream. É a direção principal.
+  downstream: nós dos quais o nó alterado depende (callees, stores gravados, eventos emitidos).
+    Só se propaga downstream quando a relação transporta dado/evento produzido pelo nó alterado
+    (writes, publishes) ou é espelho de contrato (implements).
+  reverse: percorrer a aresta de to -> from (quem aponta para o nó alterado).
+  forward: percorrer a aresta de from -> to.
+  distance: número de saltos de propagação desde o nó alterado mais próximo.
+  rollup: nó agregador (module, flow, feature, invariant, entrypoint) coletado mas NÃO expandido.
+  collect: relação usada só para coletar testes/invariantes, sem propagar.
+parameters:
+  max_distance: 3          # teto global de saltos de propagação
+  hub_threshold: 8         # se um nó propagaria para >8 vizinhos novos por UMA relação, os vizinhos são
+                           # adicionados mas não expandidos (terminal) e o nó é listado em hubs
+propagation_rules:
+  # direction: reverse = se to muda, from é afetado; forward = se from muda, to é afetado
+  calls:          {impact: downward, propagate: [reverse], max_distance: 3, why: 'callee muda comportamento/assinatura -> chamador afetado; callee não é afetado por mudança no chamador'}
+  triggers:       {impact: downward, propagate: [reverse], max_distance: 3, why: 'handler muda -> botão/atalho/entrypoint que o dispara é afetado (entrypoint vira rollup)'}
+  contains:       {impact: downward, propagate: [reverse], max_distance: 2, applies_to: 'code->code', why: 'filho muda -> pai que o renderiza/declara é afetado; module/flow->code tratados como rollup'}
+  depends_on:     {impact: downward, propagate: [reverse], max_distance: 3, why: 'dependência (tipo/config/contrato) muda -> dependente afetado; consumer depends_on CTR propaga contrato->consumidores'}
+  implements:     {impact: bidirectional, propagate: [reverse, forward], max_distance: 3, why: 'espelho DTO TS<->Rust e carrier<->contrato: qualquer lado muda, o outro precisa acompanhar'}
+  implemented_by: {impact: downward, propagate: [reverse], max_distance: 3, applies_to: 'contract->code', why: 'produtor muda -> contrato afetado; feature/invariant->code tratados como rollup'}
+  writes:         {impact: data, propagate: [forward], max_distance: 3, reverse_only_from_changed: true, why: 'escritor muda -> dado gravado afetado; se o próprio armazenamento (formato) muda (distance 0), escritores também são afetados'}
+  reads:          {impact: data, propagate: [reverse], max_distance: 3, why: 'armazenamento/dado afetado -> leitores afetados'}
+  publishes:      {impact: async, propagate: [forward], max_distance: 3, why: 'publicador muda -> evento afetado'}
+  consumes:       {impact: async, propagate: [reverse], max_distance: 3, why: 'evento afetado -> consumidores afetados'}
+  requires:       {impact: config, propagate: [reverse], max_distance: 2, why: 'permissão/capability muda -> quem a exige é afetado'}
+  configured_by:  {impact: config, propagate: [reverse], max_distance: 2, why: 'configuração muda -> nós configurados afetados'}
+  imports:        {impact: weak, propagate: [], why: 'sem arestas no grafo atual; dependência estática sem fluxo não propaga'}
+  documented_by:  {impact: none, propagate: [], why: 'documentação não propaga comportamento'}
+  covered_by:     {impact: test, propagate: [], collect: tests, why: 'nó do fechamento -> testes que o exercitam'}
+  validates:      {impact: test, propagate: [], collect: tests, why: 'DTO/config/LSK do fechamento -> testes que validam formato'}
+  verifies:       {impact: test, propagate: [], collect: tests, why: 'invariante coletada -> testes que a verificam'}
+rollups:
+  module:     {how: 'reverse contains (MOD contains node) de cada nó do fechamento', expand: false}
+  flow:       {how: 'reverse contains (FLOW contains node) de cada nó do fechamento; guarda steps', expand: false}
+  feature:    {how: 'reverse implemented_by (FEAT implemented_by node) + reverse contains de flows coletados (FEAT contains FLOW)', expand: false}
+  invariant:  {how: 'reverse implemented_by (INV implemented_by node == invariants.yaml:nodes)', expand: false, members: 'todos os nós implemented_by da invariante são listados como invariant_members (base de protected no blast radius)'}
+  entrypoint: {how: 'reverse triggers (ENT triggers node)', expand: false}
+  contract:   {how: 'contrato é nó propagante (não rollup): producer->CTR (reverse implemented_by), CTR->consumers (reverse depends_on), carrier<->CTR (implements)', expand: true}
+feature_tiers:
+  direct:   'feature que agrega (implemented_by ou via flow) algum nó changed (distance 0)'
+  indirect: 'feature que agrega apenas nós com distance >= 1'
+test_collection:
+  must_run:
+    - 'covered_by de nós changed (distance 0)'
+    - 'verifies de invariantes que têm algum nó changed como membro'
+  should_run:
+    - 'covered_by de nós com distance 1'
+    - 'validates de DTO/config/local_storage_key no fechamento'
+    - 'verifies de invariantes coletadas por nós com distance >= 1'
+  may_run:
+    - 'covered_by de nós com distance >= 2'
+  note: 'testes TST-* são por arquivo (TRACE-010); o nível de caso de teste não está no grafo'
+invariant_collection:
+  - 'INV coletada se algum nó do fechamento está em invariants.yaml:nodes (aresta INV implemented_by node)'
+  - 'members = todos os nós da invariante (mesmo fora do fechamento) -> precisam continuar válidos'
+  - 'tests = verifies (TST -> INV) = invariants.yaml:verified_by'
+output_shape:
+  changed: '[id]'
+  closure: '[{id, kind, type, distance, via: {node, relation, direction}, terminal}]'
+  hubs: '[{id, relation, fanout}]'
+  contracts: '[id]'
+  data: '[id]  # local_storage_key, file_persisted, store, repository, class alcançados'
+  events: '[id]  # tauri_event alcançados'
+  modules: '[id]'
+  flows: '[{id, steps_hit}]'
+  features: '{direct: [id], indirect: [id]}'
+  invariants: '[{id, members, hit_by, tests}]'
+  entrypoints: '[id]'
+  tests: '{must_run: [id], should_run: [id], may_run: [id]}'
+limitations:
+  - 'Grafo é estático e por símbolo: mudança dentro de uma função é tratada como mudança do nó inteiro.'
+  - 'Sem arestas de dado implícito (props React, closures, estado de hooks) além das catalogadas; propagação via props usa contains.'
+  - 'Hubs (stores globais, STO-EDITOR) são cortados por hub_threshold: reduz ruído mas pode esconder leitores reais.'
+  - 'Âncoras são de source_commit; para commits anteriores, ver política de âncoras em blast-radius-model.yaml / footprint.'

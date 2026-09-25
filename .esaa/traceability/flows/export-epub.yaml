@@ -1,0 +1,173 @@
+# TRACE-009 — Exportar EPUB 3. Passos ordenados; via = aresta de edges.yaml que liga o passo de origem (direction reverse = aresta no sentido oposto, ex.: consumes/reads/callback). trigger = início de ramo.
+artifact: export-epub
+schema_version: 1
+source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+generated_at: '2026-09-24T23:03:41-03:00'
+id: FLOW-EXPORT-EPUB
+name: Exportar EPUB 3
+required: false
+features:
+- FEAT-EXPORT-EPUB
+entrypoints:
+- ENT-BTN-EXPORT-EPUB
+- ENT-OSI-PICK-SAVE-EPUB
+- ENT-OSI-CONFIRM-OVERWRITE
+- ENT-IPC-EXPORT-EPUB
+outcome: .epub gravado atomicamente no destino escolhido.
+steps:
+- step: 1
+  node: BTN-EXPORT-EPUB
+  entrypoint: ENT-BTN-EXPORT-EPUB
+  trigger: Menu Exportar > EPUB
+- step: 2
+  node: HDL-APP-EXPORT-EPUB
+  via:
+  - from_step: 1
+    edge: BTN-EXPORT-EPUB|triggers|HDL-APP-EXPORT-EPUB
+    direction: forward
+    evidence:
+    - src/components/header/ExportMenu.tsx:57
+    - src/App.tsx:552
+    method: observed
+- step: 3
+  node: SVC-EXPORT-ACTIVE-DOCUMENT-EPUB
+  via:
+  - from_step: 2
+    edge: HDL-APP-EXPORT-EPUB|calls|SVC-EXPORT-ACTIVE-DOCUMENT-EPUB
+    direction: forward
+    evidence:
+    - src/App.tsx:173
+    method: observed
+- step: 4
+  node: FN-PROCESS-EPUB-MARKDOWN
+  via:
+  - from_step: 3
+    edge: SVC-EXPORT-ACTIVE-DOCUMENT-EPUB|calls|FN-PROCESS-EPUB-MARKDOWN
+    direction: forward
+    evidence:
+    - src/services/exportEpub.ts:44
+    method: observed
+- step: 5
+  node: FN-CAPTURE-MERMAID-SVGS
+  via:
+  - from_step: 3
+    edge: SVC-EXPORT-ACTIVE-DOCUMENT-EPUB|calls|FN-CAPTURE-MERMAID-SVGS
+    direction: forward
+    evidence:
+    - src/services/exportEpub.ts:49
+    method: observed
+- step: 6
+  node: OSI-PICK-SAVE-EPUB
+  entrypoint: ENT-OSI-PICK-SAVE-EPUB
+  via:
+  - from_step: 3
+    edge: SVC-EXPORT-ACTIVE-DOCUMENT-EPUB|calls|OSI-PICK-SAVE-EPUB
+    direction: forward
+    evidence:
+    - src/services/exportEpub.ts:52
+    method: observed
+- step: 7
+  node: OSI-CONFIRM-OVERWRITE
+  entrypoint: ENT-OSI-CONFIRM-OVERWRITE
+  via:
+  - from_step: 3
+    edge: SVC-EXPORT-ACTIVE-DOCUMENT-EPUB|calls|OSI-CONFIRM-OVERWRITE
+    direction: forward
+    evidence:
+    - src/services/exportEpub.ts:63
+    method: observed
+- step: 8
+  node: IPCC-EXPORT-EPUB
+  via:
+  - from_step: 3
+    edge: SVC-EXPORT-ACTIVE-DOCUMENT-EPUB|calls|IPCC-EXPORT-EPUB
+    direction: forward
+    evidence:
+    - src/services/exportEpub.ts:58
+    method: observed
+- step: 9
+  node: IPC-EXPORT-EPUB
+  entrypoint: ENT-IPC-EXPORT-EPUB
+  via:
+  - from_step: 8
+    edge: IPCC-EXPORT-EPUB|calls|IPC-EXPORT-EPUB
+    direction: forward
+    evidence:
+    - src/lib/ipc/client.ts:136
+    - src-tauri/src/commands/mod.rs:263
+    - src-tauri/src/lib.rs:77
+    method: observed
+- step: 10
+  node: FN-EXPORT-EPUB-IN
+  via:
+  - from_step: 9
+    edge: IPC-EXPORT-EPUB|calls|FN-EXPORT-EPUB-IN
+    direction: forward
+    evidence:
+    - src-tauri/src/commands/mod.rs:267
+    method: observed
+- step: 11
+  node: FN-RESOLVE-WORKSPACE-ROOT
+  via:
+  - from_step: 10
+    edge: FN-EXPORT-EPUB-IN|calls|FN-RESOLVE-WORKSPACE-ROOT
+    direction: forward
+    evidence:
+    - src-tauri/src/commands/mod.rs:258
+    method: observed
+- step: 12
+  node: FN-BUILD-EPUB
+  via:
+  - from_step: 10
+    edge: FN-EXPORT-EPUB-IN|calls|FN-BUILD-EPUB
+    direction: forward
+    evidence:
+    - src-tauri/src/commands/mod.rs:259
+    method: observed
+- step: 13
+  node: FN-GUARD-IMAGES
+  note: imagens só dentro do workspace
+  via:
+  - from_step: 12
+    edge: FN-BUILD-EPUB|calls|FN-GUARD-IMAGES
+    direction: forward
+    evidence:
+    - src-tauri/crates/md-studio-core/src/export/epub_builder.rs:118
+    method: observed
+- step: 14
+  node: FN-HTML-TO-XHTML
+  via:
+  - from_step: 12
+    edge: FN-BUILD-EPUB|calls|FN-HTML-TO-XHTML
+    direction: forward
+    evidence:
+    - src-tauri/crates/md-studio-core/src/export/epub_builder.rs:119
+    method: observed
+- step: 15
+  node: FN-GENERATE-CONTENT-OPF
+  via:
+  - from_step: 12
+    edge: FN-BUILD-EPUB|calls|FN-GENERATE-CONTENT-OPF
+    direction: forward
+    evidence:
+    - src-tauri/crates/md-studio-core/src/export/epub_builder.rs:186
+    method: observed
+- step: 16
+  node: FN-ATOMIC-WRITE-BYTES
+  via:
+  - from_step: 12
+    edge: FN-BUILD-EPUB|calls|FN-ATOMIC-WRITE-BYTES
+    direction: forward
+    evidence:
+    - src-tauri/crates/md-studio-core/src/export/epub_builder.rs:248
+    method: observed
+- step: 17
+  node: FILE-EXPORT-EPUB
+  via:
+  - from_step: 12
+    edge: FN-BUILD-EPUB|writes|FILE-EXPORT-EPUB
+    direction: forward
+    evidence:
+    - src-tauri/crates/md-studio-core/src/export/epub_builder.rs:240
+    method: inferred
+trace_task: TRACE-009

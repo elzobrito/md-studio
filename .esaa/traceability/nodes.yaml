@@ -1,0 +1,7432 @@
+# TRACE-004/006/010 — Nós do grafo. Âncoras (path/symbol/lines) válidas no source_commit; symbol entre aspas = literal. Ver schema.yaml.
+artifact: nodes
+schema_version: 1
+source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+generated_at: '2026-09-24T23:06:21-03:00'
+summary:
+  total: 516
+  by_type:
+    button: 18
+    class: 3
+    component: 24
+    configuration: 11
+    consumer: 2
+    dto: 32
+    file_persisted: 6
+    function: 115
+    handler: 34
+    ipc_client: 21
+    ipc_command: 21
+    local_storage_key: 9
+    os_integration: 13
+    permission: 5
+    pipeline_stage: 15
+    repository: 3
+    route: 1
+    screen: 4
+    service: 9
+    shortcut: 11
+    store: 8
+    tauri_event: 2
+    test: 149
+nodes:
+- id: SCR-APP
+  type: screen
+  name: App (shell React)
+  module: MOD-APP-SHELL
+  anchor:
+    path: src/App.tsx
+    symbol: App
+    lines:
+    - 54
+    - 841
+  alias: src/App.tsx#App
+  inclusion:
+  - entrypoint
+  - flow
+  trace_task: TRACE-004
+- id: SCR-WELCOME
+  type: screen
+  name: WelcomeScreen
+  module: MOD-APP-SHELL
+  anchor:
+    path: src/components/empty/WelcomeScreen.tsx
+    symbol: WelcomeScreen
+    lines:
+    - 12
+    - 67
+  alias: src/components/empty/WelcomeScreen.tsx#WelcomeScreen
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: SCR-EMPTY-STATE
+  type: screen
+  name: EmptyState
+  module: MOD-APP-SHELL
+  anchor:
+    path: src/components/empty/EmptyState.tsx
+    symbol: EmptyState
+    lines:
+    - 9
+    - 48
+  alias: src/components/empty/EmptyState.tsx#EmptyState
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: RTE-VIEW-MODES
+  type: route
+  name: Modos de visão source/preview/split
+  module: MOD-APP-SHELL
+  anchor:
+    path: src/App.tsx
+    symbol: '"className={`center mode-${view}`}"'
+    lines:
+    - 635
+    - 635
+  alias: src/App.tsx#className={`center mode-${view}`}
+  inclusion:
+  - flow
+  notes: 'Sem router: ''rotas'' são modos de visão do centro (session.viewMode). A constante VIEW_OPTIONS (App.tsx:48) não é usada.'
+  trace_task: TRACE-004
+- id: CMP-APP-HEADER
+  type: component
+  name: AppHeader
+  module: MOD-APP-SHELL
+  anchor:
+    path: src/components/header/AppHeader.tsx
+    symbol: AppHeader
+    lines:
+    - 32
+    - 151
+  alias: src/components/header/AppHeader.tsx#AppHeader
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: CMP-SAVE-BUTTON
+  type: component
+  name: SaveButton
+  module: MOD-PERSISTENCE
+  anchor:
+    path: src/components/header/SaveButton.tsx
+    symbol: SaveButton
+    lines:
+    - 11
+    - 52
+  alias: src/components/header/SaveButton.tsx#SaveButton
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: CMP-EXPORT-MENU
+  type: component
+  name: ExportMenu
+  module: MOD-EXPORT
+  anchor:
+    path: src/components/header/ExportMenu.tsx
+    symbol: ExportMenu
+    lines:
+    - 20
+    - 203
+  alias: src/components/header/ExportMenu.tsx#ExportMenu
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-USE-KEYBOARD-SHORTCUTS
+  type: function
+  name: useKeyboardShortcuts
+  module: MOD-APP-SHELL
+  anchor:
+    path: src/hooks/useKeyboardShortcuts.ts
+    symbol: useKeyboardShortcuts
+    lines:
+    - 14
+    - 48
+  alias: src/hooks/useKeyboardShortcuts.ts#useKeyboardShortcuts
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: HDL-APP-SHORTCUTS
+  type: handler
+  name: Tabela de atalhos globais
+  module: MOD-APP-SHELL
+  anchor:
+    path: src/App.tsx
+    symbol: App.shortcuts
+    lines:
+    - 251
+    - 482
+  alias: src/App.tsx#App.shortcuts
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: SHC-CTRL-S
+  type: shortcut
+  name: Ctrl+S Salvar documento
+  module: MOD-PERSISTENCE
+  anchor:
+    path: src/App.tsx
+    symbol: '"Salvar documento"'
+    lines:
+    - 365
+    - 365
+  alias: src/App.tsx#Salvar documento
+  inclusion:
+  - entrypoint
+  - flow
+  trace_task: TRACE-004
+- id: SHC-CTRL-SHIFT-S
+  type: shortcut
+  name: Ctrl+Shift+S Salvar como
+  module: MOD-PERSISTENCE
+  anchor:
+    path: src/App.tsx
+    symbol: '"Salvar como..."'
+    lines:
+    - 377
+    - 377
+  alias: src/App.tsx#Salvar como...
+  inclusion:
+  - entrypoint
+  - flow
+  trace_task: TRACE-004
+- id: SHC-CTRL-O
+  type: shortcut
+  name: Ctrl+O Abrir arquivo
+  module: MOD-WORKSPACE-FS
+  anchor:
+    path: src/App.tsx
+    symbol: '"Abrir arquivo"'
+    lines:
+    - 402
+    - 402
+  alias: src/App.tsx#Abrir arquivo
+  inclusion:
+  - entrypoint
+  - flow
+  trace_task: TRACE-004
+- id: SHC-CTRL-SHIFT-O
+  type: shortcut
+  name: Ctrl+Shift+O Abrir pasta
+  module: MOD-WORKSPACE-FS
+  anchor:
+    path: src/App.tsx
+    symbol: '"Abrir pasta"'
+    lines:
+    - 395
+    - 395
+  alias: src/App.tsx#Abrir pasta
+  inclusion:
+  - entrypoint
+  - flow
+  trace_task: TRACE-004
+- id: SHC-CTRL-N
+  type: shortcut
+  name: Ctrl+N Novo documento
+  module: MOD-TEMPLATES
+  anchor:
+    path: src/App.tsx
+    symbol: '"description: "Novo documento""'
+    lines:
+    - 354
+    - 354
+  alias: 'src/App.tsx#description: "Novo documento'
+  inclusion:
+  - entrypoint
+  - flow
+  trace_task: TRACE-004
+- id: SHC-CTRL-W
+  type: shortcut
+  name: Ctrl+W Fechar arquivo
+  module: MOD-APP-SHELL
+  anchor:
+    path: src/App.tsx
+    symbol: '"Fechar arquivo"'
+    lines:
+    - 387
+    - 387
+  alias: src/App.tsx#Fechar arquivo
+  inclusion:
+  - entrypoint
+  - flow
+  trace_task: TRACE-004
+- id: SHC-F5
+  type: shortcut
+  name: F5 Modo Apresentação
+  module: MOD-PRESENTATION
+  anchor:
+    path: src/App.tsx
+    symbol: '"Alternar Modo Apresentação"'
+    lines:
+    - 347
+    - 347
+  alias: src/App.tsx#Alternar Modo Apresentação
+  inclusion:
+  - entrypoint
+  - flow
+  trace_task: TRACE-004
+- id: SHC-CTRL-P
+  type: shortcut
+  name: Ctrl+P Command palette / quick switcher
+  module: MOD-SEARCH
+  anchor:
+    path: src/components/command/CommandPalette.tsx
+    symbol: '"e.key.toLowerCase() === "p""'
+    lines:
+    - 22
+    - 22
+  alias: src/components/command/CommandPalette.tsx#e.key.toLowerCase() === "p
+  inclusion:
+  - entrypoint
+  - flow
+  trace_task: TRACE-004
+- id: BTN-HEADER-NEW-DOCUMENT
+  type: button
+  name: aria-label="Novo documento
+  module: MOD-TEMPLATES
+  anchor:
+    path: src/components/header/AppHeader.tsx
+    symbol: '"aria-label="Novo documento""'
+    lines:
+    - 78
+    - 78
+  alias: src/components/header/AppHeader.tsx#aria-label="Novo documento
+  inclusion:
+  - entrypoint
+  - flow
+  trace_task: TRACE-004
+- id: BTN-HEADER-QUICK-SEARCH
+  type: button
+  name: aria-label="Busca rápida
+  module: MOD-SEARCH
+  anchor:
+    path: src/components/header/AppHeader.tsx
+    symbol: '"aria-label="Busca rápida""'
+    lines:
+    - 90
+    - 90
+  alias: src/components/header/AppHeader.tsx#aria-label="Busca rápida
+  status: dead_code
+  inclusion:
+  - entrypoint
+  - flow
+  notes: 'onOpenSearch não é passado por App.tsx: botão não renderiza/aciona nada.'
+  trace_task: TRACE-004
+- id: BTN-HEADER-PRESENTATION
+  type: button
+  name: aria-label="Modo Apresentação
+  module: MOD-PRESENTATION
+  anchor:
+    path: src/components/header/AppHeader.tsx
+    symbol: '"aria-label="Modo Apresentação""'
+    lines:
+    - 125
+    - 125
+  alias: src/components/header/AppHeader.tsx#aria-label="Modo Apresentação
+  inclusion:
+  - entrypoint
+  - flow
+  trace_task: TRACE-004
+- id: BTN-SAVE
+  type: button
+  name: onClick={onSave}
+  module: MOD-PERSISTENCE
+  anchor:
+    path: src/components/header/SaveButton.tsx
+    symbol: '"onClick={onSave}"'
+    lines:
+    - 39
+    - 39
+  alias: src/components/header/SaveButton.tsx#onClick={onSave}
+  inclusion:
+  - entrypoint
+  - flow
+  trace_task: TRACE-004
+- id: BTN-EXPORT-HTML
+  type: button
+  name: Exportar HTML
+  module: MOD-EXPORT
+  anchor:
+    path: src/components/header/ExportMenu.tsx
+    symbol: '"Exportar HTML"'
+    lines:
+    - 36
+    - 36
+  alias: src/components/header/ExportMenu.tsx#Exportar HTML
+  inclusion:
+  - entrypoint
+  - flow
+  trace_task: TRACE-004
+- id: BTN-EXPORT-PDF
+  type: button
+  name: Exportar PDF
+  module: MOD-EXPORT
+  anchor:
+    path: src/components/header/ExportMenu.tsx
+    symbol: '"Exportar PDF"'
+    lines:
+    - 45
+    - 45
+  alias: src/components/header/ExportMenu.tsx#Exportar PDF
+  inclusion:
+  - entrypoint
+  - flow
+  trace_task: TRACE-004
+- id: BTN-EXPORT-EPUB
+  type: button
+  name: Exportar EPUB
+  module: MOD-EXPORT
+  anchor:
+    path: src/components/header/ExportMenu.tsx
+    symbol: '"Exportar EPUB"'
+    lines:
+    - 54
+    - 54
+  alias: src/components/header/ExportMenu.tsx#Exportar EPUB
+  inclusion:
+  - entrypoint
+  - flow
+  trace_task: TRACE-004
+- id: BTN-WELCOME-OPEN-FOLDER
+  type: button
+  name: onClick={onOpenFolder}
+  module: MOD-WORKSPACE-FS
+  anchor:
+    path: src/components/empty/WelcomeScreen.tsx
+    symbol: '"onClick={onOpenFolder}"'
+    lines:
+    - 30
+    - 30
+  alias: src/components/empty/WelcomeScreen.tsx#onClick={onOpenFolder}
+  inclusion:
+  - entrypoint
+  - flow
+  trace_task: TRACE-004
+- id: BTN-WELCOME-OPEN-FILE
+  type: button
+  name: onClick={onOpenFile}
+  module: MOD-WORKSPACE-FS
+  anchor:
+    path: src/components/empty/WelcomeScreen.tsx
+    symbol: '"onClick={onOpenFile}"'
+    lines:
+    - 40
+    - 40
+  alias: src/components/empty/WelcomeScreen.tsx#onClick={onOpenFile}
+  inclusion:
+  - entrypoint
+  - flow
+  trace_task: TRACE-004
+- id: BTN-WELCOME-NEW-DOCUMENT
+  type: button
+  name: onClick={onNewDocument}
+  module: MOD-TEMPLATES
+  anchor:
+    path: src/components/empty/WelcomeScreen.tsx
+    symbol: '"onClick={onNewDocument}"'
+    lines:
+    - 51
+    - 51
+  alias: src/components/empty/WelcomeScreen.tsx#onClick={onNewDocument}
+  inclusion:
+  - entrypoint
+  - flow
+  trace_task: TRACE-004
+- id: HDL-APP-OPEN-NEW-DOCUMENT
+  type: handler
+  name: App.handleOpenNewDocument
+  module: MOD-TEMPLATES
+  anchor:
+    path: src/App.tsx
+    symbol: App.handleOpenNewDocument
+    lines:
+    - 99
+    - 101
+  alias: src/App.tsx#App.handleOpenNewDocument
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: HDL-APP-SELECT-TEMPLATE
+  type: handler
+  name: App.handleSelectTemplate
+  module: MOD-TEMPLATES
+  anchor:
+    path: src/App.tsx
+    symbol: App.handleSelectTemplate
+    lines:
+    - 145
+    - 152
+  alias: src/App.tsx#App.handleSelectTemplate
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: HDL-APP-EXPORT-HTML
+  type: handler
+  name: App.handleExportHtml
+  module: MOD-EXPORT
+  anchor:
+    path: src/App.tsx
+    symbol: App.handleExportHtml
+    lines:
+    - 154
+    - 166
+  alias: src/App.tsx#App.handleExportHtml
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: HDL-APP-EXPORT-EPUB
+  type: handler
+  name: App.handleExportEpub
+  module: MOD-EXPORT
+  anchor:
+    path: src/App.tsx
+    symbol: App.handleExportEpub
+    lines:
+    - 168
+    - 184
+  alias: src/App.tsx#App.handleExportEpub
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: HDL-APP-EXPORT-PDF
+  type: handler
+  name: App.handleExportPdf
+  module: MOD-EXPORT
+  anchor:
+    path: src/App.tsx
+    symbol: App.handleExportPdf
+    lines:
+    - 186
+    - 195
+  alias: src/App.tsx#App.handleExportPdf
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: HDL-APP-OPEN-FOLDER-WELCOME
+  type: handler
+  name: App.handleOpenFolderFromWelcome
+  module: MOD-WORKSPACE-FS
+  anchor:
+    path: src/App.tsx
+    symbol: App.handleOpenFolderFromWelcome
+    lines:
+    - 204
+    - 214
+  alias: src/App.tsx#App.handleOpenFolderFromWelcome
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: HDL-APP-OPEN-FILE-WELCOME
+  type: handler
+  name: App.handleOpenFileFromWelcome
+  module: MOD-WORKSPACE-FS
+  anchor:
+    path: src/App.tsx
+    symbol: App.handleOpenFileFromWelcome
+    lines:
+    - 216
+    - 230
+  alias: src/App.tsx#App.handleOpenFileFromWelcome
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: HDL-APP-START-PRESENTATION
+  type: handler
+  name: App.handleStartPresentation
+  module: MOD-PRESENTATION
+  anchor:
+    path: src/App.tsx
+    symbol: App.handleStartPresentation
+    lines:
+    - 106
+    - 121
+  alias: src/App.tsx#App.handleStartPresentation
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: HDL-APP-CLOSE-PRESENTATION
+  type: handler
+  name: App.handleClosePresentation
+  module: MOD-PRESENTATION
+  anchor:
+    path: src/App.tsx
+    symbol: App.handleClosePresentation
+    lines:
+    - 123
+    - 143
+  alias: src/App.tsx#App.handleClosePresentation
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: HDL-APP-CYCLE-RECENT
+  type: handler
+  name: App.cycleRecentFile
+  module: MOD-SETTINGS-SESSION
+  anchor:
+    path: src/App.tsx
+    symbol: App.cycleRecentFile
+    lines:
+    - 232
+    - 249
+  alias: src/App.tsx#App.cycleRecentFile
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: HDL-APP-GO-TO-HEADING
+  type: handler
+  name: App.goToHeading
+  module: MOD-PREVIEW
+  anchor:
+    path: src/App.tsx
+    symbol: App.goToHeading
+    lines:
+    - 504
+    - 524
+  alias: src/App.tsx#App.goToHeading
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: HDL-APP-DRAFT-RECOVERY-TIMER
+  type: handler
+  name: Verificação horária de rascunhos expirando
+  module: MOD-DRAFTS
+  anchor:
+    path: src/App.tsx
+    symbol: App.timer
+    lines:
+    - 82
+    - 95
+  alias: src/App.tsx#App.timer
+  inclusion:
+  - entrypoint
+  - flow
+  trace_task: TRACE-004
+- id: HDL-APP-BACKLINK-OPEN-OCCURRENCE
+  type: handler
+  name: BacklinksPanel.onOpenOccurrence (App)
+  module: MOD-BACKLINKS
+  anchor:
+    path: src/App.tsx
+    symbol: '"onOpenOccurrence={async (path, line) => {"'
+    lines:
+    - 739
+    - 739
+  alias: src/App.tsx#onOpenOccurrence={async (path, line) => {
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: HDL-APP-CLOSE-SPLASH-EFFECT
+  type: handler
+  name: Efeito close_splash no mount
+  module: MOD-APP-SHELL
+  anchor:
+    path: src/App.tsx
+    symbol: '"invoke("close_splash")"'
+    lines:
+    - 200
+    - 200
+  alias: src/App.tsx#invoke("close_splash")
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: IPCC-CLOSE-SPLASH
+  type: ipc_client
+  name: close_splash
+  module: MOD-APP-SHELL
+  anchor:
+    path: src/App.tsx
+    symbol: '"close_splash"'
+    lines:
+    - 200
+    - 200
+  alias: src/App.tsx#close_splash
+  inclusion:
+  - flow
+  - contract
+  trace_task: TRACE-004
+- id: FN-RS-MAIN
+  type: function
+  name: main
+  module: MOD-APP-SHELL
+  anchor:
+    path: src-tauri/src/main.rs
+    symbol: main
+    lines:
+    - 3
+    - 5
+  alias: src-tauri/src/main.rs#main
+  inclusion:
+  - entrypoint
+  - flow
+  trace_task: TRACE-004
+- id: FN-RS-RUN
+  type: function
+  name: run() — builder Tauri, plugins e generate_handler!
+  module: MOD-APP-SHELL
+  anchor:
+    path: src-tauri/src/lib.rs
+    symbol: run
+    lines:
+    - 23
+    - 95
+  alias: src-tauri/src/lib.rs#run
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: CLS-APP-STATE
+  type: class
+  name: AppState
+  module: MOD-APP-SHELL
+  anchor:
+    path: src-tauri/src/lib.rs
+    symbol: AppState
+    lines:
+    - 15
+    - 20
+  alias: src-tauri/src/lib.rs#AppState
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: CFG-GENERATE-HANDLER
+  type: configuration
+  name: Registro de comandos IPC (generate_handler!)
+  module: MOD-APP-SHELL
+  anchor:
+    path: src-tauri/src/lib.rs
+    symbol: '"tauri::generate_handler!"'
+    lines:
+    - 70
+    - 92
+  alias: src-tauri/src/lib.rs#tauri::generate_handler!
+  inclusion:
+  - flow
+  - contract
+  trace_task: TRACE-004
+- id: OSI-SPLASH-AUTOCLOSE
+  type: os_integration
+  name: Fecha splash e mostra main após 6s
+  module: MOD-PACKAGING
+  anchor:
+    path: src-tauri/src/lib.rs
+    symbol: '"std::thread::sleep(std::time::Duration::from_secs(6))"'
+    lines:
+    - 59
+    - 59
+  alias: src-tauri/src/lib.rs#std::thread::sleep(std::time::Duration::from_secs(6))
+  inclusion:
+  - entrypoint
+  - flow
+  trace_task: TRACE-004
+- id: OSI-SINGLE-INSTANCE
+  type: os_integration
+  name: 'Single instance: reencaminha argv p/ instância viva'
+  module: MOD-PACKAGING
+  anchor:
+    path: src-tauri/src/lib.rs
+    symbol: '"tauri_plugin_single_instance::init"'
+    lines:
+    - 37
+    - 51
+  alias: src-tauri/src/lib.rs#tauri_plugin_single_instance::init
+  inclusion:
+  - entrypoint
+  - flow
+  trace_task: TRACE-004
+- id: OSI-LAUNCH-ARGV
+  type: os_integration
+  name: 'Cold start: argv -> launch_path'
+  module: MOD-WORKSPACE-FS
+  anchor:
+    path: src-tauri/src/lib.rs
+    symbol: '"std::env::args().skip(1)"'
+    lines:
+    - 24
+    - 25
+  alias: src-tauri/src/lib.rs#std::env::args().skip(1)
+  inclusion:
+  - entrypoint
+  - flow
+  trace_task: TRACE-004
+- id: OSI-FILE-ASSOCIATIONS
+  type: os_integration
+  name: fileAssociations
+  module: MOD-PACKAGING
+  anchor:
+    path: src-tauri/tauri.conf.json
+    symbol: '"fileAssociations"'
+    lines:
+    - 49
+    - 49
+  alias: src-tauri/tauri.conf.json#fileAssociations
+  inclusion:
+  - entrypoint
+  - flow
+  trace_task: TRACE-004
+- id: OSI-DESKTOP-ENTRY
+  type: os_integration
+  name: Linux .desktop Exec %F
+  module: MOD-PACKAGING
+  anchor:
+    path: src-tauri/linux/md-studio.desktop
+    symbol: '"Exec="'
+    lines:
+    - 9
+    - 9
+  alias: src-tauri/linux/md-studio.desktop#Exec=
+  inclusion:
+  - entrypoint
+  - flow
+  trace_task: TRACE-004
+- id: TEV-APP-OPEN-FILE
+  type: tauri_event
+  name: app://open-file
+  module: MOD-WORKSPACE-FS
+  anchor:
+    path: src-tauri/src/lib.rs
+    symbol: '"app://open-file"'
+    lines:
+    - 41
+    - 41
+  alias: src-tauri/src/lib.rs#app://open-file
+  inclusion:
+  - entrypoint
+  - flow
+  - contract
+  trace_task: TRACE-004
+- id: CNS-SUBSCRIBE-OPEN-FILE
+  type: consumer
+  name: subscribeOpenFile
+  module: MOD-WORKSPACE-FS
+  anchor:
+    path: src/lib/ipc/client.ts
+    symbol: subscribeOpenFile
+    lines:
+    - 297
+    - 310
+  alias: src/lib/ipc/client.ts#subscribeOpenFile
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: HDL-DOC-LAUNCH-EFFECT
+  type: handler
+  name: Efeito de launch (get_launch_path + app://open-file)
+  module: MOD-WORKSPACE-FS
+  anchor:
+    path: src/state/documentState.ts
+    symbol: '"Cold start & OS launch"'
+    lines:
+    - 380
+    - 422
+  alias: src/state/documentState.ts#Cold start & OS launch
+  inclusion:
+  - entrypoint
+  - flow
+  trace_task: TRACE-004
+- id: FN-IPC-INVOKE
+  type: function
+  name: invoke() com fallback browser
+  module: MOD-APP-SHELL
+  anchor:
+    path: src/lib/ipc/client.ts
+    symbol: invoke
+    lines:
+    - 34
+    - 40
+  alias: src/lib/ipc/client.ts#invoke
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-IS-TAURI-RUNTIME
+  type: function
+  name: isTauriRuntime
+  module: MOD-APP-SHELL
+  anchor:
+    path: src/lib/ipc/client.ts
+    symbol: isTauriRuntime
+    lines:
+    - 24
+    - 32
+  alias: src/lib/ipc/client.ts#isTauriRuntime
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-BROWSER-INVOKE
+  type: function
+  name: browserInvoke (modo web, File System Access)
+  module: MOD-WORKSPACE-FS
+  anchor:
+    path: src/lib/ipc/client.ts
+    symbol: browserInvoke
+    lines:
+    - 223
+    - 292
+  alias: src/lib/ipc/client.ts#browserInvoke
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: IPCC-OPEN-WORKSPACE
+  type: ipc_client
+  name: ipc.openWorkspace
+  module: MOD-WORKSPACE-FS
+  anchor:
+    path: src/lib/ipc/client.ts
+    symbol: ipc.openWorkspace
+    lines:
+    - 90
+    - 91
+  alias: src/lib/ipc/client.ts#ipc.openWorkspace
+  inclusion:
+  - flow
+  - contract
+  trace_task: TRACE-004
+- id: IPCC-LIST-ENTRIES
+  type: ipc_client
+  name: ipc.listEntries
+  module: MOD-WORKSPACE-FS
+  anchor:
+    path: src/lib/ipc/client.ts
+    symbol: ipc.listEntries
+    lines:
+    - 92
+    - 95
+  alias: src/lib/ipc/client.ts#ipc.listEntries
+  inclusion:
+  - flow
+  - contract
+  trace_task: TRACE-004
+- id: IPCC-READ-DOCUMENT
+  type: ipc_client
+  name: ipc.readDocument
+  module: MOD-WORKSPACE-FS
+  anchor:
+    path: src/lib/ipc/client.ts
+    symbol: ipc.readDocument
+    lines:
+    - 96
+    - 97
+  alias: src/lib/ipc/client.ts#ipc.readDocument
+  inclusion:
+  - flow
+  - contract
+  trace_task: TRACE-004
+- id: IPCC-SAVE-DOCUMENT
+  type: ipc_client
+  name: ipc.saveDocument
+  module: MOD-PERSISTENCE
+  anchor:
+    path: src/lib/ipc/client.ts
+    symbol: ipc.saveDocument
+    lines:
+    - 98
+    - 114
+  alias: src/lib/ipc/client.ts#ipc.saveDocument
+  inclusion:
+  - flow
+  - contract
+  trace_task: TRACE-004
+- id: IPCC-SEARCH-WORKSPACE
+  type: ipc_client
+  name: ipc.searchWorkspace
+  module: MOD-SEARCH
+  anchor:
+    path: src/lib/ipc/client.ts
+    symbol: ipc.searchWorkspace
+    lines:
+    - 115
+    - 125
+  alias: src/lib/ipc/client.ts#ipc.searchWorkspace
+  status: dead_code
+  inclusion:
+  - contract
+  notes: Sem chamador no frontend.
+  trace_task: TRACE-004
+- id: IPCC-EXPORT-HTML
+  type: ipc_client
+  name: ipc.exportHtml
+  module: MOD-EXPORT
+  anchor:
+    path: src/lib/ipc/client.ts
+    symbol: ipc.exportHtml
+    lines:
+    - 126
+    - 129
+  alias: src/lib/ipc/client.ts#ipc.exportHtml
+  inclusion:
+  - flow
+  - contract
+  trace_task: TRACE-004
+- id: IPCC-EXPORT-EPUB
+  type: ipc_client
+  name: ipc.exportEpub
+  module: MOD-EXPORT
+  anchor:
+    path: src/lib/ipc/client.ts
+    symbol: ipc.exportEpub
+    lines:
+    - 130
+    - 138
+  alias: src/lib/ipc/client.ts#ipc.exportEpub
+  inclusion:
+  - flow
+  - contract
+  trace_task: TRACE-004
+- id: IPCC-START-WATCHING
+  type: ipc_client
+  name: ipc.startWatching
+  module: MOD-WATCHER
+  anchor:
+    path: src/lib/ipc/client.ts
+    symbol: ipc.startWatching
+    lines:
+    - 139
+    - 139
+  alias: src/lib/ipc/client.ts#ipc.startWatching
+  inclusion:
+  - flow
+  - contract
+  trace_task: TRACE-004
+- id: IPCC-STOP-WATCHING
+  type: ipc_client
+  name: ipc.stopWatching
+  module: MOD-WATCHER
+  anchor:
+    path: src/lib/ipc/client.ts
+    symbol: ipc.stopWatching
+    lines:
+    - 140
+    - 140
+  alias: src/lib/ipc/client.ts#ipc.stopWatching
+  inclusion:
+  - flow
+  - contract
+  trace_task: TRACE-004
+- id: IPCC-GET-LAUNCH-PATH
+  type: ipc_client
+  name: ipc.getLaunchPath
+  module: MOD-WORKSPACE-FS
+  anchor:
+    path: src/lib/ipc/client.ts
+    symbol: ipc.getLaunchPath
+    lines:
+    - 142
+    - 145
+  alias: src/lib/ipc/client.ts#ipc.getLaunchPath
+  inclusion:
+  - flow
+  - contract
+  trace_task: TRACE-004
+- id: IPCC-GET-WORKSPACE-STATS
+  type: ipc_client
+  name: getWorkspaceStats
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src/lib/ipc/metadata.ts
+    symbol: getWorkspaceStats
+    lines:
+    - 20
+    - 34
+  alias: src/lib/ipc/metadata.ts#getWorkspaceStats
+  inclusion:
+  - flow
+  - contract
+  trace_task: TRACE-004
+- id: IPCC-GET-DOCUMENT-METADATA
+  type: ipc_client
+  name: getDocumentMetadata
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src/lib/ipc/metadata.ts
+    symbol: getDocumentMetadata
+    lines:
+    - 36
+    - 39
+  alias: src/lib/ipc/metadata.ts#getDocumentMetadata
+  inclusion:
+  - flow
+  - contract
+  trace_task: TRACE-004
+- id: IPCC-GET-ALL-DOCUMENTS
+  type: ipc_client
+  name: getAllDocuments
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src/lib/ipc/metadata.ts
+    symbol: getAllDocuments
+    lines:
+    - 41
+    - 44
+  alias: src/lib/ipc/metadata.ts#getAllDocuments
+  inclusion:
+  - flow
+  - contract
+  trace_task: TRACE-004
+- id: IPCC-TRIGGER-REINDEX
+  type: ipc_client
+  name: triggerReindex
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src/lib/ipc/metadata.ts
+    symbol: triggerReindex
+    lines:
+    - 46
+    - 51
+  alias: src/lib/ipc/metadata.ts#triggerReindex
+  inclusion:
+  - flow
+  - contract
+  trace_task: TRACE-004
+- id: IPCC-GET-WIKI-LINKS-FOR
+  type: ipc_client
+  name: getWikiLinksFor
+  module: MOD-WIKI-LINKS
+  anchor:
+    path: src/lib/ipc/metadata.ts
+    symbol: getWikiLinksFor
+    lines:
+    - 53
+    - 56
+  alias: src/lib/ipc/metadata.ts#getWikiLinksFor
+  inclusion:
+  - flow
+  - contract
+  trace_task: TRACE-004
+- id: IPCC-RESOLVE-WIKI-LINK
+  type: ipc_client
+  name: resolveWikiLink
+  module: MOD-WIKI-LINKS
+  anchor:
+    path: src/lib/ipc/metadata.ts
+    symbol: resolveWikiLink
+    lines:
+    - 58
+    - 63
+  alias: src/lib/ipc/metadata.ts#resolveWikiLink
+  status: dead_code
+  inclusion:
+  - contract
+  notes: Sem chamador no frontend.
+  trace_task: TRACE-004
+- id: IPCC-GET-RESOLVED-WIKI-LINKS-FOR
+  type: ipc_client
+  name: getResolvedWikiLinksFor
+  module: MOD-WIKI-LINKS
+  anchor:
+    path: src/lib/ipc/metadata.ts
+    symbol: getResolvedWikiLinksFor
+    lines:
+    - 65
+    - 68
+  alias: src/lib/ipc/metadata.ts#getResolvedWikiLinksFor
+  inclusion:
+  - flow
+  - contract
+  trace_task: TRACE-004
+- id: IPCC-GET-TAGS
+  type: ipc_client
+  name: getTags
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src/lib/ipc/metadata.ts
+    symbol: getTags
+    lines:
+    - 70
+    - 73
+  alias: src/lib/ipc/metadata.ts#getTags
+  inclusion:
+  - flow
+  - contract
+  trace_task: TRACE-004
+- id: IPCC-GET-BACKLINKS
+  type: ipc_client
+  name: getBacklinks
+  module: MOD-BACKLINKS
+  anchor:
+    path: src/lib/ipc/metadata.ts
+    symbol: getBacklinks
+    lines:
+    - 75
+    - 78
+  alias: src/lib/ipc/metadata.ts#getBacklinks
+  inclusion:
+  - flow
+  - contract
+  trace_task: TRACE-004
+- id: IPCC-FORMAT-CODE
+  type: ipc_client
+  name: invoke<FormatResponse>("format_code
+  module: MOD-FORMATTER
+  anchor:
+    path: src/services/formatter/index.ts
+    symbol: '"invoke<FormatResponse>("format_code""'
+    lines:
+    - 25
+    - 25
+  alias: src/services/formatter/index.ts#invoke<FormatResponse>("format_code
+  inclusion:
+  - flow
+  - contract
+  trace_task: TRACE-004
+- id: OSI-PICK-FOLDER
+  type: os_integration
+  name: pickFolder
+  module: MOD-WORKSPACE-FS
+  anchor:
+    path: src/lib/ipc/client.ts
+    symbol: pickFolder
+    lines:
+    - 153
+    - 174
+  alias: src/lib/ipc/client.ts#pickFolder
+  inclusion:
+  - entrypoint
+  - flow
+  trace_task: TRACE-004
+- id: OSI-PICK-MARKDOWN-FILE
+  type: os_integration
+  name: pickMarkdownFile
+  module: MOD-WORKSPACE-FS
+  anchor:
+    path: src/lib/ipc/client.ts
+    symbol: pickMarkdownFile
+    lines:
+    - 176
+    - 195
+  alias: src/lib/ipc/client.ts#pickMarkdownFile
+  inclusion:
+  - entrypoint
+  - flow
+  trace_task: TRACE-004
+- id: OSI-PICK-SAVE-MARKDOWN
+  type: os_integration
+  name: pickSaveMarkdownFile
+  module: MOD-PERSISTENCE
+  anchor:
+    path: src/lib/ipc/client.ts
+    symbol: pickSaveMarkdownFile
+    lines:
+    - 197
+    - 213
+  alias: src/lib/ipc/client.ts#pickSaveMarkdownFile
+  inclusion:
+  - entrypoint
+  - flow
+  trace_task: TRACE-004
+- id: OSI-PICK-SAVE-HTML
+  type: os_integration
+  name: pickSaveHtmlFile
+  module: MOD-EXPORT
+  anchor:
+    path: src/lib/ipc/client.ts
+    symbol: pickSaveHtmlFile
+    lines:
+    - 353
+    - 367
+  alias: src/lib/ipc/client.ts#pickSaveHtmlFile
+  inclusion:
+  - entrypoint
+  - flow
+  trace_task: TRACE-004
+- id: OSI-PICK-SAVE-EPUB
+  type: os_integration
+  name: pickSaveEpubFile
+  module: MOD-EXPORT
+  anchor:
+    path: src/lib/ipc/client.ts
+    symbol: pickSaveEpubFile
+    lines:
+    - 336
+    - 351
+  alias: src/lib/ipc/client.ts#pickSaveEpubFile
+  inclusion:
+  - entrypoint
+  - flow
+  trace_task: TRACE-004
+- id: OSI-CONFIRM-OVERWRITE
+  type: os_integration
+  name: confirmOverwrite
+  module: MOD-EXPORT
+  anchor:
+    path: src/lib/ipc/client.ts
+    symbol: confirmOverwrite
+    lines:
+    - 369
+    - 381
+  alias: src/lib/ipc/client.ts#confirmOverwrite
+  inclusion:
+  - entrypoint
+  - flow
+  trace_task: TRACE-004
+- id: OSI-OPEN-EXTERNAL-URL
+  type: os_integration
+  name: openExternalUrl
+  module: MOD-PREVIEW
+  anchor:
+    path: src/services/navigation.ts
+    symbol: openExternalUrl
+    lines:
+    - 93
+    - 100
+  alias: src/services/navigation.ts#openExternalUrl
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: OSI-WINDOW-PRINT
+  type: os_integration
+  name: window.print (export PDF)
+  module: MOD-EXPORT
+  anchor:
+    path: src/App.tsx
+    symbol: '"window.print()"'
+    lines:
+    - 194
+    - 194
+  alias: src/App.tsx#window.print()
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: IPC-OPEN-WORKSPACE
+  type: ipc_command
+  name: open_workspace
+  module: MOD-WORKSPACE-FS
+  anchor:
+    path: src-tauri/src/commands/mod.rs
+    symbol: open_workspace
+    lines:
+    - 28
+    - 56
+  alias: src-tauri/src/commands/mod.rs#open_workspace
+  inclusion:
+  - entrypoint
+  - flow
+  - contract
+  trace_task: TRACE-004
+- id: IPC-LIST-ENTRIES
+  type: ipc_command
+  name: list_entries
+  module: MOD-WORKSPACE-FS
+  anchor:
+    path: src-tauri/src/commands/mod.rs
+    symbol: list_entries
+    lines:
+    - 59
+    - 94
+  alias: src-tauri/src/commands/mod.rs#list_entries
+  inclusion:
+  - entrypoint
+  - flow
+  - contract
+  trace_task: TRACE-004
+- id: IPC-READ-DOCUMENT
+  type: ipc_command
+  name: read_document
+  module: MOD-WORKSPACE-FS
+  anchor:
+    path: src-tauri/src/commands/mod.rs
+    symbol: read_document
+    lines:
+    - 97
+    - 114
+  alias: src-tauri/src/commands/mod.rs#read_document
+  inclusion:
+  - entrypoint
+  - flow
+  - contract
+  trace_task: TRACE-004
+- id: IPC-SAVE-DOCUMENT
+  type: ipc_command
+  name: save_document
+  module: MOD-PERSISTENCE
+  anchor:
+    path: src-tauri/src/commands/mod.rs
+    symbol: save_document
+    lines:
+    - 117
+    - 160
+  alias: src-tauri/src/commands/mod.rs#save_document
+  inclusion:
+  - entrypoint
+  - flow
+  - contract
+  trace_task: TRACE-004
+- id: IPC-SEARCH-WORKSPACE
+  type: ipc_command
+  name: search_workspace
+  module: MOD-SEARCH
+  anchor:
+    path: src-tauri/src/commands/mod.rs
+    symbol: search_workspace
+    lines:
+    - 163
+    - 203
+  alias: src-tauri/src/commands/mod.rs#search_workspace
+  status: dead_code
+  inclusion:
+  - entrypoint
+  - flow
+  - contract
+  notes: Registrado em generate_handler!, sem chamador no frontend.
+  trace_task: TRACE-004
+- id: IPC-EXPORT-HTML
+  type: ipc_command
+  name: export_html
+  module: MOD-EXPORT
+  anchor:
+    path: src-tauri/src/commands/mod.rs
+    symbol: export_html
+    lines:
+    - 216
+    - 226
+  alias: src-tauri/src/commands/mod.rs#export_html
+  inclusion:
+  - entrypoint
+  - flow
+  - contract
+  trace_task: TRACE-004
+- id: IPC-EXPORT-EPUB
+  type: ipc_command
+  name: export_epub
+  module: MOD-EXPORT
+  anchor:
+    path: src-tauri/src/commands/mod.rs
+    symbol: export_epub
+    lines:
+    - 263
+    - 268
+  alias: src-tauri/src/commands/mod.rs#export_epub
+  inclusion:
+  - entrypoint
+  - flow
+  - contract
+  trace_task: TRACE-004
+- id: IPC-GET-LAUNCH-PATH
+  type: ipc_command
+  name: get_launch_path
+  module: MOD-WORKSPACE-FS
+  anchor:
+    path: src-tauri/src/commands/mod.rs
+    symbol: get_launch_path
+    lines:
+    - 468
+    - 470
+  alias: src-tauri/src/commands/mod.rs#get_launch_path
+  inclusion:
+  - entrypoint
+  - flow
+  - contract
+  trace_task: TRACE-004
+- id: IPC-CLOSE-SPLASH
+  type: ipc_command
+  name: close_splash
+  module: MOD-APP-SHELL
+  anchor:
+    path: src-tauri/src/commands/mod.rs
+    symbol: close_splash
+    lines:
+    - 473
+    - 483
+  alias: src-tauri/src/commands/mod.rs#close_splash
+  inclusion:
+  - entrypoint
+  - flow
+  - contract
+  trace_task: TRACE-004
+- id: IPC-GET-WORKSPACE-STATS
+  type: ipc_command
+  name: get_workspace_stats
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src-tauri/src/commands/metadata.rs
+    symbol: get_workspace_stats
+    lines:
+    - 46
+    - 87
+  alias: src-tauri/src/commands/metadata.rs#get_workspace_stats
+  inclusion:
+  - entrypoint
+  - flow
+  - contract
+  trace_task: TRACE-004
+- id: IPC-GET-DOCUMENT-METADATA
+  type: ipc_command
+  name: get_document_metadata
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src-tauri/src/commands/metadata.rs
+    symbol: get_document_metadata
+    lines:
+    - 90
+    - 101
+  alias: src-tauri/src/commands/metadata.rs#get_document_metadata
+  inclusion:
+  - entrypoint
+  - flow
+  - contract
+  trace_task: TRACE-004
+- id: IPC-GET-ALL-DOCUMENTS
+  type: ipc_command
+  name: get_all_documents
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src-tauri/src/commands/metadata.rs
+    symbol: get_all_documents
+    lines:
+    - 104
+    - 114
+  alias: src-tauri/src/commands/metadata.rs#get_all_documents
+  inclusion:
+  - entrypoint
+  - flow
+  - contract
+  trace_task: TRACE-004
+- id: IPC-TRIGGER-REINDEX
+  type: ipc_command
+  name: trigger_reindex
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src-tauri/src/commands/metadata.rs
+    symbol: trigger_reindex
+    lines:
+    - 117
+    - 128
+  alias: src-tauri/src/commands/metadata.rs#trigger_reindex
+  inclusion:
+  - entrypoint
+  - flow
+  - contract
+  trace_task: TRACE-004
+- id: IPC-GET-WIKI-LINKS-FOR
+  type: ipc_command
+  name: get_wiki_links_for
+  module: MOD-WIKI-LINKS
+  anchor:
+    path: src-tauri/src/commands/metadata.rs
+    symbol: get_wiki_links_for
+    lines:
+    - 131
+    - 144
+  alias: src-tauri/src/commands/metadata.rs#get_wiki_links_for
+  inclusion:
+  - entrypoint
+  - flow
+  - contract
+  trace_task: TRACE-004
+- id: IPC-RESOLVE-WIKI-LINK
+  type: ipc_command
+  name: resolve_wiki_link
+  module: MOD-WIKI-LINKS
+  anchor:
+    path: src-tauri/src/commands/metadata.rs
+    symbol: resolve_wiki_link
+    lines:
+    - 147
+    - 155
+  alias: src-tauri/src/commands/metadata.rs#resolve_wiki_link
+  status: dead_code
+  inclusion:
+  - entrypoint
+  - flow
+  - contract
+  notes: Registrado em generate_handler!, sem chamador no frontend.
+  trace_task: TRACE-004
+- id: IPC-GET-RESOLVED-WIKI-LINKS-FOR
+  type: ipc_command
+  name: get_resolved_wiki_links_for
+  module: MOD-WIKI-LINKS
+  anchor:
+    path: src-tauri/src/commands/metadata.rs
+    symbol: get_resolved_wiki_links_for
+    lines:
+    - 158
+    - 170
+  alias: src-tauri/src/commands/metadata.rs#get_resolved_wiki_links_for
+  inclusion:
+  - entrypoint
+  - flow
+  - contract
+  trace_task: TRACE-004
+- id: IPC-GET-TAGS
+  type: ipc_command
+  name: get_tags
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src-tauri/src/commands/metadata.rs
+    symbol: get_tags
+    lines:
+    - 173
+    - 192
+  alias: src-tauri/src/commands/metadata.rs#get_tags
+  inclusion:
+  - entrypoint
+  - flow
+  - contract
+  trace_task: TRACE-004
+- id: IPC-GET-BACKLINKS
+  type: ipc_command
+  name: get_backlinks
+  module: MOD-BACKLINKS
+  anchor:
+    path: src-tauri/src/commands/metadata.rs
+    symbol: get_backlinks
+    lines:
+    - 233
+    - 245
+  alias: src-tauri/src/commands/metadata.rs#get_backlinks
+  inclusion:
+  - entrypoint
+  - flow
+  - contract
+  trace_task: TRACE-004
+- id: IPC-FORMAT-CODE
+  type: ipc_command
+  name: format_code
+  module: MOD-FORMATTER
+  anchor:
+    path: src-tauri/src/commands/formatter.rs
+    symbol: format_code
+    lines:
+    - 343
+    - 345
+  alias: src-tauri/src/commands/formatter.rs#format_code
+  inclusion:
+  - entrypoint
+  - flow
+  - contract
+  trace_task: TRACE-004
+- id: IPC-START-WATCHING
+  type: ipc_command
+  name: start_watching
+  module: MOD-WATCHER
+  anchor:
+    path: src-tauri/src/watcher/mod.rs
+    symbol: start_watching
+    lines:
+    - 237
+    - 266
+  alias: src-tauri/src/watcher/mod.rs#start_watching
+  inclusion:
+  - entrypoint
+  - flow
+  - contract
+  trace_task: TRACE-004
+- id: IPC-STOP-WATCHING
+  type: ipc_command
+  name: stop_watching
+  module: MOD-WATCHER
+  anchor:
+    path: src-tauri/src/watcher/mod.rs
+    symbol: stop_watching
+    lines:
+    - 269
+    - 272
+  alias: src-tauri/src/watcher/mod.rs#stop_watching
+  inclusion:
+  - entrypoint
+  - flow
+  - contract
+  trace_task: TRACE-004
+- id: FN-RESOLVE-WORKSPACE-ROOT
+  type: function
+  name: resolve_workspace_root
+  module: MOD-EXPORT
+  anchor:
+    path: src-tauri/src/commands/mod.rs
+    symbol: resolve_workspace_root
+    lines:
+    - 237
+    - 245
+  alias: src-tauri/src/commands/mod.rs#resolve_workspace_root
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-EXPORT-EPUB-IN
+  type: function
+  name: export_epub_in
+  module: MOD-EXPORT
+  anchor:
+    path: src-tauri/src/commands/mod.rs
+    symbol: export_epub_in
+    lines:
+    - 247
+    - 260
+  alias: src-tauri/src/commands/mod.rs#export_epub_in
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-GET-ENGINE
+  type: function
+  name: get_engine
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src-tauri/src/commands/metadata.rs
+    symbol: get_engine
+    lines:
+    - 27
+    - 30
+  alias: src-tauri/src/commands/metadata.rs#get_engine
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-FIND-DOCUMENT
+  type: function
+  name: find_document
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src-tauri/src/commands/metadata.rs
+    symbol: find_document
+    lines:
+    - 32
+    - 43
+  alias: src-tauri/src/commands/metadata.rs#find_document
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-FENCE-BACKLINK-TARGET
+  type: function
+  name: fence_backlink_target
+  module: MOD-BACKLINKS
+  anchor:
+    path: src-tauri/src/commands/metadata.rs
+    symbol: fence_backlink_target
+    lines:
+    - 203
+    - 209
+  alias: src-tauri/src/commands/metadata.rs#fence_backlink_target
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-ENRICH-BACKLINK-CONTEXT
+  type: function
+  name: enrich_backlink_context
+  module: MOD-BACKLINKS
+  anchor:
+    path: src-tauri/src/commands/metadata.rs
+    symbol: enrich_backlink_context
+    lines:
+    - 224
+    - 230
+  alias: src-tauri/src/commands/metadata.rs#enrich_backlink_context
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-READ-SOURCE-LINE
+  type: function
+  name: read_source_line
+  module: MOD-BACKLINKS
+  anchor:
+    path: src-tauri/src/commands/metadata.rs
+    symbol: read_source_line
+    lines:
+    - 211
+    - 222
+  alias: src-tauri/src/commands/metadata.rs#read_source_line
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-FORMAT-CODE-INTERNAL
+  type: function
+  name: format_code_internal
+  module: MOD-FORMATTER
+  anchor:
+    path: src-tauri/src/commands/formatter.rs
+    symbol: format_code_internal
+    lines:
+    - 205
+    - 340
+  alias: src-tauri/src/commands/formatter.rs#format_code_internal
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-GET-FORMATTER-SPEC
+  type: function
+  name: get_formatter_spec
+  module: MOD-FORMATTER
+  anchor:
+    path: src-tauri/src/commands/formatter.rs
+    symbol: get_formatter_spec
+    lines:
+    - 24
+    - 89
+  alias: src-tauri/src/commands/formatter.rs#get_formatter_spec
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-FIND-EXECUTABLE
+  type: function
+  name: find_executable
+  module: MOD-FORMATTER
+  anchor:
+    path: src-tauri/src/commands/formatter.rs
+    symbol: find_executable
+    lines:
+    - 110
+    - 203
+  alias: src-tauri/src/commands/formatter.rs#find_executable
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: CFG-WATCH-DEBOUNCE
+  type: configuration
+  name: Debounce do watcher (300ms)
+  module: MOD-WATCHER
+  anchor:
+    path: src-tauri/src/watcher/mod.rs
+    symbol: DEBOUNCE
+    lines:
+    - 20
+    - 20
+  alias: src-tauri/src/watcher/mod.rs#DEBOUNCE
+  inclusion:
+  - contract
+  trace_task: TRACE-004
+- id: TEV-WORKSPACE-CHANGE
+  type: tauri_event
+  name: Evento "workspace://change"
+  module: MOD-WATCHER
+  anchor:
+    path: src-tauri/src/watcher/mod.rs
+    symbol: WATCH_EVENT
+    lines:
+    - 19
+    - 19
+  alias: src-tauri/src/watcher/mod.rs#WATCH_EVENT
+  inclusion:
+  - entrypoint
+  - flow
+  - contract
+  trace_task: TRACE-004
+- id: SVC-WATCHER-HUB
+  type: service
+  name: WatcherHub
+  module: MOD-WATCHER
+  anchor:
+    path: src-tauri/src/watcher/mod.rs
+    symbol: WatcherHub
+    lines:
+    - 42
+    - 46
+  alias: src-tauri/src/watcher/mod.rs#WatcherHub
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-WATCHER-REGISTER-INTERNAL-SAVE
+  type: function
+  name: WatcherHub::register_internal_save
+  module: MOD-WATCHER
+  anchor:
+    path: src-tauri/src/watcher/mod.rs
+    symbol: WatcherHub::register_internal_save
+    lines:
+    - 56
+    - 62
+  alias: src-tauri/src/watcher/mod.rs#WatcherHub::register_internal_save
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-WATCHER-SHOULD-SUPPRESS
+  type: function
+  name: WatcherHub::should_suppress
+  module: MOD-WATCHER
+  anchor:
+    path: src-tauri/src/watcher/mod.rs
+    symbol: WatcherHub::should_suppress
+    lines:
+    - 66
+    - 85
+  alias: src-tauri/src/watcher/mod.rs#WatcherHub::should_suppress
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-WATCHER-RELATIVIZE
+  type: function
+  name: relativize
+  module: MOD-WATCHER
+  anchor:
+    path: src-tauri/src/watcher/mod.rs
+    symbol: relativize
+    lines:
+    - 88
+    - 103
+  alias: src-tauri/src/watcher/mod.rs#relativize
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-SPAWN-WATCHER
+  type: function
+  name: spawn_watcher
+  module: MOD-WATCHER
+  anchor:
+    path: src-tauri/src/watcher/mod.rs
+    symbol: spawn_watcher
+    lines:
+    - 117
+    - 219
+  alias: src-tauri/src/watcher/mod.rs#spawn_watcher
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-APPLY-WATCH-TO-ENGINE
+  type: function
+  name: apply_watch_to_engine
+  module: MOD-WATCHER
+  anchor:
+    path: src-tauri/src/watcher/mod.rs
+    symbol: apply_watch_to_engine
+    lines:
+    - 221
+    - 234
+  alias: src-tauri/src/watcher/mod.rs#apply_watch_to_engine
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-FENCE-RELATIVE
+  type: function
+  name: fence_relative
+  module: MOD-WATCHER
+  anchor:
+    path: src-tauri/src/watcher/mod.rs
+    symbol: fence_relative
+    lines:
+    - 275
+    - 277
+  alias: src-tauri/src/watcher/mod.rs#fence_relative
+  status: test_only
+  inclusion:
+  - test
+  notes: Usado apenas por testes (tests::fence_*).
+  trace_task: TRACE-004
+- id: FN-CONTENT-HASH
+  type: function
+  name: content_hash
+  module: MOD-PERSISTENCE
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/persistence.rs
+    symbol: content_hash
+    lines:
+    - 15
+    - 19
+  alias: src-tauri/crates/md-studio-core/src/persistence.rs#content_hash
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-READ-FILE
+  type: function
+  name: read_file
+  module: MOD-PERSISTENCE
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/persistence.rs
+    symbol: read_file
+    lines:
+    - 21
+    - 34
+  alias: src-tauri/crates/md-studio-core/src/persistence.rs#read_file
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-ATOMIC-SAVE
+  type: function
+  name: atomic_save
+  module: MOD-PERSISTENCE
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/persistence.rs
+    symbol: atomic_save
+    lines:
+    - 36
+    - 62
+  alias: src-tauri/crates/md-studio-core/src/persistence.rs#atomic_save
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-ATOMIC-WRITE-BYTES
+  type: function
+  name: atomic_write_bytes
+  module: MOD-PERSISTENCE
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/persistence.rs
+    symbol: atomic_write_bytes
+    lines:
+    - 66
+    - 81
+  alias: src-tauri/crates/md-studio-core/src/persistence.rs#atomic_write_bytes
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: CLS-SAVE-ERROR
+  type: class
+  name: SaveError
+  module: MOD-PERSISTENCE
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/persistence.rs
+    symbol: SaveError
+    lines:
+    - 8
+    - 13
+  alias: src-tauri/crates/md-studio-core/src/persistence.rs#SaveError
+  inclusion:
+  - contract
+  trace_task: TRACE-004
+- id: FILE-SAVE-TMP
+  type: file_persisted
+  name: Arquivo temporário .{nome}.tmp-{pid} (save atômico)
+  module: MOD-PERSISTENCE
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/persistence.rs
+    symbol: '".{}.tmp-{}"'
+    lines:
+    - 50
+    - 50
+  alias: src-tauri/crates/md-studio-core/src/persistence.rs#.{}.tmp-{}
+  inclusion:
+  - flow
+  - contract
+  trace_task: TRACE-006
+- id: FILE-MARKDOWN-DOCUMENT
+  type: file_persisted
+  name: Documento Markdown do workspace (.md/.markdown/.mdx)
+  module: MOD-WORKSPACE-FS
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/launch.rs
+    symbol: MARKDOWN_EXTS
+    lines:
+    - 6
+    - 6
+  alias: src-tauri/crates/md-studio-core/src/launch.rs#MARKDOWN_EXTS
+  inclusion:
+  - flow
+  - contract
+  trace_task: TRACE-006
+- id: REPO-WORKSPACE-REGISTRY
+  type: repository
+  name: WorkspaceRegistry
+  module: MOD-WORKSPACE-FS
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/workspace.rs
+    symbol: WorkspaceRegistry
+    lines:
+    - 29
+    - 31
+  alias: src-tauri/crates/md-studio-core/src/workspace.rs#WorkspaceRegistry
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-WORKSPACE-REGISTRY-OPEN
+  type: function
+  name: WorkspaceRegistry::open
+  module: MOD-WORKSPACE-FS
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/workspace.rs
+    symbol: WorkspaceRegistry::open
+    lines:
+    - 34
+    - 54
+  alias: src-tauri/crates/md-studio-core/src/workspace.rs#WorkspaceRegistry::open
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-WORKSPACE-REGISTRY-GET
+  type: function
+  name: WorkspaceRegistry::get
+  module: MOD-WORKSPACE-FS
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/workspace.rs
+    symbol: WorkspaceRegistry::get
+    lines:
+    - 56
+    - 58
+  alias: src-tauri/crates/md-studio-core/src/workspace.rs#WorkspaceRegistry::get
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-WORKSPACE-REGISTRY-RETAIN
+  type: function
+  name: WorkspaceRegistry::retain
+  module: MOD-WORKSPACE-FS
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/workspace.rs
+    symbol: WorkspaceRegistry::retain
+    lines:
+    - 61
+    - 63
+  alias: src-tauri/crates/md-studio-core/src/workspace.rs#WorkspaceRegistry::retain
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-WORKSPACE-REGISTRY-RESOLVE
+  type: function
+  name: WorkspaceRegistry::resolve
+  module: MOD-WORKSPACE-FS
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/workspace.rs
+    symbol: WorkspaceRegistry::resolve
+    lines:
+    - 65
+    - 68
+  alias: src-tauri/crates/md-studio-core/src/workspace.rs#WorkspaceRegistry::resolve
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-RESOLVE-WITHIN
+  type: function
+  name: 'resolve_within (cerca de path: absoluto, .., symlink)'
+  module: MOD-SECURITY-POLICY
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/workspace.rs
+    symbol: resolve_within
+    lines:
+    - 71
+    - 107
+  alias: src-tauri/crates/md-studio-core/src/workspace.rs#resolve_within
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-IS-MARKDOWN-PATH
+  type: function
+  name: is_markdown_path
+  module: MOD-WORKSPACE-FS
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/launch.rs
+    symbol: is_markdown_path
+    lines:
+    - 8
+    - 13
+  alias: src-tauri/crates/md-studio-core/src/launch.rs#is_markdown_path
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-PATH-FROM-ARG
+  type: function
+  name: path_from_arg
+  module: MOD-WORKSPACE-FS
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/launch.rs
+    symbol: path_from_arg
+    lines:
+    - 17
+    - 42
+  alias: src-tauri/crates/md-studio-core/src/launch.rs#path_from_arg
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-FIRST-EXISTING-MARKDOWN-PATH
+  type: function
+  name: first_existing_markdown_path
+  module: MOD-WORKSPACE-FS
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/launch.rs
+    symbol: first_existing_markdown_path
+    lines:
+    - 73
+    - 90
+  alias: src-tauri/crates/md-studio-core/src/launch.rs#first_existing_markdown_path
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: SVC-REINDEX-ENGINE
+  type: service
+  name: ReindexEngine
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs
+    symbol: ReindexEngine
+    lines:
+    - 20
+    - 24
+  alias: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs#ReindexEngine
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-REINDEX-ENGINE-NEW
+  type: function
+  name: ReindexEngine::new
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs
+    symbol: ReindexEngine::new
+    lines:
+    - 27
+    - 33
+  alias: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs#ReindexEngine::new
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-REINDEX-ENGINE-FULL-REINDEX
+  type: function
+  name: ReindexEngine::full_reindex
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs
+    symbol: ReindexEngine::full_reindex
+    lines:
+    - 44
+    - 70
+  alias: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs#ReindexEngine::full_reindex
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-REINDEX-ENGINE-REINDEX-FILE
+  type: function
+  name: ReindexEngine::reindex_file
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs
+    symbol: ReindexEngine::reindex_file
+    lines:
+    - 73
+    - 111
+  alias: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs#ReindexEngine::reindex_file
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-REINDEX-ENGINE-REMOVE-FILE
+  type: function
+  name: ReindexEngine::remove_file
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs
+    symbol: ReindexEngine::remove_file
+    lines:
+    - 114
+    - 130
+  alias: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs#ReindexEngine::remove_file
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-REINDEX-ENGINE-REBUILD-BACKLINKS
+  type: function
+  name: ReindexEngine::rebuild_backlinks
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs
+    symbol: ReindexEngine::rebuild_backlinks
+    lines:
+    - 134
+    - 139
+  alias: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs#ReindexEngine::rebuild_backlinks
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-REINDEX-ENGINE-BACKLINKS-FOR
+  type: function
+  name: ReindexEngine::backlinks_for
+  module: MOD-BACKLINKS
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs
+    symbol: ReindexEngine::backlinks_for
+    lines:
+    - 141
+    - 145
+  alias: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs#ReindexEngine::backlinks_for
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-REINDEX-ENGINE-APPLY-EXTERNAL-CHANGE
+  type: function
+  name: ReindexEngine::apply_external_change
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs
+    symbol: ReindexEngine::apply_external_change
+    lines:
+    - 149
+    - 168
+  alias: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs#ReindexEngine::apply_external_change
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: DTO-RS-REINDEX-REPORT
+  type: dto
+  name: ReindexReport
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs
+    symbol: ReindexReport
+    lines:
+    - 13
+    - 17
+  alias: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs#ReindexReport
+  inclusion:
+  - contract
+  trace_task: TRACE-004
+- id: FILE-INDEX-JSON
+  type: file_persisted
+  name: .mdstudio/index.json
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/index/index_persistence.rs
+    symbol: INDEX_FILE
+    lines:
+    - 7
+    - 7
+  alias: src-tauri/crates/md-studio-core/src/index/index_persistence.rs#INDEX_FILE
+  inclusion:
+  - flow
+  - contract
+  trace_task: TRACE-006
+- id: FN-SAVE-INDEX
+  type: function
+  name: save_index
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/index/index_persistence.rs
+    symbol: save_index
+    lines:
+    - 15
+    - 38
+  alias: src-tauri/crates/md-studio-core/src/index/index_persistence.rs#save_index
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-LOAD-INDEX
+  type: function
+  name: load_index
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/index/index_persistence.rs
+    symbol: load_index
+    lines:
+    - 41
+    - 54
+  alias: src-tauri/crates/md-studio-core/src/index/index_persistence.rs#load_index
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-CLEAR-INDEX
+  type: function
+  name: clear_index
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/index/index_persistence.rs
+    symbol: clear_index
+    lines:
+    - 57
+    - 64
+  alias: src-tauri/crates/md-studio-core/src/index/index_persistence.rs#clear_index
+  status: test_only
+  inclusion:
+  - test
+  notes: Sem chamador na aplicação; exercitado só em teste.
+  trace_task: TRACE-004
+- id: FN-EXTRACT-METADATA
+  type: function
+  name: extract_metadata
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/index/metadata_extractor.rs
+    symbol: extract_metadata
+    lines:
+    - 44
+    - 52
+  alias: src-tauri/crates/md-studio-core/src/index/metadata_extractor.rs#extract_metadata
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-EXTRACT-METADATA-FROM-STR
+  type: function
+  name: extract_metadata_from_str
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/index/metadata_extractor.rs
+    symbol: extract_metadata_from_str
+    lines:
+    - 55
+    - 264
+  alias: src-tauri/crates/md-studio-core/src/index/metadata_extractor.rs#extract_metadata_from_str
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: REPO-METADATA-INDEX
+  type: repository
+  name: MetadataIndex
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/index/metadata_index.rs
+    symbol: MetadataIndex
+    lines:
+    - 8
+    - 12
+  alias: src-tauri/crates/md-studio-core/src/index/metadata_index.rs#MetadataIndex
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-WORKSPACE-SCANNER-SCAN
+  type: function
+  name: WorkspaceScanner::scan
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/index/workspace_scanner.rs
+    symbol: WorkspaceScanner::scan
+    lines:
+    - 14
+    - 21
+  alias: src-tauri/crates/md-studio-core/src/index/workspace_scanner.rs#WorkspaceScanner::scan
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-RESOLVE-WIKI-LINK-CORE
+  type: function
+  name: MetadataIndex::resolve_wiki_link
+  module: MOD-WIKI-LINKS
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/index/wiki_resolve.rs
+    symbol: MetadataIndex::resolve_wiki_link
+    lines:
+    - 32
+    - 38
+  alias: src-tauri/crates/md-studio-core/src/index/wiki_resolve.rs#MetadataIndex::resolve_wiki_link
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-RESOLVE-ALL
+  type: function
+  name: MetadataIndex::resolve_all
+  module: MOD-WIKI-LINKS
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/index/wiki_resolve.rs
+    symbol: MetadataIndex::resolve_all
+    lines:
+    - 40
+    - 46
+  alias: src-tauri/crates/md-studio-core/src/index/wiki_resolve.rs#MetadataIndex::resolve_all
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-IS-SAFE-RELATIVE-TARGET
+  type: function
+  name: is_safe_relative_target
+  module: MOD-SECURITY-POLICY
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/index/wiki_resolve.rs
+    symbol: is_safe_relative_target
+    lines:
+    - 80
+    - 86
+  alias: src-tauri/crates/md-studio-core/src/index/wiki_resolve.rs#is_safe_relative_target
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: DTO-RS-RESOLVED-WIKI-LINK
+  type: dto
+  name: ResolvedWikiLink
+  module: MOD-WIKI-LINKS
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/index/wiki_resolve.rs
+    symbol: ResolvedWikiLink
+    lines:
+    - 17
+    - 24
+  alias: src-tauri/crates/md-studio-core/src/index/wiki_resolve.rs#ResolvedWikiLink
+  inclusion:
+  - contract
+  trace_task: TRACE-004
+- id: REPO-BACKLINK-INDEX
+  type: repository
+  name: BacklinkIndex
+  module: MOD-BACKLINKS
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/index/backlink_index.rs
+    symbol: BacklinkIndex
+    lines:
+    - 43
+    - 46
+  alias: src-tauri/crates/md-studio-core/src/index/backlink_index.rs#BacklinkIndex
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-BACKLINK-INDEX-REBUILD
+  type: function
+  name: BacklinkIndex::rebuild
+  module: MOD-BACKLINKS
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/index/backlink_index.rs
+    symbol: BacklinkIndex::rebuild
+    lines:
+    - 53
+    - 58
+  alias: src-tauri/crates/md-studio-core/src/index/backlink_index.rs#BacklinkIndex::rebuild
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-BACKLINK-INDEX-REPLACE-SOURCE
+  type: function
+  name: BacklinkIndex::replace_source
+  module: MOD-BACKLINKS
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/index/backlink_index.rs
+    symbol: BacklinkIndex::replace_source
+    lines:
+    - 60
+    - 63
+  alias: src-tauri/crates/md-studio-core/src/index/backlink_index.rs#BacklinkIndex::replace_source
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-BACKLINK-INDEX-REMOVE-SOURCE
+  type: function
+  name: BacklinkIndex::remove_source
+  module: MOD-BACKLINKS
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/index/backlink_index.rs
+    symbol: BacklinkIndex::remove_source
+    lines:
+    - 65
+    - 71
+  alias: src-tauri/crates/md-studio-core/src/index/backlink_index.rs#BacklinkIndex::remove_source
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-BACKLINK-INDEX-BACKLINKS-FOR
+  type: function
+  name: BacklinkIndex::backlinks_for
+  module: MOD-BACKLINKS
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/index/backlink_index.rs
+    symbol: BacklinkIndex::backlinks_for
+    lines:
+    - 73
+    - 119
+  alias: src-tauri/crates/md-studio-core/src/index/backlink_index.rs#BacklinkIndex::backlinks_for
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-BACKLINK-INDEX-INGEST-SOURCE
+  type: function
+  name: BacklinkIndex::ingest_source
+  module: MOD-BACKLINKS
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/index/backlink_index.rs
+    symbol: BacklinkIndex::ingest_source
+    lines:
+    - 121
+    - 148
+  alias: src-tauri/crates/md-studio-core/src/index/backlink_index.rs#BacklinkIndex::ingest_source
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: DTO-RS-BACKLINK-RESULT
+  type: dto
+  name: BacklinkResult
+  module: MOD-BACKLINKS
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/index/backlink_index.rs
+    symbol: BacklinkResult
+    lines:
+    - 28
+    - 33
+  alias: src-tauri/crates/md-studio-core/src/index/backlink_index.rs#BacklinkResult
+  inclusion:
+  - contract
+  trace_task: TRACE-004
+- id: DTO-RS-DOCUMENT-METADATA
+  type: dto
+  name: DocumentMetadata
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/index/document_metadata.rs
+    symbol: DocumentMetadata
+    lines:
+    - 6
+    - 20
+  alias: src-tauri/crates/md-studio-core/src/index/document_metadata.rs#DocumentMetadata
+  inclusion:
+  - flow
+  - contract
+  trace_task: TRACE-004
+- id: FN-PARSE-WIKI-LINKS
+  type: function
+  name: parse_wiki_links
+  module: MOD-WIKI-LINKS
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/parser/wiki_link_parser.rs
+    symbol: parse_wiki_links
+    lines:
+    - 5
+    - 100
+  alias: src-tauri/crates/md-studio-core/src/parser/wiki_link_parser.rs#parse_wiki_links
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-PARSE-TAGS
+  type: function
+  name: parse_tags
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/parser/tag_parser.rs
+    symbol: parse_tags
+    lines:
+    - 5
+    - 107
+  alias: src-tauri/crates/md-studio-core/src/parser/tag_parser.rs#parse_tags
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-BUILD-EPUB
+  type: function
+  name: build_epub
+  module: MOD-EXPORT
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/export/epub_builder.rs
+    symbol: build_epub
+    lines:
+    - 112
+    - 256
+  alias: src-tauri/crates/md-studio-core/src/export/epub_builder.rs#build_epub
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-GUARD-IMAGES
+  type: function
+  name: guard_images (cerca de imagens do EPUB)
+  module: MOD-SECURITY-POLICY
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/export/epub_builder.rs
+    symbol: guard_images
+    lines:
+    - 258
+    - 298
+  alias: src-tauri/crates/md-studio-core/src/export/epub_builder.rs#guard_images
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-GENERATE-CONTENT-OPF
+  type: function
+  name: generate_content_opf
+  module: MOD-EXPORT
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/export/epub_builder.rs
+    symbol: generate_content_opf
+    lines:
+    - 31
+    - 110
+  alias: src-tauri/crates/md-studio-core/src/export/epub_builder.rs#generate_content_opf
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-HTML-TO-XHTML
+  type: function
+  name: html_to_xhtml
+  module: MOD-EXPORT
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/export/xhtml_converter.rs
+    symbol: html_to_xhtml
+    lines:
+    - 25
+    - 42
+  alias: src-tauri/crates/md-studio-core/src/export/xhtml_converter.rs#html_to_xhtml
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-NORMALIZE-EPUB-METADATA
+  type: function
+  name: normalize_metadata
+  module: MOD-EXPORT
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/export/epub_types.rs
+    symbol: normalize_metadata
+    lines:
+    - 82
+    - 101
+  alias: src-tauri/crates/md-studio-core/src/export/epub_types.rs#normalize_metadata
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: DTO-RS-EPUB-EXPORT-PAYLOAD
+  type: dto
+  name: EpubExportPayload
+  module: MOD-EXPORT
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/export/epub_types.rs
+    symbol: EpubExportPayload
+    lines:
+    - 53
+    - 62
+  alias: src-tauri/crates/md-studio-core/src/export/epub_types.rs#EpubExportPayload
+  inclusion:
+  - contract
+  trace_task: TRACE-004
+- id: DTO-RS-EPUB-EXPORT-RESULT
+  type: dto
+  name: EpubExportResult
+  module: MOD-EXPORT
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/export/epub_types.rs
+    symbol: EpubExportResult
+    lines:
+    - 66
+    - 72
+  alias: src-tauri/crates/md-studio-core/src/export/epub_types.rs#EpubExportResult
+  inclusion:
+  - contract
+  trace_task: TRACE-004
+- id: FILE-EXPORT-EPUB
+  type: file_persisted
+  name: Arquivo .epub exportado (zip mimetype stored)
+  module: MOD-EXPORT
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/export/epub_builder.rs
+    symbol: '"name == "mimetype""'
+    lines:
+    - 331
+    - 334
+  alias: src-tauri/crates/md-studio-core/src/export/epub_builder.rs#name == "mimetype
+  inclusion:
+  - flow
+  - contract
+  trace_task: TRACE-006
+- id: DTO-RS-SAVE-DOCUMENT-REQUEST
+  type: dto
+  name: SaveDocumentRequest
+  module: MOD-PERSISTENCE
+  anchor:
+    path: src-tauri/src/commands/mod.rs
+    symbol: SaveDocumentRequest
+    lines:
+    - 13
+    - 18
+  alias: src-tauri/src/commands/mod.rs#SaveDocumentRequest
+  inclusion:
+  - contract
+  trace_task: TRACE-004
+- id: DTO-RS-EXPORT-HTML-REQUEST
+  type: dto
+  name: ExportHtmlRequest
+  module: MOD-EXPORT
+  anchor:
+    path: src-tauri/src/commands/mod.rs
+    symbol: ExportHtmlRequest
+    lines:
+    - 207
+    - 213
+  alias: src-tauri/src/commands/mod.rs#ExportHtmlRequest
+  inclusion:
+  - contract
+  trace_task: TRACE-004
+- id: DTO-RS-EXPORT-EPUB-REQUEST
+  type: dto
+  name: ExportEpubRequest
+  module: MOD-EXPORT
+  anchor:
+    path: src-tauri/src/commands/mod.rs
+    symbol: ExportEpubRequest
+    lines:
+    - 230
+    - 235
+  alias: src-tauri/src/commands/mod.rs#ExportEpubRequest
+  inclusion:
+  - contract
+  trace_task: TRACE-004
+- id: DTO-RS-WORKSPACE-DESCRIPTOR
+  type: dto
+  name: WorkspaceDescriptor
+  module: MOD-WORKSPACE-FS
+  anchor:
+    path: src-tauri/src/contracts/mod.rs
+    symbol: WorkspaceDescriptor
+    lines:
+    - 6
+    - 10
+  alias: src-tauri/src/contracts/mod.rs#WorkspaceDescriptor
+  inclusion:
+  - contract
+  trace_task: TRACE-004
+- id: DTO-RS-FILE-ENTRY
+  type: dto
+  name: FileEntry
+  module: MOD-WORKSPACE-FS
+  anchor:
+    path: src-tauri/src/contracts/mod.rs
+    symbol: FileEntry
+    lines:
+    - 14
+    - 19
+  alias: src-tauri/src/contracts/mod.rs#FileEntry
+  inclusion:
+  - contract
+  trace_task: TRACE-004
+- id: DTO-RS-DOCUMENT-SNAPSHOT
+  type: dto
+  name: DocumentSnapshot
+  module: MOD-PERSISTENCE
+  anchor:
+    path: src-tauri/src/contracts/mod.rs
+    symbol: DocumentSnapshot
+    lines:
+    - 23
+    - 31
+  alias: src-tauri/src/contracts/mod.rs#DocumentSnapshot
+  inclusion:
+  - contract
+  trace_task: TRACE-004
+- id: DTO-RS-SEARCH-RESULT
+  type: dto
+  name: SearchResult
+  module: MOD-SEARCH
+  anchor:
+    path: src-tauri/src/contracts/mod.rs
+    symbol: SearchResult
+    lines:
+    - 35
+    - 39
+  alias: src-tauri/src/contracts/mod.rs#SearchResult
+  inclusion:
+  - contract
+  trace_task: TRACE-004
+- id: DTO-RS-WATCH-EVENT
+  type: dto
+  name: WatchEventDto
+  module: MOD-WATCHER
+  anchor:
+    path: src-tauri/src/watcher/mod.rs
+    symbol: WatchEventDto
+    lines:
+    - 24
+    - 31
+  alias: src-tauri/src/watcher/mod.rs#WatchEventDto
+  inclusion:
+  - contract
+  trace_task: TRACE-004
+- id: DTO-RS-WORKSPACE-STATS
+  type: dto
+  name: WorkspaceStats
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src-tauri/src/commands/metadata.rs
+    symbol: WorkspaceStats
+    lines:
+    - 16
+    - 25
+  alias: src-tauri/src/commands/metadata.rs#WorkspaceStats
+  inclusion:
+  - contract
+  trace_task: TRACE-004
+- id: DTO-RS-FORMAT-RESULT
+  type: dto
+  name: FormatResult
+  module: MOD-FORMATTER
+  anchor:
+    path: src-tauri/src/commands/formatter.rs
+    symbol: FormatResult
+    lines:
+    - 9
+    - 15
+  alias: src-tauri/src/commands/formatter.rs#FormatResult
+  inclusion:
+  - contract
+  trace_task: TRACE-004
+- id: DTO-TS-WORKSPACE-DESCRIPTOR
+  type: dto
+  name: WorkspaceDescriptor
+  module: MOD-WORKSPACE-FS
+  anchor:
+    path: src/contracts/types.ts
+    symbol: WorkspaceDescriptor
+    lines:
+    - 4
+    - 8
+  alias: src/contracts/types.ts#WorkspaceDescriptor
+  inclusion:
+  - contract
+  trace_task: TRACE-004
+- id: DTO-TS-FILE-ENTRY
+  type: dto
+  name: FileEntry
+  module: MOD-WORKSPACE-FS
+  anchor:
+    path: src/contracts/types.ts
+    symbol: FileEntry
+    lines:
+    - 10
+    - 15
+  alias: src/contracts/types.ts#FileEntry
+  inclusion:
+  - contract
+  trace_task: TRACE-004
+- id: DTO-TS-DOCUMENT-SNAPSHOT
+  type: dto
+  name: DocumentSnapshot
+  module: MOD-PERSISTENCE
+  anchor:
+    path: src/contracts/types.ts
+    symbol: DocumentSnapshot
+    lines:
+    - 17
+    - 25
+  alias: src/contracts/types.ts#DocumentSnapshot
+  inclusion:
+  - contract
+  trace_task: TRACE-004
+- id: DTO-TS-SAVE-DOCUMENT-REQUEST
+  type: dto
+  name: SaveDocumentRequest
+  module: MOD-PERSISTENCE
+  anchor:
+    path: src/contracts/types.ts
+    symbol: SaveDocumentRequest
+    lines:
+    - 27
+    - 32
+  alias: src/contracts/types.ts#SaveDocumentRequest
+  inclusion:
+  - contract
+  trace_task: TRACE-004
+- id: DTO-TS-SAVE-RESULT
+  type: dto
+  name: SaveResult
+  module: MOD-PERSISTENCE
+  anchor:
+    path: src/contracts/types.ts
+    symbol: SaveResult
+    lines:
+    - 34
+    - 36
+  alias: src/contracts/types.ts#SaveResult
+  inclusion:
+  - contract
+  trace_task: TRACE-004
+- id: DTO-TS-SEARCH-RESULT
+  type: dto
+  name: SearchResult
+  module: MOD-SEARCH
+  anchor:
+    path: src/contracts/types.ts
+    symbol: SearchResult
+    lines:
+    - 38
+    - 42
+  alias: src/contracts/types.ts#SearchResult
+  inclusion:
+  - contract
+  trace_task: TRACE-004
+- id: DTO-TS-WATCH-EVENT
+  type: dto
+  name: WatchEvent
+  module: MOD-WATCHER
+  anchor:
+    path: src/contracts/types.ts
+    symbol: WatchEvent
+    lines:
+    - 44
+    - 45
+  alias: src/contracts/types.ts#WatchEvent
+  inclusion:
+  - contract
+  trace_task: TRACE-004
+- id: DTO-TS-IPC-ERROR-CODE
+  type: dto
+  name: IpcErrorCode
+  module: MOD-PERSISTENCE
+  anchor:
+    path: src/contracts/types.ts
+    symbol: IpcErrorCode
+    lines:
+    - 47
+    - 54
+  alias: src/contracts/types.ts#IpcErrorCode
+  inclusion:
+  - contract
+  trace_task: TRACE-004
+- id: DTO-TS-DOCUMENT-METADATA
+  type: dto
+  name: DocumentMetadata
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src/types/metadata.ts
+    symbol: DocumentMetadata
+    lines:
+    - 1
+    - 15
+  alias: src/types/metadata.ts#DocumentMetadata
+  inclusion:
+  - contract
+  trace_task: TRACE-004
+- id: DTO-TS-RESOLVED-WIKI-LINK
+  type: dto
+  name: ResolvedWikiLink
+  module: MOD-WIKI-LINKS
+  anchor:
+    path: src/types/metadata.ts
+    symbol: ResolvedWikiLink
+    lines:
+    - 38
+    - 42
+  alias: src/types/metadata.ts#ResolvedWikiLink
+  inclusion:
+  - contract
+  trace_task: TRACE-004
+- id: DTO-TS-WORKSPACE-STATS
+  type: dto
+  name: WorkspaceStats
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src/types/metadata.ts
+    symbol: WorkspaceStats
+    lines:
+    - 44
+    - 53
+  alias: src/types/metadata.ts#WorkspaceStats
+  inclusion:
+  - contract
+  trace_task: TRACE-004
+- id: DTO-TS-REINDEX-REPORT
+  type: dto
+  name: ReindexReport
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src/types/metadata.ts
+    symbol: ReindexReport
+    lines:
+    - 55
+    - 59
+  alias: src/types/metadata.ts#ReindexReport
+  inclusion:
+  - contract
+  trace_task: TRACE-004
+- id: DTO-TS-BACKLINK-RESULT
+  type: dto
+  name: BacklinkResult
+  module: MOD-BACKLINKS
+  anchor:
+    path: src/types/metadata.ts
+    symbol: BacklinkResult
+    lines:
+    - 73
+    - 78
+  alias: src/types/metadata.ts#BacklinkResult
+  inclusion:
+  - contract
+  trace_task: TRACE-004
+- id: DTO-TS-EPUB-EXPORT-PAYLOAD
+  type: dto
+  name: EpubExportPayload
+  module: MOD-EXPORT
+  anchor:
+    path: src/export/epubTypes.ts
+    symbol: EpubExportPayload
+    lines:
+    - 16
+    - 21
+  alias: src/export/epubTypes.ts#EpubExportPayload
+  inclusion:
+  - contract
+  trace_task: TRACE-004
+- id: DTO-TS-EPUB-EXPORT-RESULT
+  type: dto
+  name: EpubExportResult
+  module: MOD-EXPORT
+  anchor:
+    path: src/export/epubTypes.ts
+    symbol: EpubExportResult
+    lines:
+    - 23
+    - 29
+  alias: src/export/epubTypes.ts#EpubExportResult
+  inclusion:
+  - contract
+  trace_task: TRACE-004
+- id: DTO-TS-FORMAT-RESPONSE
+  type: dto
+  name: FormatResponse
+  module: MOD-FORMATTER
+  anchor:
+    path: src/services/formatter/types.ts
+    symbol: FormatResponse
+    lines:
+    - 6
+    - 11
+  alias: src/services/formatter/types.ts#FormatResponse
+  inclusion:
+  - contract
+  trace_task: TRACE-004
+- id: STO-DOCUMENT-STATE
+  type: store
+  name: useDocumentState (estado do documento ativo)
+  module: MOD-PERSISTENCE
+  anchor:
+    path: src/state/documentState.ts
+    symbol: useDocumentState
+    lines:
+    - 28
+    - 499
+  alias: src/state/documentState.ts#useDocumentState
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: HDL-DOC-SET-CONTENT
+  type: handler
+  name: useDocumentState.setContent
+  module: MOD-PERSISTENCE
+  anchor:
+    path: src/state/documentState.ts
+    symbol: useDocumentState.setContent
+    lines:
+    - 61
+    - 90
+  alias: src/state/documentState.ts#useDocumentState.setContent
+  inclusion:
+  - entrypoint
+  - flow
+  trace_task: TRACE-004
+- id: HDL-DOC-ON-WORKSPACE-READY
+  type: handler
+  name: useDocumentState.onWorkspaceReady
+  module: MOD-WORKSPACE-FS
+  anchor:
+    path: src/state/documentState.ts
+    symbol: useDocumentState.onWorkspaceReady
+    lines:
+    - 93
+    - 106
+  alias: src/state/documentState.ts#useDocumentState.onWorkspaceReady
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: HDL-DOC-OPEN-WORKSPACE-PATH
+  type: handler
+  name: useDocumentState.openWorkspacePath
+  module: MOD-WORKSPACE-FS
+  anchor:
+    path: src/state/documentState.ts
+    symbol: useDocumentState.openWorkspacePath
+    lines:
+    - 108
+    - 121
+  alias: src/state/documentState.ts#useDocumentState.openWorkspacePath
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: HDL-DOC-OPEN-RELATIVE
+  type: handler
+  name: useDocumentState.openRelative
+  module: MOD-WORKSPACE-FS
+  anchor:
+    path: src/state/documentState.ts
+    symbol: useDocumentState.openRelative
+    lines:
+    - 123
+    - 170
+  alias: src/state/documentState.ts#useDocumentState.openRelative
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: HDL-DOC-OPEN-FOLDER
+  type: handler
+  name: useDocumentState.openFolder
+  module: MOD-WORKSPACE-FS
+  anchor:
+    path: src/state/documentState.ts
+    symbol: useDocumentState.openFolder
+    lines:
+    - 172
+    - 195
+  alias: src/state/documentState.ts#useDocumentState.openFolder
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: HDL-DOC-OPEN-FILE
+  type: handler
+  name: useDocumentState.openFile
+  module: MOD-WORKSPACE-FS
+  anchor:
+    path: src/state/documentState.ts
+    symbol: useDocumentState.openFile
+    lines:
+    - 197
+    - 209
+  alias: src/state/documentState.ts#useDocumentState.openFile
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: HDL-DOC-OPEN-RECENT
+  type: handler
+  name: useDocumentState.openRecent
+  module: MOD-WORKSPACE-FS
+  anchor:
+    path: src/state/documentState.ts
+    symbol: useDocumentState.openRecent
+    lines:
+    - 211
+    - 267
+  alias: src/state/documentState.ts#useDocumentState.openRecent
+  inclusion:
+  - flow
+  notes: Contém diretórios candidatos hardcoded (/home/elzobrito/...) para resolver recentes sem workspace.
+  trace_task: TRACE-004
+- id: HDL-DOC-SAVE-AS
+  type: handler
+  name: useDocumentState.saveAs
+  module: MOD-PERSISTENCE
+  anchor:
+    path: src/state/documentState.ts
+    symbol: useDocumentState.saveAs
+    lines:
+    - 269
+    - 323
+  alias: src/state/documentState.ts#useDocumentState.saveAs
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: HDL-DOC-SAVE
+  type: handler
+  name: useDocumentState.save
+  module: MOD-PERSISTENCE
+  anchor:
+    path: src/state/documentState.ts
+    symbol: useDocumentState.save
+    lines:
+    - 325
+    - 351
+  alias: src/state/documentState.ts#useDocumentState.save
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: HDL-DOC-NEW-DOCUMENT
+  type: handler
+  name: useDocumentState.newDocument
+  module: MOD-TEMPLATES
+  anchor:
+    path: src/state/documentState.ts
+    symbol: useDocumentState.newDocument
+    lines:
+    - 355
+    - 362
+  alias: src/state/documentState.ts#useDocumentState.newDocument
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: HDL-DOC-CLOSE-FILE
+  type: handler
+  name: useDocumentState.closeFile
+  module: MOD-APP-SHELL
+  anchor:
+    path: src/state/documentState.ts
+    symbol: useDocumentState.closeFile
+    lines:
+    - 364
+    - 371
+  alias: src/state/documentState.ts#useDocumentState.closeFile
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: HDL-DOC-RESOLVE-CONFLICT
+  type: handler
+  name: useDocumentState.resolveConflict
+  module: MOD-WATCHER
+  anchor:
+    path: src/state/documentState.ts
+    symbol: useDocumentState.resolveConflict
+    lines:
+    - 454
+    - 477
+  alias: src/state/documentState.ts#useDocumentState.resolveConflict
+  inclusion:
+  - flow
+  notes: '''reload'' chama openRelative, que reaplica rascunho do localStorage (possível não recarregar do disco).'
+  trace_task: TRACE-004
+- id: HDL-DOC-WATCH-EFFECT
+  type: handler
+  name: Efeito start_watching + subscribeWorkspaceWatch
+  module: MOD-WATCHER
+  anchor:
+    path: src/state/documentState.ts
+    symbol: '"if (!workspace?.id) return;"'
+    lines:
+    - 425
+    - 452
+  alias: src/state/documentState.ts#if (!workspace?.id) return;
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: CNS-SUBSCRIBE-WORKSPACE-WATCH
+  type: consumer
+  name: subscribeWorkspaceWatch
+  module: MOD-WATCHER
+  anchor:
+    path: src/lib/ipc/client.ts
+    symbol: subscribeWorkspaceWatch
+    lines:
+    - 314
+    - 332
+  alias: src/lib/ipc/client.ts#subscribeWorkspaceWatch
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: SVC-PERSIST-DOCUMENT
+  type: service
+  name: persistDocument
+  module: MOD-PERSISTENCE
+  anchor:
+    path: src/services/save.ts
+    symbol: persistDocument
+    lines:
+    - 5
+    - 21
+  alias: src/services/save.ts#persistDocument
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: CMP-CONFLICT-DIALOG
+  type: component
+  name: ConflictDialog
+  module: MOD-WATCHER
+  anchor:
+    path: src/components/ConflictDialog.tsx
+    symbol: ConflictDialog
+    lines:
+    - 12
+    - 42
+  alias: src/components/ConflictDialog.tsx#ConflictDialog
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: BTN-CONFLICT-RELOAD
+  type: button
+  name: onChoose("reload")
+  module: MOD-WATCHER
+  anchor:
+    path: src/components/ConflictDialog.tsx
+    symbol: '"onChoose("reload")"'
+    lines:
+    - 29
+    - 31
+  alias: src/components/ConflictDialog.tsx#onChoose("reload")
+  inclusion:
+  - entrypoint
+  - flow
+  trace_task: TRACE-004
+- id: BTN-CONFLICT-KEEP
+  type: button
+  name: onChoose("keep")
+  module: MOD-WATCHER
+  anchor:
+    path: src/components/ConflictDialog.tsx
+    symbol: '"onChoose("keep")"'
+    lines:
+    - 32
+    - 34
+  alias: src/components/ConflictDialog.tsx#onChoose("keep")
+  inclusion:
+  - entrypoint
+  - flow
+  trace_task: TRACE-004
+- id: BTN-CONFLICT-SAVE-AS
+  type: button
+  name: onChoose("saveAs")
+  module: MOD-WATCHER
+  anchor:
+    path: src/components/ConflictDialog.tsx
+    symbol: '"onChoose("saveAs")"'
+    lines:
+    - 35
+    - 37
+  alias: src/components/ConflictDialog.tsx#onChoose("saveAs")
+  inclusion:
+  - entrypoint
+  - flow
+  trace_task: TRACE-004
+- id: LSK-DRAFTS
+  type: local_storage_key
+  name: md-studio-draft:v3:*
+  module: MOD-DRAFTS
+  anchor:
+    path: src/lib/drafts/recovery.ts
+    symbol: CURRENT_PREFIX
+    lines:
+    - 2
+    - 2
+  alias: src/lib/drafts/recovery.ts#CURRENT_PREFIX
+  inclusion:
+  - flow
+  - contract
+  trace_task: TRACE-006
+- id: LSK-DRAFTS-LEGACY
+  type: local_storage_key
+  name: md-studio-draft:* (legado)
+  module: MOD-DRAFTS
+  anchor:
+    path: src/lib/drafts/recovery.ts
+    symbol: PREFIX
+    lines:
+    - 1
+    - 1
+  alias: src/lib/drafts/recovery.ts#PREFIX
+  inclusion:
+  - flow
+  - contract
+  trace_task: TRACE-006
+- id: CFG-DRAFT-RETENTION
+  type: configuration
+  name: Retenção de rascunhos 90 dias
+  module: MOD-DRAFTS
+  anchor:
+    path: src/lib/drafts/recovery.ts
+    symbol: DRAFT_RETENTION_DAYS
+    lines:
+    - 3
+    - 3
+  alias: src/lib/drafts/recovery.ts#DRAFT_RETENTION_DAYS
+  inclusion:
+  - contract
+  trace_task: TRACE-004
+- id: CFG-DRAFT-WARNING
+  type: configuration
+  name: Aviso de expiração 75 dias
+  module: MOD-DRAFTS
+  anchor:
+    path: src/lib/drafts/recovery.ts
+    symbol: DRAFT_WARNING_DAYS
+    lines:
+    - 4
+    - 4
+  alias: src/lib/drafts/recovery.ts#DRAFT_WARNING_DAYS
+  inclusion:
+  - contract
+  trace_task: TRACE-004
+- id: FN-DRAFT-KEY
+  type: function
+  name: draftKey
+  module: MOD-DRAFTS
+  anchor:
+    path: src/lib/drafts/recovery.ts
+    symbol: draftKey
+    lines:
+    - 19
+    - 22
+  alias: src/lib/drafts/recovery.ts#draftKey
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-SAVE-DRAFT
+  type: function
+  name: saveDraft
+  module: MOD-DRAFTS
+  anchor:
+    path: src/lib/drafts/recovery.ts
+    symbol: saveDraft
+    lines:
+    - 24
+    - 31
+  alias: src/lib/drafts/recovery.ts#saveDraft
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-LOAD-DRAFT
+  type: function
+  name: loadDraft
+  module: MOD-DRAFTS
+  anchor:
+    path: src/lib/drafts/recovery.ts
+    symbol: loadDraft
+    lines:
+    - 46
+    - 54
+  alias: src/lib/drafts/recovery.ts#loadDraft
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-LIST-RECOVERABLE-DRAFTS
+  type: function
+  name: listRecoverableDrafts
+  module: MOD-DRAFTS
+  anchor:
+    path: src/lib/drafts/recovery.ts
+    symbol: listRecoverableDrafts
+    lines:
+    - 56
+    - 90
+  alias: src/lib/drafts/recovery.ts#listRecoverableDrafts
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-REMOVE-DRAFT-KEY
+  type: function
+  name: removeDraftKey
+  module: MOD-DRAFTS
+  anchor:
+    path: src/lib/drafts/recovery.ts
+    symbol: removeDraftKey
+    lines:
+    - 92
+    - 100
+  alias: src/lib/drafts/recovery.ts#removeDraftKey
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-CLEAR-DRAFT
+  type: function
+  name: clearDraft
+  module: MOD-DRAFTS
+  anchor:
+    path: src/lib/drafts/recovery.ts
+    symbol: clearDraft
+    lines:
+    - 102
+    - 104
+  alias: src/lib/drafts/recovery.ts#clearDraft
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-DRAFT-ROOT
+  type: function
+  name: 'draftRoot (raiz de rascunho: rootLabel no Tauri, identidade no browser)'
+  module: MOD-DRAFTS
+  anchor:
+    path: src/state/documentState.ts
+    symbol: draftRoot
+    lines:
+    - 24
+    - 26
+  alias: src/state/documentState.ts#draftRoot
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-GET-BROWSER-DRAFT-IDENTITY
+  type: function
+  name: getBrowserDraftIdentity
+  module: MOD-DRAFTS
+  anchor:
+    path: src/lib/browserFs.ts
+    symbol: getBrowserDraftIdentity
+    lines:
+    - 14
+    - 16
+  alias: src/lib/browserFs.ts#getBrowserDraftIdentity
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: CMP-DRAFT-RECOVERY-DIALOG
+  type: component
+  name: DraftRecoveryDialog
+  module: MOD-DRAFTS
+  anchor:
+    path: src/components/DraftRecoveryDialog.tsx
+    symbol: DraftRecoveryDialog
+    lines:
+    - 13
+    - 77
+  alias: src/components/DraftRecoveryDialog.tsx#DraftRecoveryDialog
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: STO-SETTINGS
+  type: store
+  name: SettingsStore
+  module: MOD-SETTINGS-SESSION
+  anchor:
+    path: src/state/settings.ts
+    symbol: SettingsStore
+    lines:
+    - 112
+    - 323
+  alias: src/state/settings.ts#SettingsStore
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: CFG-DEFAULT-SETTINGS
+  type: configuration
+  name: DEFAULT_SETTINGS (autoSave, autoSaveDelay 1500)
+  module: MOD-SETTINGS-SESSION
+  anchor:
+    path: src/state/settings.ts
+    symbol: DEFAULT_SETTINGS
+    lines:
+    - 92
+    - 107
+  alias: src/state/settings.ts#DEFAULT_SETTINGS
+  inclusion:
+  - contract
+  trace_task: TRACE-004
+- id: LSK-SETTINGS
+  type: local_storage_key
+  name: md-studio-settings-v2
+  module: MOD-SETTINGS-SESSION
+  anchor:
+    path: src/state/settings.ts
+    symbol: STORAGE_KEY
+    lines:
+    - 21
+    - 21
+  alias: src/state/settings.ts#STORAGE_KEY
+  inclusion:
+  - flow
+  - contract
+  trace_task: TRACE-006
+- id: STO-SESSION
+  type: store
+  name: useSession
+  module: MOD-SETTINGS-SESSION
+  anchor:
+    path: src/state/session.ts
+    symbol: useSession
+    lines:
+    - 23
+    - 76
+  alias: src/state/session.ts#useSession
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: LSK-SESSION
+  type: local_storage_key
+  name: md-studio-session-v2
+  module: MOD-SETTINGS-SESSION
+  anchor:
+    path: src/state/session.ts
+    symbol: KEY
+    lines:
+    - 7
+    - 7
+  alias: src/state/session.ts#KEY
+  inclusion:
+  - flow
+  - contract
+  trace_task: TRACE-006
+- id: STO-RECENT-FILES
+  type: store
+  name: RecentFilesStore
+  module: MOD-SETTINGS-SESSION
+  anchor:
+    path: src/state/recent-files.ts
+    symbol: RecentFilesStore
+    lines:
+    - 13
+    - 89
+  alias: src/state/recent-files.ts#RecentFilesStore
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: LSK-RECENT-FILES
+  type: local_storage_key
+  name: md-studio.recent-files
+  module: MOD-SETTINGS-SESSION
+  anchor:
+    path: src/state/recent-files.ts
+    symbol: STORAGE_KEY
+    lines:
+    - 8
+    - 8
+  alias: src/state/recent-files.ts#STORAGE_KEY
+  inclusion:
+  - flow
+  - contract
+  trace_task: TRACE-006
+- id: STO-UI
+  type: store
+  name: UIStore
+  module: MOD-SETTINGS-SESSION
+  anchor:
+    path: src/state/ui.ts
+    symbol: UIStore
+    lines:
+    - 10
+    - 77
+  alias: src/state/ui.ts#UIStore
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: LSK-UI-STATE
+  type: local_storage_key
+  name: md-studio.ui-state
+  module: MOD-SETTINGS-SESSION
+  anchor:
+    path: src/state/ui.ts
+    symbol: STORAGE_KEY
+    lines:
+    - 1
+    - 1
+  alias: src/state/ui.ts#STORAGE_KEY
+  inclusion:
+  - flow
+  - contract
+  trace_task: TRACE-006
+- id: LSK-FILE-TREE-EXPANDED
+  type: local_storage_key
+  name: md-studio.file-tree.expanded
+  module: MOD-WORKSPACE-FS
+  anchor:
+    path: src/hooks/useFileTree.ts
+    symbol: STORAGE_KEY
+    lines:
+    - 6
+    - 6
+  alias: src/hooks/useFileTree.ts#STORAGE_KEY
+  inclusion:
+  - flow
+  - contract
+  trace_task: TRACE-006
+- id: LSK-PANEL-WIDTH
+  type: local_storage_key
+  name: md-studio.panel-width.{side}
+  module: MOD-SETTINGS-SESSION
+  anchor:
+    path: src/hooks/useResizablePanel.ts
+    symbol: '"md-studio.panel-width."'
+    lines:
+    - 18
+    - 18
+  alias: src/hooks/useResizablePanel.ts#md-studio.panel-width.
+  inclusion:
+  - flow
+  - contract
+  trace_task: TRACE-006
+- id: LSK-SPLIT-RATIO
+  type: local_storage_key
+  name: md-studio.split-ratio
+  module: MOD-SETTINGS-SESSION
+  anchor:
+    path: src/components/layout/SplitDivider.tsx
+    symbol: SPLIT_RATIO_STORAGE_KEY
+    lines:
+    - 11
+    - 11
+  alias: src/components/layout/SplitDivider.tsx#SPLIT_RATIO_STORAGE_KEY
+  inclusion:
+  - flow
+  - contract
+  trace_task: TRACE-006
+- id: STO-EDITOR
+  type: store
+  name: EditorStore
+  module: MOD-EDITOR
+  anchor:
+    path: src/state/editor.ts
+    symbol: EditorStore
+    lines:
+    - 13
+    - 89
+  alias: src/state/editor.ts#EditorStore
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: CMP-FILE-EXPLORER
+  type: component
+  name: FileExplorer
+  module: MOD-WORKSPACE-FS
+  anchor:
+    path: src/components/FileExplorer.tsx
+    symbol: FileExplorer
+    lines:
+    - 23
+    - 282
+  alias: src/components/FileExplorer.tsx#FileExplorer
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: HDL-EXPLORER-OPEN-FOLDER
+  type: handler
+  name: FileExplorer.handleOpenFolder
+  module: MOD-WORKSPACE-FS
+  anchor:
+    path: src/components/FileExplorer.tsx
+    symbol: FileExplorer.handleOpenFolder
+    lines:
+    - 88
+    - 115
+  alias: src/components/FileExplorer.tsx#FileExplorer.handleOpenFolder
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: HDL-EXPLORER-OPEN-FILE
+  type: handler
+  name: FileExplorer.handleOpenFile
+  module: MOD-WORKSPACE-FS
+  anchor:
+    path: src/components/FileExplorer.tsx
+    symbol: FileExplorer.handleOpenFile
+    lines:
+    - 117
+    - 141
+  alias: src/components/FileExplorer.tsx#FileExplorer.handleOpenFile
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: HDL-EXPLORER-ENTRY-CLICK
+  type: handler
+  name: FileExplorer.onEntryClick
+  module: MOD-WORKSPACE-FS
+  anchor:
+    path: src/components/FileExplorer.tsx
+    symbol: FileExplorer.onEntryClick
+    lines:
+    - 143
+    - 161
+  alias: src/components/FileExplorer.tsx#FileExplorer.onEntryClick
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: BTN-EXPLORER-OPEN-FOLDER
+  type: button
+  name: onClick={() => void handleOpenFolder()}
+  module: MOD-WORKSPACE-FS
+  anchor:
+    path: src/components/FileExplorer.tsx
+    symbol: '"onClick={() => void handleOpenFolder()}"'
+    lines:
+    - 194
+    - 194
+  alias: src/components/FileExplorer.tsx#onClick={() => void handleOpenFolder()}
+  inclusion:
+  - entrypoint
+  - flow
+  trace_task: TRACE-004
+- id: BTN-EXPLORER-OPEN-FILE
+  type: button
+  name: onClick={() => void handleOpenFile()}
+  module: MOD-WORKSPACE-FS
+  anchor:
+    path: src/components/FileExplorer.tsx
+    symbol: '"onClick={() => void handleOpenFile()}"'
+    lines:
+    - 205
+    - 205
+  alias: src/components/FileExplorer.tsx#onClick={() => void handleOpenFile()}
+  inclusion:
+  - entrypoint
+  - flow
+  trace_task: TRACE-004
+- id: BTN-EXPLORER-REINDEX
+  type: button
+  name: onClick={onReindex}
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src/components/explorer/WorkspaceHeader.tsx
+    symbol: '"onClick={onReindex}"'
+    lines:
+    - 38
+    - 38
+  alias: src/components/explorer/WorkspaceHeader.tsx#onClick={onReindex}
+  inclusion:
+  - entrypoint
+  - flow
+  notes: Rotulado 'Reindexar workspace', mas FileExplorer liga onReindex a reload() da árvore (list_entries), não a trigger_reindex.
+  trace_task: TRACE-004
+- id: FN-USE-FILE-TREE
+  type: function
+  name: useFileTree
+  module: MOD-WORKSPACE-FS
+  anchor:
+    path: src/hooks/useFileTree.ts
+    symbol: useFileTree
+    lines:
+    - 26
+    - 171
+  alias: src/hooks/useFileTree.ts#useFileTree
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: CMP-MARKDOWN-EDITOR
+  type: component
+  name: MarkdownEditor
+  module: MOD-EDITOR
+  anchor:
+    path: src/components/MarkdownEditor.tsx
+    symbol: MarkdownEditor
+    lines:
+    - 88
+    - 256
+  alias: src/components/MarkdownEditor.tsx#MarkdownEditor
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: SHC-EDITOR-MOD-S
+  type: shortcut
+  name: CodeMirror Mod-s -> onSave
+  module: MOD-PERSISTENCE
+  anchor:
+    path: src/components/MarkdownEditor.tsx
+    symbol: '"Mod-s"'
+    lines:
+    - 183
+    - 183
+  alias: src/components/MarkdownEditor.tsx#Mod-s
+  inclusion:
+  - entrypoint
+  - flow
+  trace_task: TRACE-004
+- id: SHC-EDITOR-MOD-SHIFT-S
+  type: shortcut
+  name: CodeMirror Mod-Shift-s -> tachado
+  module: MOD-EDITOR
+  anchor:
+    path: src/components/MarkdownEditor.tsx
+    symbol: '"Mod-Shift-s"'
+    lines:
+    - 148
+    - 148
+  alias: src/components/MarkdownEditor.tsx#Mod-Shift-s
+  inclusion:
+  - entrypoint
+  - flow
+  notes: Mesma combinação do atalho global Ctrl+Shift+S (Salvar como).
+  trace_task: TRACE-004
+- id: SHC-EDITOR-SHIFT-ALT-F
+  type: shortcut
+  name: Shift+Alt+F formatar
+  module: MOD-FORMATTER
+  anchor:
+    path: src/components/MarkdownEditor.tsx
+    symbol: '"Shift-Alt-f"'
+    lines:
+    - 169
+    - 169
+  alias: src/components/MarkdownEditor.tsx#Shift-Alt-f
+  inclusion:
+  - entrypoint
+  - flow
+  trace_task: TRACE-004
+- id: CMP-FORMATTING-TOOLBAR
+  type: component
+  name: FormattingToolbar
+  module: MOD-EDITOR
+  anchor:
+    path: src/components/editor/FormattingToolbar.tsx
+    symbol: FormattingToolbar
+    lines:
+    - 110
+    - 425
+  alias: src/components/editor/FormattingToolbar.tsx#FormattingToolbar
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: BTN-TOOLBAR-FORMAT-CODE
+  type: button
+  name: label="Formatar código
+  module: MOD-FORMATTER
+  anchor:
+    path: src/components/editor/FormattingToolbar.tsx
+    symbol: '"label="Formatar código""'
+    lines:
+    - 342
+    - 342
+  alias: src/components/editor/FormattingToolbar.tsx#label="Formatar código
+  inclusion:
+  - entrypoint
+  - flow
+  trace_task: TRACE-004
+- id: FN-CREATE-WIKI-COMPLETION-EXTENSIONS
+  type: function
+  name: createWikiCompletionExtensions
+  module: MOD-WIKI-LINKS
+  anchor:
+    path: src/editor/wiki/wiki-completion.ts
+    symbol: createWikiCompletionExtensions
+    lines:
+    - 88
+    - 154
+  alias: src/editor/wiki/wiki-completion.ts#createWikiCompletionExtensions
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-WIKI-CANDIDATES
+  type: function
+  name: wikiCandidates
+  module: MOD-WIKI-LINKS
+  anchor:
+    path: src/editor/wiki/wiki-completion.ts
+    symbol: wikiCandidates
+    lines:
+    - 24
+    - 48
+  alias: src/editor/wiki/wiki-completion.ts#wikiCandidates
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: SVC-FORMAT-CODE
+  type: service
+  name: formatCode
+  module: MOD-FORMATTER
+  anchor:
+    path: src/services/formatter/index.ts
+    symbol: formatCode
+    lines:
+    - 8
+    - 38
+  alias: src/services/formatter/index.ts#formatCode
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-FORMAT-WEB-CODE
+  type: function
+  name: formatWebCode
+  module: MOD-FORMATTER
+  anchor:
+    path: src/services/formatter/web.ts
+    symbol: formatWebCode
+    lines:
+    - 40
+    - 72
+  alias: src/services/formatter/web.ts#formatWebCode
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-IS-WEB-LANGUAGE
+  type: function
+  name: isWebLanguage
+  module: MOD-FORMATTER
+  anchor:
+    path: src/services/formatter/web.ts
+    symbol: isWebLanguage
+    lines:
+    - 36
+    - 38
+  alias: src/services/formatter/web.ts#isWebLanguage
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-FORMAT-DOCUMENT-OR-CODE-BLOCK
+  type: function
+  name: formatDocumentOrCodeBlock
+  module: MOD-FORMATTER
+  anchor:
+    path: src/editor/formatting/formatCodeBlock.ts
+    symbol: formatDocumentOrCodeBlock
+    lines:
+    - 65
+    - 118
+  alias: src/editor/formatting/formatCodeBlock.ts#formatDocumentOrCodeBlock
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-FORMAT-CODE-BLOCK-AT-CURSOR
+  type: function
+  name: formatCodeBlockAtCursor
+  module: MOD-FORMATTER
+  anchor:
+    path: src/editor/formatting/formatCodeBlock.ts
+    symbol: formatCodeBlockAtCursor
+    lines:
+    - 10
+    - 58
+  alias: src/editor/formatting/formatCodeBlock.ts#formatCodeBlockAtCursor
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-FIND-FENCED-CODE-BLOCKS
+  type: function
+  name: findFencedCodeBlocks
+  module: MOD-FORMATTER
+  anchor:
+    path: src/markdown/fencedCode.ts
+    symbol: findFencedCodeBlocks
+    lines:
+    - 53
+    - 80
+  alias: src/markdown/fencedCode.ts#findFencedCodeBlocks
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-REPLACE-FENCED-CODE-BLOCK
+  type: function
+  name: replaceFencedCodeBlock
+  module: MOD-FORMATTER
+  anchor:
+    path: src/markdown/fencedCode.ts
+    symbol: replaceFencedCodeBlock
+    lines:
+    - 23
+    - 47
+  alias: src/markdown/fencedCode.ts#replaceFencedCodeBlock
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: CMP-CODE-BLOCK
+  type: component
+  name: CodeBlock
+  module: MOD-FORMATTER
+  anchor:
+    path: src/components/CodeBlock.tsx
+    symbol: CodeBlock
+    lines:
+    - 5
+    - 69
+  alias: src/components/CodeBlock.tsx#CodeBlock
+  status: test_only
+  inclusion:
+  - test
+  notes: Não é renderizado pela aplicação; só por teste.
+  trace_task: TRACE-004
+- id: CMP-MARKDOWN-VIEWER
+  type: component
+  name: MarkdownViewer
+  module: MOD-PREVIEW
+  anchor:
+    path: src/components/MarkdownViewer.tsx
+    symbol: MarkdownViewer
+    lines:
+    - 10
+    - 263
+  alias: src/components/MarkdownViewer.tsx#MarkdownViewer
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: HDL-VIEWER-ON-CLICK
+  type: handler
+  name: Clique em links do preview
+  module: MOD-PREVIEW
+  anchor:
+    path: src/components/MarkdownViewer.tsx
+    symbol: MarkdownViewer.onClick
+    lines:
+    - 54
+    - 119
+  alias: src/components/MarkdownViewer.tsx#MarkdownViewer.onClick
+  inclusion:
+  - entrypoint
+  - flow
+  trace_task: TRACE-004
+- id: BTN-PREVIEW-FORMAT-CODE
+  type: button
+  name: formatBtn.title = "Formatar bloco de código
+  module: MOD-FORMATTER
+  anchor:
+    path: src/components/MarkdownViewer.tsx
+    symbol: '"formatBtn.title = "Formatar bloco de código""'
+    lines:
+    - 158
+    - 158
+  alias: src/components/MarkdownViewer.tsx#formatBtn.title = "Formatar bloco de código
+  inclusion:
+  - entrypoint
+  - flow
+  trace_task: TRACE-004
+- id: FN-SCROLL-TO-HEADING
+  type: function
+  name: scrollToHeading
+  module: MOD-PREVIEW
+  anchor:
+    path: src/services/navigation.ts
+    symbol: scrollToHeading
+    lines:
+    - 39
+    - 47
+  alias: src/services/navigation.ts#scrollToHeading
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-RESOLVE-RELATIVE-LINK
+  type: function
+  name: resolveRelativeLink
+  module: MOD-PREVIEW
+  anchor:
+    path: src/services/navigation.ts
+    symbol: resolveRelativeLink
+    lines:
+    - 58
+    - 87
+  alias: src/services/navigation.ts#resolveRelativeLink
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: CMP-DOCUMENT-OUTLINE
+  type: component
+  name: DocumentOutline
+  module: MOD-PREVIEW
+  anchor:
+    path: src/components/DocumentOutline.tsx
+    symbol: DocumentOutline
+    lines:
+    - 14
+    - 132
+  alias: src/components/DocumentOutline.tsx#DocumentOutline
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: SVC-PROCESS-MARKDOWN
+  type: service
+  name: processMarkdown (pipeline unified)
+  module: MOD-PREVIEW
+  anchor:
+    path: src/markdown/processor.ts
+    symbol: processMarkdown
+    lines:
+    - 32
+    - 94
+  alias: src/markdown/processor.ts#processMarkdown
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: PIPE-GITHUB-ALERTS
+  type: pipeline_stage
+  name: transformGithubAlerts
+  module: MOD-PREVIEW
+  anchor:
+    path: src/markdown/plugins/alerts.ts
+    symbol: transformGithubAlerts
+    lines:
+    - 3
+    - 9
+  alias: src/markdown/plugins/alerts.ts#transformGithubAlerts
+  inclusion:
+  - flow
+  - contract
+  trace_task: TRACE-004
+- id: PIPE-FRONTMATTER
+  type: pipeline_stage
+  name: parseFrontmatter
+  module: MOD-PREVIEW
+  anchor:
+    path: src/markdown/frontmatter.ts
+    symbol: parseFrontmatter
+    lines:
+    - 15
+    - 26
+  alias: src/markdown/frontmatter.ts#parseFrontmatter
+  inclusion:
+  - flow
+  - contract
+  trace_task: TRACE-004
+- id: PIPE-REMARK-GFM
+  type: pipeline_stage
+  name: processor.use(remarkGfm)
+  module: MOD-PREVIEW
+  anchor:
+    path: src/markdown/processor.ts
+    symbol: '"processor.use(remarkGfm)"'
+    lines:
+    - 49
+    - 49
+  alias: src/markdown/processor.ts#processor.use(remarkGfm)
+  inclusion:
+  - flow
+  - contract
+  trace_task: TRACE-004
+- id: PIPE-REMARK-MATH
+  type: pipeline_stage
+  name: processor.use(remarkMath)
+  module: MOD-PREVIEW
+  anchor:
+    path: src/markdown/processor.ts
+    symbol: '"processor.use(remarkMath)"'
+    lines:
+    - 51
+    - 51
+  alias: src/markdown/processor.ts#processor.use(remarkMath)
+  inclusion:
+  - flow
+  - contract
+  trace_task: TRACE-004
+- id: PIPE-REMARK-REHYPE
+  type: pipeline_stage
+  name: remark-rehype allowDangerousHtml
+  module: MOD-PREVIEW
+  anchor:
+    path: src/markdown/processor.ts
+    symbol: '".use(remarkRehype, { allowDangerousHtml: true })"'
+    lines:
+    - 57
+    - 57
+  alias: 'src/markdown/processor.ts#.use(remarkRehype, { allowDangerousHtml: true })'
+  inclusion:
+  - flow
+  - contract
+  trace_task: TRACE-004
+- id: PIPE-REHYPE-RAW
+  type: pipeline_stage
+  name: .use(rehypeRaw)
+  module: MOD-SECURITY-POLICY
+  anchor:
+    path: src/markdown/processor.ts
+    symbol: '".use(rehypeRaw)"'
+    lines:
+    - 58
+    - 58
+  alias: src/markdown/processor.ts#.use(rehypeRaw)
+  inclusion:
+  - flow
+  - contract
+  trace_task: TRACE-004
+- id: PIPE-STRIP-MARKDOWN-STYLES
+  type: pipeline_stage
+  name: stripMarkdownStyles
+  module: MOD-SECURITY-POLICY
+  anchor:
+    path: src/markdown/sanitize.ts
+    symbol: stripMarkdownStyles
+    lines:
+    - 15
+    - 19
+  alias: src/markdown/sanitize.ts#stripMarkdownStyles
+  inclusion:
+  - flow
+  - contract
+  trace_task: TRACE-004
+- id: PIPE-WIKI-LINKS
+  type: pipeline_stage
+  name: rehypeWikiLinks
+  module: MOD-WIKI-LINKS
+  anchor:
+    path: src/markdown/plugins/wiki-links.ts
+    symbol: rehypeWikiLinks
+    lines:
+    - 18
+    - 24
+  alias: src/markdown/plugins/wiki-links.ts#rehypeWikiLinks
+  inclusion:
+  - flow
+  - contract
+  trace_task: TRACE-004
+- id: PIPE-HEADING-IDS
+  type: pipeline_stage
+  name: rehypeHeadingIds
+  module: MOD-PREVIEW
+  anchor:
+    path: src/markdown/processor.ts
+    symbol: rehypeHeadingIds
+    lines:
+    - 97
+    - 110
+  alias: src/markdown/processor.ts#rehypeHeadingIds
+  inclusion:
+  - flow
+  - contract
+  trace_task: TRACE-004
+- id: PIPE-MERMAID-BLOCKS
+  type: pipeline_stage
+  name: rehypeMermaidBlocks
+  module: MOD-MERMAID
+  anchor:
+    path: src/markdown/processor.ts
+    symbol: rehypeMermaidBlocks
+    lines:
+    - 113
+    - 117
+  alias: src/markdown/processor.ts#rehypeMermaidBlocks
+  inclusion:
+  - flow
+  - contract
+  trace_task: TRACE-004
+- id: PIPE-SHIKI
+  type: pipeline_stage
+  name: getHighlighter
+  module: MOD-PREVIEW
+  anchor:
+    path: src/markdown/shiki.ts
+    symbol: getHighlighter
+    lines:
+    - 27
+    - 38
+  alias: src/markdown/shiki.ts#getHighlighter
+  inclusion:
+  - flow
+  - contract
+  trace_task: TRACE-004
+- id: PIPE-RESTRICT-RENDERER-STYLES
+  type: pipeline_stage
+  name: restrictRendererStyles
+  module: MOD-SECURITY-POLICY
+  anchor:
+    path: src/markdown/sanitize.ts
+    symbol: restrictRendererStyles
+    lines:
+    - 22
+    - 35
+  alias: src/markdown/sanitize.ts#restrictRendererStyles
+  inclusion:
+  - flow
+  - contract
+  trace_task: TRACE-004
+- id: PIPE-KATEX
+  type: pipeline_stage
+  name: '.use(rehypeKatex, { throwOnError: false, trust: false })'
+  module: MOD-PREVIEW
+  anchor:
+    path: src/markdown/processor.ts
+    symbol: '".use(rehypeKatex, { throwOnError: false, trust: false })"'
+    lines:
+    - 87
+    - 87
+  alias: 'src/markdown/processor.ts#.use(rehypeKatex, { throwOnError: false, trust: false })'
+  inclusion:
+  - flow
+  - contract
+  trace_task: TRACE-004
+- id: PIPE-SANITIZE
+  type: pipeline_stage
+  name: sanitizePlugin
+  module: MOD-SECURITY-POLICY
+  anchor:
+    path: src/markdown/sanitize.ts
+    symbol: sanitizePlugin
+    lines:
+    - 101
+    - 103
+  alias: src/markdown/sanitize.ts#sanitizePlugin
+  inclusion:
+  - flow
+  - contract
+  trace_task: TRACE-004
+- id: PIPE-HAST-TO-HTML
+  type: pipeline_stage
+  name: hastToHtml
+  module: MOD-PREVIEW
+  anchor:
+    path: src/markdown/processor.ts
+    symbol: hastToHtml
+    lines:
+    - 192
+    - 214
+  alias: src/markdown/processor.ts#hastToHtml
+  inclusion:
+  - flow
+  - contract
+  trace_task: TRACE-004
+- id: CFG-SANITIZE-SCHEMA
+  type: configuration
+  name: mdStudioSanitizeSchema
+  module: MOD-SECURITY-POLICY
+  anchor:
+    path: src/markdown/sanitize.ts
+    symbol: mdStudioSanitizeSchema
+    lines:
+    - 38
+    - 99
+  alias: src/markdown/sanitize.ts#mdStudioSanitizeSchema
+  inclusion:
+  - contract
+  trace_task: TRACE-004
+- id: CMP-MERMAID-BLOCK
+  type: component
+  name: MermaidBlock
+  module: MOD-MERMAID
+  anchor:
+    path: src/components/MermaidBlock.tsx
+    symbol: MermaidBlock
+    lines:
+    - 8
+    - 208
+  alias: src/components/MermaidBlock.tsx#MermaidBlock
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-RENDER-MERMAID
+  type: function
+  name: renderMermaid
+  module: MOD-MERMAID
+  anchor:
+    path: src/markdown/mermaid.ts
+    symbol: renderMermaid
+    lines:
+    - 8
+    - 46
+  alias: src/markdown/mermaid.ts#renderMermaid
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: CFG-TAURI-CSP
+  type: configuration
+  name: csp
+  module: MOD-SECURITY-POLICY
+  anchor:
+    path: src-tauri/tauri.conf.json
+    symbol: '"csp"'
+    lines:
+    - 36
+    - 36
+  alias: src-tauri/tauri.conf.json#csp
+  inclusion:
+  - contract
+  trace_task: TRACE-004
+- id: FN-ALLOW-URL
+  type: function
+  name: allowUrl
+  module: MOD-SECURITY-POLICY
+  anchor:
+    path: src/security/urlPolicy.ts
+    symbol: allowUrl
+    lines:
+    - 7
+    - 15
+  alias: src/security/urlPolicy.ts#allowUrl
+  status: test_only
+  inclusion:
+  - test
+  notes: Política de URL remota não ligada ao pipeline; só usada em teste.
+  trace_task: TRACE-004
+- id: PERM-CORE-DEFAULT
+  type: permission
+  name: core:default
+  module: MOD-SECURITY-POLICY
+  anchor:
+    path: src-tauri/capabilities/default.json
+    symbol: '"core:default"'
+    lines:
+    - 7
+    - 7
+  alias: src-tauri/capabilities/default.json#core:default
+  inclusion:
+  - contract
+  trace_task: TRACE-004
+- id: PERM-DIALOG-ALLOW-OPEN
+  type: permission
+  name: dialog:allow-open
+  module: MOD-SECURITY-POLICY
+  anchor:
+    path: src-tauri/capabilities/default.json
+    symbol: '"dialog:allow-open"'
+    lines:
+    - 8
+    - 8
+  alias: src-tauri/capabilities/default.json#dialog:allow-open
+  inclusion:
+  - contract
+  trace_task: TRACE-004
+- id: PERM-DIALOG-ALLOW-SAVE
+  type: permission
+  name: dialog:allow-save
+  module: MOD-SECURITY-POLICY
+  anchor:
+    path: src-tauri/capabilities/default.json
+    symbol: '"dialog:allow-save"'
+    lines:
+    - 9
+    - 9
+  alias: src-tauri/capabilities/default.json#dialog:allow-save
+  inclusion:
+  - contract
+  trace_task: TRACE-004
+- id: PERM-DIALOG-ALLOW-ASK
+  type: permission
+  name: dialog:allow-ask
+  module: MOD-SECURITY-POLICY
+  anchor:
+    path: src-tauri/capabilities/default.json
+    symbol: '"dialog:allow-ask"'
+    lines:
+    - 10
+    - 10
+  alias: src-tauri/capabilities/default.json#dialog:allow-ask
+  inclusion:
+  - contract
+  trace_task: TRACE-004
+- id: PERM-OPENER-ALLOW-OPEN-URL
+  type: permission
+  name: opener:allow-open-url
+  module: MOD-SECURITY-POLICY
+  anchor:
+    path: src-tauri/capabilities/default.json
+    symbol: '"opener:allow-open-url"'
+    lines:
+    - 11
+    - 11
+  alias: src-tauri/capabilities/default.json#opener:allow-open-url
+  inclusion:
+  - contract
+  trace_task: TRACE-004
+- id: STO-METADATA
+  type: store
+  name: useMetadata
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src/hooks/useMetadata.ts
+    symbol: useMetadata
+    lines:
+    - 12
+    - 118
+  alias: src/hooks/useMetadata.ts#useMetadata
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-USE-METADATA-REFRESH-CURRENT-DOC
+  type: function
+  name: useMetadata.refreshCurrentDoc
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src/hooks/useMetadata.ts
+    symbol: useMetadata.refreshCurrentDoc
+    lines:
+    - 50
+    - 63
+  alias: src/hooks/useMetadata.ts#useMetadata.refreshCurrentDoc
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-USE-METADATA-REFRESH-ALL-DOCS
+  type: function
+  name: useMetadata.refreshAllDocs
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src/hooks/useMetadata.ts
+    symbol: useMetadata.refreshAllDocs
+    lines:
+    - 41
+    - 48
+  alias: src/hooks/useMetadata.ts#useMetadata.refreshAllDocs
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-USE-METADATA-REFRESH-STATS
+  type: function
+  name: useMetadata.refreshStats
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src/hooks/useMetadata.ts
+    symbol: useMetadata.refreshStats
+    lines:
+    - 23
+    - 30
+  alias: src/hooks/useMetadata.ts#useMetadata.refreshStats
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-USE-METADATA-REFRESH-TAGS
+  type: function
+  name: useMetadata.refreshTags
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src/hooks/useMetadata.ts
+    symbol: useMetadata.refreshTags
+    lines:
+    - 32
+    - 39
+  alias: src/hooks/useMetadata.ts#useMetadata.refreshTags
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-USE-METADATA-REINDEX
+  type: function
+  name: useMetadata.reindex
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src/hooks/useMetadata.ts
+    symbol: useMetadata.reindex
+    lines:
+    - 65
+    - 84
+  alias: src/hooks/useMetadata.ts#useMetadata.reindex
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: CMP-BACKLINKS-PANEL
+  type: component
+  name: BacklinksPanel
+  module: MOD-BACKLINKS
+  anchor:
+    path: src/components/wiki/BacklinksPanel.tsx
+    symbol: BacklinksPanel
+    lines:
+    - 28
+    - 198
+  alias: src/components/wiki/BacklinksPanel.tsx#BacklinksPanel
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: CMP-OUTGOING-LINKS-PANEL
+  type: component
+  name: OutgoingLinksPanel
+  module: MOD-WIKI-LINKS
+  anchor:
+    path: src/components/wiki/OutgoingLinksPanel.tsx
+    symbol: OutgoingLinksPanel
+    lines:
+    - 4
+    - 47
+  alias: src/components/wiki/OutgoingLinksPanel.tsx#OutgoingLinksPanel
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: CMP-CREATE-NOTE-FROM-WIKI
+  type: component
+  name: CreateNoteFromWiki
+  module: MOD-WIKI-LINKS
+  anchor:
+    path: src/components/wiki/CreateNoteFromWiki.tsx
+    symbol: CreateNoteFromWiki
+    lines:
+    - 41
+    - 127
+  alias: src/components/wiki/CreateNoteFromWiki.tsx#CreateNoteFromWiki
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: HDL-CREATE-NOTE
+  type: handler
+  name: CreateNoteFromWiki.create
+  module: MOD-WIKI-LINKS
+  anchor:
+    path: src/components/wiki/CreateNoteFromWiki.tsx
+    symbol: CreateNoteFromWiki.create
+    lines:
+    - 63
+    - 91
+  alias: src/components/wiki/CreateNoteFromWiki.tsx#CreateNoteFromWiki.create
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-SAFE-WIKI-NOTE-PATH
+  type: function
+  name: safeWikiNotePath
+  module: MOD-SECURITY-POLICY
+  anchor:
+    path: src/components/wiki/CreateNoteFromWiki.tsx
+    symbol: safeWikiNotePath
+    lines:
+    - 28
+    - 39
+  alias: src/components/wiki/CreateNoteFromWiki.tsx#safeWikiNotePath
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-NOTE-PATH-FOR-TARGET
+  type: function
+  name: notePathForTarget
+  module: MOD-WIKI-LINKS
+  anchor:
+    path: src/components/wiki/CreateNoteFromWiki.tsx
+    symbol: notePathForTarget
+    lines:
+    - 19
+    - 26
+  alias: src/components/wiki/CreateNoteFromWiki.tsx#notePathForTarget
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-SANITIZE-WIKI-FILE-NAME
+  type: function
+  name: sanitizeWikiFileName
+  module: MOD-WIKI-LINKS
+  anchor:
+    path: src/components/wiki/CreateNoteFromWiki.tsx
+    symbol: sanitizeWikiFileName
+    lines:
+    - 6
+    - 17
+  alias: src/components/wiki/CreateNoteFromWiki.tsx#sanitizeWikiFileName
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: CMP-COMMAND-PALETTE
+  type: component
+  name: CommandPalette
+  module: MOD-SEARCH
+  anchor:
+    path: src/components/command/CommandPalette.tsx
+    symbol: CommandPalette
+    lines:
+    - 14
+    - 40
+  alias: src/components/command/CommandPalette.tsx#CommandPalette
+  inclusion:
+  - entrypoint
+  - flow
+  notes: 'App.tsx não passa allFiles: quick switcher cobre só recentes.'
+  trace_task: TRACE-004
+- id: CMP-QUICK-SWITCHER
+  type: component
+  name: QuickSwitcher
+  module: MOD-SEARCH
+  anchor:
+    path: src/components/command/QuickSwitcher.tsx
+    symbol: QuickSwitcher
+    lines:
+    - 24
+    - 240
+  alias: src/components/command/QuickSwitcher.tsx#QuickSwitcher
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-FUZZY-SEARCH
+  type: function
+  name: fuzzySearch
+  module: MOD-SEARCH
+  anchor:
+    path: src/utils/fuzzy-search.ts
+    symbol: fuzzySearch
+    lines:
+    - 28
+    - 47
+  alias: src/utils/fuzzy-search.ts#fuzzySearch
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: SVC-EXPORT-ACTIVE-DOCUMENT-HTML
+  type: service
+  name: exportActiveDocumentHtml
+  module: MOD-EXPORT
+  anchor:
+    path: src/services/exportHtml.ts
+    symbol: exportActiveDocumentHtml
+    lines:
+    - 27
+    - 58
+  alias: src/services/exportHtml.ts#exportActiveDocumentHtml
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-DOWNLOAD-HTML
+  type: function
+  name: downloadHtml
+  module: MOD-EXPORT
+  anchor:
+    path: src/services/exportHtml.ts
+    symbol: downloadHtml
+    lines:
+    - 16
+    - 24
+  alias: src/services/exportHtml.ts#downloadHtml
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: SVC-EXPORT-HTML-DOCUMENT
+  type: service
+  name: exportHtmlDocument
+  module: MOD-EXPORT
+  anchor:
+    path: src/services/export.ts
+    symbol: exportHtmlDocument
+    lines:
+    - 8
+    - 29
+  alias: src/services/export.ts#exportHtmlDocument
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FILE-EXPORT-HTML
+  type: file_persisted
+  name: Arquivo .html exportado (documento autocontido)
+  module: MOD-EXPORT
+  anchor:
+    path: src/services/export.ts
+    symbol: '"<html lang="pt-BR">"'
+    lines:
+    - 12
+    - 12
+  alias: src/services/export.ts#<html lang="pt-BR">
+  inclusion:
+  - flow
+  - contract
+  trace_task: TRACE-006
+- id: SVC-EXPORT-ACTIVE-DOCUMENT-EPUB
+  type: service
+  name: exportActiveDocumentEpub
+  module: MOD-EXPORT
+  anchor:
+    path: src/services/exportEpub.ts
+    symbol: exportActiveDocumentEpub
+    lines:
+    - 29
+    - 74
+  alias: src/services/exportEpub.ts#exportActiveDocumentEpub
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-PROCESS-EPUB-MARKDOWN
+  type: function
+  name: processEpubMarkdown
+  module: MOD-EXPORT
+  anchor:
+    path: src/export/epubProcessor.ts
+    symbol: processEpubMarkdown
+    lines:
+    - 236
+    - 347
+  alias: src/export/epubProcessor.ts#processEpubMarkdown
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-CAPTURE-MERMAID-SVGS
+  type: function
+  name: captureMermaidSvgsFromDom
+  module: MOD-MERMAID
+  anchor:
+    path: src/export/mermaidCapture.ts
+    symbol: captureMermaidSvgsFromDom
+    lines:
+    - 180
+    - 259
+  alias: src/export/mermaidCapture.ts#captureMermaidSvgsFromDom
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: CMP-NEW-DOCUMENT-MODAL
+  type: component
+  name: NewDocumentModal
+  module: MOD-TEMPLATES
+  anchor:
+    path: src/components/editor/NewDocumentModal.tsx
+    symbol: NewDocumentModal
+    lines:
+    - 14
+    - 155
+  alias: src/components/editor/NewDocumentModal.tsx#NewDocumentModal
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: CFG-TEMPLATES
+  type: configuration
+  name: TEMPLATES
+  module: MOD-TEMPLATES
+  anchor:
+    path: src/templates/index.ts
+    symbol: TEMPLATES
+    lines:
+    - 186
+    - 194
+  alias: src/templates/index.ts#TEMPLATES
+  inclusion:
+  - flow
+  - contract
+  trace_task: TRACE-004
+- id: FN-FIND-FIRST-EDITABLE-POSITION
+  type: function
+  name: findFirstEditablePosition
+  module: MOD-TEMPLATES
+  anchor:
+    path: src/templates/index.ts
+    symbol: findFirstEditablePosition
+    lines:
+    - 196
+    - 205
+  alias: src/templates/index.ts#findFirstEditablePosition
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: SCR-PRESENTATION
+  type: screen
+  name: PresentationMode
+  module: MOD-PRESENTATION
+  anchor:
+    path: src/presentation/PresentationMode.tsx
+    symbol: PresentationMode
+    lines:
+    - 16
+    - 150
+  alias: src/presentation/PresentationMode.tsx#PresentationMode
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: CMP-PRESENTATION-STAGE
+  type: component
+  name: PresentationStage
+  module: MOD-PRESENTATION
+  anchor:
+    path: src/presentation/PresentationStage.tsx
+    symbol: PresentationStage
+    lines:
+    - 16
+    - 168
+  alias: src/presentation/PresentationStage.tsx#PresentationStage
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: SVC-PROCESS-PRESENTATION
+  type: service
+  name: processPresentation
+  module: MOD-PRESENTATION
+  anchor:
+    path: src/presentation/processor.ts
+    symbol: processPresentation
+    lines:
+    - 25
+    - 57
+  alias: src/presentation/processor.ts#processPresentation
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-CREATE-PRESENTATION-MODEL
+  type: function
+  name: createPresentationModel
+  module: MOD-PRESENTATION
+  anchor:
+    path: src/presentation/segmentation.ts
+    symbol: createPresentationModel
+    lines:
+    - 232
+    - 269
+  alias: src/presentation/segmentation.ts#createPresentationModel
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-SEGMENT-MARKDOWN
+  type: function
+  name: segmentMarkdown
+  module: MOD-PRESENTATION
+  anchor:
+    path: src/presentation/segmentation.ts
+    symbol: segmentMarkdown
+    lines:
+    - 56
+    - 195
+  alias: src/presentation/segmentation.ts#segmentMarkdown
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-CREATE-PRESENTATION-DECK
+  type: function
+  name: createPresentationDeck
+  module: MOD-PRESENTATION
+  anchor:
+    path: src/presentation/presentation-deck.ts
+    symbol: createPresentationDeck
+    lines:
+    - 32
+    - 124
+  alias: src/presentation/presentation-deck.ts#createPresentationDeck
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-PARSE-PRESENTATION-CONFIG
+  type: function
+  name: parsePresentationConfig
+  module: MOD-PRESENTATION
+  anchor:
+    path: src/presentation/config.ts
+    symbol: parsePresentationConfig
+    lines:
+    - 18
+    - 110
+  alias: src/presentation/config.ts#parsePresentationConfig
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-CAPTURE-PREVIOUS-UI-STATE
+  type: function
+  name: capturePreviousUiState
+  module: MOD-PRESENTATION
+  anchor:
+    path: src/presentation/presentation-session.ts
+    symbol: capturePreviousUiState
+    lines:
+    - 10
+    - 30
+  alias: src/presentation/presentation-session.ts#capturePreviousUiState
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: CLS-PRESENTATION-SESSION-MANAGER
+  type: class
+  name: PresentationSessionManager
+  module: MOD-PRESENTATION
+  anchor:
+    path: src/presentation/presentation-session.ts
+    symbol: PresentationSessionManager
+    lines:
+    - 68
+    - 122
+  alias: src/presentation/presentation-session.ts#PresentationSessionManager
+  status: test_only
+  inclusion:
+  - test
+  notes: Sem uso na aplicação; só em tests/presentation/session.test.tsx.
+  trace_task: TRACE-004
+- id: FN-ENHANCE-PRESENTATION-CONTENT
+  type: function
+  name: enhancePresentationContent
+  module: MOD-PRESENTATION
+  anchor:
+    path: src/presentation/rich-content.ts
+    symbol: enhancePresentationContent
+    lines:
+    - 199
+    - 206
+  alias: src/presentation/rich-content.ts#enhancePresentationContent
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FN-CREATE-SLASH-PLUGIN
+  type: function
+  name: Slash commands (/) no editor
+  module: MOD-EDITOR
+  anchor:
+    path: src/editor/slash/slash-plugin.ts
+    symbol: createSlashPlugin
+    lines:
+    - 84
+    - 107
+  alias: src/editor/slash/slash-plugin.ts#createSlashPlugin
+  inclusion:
+  - entrypoint
+  - flow
+  trace_task: TRACE-004
+- id: CFG-SLASH-ITEMS
+  type: configuration
+  name: SLASH_ITEMS
+  module: MOD-EDITOR
+  anchor:
+    path: src/editor/slash/slash-items.ts
+    symbol: SLASH_ITEMS
+    lines:
+    - 47
+    - 187
+  alias: src/editor/slash/slash-items.ts#SLASH_ITEMS
+  inclusion:
+  - flow
+  - contract
+  trace_task: TRACE-004
+- id: FN-SMART-PASTE
+  type: function
+  name: Colagem inteligente HTML->Markdown
+  module: MOD-EDITOR
+  anchor:
+    path: src/editor/paste/paste-plugin.ts
+    symbol: smartPasteExtension
+    lines:
+    - 5
+    - 37
+  alias: src/editor/paste/paste-plugin.ts#smartPasteExtension
+  inclusion:
+  - flow
+  trace_task: TRACE-004
+- id: FILE-INDEX-TMP
+  type: file_persisted
+  name: .mdstudio/index.json.tmp.{pid} (gravação atômica do índice)
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/index/index_persistence.rs
+    symbol: '"{}.tmp.{}"'
+    lines:
+    - 24
+    - 24
+  alias: src-tauri/crates/md-studio-core/src/index/index_persistence.rs#{}.tmp.{}
+  inclusion:
+  - flow
+  - contract
+  trace_task: TRACE-006
+- id: STO-BROWSER-HASH-CACHE
+  type: store
+  name: Cache em memória de hashes (modo browser) para detecção de conflito
+  module: MOD-WORKSPACE-FS
+  anchor:
+    path: src/lib/ipc/client.ts
+    symbol: contentHashCache
+    lines:
+    - 221
+    - 221
+  alias: src/lib/ipc/client.ts#contentHashCache
+  inclusion:
+  - flow
+  trace_task: TRACE-006
+- id: FN-READ-BROWSER-FILE
+  type: function
+  name: readBrowserFile
+  module: MOD-WORKSPACE-FS
+  anchor:
+    path: src/lib/browserFs.ts
+    symbol: readBrowserFile
+    lines:
+    - 174
+    - 194
+  alias: src/lib/browserFs.ts#readBrowserFile
+  inclusion:
+  - flow
+  trace_task: TRACE-006
+- id: FN-WRITE-BROWSER-FILE
+  type: function
+  name: writeBrowserFile
+  module: MOD-PERSISTENCE
+  anchor:
+    path: src/lib/browserFs.ts
+    symbol: writeBrowserFile
+    lines:
+    - 196
+    - 223
+  alias: src/lib/browserFs.ts#writeBrowserFile
+  inclusion:
+  - flow
+  trace_task: TRACE-006
+- id: FN-USE-RESIZABLE-PANEL
+  type: function
+  name: useResizablePanel
+  module: MOD-SETTINGS-SESSION
+  anchor:
+    path: src/hooks/useResizablePanel.ts
+    symbol: useResizablePanel
+    lines:
+    - 11
+    - 70
+  alias: src/hooks/useResizablePanel.ts#useResizablePanel
+  inclusion:
+  - flow
+  trace_task: TRACE-006
+- id: CMP-SPLIT-DIVIDER
+  type: component
+  name: SplitDivider
+  module: MOD-SETTINGS-SESSION
+  anchor:
+    path: src/components/layout/SplitDivider.tsx
+    symbol: SplitDivider
+    lines:
+    - 47
+    - 238
+  alias: src/components/layout/SplitDivider.tsx#SplitDivider
+  inclusion:
+  - flow
+  trace_task: TRACE-006
+- id: CFG-EPUB-SANITIZE-SCHEMA
+  type: configuration
+  name: Schema de sanitize do EPUB (defaultSchema estendido)
+  module: MOD-SECURITY-POLICY
+  anchor:
+    path: src/export/epubProcessor.ts
+    symbol: epubSanitizeSchema
+    lines:
+    - 125
+    - 214
+  alias: src/export/epubProcessor.ts#epubSanitizeSchema
+  inclusion:
+  - contract
+  trace_task: TRACE-007
+- id: CFG-FRONTMATTER-SCHEMA
+  type: configuration
+  name: Schema zod do front matter
+  module: MOD-PREVIEW
+  anchor:
+    path: src/markdown/frontmatter.ts
+    symbol: FrontmatterSchema
+    lines:
+    - 4
+    - 11
+  alias: src/markdown/frontmatter.ts#FrontmatterSchema
+  inclusion:
+  - contract
+  trace_task: TRACE-007
+- id: CMP-TABLE-TOOLBAR
+  type: component
+  name: TableToolbar
+  module: MOD-EDITOR
+  anchor:
+    path: src/components/editor/TableToolbar.tsx
+    symbol: TableToolbar
+    lines:
+    - 17
+    - 75
+  alias: src/components/editor/TableToolbar.tsx#TableToolbar
+  inclusion:
+  - flow
+  trace_task: TRACE-008
+- id: CMP-GO-TO-LINE
+  type: component
+  name: GoToLine
+  module: MOD-EDITOR
+  anchor:
+    path: src/components/editor/GoToLine.tsx
+    symbol: GoToLine
+    lines:
+    - 11
+    - 116
+  alias: src/components/editor/GoToLine.tsx#GoToLine
+  inclusion:
+  - flow
+  trace_task: TRACE-008
+- id: CMP-SHORTCUTS-MODAL
+  type: component
+  name: ShortcutsModal
+  module: MOD-APP-SHELL
+  anchor:
+    path: src/components/help/ShortcutsModal.tsx
+    symbol: ShortcutsModal
+    lines:
+    - 57
+    - 131
+  alias: src/components/help/ShortcutsModal.tsx#ShortcutsModal
+  inclusion:
+  - flow
+  trace_task: TRACE-008
+- id: CMP-SETTINGS-PANEL
+  type: component
+  name: SettingsPanel
+  module: MOD-SETTINGS-SESSION
+  anchor:
+    path: src/components/settings/SettingsPanel.tsx
+    symbol: SettingsPanel
+    lines:
+    - 190
+    - 329
+  alias: src/components/settings/SettingsPanel.tsx#SettingsPanel
+  inclusion:
+  - flow
+  trace_task: TRACE-008
+- id: FN-USE-SCROLL-SYNC
+  type: function
+  name: useScrollSync
+  module: MOD-PREVIEW
+  anchor:
+    path: src/hooks/useScrollSync.ts
+    symbol: useScrollSync
+    lines:
+    - 7
+    - 79
+  alias: src/hooks/useScrollSync.ts#useScrollSync
+  inclusion:
+  - flow
+  trace_task: TRACE-008
+- id: FN-MARKDOWN-HINT-EXTENSION
+  type: function
+  name: markdownHintExtension
+  module: MOD-EDITOR
+  anchor:
+    path: src/editor/hints/hint-plugin.ts
+    symbol: markdownHintExtension
+    lines:
+    - 6
+    - 33
+  alias: src/editor/hints/hint-plugin.ts#markdownHintExtension
+  status: dead_code
+  inclusion:
+  - invariant
+  notes: Extensão hoverTooltip definida mas não registrada no editor (nenhum import fora do próprio módulo).
+  trace_task: TRACE-008
+- id: FN-MATCH-HINT-AT-POSITION
+  type: function
+  name: matchHintAtPosition
+  module: MOD-EDITOR
+  anchor:
+    path: src/editor/hints/markdown-hints.ts
+    symbol: matchHintAtPosition
+    lines:
+    - 43
+    - 62
+  alias: src/editor/hints/markdown-hints.ts#matchHintAtPosition
+  inclusion:
+  - invariant
+  trace_task: TRACE-008
+- id: FN-EMBED-STYLES-IN-SVG
+  type: function
+  name: embedStylesInSvg
+  module: MOD-MERMAID
+  anchor:
+    path: src/services/diagramExport.ts
+    symbol: embedStylesInSvg
+    lines:
+    - 5
+    - 51
+  alias: src/services/diagramExport.ts#embedStylesInSvg
+  inclusion:
+  - flow
+  trace_task: TRACE-008
+- id: FN-DOWNLOAD-SVG
+  type: function
+  name: downloadSvg
+  module: MOD-MERMAID
+  anchor:
+    path: src/services/diagramExport.ts
+    symbol: downloadSvg
+    lines:
+    - 92
+    - 96
+  alias: src/services/diagramExport.ts#downloadSvg
+  inclusion:
+  - flow
+  trace_task: TRACE-008
+- id: FN-DOWNLOAD-PNG
+  type: function
+  name: downloadPng
+  module: MOD-MERMAID
+  anchor:
+    path: src/services/diagramExport.ts
+    symbol: downloadPng
+    lines:
+    - 98
+    - 101
+  alias: src/services/diagramExport.ts#downloadPng
+  inclusion:
+  - flow
+  trace_task: TRACE-008
+- id: FN-MERMAID-SVG-TO-PNG
+  type: function
+  name: mermaidSvgToPng
+  module: MOD-MERMAID
+  anchor:
+    path: src/services/diagramExport.ts
+    symbol: mermaidSvgToPng
+    lines:
+    - 53
+    - 81
+  alias: src/services/diagramExport.ts#mermaidSvgToPng
+  inclusion:
+  - flow
+  trace_task: TRACE-008
+- id: FN-HTML-TO-MARKDOWN
+  type: function
+  name: htmlToMarkdown
+  module: MOD-EDITOR
+  anchor:
+    path: src/editor/paste/html-to-md.ts
+    symbol: htmlToMarkdown
+    lines:
+    - 1
+    - 14
+  alias: src/editor/paste/html-to-md.ts#htmlToMarkdown
+  inclusion:
+  - flow
+  notes: Conversor HTML->Markdown do smart paste; não trata table/tr/td.
+  trace_task: TRACE-010
+- id: TST-TS-EDITOR-AUTOSAVE
+  type: test
+  name: Auto-Save Feature Integration
+  module: MOD-EDITOR
+  anchor:
+    path: tests/editor/autoSave.test.tsx
+    symbol: '"Auto-Save Feature Integration"'
+    lines:
+    - 11
+    - 125
+  alias: tests/editor/autoSave.test.tsx#Auto-Save Feature Integration
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-EDITOR-CONFLICTRELOAD
+  type: test
+  name: 'MD-BUG-CONFLICT-RELOAD-001: ConflictDialog ''Recarregar do disco'''
+  module: MOD-EDITOR
+  anchor:
+    path: tests/editor/conflictReload.test.tsx
+    symbol: '"MD-BUG-CONFLICT-RELOAD-001: ConflictDialog ''Recarregar do disco''"'
+    lines:
+    - 49
+    - 134
+  alias: 'tests/editor/conflictReload.test.tsx#MD-BUG-CONFLICT-RELOAD-001: ConflictDialog ''Recarregar do disco'''
+  inclusion:
+  - test
+  trace_task: MD-BUG-CONFLICT-RELOAD-001
+- id: TST-TS-EDITOR-CURSOR
+  type: test
+  name: editor cursor
+  module: MOD-EDITOR
+  anchor:
+    path: tests/editor/cursor.test.ts
+    symbol: '"editor cursor"'
+    lines:
+    - 14
+    - 30
+  alias: tests/editor/cursor.test.ts#editor cursor
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-EDITOR-FORMATCODEBLOCK-FORMATCODEBLOCKATCURSOR-CODEMIRROR-6
+  type: test
+  name: formatCodeBlockAtCursor (CodeMirror 6)
+  module: MOD-EDITOR
+  anchor:
+    path: tests/editor/formatCodeBlock.test.ts
+    symbol: '"formatCodeBlockAtCursor (CodeMirror 6)"'
+    lines:
+    - 10
+    - 80
+  alias: tests/editor/formatCodeBlock.test.ts#formatCodeBlockAtCursor (CodeMirror 6)
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-EDITOR-FORMATCODEBLOCK-FORMATDOCUMENTORCODEBLOCK-CODEMIRROR-6
+  type: test
+  name: formatDocumentOrCodeBlock (CodeMirror 6)
+  module: MOD-EDITOR
+  anchor:
+    path: tests/editor/formatCodeBlock.test.ts
+    symbol: '"formatDocumentOrCodeBlock (CodeMirror 6)"'
+    lines:
+    - 82
+    - 133
+  alias: tests/editor/formatCodeBlock.test.ts#formatDocumentOrCodeBlock (CodeMirror 6)
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-EDITOR-FORMATTINGTOOLBAR
+  type: test
+  name: 'MD-UI-008: FormattingToolbar escalável'
+  module: MOD-EDITOR
+  anchor:
+    path: tests/editor/formattingToolbar.test.tsx
+    symbol: '"MD-UI-008: FormattingToolbar escalável"'
+    lines:
+    - 11
+    - 251
+  alias: 'tests/editor/formattingToolbar.test.tsx#MD-UI-008: FormattingToolbar escalável'
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-EDITOR-GUTTER
+  type: test
+  name: 'MD-UI-006: CodeMirror Gutter & Active Line Integration'
+  module: MOD-EDITOR
+  anchor:
+    path: tests/editor/gutter.test.ts
+    symbol: '"MD-UI-006: CodeMirror Gutter & Active Line Integration"'
+    lines:
+    - 17
+    - 68
+  alias: 'tests/editor/gutter.test.ts#MD-UI-006: CodeMirror Gutter & Active Line Integration'
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-EDITOR-HINTS
+  type: test
+  name: Markdown Hints
+  module: MOD-EDITOR
+  anchor:
+    path: tests/editor/hints.test.ts
+    symbol: '"Markdown Hints"'
+    lines:
+    - 5
+    - 68
+  alias: tests/editor/hints.test.ts#Markdown Hints
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-EDITOR-MERMAID-INTERACTIVE
+  type: test
+  name: Interactive Mermaid Component & Export
+  module: MOD-EDITOR
+  anchor:
+    path: tests/editor/mermaid-interactive.test.tsx
+    symbol: '"Interactive Mermaid Component & Export"'
+    lines:
+    - 10
+    - 120
+  alias: tests/editor/mermaid-interactive.test.tsx#Interactive Mermaid Component & Export
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-EDITOR-SINGLESAVE
+  type: test
+  name: 'MD-UI-003: Single Save Command Consolidation'
+  module: MOD-EDITOR
+  anchor:
+    path: tests/editor/singleSave.test.tsx
+    symbol: '"MD-UI-003: Single Save Command Consolidation"'
+    lines:
+    - 11
+    - 186
+  alias: 'tests/editor/singleSave.test.tsx#MD-UI-003: Single Save Command Consolidation'
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-EDITOR-SMART-PASTE
+  type: test
+  name: HTML to Markdown (Smart Paste)
+  module: MOD-EDITOR
+  anchor:
+    path: tests/editor/smart-paste.test.ts
+    symbol: '"HTML to Markdown (Smart Paste)"'
+    lines:
+    - 5
+    - 77
+  alias: tests/editor/smart-paste.test.ts#HTML to Markdown (Smart Paste)
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-EDITOR-TABLE
+  type: test
+  name: Table Editor Helpers
+  module: MOD-EDITOR
+  anchor:
+    path: tests/editor/table.test.ts
+    symbol: '"Table Editor Helpers"'
+    lines:
+    - 25
+    - 101
+  alias: tests/editor/table.test.ts#Table Editor Helpers
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-EMPTY-EMPTYSTATE
+  type: test
+  name: 'MD-UI-EMPTY-001: Empty State & Welcome Screen Hierarchy'
+  module: MOD-APP-SHELL
+  anchor:
+    path: tests/empty/emptyState.test.tsx
+    symbol: '"MD-UI-EMPTY-001: Empty State & Welcome Screen Hierarchy"'
+    lines:
+    - 7
+    - 69
+  alias: 'tests/empty/emptyState.test.tsx#MD-UI-EMPTY-001: Empty State & Welcome Screen Hierarchy'
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-EXPORT-EPUB-IPC-ENVELOPE
+  type: test
+  name: IPC export_epub
+  module: MOD-EXPORT
+  anchor:
+    path: tests/export/epub-ipc-envelope.test.ts
+    symbol: '"IPC export_epub"'
+    lines:
+    - 16
+    - 58
+  alias: tests/export/epub-ipc-envelope.test.ts#IPC export_epub
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-EXPORT-EPUBPROCESSOR
+  type: test
+  name: 'MD-EPUB-001: Frontend EPUB Processor (md_epub_001_processor_pass)'
+  module: MOD-EXPORT
+  anchor:
+    path: tests/export/epubProcessor.test.ts
+    symbol: '"MD-EPUB-001: Frontend EPUB Processor (md_epub_001_processor_pass)"'
+    lines:
+    - 7
+    - 247
+  alias: 'tests/export/epubProcessor.test.ts#MD-EPUB-001: Frontend EPUB Processor (md_epub_001_processor_pass)'
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-EXPORT-EXPORT-FLOW
+  type: test
+  name: Exportar HTML — contrato e fluxo completo
+  module: MOD-EXPORT
+  anchor:
+    path: tests/export/export-flow.test.ts
+    symbol: '"Exportar HTML — contrato e fluxo completo"'
+    lines:
+    - 12
+    - 108
+  alias: tests/export/export-flow.test.ts#Exportar HTML — contrato e fluxo completo
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-EXPORT-EXPORT-PDF
+  type: test
+  name: Exportar PDF pelo diálogo nativo
+  module: MOD-EXPORT
+  anchor:
+    path: tests/export/export-pdf.test.tsx
+    symbol: '"Exportar PDF pelo diálogo nativo"'
+    lines:
+    - 19
+    - 70
+  alias: tests/export/export-pdf.test.tsx#Exportar PDF pelo diálogo nativo
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-EXPORT-EXPORT
+  type: test
+  name: export
+  module: MOD-EXPORT
+  anchor:
+    path: tests/export/export.test.ts
+    symbol: '"export"'
+    lines:
+    - 4
+    - 15
+  alias: tests/export/export.test.ts#export
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-EXPORT-EXPORTEPUBSERVICE
+  type: test
+  name: exportActiveDocumentEpub
+  module: MOD-EXPORT
+  anchor:
+    path: tests/export/exportEpubService.test.ts
+    symbol: '"exportActiveDocumentEpub"'
+    lines:
+    - 19
+    - 108
+  alias: tests/export/exportEpubService.test.ts#exportActiveDocumentEpub
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-EXPORT-MERMAIDCAPTURE
+  type: test
+  name: 'MD-EPUB-002: Mermaid Capture & Sanitization (md_epub_002_mermaid_capture_pass)'
+  module: MOD-EXPORT
+  anchor:
+    path: tests/export/mermaidCapture.test.ts
+    symbol: '"MD-EPUB-002: Mermaid Capture & Sanitization (md_epub_002_mermaid_capture_pass)"'
+    lines:
+    - 10
+    - 219
+  alias: 'tests/export/mermaidCapture.test.ts#MD-EPUB-002: Mermaid Capture & Sanitization (md_epub_002_mermaid_capture_pass)'
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-FORMATTER-WEB
+  type: test
+  name: Web Formatter (Prettier Standalone)
+  module: MOD-FORMATTER
+  anchor:
+    path: tests/formatter/web.test.ts
+    symbol: '"Web Formatter (Prettier Standalone)"'
+    lines:
+    - 5
+    - 99
+  alias: tests/formatter/web.test.ts#Web Formatter (Prettier Standalone)
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-FOUNDATION-METADATA
+  type: test
+  name: Onda 1 — Foundation & Metadata Engine QA Suite
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: tests/foundation/metadata.test.ts
+    symbol: '"Onda 1 — Foundation & Metadata Engine QA Suite"'
+    lines:
+    - 12
+    - 340
+  alias: tests/foundation/metadata.test.ts#Onda 1 — Foundation & Metadata Engine QA Suite
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-GUIDED-MARKDOWN-GUIDEDMARKDOWNINTEGRATION
+  type: test
+  name: Guided Markdown Integration Suite (Onda 0B Gate)
+  module: MOD-EDITOR
+  anchor:
+    path: tests/guided-markdown/guidedMarkdownIntegration.test.ts
+    symbol: '"Guided Markdown Integration Suite (Onda 0B Gate)"'
+    lines:
+    - 39
+    - 182
+  alias: tests/guided-markdown/guidedMarkdownIntegration.test.ts#Guided Markdown Integration Suite (Onda 0B Gate)
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-HEADER-EXPORTMENU
+  type: test
+  name: 'MD-UI-004: Unified Export Menu'
+  module: MOD-APP-SHELL
+  anchor:
+    path: tests/header/exportMenu.test.tsx
+    symbol: '"MD-UI-004: Unified Export Menu"'
+    lines:
+    - 9
+    - 309
+  alias: 'tests/header/exportMenu.test.tsx#MD-UI-004: Unified Export Menu'
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-HEADER-TOPBAR
+  type: test
+  name: 'MD-UI-HEADER-001: Header Polish & Dynamic Window Title'
+  module: MOD-APP-SHELL
+  anchor:
+    path: tests/header/topBar.test.tsx
+    symbol: '"MD-UI-HEADER-001: Header Polish & Dynamic Window Title"'
+    lines:
+    - 8
+    - 115
+  alias: 'tests/header/topBar.test.tsx#MD-UI-HEADER-001: Header Polish & Dynamic Window Title'
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-HELP-CHEATSHEET
+  type: test
+  name: Markdown Cheatsheet Items
+  module: MOD-APP-SHELL
+  anchor:
+    path: tests/help/cheatsheet.test.ts
+    symbol: '"Markdown Cheatsheet Items"'
+    lines:
+    - 4
+    - 35
+  alias: tests/help/cheatsheet.test.ts#Markdown Cheatsheet Items
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-LAYOUT-SPLITVIEW
+  type: test
+  name: 'MD-UI-011: Split View refinado (SplitDivider)'
+  module: MOD-SETTINGS-SESSION
+  anchor:
+    path: tests/layout/splitView.test.tsx
+    symbol: '"MD-UI-011: Split View refinado (SplitDivider)"'
+    lines:
+    - 24
+    - 288
+  alias: 'tests/layout/splitView.test.tsx#MD-UI-011: Split View refinado (SplitDivider)'
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-MARKDOWN-CODE-CODE-HIGHLIGHT
+  type: test
+  name: code syntax highlighting with Shiki
+  module: MOD-PREVIEW
+  anchor:
+    path: tests/markdown/code/code-highlight.test.ts
+    symbol: '"code syntax highlighting with Shiki"'
+    lines:
+    - 6
+    - 76
+  alias: tests/markdown/code/code-highlight.test.ts#code syntax highlighting with Shiki
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-MARKDOWN-CODE-CODE
+  type: test
+  name: code
+  module: MOD-PREVIEW
+  anchor:
+    path: tests/markdown/code/code.test.ts
+    symbol: '"code"'
+    lines:
+    - 4
+    - 9
+  alias: tests/markdown/code/code.test.ts#code
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-MARKDOWN-CODE-FENCEDCODE
+  type: test
+  name: fencedCode block utilities
+  module: MOD-PREVIEW
+  anchor:
+    path: tests/markdown/code/fencedCode.test.ts
+    symbol: '"fencedCode block utilities"'
+    lines:
+    - 4
+    - 87
+  alias: tests/markdown/code/fencedCode.test.ts#fencedCode block utilities
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-MARKDOWN-CORE-NAVIGATION-NAVIGATION-OUTLINE
+  type: test
+  name: navigation outline
+  module: MOD-PREVIEW
+  anchor:
+    path: tests/markdown/core/navigation.test.ts
+    symbol: '"navigation outline"'
+    lines:
+    - 9
+    - 23
+  alias: tests/markdown/core/navigation.test.ts#navigation outline
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-MARKDOWN-CORE-NAVIGATION-RESOLVERELATIVELINK
+  type: test
+  name: resolveRelativeLink
+  module: MOD-PREVIEW
+  anchor:
+    path: tests/markdown/core/navigation.test.ts
+    symbol: '"resolveRelativeLink"'
+    lines:
+    - 25
+    - 48
+  alias: tests/markdown/core/navigation.test.ts#resolveRelativeLink
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-MARKDOWN-CORE-PROCESSOR
+  type: test
+  name: markdown core
+  module: MOD-PREVIEW
+  anchor:
+    path: tests/markdown/core/processor.test.ts
+    symbol: '"markdown core"'
+    lines:
+    - 4
+    - 39
+  alias: tests/markdown/core/processor.test.ts#markdown core
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-MARKDOWN-EXTENSIONS-FRONTMATTER
+  type: test
+  name: frontmatter
+  module: MOD-PREVIEW
+  anchor:
+    path: tests/markdown/extensions/frontmatter.test.ts
+    symbol: '"frontmatter"'
+    lines:
+    - 4
+    - 10
+  alias: tests/markdown/extensions/frontmatter.test.ts#frontmatter
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-MARKDOWN-FORMATTING
+  type: test
+  name: Markdown Formatting Functions
+  module: MOD-PREVIEW
+  anchor:
+    path: tests/markdown/formatting.test.ts
+    symbol: '"Markdown Formatting Functions"'
+    lines:
+    - 27
+    - 163
+  alias: tests/markdown/formatting.test.ts#Markdown Formatting Functions
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-MARKDOWN-MATH-MATH-MATH
+  type: test
+  name: math
+  module: MOD-PREVIEW
+  anchor:
+    path: tests/markdown/math/math.test.ts
+    symbol: '"math"'
+    lines:
+    - 4
+    - 9
+  alias: tests/markdown/math/math.test.ts#math
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-MARKDOWN-MATH-MATH-UNTRUSTED-KATEX-INPUT
+  type: test
+  name: untrusted KaTeX input
+  module: MOD-PREVIEW
+  anchor:
+    path: tests/markdown/math/math.test.ts
+    symbol: '"untrusted KaTeX input"'
+    lines:
+    - 11
+    - 23
+  alias: tests/markdown/math/math.test.ts#untrusted KaTeX input
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-MARKDOWN-MERMAID-MERMAID
+  type: test
+  name: mermaid pipeline & renderer
+  module: MOD-PREVIEW
+  anchor:
+    path: tests/markdown/mermaid/mermaid.test.ts
+    symbol: '"mermaid pipeline & renderer"'
+    lines:
+    - 5
+    - 34
+  alias: tests/markdown/mermaid/mermaid.test.ts#mermaid pipeline & renderer
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-MARKDOWN-SLASH
+  type: test
+  name: Slash Commands
+  module: MOD-PREVIEW
+  anchor:
+    path: tests/markdown/slash.test.ts
+    symbol: '"Slash Commands"'
+    lines:
+    - 20
+    - 94
+  alias: tests/markdown/slash.test.ts#Slash Commands
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-PANEL-COLLAPSIBLEPANEL
+  type: test
+  name: 'MD-UI-PANEL-001: Collapsible Right Panel & StatusBar'
+  module: MOD-APP-SHELL
+  anchor:
+    path: tests/panel/collapsiblePanel.test.tsx
+    symbol: '"MD-UI-PANEL-001: Collapsible Right Panel & StatusBar"'
+    lines:
+    - 8
+    - 70
+  alias: 'tests/panel/collapsiblePanel.test.tsx#MD-UI-PANEL-001: Collapsible Right Panel & StatusBar'
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-PRESENTATION-ACCESSIBILITY
+  type: test
+  name: Presentation Accessibility & Themes (MD-PRES-006)
+  module: MOD-PRESENTATION
+  anchor:
+    path: tests/presentation/accessibility.test.ts
+    symbol: '"Presentation Accessibility & Themes (MD-PRES-006)"'
+    lines:
+    - 11
+    - 121
+  alias: tests/presentation/accessibility.test.ts#Presentation Accessibility & Themes (MD-PRES-006)
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-PRESENTATION-CONFIG
+  type: test
+  name: Presentation Config Parser
+  module: MOD-PRESENTATION
+  anchor:
+    path: tests/presentation/config.test.ts
+    symbol: '"Presentation Config Parser"'
+    lines:
+    - 4
+    - 71
+  alias: tests/presentation/config.test.ts#Presentation Config Parser
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-PRESENTATION-DECK
+  type: test
+  name: Presentation Deck Lifecycle
+  module: MOD-PRESENTATION
+  anchor:
+    path: tests/presentation/deck.test.ts
+    symbol: '"Presentation Deck Lifecycle"'
+    lines:
+    - 5
+    - 35
+  alias: tests/presentation/deck.test.ts#Presentation Deck Lifecycle
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-PRESENTATION-DS005-REPRO-SEGMENT
+  type: test
+  name: MD-DS-005 segmentação dos documentos de reprodução
+  module: MOD-PRESENTATION
+  anchor:
+    path: tests/presentation/ds005-repro-segment.test.ts
+    symbol: '"MD-DS-005 segmentação dos documentos de reprodução"'
+    lines:
+    - 31
+    - 47
+  alias: tests/presentation/ds005-repro-segment.test.ts#MD-DS-005 segmentação dos documentos de reprodução
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-PRESENTATION-LIFECYCLE
+  type: test
+  name: Presentation Mode Lifecycle & Performance QA (MD-PRES-007)
+  module: MOD-PRESENTATION
+  anchor:
+    path: tests/presentation/lifecycle.test.ts
+    symbol: '"Presentation Mode Lifecycle & Performance QA (MD-PRES-007)"'
+    lines:
+    - 8
+    - 128
+  alias: tests/presentation/lifecycle.test.ts#Presentation Mode Lifecycle & Performance QA (MD-PRES-007)
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-PRESENTATION-PROCESSOR
+  type: test
+  name: Presentation Processor
+  module: MOD-PRESENTATION
+  anchor:
+    path: tests/presentation/processor.test.ts
+    symbol: '"Presentation Processor"'
+    lines:
+    - 5
+    - 101
+  alias: tests/presentation/processor.test.ts#Presentation Processor
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-PRESENTATION-RICH-CONTENT
+  type: test
+  name: Presentation Rich Content Integration
+  module: MOD-PRESENTATION
+  anchor:
+    path: tests/presentation/rich-content.test.ts
+    symbol: '"Presentation Rich Content Integration"'
+    lines:
+    - 11
+    - 183
+  alias: tests/presentation/rich-content.test.ts#Presentation Rich Content Integration
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-PRESENTATION-SEGMENTATION
+  type: test
+  name: Presentation Markdown Segmentation
+  module: MOD-PRESENTATION
+  anchor:
+    path: tests/presentation/segmentation.test.ts
+    symbol: '"Presentation Markdown Segmentation"'
+    lines:
+    - 8
+    - 192
+  alias: tests/presentation/segmentation.test.ts#Presentation Markdown Segmentation
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-PRESENTATION-SESSION
+  type: test
+  name: Presentation Session & Mode
+  module: MOD-PRESENTATION
+  anchor:
+    path: tests/presentation/session.test.tsx
+    symbol: '"Presentation Session & Mode"'
+    lines:
+    - 13
+    - 212
+  alias: tests/presentation/session.test.tsx#Presentation Session & Mode
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-SECURITY-ADVERSARIAL-DRAFT-RECOVERY
+  type: test
+  name: local draft recovery and retention
+  module: MOD-SECURITY-POLICY
+  anchor:
+    path: tests/security/adversarial/draft-recovery.test.ts
+    symbol: '"local draft recovery and retention"'
+    lines:
+    - 9
+    - 73
+  alias: tests/security/adversarial/draft-recovery.test.ts#local draft recovery and retention
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-SECURITY-ADVERSARIAL-MARKDOWN-CSS
+  type: test
+  name: untrusted Markdown styles
+  module: MOD-SECURITY-POLICY
+  anchor:
+    path: tests/security/adversarial/markdown-css.test.ts
+    symbol: '"untrusted Markdown styles"'
+    lines:
+    - 5
+    - 35
+  alias: tests/security/adversarial/markdown-css.test.ts#untrusted Markdown styles
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-SECURITY-CONTENT-URLPOLICY
+  type: test
+  name: url policy
+  module: MOD-SECURITY-POLICY
+  anchor:
+    path: tests/security/content/urlPolicy.test.ts
+    symbol: '"url policy"'
+    lines:
+    - 4
+    - 14
+  alias: tests/security/content/urlPolicy.test.ts#url policy
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-SETTINGS-PREVIEWREADINGWIDTH
+  type: test
+  name: 'MD-UI-005: Preview Controlled Reading Width'
+  module: MOD-SETTINGS-SESSION
+  anchor:
+    path: tests/settings/previewReadingWidth.test.tsx
+    symbol: '"MD-UI-005: Preview Controlled Reading Width"'
+    lines:
+    - 13
+    - 99
+  alias: 'tests/settings/previewReadingWidth.test.tsx#MD-UI-005: Preview Controlled Reading Width'
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-SETTINGS-SETTINGSPANEL
+  type: test
+  name: 'MD-UI-010: Settings refinado (SettingsPanel)'
+  module: MOD-SETTINGS-SESSION
+  anchor:
+    path: tests/settings/settingsPanel.test.tsx
+    symbol: '"MD-UI-010: Settings refinado (SettingsPanel)"'
+    lines:
+    - 9
+    - 236
+  alias: 'tests/settings/settingsPanel.test.tsx#MD-UI-010: Settings refinado (SettingsPanel)'
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-TEMPLATES-NEW-DOCUMENT-MODAL
+  type: test
+  name: 'MD-UI-009: Novo Documento com Iconografia Consistente (md_ui_009_templates_pass)'
+  module: MOD-TEMPLATES
+  anchor:
+    path: tests/templates/new-document-modal.test.tsx
+    symbol: '"MD-UI-009: Novo Documento com Iconografia Consistente (md_ui_009_templates_pass)"'
+    lines:
+    - 10
+    - 190
+  alias: 'tests/templates/new-document-modal.test.tsx#MD-UI-009: Novo Documento com Iconografia Consistente (md_ui_009_templates_pass)'
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-TEMPLATES-TEMPLATES
+  type: test
+  name: Document Templates
+  module: MOD-TEMPLATES
+  anchor:
+    path: tests/templates/templates.test.ts
+    symbol: '"Document Templates"'
+    lines:
+    - 15
+    - 82
+  alias: tests/templates/templates.test.ts#Document Templates
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-UI-BUTTON
+  type: test
+  name: 'MD-UI-SIDEBAR-001: Button Component & Sidebar Hierarchy'
+  module: MOD-APP-SHELL
+  anchor:
+    path: tests/ui/button.test.tsx
+    symbol: '"MD-UI-SIDEBAR-001: Button Component & Sidebar Hierarchy"'
+    lines:
+    - 6
+    - 44
+  alias: 'tests/ui/button.test.tsx#MD-UI-SIDEBAR-001: Button Component & Sidebar Hierarchy'
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-UI-CODE-FORMATTING-UI
+  type: test
+  name: Code Formatting UI Integration
+  module: MOD-APP-SHELL
+  anchor:
+    path: tests/ui/code-formatting-ui.test.tsx
+    symbol: '"Code Formatting UI Integration"'
+    lines:
+    - 25
+    - 110
+  alias: tests/ui/code-formatting-ui.test.tsx#Code Formatting UI Integration
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-UI-DESIGNSYSTEM
+  type: test
+  name: 'MD-UI-BUTTONS-001: Design System Button Migration Hotspots'
+  module: MOD-APP-SHELL
+  anchor:
+    path: tests/ui/designSystem.test.tsx
+    symbol: '"MD-UI-BUTTONS-001: Design System Button Migration Hotspots"'
+    lines:
+    - 9
+    - 81
+  alias: 'tests/ui/designSystem.test.tsx#MD-UI-BUTTONS-001: Design System Button Migration Hotspots'
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-UI-DRAFT-RECOVERY-DIALOG
+  type: test
+  name: draft recovery dialog
+  module: MOD-APP-SHELL
+  anchor:
+    path: tests/ui/draft-recovery-dialog.test.tsx
+    symbol: '"draft recovery dialog"'
+    lines:
+    - 10
+    - 52
+  alias: tests/ui/draft-recovery-dialog.test.tsx#draft recovery dialog
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-UX-BREADCRUMB
+  type: test
+  name: breadcrumb utility
+  module: MOD-APP-SHELL
+  anchor:
+    path: tests/ux/breadcrumb.test.ts
+    symbol: '"breadcrumb utility"'
+    lines:
+    - 4
+    - 20
+  alias: tests/ux/breadcrumb.test.ts#breadcrumb utility
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-UX-EDITORSTORE
+  type: test
+  name: editorStore
+  module: MOD-APP-SHELL
+  anchor:
+    path: tests/ux/editorStore.test.ts
+    symbol: '"editorStore"'
+    lines:
+    - 4
+    - 49
+  alias: tests/ux/editorStore.test.ts#editorStore
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-UX-FUZZYSEARCH
+  type: test
+  name: fuzzy search
+  module: MOD-APP-SHELL
+  anchor:
+    path: tests/ux/fuzzySearch.test.ts
+    symbol: '"fuzzy search"'
+    lines:
+    - 4
+    - 26
+  alias: tests/ux/fuzzySearch.test.ts#fuzzy search
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-UX-RECENTFILES
+  type: test
+  name: recentFilesStore
+  module: MOD-APP-SHELL
+  anchor:
+    path: tests/ux/recentFiles.test.ts
+    symbol: '"recentFilesStore"'
+    lines:
+    - 4
+    - 67
+  alias: tests/ux/recentFiles.test.ts#recentFilesStore
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-UX-SETTINGSSTORE
+  type: test
+  name: settingsStore
+  module: MOD-APP-SHELL
+  anchor:
+    path: tests/ux/settingsStore.test.ts
+    symbol: '"settingsStore"'
+    lines:
+    - 4
+    - 101
+  alias: tests/ux/settingsStore.test.ts#settingsStore
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-UX-WIREFRAMEFIDELITY
+  type: test
+  name: Wireframe Fidelity QA Suite
+  module: MOD-APP-SHELL
+  anchor:
+    path: tests/ux/wireframeFidelity.test.ts
+    symbol: '"Wireframe Fidelity QA Suite"'
+    lines:
+    - 6
+    - 95
+  alias: tests/ux/wireframeFidelity.test.ts#Wireframe Fidelity QA Suite
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-WIKI-BACKLINKS-PANEL
+  type: test
+  name: Onda 3 — Backlinks panel
+  module: MOD-WIKI-LINKS
+  anchor:
+    path: tests/wiki/backlinks-panel.test.tsx
+    symbol: '"Onda 3 — Backlinks panel"'
+    lines:
+    - 33
+    - 91
+  alias: tests/wiki/backlinks-panel.test.tsx#Onda 3 — Backlinks panel
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-WIKI-CREATE-NOTE
+  type: test
+  name: create note from wiki
+  module: MOD-WIKI-LINKS
+  anchor:
+    path: tests/wiki/create-note.test.ts
+    symbol: '"create note from wiki"'
+    lines:
+    - 8
+    - 21
+  alias: tests/wiki/create-note.test.ts#create note from wiki
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-WIKI-WIKI-COMPLETION
+  type: test
+  name: wiki completion candidates
+  module: MOD-WIKI-LINKS
+  anchor:
+    path: tests/wiki/wiki-completion.test.ts
+    symbol: '"wiki completion candidates"'
+    lines:
+    - 10
+    - 25
+  alias: tests/wiki/wiki-completion.test.ts#wiki completion candidates
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-TS-WORKSPACE-WORKSPACERAIL
+  type: test
+  name: 'MD-UI-007: Workspace Activity Rail'
+  module: MOD-WORKSPACE-FS
+  anchor:
+    path: tests/workspace/workspaceRail.test.tsx
+    symbol: '"MD-UI-007: Workspace Activity Rail"'
+    lines:
+    - 12
+    - 143
+  alias: 'tests/workspace/workspaceRail.test.tsx#MD-UI-007: Workspace Activity Rail'
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-EMPTY-WORKSPACE-HAS-NO-BACKLINKS
+  type: test
+  name: empty_workspace_has_no_backlinks
+  module: MOD-BACKLINKS
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/index/backlink_index.rs
+    symbol: empty_workspace_has_no_backlinks
+    lines:
+    - 216
+    - 229
+  alias: src-tauri/crates/md-studio-core/src/index/backlink_index.rs#empty_workspace_has_no_backlinks
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-INDEXES-RESOLVED-ONLY-AND-IGNORES-ALIAS
+  type: test
+  name: indexes_resolved_only_and_ignores_alias
+  module: MOD-BACKLINKS
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/index/backlink_index.rs
+    symbol: indexes_resolved_only_and_ignores_alias
+    lines:
+    - 232
+    - 247
+  alias: src-tauri/crates/md-studio-core/src/index/backlink_index.rs#indexes_resolved_only_and_ignores_alias
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-SKIPS-UNRESOLVED-AMBIGUOUS-AND-UNSAFE-TARGETS
+  type: test
+  name: skips_unresolved_ambiguous_and_unsafe_targets
+  module: MOD-BACKLINKS
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/index/backlink_index.rs
+    symbol: skips_unresolved_ambiguous_and_unsafe_targets
+    lines:
+    - 250
+    - 275
+  alias: src-tauri/crates/md-studio-core/src/index/backlink_index.rs#skips_unresolved_ambiguous_and_unsafe_targets
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-DISCARDS-SELF-LINKS-BEFORE-PUBLIC-STORE
+  type: test
+  name: discards_self_links_before_public_store
+  module: MOD-BACKLINKS
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/index/backlink_index.rs
+    symbol: discards_self_links_before_public_store
+    lines:
+    - 278
+    - 287
+  alias: src-tauri/crates/md-studio-core/src/index/backlink_index.rs#discards_self_links_before_public_store
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-INDEXES-UNICODE-RESOLVED-TARGETS
+  type: test
+  name: indexes_unicode_resolved_targets
+  module: MOD-BACKLINKS
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/index/backlink_index.rs
+    symbol: indexes_unicode_resolved_targets
+    lines:
+    - 290
+    - 303
+  alias: src-tauri/crates/md-studio-core/src/index/backlink_index.rs#indexes_unicode_resolved_targets
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-REPLACE-SOURCE-IS-IDEMPOTENT-AND-DROPS-OLD-EDGES
+  type: test
+  name: replace_source_is_idempotent_and_drops_old_edges
+  module: MOD-BACKLINKS
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/index/backlink_index.rs
+    symbol: replace_source_is_idempotent_and_drops_old_edges
+    lines:
+    - 306
+    - 330
+  alias: src-tauri/crates/md-studio-core/src/index/backlink_index.rs#replace_source_is_idempotent_and_drops_old_edges
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-REMOVE-SOURCE-DROPS-INCOMING-EDGES
+  type: test
+  name: remove_source_drops_incoming_edges
+  module: MOD-BACKLINKS
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/index/backlink_index.rs
+    symbol: remove_source_drops_incoming_edges
+    lines:
+    - 333
+    - 346
+  alias: src-tauri/crates/md-studio-core/src/index/backlink_index.rs#remove_source_drops_incoming_edges
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-SORTS-GROUPS-BY-TITLE-CI-THEN-PATH-AND-OCCURRENCES-LINE-ASC
+  type: test
+  name: sorts_groups_by_title_ci_then_path_and_occurrences_line_asc
+  module: MOD-BACKLINKS
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/index/backlink_index.rs
+    symbol: sorts_groups_by_title_ci_then_path_and_occurrences_line_asc
+    lines:
+    - 349
+    - 377
+  alias: src-tauri/crates/md-studio-core/src/index/backlink_index.rs#sorts_groups_by_title_ci_then_path_and_occurrences_line_asc
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-TEST-DOCUMENT-METADATA-SERDE-CAMEL-CASE
+  type: test
+  name: test_document_metadata_serde_camel_case
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/index/document_metadata.rs
+    symbol: test_document_metadata_serde_camel_case
+    lines:
+    - 52
+    - 91
+  alias: src-tauri/crates/md-studio-core/src/index/document_metadata.rs#test_document_metadata_serde_camel_case
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-TEST-INDEX-PERSISTENCE-LIFECYCLE
+  type: test
+  name: test_index_persistence_lifecycle
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/index/index_persistence.rs
+    symbol: test_index_persistence_lifecycle
+    lines:
+    - 73
+    - 113
+  alias: src-tauri/crates/md-studio-core/src/index/index_persistence.rs#test_index_persistence_lifecycle
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-TEST-EXTRACT-METADATA-COMPREHENSIVE
+  type: test
+  name: test_extract_metadata_comprehensive
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/index/metadata_extractor.rs
+    symbol: test_extract_metadata_comprehensive
+    lines:
+    - 311
+    - 371
+  alias: src-tauri/crates/md-studio-core/src/index/metadata_extractor.rs#test_extract_metadata_comprehensive
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-TEST-METADATA-INDEX-OPERATIONS
+  type: test
+  name: test_metadata_index_operations
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/index/metadata_index.rs
+    symbol: test_metadata_index_operations
+    lines:
+    - 85
+    - 115
+  alias: src-tauri/crates/md-studio-core/src/index/metadata_index.rs#test_metadata_index_operations
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-TEST-METADATA-INDEX-SERDE-ROUNDTRIP
+  type: test
+  name: test_metadata_index_serde_roundtrip
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/index/metadata_index.rs
+    symbol: test_metadata_index_serde_roundtrip
+    lines:
+    - 118
+    - 128
+  alias: src-tauri/crates/md-studio-core/src/index/metadata_index.rs#test_metadata_index_serde_roundtrip
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-TEST-REINDEX-ENGINE-WORKFLOW
+  type: test
+  name: test_reindex_engine_workflow
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs
+    symbol: test_reindex_engine_workflow
+    lines:
+    - 223
+    - 266
+  alias: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs#test_reindex_engine_workflow
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-ADD-AND-REMOVE-LINK-VIA-REINDEX-FILE-UPDATES-BACKLINKS
+  type: test
+  name: add_and_remove_link_via_reindex_file_updates_backlinks
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs
+    symbol: add_and_remove_link_via_reindex_file_updates_backlinks
+    lines:
+    - 269
+    - 285
+  alias: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs#add_and_remove_link_via_reindex_file_updates_backlinks
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-RETARGET-A-TO-B-AND-MULTI-SAVE-DOES-NOT-DUPLICATE
+  type: test
+  name: retarget_a_to_b_and_multi_save_does_not_duplicate
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs
+    symbol: retarget_a_to_b_and_multi_save_does_not_duplicate
+    lines:
+    - 288
+    - 304
+  alias: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs#retarget_a_to_b_and_multi_save_does_not_duplicate
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-CREATING-UNRESOLVED-TARGET-THEN-REINDEX-ESTABLISHES-RELATION
+  type: test
+  name: creating_unresolved_target_then_reindex_establishes_relation
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs
+    symbol: creating_unresolved_target_then_reindex_establishes_relation
+    lines:
+    - 307
+    - 318
+  alias: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs#creating_unresolved_target_then_reindex_establishes_relation
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-EXTERNAL-DELETE-AND-WATCH-APPLY-REMOVE-BACKLINKS
+  type: test
+  name: external_delete_and_watch_apply_remove_backlinks
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs
+    symbol: external_delete_and_watch_apply_remove_backlinks
+    lines:
+    - 321
+    - 332
+  alias: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs#external_delete_and_watch_apply_remove_backlinks
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-REBUILD-MATCHES-INCREMENTAL-AND-LOADED-SNAPSHOT
+  type: test
+  name: rebuild_matches_incremental_and_loaded_snapshot
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs
+    symbol: rebuild_matches_incremental_and_loaded_snapshot
+    lines:
+    - 335
+    - 359
+  alias: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs#rebuild_matches_incremental_and_loaded_snapshot
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-RESOLVES-EXACT-PATH-WITH-OR-WITHOUT-EXTENSION
+  type: test
+  name: resolves_exact_path_with_or_without_extension
+  module: MOD-WIKI-LINKS
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/index/wiki_resolve.rs
+    symbol: resolves_exact_path_with_or_without_extension
+    lines:
+    - 171
+    - 178
+  alias: src-tauri/crates/md-studio-core/src/index/wiki_resolve.rs#resolves_exact_path_with_or_without_extension
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-RESOLVES-STEM-AND-TITLE-CASE-INSENSITIVELY
+  type: test
+  name: resolves_stem_and_title_case_insensitively
+  module: MOD-WIKI-LINKS
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/index/wiki_resolve.rs
+    symbol: resolves_stem_and_title_case_insensitively
+    lines:
+    - 181
+    - 191
+  alias: src-tauri/crates/md-studio-core/src/index/wiki_resolve.rs#resolves_stem_and_title_case_insensitively
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-REPORTS-MISSING-UNSAFE-AND-AMBIGUOUS-TARGETS
+  type: test
+  name: reports_missing_unsafe_and_ambiguous_targets
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/index/wiki_resolve.rs
+    symbol: reports_missing_unsafe_and_ambiguous_targets
+    lines:
+    - 194
+    - 210
+  alias: src-tauri/crates/md-studio-core/src/index/wiki_resolve.rs#reports_missing_unsafe_and_ambiguous_targets
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-RESOLVE-ALL-PRESERVES-ALIAS-AND-SOURCE-LINE
+  type: test
+  name: resolve_all_preserves_alias_and_source_line
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/index/wiki_resolve.rs
+    symbol: resolve_all_preserves_alias_and_source_line
+    lines:
+    - 213
+    - 221
+  alias: src-tauri/crates/md-studio-core/src/index/wiki_resolve.rs#resolve_all_preserves_alias_and_source_line
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-TEST-SCANNER-EMPTY-WORKSPACE
+  type: test
+  name: test_scanner_empty_workspace
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/index/workspace_scanner.rs
+    symbol: test_scanner_empty_workspace
+    lines:
+    - 73
+    - 78
+  alias: src-tauri/crates/md-studio-core/src/index/workspace_scanner.rs#test_scanner_empty_workspace
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-TEST-SCANNER-WITH-FILES-AND-EXCLUSIONS
+  type: test
+  name: test_scanner_with_files_and_exclusions
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/index/workspace_scanner.rs
+    symbol: test_scanner_with_files_and_exclusions
+    lines:
+    - 81
+    - 116
+  alias: src-tauri/crates/md-studio-core/src/index/workspace_scanner.rs#test_scanner_with_files_and_exclusions
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-PREFERS-FIRST-EXISTING-MD-AMONG-MANY
+  type: test
+  name: prefers_first_existing_md_among_many
+  module: MOD-WORKSPACE-FS
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/launch.rs
+    symbol: prefers_first_existing_md_among_many
+    lines:
+    - 99
+    - 113
+  alias: src-tauri/crates/md-studio-core/src/launch.rs#prefers_first_existing_md_among_many
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-SKIPS-MISSING-AND-NON-MD-WITHOUT-PANIC
+  type: test
+  name: skips_missing_and_non_md_without_panic
+  module: MOD-WORKSPACE-FS
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/launch.rs
+    symbol: skips_missing_and_non_md_without_panic
+    lines:
+    - 116
+    - 133
+  alias: src-tauri/crates/md-studio-core/src/launch.rs#skips_missing_and_non_md_without_panic
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-ACCEPTS-FILE-URL
+  type: test
+  name: accepts_file_url
+  module: MOD-WORKSPACE-FS
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/launch.rs
+    symbol: accepts_file_url
+    lines:
+    - 136
+    - 146
+  alias: src-tauri/crates/md-studio-core/src/launch.rs#accepts_file_url
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-MARKDOWN-EXT-CASE-INSENSITIVE
+  type: test
+  name: markdown_ext_case_insensitive
+  module: MOD-WORKSPACE-FS
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/launch.rs
+    symbol: markdown_ext_case_insensitive
+    lines:
+    - 149
+    - 154
+  alias: src-tauri/crates/md-studio-core/src/launch.rs#markdown_ext_case_insensitive
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-TEST-SIMPLE-TAG
+  type: test
+  name: test_simple_tag
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/parser/tag_parser.rs
+    symbol: test_simple_tag
+    lines:
+    - 114
+    - 117
+  alias: src-tauri/crates/md-studio-core/src/parser/tag_parser.rs#test_simple_tag
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-TEST-HEADING-NOT-TAG
+  type: test
+  name: test_heading_not_tag
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/parser/tag_parser.rs
+    symbol: test_heading_not_tag
+    lines:
+    - 120
+    - 123
+  alias: src-tauri/crates/md-studio-core/src/parser/tag_parser.rs#test_heading_not_tag
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-TEST-TAG-IN-CODE-BLOCK-IGNORED
+  type: test
+  name: test_tag_in_code_block_ignored
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/parser/tag_parser.rs
+    symbol: test_tag_in_code_block_ignored
+    lines:
+    - 126
+    - 129
+  alias: src-tauri/crates/md-studio-core/src/parser/tag_parser.rs#test_tag_in_code_block_ignored
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-TEST-MULTIPLE-TAGS
+  type: test
+  name: test_multiple_tags
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/parser/tag_parser.rs
+    symbol: test_multiple_tags
+    lines:
+    - 132
+    - 137
+  alias: src-tauri/crates/md-studio-core/src/parser/tag_parser.rs#test_multiple_tags
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-TEST-TAG-WITH-HYPHEN
+  type: test
+  name: test_tag_with_hyphen
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/parser/tag_parser.rs
+    symbol: test_tag_with_hyphen
+    lines:
+    - 140
+    - 143
+  alias: src-tauri/crates/md-studio-core/src/parser/tag_parser.rs#test_tag_with_hyphen
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-TEST-TAG-IN-INLINE-CODE-IGNORED
+  type: test
+  name: test_tag_in_inline_code_ignored
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/parser/tag_parser.rs
+    symbol: test_tag_in_inline_code_ignored
+    lines:
+    - 146
+    - 150
+  alias: src-tauri/crates/md-studio-core/src/parser/tag_parser.rs#test_tag_in_inline_code_ignored
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-TEST-TAG-INSIDE-PARENTHESES
+  type: test
+  name: test_tag_inside_parentheses
+  module: MOD-METADATA-INDEX
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/parser/tag_parser.rs
+    symbol: test_tag_inside_parentheses
+    lines:
+    - 153
+    - 158
+  alias: src-tauri/crates/md-studio-core/src/parser/tag_parser.rs#test_tag_inside_parentheses
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-TEST-SIMPLE-WIKI-LINK
+  type: test
+  name: test_simple_wiki_link
+  module: MOD-WIKI-LINKS
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/parser/wiki_link_parser.rs
+    symbol: test_simple_wiki_link
+    lines:
+    - 107
+    - 113
+  alias: src-tauri/crates/md-studio-core/src/parser/wiki_link_parser.rs#test_simple_wiki_link
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-TEST-WIKI-LINK-WITH-ALIAS
+  type: test
+  name: test_wiki_link_with_alias
+  module: MOD-WIKI-LINKS
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/parser/wiki_link_parser.rs
+    symbol: test_wiki_link_with_alias
+    lines:
+    - 116
+    - 121
+  alias: src-tauri/crates/md-studio-core/src/parser/wiki_link_parser.rs#test_wiki_link_with_alias
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-TEST-IGNORE-IN-CODE-BLOCK
+  type: test
+  name: test_ignore_in_code_block
+  module: MOD-WIKI-LINKS
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/parser/wiki_link_parser.rs
+    symbol: test_ignore_in_code_block
+    lines:
+    - 124
+    - 128
+  alias: src-tauri/crates/md-studio-core/src/parser/wiki_link_parser.rs#test_ignore_in_code_block
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-TEST-IGNORE-IN-INLINE-CODE
+  type: test
+  name: test_ignore_in_inline_code
+  module: MOD-WIKI-LINKS
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/parser/wiki_link_parser.rs
+    symbol: test_ignore_in_inline_code
+    lines:
+    - 131
+    - 136
+  alias: src-tauri/crates/md-studio-core/src/parser/wiki_link_parser.rs#test_ignore_in_inline_code
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-TEST-MULTIPLE-WIKI-LINKS
+  type: test
+  name: test_multiple_wiki_links
+  module: MOD-WIKI-LINKS
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/parser/wiki_link_parser.rs
+    symbol: test_multiple_wiki_links
+    lines:
+    - 139
+    - 146
+  alias: src-tauri/crates/md-studio-core/src/parser/wiki_link_parser.rs#test_multiple_wiki_links
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-TEST-EMPTY-CONTENT
+  type: test
+  name: test_empty_content
+  module: MOD-WIKI-LINKS
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/parser/wiki_link_parser.rs
+    symbol: test_empty_content
+    lines:
+    - 149
+    - 152
+  alias: src-tauri/crates/md-studio-core/src/parser/wiki_link_parser.rs#test_empty_content
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-TEST-MULTILINE-LINE-NUMBER
+  type: test
+  name: test_multiline_line_number
+  module: MOD-WIKI-LINKS
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/parser/wiki_link_parser.rs
+    symbol: test_multiline_line_number
+    lines:
+    - 155
+    - 160
+  alias: src-tauri/crates/md-studio-core/src/parser/wiki_link_parser.rs#test_multiline_line_number
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-WRITES-NEW-FILE
+  type: test
+  name: writes_new_file
+  module: MOD-PERSISTENCE
+  anchor:
+    path: src-tauri/crates/md-studio-core/tests/atomic_save.rs
+    symbol: writes_new_file
+    lines:
+    - 6
+    - 12
+  alias: src-tauri/crates/md-studio-core/tests/atomic_save.rs#writes_new_file
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-DETECTS-CONFLICT
+  type: test
+  name: detects_conflict
+  module: MOD-PERSISTENCE
+  anchor:
+    path: src-tauri/crates/md-studio-core/tests/atomic_save.rs
+    symbol: detects_conflict
+    lines:
+    - 15
+    - 21
+  alias: src-tauri/crates/md-studio-core/tests/atomic_save.rs#detects_conflict
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-PAYLOAD-DESERIALIZES-CAMEL-CASE
+  type: test
+  name: payload_deserializes_camel_case
+  module: MOD-EXPORT
+  anchor:
+    path: src-tauri/crates/md-studio-core/tests/epub_builder.rs
+    symbol: payload_deserializes_camel_case
+    lines:
+    - 45
+    - 74
+  alias: src-tauri/crates/md-studio-core/tests/epub_builder.rs#payload_deserializes_camel_case
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-HTML-BECOMES-XHTML-WITH-HEADING-IDS
+  type: test
+  name: html_becomes_xhtml_with_heading_ids
+  module: MOD-EXPORT
+  anchor:
+    path: src-tauri/crates/md-studio-core/tests/epub_builder.rs
+    symbol: html_becomes_xhtml_with_heading_ids
+    lines:
+    - 77
+    - 100
+  alias: src-tauri/crates/md-studio-core/tests/epub_builder.rs#html_becomes_xhtml_with_heading_ids
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-NAV-AND-NCX-INCLUDE-H1-H2-ONLY
+  type: test
+  name: nav_and_ncx_include_h1_h2_only
+  module: MOD-APP-SHELL
+  anchor:
+    path: src-tauri/crates/md-studio-core/tests/epub_builder.rs
+    symbol: nav_and_ncx_include_h1_h2_only
+    lines:
+    - 103
+    - 144
+  alias: src-tauri/crates/md-studio-core/tests/epub_builder.rs#nav_and_ncx_include_h1_h2_only
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-CONTENT-OPF-CARRIES-METADATA
+  type: test
+  name: content_opf_carries_metadata
+  module: MOD-EXPORT
+  anchor:
+    path: src-tauri/crates/md-studio-core/tests/epub_builder.rs
+    symbol: content_opf_carries_metadata
+    lines:
+    - 147
+    - 184
+  alias: src-tauri/crates/md-studio-core/tests/epub_builder.rs#content_opf_carries_metadata
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-EMPTY-FRONTMATTER-USES-SAFE-DEFAULTS
+  type: test
+  name: empty_frontmatter_uses_safe_defaults
+  module: MOD-EXPORT
+  anchor:
+    path: src-tauri/crates/md-studio-core/tests/epub_builder.rs
+    symbol: empty_frontmatter_uses_safe_defaults
+    lines:
+    - 187
+    - 197
+  alias: src-tauri/crates/md-studio-core/tests/epub_builder.rs#empty_frontmatter_uses_safe_defaults
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-MERMAID-SVG-BECOMES-IMAGE-AND-NULL-BECOMES-CODE
+  type: test
+  name: mermaid_svg_becomes_image_and_null_becomes_code
+  module: MOD-EXPORT
+  anchor:
+    path: src-tauri/crates/md-studio-core/tests/epub_builder.rs
+    symbol: mermaid_svg_becomes_image_and_null_becomes_code
+    lines:
+    - 200
+    - 225
+  alias: src-tauri/crates/md-studio-core/tests/epub_builder.rs#mermaid_svg_becomes_image_and_null_becomes_code
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-EPUB-ZIP-INCLUDES-LOCAL-IMAGE-AND-REJECTS-ESCAPE
+  type: test
+  name: epub_zip_includes_local_image_and_rejects_escape
+  module: MOD-EXPORT
+  anchor:
+    path: src-tauri/crates/md-studio-core/tests/epub_builder.rs
+    symbol: epub_zip_includes_local_image_and_rejects_escape
+    lines:
+    - 228
+    - 331
+  alias: src-tauri/crates/md-studio-core/tests/epub_builder.rs#epub_zip_includes_local_image_and_rejects_escape
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-ATOMIC-WRITE-EXPORT-HTML
+  type: test
+  name: atomic_write_export_html
+  module: MOD-PERSISTENCE
+  anchor:
+    path: src-tauri/crates/md-studio-core/tests/export_atomic.rs
+    symbol: atomic_write_export_html
+    lines:
+    - 7
+    - 15
+  alias: src-tauri/crates/md-studio-core/tests/export_atomic.rs#atomic_write_export_html
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-FENCE-ACCEPTS-NESTED-MARKDOWN
+  type: test
+  name: fence_accepts_nested_markdown
+  module: MOD-SECURITY-POLICY
+  anchor:
+    path: src-tauri/crates/md-studio-core/tests/watcher_fence.rs
+    symbol: fence_accepts_nested_markdown
+    lines:
+    - 7
+    - 12
+  alias: src-tauri/crates/md-studio-core/tests/watcher_fence.rs#fence_accepts_nested_markdown
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-FENCE-REJECTS-PARENT-ESCAPE
+  type: test
+  name: fence_rejects_parent_escape
+  module: MOD-SECURITY-POLICY
+  anchor:
+    path: src-tauri/crates/md-studio-core/tests/watcher_fence.rs
+    symbol: fence_rejects_parent_escape
+    lines:
+    - 15
+    - 18
+  alias: src-tauri/crates/md-studio-core/tests/watcher_fence.rs#fence_rejects_parent_escape
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-REJECTS-PARENT-DIR
+  type: test
+  name: rejects_parent_dir
+  module: MOD-SECURITY-POLICY
+  anchor:
+    path: src-tauri/crates/md-studio-core/tests/workspace_paths.rs
+    symbol: rejects_parent_dir
+    lines:
+    - 6
+    - 11
+  alias: src-tauri/crates/md-studio-core/tests/workspace_paths.rs#rejects_parent_dir
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-REJECTS-ABSOLUTE
+  type: test
+  name: rejects_absolute
+  module: MOD-SECURITY-POLICY
+  anchor:
+    path: src-tauri/crates/md-studio-core/tests/workspace_paths.rs
+    symbol: rejects_absolute
+    lines:
+    - 14
+    - 17
+  alias: src-tauri/crates/md-studio-core/tests/workspace_paths.rs#rejects_absolute
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-ACCEPTS-NESTED
+  type: test
+  name: accepts_nested
+  module: MOD-SECURITY-POLICY
+  anchor:
+    path: src-tauri/crates/md-studio-core/tests/workspace_paths.rs
+    symbol: accepts_nested
+    lines:
+    - 20
+    - 25
+  alias: src-tauri/crates/md-studio-core/tests/workspace_paths.rs#accepts_nested
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-TEST-FORMATTER-SPEC-MAPPING
+  type: test
+  name: test_formatter_spec_mapping
+  module: MOD-FORMATTER
+  anchor:
+    path: src-tauri/src/commands/formatter.rs
+    symbol: test_formatter_spec_mapping
+    lines:
+    - 352
+    - 366
+  alias: src-tauri/src/commands/formatter.rs#test_formatter_spec_mapping
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-TEST-FORMAT-EMPTY-CODE
+  type: test
+  name: test_format_empty_code
+  module: MOD-FORMATTER
+  anchor:
+    path: src-tauri/src/commands/formatter.rs
+    symbol: test_format_empty_code
+    lines:
+    - 369
+    - 374
+  alias: src-tauri/src/commands/formatter.rs#test_format_empty_code
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-TEST-FORMAT-UNSUPPORTED-LANGUAGE
+  type: test
+  name: test_format_unsupported_language
+  module: MOD-FORMATTER
+  anchor:
+    path: src-tauri/src/commands/formatter.rs
+    symbol: test_format_unsupported_language
+    lines:
+    - 377
+    - 382
+  alias: src-tauri/src/commands/formatter.rs#test_format_unsupported_language
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-TEST-FORMAT-MISSING-TOOL-FALLBACK
+  type: test
+  name: test_format_missing_tool_fallback
+  module: MOD-FORMATTER
+  anchor:
+    path: src-tauri/src/commands/formatter.rs
+    symbol: test_format_missing_tool_fallback
+    lines:
+    - 385
+    - 393
+  alias: src-tauri/src/commands/formatter.rs#test_format_missing_tool_fallback
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-TEST-FORMAT-PYTHON-WITH-RUFF
+  type: test
+  name: test_format_python_with_ruff
+  module: MOD-FORMATTER
+  anchor:
+    path: src-tauri/src/commands/formatter.rs
+    symbol: test_format_python_with_ruff
+    lines:
+    - 396
+    - 407
+  alias: src-tauri/src/commands/formatter.rs#test_format_python_with_ruff
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-TEST-FORMAT-RUST-WITH-RUSTFMT
+  type: test
+  name: test_format_rust_with_rustfmt
+  module: MOD-FORMATTER
+  anchor:
+    path: src-tauri/src/commands/formatter.rs
+    symbol: test_format_rust_with_rustfmt
+    lines:
+    - 410
+    - 421
+  alias: src-tauri/src/commands/formatter.rs#test_format_rust_with_rustfmt
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-TEST-FORMAT-GO-WITH-GOFMT
+  type: test
+  name: test_format_go_with_gofmt
+  module: MOD-FORMATTER
+  anchor:
+    path: src-tauri/src/commands/formatter.rs
+    symbol: test_format_go_with_gofmt
+    lines:
+    - 424
+    - 435
+  alias: src-tauri/src/commands/formatter.rs#test_format_go_with_gofmt
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-TEST-FORMAT-SYNTAX-ERROR-RESILIENCE
+  type: test
+  name: test_format_syntax_error_resilience
+  module: MOD-FORMATTER
+  anchor:
+    path: src-tauri/src/commands/formatter.rs
+    symbol: test_format_syntax_error_resilience
+    lines:
+    - 438
+    - 449
+  alias: src-tauri/src/commands/formatter.rs#test_format_syntax_error_resilience
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-FENCE-REJECTS-PARENT-AND-ABSOLUTE-PATHS
+  type: test
+  name: fence_rejects_parent_and_absolute_paths
+  module: MOD-BACKLINKS
+  anchor:
+    path: src-tauri/src/commands/metadata.rs
+    symbol: fence_rejects_parent_and_absolute_paths
+    lines:
+    - 255
+    - 261
+  alias: src-tauri/src/commands/metadata.rs#fence_rejects_parent_and_absolute_paths
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-CONTEXT-FAILURE-KEEPS-OCCURRENCE
+  type: test
+  name: context_failure_keeps_occurrence
+  module: MOD-BACKLINKS
+  anchor:
+    path: src-tauri/src/commands/metadata.rs
+    symbol: context_failure_keeps_occurrence
+    lines:
+    - 264
+    - 296
+  alias: src-tauri/src/commands/metadata.rs#context_failure_keeps_occurrence
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-EXPORT-WRITES-RENDERED-HTML-NOT-PRE-STUB
+  type: test
+  name: export_writes_rendered_html_not_pre_stub
+  module: MOD-EXPORT
+  anchor:
+    path: src-tauri/src/commands/mod.rs
+    symbol: export_writes_rendered_html_not_pre_stub
+    lines:
+    - 277
+    - 290
+  alias: src-tauri/src/commands/mod.rs#export_writes_rendered_html_not_pre_stub
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-EXPORT-REFUSES-OVERWRITE-WITHOUT-FLAG
+  type: test
+  name: export_refuses_overwrite_without_flag
+  module: MOD-EXPORT
+  anchor:
+    path: src-tauri/src/commands/mod.rs
+    symbol: export_refuses_overwrite_without_flag
+    lines:
+    - 293
+    - 304
+  alias: src-tauri/src/commands/mod.rs#export_refuses_overwrite_without_flag
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-EXPORT-OVERWRITE-WHEN-ALLOWED
+  type: test
+  name: export_overwrite_when_allowed
+  module: MOD-EXPORT
+  anchor:
+    path: src-tauri/src/commands/mod.rs
+    symbol: export_overwrite_when_allowed
+    lines:
+    - 307
+    - 318
+  alias: src-tauri/src/commands/mod.rs#export_overwrite_when_allowed
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-EXPORT-EPUB-REQUEST-DESERIALIZES-CAMEL-CASE
+  type: test
+  name: export_epub_request_deserializes_camel_case
+  module: MOD-EXPORT
+  anchor:
+    path: src-tauri/src/commands/mod.rs
+    symbol: export_epub_request_deserializes_camel_case
+    lines:
+    - 345
+    - 362
+  alias: src-tauri/src/commands/mod.rs#export_epub_request_deserializes_camel_case
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-EXPORT-EPUB-REFUSES-NON-ABSOLUTE-DESTINATION
+  type: test
+  name: export_epub_refuses_non_absolute_destination
+  module: MOD-EXPORT
+  anchor:
+    path: src-tauri/src/commands/mod.rs
+    symbol: export_epub_refuses_non_absolute_destination
+    lines:
+    - 365
+    - 378
+  alias: src-tauri/src/commands/mod.rs#export_epub_refuses_non_absolute_destination
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-EXPORT-EPUB-REQUIRES-KNOWN-WORKSPACE-AND-REJECTS-ESCAPE
+  type: test
+  name: export_epub_requires_known_workspace_and_rejects_escape
+  module: MOD-EXPORT
+  anchor:
+    path: src-tauri/src/commands/mod.rs
+    symbol: export_epub_requires_known_workspace_and_rejects_escape
+    lines:
+    - 381
+    - 426
+  alias: src-tauri/src/commands/mod.rs#export_epub_requires_known_workspace_and_rejects_escape
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-EXPORT-EPUB-WRITES-PACKAGE-AND-REFUSES-CLOBBER
+  type: test
+  name: export_epub_writes_package_and_refuses_clobber
+  module: MOD-EXPORT
+  anchor:
+    path: src-tauri/src/commands/mod.rs
+    symbol: export_epub_writes_package_and_refuses_clobber
+    lines:
+    - 429
+    - 463
+  alias: src-tauri/src/commands/mod.rs#export_epub_writes_package_and_refuses_clobber
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-FENCE-REJECTS-OUTSIDE
+  type: test
+  name: fence_rejects_outside
+  module: MOD-WATCHER
+  anchor:
+    path: src-tauri/src/watcher/mod.rs
+    symbol: fence_rejects_outside
+    lines:
+    - 290
+    - 298
+  alias: src-tauri/src/watcher/mod.rs#fence_rejects_outside
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-FENCE-NORMALIZES-RELATIVE
+  type: test
+  name: fence_normalizes_relative
+  module: MOD-WATCHER
+  anchor:
+    path: src-tauri/src/watcher/mod.rs
+    symbol: fence_normalizes_relative
+    lines:
+    - 301
+    - 309
+  alias: src-tauri/src/watcher/mod.rs#fence_normalizes_relative
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-COALESCE-KEY-STABLE
+  type: test
+  name: coalesce_key_stable
+  module: MOD-WATCHER
+  anchor:
+    path: src-tauri/src/watcher/mod.rs
+    symbol: coalesce_key_stable
+    lines:
+    - 312
+    - 320
+  alias: src-tauri/src/watcher/mod.rs#coalesce_key_stable
+  inclusion:
+  - test
+  trace_task: TRACE-010
+- id: TST-RS-INTERNAL-SAVE-SUPPRESSION-FLOW
+  type: test
+  name: internal_save_suppression_flow
+  module: MOD-WATCHER
+  anchor:
+    path: src-tauri/src/watcher/mod.rs
+    symbol: internal_save_suppression_flow
+    lines:
+    - 323
+    - 345
+  alias: src-tauri/src/watcher/mod.rs#internal_save_suppression_flow
+  inclusion:
+  - test
+  trace_task: TRACE-010

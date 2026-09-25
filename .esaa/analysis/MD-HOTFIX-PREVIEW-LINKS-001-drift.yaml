@@ -1,0 +1,125 @@
+artifact: task-drift
+schema_version: 1
+trace_task: TRACE-019
+task_id: MD-HOTFIX-PREVIEW-LINKS-001
+inputs:
+  impact: .esaa/analysis/MD-HOTFIX-PREVIEW-LINKS-001-impact.yaml
+  footprint: .esaa/analysis/MD-HOTFIX-PREVIEW-LINKS-001-footprint.yaml
+  graph_source_commit: 5fe4f4d2230f039791d6196cb0f0ecfb438825ae
+notes:
+- 'calibração retroativa: projeção 2026-09-24 23:17:25 BRT antes do diff; grafo posterior ao commit (bias de retrospectiva estrutural)'
+rule: authorized = change_target ∪ expected_affected; ok ∈ authorized; violation ∈ protected; warning ∈ potentially_affected | out_of_closure
+  | uncatalogued substantive
+authorized:
+- CMP-MARKDOWN-VIEWER
+- FN-RESOLVE-RELATIVE-LINK
+- FN-RS-RUN
+- FN-SCROLL-TO-HEADING
+- HDL-VIEWER-ON-CLICK
+- OSI-OPEN-EXTERNAL-URL
+- PERM-OPENER-ALLOW-OPEN-URL
+- TST-TS-MARKDOWN-CORE-NAVIGATION-RESOLVERELATIVELINK
+observed:
+- CMP-MARKDOWN-VIEWER
+- FN-RESOLVE-RELATIVE-LINK
+- HDL-VIEWER-ON-CLICK
+- OSI-OPEN-EXTERNAL-URL
+- TST-TS-MARKDOWN-CORE-NAVIGATION-RESOLVERELATIVELINK
+classification:
+- id: CMP-MARKDOWN-VIEWER
+  category: authorized
+  severity: ok
+  reasons: []
+- id: HDL-VIEWER-ON-CLICK
+  category: authorized
+  severity: ok
+  reasons: []
+- id: FN-RESOLVE-RELATIVE-LINK
+  category: authorized
+  severity: ok
+  reasons: []
+- id: OSI-OPEN-EXTERNAL-URL
+  category: authorized
+  severity: ok
+  reasons: []
+- id: TST-TS-MARKDOWN-CORE-NAVIGATION-RESOLVERELATIVELINK
+  category: authorized
+  severity: ok
+  reasons: []
+drift: []
+other_findings:
+- id: FN-RESOLVE-RELATIVE-LINK
+  category: created_production_node
+  severity: info
+  note: nó existe no grafo (posterior) mas não existia no base; numa projeção real pré-mudança seria nó novo
+- id: OSI-OPEN-EXTERNAL-URL
+  category: created_production_node
+  severity: info
+  note: nó existe no grafo (posterior) mas não existia no base; numa projeção real pré-mudança seria nó novo
+not_touched:
+- FN-RS-RUN
+- FN-SCROLL-TO-HEADING
+- PERM-OPENER-ALLOW-OPEN-URL
+verdict: ok
+metrics:
+  nodes:
+    tp: 5
+    authorized: 8
+    observed: 5
+    precision: 0.625
+    recall: 1.0
+    closure_recall: 1.0
+  code_nodes_only:
+    tp: 4
+    authorized: 7
+    observed: 4
+    precision: 0.571
+    recall: 1.0
+  features:
+    projected_direct:
+    - FEAT-CREATE-NOTE-FROM-WIKI
+    - FEAT-KATEX
+    - FEAT-MERMAID
+    - FEAT-OUTGOING-LINKS
+    - FEAT-OUTLINE
+    - FEAT-PREVIEW
+    - FEAT-SANITIZE
+    - FEAT-SHIKI
+    - FEAT-WIKI-LINKS
+    projected_all: 16
+    observed:
+    - FEAT-PREVIEW
+    - FEAT-WIKI-LINKS
+    observed_in_projected_direct:
+    - FEAT-PREVIEW
+    - FEAT-WIKI-LINKS
+    observed_missing_from_projection: []
+    precision_direct: 0.222
+    recall_all: 1.0
+  invariants:
+    projected:
+    - INV-OFFLINE-NO-TELEMETRY
+    observed:
+    - INV-OFFLINE-NO-TELEMETRY
+    missing_from_projection: []
+  tests:
+    projected_must_run:
+    - TST-TS-MARKDOWN-CORE-NAVIGATION-RESOLVERELATIVELINK
+    changed_test_nodes:
+    - TST-TS-MARKDOWN-CORE-NAVIGATION-RESOLVERELATIVELINK
+    new_test_files: []
+  contracts_touched:
+  - id: CTR-SANITIZE-POLICY
+    how: consumer
+    node: CMP-MARKDOWN-VIEWER
+  - id: CTR-TAURI-CSP
+    how: consumer
+    node: CMP-MARKDOWN-VIEWER
+  - id: CTR-CAPABILITIES
+    how: consumer
+    node: OSI-OPEN-EXTERNAL-URL
+  data_touched:
+  - id: STO-METADATA
+    how: read_by_changed
+    node: CMP-MARKDOWN-VIEWER
+  events_touched: []

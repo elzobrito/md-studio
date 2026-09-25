@@ -1,0 +1,151 @@
+# TRACE-009 — Exportar HTML. Passos ordenados; via = aresta de edges.yaml que liga o passo de origem (direction reverse = aresta no sentido oposto, ex.: consumes/reads/callback). trigger = início de ramo.
+artifact: export-html
+schema_version: 1
+source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+generated_at: '2026-09-24T23:03:41-03:00'
+id: FLOW-EXPORT-HTML
+name: Exportar HTML
+required: true
+features:
+- FEAT-EXPORT-HTML
+entrypoints:
+- ENT-BTN-EXPORT-HTML
+- ENT-OSI-PICK-SAVE-HTML
+- ENT-OSI-CONFIRM-OVERWRITE
+- ENT-IPC-EXPORT-HTML
+outcome: Arquivo .html autocontido gravado (desktop) ou baixado (browser).
+steps:
+- step: 1
+  node: BTN-EXPORT-HTML
+  entrypoint: ENT-BTN-EXPORT-HTML
+  trigger: Menu Exportar > Exportar HTML
+- step: 2
+  node: HDL-APP-EXPORT-HTML
+  via:
+  - from_step: 1
+    edge: BTN-EXPORT-HTML|triggers|HDL-APP-EXPORT-HTML
+    direction: forward
+    evidence:
+    - src/components/header/ExportMenu.tsx:39
+    - src/App.tsx:548
+    method: observed
+- step: 3
+  node: SVC-EXPORT-ACTIVE-DOCUMENT-HTML
+  via:
+  - from_step: 2
+    edge: HDL-APP-EXPORT-HTML|calls|SVC-EXPORT-ACTIVE-DOCUMENT-HTML
+    direction: forward
+    evidence:
+    - src/App.tsx:159
+    method: observed
+- step: 4
+  node: SVC-EXPORT-HTML-DOCUMENT
+  note: monta documento autocontido
+  via:
+  - from_step: 3
+    edge: SVC-EXPORT-ACTIVE-DOCUMENT-HTML|calls|SVC-EXPORT-HTML-DOCUMENT
+    direction: forward
+    evidence:
+    - src/services/exportHtml.ts:31
+    method: observed
+- step: 5
+  node: SVC-PROCESS-MARKDOWN
+  note: mesmo pipeline sanitizado do preview
+  via:
+  - from_step: 4
+    edge: SVC-EXPORT-HTML-DOCUMENT|calls|SVC-PROCESS-MARKDOWN
+    direction: forward
+    evidence:
+    - src/services/export.ts:9
+    method: observed
+- step: 6
+  node: FILE-EXPORT-HTML
+  note: template <html> com CSS embutido
+  via:
+  - from_step: 4
+    edge: SVC-EXPORT-HTML-DOCUMENT|contains|FILE-EXPORT-HTML
+    direction: forward
+    evidence:
+    - src/services/export.ts:12
+    method: observed
+- step: 7
+  node: FN-IS-TAURI-RUNTIME
+  note: desktop x browser
+  via:
+  - from_step: 3
+    edge: SVC-EXPORT-ACTIVE-DOCUMENT-HTML|calls|FN-IS-TAURI-RUNTIME
+    direction: forward
+    evidence:
+    - src/services/exportHtml.ts:35
+    method: observed
+- step: 8
+  node: OSI-PICK-SAVE-HTML
+  entrypoint: ENT-OSI-PICK-SAVE-HTML
+  note: 'desktop: diálogo salvar'
+  via:
+  - from_step: 3
+    edge: SVC-EXPORT-ACTIVE-DOCUMENT-HTML|calls|OSI-PICK-SAVE-HTML
+    direction: forward
+    evidence:
+    - src/services/exportHtml.ts:32
+    method: observed
+- step: 9
+  node: OSI-CONFIRM-OVERWRITE
+  entrypoint: ENT-OSI-CONFIRM-OVERWRITE
+  note: confirma sobrescrita se existir
+  via:
+  - from_step: 3
+    edge: SVC-EXPORT-ACTIVE-DOCUMENT-HTML|calls|OSI-CONFIRM-OVERWRITE
+    direction: forward
+    evidence:
+    - src/services/exportHtml.ts:47
+    method: observed
+- step: 10
+  node: IPCC-EXPORT-HTML
+  via:
+  - from_step: 3
+    edge: SVC-EXPORT-ACTIVE-DOCUMENT-HTML|calls|IPCC-EXPORT-HTML
+    direction: forward
+    evidence:
+    - src/services/exportHtml.ts:42
+    method: observed
+- step: 11
+  node: IPC-EXPORT-HTML
+  entrypoint: ENT-IPC-EXPORT-HTML
+  via:
+  - from_step: 10
+    edge: IPCC-EXPORT-HTML|calls|IPC-EXPORT-HTML
+    direction: forward
+    evidence:
+    - src/lib/ipc/client.ts:127
+    - src-tauri/src/commands/mod.rs:216
+    - src-tauri/src/lib.rs:76
+    method: observed
+- step: 12
+  node: FN-ATOMIC-WRITE-BYTES
+  note: gravação atômica do .html
+  via:
+  - from_step: 11
+    edge: IPC-EXPORT-HTML|calls|FN-ATOMIC-WRITE-BYTES
+    direction: forward
+    evidence:
+    - src-tauri/src/commands/mod.rs:224
+    - src-tauri/src/commands/mod.rs:2
+    - src-tauri/src/persistence/mod.rs:1
+    method: observed
+- step: 13
+  node: FN-DOWNLOAD-HTML
+  note: 'browser: download'
+  via:
+  - from_step: 3
+    edge: SVC-EXPORT-ACTIVE-DOCUMENT-HTML|calls|FN-DOWNLOAD-HTML
+    direction: forward
+    evidence:
+    - src/services/exportHtml.ts:37
+    method: observed
+gaps:
+- description: 'HTML exportado sem Content-Security-Policy: recursos remotos carregariam ao abrir o arquivo.'
+  evidence:
+  - src/services/export.ts:12
+  method: observed
+trace_task: TRACE-009

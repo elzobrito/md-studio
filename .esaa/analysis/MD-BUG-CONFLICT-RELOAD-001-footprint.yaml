@@ -1,0 +1,91 @@
+artifact: task-footprint
+schema_version: 1
+trace_task: TRACE-018
+task_id: MD-BUG-CONFLICT-RELOAD-001
+diff:
+  base: 5fe4f4d2230f039791d6196cb0f0ecfb438825ae
+  head: WORKTREE
+  paths_filter:
+  - src/state/documentState.ts
+  - tests/editor/conflictReload.test.tsx
+  excluded_set:
+  - docs/security/rust-advisory-residuals-2026-09-23.md
+  - src-tauri/Cargo.lock
+  - src-tauri/crates/md-studio-core/Cargo.lock
+  - src-tauri/crates/md-studio-core/Cargo.toml
+  - src-tauri/crates/md-studio-core/src/export/xhtml_converter.rs
+  - .roadmap/activity.jsonl
+  - .roadmap/issues.json
+  - .roadmap/lessons.json
+  - .roadmap/roadmap.json
+  command: git diff -U0 --no-color --no-ext-diff 5fe4f4d2230f039791d6196cb0f0ecfb438825ae -- src/state/documentState.ts tests/editor/conflictReload.test.tsx
+graph_source_commit: 5fe4f4d2230f039791d6196cb0f0ecfb438825ae
+notes:
+- 'working tree vs HEAD (5fe4f4d == graph source_commit) restrito aos 2 arquivos da tarefa; conjunto MD-SEC-AUDIT-CI-001 + .roadmap/* em --exclude
+  (sem sobreposição); sha256 do documentState.ts antes: b583db1b…'
+changed_files:
+- path: src/state/documentState.ts
+  status: M
+  added: 3
+  removed: 0
+  hunks:
+  - old:
+    - 463
+    - 462
+    new:
+    - 464
+    - 466
+  is_test: false
+  catalogued_nodes_in_file: 16
+- path: tests/editor/conflictReload.test.tsx
+  status: A
+  added: 134
+  removed: 0
+  hunks:
+  - old:
+    - 0
+    - -1
+    new:
+    - 1
+    - 134
+  is_test: true
+  catalogued_nodes_in_file: 0
+changed_nodes:
+- id: HDL-DOC-RESOLVE-CONFLICT
+  kind: code
+  type: handler
+  path: src/state/documentState.ts
+  sides:
+  - new
+  lines_hit: 3
+  attribution: line
+  anchor_resolution:
+    old: exact
+    new: relocated
+  created_by_change: false
+enclosing_nodes:
+- id: STO-DOCUMENT-STATE
+  contains_changed:
+  - HDL-DOC-RESOLVE-CONFLICT
+uncatalogued: []
+new_files: []
+new_test_files:
+- tests/editor/conflictReload.test.tsx
+contracts_touched: []
+data_touched: []
+events_touched: []
+rollup:
+  features:
+  - FEAT-CONFLICT
+  invariants: []
+  flows:
+  - FLOW-CONFLICT-ON-SAVE
+stats:
+  files: 2
+  changed_nodes: 1
+  code_nodes: 1
+  test_nodes: 0
+  uncatalogued_files: 0
+  uncatalogued_substantive_lines: 0
+  new_files: 0
+  new_test_files: 1

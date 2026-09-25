@@ -1,0 +1,98 @@
+# TRACE-009 — Novo documento a partir de modelo. Passos ordenados; via = aresta de edges.yaml que liga o passo de origem (direction reverse = aresta no sentido oposto, ex.: consumes/reads/callback). trigger = início de ramo.
+artifact: new-document
+schema_version: 1
+source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+generated_at: '2026-09-24T23:03:41-03:00'
+id: FLOW-NEW-DOCUMENT
+name: Novo documento a partir de modelo
+required: false
+features:
+- FEAT-TEMPLATES
+entrypoints:
+- ENT-SHC-CTRL-N
+- ENT-BTN-HEADER-NEW-DOCUMENT
+- ENT-BTN-WELCOME-NEW-DOCUMENT
+outcome: Editor com conteúdo do modelo (sem arquivo até salvar).
+steps:
+- step: 1
+  node: SHC-CTRL-N
+  entrypoint: ENT-SHC-CTRL-N
+  trigger: Ctrl+N
+- step: 2
+  node: BTN-HEADER-NEW-DOCUMENT
+  entrypoint: ENT-BTN-HEADER-NEW-DOCUMENT
+  trigger: Botão + do cabeçalho
+- step: 3
+  node: BTN-WELCOME-NEW-DOCUMENT
+  entrypoint: ENT-BTN-WELCOME-NEW-DOCUMENT
+  trigger: Botão na WelcomeScreen
+- step: 4
+  node: HDL-APP-OPEN-NEW-DOCUMENT
+  via:
+  - from_step: 1
+    edge: SHC-CTRL-N|triggers|HDL-APP-OPEN-NEW-DOCUMENT
+    direction: forward
+    evidence:
+    - src/App.tsx:353
+    method: observed
+  - from_step: 2
+    edge: BTN-HEADER-NEW-DOCUMENT|triggers|HDL-APP-OPEN-NEW-DOCUMENT
+    direction: forward
+    evidence:
+    - src/components/header/AppHeader.tsx:76
+    - src/App.tsx:560
+    method: observed
+  - from_step: 3
+    edge: BTN-WELCOME-NEW-DOCUMENT|triggers|HDL-APP-OPEN-NEW-DOCUMENT
+    direction: forward
+    evidence:
+    - src/components/empty/WelcomeScreen.tsx:51
+    - src/App.tsx:651
+    method: observed
+- step: 5
+  node: CMP-NEW-DOCUMENT-MODAL
+  via:
+  - from_step: 4
+    edge: HDL-APP-OPEN-NEW-DOCUMENT|writes|CMP-NEW-DOCUMENT-MODAL
+    direction: forward
+    evidence:
+    - src/App.tsx:100
+    method: observed
+- step: 6
+  node: CFG-TEMPLATES
+  via:
+  - from_step: 5
+    edge: CMP-NEW-DOCUMENT-MODAL|reads|CFG-TEMPLATES
+    direction: forward
+    evidence:
+    - src/components/editor/NewDocumentModal.tsx:38
+    method: observed
+- step: 7
+  node: HDL-APP-SELECT-TEMPLATE
+  via:
+  - from_step: 5
+    edge: CMP-NEW-DOCUMENT-MODAL|triggers|HDL-APP-SELECT-TEMPLATE
+    direction: forward
+    evidence:
+    - src/components/editor/NewDocumentModal.tsx:40
+    - src/App.tsx:804
+    method: observed
+- step: 8
+  node: HDL-DOC-NEW-DOCUMENT
+  via:
+  - from_step: 7
+    edge: HDL-APP-SELECT-TEMPLATE|calls|HDL-DOC-NEW-DOCUMENT
+    direction: forward
+    evidence:
+    - src/App.tsx:147
+    method: observed
+- step: 9
+  node: STO-EDITOR
+  via:
+  - from_step: 8
+    edge: HDL-DOC-NEW-DOCUMENT|writes|STO-EDITOR
+    direction: forward
+    evidence:
+    - src/state/documentState.ts:361
+    method: observed
+trace_task: TRACE-009

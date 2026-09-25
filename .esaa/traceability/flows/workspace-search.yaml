@@ -1,0 +1,131 @@
+# TRACE-009 — Busca no workspace. Passos ordenados; via = aresta de edges.yaml que liga o passo de origem (direction reverse = aresta no sentido oposto, ex.: consumes/reads/callback). trigger = início de ramo.
+artifact: workspace-search
+schema_version: 1
+source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+generated_at: '2026-09-24T23:03:41-03:00'
+id: FLOW-WORKSPACE-SEARCH
+name: Busca no workspace
+required: true
+features:
+- FEAT-WORKSPACE-SEARCH
+- FEAT-COMMAND-PALETTE
+entrypoints:
+- ENT-SHC-CTRL-P
+- ENT-CMP-COMMAND-PALETTE
+- ENT-SHC-CTRL-P
+- ENT-BTN-HEADER-QUICK-SEARCH
+- ENT-IPC-SEARCH-WORKSPACE
+outcome: Busca textual existe só no backend; a UI oferece apenas fuzzy sobre recentes.
+steps:
+- step: 1
+  node: SHC-CTRL-P
+  entrypoint: ENT-SHC-CTRL-P
+  trigger: Ctrl+P (o único gatilho de 'busca' na UI)
+- step: 2
+  node: CMP-QUICK-SWITCHER
+  via:
+  - from_step: 1
+    edge: SHC-CTRL-P|triggers|CMP-QUICK-SWITCHER
+    direction: forward
+    evidence:
+    - src/components/command/CommandPalette.tsx:22
+    - src/components/command/CommandPalette.tsx:33
+    method: observed
+- step: 3
+  node: FN-FUZZY-SEARCH
+  note: fuzzy só sobre recentes (allFiles não é passado)
+  via:
+  - from_step: 2
+    edge: CMP-QUICK-SWITCHER|calls|FN-FUZZY-SEARCH
+    direction: forward
+    evidence:
+    - src/components/command/QuickSwitcher.tsx:54
+    method: observed
+- step: 4
+  node: STO-RECENT-FILES
+  via:
+  - from_step: 2
+    edge: CMP-QUICK-SWITCHER|reads|STO-RECENT-FILES
+    direction: forward
+    evidence:
+    - src/components/command/QuickSwitcher.tsx:29
+    - src/hooks/useRecentFiles.ts:5
+    method: observed
+- step: 5
+  node: HDL-DOC-OPEN-RECENT
+  note: abre o escolhido
+  via:
+  - from_step: 2
+    edge: CMP-QUICK-SWITCHER|triggers|HDL-DOC-OPEN-RECENT
+    direction: forward
+    evidence:
+    - src/components/command/QuickSwitcher.tsx:102
+    - src/components/command/CommandPalette.tsx:10
+    - src/App.tsx:771
+    method: observed
+- step: 6
+  node: CMP-COMMAND-PALETTE
+  entrypoint: ENT-CMP-COMMAND-PALETTE
+  trigger: Palette contém o atalho e o switcher
+- step: 7
+  node: SHC-CTRL-P
+  entrypoint: ENT-SHC-CTRL-P
+  via:
+  - from_step: 6
+    edge: CMP-COMMAND-PALETTE|contains|SHC-CTRL-P
+    direction: forward
+    evidence:
+    - src/components/command/CommandPalette.tsx:22
+    method: observed
+- step: 8
+  node: BTN-HEADER-QUICK-SEARCH
+  entrypoint: ENT-BTN-HEADER-QUICK-SEARCH
+  trigger: 'Botão de busca do cabeçalho: não renderiza (onOpenSearch ausente)'
+- step: 9
+  node: IPCC-SEARCH-WORKSPACE
+  trigger: SEM GATILHO NA UI — cliente TS existe mas não é chamado
+- step: 10
+  node: IPC-SEARCH-WORKSPACE
+  entrypoint: ENT-IPC-SEARCH-WORKSPACE
+  via:
+  - from_step: 9
+    edge: IPCC-SEARCH-WORKSPACE|calls|IPC-SEARCH-WORKSPACE
+    direction: forward
+    evidence:
+    - src/lib/ipc/client.ts:116
+    - src-tauri/src/commands/mod.rs:163
+    - src-tauri/src/lib.rs:75
+    method: observed
+- step: 11
+  node: FN-WORKSPACE-REGISTRY-GET
+  via:
+  - from_step: 10
+    edge: IPC-SEARCH-WORKSPACE|calls|FN-WORKSPACE-REGISTRY-GET
+    direction: forward
+    evidence:
+    - src-tauri/src/commands/mod.rs:172
+    method: observed
+- step: 12
+  node: FILE-MARKDOWN-DOCUMENT
+  note: varre .md e busca texto
+  via:
+  - from_step: 10
+    edge: IPC-SEARCH-WORKSPACE|reads|FILE-MARKDOWN-DOCUMENT
+    direction: forward
+    evidence:
+    - src-tauri/src/commands/mod.rs:182
+    method: observed
+gaps:
+- description: search_workspace não tem chamador no frontend (nenhum uso de ipc.searchWorkspace).
+  evidence:
+  - src-tauri/src/lib.rs:75
+  method: observed
+- description: 'CommandPalette recebe só onOpenFile: sem allFiles, fuzzy cobre apenas recentes.'
+  evidence:
+  - src/App.tsx:770
+  method: observed
+- description: 'Botão de busca do cabeçalho não renderiza: App não passa onOpenSearch.'
+  evidence:
+  - src/components/header/AppHeader.tsx:84
+  method: observed
+trace_task: TRACE-009

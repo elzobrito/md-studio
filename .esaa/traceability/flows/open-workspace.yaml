@@ -1,0 +1,212 @@
+# TRACE-009 — Abrir pasta como workspace. Passos ordenados; via = aresta de edges.yaml que liga o passo de origem (direction reverse = aresta no sentido oposto, ex.: consumes/reads/callback). trigger = início de ramo.
+artifact: open-workspace
+schema_version: 1
+source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+generated_at: '2026-09-24T23:03:41-03:00'
+id: FLOW-OPEN-WORKSPACE
+name: Abrir pasta como workspace
+required: true
+features:
+- FEAT-OPEN-WORKSPACE
+- FEAT-METADATA-INDEX
+entrypoints:
+- ENT-SHC-CTRL-SHIFT-O
+- ENT-BTN-WELCOME-OPEN-FOLDER
+- ENT-OSI-PICK-FOLDER
+- ENT-IPC-OPEN-WORKSPACE
+- ENT-IPC-LIST-ENTRIES
+- ENT-BTN-EXPLORER-OPEN-FOLDER
+outcome: Workspace registrado, índice carregado/reconstruído, árvore listada.
+steps:
+- step: 1
+  node: SHC-CTRL-SHIFT-O
+  entrypoint: ENT-SHC-CTRL-SHIFT-O
+  trigger: Ctrl+Shift+O
+- step: 2
+  node: BTN-WELCOME-OPEN-FOLDER
+  entrypoint: ENT-BTN-WELCOME-OPEN-FOLDER
+  trigger: Botão 'Abrir pasta' na WelcomeScreen
+- step: 3
+  node: HDL-APP-OPEN-FOLDER-WELCOME
+  via:
+  - from_step: 1
+    edge: SHC-CTRL-SHIFT-O|triggers|HDL-APP-OPEN-FOLDER-WELCOME
+    direction: forward
+    evidence:
+    - src/App.tsx:394
+    method: observed
+  - from_step: 2
+    edge: BTN-WELCOME-OPEN-FOLDER|triggers|HDL-APP-OPEN-FOLDER-WELCOME
+    direction: forward
+    evidence:
+    - src/components/empty/WelcomeScreen.tsx:30
+    - src/App.tsx:645
+    method: observed
+- step: 4
+  node: OSI-PICK-FOLDER
+  entrypoint: ENT-OSI-PICK-FOLDER
+  note: diálogo nativo de pasta
+  via:
+  - from_step: 3
+    edge: HDL-APP-OPEN-FOLDER-WELCOME|calls|OSI-PICK-FOLDER
+    direction: forward
+    evidence:
+    - src/App.tsx:205
+    method: observed
+- step: 5
+  node: HDL-DOC-OPEN-FOLDER
+  note: doc.openFolder(path)
+  via:
+  - from_step: 3
+    edge: HDL-APP-OPEN-FOLDER-WELCOME|calls|HDL-DOC-OPEN-FOLDER
+    direction: forward
+    evidence:
+    - src/App.tsx:208
+    method: observed
+- step: 6
+  node: HDL-DOC-OPEN-WORKSPACE-PATH
+  via:
+  - from_step: 5
+    edge: HDL-DOC-OPEN-FOLDER|calls|HDL-DOC-OPEN-WORKSPACE-PATH
+    direction: forward
+    evidence:
+    - src/state/documentState.ts:174
+    method: observed
+- step: 7
+  node: IPCC-OPEN-WORKSPACE
+  via:
+  - from_step: 6
+    edge: HDL-DOC-OPEN-WORKSPACE-PATH|calls|IPCC-OPEN-WORKSPACE
+    direction: forward
+    evidence:
+    - src/state/documentState.ts:111
+    method: observed
+- step: 8
+  node: IPC-OPEN-WORKSPACE
+  entrypoint: ENT-IPC-OPEN-WORKSPACE
+  note: canonicaliza raiz, registra workspace
+  via:
+  - from_step: 7
+    edge: IPCC-OPEN-WORKSPACE|calls|IPC-OPEN-WORKSPACE
+    direction: forward
+    evidence:
+    - src/lib/ipc/client.ts:91
+    - src-tauri/src/commands/mod.rs:28
+    - src-tauri/src/lib.rs:71
+    method: observed
+- step: 9
+  node: FN-WORKSPACE-REGISTRY-OPEN
+  via:
+  - from_step: 8
+    edge: IPC-OPEN-WORKSPACE|calls|FN-WORKSPACE-REGISTRY-OPEN
+    direction: forward
+    evidence:
+    - src-tauri/src/commands/mod.rs:31
+    method: observed
+- step: 10
+  node: FN-LOAD-INDEX
+  note: carrega .mdstudio/index.json
+  via:
+  - from_step: 8
+    edge: IPC-OPEN-WORKSPACE|calls|FN-LOAD-INDEX
+    direction: forward
+    evidence:
+    - src-tauri/src/commands/mod.rs:38
+    method: observed
+- step: 11
+  node: FN-REINDEX-ENGINE-FULL-REINDEX
+  note: reindexação completa
+  via:
+  - from_step: 8
+    edge: IPC-OPEN-WORKSPACE|calls|FN-REINDEX-ENGINE-FULL-REINDEX
+    direction: forward
+    evidence:
+    - src-tauri/src/commands/mod.rs:44
+    method: observed
+- step: 12
+  node: FN-SAVE-INDEX
+  via:
+  - from_step: 8
+    edge: IPC-OPEN-WORKSPACE|calls|FN-SAVE-INDEX
+    direction: forward
+    evidence:
+    - src-tauri/src/commands/mod.rs:46
+    method: observed
+- step: 13
+  node: CLS-APP-STATE
+  note: engine/registry ativos no estado do app
+  via:
+  - from_step: 8
+    edge: IPC-OPEN-WORKSPACE|writes|CLS-APP-STATE
+    direction: forward
+    evidence:
+    - src-tauri/src/commands/mod.rs:49
+    method: observed
+- step: 14
+  node: IPCC-LIST-ENTRIES
+  note: lista entradas da raiz
+  via:
+  - from_step: 5
+    edge: HDL-DOC-OPEN-FOLDER|calls|IPCC-LIST-ENTRIES
+    direction: forward
+    evidence:
+    - src/state/documentState.ts:176
+    method: observed
+- step: 15
+  node: IPC-LIST-ENTRIES
+  entrypoint: ENT-IPC-LIST-ENTRIES
+  via:
+  - from_step: 14
+    edge: IPCC-LIST-ENTRIES|calls|IPC-LIST-ENTRIES
+    direction: forward
+    evidence:
+    - src/lib/ipc/client.ts:93
+    - src-tauri/src/commands/mod.rs:59
+    - src-tauri/src/lib.rs:72
+    method: observed
+- step: 16
+  node: FN-WORKSPACE-REGISTRY-RESOLVE
+  via:
+  - from_step: 15
+    edge: IPC-LIST-ENTRIES|calls|FN-WORKSPACE-REGISTRY-RESOLVE
+    direction: forward
+    evidence:
+    - src-tauri/src/commands/mod.rs:66
+    method: observed
+- step: 17
+  node: CMP-FILE-EXPLORER
+  trigger: Explorador renderiza árvore (useFileTree)
+- step: 18
+  node: FN-USE-FILE-TREE
+  via:
+  - from_step: 17
+    edge: CMP-FILE-EXPLORER|calls|FN-USE-FILE-TREE
+    direction: forward
+    evidence:
+    - src/components/FileExplorer.tsx:34
+    method: observed
+- step: 19
+  node: BTN-EXPLORER-OPEN-FOLDER
+  entrypoint: ENT-BTN-EXPLORER-OPEN-FOLDER
+  trigger: 'Alternativa: botão no explorador'
+- step: 20
+  node: HDL-EXPLORER-OPEN-FOLDER
+  via:
+  - from_step: 19
+    edge: BTN-EXPLORER-OPEN-FOLDER|triggers|HDL-EXPLORER-OPEN-FOLDER
+    direction: forward
+    evidence:
+    - src/components/FileExplorer.tsx:194
+    method: observed
+- step: 21
+  node: HDL-DOC-OPEN-FOLDER
+  note: mesmo caminho do passo 5
+  via:
+  - from_step: 20
+    edge: HDL-EXPLORER-OPEN-FOLDER|calls|HDL-DOC-OPEN-FOLDER
+    direction: forward
+    evidence:
+    - src/components/FileExplorer.tsx:101
+    - src/App.tsx:622
+    method: observed
+trace_task: TRACE-009

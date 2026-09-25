@@ -1,0 +1,223 @@
+# TRACE-009 — Resolver e navegar por wiki link. Passos ordenados; via = aresta de edges.yaml que liga o passo de origem (direction reverse = aresta no sentido oposto, ex.: consumes/reads/callback). trigger = início de ramo.
+artifact: wiki-link-resolve
+schema_version: 1
+source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+generated_at: '2026-09-24T23:03:41-03:00'
+id: FLOW-WIKI-LINK-RESOLVE
+name: Resolver e navegar por wiki link
+required: true
+features:
+- FEAT-WIKI-LINKS
+- FEAT-CREATE-NOTE-FROM-WIKI
+- FEAT-OUTGOING-LINKS
+entrypoints:
+- ENT-SCR-APP
+- ENT-IPC-GET-RESOLVED-WIKI-LINKS-FOR
+- ENT-HDL-VIEWER-ON-CLICK
+outcome: Link resolvido abre o documento; não resolvido oferece criar a nota.
+steps:
+- step: 1
+  node: SCR-APP
+  entrypoint: ENT-SCR-APP
+  trigger: Documento aberto (doc.relativePath muda)
+- step: 2
+  node: STO-METADATA
+  note: useMetadata(doc.relativePath)
+  via:
+  - from_step: 1
+    edge: SCR-APP|calls|STO-METADATA
+    direction: forward
+    evidence:
+    - src/App.tsx:58
+    method: observed
+- step: 3
+  node: FN-USE-METADATA-REFRESH-CURRENT-DOC
+  note: efeito em currentPath
+  via:
+  - from_step: 2
+    edge: STO-METADATA|calls|FN-USE-METADATA-REFRESH-CURRENT-DOC
+    direction: forward
+    evidence:
+    - src/hooks/useMetadata.ts:94
+    method: observed
+- step: 4
+  node: IPCC-GET-RESOLVED-WIKI-LINKS-FOR
+  via:
+  - from_step: 3
+    edge: FN-USE-METADATA-REFRESH-CURRENT-DOC|calls|IPCC-GET-RESOLVED-WIKI-LINKS-FOR
+    direction: forward
+    evidence:
+    - src/hooks/useMetadata.ts:56
+    method: observed
+- step: 5
+  node: IPC-GET-RESOLVED-WIKI-LINKS-FOR
+  entrypoint: ENT-IPC-GET-RESOLVED-WIKI-LINKS-FOR
+  via:
+  - from_step: 4
+    edge: IPCC-GET-RESOLVED-WIKI-LINKS-FOR|calls|IPC-GET-RESOLVED-WIKI-LINKS-FOR
+    direction: forward
+    evidence:
+    - src/lib/ipc/metadata.ts:67
+    - src-tauri/src/commands/metadata.rs:158
+    - src-tauri/src/lib.rs:85
+    method: observed
+- step: 6
+  node: FN-FIND-DOCUMENT
+  note: documento no índice ativo
+  via:
+  - from_step: 5
+    edge: IPC-GET-RESOLVED-WIKI-LINKS-FOR|calls|FN-FIND-DOCUMENT
+    direction: forward
+    evidence:
+    - src-tauri/src/commands/metadata.rs:167
+    method: observed
+- step: 7
+  node: FN-RESOLVE-ALL
+  note: Resolved/Ambiguous/Unresolved por alvo
+  via:
+  - from_step: 5
+    edge: IPC-GET-RESOLVED-WIKI-LINKS-FOR|calls|FN-RESOLVE-ALL
+    direction: forward
+    evidence:
+    - src-tauri/src/commands/metadata.rs:168
+    method: observed
+- step: 8
+  node: FN-IS-SAFE-RELATIVE-TARGET
+  note: descarta alvos inseguros
+  via:
+  - from_step: 7
+    edge: FN-RESOLVE-ALL|calls|FN-IS-SAFE-RELATIVE-TARGET
+    direction: forward
+    evidence:
+    - src-tauri/crates/md-studio-core/src/index/wiki_resolve.rs:50
+    method: observed
+- step: 9
+  node: CMP-MARKDOWN-VIEWER
+  trigger: Preview lê resoluções do store (useMetadata)
+- step: 10
+  node: STO-METADATA
+  note: wikiLinks resolvidos
+  via:
+  - from_step: 9
+    edge: CMP-MARKDOWN-VIEWER|reads|STO-METADATA
+    direction: forward
+    evidence:
+    - src/components/MarkdownViewer.tsx:33
+    - src/App.tsx:687
+    method: observed
+- step: 11
+  node: SVC-PROCESS-MARKDOWN
+  note: resoluções passadas ao pipeline
+  via:
+  - from_step: 9
+    edge: CMP-MARKDOWN-VIEWER|calls|SVC-PROCESS-MARKDOWN
+    direction: forward
+    evidence:
+    - src/components/MarkdownViewer.tsx:33
+    method: observed
+- step: 12
+  node: PIPE-WIKI-LINKS
+  note: rehypeWikiLinks gera <a class=wiki-link data-status>
+  via:
+  - from_step: 11
+    edge: SVC-PROCESS-MARKDOWN|contains|PIPE-WIKI-LINKS
+    direction: forward
+    evidence:
+    - src/markdown/processor.ts:60
+    method: observed
+- step: 13
+  node: HDL-VIEWER-ON-CLICK
+  entrypoint: ENT-HDL-VIEWER-ON-CLICK
+  trigger: Usuário clica no wiki link no preview
+- step: 14
+  node: HDL-DOC-OPEN-RELATIVE
+  note: 'Resolved: abre o alvo'
+  via:
+  - from_step: 13
+    edge: HDL-VIEWER-ON-CLICK|calls|HDL-DOC-OPEN-RELATIVE
+    direction: forward
+    evidence:
+    - src/components/MarkdownViewer.tsx:70
+    - src/App.tsx:689
+    method: observed
+- step: 15
+  node: CMP-CREATE-NOTE-FROM-WIKI
+  note: 'Unresolved: abre diálogo de criação'
+  via:
+  - from_step: 13
+    edge: HDL-VIEWER-ON-CLICK|triggers|CMP-CREATE-NOTE-FROM-WIKI
+    direction: forward
+    evidence:
+    - src/components/MarkdownViewer.tsx:72
+    - src/App.tsx:692
+    - src/App.tsx:791
+    method: observed
+- step: 16
+  node: HDL-CREATE-NOTE
+  via:
+  - from_step: 15
+    edge: CMP-CREATE-NOTE-FROM-WIKI|contains|HDL-CREATE-NOTE
+    direction: forward
+    evidence:
+    - src/components/wiki/CreateNoteFromWiki.tsx:63
+    method: observed
+- step: 17
+  node: FN-SAFE-WIKI-NOTE-PATH
+  note: valida caminho da nova nota
+  via:
+  - from_step: 16
+    edge: HDL-CREATE-NOTE|calls|FN-SAFE-WIKI-NOTE-PATH
+    direction: forward
+    evidence:
+    - src/components/wiki/CreateNoteFromWiki.tsx:65
+    method: observed
+- step: 18
+  node: IPCC-SAVE-DOCUMENT
+  note: cria arquivo (expected_hash vazio)
+  via:
+  - from_step: 16
+    edge: HDL-CREATE-NOTE|calls|IPCC-SAVE-DOCUMENT
+    direction: forward
+    evidence:
+    - src/components/wiki/CreateNoteFromWiki.tsx:74
+    method: observed
+- step: 19
+  node: IPCC-TRIGGER-REINDEX
+  note: reindexa
+  via:
+  - from_step: 16
+    edge: HDL-CREATE-NOTE|calls|IPCC-TRIGGER-REINDEX
+    direction: forward
+    evidence:
+    - src/components/wiki/CreateNoteFromWiki.tsx:84
+    method: observed
+- step: 20
+  node: HDL-DOC-OPEN-RELATIVE
+  note: abre a nova nota
+  via:
+  - from_step: 16
+    edge: HDL-CREATE-NOTE|calls|HDL-DOC-OPEN-RELATIVE
+    direction: forward
+    evidence:
+    - src/components/wiki/CreateNoteFromWiki.tsx:85
+    - src/App.tsx:797
+    method: observed
+- step: 21
+  node: CMP-OUTGOING-LINKS-PANEL
+  trigger: 'Alternativa: clique no painel de links de saída'
+- step: 22
+  node: HDL-DOC-OPEN-RELATIVE
+  via:
+  - from_step: 21
+    edge: CMP-OUTGOING-LINKS-PANEL|triggers|HDL-DOC-OPEN-RELATIVE
+    direction: forward
+    evidence:
+    - src/components/wiki/OutgoingLinksPanel.tsx:26
+    - src/App.tsx:727
+    method: observed
+gaps:
+- description: 'IPC resolve_wiki_link (resolução unitária) não participa do fluxo: sem chamador no frontend.'
+  evidence:
+  - src-tauri/src/lib.rs:84
+  method: observed
+trace_task: TRACE-009

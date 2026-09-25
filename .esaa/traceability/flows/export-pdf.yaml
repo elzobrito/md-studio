@@ -1,0 +1,38 @@
+# TRACE-009 — Exportar PDF (impressão). Passos ordenados; via = aresta de edges.yaml que liga o passo de origem (direction reverse = aresta no sentido oposto, ex.: consumes/reads/callback). trigger = início de ramo.
+artifact: export-pdf
+schema_version: 1
+source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+generated_at: '2026-09-24T23:03:41-03:00'
+id: FLOW-EXPORT-PDF
+name: Exportar PDF (impressão)
+required: false
+features:
+- FEAT-EXPORT-PDF
+entrypoints:
+- ENT-BTN-EXPORT-PDF
+outcome: Diálogo de impressão do webview.
+steps:
+- step: 1
+  node: BTN-EXPORT-PDF
+  entrypoint: ENT-BTN-EXPORT-PDF
+  trigger: Menu Exportar > PDF
+- step: 2
+  node: HDL-APP-EXPORT-PDF
+  via:
+  - from_step: 1
+    edge: BTN-EXPORT-PDF|triggers|HDL-APP-EXPORT-PDF
+    direction: forward
+    evidence:
+    - src/components/header/ExportMenu.tsx:48
+    - src/App.tsx:551
+    method: observed
+- step: 3
+  node: OSI-WINDOW-PRINT
+  via:
+  - from_step: 2
+    edge: HDL-APP-EXPORT-PDF|calls|OSI-WINDOW-PRINT
+    direction: forward
+    evidence:
+    - src/App.tsx:194
+    method: observed
+trace_task: TRACE-009

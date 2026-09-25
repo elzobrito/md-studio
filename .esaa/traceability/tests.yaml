@@ -1,0 +1,3056 @@
+# TRACE-010 — Índice de testes. covers = nós com aresta covered_by (nó -> teste); validates = contratos/DTO/config validados; features derivadas via features.yaml node_index. Evidência de cada aresta em edges.yaml (linha de import + linha de uso no bloco do teste, ou linha de chamada no #[test]).
+artifact: tests
+schema_version: 1
+source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+generated_at: '2026-09-24T23:06:22-03:00'
+summary:
+  total: 149
+  by_framework:
+    vitest: 70
+    cargo test: 79
+  vitest_files: 67
+  edges:
+    covered_by: 249
+    validates: 35
+  nodes_with_tests: 128
+  nodes_total: 367
+  features_with_tests: 35
+  features_without_direct_tests:
+  - FEAT-TABLE-TOOLBAR
+  - FEAT-KATEX
+  - FEAT-SHIKI
+  - FEAT-GFM-ALERTS
+  - FEAT-OUTGOING-LINKS
+  - FEAT-SAVE-AS
+  - FEAT-EXPORT-PDF
+  - FEAT-VIEW-MODES
+  - FEAT-WORKSPACE-SEARCH
+  - FEAT-SHORTCUTS-HELP
+  - FEAT-GO-TO-LINE
+  - FEAT-SANITIZE
+  - FEAT-SPLASH-PACKAGING
+  ipc_commands_without_direct_test:
+  - IPC-CLOSE-SPLASH
+  - IPC-EXPORT-EPUB
+  - IPC-FORMAT-CODE
+  - IPC-GET-ALL-DOCUMENTS
+  - IPC-GET-BACKLINKS
+  - IPC-GET-DOCUMENT-METADATA
+  - IPC-GET-LAUNCH-PATH
+  - IPC-GET-RESOLVED-WIKI-LINKS-FOR
+  - IPC-GET-TAGS
+  - IPC-GET-WIKI-LINKS-FOR
+  - IPC-GET-WORKSPACE-STATS
+  - IPC-LIST-ENTRIES
+  - IPC-OPEN-WORKSPACE
+  - IPC-READ-DOCUMENT
+  - IPC-RESOLVE-WIKI-LINK
+  - IPC-SAVE-DOCUMENT
+  - IPC-SEARCH-WORKSPACE
+  - IPC-START-WATCHING
+  - IPC-STOP-WATCHING
+  - IPC-TRIGGER-REINDEX
+  tests_without_mapped_node:
+  - TST-TS-EDITOR-CURSOR
+  - TST-TS-EDITOR-GUTTER
+  - TST-TS-EDITOR-TABLE
+  - TST-TS-HELP-CHEATSHEET
+  - TST-TS-MARKDOWN-CODE-CODE
+  - TST-TS-MARKDOWN-CORE-NAVIGATION-NAVIGATION-OUTLINE
+  - TST-TS-MARKDOWN-FORMATTING
+  - TST-TS-MARKDOWN-MATH-MATH-MATH
+  - TST-TS-MARKDOWN-MATH-MATH-UNTRUSTED-KATEX-INPUT
+  - TST-TS-UI-BUTTON
+  - TST-TS-UX-BREADCRUMB
+  - TST-TS-WORKSPACE-WORKSPACERAIL
+  - TST-RS-NAV-AND-NCX-INCLUDE-H1-H2-ONLY
+  method_note: Cobertura estática (import+uso / chamada), não cobertura de execução. Testes sem nó mapeado exercitam unidades não modeladas (unmodeled_targets).
+tests:
+- id: TST-TS-EDITOR-AUTOSAVE
+  framework: vitest
+  kind: unit
+  path: tests/editor/autoSave.test.tsx
+  symbol: '"Auto-Save Feature Integration"'
+  lines:
+  - 11
+  - 125
+  cases:
+  - renders Auto-Save toggle and delay selector in EditorSettings
+  - executes auto-save with debounce when editing loaded document
+  covers:
+  - STO-DOCUMENT-STATE
+  - STO-SETTINGS
+  validates: []
+  features:
+  - FEAT-AUTO-SAVE
+  - FEAT-OPEN-FILE
+  - FEAT-SAVE
+  - FEAT-SETTINGS
+  unmodeled_targets:
+  - src/components/settings/EditorSettings.tsx#EditorSettings
+  trace_task: TRACE-010
+- id: TST-TS-EDITOR-CONFLICTRELOAD
+  framework: vitest
+  kind: integration
+  path: tests/editor/conflictReload.test.tsx
+  symbol: '"MD-BUG-CONFLICT-RELOAD-001: ConflictDialog ''Recarregar do disco''"'
+  lines:
+  - 49
+  - 134
+  cases:
+  - reload shows the disk content, clears dirty state and discards the local draft
+  - keep preserves the local edit and its recovery draft
+  covers:
+  - FN-LOAD-DRAFT
+  - HDL-DOC-OPEN-FILE
+  - HDL-DOC-RESOLVE-CONFLICT
+  - HDL-DOC-SET-CONTENT
+  - HDL-DOC-WATCH-EFFECT
+  validates: []
+  features:
+  - FEAT-CONFLICT
+  - FEAT-DRAFT-RECOVERY
+  - FEAT-OPEN-FILE
+  - FEAT-WATCHER
+  trace_task: MD-BUG-CONFLICT-RELOAD-001
+- id: TST-TS-EDITOR-CURSOR
+  framework: vitest
+  kind: unit
+  path: tests/editor/cursor.test.ts
+  symbol: '"editor cursor"'
+  lines:
+  - 14
+  - 30
+  cases:
+  - installs a drawn cursor with a 1200ms blink rate
+  covers: []
+  validates: []
+  features: []
+  unmodeled_targets:
+  - src/components/MarkdownEditor.tsx#editorCursorExtensions
+  trace_task: TRACE-010
+- id: TST-TS-EDITOR-FORMATCODEBLOCK-FORMATCODEBLOCKATCURSOR-CODEMIRROR-6
+  framework: vitest
+  kind: unit
+  path: tests/editor/formatCodeBlock.test.ts
+  symbol: '"formatCodeBlockAtCursor (CodeMirror 6)"'
+  lines:
+  - 10
+  - 80
+  cases:
+  - formats the fenced code block under the cursor in-place
+  - returns false if cursor is outside any fenced code block
+  - formats untagged code blocks under cursor using js fallback heuristic
+  covers:
+  - FN-FORMAT-CODE-BLOCK-AT-CURSOR
+  validates: []
+  features:
+  - FEAT-CODE-FORMATTER
+  trace_task: TRACE-010
+- id: TST-TS-EDITOR-FORMATCODEBLOCK-FORMATDOCUMENTORCODEBLOCK-CODEMIRROR-6
+  framework: vitest
+  kind: unit
+  path: tests/editor/formatCodeBlock.test.ts
+  symbol: '"formatDocumentOrCodeBlock (CodeMirror 6)"'
+  lines:
+  - 82
+  - 133
+  cases:
+  - formats the entire Markdown document when cursor is outside code blocks
+  - formats the active code block specifically when cursor is inside it
+  covers:
+  - FN-FORMAT-DOCUMENT-OR-CODE-BLOCK
+  validates: []
+  features:
+  - FEAT-CODE-FORMATTER
+  trace_task: TRACE-010
+- id: TST-TS-EDITOR-FORMATTINGTOOLBAR
+  framework: vitest
+  kind: unit
+  path: tests/editor/formattingToolbar.test.tsx
+  symbol: '"MD-UI-008: FormattingToolbar escalável"'
+  lines:
+  - 11
+  - 251
+  cases:
+  - renders nothing if view is null
+  - renders compact functional groups and '+ Inserir' menu button
+  - triggers one-click formatting actions on the CodeMirror document
+  - triggers contextual document or code formatting when clicking format code button
+  - opens and closes '+ Inserir' menu, displaying options and triggering structural inserts
+  - supports keyboard navigation inside the insert menu
+  - closes the insert menu on click outside
+  covers:
+  - CMP-FORMATTING-TOOLBAR
+  validates: []
+  features:
+  - FEAT-FORMATTING-TOOLBAR
+  trace_task: TRACE-010
+- id: TST-TS-EDITOR-GUTTER
+  framework: vitest
+  kind: unit
+  path: tests/editor/gutter.test.ts
+  symbol: '"MD-UI-006: CodeMirror Gutter & Active Line Integration"'
+  lines:
+  - 17
+  - 68
+  cases:
+  - installs gutter extensions and theme without error
+  - renders line numbers gutter with active line gutter and active line highlight
+  covers: []
+  validates: []
+  features: []
+  unmodeled_targets:
+  - src/components/MarkdownEditor.tsx#editorGutterExtensions
+  - src/components/MarkdownEditor.tsx#editorGutterTheme
+  trace_task: TRACE-010
+- id: TST-TS-EDITOR-HINTS
+  framework: vitest
+  kind: unit
+  path: tests/editor/hints.test.ts
+  symbol: '"Markdown Hints"'
+  lines:
+  - 5
+  - 68
+  cases:
+  - matches bold syntax
+  - matches italic syntax
+  - matches headings levels
+  - matches wiki links
+  - matches external URLs
+  - matches inline code
+  - matches GitHub alerts
+  - returns null for normal text
+  - handles settings toggle for markdown hints
+  covers:
+  - FN-MATCH-HINT-AT-POSITION
+  - STO-SETTINGS
+  validates: []
+  features:
+  - FEAT-AUTO-SAVE
+  - FEAT-CONTEXTUAL-HINTS
+  - FEAT-SETTINGS
+  trace_task: TRACE-010
+- id: TST-TS-EDITOR-MERMAID-INTERACTIVE
+  framework: vitest
+  kind: unit
+  path: tests/editor/mermaid-interactive.test.tsx
+  symbol: '"Interactive Mermaid Component & Export"'
+  lines:
+  - 10
+  - 120
+  cases:
+  - embedStylesInSvg embeds styles into <defs> of SVG
+  - renders MermaidBlock toolbar and toggles between diagram and source
+  - handles temporary syntax degradation gracefully during typing
+  covers:
+  - CMP-MERMAID-BLOCK
+  - FN-EMBED-STYLES-IN-SVG
+  validates: []
+  features:
+  - FEAT-MERMAID
+  - FEAT-MERMAID-EXPORT
+  trace_task: TRACE-010
+- id: TST-TS-EDITOR-SINGLESAVE
+  framework: vitest
+  kind: unit
+  path: tests/editor/singleSave.test.tsx
+  symbol: '"MD-UI-003: Single Save Command Consolidation"'
+  lines:
+  - 11
+  - 186
+  cases:
+  - ensures MarkdownEditor does NOT render an internal header or duplicate Save button
+  - AppHeader provides the single explicit manual save action
+  - SaveStatusBadge reflects clean, dirty, saving, and error states accurately
+  - AppHeader SaveButton updates state dynamically from editorStore
+  covers:
+  - CMP-APP-HEADER
+  - CMP-MARKDOWN-EDITOR
+  - STO-EDITOR
+  validates: []
+  features:
+  - FEAT-APP-SCREENS
+  - FEAT-EDITOR
+  unmodeled_targets:
+  - src/components/statusbar/SaveStatus.tsx#SaveStatusBadge
+  trace_task: TRACE-010
+- id: TST-TS-EDITOR-SMART-PASTE
+  framework: vitest
+  kind: unit
+  path: tests/editor/smart-paste.test.ts
+  symbol: '"HTML to Markdown (Smart Paste)"'
+  lines:
+  - 5
+  - 77
+  cases:
+  - 'converts h1 to # heading'
+  - 'converts h2 to ## heading'
+  - converts strong to **negrito**
+  - converts em / i to _itálico_
+  - converts del / s to ~~tachado~~
+  - converts ul to unordered list
+  - converts ol to numbered list
+  - converts a to markdown link
+  - converts img to markdown image
+  - converts code to inline code
+  - converts pre code to code block
+  - converts blockquote
+  - leaves plain text unaltered
+  - handles settings toggle for smart paste
+  covers:
+  - FN-HTML-TO-MARKDOWN
+  - STO-SETTINGS
+  validates: []
+  features:
+  - FEAT-AUTO-SAVE
+  - FEAT-SETTINGS
+  - FEAT-SMART-PASTE
+  trace_task: TRACE-010
+- id: TST-TS-EDITOR-TABLE
+  framework: vitest
+  kind: unit
+  path: tests/editor/table.test.ts
+  symbol: '"Table Editor Helpers"'
+  lines:
+  - 25
+  - 101
+  cases:
+  - detects table lines correctly
+  - parses and serializes table data correctly
+  - adds a column to the table
+  - removes a column from the table
+  - adds a row to the table
+  - removes a row from the table
+  - sets column alignment
+  covers: []
+  validates: []
+  features: []
+  unmodeled_targets:
+  - src/editor/table/table-helpers.ts#addColumn
+  - src/editor/table/table-helpers.ts#addRow
+  - src/editor/table/table-helpers.ts#isTableLine
+  - src/editor/table/table-helpers.ts#parseTable
+  - src/editor/table/table-helpers.ts#removeColumn
+  - src/editor/table/table-helpers.ts#removeRow
+  - src/editor/table/table-helpers.ts#serializeTable
+  - src/editor/table/table-helpers.ts#setColumnAlignment
+  trace_task: TRACE-010
+- id: TST-TS-EMPTY-EMPTYSTATE
+  framework: vitest
+  kind: unit
+  path: tests/empty/emptyState.test.tsx
+  symbol: '"MD-UI-EMPTY-001: Empty State & Welcome Screen Hierarchy"'
+  lines:
+  - 7
+  - 69
+  cases:
+  - renders WelcomeScreen with Abrir Pasta as primary, Abrir Arquivo as secondary, and Novo Documento as ghost
+  - does not render interrogation mark (?) icon and displays Ctrl+P hint
+  - renders EmptyState with concise copy, no app title, no ? icon, and Ctrl+P hint
+  covers:
+  - SCR-EMPTY-STATE
+  - SCR-WELCOME
+  validates: []
+  features:
+  - FEAT-APP-SCREENS
+  trace_task: TRACE-010
+- id: TST-TS-EXPORT-EPUB-IPC-ENVELOPE
+  framework: vitest
+  kind: unit
+  path: tests/export/epub-ipc-envelope.test.ts
+  symbol: '"IPC export_epub"'
+  lines:
+  - 16
+  - 58
+  cases:
+  - envia o payload camelCase no envelope req
+  - devolve null quando o diálogo de destino é cancelado
+  covers:
+  - IPCC-EXPORT-EPUB
+  - OSI-PICK-SAVE-EPUB
+  validates: []
+  features:
+  - FEAT-EXPORT-EPUB
+  unmodeled_targets:
+  - src/lib/ipc/client.ts#ipc
+  trace_task: TRACE-010
+- id: TST-TS-EXPORT-EPUBPROCESSOR
+  framework: vitest
+  kind: unit
+  path: tests/export/epubProcessor.test.ts
+  symbol: '"MD-EPUB-001: Frontend EPUB Processor (md_epub_001_processor_pass)"'
+  lines:
+  - 7
+  - 247
+  cases:
+  - KaTeX emite MathML puro para compatibilidade EPUB 3
+  - Shiki emite estilos inline sem dependência de classes de tema dinâmico
+  - Wiki Links são convertidos para texto simples
+  - Alerts recebem prefixo textual legível
+  - Frontmatter extrai metadados completos com fallback seguro
+  - Extrai slots de Mermaid com placeholders para injeção no backend Rust
+  - Coleta referências de imagens locais ignorando links externos e data URIs
+  - Atribui IDs estáveis aos cabeçalhos para o sumário do EPUB
+  - Estrutura completa do EpubExportPayload é compatível com o contrato de serialização
+  covers:
+  - FN-PROCESS-EPUB-MARKDOWN
+  validates: []
+  features:
+  - FEAT-EXPORT-EPUB
+  unmodeled_targets:
+  - src/export/epubProcessor.ts#transformAlertsForEpub
+  trace_task: TRACE-010
+- id: TST-TS-EXPORT-EXPORT-FLOW
+  framework: vitest
+  kind: unit
+  path: tests/export/export-flow.test.ts
+  symbol: '"Exportar HTML — contrato e fluxo completo"'
+  lines:
+  - 12
+  - 108
+  cases:
+  - envia o request no envelope req exigido pelo comando Tauri
+  - trata cancelamento sem tentar gravar
+  - grava pelo IPC no Tauri
+  - confirma e repete a gravação quando o destino existe
+  - propaga falha real para a interface
+  - faz download real no navegador sem chamar IPC
+  covers:
+  - SVC-EXPORT-ACTIVE-DOCUMENT-HTML
+  validates: []
+  features:
+  - FEAT-EXPORT-HTML
+  trace_task: TRACE-010
+- id: TST-TS-EXPORT-EXPORT-PDF
+  framework: vitest
+  kind: unit
+  path: tests/export/export-pdf.test.tsx
+  symbol: '"Exportar PDF pelo diálogo nativo"'
+  lines:
+  - 19
+  - 70
+  cases:
+  - aciona o callback pelo botão habilitado
+  - fica desabilitado quando não há documento ativo
+  - aparece imediatamente depois de Exportar HTML no cabeçalho
+  - carrega CSS que imprime somente o preview formatado
+  - força contraste legível em code blocks e syntax highlighting no PDF
+  covers:
+  - CMP-APP-HEADER
+  validates: []
+  features:
+  - FEAT-APP-SCREENS
+  unmodeled_targets:
+  - src/components/header/ExportPdfButton.tsx#ExportPdfButton
+  trace_task: TRACE-010
+- id: TST-TS-EXPORT-EXPORT
+  framework: vitest
+  kind: unit
+  path: tests/export/export.test.ts
+  symbol: '"export"'
+  lines:
+  - 4
+  - 15
+  cases:
+  - produces standalone sanitized html matching preview pipeline
+  covers:
+  - SVC-EXPORT-HTML-DOCUMENT
+  validates: []
+  features:
+  - FEAT-EXPORT-HTML
+  trace_task: TRACE-010
+- id: TST-TS-EXPORT-EXPORTEPUBSERVICE
+  framework: vitest
+  kind: unit
+  path: tests/export/exportEpubService.test.ts
+  symbol: '"exportActiveDocumentEpub"'
+  lines:
+  - 19
+  - 108
+  cases:
+  - returns an informative error when executed outside Tauri runtime
+  - handles user cancellation during destination picker
+  - successfully invokes ipc.exportEpub and returns result
+  - prompts for confirmation and retries with overwrite=true when target exists
+  covers:
+  - FN-IS-TAURI-RUNTIME
+  - OSI-CONFIRM-OVERWRITE
+  - OSI-PICK-SAVE-EPUB
+  - SVC-EXPORT-ACTIVE-DOCUMENT-EPUB
+  validates: []
+  features:
+  - FEAT-EXPORT-EPUB
+  - FEAT-EXPORT-HTML
+  trace_task: TRACE-010
+- id: TST-TS-EXPORT-MERMAIDCAPTURE
+  framework: vitest
+  kind: unit
+  path: tests/export/mermaidCapture.test.ts
+  symbol: '"MD-EPUB-002: Mermaid Capture & Sanitization (md_epub_002_mermaid_capture_pass)"'
+  lines:
+  - 10
+  - 219
+  cases:
+  - remove scripts e atributos on* maliciosos
+  - garante existência de viewBox quando ausente e normaliza largura
+  - preserva viewBox existente e embute estilos de defs
+  - captura SVGs montados no DOM para preencher mermaidSlots
+  - detecta quando preview não está ativo no DOM
+  - não solicita prompt quando não há diagramas Mermaid
+  - solicita prompt se algum diagrama falhou ou não renderizou
+  covers:
+  - FN-CAPTURE-MERMAID-SVGS
+  validates: []
+  features:
+  - FEAT-EXPORT-EPUB
+  unmodeled_targets:
+  - src/export/mermaidCapture.ts#cleanSvgForEpub
+  - src/export/mermaidCapture.ts#getMermaidPromptDecision
+  - src/export/mermaidCapture.ts#isPreviewActive
+  trace_task: TRACE-010
+- id: TST-TS-FORMATTER-WEB
+  framework: vitest
+  kind: unit
+  path: tests/formatter/web.test.ts
+  symbol: '"Web Formatter (Prettier Standalone)"'
+  lines:
+  - 5
+  - 99
+  cases:
+  - recognizes web languages and markup
+  - formats unformatted JavaScript and TypeScript
+  - formats unformatted JSON
+  - formats unformatted HTML and CSS
+  - formats unformatted YAML
+  - tolerates syntax errors gracefully without throwing
+  - unified formatCode orchestrator handles web languages and gracefully falls back for non-web
+  - unified formatCode delegates to Tauri IPC when __TAURI_INTERNALS__ is present
+  covers:
+  - FN-FORMAT-WEB-CODE
+  - FN-IS-WEB-LANGUAGE
+  - SVC-FORMAT-CODE
+  validates: []
+  features:
+  - FEAT-CODE-FORMATTER
+  trace_task: TRACE-010
+- id: TST-TS-FOUNDATION-METADATA
+  framework: vitest
+  kind: unit
+  path: tests/foundation/metadata.test.ts
+  symbol: '"Onda 1 — Foundation & Metadata Engine QA Suite"'
+  lines:
+  - 12
+  - 340
+  cases:
+  - conforms to DocumentMetadata structure and camelCase keys
+  - supports documents with null title and empty collections
+  - conforms to WorkspaceStats schema
+  - conforms to ReindexReport schema
+  - returns default empty stats when outside Tauri runtime
+  - returns null for getDocumentMetadata outside Tauri runtime
+  - returns empty array for getAllDocuments outside Tauri runtime
+  - returns zeroed report for triggerReindex outside Tauri runtime
+  - returns empty array for getWikiLinksFor outside Tauri runtime
+  - returns empty array for getTags outside Tauri runtime
+  - detects basic wiki link regex pattern [[target]]
+  - detects wiki link with alias regex pattern [[target|alias]]
+  - detects tags with hashtag and boundary
+  - does not match markdown headings as tags
+  - handles multiple wiki links on multiple lines
+  - aggregates stats from multiple documents correctly
+  - handles slug generation matching backend anchor specification
+  - correctly identifies internal vs external urls in markdown links
+  - filters out standalone hash symbols from tags
+  - handles frontmatter title extraction with quotes
+  - validates heading depth boundaries
+  - handles empty metadata index gracefully
+  covers:
+  - IPCC-GET-ALL-DOCUMENTS
+  - IPCC-GET-DOCUMENT-METADATA
+  - IPCC-GET-TAGS
+  - IPCC-GET-WIKI-LINKS-FOR
+  - IPCC-GET-WORKSPACE-STATS
+  - IPCC-TRIGGER-REINDEX
+  validates: []
+  features:
+  - FEAT-METADATA-INDEX
+  - FEAT-WIKI-LINKS
+  trace_task: TRACE-010
+- id: TST-TS-GUIDED-MARKDOWN-GUIDEDMARKDOWNINTEGRATION
+  framework: vitest
+  kind: unit
+  path: tests/guided-markdown/guidedMarkdownIntegration.test.ts
+  symbol: '"Guided Markdown Integration Suite (Onda 0B Gate)"'
+  lines:
+  - 39
+  - 182
+  cases:
+  - applies and toggles bold
+  - applies and toggles italic
+  - applies strikethrough
+  - applies headings and toggles
+  - applies lists, links, inline code and blockquotes
+  - provides complete catalog of 17 items
+  - activates slash detection only at line start
+  - filters slash items by keyword
+  - replaces slash command upon item execution
+  - converts rich HTML to clean Markdown
+  - preserves plain text without modification
+  - provides 7 templates plus blank with dynamic date
+  - calculates first editable position
+  - contains 20 reference items with copyText
+  - identifies tokens and generates contextual hints
+  - detects, manipulates, and serializes tables
+  covers:
+  - FN-FIND-FIRST-EDITABLE-POSITION
+  - FN-HTML-TO-MARKDOWN
+  - FN-MATCH-HINT-AT-POSITION
+  validates:
+  - CFG-SLASH-ITEMS
+  - CFG-TEMPLATES
+  features:
+  - FEAT-CONTEXTUAL-HINTS
+  - FEAT-SLASH-COMMANDS
+  - FEAT-SMART-PASTE
+  - FEAT-TEMPLATES
+  unmodeled_targets:
+  - src/components/help/cheatsheet-items.ts#CHEATSHEET_ITEMS
+  - src/editor/formatting/index.ts#insertBlockquote
+  - src/editor/formatting/index.ts#insertLink
+  - src/editor/formatting/index.ts#setHeading
+  - src/editor/formatting/index.ts#toggleBold
+  - src/editor/formatting/index.ts#toggleCode
+  - src/editor/formatting/index.ts#toggleItalic
+  - src/editor/formatting/index.ts#toggleList
+  - src/editor/formatting/index.ts#toggleStrikethrough
+  - src/editor/slash/slash-plugin.ts#detectSlashCommand
+  - src/editor/slash/slash-plugin.ts#executeSlashItem
+  - src/editor/slash/slash-search.ts#filterSlashItems
+  - src/editor/table/table-helpers.ts#addColumn
+  - src/editor/table/table-helpers.ts#addRow
+  - src/editor/table/table-helpers.ts#isTableLine
+  - src/editor/table/table-helpers.ts#parseTable
+  - src/templates/index.ts#today
+  trace_task: TRACE-010
+- id: TST-TS-HEADER-EXPORTMENU
+  framework: vitest
+  kind: unit
+  path: tests/header/exportMenu.test.tsx
+  symbol: '"MD-UI-004: Unified Export Menu"'
+  lines:
+  - 9
+  - 309
+  cases:
+  - renders a single [ Exportar ▾ ] trigger button with accessible attributes
+  - opens dropdown on click, shows formats and closes after selecting an item
+  - 'supports keyboard navigation: open with ArrowDown and close with Escape'
+  - closes on click outside
+  - is disabled when disabled prop is true
+  - integrates seamlessly into AppHeader
+  - renders Exportar EPUB option and calls onExportEpub when clicked
+  - integrates onExportEpub into AppHeader
+  covers:
+  - CMP-APP-HEADER
+  - CMP-EXPORT-MENU
+  validates: []
+  features:
+  - FEAT-APP-SCREENS
+  - FEAT-EXPORT-HTML
+  trace_task: TRACE-010
+- id: TST-TS-HEADER-TOPBAR
+  framework: vitest
+  kind: unit
+  path: tests/header/topBar.test.tsx
+  symbol: '"MD-UI-HEADER-001: Header Polish & Dynamic Window Title"'
+  lines:
+  - 8
+  - 115
+  cases:
+  - does not render internal 'MD Studio' branding text in AppHeader
+  - renders Exportar HTML immediately after Salvar when onExportHtml is provided
+  - formats window title dynamically according to spec
+  - renders ViewModeToggle with Button components and proper active states
+  - disables both Salvar and Exportar HTML when canSave and canExport are false
+  - enables both Salvar and Exportar HTML when canSave and canExport are true
+  covers:
+  - CMP-APP-HEADER
+  validates: []
+  features:
+  - FEAT-APP-SCREENS
+  unmodeled_targets:
+  - src/components/header/ViewModeToggle.tsx#ViewModeToggle
+  - src/hooks/useSaveStatus.ts#formatWindowTitle
+  trace_task: TRACE-010
+- id: TST-TS-HELP-CHEATSHEET
+  framework: vitest
+  kind: unit
+  path: tests/help/cheatsheet.test.ts
+  symbol: '"Markdown Cheatsheet Items"'
+  lines:
+  - 4
+  - 35
+  cases:
+  - contains exactly 20 reference items
+  - covers all essential markdown categories
+  - each item has syntax, result description and copyText
+  - alerts contain note, tip and warning variants
+  covers: []
+  validates: []
+  features: []
+  unmodeled_targets:
+  - src/components/help/cheatsheet-items.ts#CHEATSHEET_ITEMS
+  trace_task: TRACE-010
+- id: TST-TS-LAYOUT-SPLITVIEW
+  framework: vitest
+  kind: unit
+  path: tests/layout/splitView.test.tsx
+  symbol: '"MD-UI-011: Split View refinado (SplitDivider)"'
+  lines:
+  - 24
+  - 288
+  cases:
+  - returns default ratio 0.5 when nothing is stored or invalid
+  - loads and saves valid ratio correctly
+  - renders with separator role, ARIA attributes and 50% initial value
+  - handles pointer drag and calculates clamped ratio based on container width
+  - resets to 50/50 on double click
+  - supports keyboard navigation (ArrowLeft, ArrowRight, Home, End, Enter)
+  - opens preset menu on handle click and applies chosen preset
+  covers:
+  - CMP-SPLIT-DIVIDER
+  validates:
+  - LSK-SPLIT-RATIO
+  features:
+  - FEAT-LAYOUT-PANELS
+  unmodeled_targets:
+  - src/components/layout/SplitDivider.tsx#DEFAULT_SPLIT_RATIO
+  - src/components/layout/SplitDivider.tsx#loadSavedSplitRatio
+  - src/components/layout/SplitDivider.tsx#saveSplitRatio
+  trace_task: TRACE-010
+- id: TST-TS-MARKDOWN-CODE-CODE-HIGHLIGHT
+  framework: vitest
+  kind: unit
+  path: tests/markdown/code/code-highlight.test.ts
+  symbol: '"code syntax highlighting with Shiki"'
+  lines:
+  - 6
+  - 76
+  cases:
+  - highlights python code blocks with Shiki TextMate dual-theme tokens
+  - highlights javascript and json code blocks with TextMate tokens
+  - ensures syntax.css exists and defines variables for light, dark, and Shiki themes
+  covers:
+  - SVC-PROCESS-MARKDOWN
+  validates: []
+  features:
+  - FEAT-PREVIEW
+  trace_task: TRACE-010
+- id: TST-TS-MARKDOWN-CODE-CODE
+  framework: vitest
+  kind: unit
+  path: tests/markdown/code/code.test.ts
+  symbol: '"code"'
+  lines:
+  - 4
+  - 9
+  cases:
+  - allowlists languages
+  covers: []
+  validates: []
+  features: []
+  unmodeled_targets:
+  - src/markdown/code.ts#normalizeLanguage
+  trace_task: TRACE-010
+- id: TST-TS-MARKDOWN-CODE-FENCEDCODE
+  framework: vitest
+  kind: unit
+  path: tests/markdown/code/fencedCode.test.ts
+  symbol: '"fencedCode block utilities"'
+  lines:
+  - 4
+  - 87
+  cases:
+  - finds all fenced code blocks in a markdown document
+  - replaces the target fenced code block atomically
+  - handles code block at the start and end of document
+  covers:
+  - FN-FIND-FENCED-CODE-BLOCKS
+  - FN-REPLACE-FENCED-CODE-BLOCK
+  validates: []
+  features:
+  - FEAT-CODE-FORMATTER
+  trace_task: TRACE-010
+- id: TST-TS-MARKDOWN-CORE-NAVIGATION-NAVIGATION-OUTLINE
+  framework: vitest
+  kind: unit
+  path: tests/markdown/core/navigation.test.ts
+  symbol: '"navigation outline"'
+  lines:
+  - 9
+  - 23
+  cases:
+  - slugifies accents
+  - dedupes heading ids
+  - maps slug to dom id with sanitize prefix
+  covers: []
+  validates: []
+  features: []
+  unmodeled_targets:
+  - src/services/navigation.ts#extractOutline
+  - src/services/navigation.ts#headingDomId
+  - src/services/navigation.ts#slugify
+  trace_task: TRACE-010
+- id: TST-TS-MARKDOWN-CORE-NAVIGATION-RESOLVERELATIVELINK
+  framework: vitest
+  kind: unit
+  path: tests/markdown/core/navigation.test.ts
+  symbol: '"resolveRelativeLink"'
+  lines:
+  - 25
+  - 48
+  cases:
+  - resolves sibling files in root
+  - resolves sibling files in subdirectories
+  - resolves parent directory navigation with ../
+  - handles leading slashes as workspace-relative
+  - clamps excessive parent traversals safely within workspace
+  covers:
+  - FN-RESOLVE-RELATIVE-LINK
+  validates: []
+  features:
+  - FEAT-PREVIEW
+  trace_task: TRACE-010
+- id: TST-TS-MARKDOWN-CORE-PROCESSOR
+  framework: vitest
+  kind: unit
+  path: tests/markdown/core/processor.test.ts
+  symbol: '"markdown core"'
+  lines:
+  - 4
+  - 39
+  cases:
+  - renders heading
+  - assigns stable heading ids (sanitize prefix)
+  - strips script tags via sanitize
+  - renders wiki targets and aliases as sanitized links
+  - does not transform wiki syntax inside code
+  covers:
+  - SVC-PROCESS-MARKDOWN
+  validates: []
+  features:
+  - FEAT-PREVIEW
+  trace_task: TRACE-010
+- id: TST-TS-MARKDOWN-EXTENSIONS-FRONTMATTER
+  framework: vitest
+  kind: unit
+  path: tests/markdown/extensions/frontmatter.test.ts
+  symbol: '"frontmatter"'
+  lines:
+  - 4
+  - 10
+  cases:
+  - parses title
+  covers:
+  - PIPE-FRONTMATTER
+  validates: []
+  features:
+  - FEAT-FRONTMATTER
+  trace_task: TRACE-010
+- id: TST-TS-MARKDOWN-FORMATTING
+  framework: vitest
+  kind: unit
+  path: tests/markdown/formatting.test.ts
+  symbol: '"Markdown Formatting Functions"'
+  lines:
+  - 27
+  - 163
+  cases:
+  - wraps selected text with **
+  - removes ** when already bold
+  - inserts placeholder when nothing selected
+  - wraps selected text with _
+  - removes _ when already italic
+  - wraps selected text with ~~
+  - removes ~~ when already strikethrough
+  - converts line to heading 1
+  - converts heading 1 to heading 2
+  - toggles off heading when level is the same
+  - inserts link with selected text as label
+  - inserts image syntax
+  - wraps selected text in inline code
+  - inserts fenced code block
+  - prefixes unordered list
+  - toggles off unordered list
+  - switches to ordered list
+  - switches to task list
+  - prefixes blockquote
+  - inserts divider
+  covers: []
+  validates: []
+  features: []
+  unmodeled_targets:
+  - src/editor/formatting/index.ts#insertBlockquote
+  - src/editor/formatting/index.ts#insertCodeBlock
+  - src/editor/formatting/index.ts#insertDivider
+  - src/editor/formatting/index.ts#insertImage
+  - src/editor/formatting/index.ts#insertLink
+  - src/editor/formatting/index.ts#setHeading
+  - src/editor/formatting/index.ts#toggleBold
+  - src/editor/formatting/index.ts#toggleCode
+  - src/editor/formatting/index.ts#toggleItalic
+  - src/editor/formatting/index.ts#toggleList
+  - src/editor/formatting/index.ts#toggleStrikethrough
+  trace_task: TRACE-010
+- id: TST-TS-MARKDOWN-MATH-MATH-MATH
+  framework: vitest
+  kind: unit
+  path: tests/markdown/math/math.test.ts
+  symbol: '"math"'
+  lines:
+  - 4
+  - 9
+  cases:
+  - renders simple expression or fails closed
+  covers: []
+  validates: []
+  features: []
+  unmodeled_targets:
+  - src/markdown/math.ts#renderMath
+  trace_task: TRACE-010
+- id: TST-TS-MARKDOWN-MATH-MATH-UNTRUSTED-KATEX-INPUT
+  framework: vitest
+  kind: unit
+  path: tests/markdown/math/math.test.ts
+  symbol: '"untrusted KaTeX input"'
+  lines:
+  - 11
+  - 23
+  cases:
+  - does not turn HTML/CSS macros into executable elements or positioning styles
+  covers: []
+  validates: []
+  features: []
+  unmodeled_targets:
+  - src/markdown/math.ts#renderMath
+  trace_task: TRACE-010
+- id: TST-TS-MARKDOWN-MERMAID-MERMAID
+  framework: vitest
+  kind: unit
+  path: tests/markdown/mermaid/mermaid.test.ts
+  symbol: '"mermaid pipeline & renderer"'
+  lines:
+  - 5
+  - 34
+  cases:
+  - returns error on invalid diagram without throwing
+  - handles empty diagram gracefully
+  - transforms mermaid code block into interactive container in processMarkdown
+  - supports light and dark theme options in renderMermaid
+  covers:
+  - FN-RENDER-MERMAID
+  - SVC-PROCESS-MARKDOWN
+  validates: []
+  features:
+  - FEAT-MERMAID
+  - FEAT-PREVIEW
+  trace_task: TRACE-010
+- id: TST-TS-MARKDOWN-SLASH
+  framework: vitest
+  kind: unit
+  path: tests/markdown/slash.test.ts
+  symbol: '"Slash Commands"'
+  lines:
+  - 20
+  - 94
+  cases:
+  - has exactly 17 items in the catalog
+  - returns all items when query is empty
+  - filters items by label or keyword
+  - filters items by heading keywords
+  - detects slash at empty line
+  - detects slash with query at line start
+  - does not detect slash in the middle of text
+  - detects slash after indentation
+  - removes the slash command text and inserts heading
+  - removes the slash command text and inserts table
+  covers: []
+  validates:
+  - CFG-SLASH-ITEMS
+  features:
+  - FEAT-SLASH-COMMANDS
+  unmodeled_targets:
+  - src/editor/slash/slash-plugin.ts#detectSlashCommand
+  - src/editor/slash/slash-plugin.ts#executeSlashItem
+  - src/editor/slash/slash-search.ts#filterSlashItems
+  trace_task: TRACE-010
+- id: TST-TS-PANEL-COLLAPSIBLEPANEL
+  framework: vitest
+  kind: unit
+  path: tests/panel/collapsiblePanel.test.tsx
+  symbol: '"MD-UI-PANEL-001: Collapsible Right Panel & StatusBar"'
+  lines:
+  - 8
+  - 70
+  cases:
+  - renders DocumentOutline with a close button (×) having aria-label and title
+  - renders [sumário] button in StatusBar when rightOpen is false
+  - does not render [sumário] button in StatusBar when rightOpen is true
+  - persists rightPanelVisible in localStorage across toggle and set
+  covers:
+  - CMP-DOCUMENT-OUTLINE
+  - STO-UI
+  validates: []
+  features:
+  - FEAT-OUTLINE
+  - FEAT-SETTINGS
+  unmodeled_targets:
+  - src/components/statusbar/StatusBar.tsx#StatusBar
+  trace_task: TRACE-010
+- id: TST-TS-PRESENTATION-ACCESSIBILITY
+  framework: vitest
+  kind: unit
+  path: tests/presentation/accessibility.test.ts
+  symbol: '"Presentation Accessibility & Themes (MD-PRES-006)"'
+  lines:
+  - 11
+  - 121
+  cases:
+  - detects when prefers-reduced-motion is active
+  - forces transition to none when reduced motion is requested
+  - preserves requested transition when reduced motion is not requested
+  - prioritizes explicit frontmatter presentation theme
+  - falls back to app theme when frontmatter theme is auto
+  - resolves system color scheme when both frontmatter and app themes are auto
+  - renders accessible empty document card when document contains no slide content
+  covers:
+  - SCR-PRESENTATION
+  validates: []
+  features:
+  - FEAT-PRESENTATION
+  unmodeled_targets:
+  - src/presentation/presentation-theme.ts#detectPrefersReducedMotion
+  - src/presentation/presentation-theme.ts#getAccessibleTransition
+  - src/presentation/presentation-theme.ts#resolveEffectiveTheme
+  trace_task: TRACE-010
+- id: TST-TS-PRESENTATION-CONFIG
+  framework: vitest
+  kind: unit
+  path: tests/presentation/config.test.ts
+  symbol: '"Presentation Config Parser"'
+  lines:
+  - 4
+  - 71
+  cases:
+  - returns default config when frontmatter is null or empty
+  - parses valid presentation object within frontmatter
+  - parses valid top-level keys if presentation object is omitted
+  - generates warnings and safe defaults for invalid config values
+  covers:
+  - FN-PARSE-PRESENTATION-CONFIG
+  validates: []
+  features:
+  - FEAT-PRESENTATION
+  unmodeled_targets:
+  - src/presentation/config.ts#DEFAULT_PRESENTATION_CONFIG
+  trace_task: TRACE-010
+- id: TST-TS-PRESENTATION-DECK
+  framework: vitest
+  kind: unit
+  path: tests/presentation/deck.test.ts
+  symbol: '"Presentation Deck Lifecycle"'
+  lines:
+  - 5
+  - 35
+  cases:
+  - instantiates and destroys Reveal.js deck cleanly
+  covers:
+  - FN-CREATE-PRESENTATION-DECK
+  validates: []
+  features:
+  - FEAT-PRESENTATION
+  unmodeled_targets:
+  - src/presentation/config.ts#DEFAULT_PRESENTATION_CONFIG
+  trace_task: TRACE-010
+- id: TST-TS-PRESENTATION-DS005-REPRO-SEGMENT
+  framework: vitest
+  kind: unit
+  path: tests/presentation/ds005-repro-segment.test.ts
+  symbol: '"MD-DS-005 segmentação dos documentos de reprodução"'
+  lines:
+  - 31
+  - 47
+  cases:
+  - mantém heading e corpo nos slides
+  covers:
+  - FN-SEGMENT-MARKDOWN
+  validates: []
+  features:
+  - FEAT-PRESENTATION
+  trace_task: TRACE-010
+- id: TST-TS-PRESENTATION-LIFECYCLE
+  framework: vitest
+  kind: unit
+  path: tests/presentation/lifecycle.test.ts
+  symbol: '"Presentation Mode Lifecycle & Performance QA (MD-PRES-007)"'
+  lines:
+  - 8
+  - 128
+  cases:
+  - does not alter the source markdown string or trigger side effects
+  - survives 20 consecutive mount and destroy cycles without unhandled errors
+  - segments and models 60 slides within performance budget (< 150ms)
+  - isolates syntax and compilation issues without crashing presentation model
+  covers:
+  - FN-CREATE-PRESENTATION-DECK
+  - FN-CREATE-PRESENTATION-MODEL
+  - SVC-PROCESS-PRESENTATION
+  validates: []
+  features:
+  - FEAT-PRESENTATION
+  unmodeled_targets:
+  - src/presentation/config.ts#DEFAULT_PRESENTATION_CONFIG
+  trace_task: TRACE-010
+- id: TST-TS-PRESENTATION-PROCESSOR
+  framework: vitest
+  kind: unit
+  path: tests/presentation/processor.test.ts
+  symbol: '"Presentation Processor"'
+  lines:
+  - 5
+  - 101
+  cases:
+  - compiles slides to sanitized HTML
+  - sanitizes unsafe HTML in slides (zero-XSS enforcement)
+  - handles KaTeX formulas and Mermaid blocks without failure
+  - handles empty documents without crashing
+  covers:
+  - SVC-PROCESS-PRESENTATION
+  validates: []
+  features:
+  - FEAT-PRESENTATION
+  trace_task: TRACE-010
+- id: TST-TS-PRESENTATION-RICH-CONTENT
+  framework: vitest
+  kind: unit
+  path: tests/presentation/rich-content.test.ts
+  symbol: '"Presentation Rich Content Integration"'
+  lines:
+  - 11
+  - 183
+  cases:
+  - renders valid Mermaid containers with SVG
+  - falls back to code block with error badge on invalid Mermaid syntax
+  - isolates unexpected exceptions without throwing or breaking presentation
+  - skips already rendered containers
+  - creates explicit fallback placeholder with path and alt
+  - replaces image with fallback placeholder when error event fires
+  - adds language badge to code blocks and avoids duplicates
+  - executes code decoration, image fallbacks, and mermaid rendering together
+  covers:
+  - FN-ENHANCE-PRESENTATION-CONTENT
+  validates: []
+  features:
+  - FEAT-PRESENTATION
+  unmodeled_targets:
+  - src/presentation/rich-content.ts#createMissingImagePlaceholder
+  - src/presentation/rich-content.ts#decoratePresentationCodeBlocks
+  - src/presentation/rich-content.ts#handleMissingImagesInPresentation
+  - src/presentation/rich-content.ts#renderMermaidInPresentation
+  trace_task: TRACE-010
+- id: TST-TS-PRESENTATION-SEGMENTATION
+  framework: vitest
+  kind: unit
+  path: tests/presentation/segmentation.test.ts
+  symbol: '"Presentation Markdown Segmentation"'
+  lines:
+  - 8
+  - 192
+  cases:
+  - extracts frontmatter correctly
+  - keeps an H1 that is immediately followed by an H2 on the first content slide
+  - segments by H1 and H2 boundaries as standard
+  - splits explicitly with <!-- md-studio:slide -->
+  - preserves horizontal rule --- as content and NEVER splits slides on it
+  - does NOT split on headings or markers inside fenced code blocks
+  - handles documents without any headings as a single slide
+  - handles empty document gracefully
+  - constructs a deterministic PresentationModel with stable IDs and metadata
+  covers:
+  - FN-CREATE-PRESENTATION-MODEL
+  - FN-SEGMENT-MARKDOWN
+  validates: []
+  features:
+  - FEAT-PRESENTATION
+  unmodeled_targets:
+  - src/presentation/segmentation.ts#extractFrontmatter
+  trace_task: TRACE-010
+- id: TST-TS-PRESENTATION-SESSION
+  framework: vitest
+  kind: unit
+  path: tests/presentation/session.test.tsx
+  symbol: '"Presentation Session & Mode"'
+  lines:
+  - 13
+  - 212
+  cases:
+  - captures previous editorial UI state accurately
+  - supplies safe defaults for missing optional values
+  - handles requestFullscreen and exitFullscreen safely without exceptions
+  - manages transition states and preserves previousUiState
+  - records error state properly
+  - renders nothing when isOpen is false
+  - renders presentation stage when presentation compiles successfully
+  - displays error card when processing fails unexpectedly
+  covers:
+  - CLS-PRESENTATION-SESSION-MANAGER
+  - FN-CAPTURE-PREVIOUS-UI-STATE
+  - SCR-PRESENTATION
+  validates: []
+  features:
+  - FEAT-PRESENTATION
+  unmodeled_targets:
+  - src/presentation/presentation-session.ts#exitPresentationFullscreen
+  - src/presentation/presentation-session.ts#requestPresentationFullscreen
+  trace_task: TRACE-010
+- id: TST-TS-SECURITY-ADVERSARIAL-DRAFT-RECOVERY
+  framework: vitest
+  kind: unit
+  path: tests/security/adversarial/draft-recovery.test.ts
+  symbol: '"local draft recovery and retention"'
+  lines:
+  - 9
+  - 73
+  cases:
+  - uses stable root and relative path, not an ephemeral workspace UUID
+  - finds the same native file after Recent opens its parent as a workspace
+  - warns at day 75 and requires manual export before discarding at day 90
+  - keeps legacy drafts visible but never maps them to a new native root
+  - returns failure rather than throwing when storage is unavailable
+  - isolates browser folder selections with the same visible name
+  covers:
+  - FN-CLEAR-DRAFT
+  - FN-DRAFT-KEY
+  - FN-GET-BROWSER-DRAFT-IDENTITY
+  - FN-LIST-RECOVERABLE-DRAFTS
+  - FN-LOAD-DRAFT
+  - FN-REMOVE-DRAFT-KEY
+  - FN-SAVE-DRAFT
+  validates: []
+  features:
+  - FEAT-DRAFT-RECOVERY
+  unmodeled_targets:
+  - src/lib/browserFs.ts#pickRealDirectory
+  trace_task: TRACE-010
+- id: TST-TS-SECURITY-ADVERSARIAL-MARKDOWN-CSS
+  framework: vitest
+  kind: unit
+  path: tests/security/adversarial/markdown-css.test.ts
+  symbol: '"untrusted Markdown styles"'
+  lines:
+  - 5
+  - 35
+  cases:
+  - removes overlay CSS from raw HTML in the shared preview/export pipeline
+  - does not trust spoofed Shiki classes or CSS-variable functions
+  - preserves Shiki's generated literal token colors
+  - preserves layout styles generated by trusted KaTeX
+  covers:
+  - SVC-EXPORT-HTML-DOCUMENT
+  - SVC-PROCESS-MARKDOWN
+  validates: []
+  features:
+  - FEAT-EXPORT-HTML
+  - FEAT-PREVIEW
+  trace_task: TRACE-010
+- id: TST-TS-SECURITY-CONTENT-URLPOLICY
+  framework: vitest
+  kind: unit
+  path: tests/security/content/urlPolicy.test.ts
+  symbol: '"url policy"'
+  lines:
+  - 4
+  - 14
+  cases:
+  - blocks javascript
+  - allows relative
+  - blocks remote by default
+  covers:
+  - FN-ALLOW-URL
+  validates: []
+  features:
+  - FEAT-OFFLINE-PRIVACY
+  trace_task: TRACE-010
+- id: TST-TS-SETTINGS-PREVIEWREADINGWIDTH
+  framework: vitest
+  kind: unit
+  path: tests/settings/previewReadingWidth.test.tsx
+  symbol: '"MD-UI-005: Preview Controlled Reading Width"'
+  lines:
+  - 13
+  - 99
+  cases:
+  - defaults to comfortable preset (920px) on root CSS property
+  - updates CSS custom property when changing presets
+  - falls back safely to comfortable when an invalid preset is provided
+  - renders the 4 presets in PreviewSettings UI and updates settings on change
+  - has complete preset options definition matching spec
+  covers:
+  - STO-SETTINGS
+  validates: []
+  features:
+  - FEAT-AUTO-SAVE
+  - FEAT-SETTINGS
+  unmodeled_targets:
+  - src/components/settings/PreviewSettings.tsx#PreviewSettings
+  - src/state/settings.ts#PREVIEW_READING_WIDTH_OPTIONS
+  trace_task: TRACE-010
+- id: TST-TS-SETTINGS-SETTINGSPANEL
+  framework: vitest
+  kind: unit
+  path: tests/settings/settingsPanel.test.tsx
+  symbol: '"MD-UI-010: Settings refinado (SettingsPanel)"'
+  lines:
+  - 9
+  - 236
+  cases:
+  - does not render when isOpen is false
+  - renders modal structure, vector icons, ARIA tablist and canonical tabs when isOpen is true
+  - switches active tab and updates tabpanel when clicking different tabs
+  - supports keyboard navigation within tablist (ArrowDown, ArrowUp, Home, End)
+  - calls onClose when clicking close button, Fechar button, overlay or pressing Escape
+  - calls settingsStore.resetToDefaults when clicking Restaurar Padrões
+  covers:
+  - CMP-SETTINGS-PANEL
+  - STO-SETTINGS
+  validates: []
+  features:
+  - FEAT-AUTO-SAVE
+  - FEAT-SETTINGS
+  trace_task: TRACE-010
+- id: TST-TS-TEMPLATES-NEW-DOCUMENT-MODAL
+  framework: vitest
+  kind: unit
+  path: tests/templates/new-document-modal.test.tsx
+  symbol: '"MD-UI-009: Novo Documento com Iconografia Consistente (md_ui_009_templates_pass)"'
+  lines:
+  - 10
+  - 190
+  cases:
+  - renderiza todos os 7 templates preservando IDs e contratos
+  - cards utilizam ícones vetoriais SVG com currentColor e sem emojis
+  - seleção e confirmação por clique invocam onSelectTemplate
+  - navegação por teclado com setas direcionais e confirmação com Enter
+  - tecla Escape fecha o modal
+  - conteúdo dos templates permanece byte-a-byte idêntico ao baseline
+  covers:
+  - CMP-NEW-DOCUMENT-MODAL
+  validates:
+  - CFG-TEMPLATES
+  features:
+  - FEAT-TEMPLATES
+  trace_task: TRACE-010
+- id: TST-TS-TEMPLATES-TEMPLATES
+  framework: vitest
+  kind: unit
+  path: tests/templates/templates.test.ts
+  symbol: '"Document Templates"'
+  lines:
+  - 15
+  - 82
+  cases:
+  - includes all required templates
+  - today() generates valid pt-BR date format
+  - meetingTemplate contains participants, agenda and current date
+  - reportTemplate contains executive summary and date
+  - notesTemplate contains notes header and date
+  - specTemplate contains specification structure
+  - diaryTemplate contains diary questions and date
+  - readmeTemplate contains project markdown structure
+  - blankTemplate returns empty string
+  - findFirstEditablePosition returns first empty line after heading
+  covers:
+  - FN-FIND-FIRST-EDITABLE-POSITION
+  validates:
+  - CFG-TEMPLATES
+  features:
+  - FEAT-TEMPLATES
+  unmodeled_targets:
+  - src/templates/index.ts#blankTemplate
+  - src/templates/index.ts#diaryTemplate
+  - src/templates/index.ts#meetingTemplate
+  - src/templates/index.ts#notesTemplate
+  - src/templates/index.ts#readmeTemplate
+  - src/templates/index.ts#reportTemplate
+  - src/templates/index.ts#specTemplate
+  - src/templates/index.ts#today
+  trace_task: TRACE-010
+- id: TST-TS-UI-BUTTON
+  framework: vitest
+  kind: unit
+  path: tests/ui/button.test.tsx
+  symbol: '"MD-UI-SIDEBAR-001: Button Component & Sidebar Hierarchy"'
+  lines:
+  - 6
+  - 44
+  cases:
+  - renders Button with primary variant, size md, and icon
+  - renders Button with secondary variant, sm size, and fullWidth
+  - renders Button with ghost variant and disabled state
+  covers: []
+  validates: []
+  features: []
+  unmodeled_targets:
+  - src/components/ui/Button.tsx#Button
+  trace_task: TRACE-010
+- id: TST-TS-UI-CODE-FORMATTING-UI
+  framework: vitest
+  kind: unit
+  path: tests/ui/code-formatting-ui.test.tsx
+  symbol: '"Code Formatting UI Integration"'
+  lines:
+  - 25
+  - 110
+  cases:
+  - renders CodeBlock with Formatar and Copiar buttons and handles formatting
+  - decorates preview pre.shiki with header actions in MarkdownViewer
+  covers:
+  - CMP-CODE-BLOCK
+  - CMP-MARKDOWN-VIEWER
+  validates: []
+  features:
+  - FEAT-CODE-FORMATTER
+  - FEAT-PREVIEW
+  trace_task: TRACE-010
+- id: TST-TS-UI-DESIGNSYSTEM
+  framework: vitest
+  kind: unit
+  path: tests/ui/designSystem.test.tsx
+  symbol: '"MD-UI-BUTTONS-001: Design System Button Migration Hotspots"'
+  lines:
+  - 9
+  - 81
+  cases:
+  - renders SaveButton using design system Button with correct variants and size
+  - renders WelcomeScreen CTAs with design system Button components
+  - renders EmptyState CTA with design system Button
+  - renders NewDocumentModal with Cancelar and Criar Documento Button actions
+  covers:
+  - CMP-NEW-DOCUMENT-MODAL
+  - CMP-SAVE-BUTTON
+  - SCR-EMPTY-STATE
+  - SCR-WELCOME
+  validates: []
+  features:
+  - FEAT-APP-SCREENS
+  - FEAT-SAVE
+  - FEAT-TEMPLATES
+  trace_task: TRACE-010
+- id: TST-TS-UI-DRAFT-RECOVERY-DIALOG
+  framework: vitest
+  kind: unit
+  path: tests/ui/draft-recovery-dialog.test.tsx
+  symbol: '"draft recovery dialog"'
+  lines:
+  - 10
+  - 52
+  cases:
+  - escapes untrusted draft content in its preview
+  - deletes only the selected local draft
+  - reviews expired drafts one at a time when closing
+  covers:
+  - CMP-DRAFT-RECOVERY-DIALOG
+  - FN-DRAFT-KEY
+  - FN-LIST-RECOVERABLE-DRAFTS
+  validates: []
+  features:
+  - FEAT-DRAFT-RECOVERY
+  trace_task: TRACE-010
+- id: TST-TS-UX-BREADCRUMB
+  framework: vitest
+  kind: unit
+  path: tests/ux/breadcrumb.test.ts
+  symbol: '"breadcrumb utility"'
+  lines:
+  - 4
+  - 20
+  cases:
+  - parses root files correctly
+  - parses nested file paths into hierarchical segments
+  covers: []
+  validates: []
+  features: []
+  unmodeled_targets:
+  - src/utils/breadcrumb.ts#buildBreadcrumb
+  trace_task: TRACE-010
+- id: TST-TS-UX-EDITORSTORE
+  framework: vitest
+  kind: unit
+  path: tests/ux/editorStore.test.ts
+  symbol: '"editorStore"'
+  lines:
+  - 4
+  - 49
+  cases:
+  - tracks cursor position updates
+  - tracks save status and error message
+  - tracks totalLines count
+  - registers and triggers goToLine handler
+  - notifies subscribers when changes occur
+  covers:
+  - STO-EDITOR
+  validates: []
+  features:
+  - FEAT-EDITOR
+  trace_task: TRACE-010
+- id: TST-TS-UX-FUZZYSEARCH
+  framework: vitest
+  kind: unit
+  path: tests/ux/fuzzySearch.test.ts
+  symbol: '"fuzzy search"'
+  lines:
+  - 4
+  - 26
+  cases:
+  - scores exact matches highest
+  - returns zero for non-matching queries
+  - ranks matching items with fuzzySearch
+  covers:
+  - FN-FUZZY-SEARCH
+  validates: []
+  features:
+  - FEAT-COMMAND-PALETTE
+  unmodeled_targets:
+  - src/utils/fuzzy-search.ts#fuzzyScore
+  trace_task: TRACE-010
+- id: TST-TS-UX-RECENTFILES
+  framework: vitest
+  kind: unit
+  path: tests/ux/recentFiles.test.ts
+  symbol: '"recentFilesStore"'
+  lines:
+  - 4
+  - 67
+  cases:
+  - adds and deduplicates files
+  - caps maximum recent files count at 20
+  - removes files correctly
+  - clears all recent files
+  - stores full absolute path and extracts folder and name correctly
+  - normalizes windows backslashes to forward slashes
+  covers:
+  - STO-RECENT-FILES
+  validates: []
+  features:
+  - FEAT-RECENT-FILES
+  trace_task: TRACE-010
+- id: TST-TS-UX-SETTINGSSTORE
+  framework: vitest
+  kind: unit
+  path: tests/ux/settingsStore.test.ts
+  symbol: '"settingsStore"'
+  lines:
+  - 4
+  - 101
+  cases:
+  - modifies font size with limits
+  - handles zoom controls
+  - switches themes
+  - manages preview typography and editor behaviors
+  - resets all settings to defaults
+  covers:
+  - STO-SETTINGS
+  validates:
+  - CFG-DEFAULT-SETTINGS
+  features:
+  - FEAT-AUTO-SAVE
+  - FEAT-SETTINGS
+  trace_task: TRACE-010
+- id: TST-TS-UX-WIREFRAMEFIDELITY
+  framework: vitest
+  kind: unit
+  path: tests/ux/wireframeFidelity.test.ts
+  symbol: '"Wireframe Fidelity QA Suite"'
+  lines:
+  - 6
+  - 95
+  cases:
+  - manages save status transitions correctly
+  - resets save status when opening new document
+  - 'supports all zoom presets: 75%, 90%, 100%, 110%, 125%'
+  - supports preview font family and font size customization
+  - supports editor soft wrap and line number toggles
+  - records and orders recent files with timestamps
+  - handles goToLine handler registration and invocation
+  covers:
+  - STO-EDITOR
+  - STO-RECENT-FILES
+  - STO-SETTINGS
+  validates: []
+  features:
+  - FEAT-AUTO-SAVE
+  - FEAT-EDITOR
+  - FEAT-RECENT-FILES
+  - FEAT-SETTINGS
+  trace_task: TRACE-010
+- id: TST-TS-WIKI-BACKLINKS-PANEL
+  framework: vitest
+  kind: unit
+  path: tests/wiki/backlinks-panel.test.tsx
+  symbol: '"Onda 3 — Backlinks panel"'
+  lines:
+  - 33
+  - 91
+  cases:
+  - formats document and occurrence counts separately with pluralization
+  - falls back to basename when title is missing
+  - renders empty state without a second sidebar
+  - renders groups, lines, null context, tree a11y and retry
+  - renders loading and error+retry using the shared button
+  covers:
+  - CMP-BACKLINKS-PANEL
+  validates: []
+  features:
+  - FEAT-BACKLINKS
+  unmodeled_targets:
+  - src/components/wiki/BacklinksPanel.tsx#backlinkCountLabel
+  - src/components/wiki/BacklinksPanel.tsx#backlinkGroupTitle
+  - src/lib/ipc/metadata.ts#emptyBacklinks
+  trace_task: TRACE-010
+- id: TST-TS-WIKI-CREATE-NOTE
+  framework: vitest
+  kind: unit
+  path: tests/wiki/create-note.test.ts
+  symbol: '"create note from wiki"'
+  lines:
+  - 8
+  - 21
+  cases:
+  - sanitizes target and keeps the current document directory
+  - does not preserve traversal or separators
+  covers:
+  - FN-NOTE-PATH-FOR-TARGET
+  - FN-SAFE-WIKI-NOTE-PATH
+  - FN-SANITIZE-WIKI-FILE-NAME
+  validates: []
+  features:
+  - FEAT-CREATE-NOTE-FROM-WIKI
+  trace_task: TRACE-010
+- id: TST-TS-WIKI-WIKI-COMPLETION
+  framework: vitest
+  kind: unit
+  path: tests/wiki/wiki-completion.test.ts
+  symbol: '"wiki completion candidates"'
+  lines:
+  - 10
+  - 25
+  cases:
+  - filters by title or path and sorts labels
+  - deduplicates targets case-insensitively
+  covers:
+  - FN-WIKI-CANDIDATES
+  validates: []
+  features:
+  - FEAT-WIKI-AUTOCOMPLETE
+  trace_task: TRACE-010
+- id: TST-TS-WORKSPACE-WORKSPACERAIL
+  framework: vitest
+  kind: unit
+  path: tests/workspace/workspaceRail.test.tsx
+  symbol: '"MD-UI-007: Workspace Activity Rail"'
+  lines:
+  - 12
+  - 143
+  cases:
+  - renders the Activity Rail container with default Explorer activity
+  - updates active state when isPanelOpen is false
+  - renders SVG folder icon without emoji
+  - respects sort order of registered activities
+  covers: []
+  validates: []
+  features: []
+  unmodeled_targets:
+  - src/components/workspace/WorkspaceRail.tsx#FolderIcon
+  - src/components/workspace/WorkspaceRail.tsx#WorkspaceRail
+  trace_task: TRACE-010
+- id: TST-RS-EMPTY-WORKSPACE-HAS-NO-BACKLINKS
+  framework: cargo test
+  kind: unit
+  path: src-tauri/crates/md-studio-core/src/index/backlink_index.rs
+  symbol: empty_workspace_has_no_backlinks
+  lines:
+  - 216
+  - 229
+  cases:
+  - empty_workspace_has_no_backlinks
+  covers:
+  - FN-BACKLINK-INDEX-BACKLINKS-FOR
+  - FN-BACKLINK-INDEX-REBUILD
+  - REPO-BACKLINK-INDEX
+  - REPO-METADATA-INDEX
+  validates: []
+  features:
+  - FEAT-BACKLINKS
+  - FEAT-METADATA-INDEX
+  trace_task: TRACE-010
+- id: TST-RS-INDEXES-RESOLVED-ONLY-AND-IGNORES-ALIAS
+  framework: cargo test
+  kind: unit
+  path: src-tauri/crates/md-studio-core/src/index/backlink_index.rs
+  symbol: indexes_resolved_only_and_ignores_alias
+  lines:
+  - 232
+  - 247
+  cases:
+  - indexes_resolved_only_and_ignores_alias
+  covers:
+  - FN-BACKLINK-INDEX-BACKLINKS-FOR
+  - FN-BACKLINK-INDEX-REBUILD
+  - REPO-BACKLINK-INDEX
+  - REPO-METADATA-INDEX
+  validates:
+  - DTO-RS-DOCUMENT-METADATA
+  features:
+  - FEAT-BACKLINKS
+  - FEAT-METADATA-INDEX
+  trace_task: TRACE-010
+- id: TST-RS-SKIPS-UNRESOLVED-AMBIGUOUS-AND-UNSAFE-TARGETS
+  framework: cargo test
+  kind: unit
+  path: src-tauri/crates/md-studio-core/src/index/backlink_index.rs
+  symbol: skips_unresolved_ambiguous_and_unsafe_targets
+  lines:
+  - 250
+  - 275
+  cases:
+  - skips_unresolved_ambiguous_and_unsafe_targets
+  covers:
+  - FN-BACKLINK-INDEX-BACKLINKS-FOR
+  - FN-BACKLINK-INDEX-REBUILD
+  - REPO-BACKLINK-INDEX
+  - REPO-METADATA-INDEX
+  validates:
+  - DTO-RS-DOCUMENT-METADATA
+  features:
+  - FEAT-BACKLINKS
+  - FEAT-METADATA-INDEX
+  trace_task: TRACE-010
+- id: TST-RS-DISCARDS-SELF-LINKS-BEFORE-PUBLIC-STORE
+  framework: cargo test
+  kind: unit
+  path: src-tauri/crates/md-studio-core/src/index/backlink_index.rs
+  symbol: discards_self_links_before_public_store
+  lines:
+  - 278
+  - 287
+  cases:
+  - discards_self_links_before_public_store
+  covers:
+  - FN-BACKLINK-INDEX-BACKLINKS-FOR
+  - FN-BACKLINK-INDEX-REBUILD
+  - REPO-BACKLINK-INDEX
+  - REPO-METADATA-INDEX
+  validates:
+  - DTO-RS-DOCUMENT-METADATA
+  features:
+  - FEAT-BACKLINKS
+  - FEAT-METADATA-INDEX
+  trace_task: TRACE-010
+- id: TST-RS-INDEXES-UNICODE-RESOLVED-TARGETS
+  framework: cargo test
+  kind: unit
+  path: src-tauri/crates/md-studio-core/src/index/backlink_index.rs
+  symbol: indexes_unicode_resolved_targets
+  lines:
+  - 290
+  - 303
+  cases:
+  - indexes_unicode_resolved_targets
+  covers:
+  - FN-BACKLINK-INDEX-BACKLINKS-FOR
+  - FN-BACKLINK-INDEX-REBUILD
+  - REPO-BACKLINK-INDEX
+  - REPO-METADATA-INDEX
+  validates:
+  - DTO-RS-DOCUMENT-METADATA
+  features:
+  - FEAT-BACKLINKS
+  - FEAT-METADATA-INDEX
+  trace_task: TRACE-010
+- id: TST-RS-REPLACE-SOURCE-IS-IDEMPOTENT-AND-DROPS-OLD-EDGES
+  framework: cargo test
+  kind: unit
+  path: src-tauri/crates/md-studio-core/src/index/backlink_index.rs
+  symbol: replace_source_is_idempotent_and_drops_old_edges
+  lines:
+  - 306
+  - 330
+  cases:
+  - replace_source_is_idempotent_and_drops_old_edges
+  covers:
+  - FN-BACKLINK-INDEX-BACKLINKS-FOR
+  - FN-BACKLINK-INDEX-REBUILD
+  - FN-BACKLINK-INDEX-REPLACE-SOURCE
+  - REPO-BACKLINK-INDEX
+  - REPO-METADATA-INDEX
+  validates:
+  - DTO-RS-DOCUMENT-METADATA
+  features:
+  - FEAT-BACKLINKS
+  - FEAT-METADATA-INDEX
+  trace_task: TRACE-010
+- id: TST-RS-REMOVE-SOURCE-DROPS-INCOMING-EDGES
+  framework: cargo test
+  kind: unit
+  path: src-tauri/crates/md-studio-core/src/index/backlink_index.rs
+  symbol: remove_source_drops_incoming_edges
+  lines:
+  - 333
+  - 346
+  cases:
+  - remove_source_drops_incoming_edges
+  covers:
+  - FN-BACKLINK-INDEX-BACKLINKS-FOR
+  - FN-BACKLINK-INDEX-REBUILD
+  - FN-BACKLINK-INDEX-REMOVE-SOURCE
+  - REPO-BACKLINK-INDEX
+  - REPO-METADATA-INDEX
+  validates:
+  - DTO-RS-DOCUMENT-METADATA
+  features:
+  - FEAT-BACKLINKS
+  - FEAT-METADATA-INDEX
+  trace_task: TRACE-010
+- id: TST-RS-SORTS-GROUPS-BY-TITLE-CI-THEN-PATH-AND-OCCURRENCES-LINE-ASC
+  framework: cargo test
+  kind: unit
+  path: src-tauri/crates/md-studio-core/src/index/backlink_index.rs
+  symbol: sorts_groups_by_title_ci_then_path_and_occurrences_line_asc
+  lines:
+  - 349
+  - 377
+  cases:
+  - sorts_groups_by_title_ci_then_path_and_occurrences_line_asc
+  covers:
+  - FN-BACKLINK-INDEX-BACKLINKS-FOR
+  - FN-BACKLINK-INDEX-REBUILD
+  - REPO-BACKLINK-INDEX
+  - REPO-METADATA-INDEX
+  validates:
+  - DTO-RS-DOCUMENT-METADATA
+  features:
+  - FEAT-BACKLINKS
+  - FEAT-METADATA-INDEX
+  trace_task: TRACE-010
+- id: TST-RS-TEST-DOCUMENT-METADATA-SERDE-CAMEL-CASE
+  framework: cargo test
+  kind: unit
+  path: src-tauri/crates/md-studio-core/src/index/document_metadata.rs
+  symbol: test_document_metadata_serde_camel_case
+  lines:
+  - 52
+  - 91
+  cases:
+  - test_document_metadata_serde_camel_case
+  covers: []
+  validates:
+  - DTO-RS-DOCUMENT-METADATA
+  features:
+  - FEAT-METADATA-INDEX
+  trace_task: TRACE-010
+- id: TST-RS-TEST-INDEX-PERSISTENCE-LIFECYCLE
+  framework: cargo test
+  kind: unit
+  path: src-tauri/crates/md-studio-core/src/index/index_persistence.rs
+  symbol: test_index_persistence_lifecycle
+  lines:
+  - 73
+  - 113
+  cases:
+  - test_index_persistence_lifecycle
+  covers:
+  - FN-CLEAR-INDEX
+  - FN-LOAD-INDEX
+  - FN-SAVE-INDEX
+  - REPO-METADATA-INDEX
+  validates:
+  - DTO-RS-DOCUMENT-METADATA
+  features:
+  - FEAT-METADATA-INDEX
+  trace_task: TRACE-010
+- id: TST-RS-TEST-EXTRACT-METADATA-COMPREHENSIVE
+  framework: cargo test
+  kind: unit
+  path: src-tauri/crates/md-studio-core/src/index/metadata_extractor.rs
+  symbol: test_extract_metadata_comprehensive
+  lines:
+  - 311
+  - 371
+  cases:
+  - test_extract_metadata_comprehensive
+  covers:
+  - FN-EXTRACT-METADATA-FROM-STR
+  validates: []
+  features:
+  - FEAT-METADATA-INDEX
+  trace_task: TRACE-010
+- id: TST-RS-TEST-METADATA-INDEX-OPERATIONS
+  framework: cargo test
+  kind: unit
+  path: src-tauri/crates/md-studio-core/src/index/metadata_index.rs
+  symbol: test_metadata_index_operations
+  lines:
+  - 85
+  - 115
+  cases:
+  - test_metadata_index_operations
+  covers:
+  - REPO-METADATA-INDEX
+  validates:
+  - DTO-RS-DOCUMENT-METADATA
+  features:
+  - FEAT-METADATA-INDEX
+  trace_task: TRACE-010
+- id: TST-RS-TEST-METADATA-INDEX-SERDE-ROUNDTRIP
+  framework: cargo test
+  kind: unit
+  path: src-tauri/crates/md-studio-core/src/index/metadata_index.rs
+  symbol: test_metadata_index_serde_roundtrip
+  lines:
+  - 118
+  - 128
+  cases:
+  - test_metadata_index_serde_roundtrip
+  covers:
+  - REPO-METADATA-INDEX
+  validates:
+  - DTO-RS-DOCUMENT-METADATA
+  features:
+  - FEAT-METADATA-INDEX
+  trace_task: TRACE-010
+- id: TST-RS-TEST-REINDEX-ENGINE-WORKFLOW
+  framework: cargo test
+  kind: unit
+  path: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs
+  symbol: test_reindex_engine_workflow
+  lines:
+  - 223
+  - 266
+  cases:
+  - test_reindex_engine_workflow
+  covers:
+  - FN-REINDEX-ENGINE-FULL-REINDEX
+  - FN-REINDEX-ENGINE-NEW
+  - FN-REINDEX-ENGINE-REINDEX-FILE
+  - FN-REINDEX-ENGINE-REMOVE-FILE
+  validates: []
+  features:
+  - FEAT-METADATA-INDEX
+  trace_task: TRACE-010
+- id: TST-RS-ADD-AND-REMOVE-LINK-VIA-REINDEX-FILE-UPDATES-BACKLINKS
+  framework: cargo test
+  kind: unit
+  path: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs
+  symbol: add_and_remove_link_via_reindex_file_updates_backlinks
+  lines:
+  - 269
+  - 285
+  cases:
+  - add_and_remove_link_via_reindex_file_updates_backlinks
+  covers:
+  - FN-REINDEX-ENGINE-BACKLINKS-FOR
+  - FN-REINDEX-ENGINE-FULL-REINDEX
+  - FN-REINDEX-ENGINE-NEW
+  - FN-REINDEX-ENGINE-REINDEX-FILE
+  validates: []
+  features:
+  - FEAT-BACKLINKS
+  - FEAT-METADATA-INDEX
+  trace_task: TRACE-010
+- id: TST-RS-RETARGET-A-TO-B-AND-MULTI-SAVE-DOES-NOT-DUPLICATE
+  framework: cargo test
+  kind: unit
+  path: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs
+  symbol: retarget_a_to_b_and_multi_save_does_not_duplicate
+  lines:
+  - 288
+  - 304
+  cases:
+  - retarget_a_to_b_and_multi_save_does_not_duplicate
+  covers:
+  - FN-REINDEX-ENGINE-BACKLINKS-FOR
+  - FN-REINDEX-ENGINE-FULL-REINDEX
+  - FN-REINDEX-ENGINE-NEW
+  - FN-REINDEX-ENGINE-REINDEX-FILE
+  validates: []
+  features:
+  - FEAT-BACKLINKS
+  - FEAT-METADATA-INDEX
+  trace_task: TRACE-010
+- id: TST-RS-CREATING-UNRESOLVED-TARGET-THEN-REINDEX-ESTABLISHES-RELATION
+  framework: cargo test
+  kind: unit
+  path: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs
+  symbol: creating_unresolved_target_then_reindex_establishes_relation
+  lines:
+  - 307
+  - 318
+  cases:
+  - creating_unresolved_target_then_reindex_establishes_relation
+  covers:
+  - FN-REINDEX-ENGINE-BACKLINKS-FOR
+  - FN-REINDEX-ENGINE-FULL-REINDEX
+  - FN-REINDEX-ENGINE-NEW
+  - FN-REINDEX-ENGINE-REINDEX-FILE
+  validates: []
+  features:
+  - FEAT-BACKLINKS
+  - FEAT-METADATA-INDEX
+  trace_task: TRACE-010
+- id: TST-RS-EXTERNAL-DELETE-AND-WATCH-APPLY-REMOVE-BACKLINKS
+  framework: cargo test
+  kind: unit
+  path: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs
+  symbol: external_delete_and_watch_apply_remove_backlinks
+  lines:
+  - 321
+  - 332
+  cases:
+  - external_delete_and_watch_apply_remove_backlinks
+  covers:
+  - FN-REINDEX-ENGINE-APPLY-EXTERNAL-CHANGE
+  - FN-REINDEX-ENGINE-BACKLINKS-FOR
+  - FN-REINDEX-ENGINE-FULL-REINDEX
+  - FN-REINDEX-ENGINE-NEW
+  validates: []
+  features:
+  - FEAT-BACKLINKS
+  - FEAT-METADATA-INDEX
+  - FEAT-WATCHER
+  trace_task: TRACE-010
+- id: TST-RS-REBUILD-MATCHES-INCREMENTAL-AND-LOADED-SNAPSHOT
+  framework: cargo test
+  kind: unit
+  path: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs
+  symbol: rebuild_matches_incremental_and_loaded_snapshot
+  lines:
+  - 335
+  - 359
+  cases:
+  - rebuild_matches_incremental_and_loaded_snapshot
+  covers:
+  - FN-REINDEX-ENGINE-BACKLINKS-FOR
+  - FN-REINDEX-ENGINE-FULL-REINDEX
+  - FN-REINDEX-ENGINE-NEW
+  - FN-REINDEX-ENGINE-REBUILD-BACKLINKS
+  - FN-REINDEX-ENGINE-REINDEX-FILE
+  - SVC-REINDEX-ENGINE
+  validates: []
+  features:
+  - FEAT-BACKLINKS
+  - FEAT-METADATA-INDEX
+  trace_task: TRACE-010
+- id: TST-RS-RESOLVES-EXACT-PATH-WITH-OR-WITHOUT-EXTENSION
+  framework: cargo test
+  kind: unit
+  path: src-tauri/crates/md-studio-core/src/index/wiki_resolve.rs
+  symbol: resolves_exact_path_with_or_without_extension
+  lines:
+  - 171
+  - 178
+  cases:
+  - resolves_exact_path_with_or_without_extension
+  covers:
+  - FN-RESOLVE-WIKI-LINK-CORE
+  - REPO-METADATA-INDEX
+  validates: []
+  features:
+  - FEAT-METADATA-INDEX
+  - FEAT-WIKI-LINKS
+  trace_task: TRACE-010
+- id: TST-RS-RESOLVES-STEM-AND-TITLE-CASE-INSENSITIVELY
+  framework: cargo test
+  kind: unit
+  path: src-tauri/crates/md-studio-core/src/index/wiki_resolve.rs
+  symbol: resolves_stem_and_title_case_insensitively
+  lines:
+  - 181
+  - 191
+  cases:
+  - resolves_stem_and_title_case_insensitively
+  covers:
+  - FN-RESOLVE-WIKI-LINK-CORE
+  - REPO-METADATA-INDEX
+  validates: []
+  features:
+  - FEAT-METADATA-INDEX
+  - FEAT-WIKI-LINKS
+  trace_task: TRACE-010
+- id: TST-RS-REPORTS-MISSING-UNSAFE-AND-AMBIGUOUS-TARGETS
+  framework: cargo test
+  kind: unit
+  path: src-tauri/crates/md-studio-core/src/index/wiki_resolve.rs
+  symbol: reports_missing_unsafe_and_ambiguous_targets
+  lines:
+  - 194
+  - 210
+  cases:
+  - reports_missing_unsafe_and_ambiguous_targets
+  covers:
+  - FN-RESOLVE-WIKI-LINK-CORE
+  - REPO-METADATA-INDEX
+  validates:
+  - DTO-RS-DOCUMENT-METADATA
+  features:
+  - FEAT-METADATA-INDEX
+  - FEAT-WIKI-LINKS
+  trace_task: TRACE-010
+- id: TST-RS-RESOLVE-ALL-PRESERVES-ALIAS-AND-SOURCE-LINE
+  framework: cargo test
+  kind: unit
+  path: src-tauri/crates/md-studio-core/src/index/wiki_resolve.rs
+  symbol: resolve_all_preserves_alias_and_source_line
+  lines:
+  - 213
+  - 221
+  cases:
+  - resolve_all_preserves_alias_and_source_line
+  covers:
+  - FN-RESOLVE-ALL
+  - REPO-METADATA-INDEX
+  validates:
+  - DTO-RS-DOCUMENT-METADATA
+  features:
+  - FEAT-METADATA-INDEX
+  - FEAT-WIKI-LINKS
+  trace_task: TRACE-010
+- id: TST-RS-TEST-SCANNER-EMPTY-WORKSPACE
+  framework: cargo test
+  kind: unit
+  path: src-tauri/crates/md-studio-core/src/index/workspace_scanner.rs
+  symbol: test_scanner_empty_workspace
+  lines:
+  - 73
+  - 78
+  cases:
+  - test_scanner_empty_workspace
+  covers:
+  - FN-WORKSPACE-SCANNER-SCAN
+  validates: []
+  features:
+  - FEAT-METADATA-INDEX
+  trace_task: TRACE-010
+- id: TST-RS-TEST-SCANNER-WITH-FILES-AND-EXCLUSIONS
+  framework: cargo test
+  kind: unit
+  path: src-tauri/crates/md-studio-core/src/index/workspace_scanner.rs
+  symbol: test_scanner_with_files_and_exclusions
+  lines:
+  - 81
+  - 116
+  cases:
+  - test_scanner_with_files_and_exclusions
+  covers:
+  - FN-WORKSPACE-SCANNER-SCAN
+  validates: []
+  features:
+  - FEAT-METADATA-INDEX
+  trace_task: TRACE-010
+- id: TST-RS-PREFERS-FIRST-EXISTING-MD-AMONG-MANY
+  framework: cargo test
+  kind: unit
+  path: src-tauri/crates/md-studio-core/src/launch.rs
+  symbol: prefers_first_existing_md_among_many
+  lines:
+  - 99
+  - 113
+  cases:
+  - prefers_first_existing_md_among_many
+  covers:
+  - FN-FIRST-EXISTING-MARKDOWN-PATH
+  validates: []
+  features:
+  - FEAT-OPEN-FROM-OS
+  trace_task: TRACE-010
+- id: TST-RS-SKIPS-MISSING-AND-NON-MD-WITHOUT-PANIC
+  framework: cargo test
+  kind: unit
+  path: src-tauri/crates/md-studio-core/src/launch.rs
+  symbol: skips_missing_and_non_md_without_panic
+  lines:
+  - 116
+  - 133
+  cases:
+  - skips_missing_and_non_md_without_panic
+  covers:
+  - FN-FIRST-EXISTING-MARKDOWN-PATH
+  validates: []
+  features:
+  - FEAT-OPEN-FROM-OS
+  trace_task: TRACE-010
+- id: TST-RS-ACCEPTS-FILE-URL
+  framework: cargo test
+  kind: unit
+  path: src-tauri/crates/md-studio-core/src/launch.rs
+  symbol: accepts_file_url
+  lines:
+  - 136
+  - 146
+  cases:
+  - accepts_file_url
+  covers:
+  - FN-FIRST-EXISTING-MARKDOWN-PATH
+  validates: []
+  features:
+  - FEAT-OPEN-FROM-OS
+  trace_task: TRACE-010
+- id: TST-RS-MARKDOWN-EXT-CASE-INSENSITIVE
+  framework: cargo test
+  kind: unit
+  path: src-tauri/crates/md-studio-core/src/launch.rs
+  symbol: markdown_ext_case_insensitive
+  lines:
+  - 149
+  - 154
+  cases:
+  - markdown_ext_case_insensitive
+  covers:
+  - FN-IS-MARKDOWN-PATH
+  validates: []
+  features:
+  - FEAT-OPEN-WORKSPACE
+  trace_task: TRACE-010
+- id: TST-RS-TEST-SIMPLE-TAG
+  framework: cargo test
+  kind: unit
+  path: src-tauri/crates/md-studio-core/src/parser/tag_parser.rs
+  symbol: test_simple_tag
+  lines:
+  - 114
+  - 117
+  cases:
+  - test_simple_tag
+  covers:
+  - FN-PARSE-TAGS
+  validates: []
+  features:
+  - FEAT-METADATA-INDEX
+  trace_task: TRACE-010
+- id: TST-RS-TEST-HEADING-NOT-TAG
+  framework: cargo test
+  kind: unit
+  path: src-tauri/crates/md-studio-core/src/parser/tag_parser.rs
+  symbol: test_heading_not_tag
+  lines:
+  - 120
+  - 123
+  cases:
+  - test_heading_not_tag
+  covers:
+  - FN-PARSE-TAGS
+  validates: []
+  features:
+  - FEAT-METADATA-INDEX
+  trace_task: TRACE-010
+- id: TST-RS-TEST-TAG-IN-CODE-BLOCK-IGNORED
+  framework: cargo test
+  kind: unit
+  path: src-tauri/crates/md-studio-core/src/parser/tag_parser.rs
+  symbol: test_tag_in_code_block_ignored
+  lines:
+  - 126
+  - 129
+  cases:
+  - test_tag_in_code_block_ignored
+  covers:
+  - FN-PARSE-TAGS
+  validates: []
+  features:
+  - FEAT-METADATA-INDEX
+  trace_task: TRACE-010
+- id: TST-RS-TEST-MULTIPLE-TAGS
+  framework: cargo test
+  kind: unit
+  path: src-tauri/crates/md-studio-core/src/parser/tag_parser.rs
+  symbol: test_multiple_tags
+  lines:
+  - 132
+  - 137
+  cases:
+  - test_multiple_tags
+  covers:
+  - FN-PARSE-TAGS
+  validates: []
+  features:
+  - FEAT-METADATA-INDEX
+  trace_task: TRACE-010
+- id: TST-RS-TEST-TAG-WITH-HYPHEN
+  framework: cargo test
+  kind: unit
+  path: src-tauri/crates/md-studio-core/src/parser/tag_parser.rs
+  symbol: test_tag_with_hyphen
+  lines:
+  - 140
+  - 143
+  cases:
+  - test_tag_with_hyphen
+  covers:
+  - FN-PARSE-TAGS
+  validates: []
+  features:
+  - FEAT-METADATA-INDEX
+  trace_task: TRACE-010
+- id: TST-RS-TEST-TAG-IN-INLINE-CODE-IGNORED
+  framework: cargo test
+  kind: unit
+  path: src-tauri/crates/md-studio-core/src/parser/tag_parser.rs
+  symbol: test_tag_in_inline_code_ignored
+  lines:
+  - 146
+  - 150
+  cases:
+  - test_tag_in_inline_code_ignored
+  covers:
+  - FN-PARSE-TAGS
+  validates: []
+  features:
+  - FEAT-METADATA-INDEX
+  trace_task: TRACE-010
+- id: TST-RS-TEST-TAG-INSIDE-PARENTHESES
+  framework: cargo test
+  kind: unit
+  path: src-tauri/crates/md-studio-core/src/parser/tag_parser.rs
+  symbol: test_tag_inside_parentheses
+  lines:
+  - 153
+  - 158
+  cases:
+  - test_tag_inside_parentheses
+  covers:
+  - FN-PARSE-TAGS
+  validates: []
+  features:
+  - FEAT-METADATA-INDEX
+  trace_task: TRACE-010
+- id: TST-RS-TEST-SIMPLE-WIKI-LINK
+  framework: cargo test
+  kind: unit
+  path: src-tauri/crates/md-studio-core/src/parser/wiki_link_parser.rs
+  symbol: test_simple_wiki_link
+  lines:
+  - 107
+  - 113
+  cases:
+  - test_simple_wiki_link
+  covers:
+  - FN-PARSE-WIKI-LINKS
+  validates: []
+  features:
+  - FEAT-WIKI-LINKS
+  trace_task: TRACE-010
+- id: TST-RS-TEST-WIKI-LINK-WITH-ALIAS
+  framework: cargo test
+  kind: unit
+  path: src-tauri/crates/md-studio-core/src/parser/wiki_link_parser.rs
+  symbol: test_wiki_link_with_alias
+  lines:
+  - 116
+  - 121
+  cases:
+  - test_wiki_link_with_alias
+  covers:
+  - FN-PARSE-WIKI-LINKS
+  validates: []
+  features:
+  - FEAT-WIKI-LINKS
+  trace_task: TRACE-010
+- id: TST-RS-TEST-IGNORE-IN-CODE-BLOCK
+  framework: cargo test
+  kind: unit
+  path: src-tauri/crates/md-studio-core/src/parser/wiki_link_parser.rs
+  symbol: test_ignore_in_code_block
+  lines:
+  - 124
+  - 128
+  cases:
+  - test_ignore_in_code_block
+  covers:
+  - FN-PARSE-WIKI-LINKS
+  validates: []
+  features:
+  - FEAT-WIKI-LINKS
+  trace_task: TRACE-010
+- id: TST-RS-TEST-IGNORE-IN-INLINE-CODE
+  framework: cargo test
+  kind: unit
+  path: src-tauri/crates/md-studio-core/src/parser/wiki_link_parser.rs
+  symbol: test_ignore_in_inline_code
+  lines:
+  - 131
+  - 136
+  cases:
+  - test_ignore_in_inline_code
+  covers:
+  - FN-PARSE-WIKI-LINKS
+  validates: []
+  features:
+  - FEAT-WIKI-LINKS
+  trace_task: TRACE-010
+- id: TST-RS-TEST-MULTIPLE-WIKI-LINKS
+  framework: cargo test
+  kind: unit
+  path: src-tauri/crates/md-studio-core/src/parser/wiki_link_parser.rs
+  symbol: test_multiple_wiki_links
+  lines:
+  - 139
+  - 146
+  cases:
+  - test_multiple_wiki_links
+  covers:
+  - FN-PARSE-WIKI-LINKS
+  validates: []
+  features:
+  - FEAT-WIKI-LINKS
+  trace_task: TRACE-010
+- id: TST-RS-TEST-EMPTY-CONTENT
+  framework: cargo test
+  kind: unit
+  path: src-tauri/crates/md-studio-core/src/parser/wiki_link_parser.rs
+  symbol: test_empty_content
+  lines:
+  - 149
+  - 152
+  cases:
+  - test_empty_content
+  covers:
+  - FN-PARSE-WIKI-LINKS
+  validates: []
+  features:
+  - FEAT-WIKI-LINKS
+  trace_task: TRACE-010
+- id: TST-RS-TEST-MULTILINE-LINE-NUMBER
+  framework: cargo test
+  kind: unit
+  path: src-tauri/crates/md-studio-core/src/parser/wiki_link_parser.rs
+  symbol: test_multiline_line_number
+  lines:
+  - 155
+  - 160
+  cases:
+  - test_multiline_line_number
+  covers:
+  - FN-PARSE-WIKI-LINKS
+  validates: []
+  features:
+  - FEAT-WIKI-LINKS
+  trace_task: TRACE-010
+- id: TST-RS-WRITES-NEW-FILE
+  framework: cargo test
+  kind: integration
+  path: src-tauri/crates/md-studio-core/tests/atomic_save.rs
+  symbol: writes_new_file
+  lines:
+  - 6
+  - 12
+  cases:
+  - writes_new_file
+  covers:
+  - FN-ATOMIC-SAVE
+  - FN-CONTENT-HASH
+  validates: []
+  features:
+  - FEAT-CONFLICT
+  - FEAT-SAVE
+  trace_task: TRACE-010
+- id: TST-RS-DETECTS-CONFLICT
+  framework: cargo test
+  kind: integration
+  path: src-tauri/crates/md-studio-core/tests/atomic_save.rs
+  symbol: detects_conflict
+  lines:
+  - 15
+  - 21
+  cases:
+  - detects_conflict
+  covers:
+  - FN-ATOMIC-SAVE
+  validates: []
+  features:
+  - FEAT-CONFLICT
+  - FEAT-SAVE
+  trace_task: TRACE-010
+- id: TST-RS-PAYLOAD-DESERIALIZES-CAMEL-CASE
+  framework: cargo test
+  kind: integration
+  path: src-tauri/crates/md-studio-core/tests/epub_builder.rs
+  symbol: payload_deserializes_camel_case
+  lines:
+  - 45
+  - 74
+  cases:
+  - payload_deserializes_camel_case
+  covers: []
+  validates:
+  - DTO-RS-EPUB-EXPORT-PAYLOAD
+  features:
+  - FEAT-EXPORT-EPUB
+  trace_task: TRACE-010
+- id: TST-RS-HTML-BECOMES-XHTML-WITH-HEADING-IDS
+  framework: cargo test
+  kind: integration
+  path: src-tauri/crates/md-studio-core/tests/epub_builder.rs
+  symbol: html_becomes_xhtml_with_heading_ids
+  lines:
+  - 77
+  - 100
+  cases:
+  - html_becomes_xhtml_with_heading_ids
+  covers:
+  - FN-HTML-TO-XHTML
+  validates: []
+  features:
+  - FEAT-EXPORT-EPUB
+  trace_task: TRACE-010
+- id: TST-RS-NAV-AND-NCX-INCLUDE-H1-H2-ONLY
+  framework: cargo test
+  kind: integration
+  path: src-tauri/crates/md-studio-core/tests/epub_builder.rs
+  symbol: nav_and_ncx_include_h1_h2_only
+  lines:
+  - 103
+  - 144
+  cases:
+  - nav_and_ncx_include_h1_h2_only
+  covers: []
+  validates: []
+  features: []
+  trace_task: TRACE-010
+- id: TST-RS-CONTENT-OPF-CARRIES-METADATA
+  framework: cargo test
+  kind: integration
+  path: src-tauri/crates/md-studio-core/tests/epub_builder.rs
+  symbol: content_opf_carries_metadata
+  lines:
+  - 147
+  - 184
+  cases:
+  - content_opf_carries_metadata
+  covers:
+  - FN-GENERATE-CONTENT-OPF
+  - FN-NORMALIZE-EPUB-METADATA
+  validates: []
+  features:
+  - FEAT-EXPORT-EPUB
+  trace_task: TRACE-010
+- id: TST-RS-EMPTY-FRONTMATTER-USES-SAFE-DEFAULTS
+  framework: cargo test
+  kind: integration
+  path: src-tauri/crates/md-studio-core/tests/epub_builder.rs
+  symbol: empty_frontmatter_uses_safe_defaults
+  lines:
+  - 187
+  - 197
+  cases:
+  - empty_frontmatter_uses_safe_defaults
+  covers:
+  - FN-NORMALIZE-EPUB-METADATA
+  validates:
+  - DTO-RS-EPUB-EXPORT-PAYLOAD
+  features:
+  - FEAT-EXPORT-EPUB
+  trace_task: TRACE-010
+- id: TST-RS-MERMAID-SVG-BECOMES-IMAGE-AND-NULL-BECOMES-CODE
+  framework: cargo test
+  kind: integration
+  path: src-tauri/crates/md-studio-core/tests/epub_builder.rs
+  symbol: mermaid_svg_becomes_image_and_null_becomes_code
+  lines:
+  - 200
+  - 225
+  cases:
+  - mermaid_svg_becomes_image_and_null_becomes_code
+  covers:
+  - FN-HTML-TO-XHTML
+  validates: []
+  features:
+  - FEAT-EXPORT-EPUB
+  trace_task: TRACE-010
+- id: TST-RS-EPUB-ZIP-INCLUDES-LOCAL-IMAGE-AND-REJECTS-ESCAPE
+  framework: cargo test
+  kind: integration
+  path: src-tauri/crates/md-studio-core/tests/epub_builder.rs
+  symbol: epub_zip_includes_local_image_and_rejects_escape
+  lines:
+  - 228
+  - 331
+  cases:
+  - epub_zip_includes_local_image_and_rejects_escape
+  covers:
+  - FN-BUILD-EPUB
+  validates:
+  - DTO-RS-EPUB-EXPORT-PAYLOAD
+  features:
+  - FEAT-EXPORT-EPUB
+  trace_task: TRACE-010
+- id: TST-RS-ATOMIC-WRITE-EXPORT-HTML
+  framework: cargo test
+  kind: integration
+  path: src-tauri/crates/md-studio-core/tests/export_atomic.rs
+  symbol: atomic_write_export_html
+  lines:
+  - 7
+  - 15
+  cases:
+  - atomic_write_export_html
+  covers:
+  - FN-ATOMIC-WRITE-BYTES
+  validates: []
+  features:
+  - FEAT-SAVE
+  trace_task: TRACE-010
+- id: TST-RS-FENCE-ACCEPTS-NESTED-MARKDOWN
+  framework: cargo test
+  kind: integration
+  path: src-tauri/crates/md-studio-core/tests/watcher_fence.rs
+  symbol: fence_accepts_nested_markdown
+  lines:
+  - 7
+  - 12
+  cases:
+  - fence_accepts_nested_markdown
+  covers:
+  - FN-RESOLVE-WITHIN
+  validates: []
+  features:
+  - FEAT-PATH-FENCING
+  trace_task: TRACE-010
+- id: TST-RS-FENCE-REJECTS-PARENT-ESCAPE
+  framework: cargo test
+  kind: integration
+  path: src-tauri/crates/md-studio-core/tests/watcher_fence.rs
+  symbol: fence_rejects_parent_escape
+  lines:
+  - 15
+  - 18
+  cases:
+  - fence_rejects_parent_escape
+  covers:
+  - FN-RESOLVE-WITHIN
+  validates: []
+  features:
+  - FEAT-PATH-FENCING
+  trace_task: TRACE-010
+- id: TST-RS-REJECTS-PARENT-DIR
+  framework: cargo test
+  kind: integration
+  path: src-tauri/crates/md-studio-core/tests/workspace_paths.rs
+  symbol: rejects_parent_dir
+  lines:
+  - 6
+  - 11
+  cases:
+  - rejects_parent_dir
+  covers:
+  - FN-RESOLVE-WITHIN
+  validates: []
+  features:
+  - FEAT-PATH-FENCING
+  trace_task: TRACE-010
+- id: TST-RS-REJECTS-ABSOLUTE
+  framework: cargo test
+  kind: integration
+  path: src-tauri/crates/md-studio-core/tests/workspace_paths.rs
+  symbol: rejects_absolute
+  lines:
+  - 14
+  - 17
+  cases:
+  - rejects_absolute
+  covers:
+  - FN-RESOLVE-WITHIN
+  validates: []
+  features:
+  - FEAT-PATH-FENCING
+  trace_task: TRACE-010
+- id: TST-RS-ACCEPTS-NESTED
+  framework: cargo test
+  kind: integration
+  path: src-tauri/crates/md-studio-core/tests/workspace_paths.rs
+  symbol: accepts_nested
+  lines:
+  - 20
+  - 25
+  cases:
+  - accepts_nested
+  covers:
+  - FN-RESOLVE-WITHIN
+  validates: []
+  features:
+  - FEAT-PATH-FENCING
+  trace_task: TRACE-010
+- id: TST-RS-TEST-FORMATTER-SPEC-MAPPING
+  framework: cargo test
+  kind: unit
+  path: src-tauri/src/commands/formatter.rs
+  symbol: test_formatter_spec_mapping
+  lines:
+  - 352
+  - 366
+  cases:
+  - test_formatter_spec_mapping
+  covers:
+  - FN-GET-FORMATTER-SPEC
+  validates: []
+  features:
+  - FEAT-CODE-FORMATTER
+  trace_task: TRACE-010
+- id: TST-RS-TEST-FORMAT-EMPTY-CODE
+  framework: cargo test
+  kind: unit
+  path: src-tauri/src/commands/formatter.rs
+  symbol: test_format_empty_code
+  lines:
+  - 369
+  - 374
+  cases:
+  - test_format_empty_code
+  covers:
+  - FN-FORMAT-CODE-INTERNAL
+  validates: []
+  features:
+  - FEAT-CODE-FORMATTER
+  trace_task: TRACE-010
+- id: TST-RS-TEST-FORMAT-UNSUPPORTED-LANGUAGE
+  framework: cargo test
+  kind: unit
+  path: src-tauri/src/commands/formatter.rs
+  symbol: test_format_unsupported_language
+  lines:
+  - 377
+  - 382
+  cases:
+  - test_format_unsupported_language
+  covers:
+  - FN-FORMAT-CODE-INTERNAL
+  validates: []
+  features:
+  - FEAT-CODE-FORMATTER
+  trace_task: TRACE-010
+- id: TST-RS-TEST-FORMAT-MISSING-TOOL-FALLBACK
+  framework: cargo test
+  kind: unit
+  path: src-tauri/src/commands/formatter.rs
+  symbol: test_format_missing_tool_fallback
+  lines:
+  - 385
+  - 393
+  cases:
+  - test_format_missing_tool_fallback
+  covers:
+  - FN-FIND-EXECUTABLE
+  validates: []
+  features:
+  - FEAT-CODE-FORMATTER
+  trace_task: TRACE-010
+- id: TST-RS-TEST-FORMAT-PYTHON-WITH-RUFF
+  framework: cargo test
+  kind: unit
+  path: src-tauri/src/commands/formatter.rs
+  symbol: test_format_python_with_ruff
+  lines:
+  - 396
+  - 407
+  cases:
+  - test_format_python_with_ruff
+  covers:
+  - FN-FIND-EXECUTABLE
+  - FN-FORMAT-CODE-INTERNAL
+  validates: []
+  features:
+  - FEAT-CODE-FORMATTER
+  trace_task: TRACE-010
+- id: TST-RS-TEST-FORMAT-RUST-WITH-RUSTFMT
+  framework: cargo test
+  kind: unit
+  path: src-tauri/src/commands/formatter.rs
+  symbol: test_format_rust_with_rustfmt
+  lines:
+  - 410
+  - 421
+  cases:
+  - test_format_rust_with_rustfmt
+  covers:
+  - FN-FIND-EXECUTABLE
+  - FN-FORMAT-CODE-INTERNAL
+  validates: []
+  features:
+  - FEAT-CODE-FORMATTER
+  trace_task: TRACE-010
+- id: TST-RS-TEST-FORMAT-GO-WITH-GOFMT
+  framework: cargo test
+  kind: unit
+  path: src-tauri/src/commands/formatter.rs
+  symbol: test_format_go_with_gofmt
+  lines:
+  - 424
+  - 435
+  cases:
+  - test_format_go_with_gofmt
+  covers:
+  - FN-FIND-EXECUTABLE
+  - FN-FORMAT-CODE-INTERNAL
+  validates: []
+  features:
+  - FEAT-CODE-FORMATTER
+  trace_task: TRACE-010
+- id: TST-RS-TEST-FORMAT-SYNTAX-ERROR-RESILIENCE
+  framework: cargo test
+  kind: unit
+  path: src-tauri/src/commands/formatter.rs
+  symbol: test_format_syntax_error_resilience
+  lines:
+  - 438
+  - 449
+  cases:
+  - test_format_syntax_error_resilience
+  covers:
+  - FN-FIND-EXECUTABLE
+  - FN-FORMAT-CODE-INTERNAL
+  validates: []
+  features:
+  - FEAT-CODE-FORMATTER
+  trace_task: TRACE-010
+- id: TST-RS-FENCE-REJECTS-PARENT-AND-ABSOLUTE-PATHS
+  framework: cargo test
+  kind: unit
+  path: src-tauri/src/commands/metadata.rs
+  symbol: fence_rejects_parent_and_absolute_paths
+  lines:
+  - 255
+  - 261
+  cases:
+  - fence_rejects_parent_and_absolute_paths
+  covers:
+  - FN-FENCE-BACKLINK-TARGET
+  validates: []
+  features:
+  - FEAT-BACKLINKS
+  - FEAT-PATH-FENCING
+  trace_task: TRACE-010
+- id: TST-RS-CONTEXT-FAILURE-KEEPS-OCCURRENCE
+  framework: cargo test
+  kind: unit
+  path: src-tauri/src/commands/metadata.rs
+  symbol: context_failure_keeps_occurrence
+  lines:
+  - 264
+  - 296
+  cases:
+  - context_failure_keeps_occurrence
+  covers:
+  - FN-ENRICH-BACKLINK-CONTEXT
+  validates:
+  - DTO-RS-BACKLINK-RESULT
+  features:
+  - FEAT-BACKLINKS
+  trace_task: TRACE-010
+- id: TST-RS-EXPORT-WRITES-RENDERED-HTML-NOT-PRE-STUB
+  framework: cargo test
+  kind: unit
+  path: src-tauri/src/commands/mod.rs
+  symbol: export_writes_rendered_html_not_pre_stub
+  lines:
+  - 277
+  - 290
+  cases:
+  - export_writes_rendered_html_not_pre_stub
+  covers:
+  - IPC-EXPORT-HTML
+  validates:
+  - DTO-RS-EXPORT-HTML-REQUEST
+  features:
+  - FEAT-EXPORT-HTML
+  trace_task: TRACE-010
+- id: TST-RS-EXPORT-REFUSES-OVERWRITE-WITHOUT-FLAG
+  framework: cargo test
+  kind: unit
+  path: src-tauri/src/commands/mod.rs
+  symbol: export_refuses_overwrite_without_flag
+  lines:
+  - 293
+  - 304
+  cases:
+  - export_refuses_overwrite_without_flag
+  covers:
+  - IPC-EXPORT-HTML
+  validates:
+  - DTO-RS-EXPORT-HTML-REQUEST
+  features:
+  - FEAT-EXPORT-HTML
+  trace_task: TRACE-010
+- id: TST-RS-EXPORT-OVERWRITE-WHEN-ALLOWED
+  framework: cargo test
+  kind: unit
+  path: src-tauri/src/commands/mod.rs
+  symbol: export_overwrite_when_allowed
+  lines:
+  - 307
+  - 318
+  cases:
+  - export_overwrite_when_allowed
+  covers:
+  - IPC-EXPORT-HTML
+  validates:
+  - DTO-RS-EXPORT-HTML-REQUEST
+  features:
+  - FEAT-EXPORT-HTML
+  trace_task: TRACE-010
+- id: TST-RS-EXPORT-EPUB-REQUEST-DESERIALIZES-CAMEL-CASE
+  framework: cargo test
+  kind: unit
+  path: src-tauri/src/commands/mod.rs
+  symbol: export_epub_request_deserializes_camel_case
+  lines:
+  - 345
+  - 362
+  cases:
+  - export_epub_request_deserializes_camel_case
+  covers: []
+  validates:
+  - DTO-RS-EXPORT-EPUB-REQUEST
+  features:
+  - FEAT-EXPORT-EPUB
+  trace_task: TRACE-010
+- id: TST-RS-EXPORT-EPUB-REFUSES-NON-ABSOLUTE-DESTINATION
+  framework: cargo test
+  kind: unit
+  path: src-tauri/src/commands/mod.rs
+  symbol: export_epub_refuses_non_absolute_destination
+  lines:
+  - 365
+  - 378
+  cases:
+  - export_epub_refuses_non_absolute_destination
+  covers:
+  - FN-EXPORT-EPUB-IN
+  - REPO-WORKSPACE-REGISTRY
+  - SVC-WATCHER-HUB
+  validates:
+  - DTO-RS-EPUB-EXPORT-PAYLOAD
+  - DTO-RS-EXPORT-EPUB-REQUEST
+  features:
+  - FEAT-EXPORT-EPUB
+  - FEAT-OPEN-WORKSPACE
+  - FEAT-WATCHER
+  trace_task: TRACE-010
+- id: TST-RS-EXPORT-EPUB-REQUIRES-KNOWN-WORKSPACE-AND-REJECTS-ESCAPE
+  framework: cargo test
+  kind: unit
+  path: src-tauri/src/commands/mod.rs
+  symbol: export_epub_requires_known_workspace_and_rejects_escape
+  lines:
+  - 381
+  - 426
+  cases:
+  - export_epub_requires_known_workspace_and_rejects_escape
+  covers:
+  - FN-EXPORT-EPUB-IN
+  - REPO-WORKSPACE-REGISTRY
+  - SVC-WATCHER-HUB
+  validates:
+  - DTO-RS-EPUB-EXPORT-PAYLOAD
+  - DTO-RS-EXPORT-EPUB-REQUEST
+  features:
+  - FEAT-EXPORT-EPUB
+  - FEAT-OPEN-WORKSPACE
+  - FEAT-WATCHER
+  trace_task: TRACE-010
+- id: TST-RS-EXPORT-EPUB-WRITES-PACKAGE-AND-REFUSES-CLOBBER
+  framework: cargo test
+  kind: unit
+  path: src-tauri/src/commands/mod.rs
+  symbol: export_epub_writes_package_and_refuses_clobber
+  lines:
+  - 429
+  - 463
+  cases:
+  - export_epub_writes_package_and_refuses_clobber
+  covers:
+  - FN-EXPORT-EPUB-IN
+  - REPO-WORKSPACE-REGISTRY
+  - SVC-WATCHER-HUB
+  validates:
+  - DTO-RS-EPUB-EXPORT-PAYLOAD
+  - DTO-RS-EXPORT-EPUB-REQUEST
+  features:
+  - FEAT-EXPORT-EPUB
+  - FEAT-OPEN-WORKSPACE
+  - FEAT-WATCHER
+  trace_task: TRACE-010
+- id: TST-RS-FENCE-REJECTS-OUTSIDE
+  framework: cargo test
+  kind: unit
+  path: src-tauri/src/watcher/mod.rs
+  symbol: fence_rejects_outside
+  lines:
+  - 290
+  - 298
+  cases:
+  - fence_rejects_outside
+  covers:
+  - FN-FENCE-RELATIVE
+  validates: []
+  features:
+  - FEAT-WATCHER
+  trace_task: TRACE-010
+- id: TST-RS-FENCE-NORMALIZES-RELATIVE
+  framework: cargo test
+  kind: unit
+  path: src-tauri/src/watcher/mod.rs
+  symbol: fence_normalizes_relative
+  lines:
+  - 301
+  - 309
+  cases:
+  - fence_normalizes_relative
+  covers:
+  - FN-FENCE-RELATIVE
+  validates: []
+  features:
+  - FEAT-WATCHER
+  trace_task: TRACE-010
+- id: TST-RS-COALESCE-KEY-STABLE
+  framework: cargo test
+  kind: unit
+  path: src-tauri/src/watcher/mod.rs
+  symbol: coalesce_key_stable
+  lines:
+  - 312
+  - 320
+  cases:
+  - coalesce_key_stable
+  covers: []
+  validates:
+  - DTO-RS-WATCH-EVENT
+  features:
+  - FEAT-WATCHER
+  trace_task: TRACE-010
+- id: TST-RS-INTERNAL-SAVE-SUPPRESSION-FLOW
+  framework: cargo test
+  kind: unit
+  path: src-tauri/src/watcher/mod.rs
+  symbol: internal_save_suppression_flow
+  lines:
+  - 323
+  - 345
+  cases:
+  - internal_save_suppression_flow
+  covers:
+  - FN-WATCHER-REGISTER-INTERNAL-SAVE
+  - FN-WATCHER-SHOULD-SUPPRESS
+  - SVC-WATCHER-HUB
+  validates: []
+  features:
+  - FEAT-AUTO-SAVE
+  - FEAT-WATCHER
+  trace_task: TRACE-010

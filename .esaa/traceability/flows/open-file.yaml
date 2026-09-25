@@ -1,0 +1,160 @@
+# TRACE-009 — Abrir arquivo .md pelo seletor. Passos ordenados; via = aresta de edges.yaml que liga o passo de origem (direction reverse = aresta no sentido oposto, ex.: consumes/reads/callback). trigger = início de ramo.
+artifact: open-file
+schema_version: 1
+source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+generated_at: '2026-09-24T23:03:41-03:00'
+id: FLOW-OPEN-FILE
+name: Abrir arquivo .md pelo seletor
+required: false
+features:
+- FEAT-OPEN-FILE
+entrypoints:
+- ENT-SHC-CTRL-O
+- ENT-BTN-WELCOME-OPEN-FILE
+- ENT-OSI-PICK-MARKDOWN-FILE
+- ENT-IPC-READ-DOCUMENT
+- ENT-BTN-EXPLORER-OPEN-FILE
+outcome: Documento carregado com snapshot/hash; recente registrado.
+steps:
+- step: 1
+  node: SHC-CTRL-O
+  entrypoint: ENT-SHC-CTRL-O
+  trigger: Ctrl+O
+- step: 2
+  node: BTN-WELCOME-OPEN-FILE
+  entrypoint: ENT-BTN-WELCOME-OPEN-FILE
+  trigger: Botão 'Abrir arquivo' (WelcomeScreen)
+- step: 3
+  node: HDL-APP-OPEN-FILE-WELCOME
+  via:
+  - from_step: 1
+    edge: SHC-CTRL-O|triggers|HDL-APP-OPEN-FILE-WELCOME
+    direction: forward
+    evidence:
+    - src/App.tsx:401
+    method: observed
+  - from_step: 2
+    edge: BTN-WELCOME-OPEN-FILE|triggers|HDL-APP-OPEN-FILE-WELCOME
+    direction: forward
+    evidence:
+    - src/components/empty/WelcomeScreen.tsx:40
+    - src/App.tsx:646
+    method: observed
+- step: 4
+  node: OSI-PICK-MARKDOWN-FILE
+  entrypoint: ENT-OSI-PICK-MARKDOWN-FILE
+  via:
+  - from_step: 3
+    edge: HDL-APP-OPEN-FILE-WELCOME|calls|OSI-PICK-MARKDOWN-FILE
+    direction: forward
+    evidence:
+    - src/App.tsx:217
+    method: observed
+- step: 5
+  node: HDL-DOC-OPEN-FILE
+  via:
+  - from_step: 3
+    edge: HDL-APP-OPEN-FILE-WELCOME|calls|HDL-DOC-OPEN-FILE
+    direction: forward
+    evidence:
+    - src/App.tsx:220
+    method: observed
+- step: 6
+  node: HDL-DOC-OPEN-WORKSPACE-PATH
+  via:
+  - from_step: 5
+    edge: HDL-DOC-OPEN-FILE|calls|HDL-DOC-OPEN-WORKSPACE-PATH
+    direction: forward
+    evidence:
+    - src/state/documentState.ts:201
+    method: observed
+- step: 7
+  node: IPCC-OPEN-WORKSPACE
+  via:
+  - from_step: 6
+    edge: HDL-DOC-OPEN-WORKSPACE-PATH|calls|IPCC-OPEN-WORKSPACE
+    direction: forward
+    evidence:
+    - src/state/documentState.ts:111
+    method: observed
+- step: 8
+  node: HDL-DOC-OPEN-RELATIVE
+  via:
+  - from_step: 5
+    edge: HDL-DOC-OPEN-FILE|calls|HDL-DOC-OPEN-RELATIVE
+    direction: forward
+    evidence:
+    - src/state/documentState.ts:202
+    method: observed
+- step: 9
+  node: IPCC-READ-DOCUMENT
+  via:
+  - from_step: 8
+    edge: HDL-DOC-OPEN-RELATIVE|calls|IPCC-READ-DOCUMENT
+    direction: forward
+    evidence:
+    - src/state/documentState.ts:143
+    method: observed
+- step: 10
+  node: IPC-READ-DOCUMENT
+  entrypoint: ENT-IPC-READ-DOCUMENT
+  via:
+  - from_step: 9
+    edge: IPCC-READ-DOCUMENT|calls|IPC-READ-DOCUMENT
+    direction: forward
+    evidence:
+    - src/lib/ipc/client.ts:97
+    - src-tauri/src/commands/mod.rs:97
+    - src-tauri/src/lib.rs:73
+    method: observed
+- step: 11
+  node: FN-WORKSPACE-REGISTRY-RESOLVE
+  via:
+  - from_step: 10
+    edge: IPC-READ-DOCUMENT|calls|FN-WORKSPACE-REGISTRY-RESOLVE
+    direction: forward
+    evidence:
+    - src-tauri/src/commands/mod.rs:103
+    method: observed
+- step: 12
+  node: FN-LOAD-DRAFT
+  via:
+  - from_step: 8
+    edge: HDL-DOC-OPEN-RELATIVE|calls|FN-LOAD-DRAFT
+    direction: forward
+    evidence:
+    - src/state/documentState.ts:144
+    method: observed
+- step: 13
+  node: STO-RECENT-FILES
+  via:
+  - from_step: 8
+    edge: HDL-DOC-OPEN-RELATIVE|writes|STO-RECENT-FILES
+    direction: forward
+    evidence:
+    - src/state/documentState.ts:155
+    method: observed
+- step: 14
+  node: BTN-EXPLORER-OPEN-FILE
+  entrypoint: ENT-BTN-EXPLORER-OPEN-FILE
+  trigger: Botão no explorador
+- step: 15
+  node: HDL-EXPLORER-OPEN-FILE
+  via:
+  - from_step: 14
+    edge: BTN-EXPLORER-OPEN-FILE|triggers|HDL-EXPLORER-OPEN-FILE
+    direction: forward
+    evidence:
+    - src/components/FileExplorer.tsx:205
+    method: observed
+- step: 16
+  node: HDL-DOC-OPEN-FILE
+  via:
+  - from_step: 15
+    edge: HDL-EXPLORER-OPEN-FILE|calls|HDL-DOC-OPEN-FILE
+    direction: forward
+    evidence:
+    - src/components/FileExplorer.tsx:127
+    - src/App.tsx:623
+    method: observed
+trace_task: TRACE-009

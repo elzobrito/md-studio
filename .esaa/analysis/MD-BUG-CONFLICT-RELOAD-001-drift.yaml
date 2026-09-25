@@ -1,0 +1,69 @@
+artifact: task-drift
+schema_version: 1
+trace_task: TRACE-019
+task_id: MD-BUG-CONFLICT-RELOAD-001
+inputs:
+  impact: .esaa/analysis/MD-BUG-CONFLICT-RELOAD-001-impact.yaml
+  footprint: .esaa/analysis/MD-BUG-CONFLICT-RELOAD-001-footprint.yaml
+  graph_source_commit: 5fe4f4d2230f039791d6196cb0f0ecfb438825ae
+notes:
+- projeção 2026-09-24 23:20:25 BRT antes do código (fix aplicado 23:21:30)
+rule: authorized = change_target ∪ expected_affected; ok ∈ authorized; violation ∈ protected; warning ∈ potentially_affected | out_of_closure
+  | uncatalogued substantive
+authorized:
+- HDL-DOC-RESOLVE-CONFLICT
+- STO-DOCUMENT-STATE
+observed:
+- HDL-DOC-RESOLVE-CONFLICT
+classification:
+- id: HDL-DOC-RESOLVE-CONFLICT
+  category: authorized
+  severity: ok
+  reasons: []
+drift: []
+other_findings:
+- path: tests/editor/conflictReload.test.tsx
+  category: new_test_file
+  severity: info
+not_touched:
+- STO-DOCUMENT-STATE
+verdict: ok
+metrics:
+  nodes:
+    tp: 1
+    authorized: 2
+    observed: 1
+    precision: 0.5
+    recall: 1.0
+    closure_recall: 1.0
+  code_nodes_only:
+    tp: 1
+    authorized: 2
+    observed: 1
+    precision: 0.5
+    recall: 1.0
+  features:
+    projected_direct:
+    - FEAT-CONFLICT
+    - FEAT-WATCHER
+    projected_all: 17
+    observed:
+    - FEAT-CONFLICT
+    observed_in_projected_direct:
+    - FEAT-CONFLICT
+    observed_missing_from_projection: []
+    precision_direct: 0.5
+    recall_all: 1.0
+  invariants:
+    projected:
+    - INV-SHA256-CONFLICT
+    observed: []
+    missing_from_projection: []
+  tests:
+    projected_must_run: []
+    changed_test_nodes: []
+    new_test_files:
+    - tests/editor/conflictReload.test.tsx
+  contracts_touched: []
+  data_touched: []
+  events_touched: []

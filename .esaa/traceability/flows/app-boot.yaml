@@ -1,0 +1,111 @@
+# TRACE-009 — Inicialização do app. Passos ordenados; via = aresta de edges.yaml que liga o passo de origem (direction reverse = aresta no sentido oposto, ex.: consumes/reads/callback). trigger = início de ramo.
+artifact: app-boot
+schema_version: 1
+source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+generated_at: '2026-09-24T23:03:41-03:00'
+id: FLOW-APP-BOOT
+name: Inicialização do app
+required: false
+features:
+- FEAT-SPLASH-PACKAGING
+- FEAT-APP-SCREENS
+entrypoints:
+- ENT-FN-RS-MAIN
+- ENT-OSI-SPLASH-AUTOCLOSE
+- ENT-SCR-APP
+- ENT-IPC-CLOSE-SPLASH
+- ENT-HDL-APP-DRAFT-RECOVERY-TIMER
+- ENT-HDL-DOC-LAUNCH-EFFECT
+- ENT-CMP-COMMAND-PALETTE
+outcome: Janela principal pronta, splash fechado.
+steps:
+- step: 1
+  node: FN-RS-MAIN
+  entrypoint: ENT-FN-RS-MAIN
+  trigger: Processo iniciado
+- step: 2
+  node: FN-RS-RUN
+  via:
+  - from_step: 1
+    edge: FN-RS-MAIN|calls|FN-RS-RUN
+    direction: forward
+    evidence:
+    - src-tauri/src/main.rs:4
+    method: observed
+- step: 3
+  node: CFG-GENERATE-HANDLER
+  note: registra 21 comandos
+  via:
+  - from_step: 2
+    edge: FN-RS-RUN|contains|CFG-GENERATE-HANDLER
+    direction: forward
+    evidence:
+    - src-tauri/src/lib.rs:70
+    method: observed
+- step: 4
+  node: OSI-SPLASH-AUTOCLOSE
+  entrypoint: ENT-OSI-SPLASH-AUTOCLOSE
+  note: fallback de fechamento do splash
+  via:
+  - from_step: 2
+    edge: FN-RS-RUN|contains|OSI-SPLASH-AUTOCLOSE
+    direction: forward
+    evidence:
+    - src-tauri/src/lib.rs:59
+    method: observed
+- step: 5
+  node: SCR-APP
+  entrypoint: ENT-SCR-APP
+  trigger: Webview monta React
+- step: 6
+  node: HDL-APP-CLOSE-SPLASH-EFFECT
+  via:
+  - from_step: 5
+    edge: SCR-APP|contains|HDL-APP-CLOSE-SPLASH-EFFECT
+    direction: forward
+    evidence:
+    - src/App.tsx:200
+    method: observed
+- step: 7
+  node: IPCC-CLOSE-SPLASH
+  via:
+  - from_step: 6
+    edge: HDL-APP-CLOSE-SPLASH-EFFECT|calls|IPCC-CLOSE-SPLASH
+    direction: forward
+    evidence:
+    - src/App.tsx:200
+    method: observed
+- step: 8
+  node: IPC-CLOSE-SPLASH
+  entrypoint: ENT-IPC-CLOSE-SPLASH
+  via:
+  - from_step: 7
+    edge: IPCC-CLOSE-SPLASH|calls|IPC-CLOSE-SPLASH
+    direction: forward
+    evidence:
+    - src/App.tsx:200
+    - src-tauri/src/commands/mod.rs:473
+    - src-tauri/src/lib.rs:88
+    method: observed
+- step: 9
+  node: HDL-APP-SHORTCUTS
+  trigger: Registro dos atalhos globais (useKeyboardShortcuts)
+- step: 10
+  node: HDL-APP-DRAFT-RECOVERY-TIMER
+  entrypoint: ENT-HDL-APP-DRAFT-RECOVERY-TIMER
+  trigger: Verificação de rascunhos
+- step: 11
+  node: HDL-DOC-LAUNCH-EFFECT
+  entrypoint: ENT-HDL-DOC-LAUNCH-EFFECT
+  trigger: Efeito de lançamento (ver FLOW-OPEN-FILE-FROM-OS)
+- step: 12
+  node: CMP-COMMAND-PALETTE
+  entrypoint: ENT-CMP-COMMAND-PALETTE
+  via:
+  - from_step: 5
+    edge: SCR-APP|contains|CMP-COMMAND-PALETTE
+    direction: forward
+    evidence:
+    - src/App.tsx:770
+    method: observed
+trace_task: TRACE-009

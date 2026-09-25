@@ -1,0 +1,74 @@
+# TRACE-009 — Comandos do editor (slash, atalhos de formatação). Passos ordenados; via = aresta de edges.yaml que liga o passo de origem (direction reverse = aresta no sentido oposto, ex.: consumes/reads/callback). trigger = início de ramo.
+artifact: editor-commands
+schema_version: 1
+source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+generated_at: '2026-09-24T23:03:41-03:00'
+id: FLOW-EDITOR-COMMANDS
+name: Comandos do editor (slash, atalhos de formatação)
+required: false
+features:
+- FEAT-SLASH-COMMANDS
+- FEAT-FORMATTING-TOOLBAR
+entrypoints:
+- ENT-FN-CREATE-SLASH-PLUGIN
+- ENT-SHC-EDITOR-MOD-SHIFT-S
+- ENT-HDL-DOC-SET-CONTENT
+outcome: Texto inserido/formatado no editor.
+steps:
+- step: 1
+  node: CMP-MARKDOWN-EDITOR
+  trigger: Editor montado
+- step: 2
+  node: FN-CREATE-SLASH-PLUGIN
+  entrypoint: ENT-FN-CREATE-SLASH-PLUGIN
+  note: '''/'' abre menu'
+  via:
+  - from_step: 1
+    edge: CMP-MARKDOWN-EDITOR|calls|FN-CREATE-SLASH-PLUGIN
+    direction: forward
+    evidence:
+    - src/components/MarkdownEditor.tsx:202
+    method: observed
+- step: 3
+  node: CFG-SLASH-ITEMS
+  via:
+  - from_step: 1
+    edge: CMP-MARKDOWN-EDITOR|reads|CFG-SLASH-ITEMS
+    direction: forward
+    evidence:
+    - src/components/MarkdownEditor.tsx:244
+    - src/components/editor/SlashMenu.tsx:21
+    method: observed
+- step: 4
+  node: SHC-EDITOR-MOD-SHIFT-S
+  entrypoint: ENT-SHC-EDITOR-MOD-SHIFT-S
+  note: 'Mod-Shift-s: tachado (colide com Ctrl+Shift+S global)'
+  via:
+  - from_step: 1
+    edge: CMP-MARKDOWN-EDITOR|contains|SHC-EDITOR-MOD-SHIFT-S
+    direction: forward
+    evidence:
+    - src/components/MarkdownEditor.tsx:148
+    method: observed
+- step: 5
+  node: CMP-FORMATTING-TOOLBAR
+  via:
+  - from_step: 1
+    edge: CMP-MARKDOWN-EDITOR|contains|CMP-FORMATTING-TOOLBAR
+    direction: forward
+    evidence:
+    - src/components/MarkdownEditor.tsx:242
+    method: observed
+- step: 6
+  node: HDL-DOC-SET-CONTENT
+  entrypoint: ENT-HDL-DOC-SET-CONTENT
+  note: alterações -> onChange
+  via:
+  - from_step: 1
+    edge: CMP-MARKDOWN-EDITOR|triggers|HDL-DOC-SET-CONTENT
+    direction: forward
+    evidence:
+    - src/components/MarkdownEditor.tsx:192
+    - src/App.tsx:669
+    method: observed
+trace_task: TRACE-009

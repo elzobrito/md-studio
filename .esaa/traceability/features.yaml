@@ -1,0 +1,1754 @@
+# TRACE-008 — Features visíveis ao usuário. implemented_by/entry_nodes = ids de nodes.yaml; docs = path:line; divergences = doc vs código com evidência path:line e method. node_index permite achar a(s) feature(s) a partir de qualquer nó.
+artifact: features
+schema_version: 1
+source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+generated_at: '2026-09-24T23:06:09-03:00'
+summary:
+  total: 48
+  by_status:
+    active: 42
+    partial: 4
+    not_wired: 1
+    backend_only: 1
+  with_divergences:
+  - FEAT-FORMATTING-TOOLBAR
+  - FEAT-SMART-PASTE
+  - FEAT-CONTEXTUAL-HINTS
+  - FEAT-WIKI-LINKS
+  - FEAT-RECENT-FILES
+  - FEAT-SAVE
+  - FEAT-CONFLICT
+  - FEAT-EXPORT-HTML
+  - FEAT-VIEW-MODES
+  - FEAT-PRESENTATION
+  - FEAT-COMMAND-PALETTE
+  - FEAT-WORKSPACE-SEARCH
+  - FEAT-METADATA-INDEX
+  - FEAT-SANITIZE
+  - FEAT-OFFLINE-PRIVACY
+  - FEAT-SPLASH-PACKAGING
+  nodes_mapped: 363
+  presentation:
+    status: active
+    since: v0.2.3
+    evidence:
+    - docs/release/RELEASE_NOTES_v0.2.3.md:12
+    note: src/presentation/ ausente das tags v0.1.0..v0.2.2 e presente em v0.2.3 (git ls-tree).
+features:
+- id: FEAT-EDITOR
+  name: Editor Markdown CodeMirror 6
+  status: active
+  implemented_by:
+  - CMP-MARKDOWN-EDITOR
+  - STO-EDITOR
+  entry_nodes:
+  - CMP-MARKDOWN-EDITOR
+  docs:
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:13
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:85
+  trace_task: TRACE-008
+- id: FEAT-FORMATTING-TOOLBAR
+  name: Barra de formatação contextual
+  status: active
+  implemented_by:
+  - CMP-FORMATTING-TOOLBAR
+  - SHC-EDITOR-MOD-SHIFT-S
+  entry_nodes:
+  - CMP-FORMATTING-TOOLBAR
+  docs:
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:14
+  divergences:
+  - description: Atalho do editor Mod-Shift-s (tachado) colide com o atalho global Ctrl+Shift+S (Salvar como); precedência depende do foco.
+    evidence:
+    - src/components/MarkdownEditor.tsx:148
+    - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:118
+    method: inferred
+  trace_task: TRACE-008
+- id: FEAT-TABLE-TOOLBAR
+  name: Barra de ferramentas de tabela
+  status: active
+  implemented_by:
+  - CMP-TABLE-TOOLBAR
+  entry_nodes:
+  - CMP-TABLE-TOOLBAR
+  docs:
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:15
+  trace_task: TRACE-008
+- id: FEAT-SLASH-COMMANDS
+  name: Menu de comandos rápidos (/)
+  status: active
+  implemented_by:
+  - FN-CREATE-SLASH-PLUGIN
+  - CFG-SLASH-ITEMS
+  entry_nodes:
+  - FN-CREATE-SLASH-PLUGIN
+  docs:
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:16
+  trace_task: TRACE-008
+- id: FEAT-SMART-PASTE
+  name: Colagem inteligente
+  status: partial
+  implemented_by:
+  - FN-SMART-PASTE
+  - FN-HTML-TO-MARKDOWN
+  entry_nodes:
+  - FN-SMART-PASTE
+  docs:
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:17
+  divergences:
+  - description: Só converte clipboard text/html em Markdown; não há tratamento de URL colada sobre seleção ([texto](url)).
+    evidence:
+    - src/editor/paste/paste-plugin.ts:16
+    method: observed
+  - description: 'htmlToMarkdown não trata <table>/<tr>/<td>: tabelas HTML/Excel não viram tabela Markdown.'
+    evidence:
+    - src/editor/paste/html-to-md.ts:149
+    method: observed
+  trace_task: TRACE-008
+- id: FEAT-CONTEXTUAL-HINTS
+  name: Dicas contextuais de Markdown
+  status: not_wired
+  implemented_by:
+  - FN-MARKDOWN-HINT-EXTENSION
+  - FN-MATCH-HINT-AT-POSITION
+  docs:
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:18
+  divergences:
+  - description: markdownHintExtension (hoverTooltip) não é registrada em nenhuma extensão do editor; só matchHintAtPosition é exercitada por testes.
+    evidence:
+    - src/editor/hints/hint-plugin.ts:6
+    method: observed
+  - description: Doc descreve dicas no rodapé do editor; o código implementa tooltip de hover.
+    evidence:
+    - src/editor/hints/hint-plugin.ts:6
+    method: observed
+  trace_task: TRACE-008
+- id: FEAT-TEMPLATES
+  name: Novo documento a partir de modelos (7)
+  status: active
+  implemented_by:
+  - CMP-NEW-DOCUMENT-MODAL
+  - CFG-TEMPLATES
+  - FN-FIND-FIRST-EDITABLE-POSITION
+  - HDL-APP-OPEN-NEW-DOCUMENT
+  - HDL-APP-SELECT-TEMPLATE
+  - HDL-DOC-NEW-DOCUMENT
+  entry_nodes:
+  - SHC-CTRL-N
+  - BTN-HEADER-NEW-DOCUMENT
+  - BTN-WELCOME-NEW-DOCUMENT
+  docs:
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:21
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:22
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:101
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:114
+  trace_task: TRACE-008
+- id: FEAT-PREVIEW
+  name: Preview renderizado (Unified/GFM)
+  status: active
+  implemented_by:
+  - CMP-MARKDOWN-VIEWER
+  - SVC-PROCESS-MARKDOWN
+  - PIPE-REMARK-GFM
+  - PIPE-REMARK-REHYPE
+  - PIPE-HEADING-IDS
+  - PIPE-HAST-TO-HTML
+  - FN-RESOLVE-RELATIVE-LINK
+  - OSI-OPEN-EXTERNAL-URL
+  entry_nodes:
+  - CMP-MARKDOWN-VIEWER
+  docs:
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:32
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:33
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:86
+  trace_task: TRACE-008
+- id: FEAT-FRONTMATTER
+  name: Front matter YAML validado
+  status: active
+  implemented_by:
+  - PIPE-FRONTMATTER
+  - CFG-FRONTMATTER-SCHEMA
+  entry_nodes:
+  - PIPE-FRONTMATTER
+  notes: Sem menção na matriz de features do doc (existe no pipeline).
+  docs: []
+  trace_task: TRACE-008
+- id: FEAT-KATEX
+  name: Fórmulas KaTeX
+  status: active
+  implemented_by:
+  - PIPE-REMARK-MATH
+  - PIPE-KATEX
+  entry_nodes:
+  - PIPE-KATEX
+  docs:
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:34
+  trace_task: TRACE-008
+- id: FEAT-SHIKI
+  name: Realce Shiki dual-theme
+  status: active
+  implemented_by:
+  - PIPE-SHIKI
+  entry_nodes:
+  - PIPE-SHIKI
+  docs:
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:41
+  - README.md:9
+  trace_task: TRACE-008
+- id: FEAT-GFM-ALERTS
+  name: Alertas/Callouts GFM
+  status: active
+  implemented_by:
+  - PIPE-GITHUB-ALERTS
+  entry_nodes:
+  - PIPE-GITHUB-ALERTS
+  docs:
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:42
+  trace_task: TRACE-008
+- id: FEAT-MERMAID
+  name: Diagramas Mermaid interativos
+  status: active
+  implemented_by:
+  - PIPE-MERMAID-BLOCKS
+  - CMP-MERMAID-BLOCK
+  - FN-RENDER-MERMAID
+  entry_nodes:
+  - CMP-MERMAID-BLOCK
+  docs:
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:35
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:36
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:37
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:38
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:40
+  - README.md:196
+  trace_task: TRACE-008
+- id: FEAT-MERMAID-EXPORT
+  name: Exportação de diagrama SVG/PNG
+  status: active
+  implemented_by:
+  - FN-EMBED-STYLES-IN-SVG
+  - FN-DOWNLOAD-SVG
+  - FN-DOWNLOAD-PNG
+  - FN-MERMAID-SVG-TO-PNG
+  entry_nodes:
+  - CMP-MERMAID-BLOCK
+  docs:
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:39
+  - README.md:203
+  trace_task: TRACE-008
+- id: FEAT-WIKI-LINKS
+  name: Wiki links [[alvo]] e navegação
+  status: active
+  implemented_by:
+  - PIPE-WIKI-LINKS
+  - FN-PARSE-WIKI-LINKS
+  - FN-RESOLVE-ALL
+  - FN-RESOLVE-WIKI-LINK-CORE
+  - IPC-GET-RESOLVED-WIKI-LINKS-FOR
+  - IPCC-GET-RESOLVED-WIKI-LINKS-FOR
+  - IPC-GET-WIKI-LINKS-FOR
+  - HDL-VIEWER-ON-CLICK
+  - IPC-RESOLVE-WIKI-LINK
+  - IPCC-RESOLVE-WIKI-LINK
+  - IPCC-GET-WIKI-LINKS-FOR
+  - DTO-RS-RESOLVED-WIKI-LINK
+  - DTO-TS-RESOLVED-WIKI-LINK
+  entry_nodes:
+  - HDL-VIEWER-ON-CLICK
+  docs:
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:45
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:47
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:141
+  divergences:
+  - description: IPC resolve_wiki_link (resolução unitária) não tem chamador no frontend; a UI usa get_resolved_wiki_links_for.
+    evidence:
+    - src-tauri/src/lib.rs:84
+    method: observed
+  trace_task: TRACE-008
+- id: FEAT-WIKI-AUTOCOMPLETE
+  name: Autocompleção [[
+  status: active
+  implemented_by:
+  - FN-CREATE-WIKI-COMPLETION-EXTENSIONS
+  - FN-WIKI-CANDIDATES
+  entry_nodes:
+  - FN-CREATE-WIKI-COMPLETION-EXTENSIONS
+  docs:
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:46
+  trace_task: TRACE-008
+- id: FEAT-OUTGOING-LINKS
+  name: Painel de links de saída
+  status: active
+  implemented_by:
+  - CMP-OUTGOING-LINKS-PANEL
+  - IPCC-GET-RESOLVED-WIKI-LINKS-FOR
+  entry_nodes:
+  - CMP-OUTGOING-LINKS-PANEL
+  docs:
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:51
+  trace_task: TRACE-008
+- id: FEAT-CREATE-NOTE-FROM-WIKI
+  name: Criar nota a partir de link não resolvido
+  status: active
+  implemented_by:
+  - CMP-CREATE-NOTE-FROM-WIKI
+  - HDL-CREATE-NOTE
+  - FN-NOTE-PATH-FOR-TARGET
+  - FN-SANITIZE-WIKI-FILE-NAME
+  - FN-SAFE-WIKI-NOTE-PATH
+  entry_nodes:
+  - CMP-CREATE-NOTE-FROM-WIKI
+  docs:
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:52
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:106
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:144
+  trace_task: TRACE-008
+- id: FEAT-BACKLINKS
+  name: Painel de backlinks
+  status: active
+  implemented_by:
+  - CMP-BACKLINKS-PANEL
+  - IPCC-GET-BACKLINKS
+  - IPC-GET-BACKLINKS
+  - FN-FENCE-BACKLINK-TARGET
+  - FN-ENRICH-BACKLINK-CONTEXT
+  - FN-READ-SOURCE-LINE
+  - REPO-BACKLINK-INDEX
+  - FN-BACKLINK-INDEX-BACKLINKS-FOR
+  - HDL-APP-BACKLINK-OPEN-OCCURRENCE
+  - FN-BACKLINK-INDEX-INGEST-SOURCE
+  - FN-BACKLINK-INDEX-REBUILD
+  - FN-BACKLINK-INDEX-REMOVE-SOURCE
+  - FN-BACKLINK-INDEX-REPLACE-SOURCE
+  - FN-REINDEX-ENGINE-BACKLINKS-FOR
+  - FN-REINDEX-ENGINE-REBUILD-BACKLINKS
+  - DTO-RS-BACKLINK-RESULT
+  - DTO-TS-BACKLINK-RESULT
+  entry_nodes:
+  - CMP-BACKLINKS-PANEL
+  docs:
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:53
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:147
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:148
+  - README.md:11
+  trace_task: TRACE-008
+- id: FEAT-OPEN-WORKSPACE
+  name: Abrir pasta como workspace + explorador
+  status: active
+  implemented_by:
+  - IPCC-OPEN-WORKSPACE
+  - IPC-OPEN-WORKSPACE
+  - REPO-WORKSPACE-REGISTRY
+  - FN-WORKSPACE-REGISTRY-OPEN
+  - HDL-DOC-OPEN-FOLDER
+  - HDL-DOC-OPEN-WORKSPACE-PATH
+  - OSI-PICK-FOLDER
+  - CMP-FILE-EXPLORER
+  - FN-USE-FILE-TREE
+  - IPCC-LIST-ENTRIES
+  - IPC-LIST-ENTRIES
+  - FN-WORKSPACE-REGISTRY-GET
+  - FN-WORKSPACE-REGISTRY-RETAIN
+  - HDL-DOC-ON-WORKSPACE-READY
+  - HDL-APP-OPEN-FOLDER-WELCOME
+  - HDL-EXPLORER-OPEN-FOLDER
+  - HDL-EXPLORER-ENTRY-CLICK
+  - LSK-FILE-TREE-EXPANDED
+  - FN-IS-MARKDOWN-PATH
+  - DTO-RS-WORKSPACE-DESCRIPTOR
+  - DTO-TS-WORKSPACE-DESCRIPTOR
+  - DTO-RS-FILE-ENTRY
+  - DTO-TS-FILE-ENTRY
+  - FN-BROWSER-INVOKE
+  - FN-READ-BROWSER-FILE
+  entry_nodes:
+  - SHC-CTRL-SHIFT-O
+  - BTN-WELCOME-OPEN-FOLDER
+  - BTN-EXPLORER-OPEN-FOLDER
+  docs:
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:116
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:94
+  trace_task: TRACE-008
+- id: FEAT-OPEN-FILE
+  name: Abrir arquivo .md
+  status: active
+  implemented_by:
+  - HDL-DOC-OPEN-FILE
+  - OSI-PICK-MARKDOWN-FILE
+  - IPCC-READ-DOCUMENT
+  - IPC-READ-DOCUMENT
+  - HDL-DOC-OPEN-RELATIVE
+  - HDL-APP-OPEN-FILE-WELCOME
+  - HDL-EXPLORER-OPEN-FILE
+  - HDL-EXPLORER-ENTRY-CLICK
+  - FN-READ-FILE
+  - DTO-RS-DOCUMENT-SNAPSHOT
+  - DTO-TS-DOCUMENT-SNAPSHOT
+  - FILE-MARKDOWN-DOCUMENT
+  - STO-DOCUMENT-STATE
+  - FN-READ-BROWSER-FILE
+  entry_nodes:
+  - SHC-CTRL-O
+  - BTN-WELCOME-OPEN-FILE
+  - BTN-EXPLORER-OPEN-FILE
+  docs:
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:115
+  trace_task: TRACE-008
+- id: FEAT-OPEN-FROM-OS
+  name: Abrir arquivo pelo SO (argv/associação/instância única)
+  status: active
+  implemented_by:
+  - OSI-LAUNCH-ARGV
+  - OSI-SINGLE-INSTANCE
+  - OSI-FILE-ASSOCIATIONS
+  - TEV-APP-OPEN-FILE
+  - CNS-SUBSCRIBE-OPEN-FILE
+  - IPC-GET-LAUNCH-PATH
+  - IPCC-GET-LAUNCH-PATH
+  - HDL-DOC-LAUNCH-EFFECT
+  - FN-PATH-FROM-ARG
+  - FN-FIRST-EXISTING-MARKDOWN-PATH
+  entry_nodes:
+  - OSI-LAUNCH-ARGV
+  - OSI-SINGLE-INSTANCE
+  docs:
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:437
+  trace_task: TRACE-008
+- id: FEAT-RECENT-FILES
+  name: Arquivos recentes e navegação Alt+↑/↓
+  status: active
+  implemented_by:
+  - STO-RECENT-FILES
+  - LSK-RECENT-FILES
+  - HDL-DOC-OPEN-RECENT
+  - HDL-APP-CYCLE-RECENT
+  entry_nodes:
+  - HDL-APP-CYCLE-RECENT
+  docs:
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:130
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:131
+  divergences:
+  - description: openRecent contém diretórios candidatos hardcoded do ambiente do desenvolvedor.
+    evidence:
+    - src/state/documentState.ts:244
+    method: observed
+  trace_task: TRACE-008
+- id: FEAT-PATH-FENCING
+  name: Isolamento de caminhos (path fencing)
+  status: active
+  implemented_by:
+  - FN-RESOLVE-WITHIN
+  - FN-IS-SAFE-RELATIVE-TARGET
+  - FN-WORKSPACE-REGISTRY-RESOLVE
+  - FN-GUARD-IMAGES
+  - FN-FENCE-BACKLINK-TARGET
+  docs:
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:56
+  - README.md:246
+  trace_task: TRACE-008
+- id: FEAT-SAVE
+  name: Salvar com gravação atômica
+  status: active
+  implemented_by:
+  - IPCC-SAVE-DOCUMENT
+  - IPC-SAVE-DOCUMENT
+  - FN-ATOMIC-SAVE
+  - FN-ATOMIC-WRITE-BYTES
+  - FILE-SAVE-TMP
+  - HDL-DOC-SAVE
+  - SVC-PERSIST-DOCUMENT
+  - CMP-SAVE-BUTTON
+  - DTO-RS-SAVE-DOCUMENT-REQUEST
+  - DTO-TS-SAVE-DOCUMENT-REQUEST
+  - DTO-TS-SAVE-RESULT
+  - CLS-SAVE-ERROR
+  - DTO-TS-IPC-ERROR-CODE
+  - FN-WRITE-BROWSER-FILE
+  - STO-BROWSER-HASH-CACHE
+  - FILE-MARKDOWN-DOCUMENT
+  - STO-DOCUMENT-STATE
+  entry_nodes:
+  - SHC-CTRL-S
+  - BTN-SAVE
+  - SHC-EDITOR-MOD-S
+  docs:
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:57
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:117
+  - README.md:177
+  divergences:
+  - description: 'SaveResult ''OutsideWorkspace'' nunca é emitido: erro de fence rejeita a promise (Err) em vez de SaveResult.'
+    evidence:
+    - src/contracts/types.ts:36
+    method: observed
+  trace_task: TRACE-008
+- id: FEAT-SAVE-AS
+  name: Salvar como
+  status: active
+  implemented_by:
+  - HDL-DOC-SAVE-AS
+  - OSI-PICK-SAVE-MARKDOWN
+  entry_nodes:
+  - SHC-CTRL-SHIFT-S
+  docs:
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:118
+  - README.md:182
+  trace_task: TRACE-008
+- id: FEAT-AUTO-SAVE
+  name: Auto-save com debounce
+  status: active
+  implemented_by:
+  - HDL-DOC-SET-CONTENT
+  - STO-SETTINGS
+  - CFG-DEFAULT-SETTINGS
+  - FN-WATCHER-REGISTER-INTERNAL-SAVE
+  entry_nodes:
+  - HDL-DOC-SET-CONTENT
+  docs:
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:58
+  - README.md:179
+  - README.md:180
+  trace_task: TRACE-008
+- id: FEAT-CONFLICT
+  name: Detecção e resolução de conflitos (SHA-256)
+  status: partial
+  implemented_by:
+  - FN-CONTENT-HASH
+  - FN-ATOMIC-SAVE
+  - CMP-CONFLICT-DIALOG
+  - HDL-DOC-RESOLVE-CONFLICT
+  - BTN-CONFLICT-RELOAD
+  - BTN-CONFLICT-KEEP
+  - BTN-CONFLICT-SAVE-AS
+  - HDL-DOC-WATCH-EFFECT
+  entry_nodes:
+  - HDL-DOC-WATCH-EFFECT
+  - HDL-DOC-SAVE
+  docs:
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:59
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:107
+  divergences:
+  - description: HashMismatch no save só define status de erro; o ConflictDialog só abre via evento do watcher (setConflictPath).
+    evidence:
+    - src/state/documentState.ts:302
+    - src/state/documentState.ts:436
+    method: observed
+  - description: '''Recarregar do disco'' chama openRelative, que reaplica o rascunho do localStorage; o recarregamento pode não mostrar o conteúdo do disco.'
+    evidence:
+    - src/state/documentState.ts:456
+    method: inferred
+  trace_task: TRACE-008
+- id: FEAT-WATCHER
+  name: Observador de arquivos com supressão de eco
+  status: active
+  implemented_by:
+  - IPCC-START-WATCHING
+  - IPCC-STOP-WATCHING
+  - IPC-START-WATCHING
+  - IPC-STOP-WATCHING
+  - SVC-WATCHER-HUB
+  - FN-SPAWN-WATCHER
+  - FN-WATCHER-SHOULD-SUPPRESS
+  - FN-WATCHER-RELATIVIZE
+  - TEV-WORKSPACE-CHANGE
+  - CNS-SUBSCRIBE-WORKSPACE-WATCH
+  - FN-APPLY-WATCH-TO-ENGINE
+  - CFG-WATCH-DEBOUNCE
+  - DTO-RS-WATCH-EVENT
+  - DTO-TS-WATCH-EVENT
+  - FN-FENCE-RELATIVE
+  - FN-REINDEX-ENGINE-APPLY-EXTERNAL-CHANGE
+  entry_nodes:
+  - HDL-DOC-WATCH-EFFECT
+  docs:
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:60
+  - README.md:185
+  - README.md:186
+  trace_task: TRACE-008
+- id: FEAT-DRAFT-RECOVERY
+  name: Rascunhos de recuperação (localStorage, 90 dias)
+  status: active
+  implemented_by:
+  - FN-SAVE-DRAFT
+  - FN-LOAD-DRAFT
+  - FN-DRAFT-KEY
+  - FN-DRAFT-ROOT
+  - FN-LIST-RECOVERABLE-DRAFTS
+  - FN-CLEAR-DRAFT
+  - FN-REMOVE-DRAFT-KEY
+  - FN-GET-BROWSER-DRAFT-IDENTITY
+  - CFG-DRAFT-RETENTION
+  - CFG-DRAFT-WARNING
+  - LSK-DRAFTS
+  - LSK-DRAFTS-LEGACY
+  - CMP-DRAFT-RECOVERY-DIALOG
+  - HDL-APP-DRAFT-RECOVERY-TIMER
+  entry_nodes:
+  - HDL-DOC-SET-CONTENT
+  - HDL-APP-DRAFT-RECOVERY-TIMER
+  docs:
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:61
+  - README.md:188
+  - README.md:190
+  trace_task: TRACE-008
+- id: FEAT-EXPORT-HTML
+  name: Exportar HTML autocontido
+  status: active
+  implemented_by:
+  - CMP-EXPORT-MENU
+  - HDL-APP-EXPORT-HTML
+  - SVC-EXPORT-ACTIVE-DOCUMENT-HTML
+  - SVC-EXPORT-HTML-DOCUMENT
+  - IPCC-EXPORT-HTML
+  - IPC-EXPORT-HTML
+  - OSI-PICK-SAVE-HTML
+  - OSI-CONFIRM-OVERWRITE
+  - FN-DOWNLOAD-HTML
+  - FILE-EXPORT-HTML
+  - DTO-RS-EXPORT-HTML-REQUEST
+  - FN-RESOLVE-WORKSPACE-ROOT
+  entry_nodes:
+  - BTN-EXPORT-HTML
+  docs:
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:62
+  divergences:
+  - description: 'Documento HTML exportado não inclui Content-Security-Policy; recursos remotos (ex.: <img src=https://...>) seriam carregados ao abrir.'
+    evidence:
+    - src/services/export.ts:12
+    method: observed
+  trace_task: TRACE-008
+- id: FEAT-EXPORT-EPUB
+  name: Exportar EPUB 3
+  status: active
+  implemented_by:
+  - HDL-APP-EXPORT-EPUB
+  - SVC-EXPORT-ACTIVE-DOCUMENT-EPUB
+  - FN-PROCESS-EPUB-MARKDOWN
+  - CFG-EPUB-SANITIZE-SCHEMA
+  - FN-CAPTURE-MERMAID-SVGS
+  - IPCC-EXPORT-EPUB
+  - IPC-EXPORT-EPUB
+  - OSI-PICK-SAVE-EPUB
+  - FN-EXPORT-EPUB-IN
+  - FN-BUILD-EPUB
+  - FN-GENERATE-CONTENT-OPF
+  - FN-HTML-TO-XHTML
+  - FN-NORMALIZE-EPUB-METADATA
+  - FILE-EXPORT-EPUB
+  - DTO-RS-EPUB-EXPORT-PAYLOAD
+  - DTO-TS-EPUB-EXPORT-PAYLOAD
+  - DTO-RS-EPUB-EXPORT-RESULT
+  - DTO-TS-EPUB-EXPORT-RESULT
+  - DTO-RS-EXPORT-EPUB-REQUEST
+  - FN-RESOLVE-WORKSPACE-ROOT
+  entry_nodes:
+  - BTN-EXPORT-EPUB
+  docs:
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:63
+  - README.md:14
+  trace_task: TRACE-008
+- id: FEAT-EXPORT-PDF
+  name: Exportar PDF via impressão
+  status: active
+  implemented_by:
+  - HDL-APP-EXPORT-PDF
+  - OSI-WINDOW-PRINT
+  entry_nodes:
+  - BTN-EXPORT-PDF
+  docs:
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:64
+  trace_task: TRACE-008
+- id: FEAT-CODE-FORMATTER
+  name: Hub híbrido de formatação de código
+  status: active
+  implemented_by:
+  - SVC-FORMAT-CODE
+  - FN-FORMAT-WEB-CODE
+  - FN-IS-WEB-LANGUAGE
+  - IPCC-FORMAT-CODE
+  - IPC-FORMAT-CODE
+  - FN-FORMAT-CODE-INTERNAL
+  - FN-GET-FORMATTER-SPEC
+  - FN-FIND-EXECUTABLE
+  - FN-FORMAT-DOCUMENT-OR-CODE-BLOCK
+  - FN-FORMAT-CODE-BLOCK-AT-CURSOR
+  - FN-FIND-FENCED-CODE-BLOCKS
+  - FN-REPLACE-FENCED-CODE-BLOCK
+  - DTO-RS-FORMAT-RESULT
+  - DTO-TS-FORMAT-RESPONSE
+  - CMP-CODE-BLOCK
+  entry_nodes:
+  - SHC-EDITOR-SHIFT-ALT-F
+  - BTN-TOOLBAR-FORMAT-CODE
+  - BTN-PREVIEW-FORMAT-CODE
+  docs:
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:67
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:68
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:69
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:71
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:72
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:73
+  notes: CMP-CODE-BLOCK (componente React com botão Formatar) é test_only; o botão real do preview é injetado por MarkdownViewer (BTN-PREVIEW-FORMAT-CODE).
+  trace_task: TRACE-008
+- id: FEAT-VIEW-MODES
+  name: Modos de visão (source/preview/split) e scroll sync
+  status: active
+  implemented_by:
+  - RTE-VIEW-MODES
+  - STO-SESSION
+  - LSK-SESSION
+  - FN-USE-SCROLL-SYNC
+  entry_nodes:
+  - HDL-APP-SHORTCUTS
+  docs:
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:82
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:120
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:127
+  divergences:
+  - description: Doc lista 'zen' como modo de visão (ID zen, tela cheia). ViewMode só tem source|preview|split; F11/toggleZen apenas fecha/abre painéis laterais.
+    evidence:
+    - src/state/session.ts:4
+    - src/state/session.ts:20
+    - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:88
+    method: observed
+  trace_task: TRACE-008
+- id: FEAT-PRESENTATION
+  name: Modo Apresentação (Reveal.js, F5/Esc)
+  status: active
+  since: v0.2.3
+  implemented_by:
+  - SCR-PRESENTATION
+  - CMP-PRESENTATION-STAGE
+  - SVC-PROCESS-PRESENTATION
+  - FN-CREATE-PRESENTATION-MODEL
+  - FN-SEGMENT-MARKDOWN
+  - FN-CREATE-PRESENTATION-DECK
+  - FN-PARSE-PRESENTATION-CONFIG
+  - FN-CAPTURE-PREVIOUS-UI-STATE
+  - FN-ENHANCE-PRESENTATION-CONTENT
+  - HDL-APP-START-PRESENTATION
+  - HDL-APP-CLOSE-PRESENTATION
+  - CLS-PRESENTATION-SESSION-MANAGER
+  entry_nodes:
+  - SHC-F5
+  - BTN-HEADER-PRESENTATION
+  docs:
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:89
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:124
+  - README.md:13
+  - docs/release/RELEASE_NOTES_v0.2.3.md:12
+  divergences:
+  - description: docs/release/README.md ainda diz 'implementado, em teste; alvo v0.2.3', mas v0.2.3 foi lançada com o recurso (release notes).
+    evidence:
+    - docs/release/README.md:34
+    method: observed
+  notes: CLS-PRESENTATION-SESSION-MANAGER é test_only (não usado pela aplicação).
+  trace_task: TRACE-008
+- id: FEAT-APP-SCREENS
+  name: Telas de estado (Welcome/Empty/Workspace)
+  status: active
+  implemented_by:
+  - SCR-APP
+  - SCR-WELCOME
+  - SCR-EMPTY-STATE
+  - CMP-APP-HEADER
+  entry_nodes:
+  - SCR-APP
+  docs:
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:94
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:95
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:96
+  trace_task: TRACE-008
+- id: FEAT-COMMAND-PALETTE
+  name: Command palette / quick switcher
+  status: partial
+  implemented_by:
+  - CMP-COMMAND-PALETTE
+  - CMP-QUICK-SWITCHER
+  - FN-FUZZY-SEARCH
+  entry_nodes:
+  - SHC-CTRL-P
+  - BTN-HEADER-QUICK-SEARCH
+  docs:
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:102
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:128
+  divergences:
+  - description: 'App não passa allFiles ao CommandPalette: busca difusa cobre só arquivos recentes, não todas as notas do workspace.'
+    evidence:
+    - src/App.tsx:770
+    method: observed
+  - description: Botão de busca rápida do cabeçalho só renderiza com onOpenSearch, que App não passa.
+    evidence:
+    - src/components/header/AppHeader.tsx:84
+    - src/App.tsx:532
+    method: observed
+  trace_task: TRACE-008
+- id: FEAT-WORKSPACE-SEARCH
+  name: Busca textual no workspace
+  status: backend_only
+  implemented_by:
+  - IPC-SEARCH-WORKSPACE
+  - IPCC-SEARCH-WORKSPACE
+  - DTO-RS-SEARCH-RESULT
+  - DTO-TS-SEARCH-RESULT
+  docs:
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:299
+  divergences:
+  - description: Comando search_workspace registrado e com cliente TS, mas sem nenhum gatilho de UI (sem chamador de ipc.searchWorkspace).
+    evidence:
+    - src-tauri/src/lib.rs:75
+    method: observed
+  trace_task: TRACE-008
+- id: FEAT-SHORTCUTS-HELP
+  name: Atalhos globais e modal de ajuda
+  status: active
+  implemented_by:
+  - FN-USE-KEYBOARD-SHORTCUTS
+  - HDL-APP-SHORTCUTS
+  - CMP-SHORTCUTS-MODAL
+  - SHC-CTRL-W
+  - HDL-DOC-CLOSE-FILE
+  entry_nodes:
+  - HDL-APP-SHORTCUTS
+  docs:
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:103
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:110
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:134
+  trace_task: TRACE-008
+- id: FEAT-GO-TO-LINE
+  name: Ir para linha
+  status: active
+  implemented_by:
+  - CMP-GO-TO-LINE
+  entry_nodes:
+  - HDL-APP-SHORTCUTS
+  docs:
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:104
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:129
+  trace_task: TRACE-008
+- id: FEAT-SETTINGS
+  name: Configurações (tema, zoom, editor)
+  status: active
+  implemented_by:
+  - CMP-SETTINGS-PANEL
+  - STO-SETTINGS
+  - LSK-SETTINGS
+  - CFG-DEFAULT-SETTINGS
+  - STO-UI
+  - LSK-UI-STATE
+  entry_nodes:
+  - HDL-APP-SHORTCUTS
+  docs:
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:105
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:135
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:136
+  trace_task: TRACE-008
+- id: FEAT-OUTLINE
+  name: Sumário (outline) e navegação por headings
+  status: active
+  implemented_by:
+  - CMP-DOCUMENT-OUTLINE
+  - FN-SCROLL-TO-HEADING
+  - HDL-APP-GO-TO-HEADING
+  - PIPE-HEADING-IDS
+  entry_nodes:
+  - CMP-DOCUMENT-OUTLINE
+  docs:
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:145
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:146
+  trace_task: TRACE-008
+- id: FEAT-LAYOUT-PANELS
+  name: Painéis redimensionáveis e divisor do split
+  status: active
+  implemented_by:
+  - FN-USE-RESIZABLE-PANEL
+  - CMP-SPLIT-DIVIDER
+  - LSK-PANEL-WIDTH
+  - LSK-SPLIT-RATIO
+  entry_nodes:
+  - SCR-APP
+  docs:
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:125
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:126
+  trace_task: TRACE-008
+- id: FEAT-METADATA-INDEX
+  name: Índice de metadados, tags, estatísticas e reindexação
+  status: active
+  implemented_by:
+  - IPCC-GET-WORKSPACE-STATS
+  - IPCC-GET-DOCUMENT-METADATA
+  - IPCC-GET-ALL-DOCUMENTS
+  - IPCC-TRIGGER-REINDEX
+  - IPCC-GET-TAGS
+  - IPC-GET-WORKSPACE-STATS
+  - IPC-GET-DOCUMENT-METADATA
+  - IPC-GET-ALL-DOCUMENTS
+  - IPC-TRIGGER-REINDEX
+  - IPC-GET-TAGS
+  - SVC-REINDEX-ENGINE
+  - REPO-METADATA-INDEX
+  - FILE-INDEX-JSON
+  - FN-SAVE-INDEX
+  - FN-LOAD-INDEX
+  - STO-METADATA
+  - FN-EXTRACT-METADATA
+  - FN-REINDEX-ENGINE-NEW
+  - FN-REINDEX-ENGINE-FULL-REINDEX
+  - FN-REINDEX-ENGINE-REINDEX-FILE
+  - FN-REINDEX-ENGINE-REMOVE-FILE
+  - FN-REINDEX-ENGINE-APPLY-EXTERNAL-CHANGE
+  - FN-GET-ENGINE
+  - FN-FIND-DOCUMENT
+  - FN-PARSE-TAGS
+  - FN-EXTRACT-METADATA-FROM-STR
+  - FN-WORKSPACE-SCANNER-SCAN
+  - FN-CLEAR-INDEX
+  - FILE-INDEX-TMP
+  - FN-USE-METADATA-REFRESH-ALL-DOCS
+  - FN-USE-METADATA-REFRESH-CURRENT-DOC
+  - FN-USE-METADATA-REFRESH-STATS
+  - FN-USE-METADATA-REFRESH-TAGS
+  - FN-USE-METADATA-REINDEX
+  - DTO-RS-DOCUMENT-METADATA
+  - DTO-TS-DOCUMENT-METADATA
+  - DTO-RS-WORKSPACE-STATS
+  - DTO-TS-WORKSPACE-STATS
+  - DTO-RS-REINDEX-REPORT
+  - DTO-TS-REINDEX-REPORT
+  entry_nodes:
+  - BTN-EXPLORER-REINDEX
+  docs:
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:340
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:361
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:389
+  divergences:
+  - description: Botão 'Reindexar workspace' recarrega a árvore (list_entries), não chama trigger_reindex.
+    evidence:
+    - src/components/explorer/WorkspaceHeader.tsx:39
+    method: observed
+  - description: 'Comandos de metadados não recebem workspace_id: operam sobre o único engine ativo.'
+    evidence:
+    - src-tauri/src/commands/metadata.rs:46
+    method: observed
+  trace_task: TRACE-008
+- id: FEAT-SANITIZE
+  name: Sanitização Zero-XSS (preview/export/apresentação)
+  status: active
+  implemented_by:
+  - PIPE-REHYPE-RAW
+  - PIPE-SANITIZE
+  - CFG-SANITIZE-SCHEMA
+  - PIPE-STRIP-MARKDOWN-STYLES
+  - PIPE-RESTRICT-RENDERER-STYLES
+  - CFG-EPUB-SANITIZE-SCHEMA
+  docs:
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:32
+  - README.md:15
+  - README.md:247
+  divergences:
+  - description: EPUB usa schema de sanitize próprio (defaultSchema estendido), diferente do schema do preview/export.
+    evidence:
+    - src/export/epubProcessor.ts:125
+    method: observed
+  trace_task: TRACE-008
+- id: FEAT-OFFLINE-PRIVACY
+  name: Local-first/offline, sem telemetria, recursos remotos
+  status: partial
+  implemented_by:
+  - CFG-TAURI-CSP
+  - FN-ALLOW-URL
+  - PERM-CORE-DEFAULT
+  - PERM-DIALOG-ALLOW-OPEN
+  - PERM-DIALOG-ALLOW-SAVE
+  - PERM-DIALOG-ALLOW-ASK
+  - PERM-OPENER-ALLOW-OPEN-URL
+  docs:
+  - README.md:6
+  - README.md:245
+  divergences:
+  - description: Política urlPolicy.allowUrl não está ligada ao pipeline (só testes); ProcessOptions.allowRemote não é usado.
+    evidence:
+    - src/security/urlPolicy.ts:7
+    method: observed
+  - description: CSP do Tauri inclui 'unsafe-eval'.
+    evidence:
+    - src-tauri/tauri.conf.json:36
+    method: observed
+  notes: Ausência de telemetria não é verificável por nó; ver invariants.yaml (TRACE-011).
+  trace_task: TRACE-008
+- id: FEAT-SPLASH-PACKAGING
+  name: Splash, instância única, associações de arquivo e empacotamento
+  status: active
+  implemented_by:
+  - IPC-CLOSE-SPLASH
+  - IPCC-CLOSE-SPLASH
+  - HDL-APP-CLOSE-SPLASH-EFFECT
+  - OSI-SPLASH-AUTOCLOSE
+  - OSI-DESKTOP-ENTRY
+  - OSI-FILE-ASSOCIATIONS
+  - FN-RS-RUN
+  entry_nodes:
+  - FN-RS-MAIN
+  docs:
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:320
+  - README.md:214
+  divergences:
+  - description: README cita 'todos os 20 comandos IPC'; há 21 registrados em generate_handler!.
+    evidence:
+    - README.md:237
+    method: observed
+  trace_task: TRACE-008
+node_index:
+  BTN-CONFLICT-KEEP:
+  - FEAT-CONFLICT
+  BTN-CONFLICT-RELOAD:
+  - FEAT-CONFLICT
+  BTN-CONFLICT-SAVE-AS:
+  - FEAT-CONFLICT
+  BTN-EXPLORER-OPEN-FILE:
+  - FEAT-OPEN-FILE
+  BTN-EXPLORER-OPEN-FOLDER:
+  - FEAT-OPEN-WORKSPACE
+  BTN-EXPLORER-REINDEX:
+  - FEAT-METADATA-INDEX
+  BTN-EXPORT-EPUB:
+  - FEAT-EXPORT-EPUB
+  BTN-EXPORT-HTML:
+  - FEAT-EXPORT-HTML
+  BTN-EXPORT-PDF:
+  - FEAT-EXPORT-PDF
+  BTN-HEADER-NEW-DOCUMENT:
+  - FEAT-TEMPLATES
+  BTN-HEADER-PRESENTATION:
+  - FEAT-PRESENTATION
+  BTN-HEADER-QUICK-SEARCH:
+  - FEAT-COMMAND-PALETTE
+  BTN-PREVIEW-FORMAT-CODE:
+  - FEAT-CODE-FORMATTER
+  BTN-SAVE:
+  - FEAT-SAVE
+  BTN-TOOLBAR-FORMAT-CODE:
+  - FEAT-CODE-FORMATTER
+  BTN-WELCOME-NEW-DOCUMENT:
+  - FEAT-TEMPLATES
+  BTN-WELCOME-OPEN-FILE:
+  - FEAT-OPEN-FILE
+  BTN-WELCOME-OPEN-FOLDER:
+  - FEAT-OPEN-WORKSPACE
+  CFG-DEFAULT-SETTINGS:
+  - FEAT-AUTO-SAVE
+  - FEAT-SETTINGS
+  CFG-DRAFT-RETENTION:
+  - FEAT-DRAFT-RECOVERY
+  CFG-DRAFT-WARNING:
+  - FEAT-DRAFT-RECOVERY
+  CFG-EPUB-SANITIZE-SCHEMA:
+  - FEAT-EXPORT-EPUB
+  - FEAT-SANITIZE
+  CFG-FRONTMATTER-SCHEMA:
+  - FEAT-FRONTMATTER
+  CFG-SANITIZE-SCHEMA:
+  - FEAT-SANITIZE
+  CFG-SLASH-ITEMS:
+  - FEAT-SLASH-COMMANDS
+  CFG-TAURI-CSP:
+  - FEAT-OFFLINE-PRIVACY
+  CFG-TEMPLATES:
+  - FEAT-TEMPLATES
+  CFG-WATCH-DEBOUNCE:
+  - FEAT-WATCHER
+  CLS-PRESENTATION-SESSION-MANAGER:
+  - FEAT-PRESENTATION
+  CLS-SAVE-ERROR:
+  - FEAT-SAVE
+  CMP-APP-HEADER:
+  - FEAT-APP-SCREENS
+  CMP-BACKLINKS-PANEL:
+  - FEAT-BACKLINKS
+  CMP-CODE-BLOCK:
+  - FEAT-CODE-FORMATTER
+  CMP-COMMAND-PALETTE:
+  - FEAT-COMMAND-PALETTE
+  CMP-CONFLICT-DIALOG:
+  - FEAT-CONFLICT
+  CMP-CREATE-NOTE-FROM-WIKI:
+  - FEAT-CREATE-NOTE-FROM-WIKI
+  CMP-DOCUMENT-OUTLINE:
+  - FEAT-OUTLINE
+  CMP-DRAFT-RECOVERY-DIALOG:
+  - FEAT-DRAFT-RECOVERY
+  CMP-EXPORT-MENU:
+  - FEAT-EXPORT-HTML
+  CMP-FILE-EXPLORER:
+  - FEAT-OPEN-WORKSPACE
+  CMP-FORMATTING-TOOLBAR:
+  - FEAT-FORMATTING-TOOLBAR
+  CMP-GO-TO-LINE:
+  - FEAT-GO-TO-LINE
+  CMP-MARKDOWN-EDITOR:
+  - FEAT-EDITOR
+  CMP-MARKDOWN-VIEWER:
+  - FEAT-PREVIEW
+  CMP-MERMAID-BLOCK:
+  - FEAT-MERMAID
+  - FEAT-MERMAID-EXPORT
+  CMP-NEW-DOCUMENT-MODAL:
+  - FEAT-TEMPLATES
+  CMP-OUTGOING-LINKS-PANEL:
+  - FEAT-OUTGOING-LINKS
+  CMP-PRESENTATION-STAGE:
+  - FEAT-PRESENTATION
+  CMP-QUICK-SWITCHER:
+  - FEAT-COMMAND-PALETTE
+  CMP-SAVE-BUTTON:
+  - FEAT-SAVE
+  CMP-SETTINGS-PANEL:
+  - FEAT-SETTINGS
+  CMP-SHORTCUTS-MODAL:
+  - FEAT-SHORTCUTS-HELP
+  CMP-SPLIT-DIVIDER:
+  - FEAT-LAYOUT-PANELS
+  CMP-TABLE-TOOLBAR:
+  - FEAT-TABLE-TOOLBAR
+  CNS-SUBSCRIBE-OPEN-FILE:
+  - FEAT-OPEN-FROM-OS
+  CNS-SUBSCRIBE-WORKSPACE-WATCH:
+  - FEAT-WATCHER
+  DTO-RS-BACKLINK-RESULT:
+  - FEAT-BACKLINKS
+  DTO-RS-DOCUMENT-METADATA:
+  - FEAT-METADATA-INDEX
+  DTO-RS-DOCUMENT-SNAPSHOT:
+  - FEAT-OPEN-FILE
+  DTO-RS-EPUB-EXPORT-PAYLOAD:
+  - FEAT-EXPORT-EPUB
+  DTO-RS-EPUB-EXPORT-RESULT:
+  - FEAT-EXPORT-EPUB
+  DTO-RS-EXPORT-EPUB-REQUEST:
+  - FEAT-EXPORT-EPUB
+  DTO-RS-EXPORT-HTML-REQUEST:
+  - FEAT-EXPORT-HTML
+  DTO-RS-FILE-ENTRY:
+  - FEAT-OPEN-WORKSPACE
+  DTO-RS-FORMAT-RESULT:
+  - FEAT-CODE-FORMATTER
+  DTO-RS-REINDEX-REPORT:
+  - FEAT-METADATA-INDEX
+  DTO-RS-RESOLVED-WIKI-LINK:
+  - FEAT-WIKI-LINKS
+  DTO-RS-SAVE-DOCUMENT-REQUEST:
+  - FEAT-SAVE
+  DTO-RS-SEARCH-RESULT:
+  - FEAT-WORKSPACE-SEARCH
+  DTO-RS-WATCH-EVENT:
+  - FEAT-WATCHER
+  DTO-RS-WORKSPACE-DESCRIPTOR:
+  - FEAT-OPEN-WORKSPACE
+  DTO-RS-WORKSPACE-STATS:
+  - FEAT-METADATA-INDEX
+  DTO-TS-BACKLINK-RESULT:
+  - FEAT-BACKLINKS
+  DTO-TS-DOCUMENT-METADATA:
+  - FEAT-METADATA-INDEX
+  DTO-TS-DOCUMENT-SNAPSHOT:
+  - FEAT-OPEN-FILE
+  DTO-TS-EPUB-EXPORT-PAYLOAD:
+  - FEAT-EXPORT-EPUB
+  DTO-TS-EPUB-EXPORT-RESULT:
+  - FEAT-EXPORT-EPUB
+  DTO-TS-FILE-ENTRY:
+  - FEAT-OPEN-WORKSPACE
+  DTO-TS-FORMAT-RESPONSE:
+  - FEAT-CODE-FORMATTER
+  DTO-TS-IPC-ERROR-CODE:
+  - FEAT-SAVE
+  DTO-TS-REINDEX-REPORT:
+  - FEAT-METADATA-INDEX
+  DTO-TS-RESOLVED-WIKI-LINK:
+  - FEAT-WIKI-LINKS
+  DTO-TS-SAVE-DOCUMENT-REQUEST:
+  - FEAT-SAVE
+  DTO-TS-SAVE-RESULT:
+  - FEAT-SAVE
+  DTO-TS-SEARCH-RESULT:
+  - FEAT-WORKSPACE-SEARCH
+  DTO-TS-WATCH-EVENT:
+  - FEAT-WATCHER
+  DTO-TS-WORKSPACE-DESCRIPTOR:
+  - FEAT-OPEN-WORKSPACE
+  DTO-TS-WORKSPACE-STATS:
+  - FEAT-METADATA-INDEX
+  FILE-EXPORT-EPUB:
+  - FEAT-EXPORT-EPUB
+  FILE-EXPORT-HTML:
+  - FEAT-EXPORT-HTML
+  FILE-INDEX-JSON:
+  - FEAT-METADATA-INDEX
+  FILE-INDEX-TMP:
+  - FEAT-METADATA-INDEX
+  FILE-MARKDOWN-DOCUMENT:
+  - FEAT-OPEN-FILE
+  - FEAT-SAVE
+  FILE-SAVE-TMP:
+  - FEAT-SAVE
+  FN-ALLOW-URL:
+  - FEAT-OFFLINE-PRIVACY
+  FN-APPLY-WATCH-TO-ENGINE:
+  - FEAT-WATCHER
+  FN-ATOMIC-SAVE:
+  - FEAT-SAVE
+  - FEAT-CONFLICT
+  FN-ATOMIC-WRITE-BYTES:
+  - FEAT-SAVE
+  FN-BACKLINK-INDEX-BACKLINKS-FOR:
+  - FEAT-BACKLINKS
+  FN-BACKLINK-INDEX-INGEST-SOURCE:
+  - FEAT-BACKLINKS
+  FN-BACKLINK-INDEX-REBUILD:
+  - FEAT-BACKLINKS
+  FN-BACKLINK-INDEX-REMOVE-SOURCE:
+  - FEAT-BACKLINKS
+  FN-BACKLINK-INDEX-REPLACE-SOURCE:
+  - FEAT-BACKLINKS
+  FN-BROWSER-INVOKE:
+  - FEAT-OPEN-WORKSPACE
+  FN-BUILD-EPUB:
+  - FEAT-EXPORT-EPUB
+  FN-CAPTURE-MERMAID-SVGS:
+  - FEAT-EXPORT-EPUB
+  FN-CAPTURE-PREVIOUS-UI-STATE:
+  - FEAT-PRESENTATION
+  FN-CLEAR-DRAFT:
+  - FEAT-DRAFT-RECOVERY
+  FN-CLEAR-INDEX:
+  - FEAT-METADATA-INDEX
+  FN-CONTENT-HASH:
+  - FEAT-CONFLICT
+  FN-CREATE-PRESENTATION-DECK:
+  - FEAT-PRESENTATION
+  FN-CREATE-PRESENTATION-MODEL:
+  - FEAT-PRESENTATION
+  FN-CREATE-SLASH-PLUGIN:
+  - FEAT-SLASH-COMMANDS
+  FN-CREATE-WIKI-COMPLETION-EXTENSIONS:
+  - FEAT-WIKI-AUTOCOMPLETE
+  FN-DOWNLOAD-HTML:
+  - FEAT-EXPORT-HTML
+  FN-DOWNLOAD-PNG:
+  - FEAT-MERMAID-EXPORT
+  FN-DOWNLOAD-SVG:
+  - FEAT-MERMAID-EXPORT
+  FN-DRAFT-KEY:
+  - FEAT-DRAFT-RECOVERY
+  FN-DRAFT-ROOT:
+  - FEAT-DRAFT-RECOVERY
+  FN-EMBED-STYLES-IN-SVG:
+  - FEAT-MERMAID-EXPORT
+  FN-ENHANCE-PRESENTATION-CONTENT:
+  - FEAT-PRESENTATION
+  FN-ENRICH-BACKLINK-CONTEXT:
+  - FEAT-BACKLINKS
+  FN-EXPORT-EPUB-IN:
+  - FEAT-EXPORT-EPUB
+  FN-EXTRACT-METADATA:
+  - FEAT-METADATA-INDEX
+  FN-EXTRACT-METADATA-FROM-STR:
+  - FEAT-METADATA-INDEX
+  FN-FENCE-BACKLINK-TARGET:
+  - FEAT-BACKLINKS
+  - FEAT-PATH-FENCING
+  FN-FENCE-RELATIVE:
+  - FEAT-WATCHER
+  FN-FIND-DOCUMENT:
+  - FEAT-METADATA-INDEX
+  FN-FIND-EXECUTABLE:
+  - FEAT-CODE-FORMATTER
+  FN-FIND-FENCED-CODE-BLOCKS:
+  - FEAT-CODE-FORMATTER
+  FN-FIND-FIRST-EDITABLE-POSITION:
+  - FEAT-TEMPLATES
+  FN-FIRST-EXISTING-MARKDOWN-PATH:
+  - FEAT-OPEN-FROM-OS
+  FN-FORMAT-CODE-BLOCK-AT-CURSOR:
+  - FEAT-CODE-FORMATTER
+  FN-FORMAT-CODE-INTERNAL:
+  - FEAT-CODE-FORMATTER
+  FN-FORMAT-DOCUMENT-OR-CODE-BLOCK:
+  - FEAT-CODE-FORMATTER
+  FN-FORMAT-WEB-CODE:
+  - FEAT-CODE-FORMATTER
+  FN-FUZZY-SEARCH:
+  - FEAT-COMMAND-PALETTE
+  FN-GENERATE-CONTENT-OPF:
+  - FEAT-EXPORT-EPUB
+  FN-GET-BROWSER-DRAFT-IDENTITY:
+  - FEAT-DRAFT-RECOVERY
+  FN-GET-ENGINE:
+  - FEAT-METADATA-INDEX
+  FN-GET-FORMATTER-SPEC:
+  - FEAT-CODE-FORMATTER
+  FN-GUARD-IMAGES:
+  - FEAT-PATH-FENCING
+  FN-HTML-TO-MARKDOWN:
+  - FEAT-SMART-PASTE
+  FN-HTML-TO-XHTML:
+  - FEAT-EXPORT-EPUB
+  FN-IS-MARKDOWN-PATH:
+  - FEAT-OPEN-WORKSPACE
+  FN-IS-SAFE-RELATIVE-TARGET:
+  - FEAT-PATH-FENCING
+  FN-IS-WEB-LANGUAGE:
+  - FEAT-CODE-FORMATTER
+  FN-LIST-RECOVERABLE-DRAFTS:
+  - FEAT-DRAFT-RECOVERY
+  FN-LOAD-DRAFT:
+  - FEAT-DRAFT-RECOVERY
+  FN-LOAD-INDEX:
+  - FEAT-METADATA-INDEX
+  FN-MARKDOWN-HINT-EXTENSION:
+  - FEAT-CONTEXTUAL-HINTS
+  FN-MATCH-HINT-AT-POSITION:
+  - FEAT-CONTEXTUAL-HINTS
+  FN-MERMAID-SVG-TO-PNG:
+  - FEAT-MERMAID-EXPORT
+  FN-NORMALIZE-EPUB-METADATA:
+  - FEAT-EXPORT-EPUB
+  FN-NOTE-PATH-FOR-TARGET:
+  - FEAT-CREATE-NOTE-FROM-WIKI
+  FN-PARSE-PRESENTATION-CONFIG:
+  - FEAT-PRESENTATION
+  FN-PARSE-TAGS:
+  - FEAT-METADATA-INDEX
+  FN-PARSE-WIKI-LINKS:
+  - FEAT-WIKI-LINKS
+  FN-PATH-FROM-ARG:
+  - FEAT-OPEN-FROM-OS
+  FN-PROCESS-EPUB-MARKDOWN:
+  - FEAT-EXPORT-EPUB
+  FN-READ-BROWSER-FILE:
+  - FEAT-OPEN-WORKSPACE
+  - FEAT-OPEN-FILE
+  FN-READ-FILE:
+  - FEAT-OPEN-FILE
+  FN-READ-SOURCE-LINE:
+  - FEAT-BACKLINKS
+  FN-REINDEX-ENGINE-APPLY-EXTERNAL-CHANGE:
+  - FEAT-WATCHER
+  - FEAT-METADATA-INDEX
+  FN-REINDEX-ENGINE-BACKLINKS-FOR:
+  - FEAT-BACKLINKS
+  FN-REINDEX-ENGINE-FULL-REINDEX:
+  - FEAT-METADATA-INDEX
+  FN-REINDEX-ENGINE-NEW:
+  - FEAT-METADATA-INDEX
+  FN-REINDEX-ENGINE-REBUILD-BACKLINKS:
+  - FEAT-BACKLINKS
+  FN-REINDEX-ENGINE-REINDEX-FILE:
+  - FEAT-METADATA-INDEX
+  FN-REINDEX-ENGINE-REMOVE-FILE:
+  - FEAT-METADATA-INDEX
+  FN-REMOVE-DRAFT-KEY:
+  - FEAT-DRAFT-RECOVERY
+  FN-RENDER-MERMAID:
+  - FEAT-MERMAID
+  FN-REPLACE-FENCED-CODE-BLOCK:
+  - FEAT-CODE-FORMATTER
+  FN-RESOLVE-ALL:
+  - FEAT-WIKI-LINKS
+  FN-RESOLVE-RELATIVE-LINK:
+  - FEAT-PREVIEW
+  FN-RESOLVE-WIKI-LINK-CORE:
+  - FEAT-WIKI-LINKS
+  FN-RESOLVE-WITHIN:
+  - FEAT-PATH-FENCING
+  FN-RESOLVE-WORKSPACE-ROOT:
+  - FEAT-EXPORT-HTML
+  - FEAT-EXPORT-EPUB
+  FN-RS-MAIN:
+  - FEAT-SPLASH-PACKAGING
+  FN-RS-RUN:
+  - FEAT-SPLASH-PACKAGING
+  FN-SAFE-WIKI-NOTE-PATH:
+  - FEAT-CREATE-NOTE-FROM-WIKI
+  FN-SANITIZE-WIKI-FILE-NAME:
+  - FEAT-CREATE-NOTE-FROM-WIKI
+  FN-SAVE-DRAFT:
+  - FEAT-DRAFT-RECOVERY
+  FN-SAVE-INDEX:
+  - FEAT-METADATA-INDEX
+  FN-SCROLL-TO-HEADING:
+  - FEAT-OUTLINE
+  FN-SEGMENT-MARKDOWN:
+  - FEAT-PRESENTATION
+  FN-SMART-PASTE:
+  - FEAT-SMART-PASTE
+  FN-SPAWN-WATCHER:
+  - FEAT-WATCHER
+  FN-USE-FILE-TREE:
+  - FEAT-OPEN-WORKSPACE
+  FN-USE-KEYBOARD-SHORTCUTS:
+  - FEAT-SHORTCUTS-HELP
+  FN-USE-METADATA-REFRESH-ALL-DOCS:
+  - FEAT-METADATA-INDEX
+  FN-USE-METADATA-REFRESH-CURRENT-DOC:
+  - FEAT-METADATA-INDEX
+  FN-USE-METADATA-REFRESH-STATS:
+  - FEAT-METADATA-INDEX
+  FN-USE-METADATA-REFRESH-TAGS:
+  - FEAT-METADATA-INDEX
+  FN-USE-METADATA-REINDEX:
+  - FEAT-METADATA-INDEX
+  FN-USE-RESIZABLE-PANEL:
+  - FEAT-LAYOUT-PANELS
+  FN-USE-SCROLL-SYNC:
+  - FEAT-VIEW-MODES
+  FN-WATCHER-REGISTER-INTERNAL-SAVE:
+  - FEAT-AUTO-SAVE
+  FN-WATCHER-RELATIVIZE:
+  - FEAT-WATCHER
+  FN-WATCHER-SHOULD-SUPPRESS:
+  - FEAT-WATCHER
+  FN-WIKI-CANDIDATES:
+  - FEAT-WIKI-AUTOCOMPLETE
+  FN-WORKSPACE-REGISTRY-GET:
+  - FEAT-OPEN-WORKSPACE
+  FN-WORKSPACE-REGISTRY-OPEN:
+  - FEAT-OPEN-WORKSPACE
+  FN-WORKSPACE-REGISTRY-RESOLVE:
+  - FEAT-PATH-FENCING
+  FN-WORKSPACE-REGISTRY-RETAIN:
+  - FEAT-OPEN-WORKSPACE
+  FN-WORKSPACE-SCANNER-SCAN:
+  - FEAT-METADATA-INDEX
+  FN-WRITE-BROWSER-FILE:
+  - FEAT-SAVE
+  HDL-APP-BACKLINK-OPEN-OCCURRENCE:
+  - FEAT-BACKLINKS
+  HDL-APP-CLOSE-PRESENTATION:
+  - FEAT-PRESENTATION
+  HDL-APP-CLOSE-SPLASH-EFFECT:
+  - FEAT-SPLASH-PACKAGING
+  HDL-APP-CYCLE-RECENT:
+  - FEAT-RECENT-FILES
+  HDL-APP-DRAFT-RECOVERY-TIMER:
+  - FEAT-DRAFT-RECOVERY
+  HDL-APP-EXPORT-EPUB:
+  - FEAT-EXPORT-EPUB
+  HDL-APP-EXPORT-HTML:
+  - FEAT-EXPORT-HTML
+  HDL-APP-EXPORT-PDF:
+  - FEAT-EXPORT-PDF
+  HDL-APP-GO-TO-HEADING:
+  - FEAT-OUTLINE
+  HDL-APP-OPEN-FILE-WELCOME:
+  - FEAT-OPEN-FILE
+  HDL-APP-OPEN-FOLDER-WELCOME:
+  - FEAT-OPEN-WORKSPACE
+  HDL-APP-OPEN-NEW-DOCUMENT:
+  - FEAT-TEMPLATES
+  HDL-APP-SELECT-TEMPLATE:
+  - FEAT-TEMPLATES
+  HDL-APP-SHORTCUTS:
+  - FEAT-VIEW-MODES
+  - FEAT-SHORTCUTS-HELP
+  - FEAT-GO-TO-LINE
+  - FEAT-SETTINGS
+  HDL-APP-START-PRESENTATION:
+  - FEAT-PRESENTATION
+  HDL-CREATE-NOTE:
+  - FEAT-CREATE-NOTE-FROM-WIKI
+  HDL-DOC-CLOSE-FILE:
+  - FEAT-SHORTCUTS-HELP
+  HDL-DOC-LAUNCH-EFFECT:
+  - FEAT-OPEN-FROM-OS
+  HDL-DOC-NEW-DOCUMENT:
+  - FEAT-TEMPLATES
+  HDL-DOC-ON-WORKSPACE-READY:
+  - FEAT-OPEN-WORKSPACE
+  HDL-DOC-OPEN-FILE:
+  - FEAT-OPEN-FILE
+  HDL-DOC-OPEN-FOLDER:
+  - FEAT-OPEN-WORKSPACE
+  HDL-DOC-OPEN-RECENT:
+  - FEAT-RECENT-FILES
+  HDL-DOC-OPEN-RELATIVE:
+  - FEAT-OPEN-FILE
+  HDL-DOC-OPEN-WORKSPACE-PATH:
+  - FEAT-OPEN-WORKSPACE
+  HDL-DOC-RESOLVE-CONFLICT:
+  - FEAT-CONFLICT
+  HDL-DOC-SAVE:
+  - FEAT-SAVE
+  - FEAT-CONFLICT
+  HDL-DOC-SAVE-AS:
+  - FEAT-SAVE-AS
+  HDL-DOC-SET-CONTENT:
+  - FEAT-AUTO-SAVE
+  - FEAT-DRAFT-RECOVERY
+  HDL-DOC-WATCH-EFFECT:
+  - FEAT-CONFLICT
+  - FEAT-WATCHER
+  HDL-EXPLORER-ENTRY-CLICK:
+  - FEAT-OPEN-WORKSPACE
+  - FEAT-OPEN-FILE
+  HDL-EXPLORER-OPEN-FILE:
+  - FEAT-OPEN-FILE
+  HDL-EXPLORER-OPEN-FOLDER:
+  - FEAT-OPEN-WORKSPACE
+  HDL-VIEWER-ON-CLICK:
+  - FEAT-WIKI-LINKS
+  IPC-CLOSE-SPLASH:
+  - FEAT-SPLASH-PACKAGING
+  IPC-EXPORT-EPUB:
+  - FEAT-EXPORT-EPUB
+  IPC-EXPORT-HTML:
+  - FEAT-EXPORT-HTML
+  IPC-FORMAT-CODE:
+  - FEAT-CODE-FORMATTER
+  IPC-GET-ALL-DOCUMENTS:
+  - FEAT-METADATA-INDEX
+  IPC-GET-BACKLINKS:
+  - FEAT-BACKLINKS
+  IPC-GET-DOCUMENT-METADATA:
+  - FEAT-METADATA-INDEX
+  IPC-GET-LAUNCH-PATH:
+  - FEAT-OPEN-FROM-OS
+  IPC-GET-RESOLVED-WIKI-LINKS-FOR:
+  - FEAT-WIKI-LINKS
+  IPC-GET-TAGS:
+  - FEAT-METADATA-INDEX
+  IPC-GET-WIKI-LINKS-FOR:
+  - FEAT-WIKI-LINKS
+  IPC-GET-WORKSPACE-STATS:
+  - FEAT-METADATA-INDEX
+  IPC-LIST-ENTRIES:
+  - FEAT-OPEN-WORKSPACE
+  IPC-OPEN-WORKSPACE:
+  - FEAT-OPEN-WORKSPACE
+  IPC-READ-DOCUMENT:
+  - FEAT-OPEN-FILE
+  IPC-RESOLVE-WIKI-LINK:
+  - FEAT-WIKI-LINKS
+  IPC-SAVE-DOCUMENT:
+  - FEAT-SAVE
+  IPC-SEARCH-WORKSPACE:
+  - FEAT-WORKSPACE-SEARCH
+  IPC-START-WATCHING:
+  - FEAT-WATCHER
+  IPC-STOP-WATCHING:
+  - FEAT-WATCHER
+  IPC-TRIGGER-REINDEX:
+  - FEAT-METADATA-INDEX
+  IPCC-CLOSE-SPLASH:
+  - FEAT-SPLASH-PACKAGING
+  IPCC-EXPORT-EPUB:
+  - FEAT-EXPORT-EPUB
+  IPCC-EXPORT-HTML:
+  - FEAT-EXPORT-HTML
+  IPCC-FORMAT-CODE:
+  - FEAT-CODE-FORMATTER
+  IPCC-GET-ALL-DOCUMENTS:
+  - FEAT-METADATA-INDEX
+  IPCC-GET-BACKLINKS:
+  - FEAT-BACKLINKS
+  IPCC-GET-DOCUMENT-METADATA:
+  - FEAT-METADATA-INDEX
+  IPCC-GET-LAUNCH-PATH:
+  - FEAT-OPEN-FROM-OS
+  IPCC-GET-RESOLVED-WIKI-LINKS-FOR:
+  - FEAT-WIKI-LINKS
+  - FEAT-OUTGOING-LINKS
+  IPCC-GET-TAGS:
+  - FEAT-METADATA-INDEX
+  IPCC-GET-WIKI-LINKS-FOR:
+  - FEAT-WIKI-LINKS
+  IPCC-GET-WORKSPACE-STATS:
+  - FEAT-METADATA-INDEX
+  IPCC-LIST-ENTRIES:
+  - FEAT-OPEN-WORKSPACE
+  IPCC-OPEN-WORKSPACE:
+  - FEAT-OPEN-WORKSPACE
+  IPCC-READ-DOCUMENT:
+  - FEAT-OPEN-FILE
+  IPCC-RESOLVE-WIKI-LINK:
+  - FEAT-WIKI-LINKS
+  IPCC-SAVE-DOCUMENT:
+  - FEAT-SAVE
+  IPCC-SEARCH-WORKSPACE:
+  - FEAT-WORKSPACE-SEARCH
+  IPCC-START-WATCHING:
+  - FEAT-WATCHER
+  IPCC-STOP-WATCHING:
+  - FEAT-WATCHER
+  IPCC-TRIGGER-REINDEX:
+  - FEAT-METADATA-INDEX
+  LSK-DRAFTS:
+  - FEAT-DRAFT-RECOVERY
+  LSK-DRAFTS-LEGACY:
+  - FEAT-DRAFT-RECOVERY
+  LSK-FILE-TREE-EXPANDED:
+  - FEAT-OPEN-WORKSPACE
+  LSK-PANEL-WIDTH:
+  - FEAT-LAYOUT-PANELS
+  LSK-RECENT-FILES:
+  - FEAT-RECENT-FILES
+  LSK-SESSION:
+  - FEAT-VIEW-MODES
+  LSK-SETTINGS:
+  - FEAT-SETTINGS
+  LSK-SPLIT-RATIO:
+  - FEAT-LAYOUT-PANELS
+  LSK-UI-STATE:
+  - FEAT-SETTINGS
+  OSI-CONFIRM-OVERWRITE:
+  - FEAT-EXPORT-HTML
+  OSI-DESKTOP-ENTRY:
+  - FEAT-SPLASH-PACKAGING
+  OSI-FILE-ASSOCIATIONS:
+  - FEAT-OPEN-FROM-OS
+  - FEAT-SPLASH-PACKAGING
+  OSI-LAUNCH-ARGV:
+  - FEAT-OPEN-FROM-OS
+  OSI-OPEN-EXTERNAL-URL:
+  - FEAT-PREVIEW
+  OSI-PICK-FOLDER:
+  - FEAT-OPEN-WORKSPACE
+  OSI-PICK-MARKDOWN-FILE:
+  - FEAT-OPEN-FILE
+  OSI-PICK-SAVE-EPUB:
+  - FEAT-EXPORT-EPUB
+  OSI-PICK-SAVE-HTML:
+  - FEAT-EXPORT-HTML
+  OSI-PICK-SAVE-MARKDOWN:
+  - FEAT-SAVE-AS
+  OSI-SINGLE-INSTANCE:
+  - FEAT-OPEN-FROM-OS
+  OSI-SPLASH-AUTOCLOSE:
+  - FEAT-SPLASH-PACKAGING
+  OSI-WINDOW-PRINT:
+  - FEAT-EXPORT-PDF
+  PERM-CORE-DEFAULT:
+  - FEAT-OFFLINE-PRIVACY
+  PERM-DIALOG-ALLOW-ASK:
+  - FEAT-OFFLINE-PRIVACY
+  PERM-DIALOG-ALLOW-OPEN:
+  - FEAT-OFFLINE-PRIVACY
+  PERM-DIALOG-ALLOW-SAVE:
+  - FEAT-OFFLINE-PRIVACY
+  PERM-OPENER-ALLOW-OPEN-URL:
+  - FEAT-OFFLINE-PRIVACY
+  PIPE-FRONTMATTER:
+  - FEAT-FRONTMATTER
+  PIPE-GITHUB-ALERTS:
+  - FEAT-GFM-ALERTS
+  PIPE-HAST-TO-HTML:
+  - FEAT-PREVIEW
+  PIPE-HEADING-IDS:
+  - FEAT-PREVIEW
+  - FEAT-OUTLINE
+  PIPE-KATEX:
+  - FEAT-KATEX
+  PIPE-MERMAID-BLOCKS:
+  - FEAT-MERMAID
+  PIPE-REHYPE-RAW:
+  - FEAT-SANITIZE
+  PIPE-REMARK-GFM:
+  - FEAT-PREVIEW
+  PIPE-REMARK-MATH:
+  - FEAT-KATEX
+  PIPE-REMARK-REHYPE:
+  - FEAT-PREVIEW
+  PIPE-RESTRICT-RENDERER-STYLES:
+  - FEAT-SANITIZE
+  PIPE-SANITIZE:
+  - FEAT-SANITIZE
+  PIPE-SHIKI:
+  - FEAT-SHIKI
+  PIPE-STRIP-MARKDOWN-STYLES:
+  - FEAT-SANITIZE
+  PIPE-WIKI-LINKS:
+  - FEAT-WIKI-LINKS
+  REPO-BACKLINK-INDEX:
+  - FEAT-BACKLINKS
+  REPO-METADATA-INDEX:
+  - FEAT-METADATA-INDEX
+  REPO-WORKSPACE-REGISTRY:
+  - FEAT-OPEN-WORKSPACE
+  RTE-VIEW-MODES:
+  - FEAT-VIEW-MODES
+  SCR-APP:
+  - FEAT-APP-SCREENS
+  - FEAT-LAYOUT-PANELS
+  SCR-EMPTY-STATE:
+  - FEAT-APP-SCREENS
+  SCR-PRESENTATION:
+  - FEAT-PRESENTATION
+  SCR-WELCOME:
+  - FEAT-APP-SCREENS
+  SHC-CTRL-N:
+  - FEAT-TEMPLATES
+  SHC-CTRL-O:
+  - FEAT-OPEN-FILE
+  SHC-CTRL-P:
+  - FEAT-COMMAND-PALETTE
+  SHC-CTRL-S:
+  - FEAT-SAVE
+  SHC-CTRL-SHIFT-O:
+  - FEAT-OPEN-WORKSPACE
+  SHC-CTRL-SHIFT-S:
+  - FEAT-SAVE-AS
+  SHC-CTRL-W:
+  - FEAT-SHORTCUTS-HELP
+  SHC-EDITOR-MOD-S:
+  - FEAT-SAVE
+  SHC-EDITOR-MOD-SHIFT-S:
+  - FEAT-FORMATTING-TOOLBAR
+  SHC-EDITOR-SHIFT-ALT-F:
+  - FEAT-CODE-FORMATTER
+  SHC-F5:
+  - FEAT-PRESENTATION
+  STO-BROWSER-HASH-CACHE:
+  - FEAT-SAVE
+  STO-DOCUMENT-STATE:
+  - FEAT-OPEN-FILE
+  - FEAT-SAVE
+  STO-EDITOR:
+  - FEAT-EDITOR
+  STO-METADATA:
+  - FEAT-METADATA-INDEX
+  STO-RECENT-FILES:
+  - FEAT-RECENT-FILES
+  STO-SESSION:
+  - FEAT-VIEW-MODES
+  STO-SETTINGS:
+  - FEAT-AUTO-SAVE
+  - FEAT-SETTINGS
+  STO-UI:
+  - FEAT-SETTINGS
+  SVC-EXPORT-ACTIVE-DOCUMENT-EPUB:
+  - FEAT-EXPORT-EPUB
+  SVC-EXPORT-ACTIVE-DOCUMENT-HTML:
+  - FEAT-EXPORT-HTML
+  SVC-EXPORT-HTML-DOCUMENT:
+  - FEAT-EXPORT-HTML
+  SVC-FORMAT-CODE:
+  - FEAT-CODE-FORMATTER
+  SVC-PERSIST-DOCUMENT:
+  - FEAT-SAVE
+  SVC-PROCESS-MARKDOWN:
+  - FEAT-PREVIEW
+  SVC-PROCESS-PRESENTATION:
+  - FEAT-PRESENTATION
+  SVC-REINDEX-ENGINE:
+  - FEAT-METADATA-INDEX
+  SVC-WATCHER-HUB:
+  - FEAT-WATCHER
+  TEV-APP-OPEN-FILE:
+  - FEAT-OPEN-FROM-OS
+  TEV-WORKSPACE-CHANGE:
+  - FEAT-WATCHER
+cross_cutting:
+  FN-IPC-INVOKE: Fachada invoke usada por todas as features com IPC
+  FN-IS-TAURI-RUNTIME: Detecção de runtime (desktop vs browser) usada por todas as features com IPC/diálogos
+  CFG-GENERATE-HANDLER: Registro dos 21 comandos IPC (generate_handler!)
+  CLS-APP-STATE: Estado gerenciado do Tauri compartilhado por comandos (registry, watcher, engine)
+unmapped_nodes: []

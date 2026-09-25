@@ -1,0 +1,175 @@
+# TRACE-009 — Formatar bloco de código. Passos ordenados; via = aresta de edges.yaml que liga o passo de origem (direction reverse = aresta no sentido oposto, ex.: consumes/reads/callback). trigger = início de ramo.
+artifact: format-code-block
+schema_version: 1
+source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+generated_at: '2026-09-24T23:03:41-03:00'
+id: FLOW-FORMAT-CODE-BLOCK
+name: Formatar bloco de código
+required: true
+features:
+- FEAT-CODE-FORMATTER
+entrypoints:
+- ENT-SHC-EDITOR-SHIFT-ALT-F
+- ENT-BTN-TOOLBAR-FORMAT-CODE
+- ENT-IPC-FORMAT-CODE
+- ENT-BTN-PREVIEW-FORMAT-CODE
+- ENT-HDL-DOC-SET-CONTENT
+outcome: Bloco substituído in-place; erro/ausência de CLI mantém o código original.
+steps:
+- step: 1
+  node: SHC-EDITOR-SHIFT-ALT-F
+  entrypoint: ENT-SHC-EDITOR-SHIFT-ALT-F
+  trigger: Shift+Alt+F no editor
+- step: 2
+  node: BTN-TOOLBAR-FORMAT-CODE
+  entrypoint: ENT-BTN-TOOLBAR-FORMAT-CODE
+  trigger: Botão de formatação na FormattingToolbar
+- step: 3
+  node: FN-FORMAT-DOCUMENT-OR-CODE-BLOCK
+  via:
+  - from_step: 1
+    edge: SHC-EDITOR-SHIFT-ALT-F|triggers|FN-FORMAT-DOCUMENT-OR-CODE-BLOCK
+    direction: forward
+    evidence:
+    - src/components/MarkdownEditor.tsx:171
+    method: observed
+  - from_step: 2
+    edge: BTN-TOOLBAR-FORMAT-CODE|triggers|FN-FORMAT-DOCUMENT-OR-CODE-BLOCK
+    direction: forward
+    evidence:
+    - src/components/editor/FormattingToolbar.tsx:345
+    method: observed
+- step: 4
+  node: FN-FORMAT-CODE-BLOCK-AT-CURSOR
+  note: bloco sob o cursor
+  via:
+  - from_step: 3
+    edge: FN-FORMAT-DOCUMENT-OR-CODE-BLOCK|calls|FN-FORMAT-CODE-BLOCK-AT-CURSOR
+    direction: forward
+    evidence:
+    - src/editor/formatting/formatCodeBlock.ts:76
+    method: observed
+- step: 5
+  node: FN-FIND-FENCED-CODE-BLOCKS
+  via:
+  - from_step: 4
+    edge: FN-FORMAT-CODE-BLOCK-AT-CURSOR|calls|FN-FIND-FENCED-CODE-BLOCKS
+    direction: forward
+    evidence:
+    - src/editor/formatting/formatCodeBlock.ts:12
+    method: observed
+- step: 6
+  node: SVC-FORMAT-CODE
+  note: roteia web x nativo
+  via:
+  - from_step: 4
+    edge: FN-FORMAT-CODE-BLOCK-AT-CURSOR|calls|SVC-FORMAT-CODE
+    direction: forward
+    evidence:
+    - src/editor/formatting/formatCodeBlock.ts:26
+    method: observed
+- step: 7
+  node: FN-IS-WEB-LANGUAGE
+  via:
+  - from_step: 6
+    edge: SVC-FORMAT-CODE|calls|FN-IS-WEB-LANGUAGE
+    direction: forward
+    evidence:
+    - src/services/formatter/index.ts:16
+    method: observed
+- step: 8
+  node: FN-FORMAT-WEB-CODE
+  note: Prettier standalone
+  via:
+  - from_step: 6
+    edge: SVC-FORMAT-CODE|calls|FN-FORMAT-WEB-CODE
+    direction: forward
+    evidence:
+    - src/services/formatter/index.ts:17
+    method: observed
+- step: 9
+  node: IPCC-FORMAT-CODE
+  note: linguagens nativas
+  via:
+  - from_step: 6
+    edge: SVC-FORMAT-CODE|contains|IPCC-FORMAT-CODE
+    direction: forward
+    evidence:
+    - src/services/formatter/index.ts:25
+    method: observed
+- step: 10
+  node: IPC-FORMAT-CODE
+  entrypoint: ENT-IPC-FORMAT-CODE
+  via:
+  - from_step: 9
+    edge: IPCC-FORMAT-CODE|calls|IPC-FORMAT-CODE
+    direction: forward
+    evidence:
+    - src/services/formatter/index.ts:25
+    - src-tauri/src/commands/formatter.rs:343
+    - src-tauri/src/lib.rs:89
+    method: observed
+- step: 11
+  node: FN-FORMAT-CODE-INTERNAL
+  note: spawn da CLI com timeout 2 s; fallback preserva original
+  via:
+  - from_step: 10
+    edge: IPC-FORMAT-CODE|calls|FN-FORMAT-CODE-INTERNAL
+    direction: forward
+    evidence:
+    - src-tauri/src/commands/formatter.rs:344
+    method: observed
+- step: 12
+  node: FN-GET-FORMATTER-SPEC
+  via:
+  - from_step: 11
+    edge: FN-FORMAT-CODE-INTERNAL|calls|FN-GET-FORMATTER-SPEC
+    direction: forward
+    evidence:
+    - src-tauri/src/commands/formatter.rs:215
+    method: observed
+- step: 13
+  node: FN-FIND-EXECUTABLE
+  via:
+  - from_step: 11
+    edge: FN-FORMAT-CODE-INTERNAL|calls|FN-FIND-EXECUTABLE
+    direction: forward
+    evidence:
+    - src-tauri/src/commands/formatter.rs:227
+    method: observed
+- step: 14
+  node: BTN-PREVIEW-FORMAT-CODE
+  entrypoint: ENT-BTN-PREVIEW-FORMAT-CODE
+  trigger: Botão 'Formatar' injetado no bloco do preview
+- step: 15
+  node: SVC-FORMAT-CODE
+  via:
+  - from_step: 14
+    edge: BTN-PREVIEW-FORMAT-CODE|calls|SVC-FORMAT-CODE
+    direction: forward
+    evidence:
+    - src/components/MarkdownViewer.tsx:170
+    method: observed
+- step: 16
+  node: FN-REPLACE-FENCED-CODE-BLOCK
+  note: substitui bloco no Markdown
+  via:
+  - from_step: 14
+    edge: BTN-PREVIEW-FORMAT-CODE|calls|FN-REPLACE-FENCED-CODE-BLOCK
+    direction: forward
+    evidence:
+    - src/components/MarkdownViewer.tsx:175
+    method: observed
+- step: 17
+  node: HDL-DOC-SET-CONTENT
+  entrypoint: ENT-HDL-DOC-SET-CONTENT
+  note: aplica ao documento
+  via:
+  - from_step: 14
+    edge: BTN-PREVIEW-FORMAT-CODE|calls|HDL-DOC-SET-CONTENT
+    direction: forward
+    evidence:
+    - src/components/MarkdownViewer.tsx:176
+    - src/App.tsx:697
+    method: observed
+trace_task: TRACE-009

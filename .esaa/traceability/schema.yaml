@@ -1,0 +1,169 @@
+# ESAA Software Traceability Graph — TRACE-000 (schema)
+# Contrato dos artefatos em .esaa/traceability/. Os YAML semânticos são a fonte editável;
+# graph.json é derivado (TRACE-012) e validation.yaml é gerado (TRACE-013).
+artifact: schema
+schema_version: 1
+source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+generated_at: "2026-09-24T22:50:00-03:00"
+
+files:
+  repository.yaml: descoberta física/lógica (TRACE-001)
+  schema.yaml: este contrato (TRACE-000)
+  modules.yaml: bounded contexts MOD-* (TRACE-002)
+  entrypoints.yaml: entrypoints ENT-* apontando para nós (TRACE-003)
+  nodes.yaml: nós do grafo (TRACE-004/006/010)
+  edges.yaml: arestas do grafo (TRACE-005/006/010)
+  contracts.yaml: contratos CTR-* e consumidores (TRACE-007)
+  features.yaml: features FEAT-* visíveis ao usuário (TRACE-008)
+  flows/*.yaml: fluxos FLOW-* ponta a ponta (TRACE-009)
+  tests.yaml: índice de testes -> nós/features (TRACE-010)
+  invariants.yaml: invariantes INV-* (TRACE-011)
+  graph.json: grafo consolidado derivado (TRACE-012, tools/build_graph.py)
+  validation.yaml: resultado da validação (TRACE-013, tools/validate.py)
+
+# ---------------------------------------------------------------------------
+# Tipos de nó. prefix = prefixo obrigatório do id.
+# ---------------------------------------------------------------------------
+node_types:
+  # Genéricos (exigidos pelo roadmap)
+  screen:          {prefix: SCR,  description: "Tela/estado de tela de topo (WelcomeScreen, EmptyState, App)."}
+  component:       {prefix: CMP,  description: "Componente React com responsabilidade própria no fluxo."}
+  button:          {prefix: BTN,  description: "Controle clicável que dispara ação (botão, item de menu)."}
+  route:           {prefix: RTE,  description: "Rota de UI. No md-studio não há router: rotas = modos de visão (source/preview/split) e overlays."}
+  api_endpoint:    {prefix: API,  description: "Endpoint HTTP. NÃO APLICÁVEL ao md-studio (sem servidor). A API do backend é ipc_command.", applicable: false}
+  handler:         {prefix: HDL,  description: "Callback de UI/evento (useCallback, onClick, listener) que orquestra uma ação."}
+  function:        {prefix: FN,   description: "Função/método relevante (TS ou Rust)."}
+  class:           {prefix: CLS,  description: "Classe/struct/enum com comportamento (não DTO)."}
+  service:         {prefix: SVC,  description: "Serviço de aplicação que orquestra várias funções (ex.: persistDocument, ReindexEngine, processMarkdown)."}
+  repository:      {prefix: REPO, description: "Acesso a armazenamento/registro (WorkspaceRegistry, MetadataIndex, drafts)."}
+  database_table:  {prefix: DBT,  description: "NÃO APLICÁVEL (sem banco de dados). Armazenamentos são file_persisted e local_storage_key.", applicable: false}
+  database_column: {prefix: DBC,  description: "NÃO APLICÁVEL (sem banco de dados).", applicable: false}
+  event:           {prefix: EVT,  description: "Evento de domínio in-process (ex.: CustomEvent do DOM). Eventos Tauri usam tauri_event."}
+  consumer:        {prefix: CNS,  description: "Assinante/listener de evento (listen(), subscribe*)."}
+  permission:      {prefix: PERM, description: "Permissão Tauri concedida em capabilities/*.json."}
+  configuration:   {prefix: CFG,  description: "Configuração que altera comportamento (CSP, schema de sanitize, defaults, constantes de política)."}
+  test:            {prefix: TST,  description: "Teste automatizado (bloco describe vitest de topo, ou fn #[test] Rust)."}
+  # Extensões md-studio (justificadas)
+  ipc_command:     {prefix: IPC,  description: "Handler Rust #[tauri::command] registrado em generate_handler!.", justification: "A fronteira TS->Rust é string-based (invoke('<cmd>')) e invisível a imports; precisa de tipo próprio para ser rastreada e validada."}
+  ipc_client:      {prefix: IPCC, description: "Função TS da fachada IPC que chama invoke('<cmd>').", justification: "Lado frontend da fronteira IPC; um comando pode ter 0..n clientes (detecta comando sem chamador)."}
+  tauri_event:     {prefix: TEV,  description: "Canal de evento Tauri Rust->webview (app.emit).", justification: "Contratos assíncronos com payload próprio (workspace://change, app://open-file)."}
+  file_persisted:  {prefix: FILE, description: "Arquivo gravado/lido no disco pelo produto.", justification: "Substitui database_table: integridade de dados vive em arquivos (save atômico, index.json, exports)."}
+  local_storage_key: {prefix: LSK, description: "Chave (ou prefixo de chave) no localStorage do webview.", justification: "Estado persistido do frontend (settings, sessão, rascunhos) sem backend."}
+  store:           {prefix: STO,  description: "Contêiner de estado (classe singleton ou hook de estado React).", justification: "Estado compartilhado é o elo entre UI, persistência local e IPC."}
+  shortcut:        {prefix: SHC,  description: "Atalho de teclado (global em App ou keymap CodeMirror).", justification: "Entrypoint de ação equivalente a botão; colisões só aparecem se atalhos forem nós."}
+  pipeline_stage:  {prefix: PIPE, description: "Estágio do pipeline unified/rehype de renderização.", justification: "A ordem dos estágios (sanitize por último, strip de styles após rehype-raw) é invariante de segurança."}
+  os_integration:  {prefix: OSI,  description: "Integração com o SO: diálogos nativos, single-instance, argv/CLI, associação de arquivos, opener.", justification: "Entrypoints e efeitos fora do webview."}
+  dto:             {prefix: DTO,  description: "Tipo de dados que atravessa uma fronteira (struct serde Rust ou interface TS).", justification: "Portadores de contratos; permitem ligar mudança de campo a consumidores."}
+
+# ---------------------------------------------------------------------------
+# Tipos de relação. Direção: from -> to.
+# ---------------------------------------------------------------------------
+relation_types:
+  contains:       {description: "from contém/renderiza/declara to (componente pai->filho, módulo->nó, struct->método).", impact: downward}
+  triggers:       {description: "from (entrypoint/UI) dispara to (handler/ação) em resposta ao usuário/SO.", impact: downward}
+  calls:          {description: "from chama to diretamente. Atributo opcional boundary: ipc quando a chamada cruza invoke('<cmd>') TS->Rust.", impact: downward}
+  imports:        {description: "from importa to (dependência estática de módulo) sem chamada relevante ao fluxo.", impact: weak}
+  depends_on:     {description: "from depende de to sem chamada direta (tipo, config, ordem de pipeline).", impact: downward}
+  implements:     {description: "from implementa o contrato/feature/interface to (DTO Rust implements DTO TS espelho).", impact: bidirectional}
+  implemented_by: {description: "feature/contrato from é implementado por nó to (usado em features.yaml / contracts.yaml).", impact: downward}
+  reads:          {description: "from lê o armazenamento to (file_persisted, local_storage_key, store).", impact: data}
+  writes:         {description: "from grava o armazenamento to.", impact: data}
+  publishes:      {description: "from emite o evento to (tauri_event/event).", impact: async}
+  consumes:       {description: "from (consumer) assina/recebe o evento to.", impact: async}
+  requires:       {description: "from exige a permissão/capability to para funcionar.", impact: config}
+  configured_by:  {description: "comportamento de from é determinado pela configuração to.", impact: config}
+  covered_by:     {description: "nó from é exercitado pelo teste to.", impact: test}
+  documented_by:  {description: "nó/feature from é descrito no documento to (anchor de doc em evidence).", impact: none}
+  validates:      {description: "teste from valida o contrato/DTO to (formato, envelope, serialização).", impact: test}
+  verifies:       {description: "teste from verifica a invariante to (INV-*).", impact: test}
+
+# ---------------------------------------------------------------------------
+# Regras de ID
+# ---------------------------------------------------------------------------
+id_rules:
+  format: "<PREFIX>-<UPPER-KEBAB>  (regex ^[A-Z]+-[A-Z0-9]+(-[A-Z0-9]+)*$)"
+  prefix: "obrigatoriamente o prefix do node_type (IPC-SAVE-DOCUMENT é ipc_command)."
+  derivation: "id deriva do nome semântico (símbolo/comando/chave), nunca de linha ou hash."
+  stability: >
+    ids são estáveis: renomear arquivo/símbolo mantém o id e atualiza anchor + alias;
+    id removido nunca é reutilizado; mudança de semântica gera id novo.
+  alias: "alias estável legível = '<path>#<symbol>' (ex.: src/services/save.ts#persistDocument)."
+  namespaces:
+    rust_vs_ts: "Quando o mesmo nome existe nos dois lados use sufixo/prefixo -RS / -TS (ex.: DTO-RS-DOCUMENT-SNAPSHOT, DTO-TS-DOCUMENT-SNAPSHOT)."
+    tests: "TST-TS-<ARQUIVO-KEBAB>[-<DESCRIBE>] para vitest; TST-RS-<FN-KEBAB> para Rust."
+  other_ids: {module: "MOD-*", entrypoint: "ENT-*", contract: "CTR-*", feature: "FEAT-*", flow: "FLOW-*", invariant: "INV-*", edge: "derivado: '<from>|<relation>|<to>'"}
+
+# ---------------------------------------------------------------------------
+# Campos obrigatórios
+# ---------------------------------------------------------------------------
+node_required:
+  id: "ver id_rules"
+  type: "chave de node_types (applicable != false)"
+  name: "nome legível"
+  module: "MOD-* de modules.yaml"
+  anchor:
+    path: "arquivo relativo à raiz do repo, existente em source_commit"
+    symbol: >
+      símbolo definido no arquivo. Formas: 'nome' (declaração), 'Pai.filho' / 'Tipo::metodo'
+      (declaração aninhada), ou literal entre aspas (ex.: '"app://open-file"') para chaves/eventos/config.
+      Regra de verificação: o último segmento (ou o literal) aparece na linha lines[0].
+    lines: "[start, end] 1-based, inclusivos, no source_commit; start <= end <= nº de linhas"
+node_optional:
+  alias: "path#symbol"
+  tags: "lista livre (ex.: entrypoint, dead_code, test_only, security)"
+  inclusion: "motivo(s) de inclusão: flow | contract | entrypoint | test | invariant"
+  status: "active (default) | dead_code | test_only | in_test"
+  notes: "texto"
+
+edge_required:
+  from: "id de nó existente"
+  to: "id de nó existente"
+  relation: "chave de relation_types"
+  evidence: "lista de 'path:line' (ou 'path:start-end') no source_commit; >= 1 item; para boundary: ipc exigir evidência dos DOIS lados (invoke TS e handler/registro Rust)"
+  method: "observed (visto no código) | inferred (dedução não literal, ex.: acoplamento por string/convenção)"
+edge_optional:
+  confidence: "0..1 (default 1.0 para observed; obrigatório declarar para inferred)"
+  boundary: "ipc | event | storage | dom"
+  notes: "texto"
+
+# ---------------------------------------------------------------------------
+# Critério de inclusão
+# ---------------------------------------------------------------------------
+inclusion_criterion:
+  rule: "Um nó só é catalogado se satisfizer ao menos um critério:"
+  criteria:
+    flow: "está em um fluxo ponta a ponta (flows/*.yaml) ou na cadeia de chamadas de um entrypoint catalogado"
+    contract: "é portador/produtor/consumidor de um contrato (contracts.yaml)"
+    entrypoint: "é um entrypoint (UI, atalho, IPC, evento, SO)"
+    test: "é referenciado por um teste catalogado"
+    invariant: "é citado por uma invariante"
+  exclusions: "helpers puros sem papel em fluxo/contrato, CSS, ícones, componentes visuais sem ação."
+  dead_code_policy: "código sem chamador pode ser catalogado com status dead_code/test_only quando for contrato, entrypoint registrado ou citado por teste/invariante (para tornar o gap visível)."
+
+# ---------------------------------------------------------------------------
+# Staleness
+# ---------------------------------------------------------------------------
+staleness_rule:
+  carrier: "todo artefato YAML/JSON carrega source_commit (sha completo)."
+  check: >
+    tools/validate.py compara source_commit com git HEAD. Se diferentes, lista os arquivos
+    alterados (git diff --name-only source_commit HEAD + working tree) e marca como 'stale'
+    todo nó cuja anchor.path esteja entre eles (warning). Âncoras são sempre verificadas contra
+    o conteúdo em source_commit (git show <sha>:<path>), nunca contra o working tree.
+  refresh: "re-âncorar (atualizar lines/symbol) e avançar source_commit; ids não mudam."
+
+# ---------------------------------------------------------------------------
+# Impacto autorizado (usado nas fases TRACE-014..020)
+# ---------------------------------------------------------------------------
+authorized_impact:
+  sets:
+    change_target: "nós que a tarefa declara que vai alterar"
+    expected_affected: "nós que a tarefa declara que serão afetados (fechamento esperado aceito)"
+    potentially_affected: "nós alcançáveis pelo fechamento de impacto mas não declarados"
+    protected: "nós que a tarefa não pode tocar (contratos congelados, invariantes críticas, fora de escopo)"
+  rule:
+    authorized: "authorized = change_target ∪ expected_affected"
+    ok: "nó alterado ∈ authorized"
+    warning: "nó alterado ∈ potentially_affected \\ authorized"
+    violation: "nó alterado ∈ protected"
+    unmapped: "arquivo alterado sem nó catalogado -> warning 'uncatalogued_change'"

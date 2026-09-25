@@ -1,0 +1,64 @@
+artifact: blast-radius-model
+schema_version: 1
+source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+trace_task: TRACE-015
+generated_at: '2026-09-24T23:50:00-03:00'
+depends_on: [impact-model.yaml, graph.json, invariants.yaml, contracts.yaml]
+tool: 'python .esaa/traceability/tools/impact.py blast --spec <traceability-spec.yaml>  (ou --targets ID...)'
+categories:
+  change_target:
+    definition: 'Nós que a tarefa declara que vai alterar (traceability.targets). Sempre ids do grafo.'
+    derived_from: 'declaração da tarefa (sidecar .esaa/tasks/<task-id>.yaml, ver task-integration.md)'
+  expected_affected:
+    definition: 'Nós cuja alteração é aceita como consequência direta do change_target.'
+    derived_from:
+      declared: 'traceability.expected_affected, quando a tarefa declara (fonte = declared)'
+      default_when_not_declared:
+        - 'espelhos de contrato: vizinhos a distance 1 via implements (DTO TS<->Rust, carrier<->contrato) que não sejam protected'
+        - 'contêiner imediato: vizinho a distance 1 via contains reverso (hook/store/componente que declara o target)'
+        - 'testes covered_by dos targets (arquivos de teste existentes podem ser editados)'
+      note: 'chamadores (calls/triggers reversos) NÃO entram por padrão: numa correção cirúrgica o contrato do target deve ser preservado, então chamadores são potentially_affected'
+  potentially_affected:
+    definition: 'Nós alcançados pelo fechamento de impacto (impact-model.yaml) que não estão em authorized nem em protected.'
+    derived_from: 'closure(change_target) \ (authorized ∪ protected); inclui nós cortados por hub (terminal)'
+    also_reported: 'features/fluxos/entrypoints indiretos do fechamento (nível de agregação, não entram no cálculo de nós alterados)'
+  protected:
+    definition: 'Nós que a tarefa não pode tocar salvo declaração explícita.'
+    derived_from:
+      - 'invariant_members: todos os nós de invariants.yaml:nodes (arestas INV implemented_by node) — global, não só os do fechamento'
+      - 'contract_surface: nós carrier de contratos com >=1 consumidor (code implements CTR) + o próprio nó CTR. Produtores NÃO são protected (mudar corpo do produtor não muda o contrato; mudar o carrier/DTO muda)'
+      - 'persisted_data: nós type file_persisted e local_storage_key (formato persistido em disco/localStorage)'
+      - 'security_config: nós type permission e configuration (capabilities, CSP, tauri.conf, schemas de sanitização)'
+      - 'traceability.protected_extra declarado pela tarefa'
+    exception: 'um nó listado explicitamente em change_target ou expected_affected sai de protected (autorização consciente) e gera o aviso de projeção protected_declared, que exige justificativa na tarefa'
+rule:
+  authorized: 'authorized = change_target ∪ expected_affected'
+  classification_order: 'authorized > protected > potentially_affected > out_of_closure'
+  ok: 'nó alterado ∈ authorized'
+  violation: 'nó alterado ∈ protected \ authorized'
+  warning:
+    potentially_affected: 'nó alterado ∈ potentially_affected (expansão de escopo dentro do fechamento)'
+    out_of_closure: 'nó alterado catalogado mas fora do fechamento e não protected (expansão inesperada)'
+    uncatalogued_change: 'hunk em arquivo/linhas sem nó catalogado (lacuna do grafo ou código novo)'
+  info:
+    new_test_file: 'arquivo de teste novo (tests/**, *.test.ts[x], #[cfg(test)]) — autorizado quando change_policy.allow_new_tests=true'
+    not_touched: 'nó authorized que não mudou (reduz precisão, não é drift)'
+change_policy:
+  surgical:
+    meaning: 'altera apenas authorized; não cria nós novos de produção; não muda contratos/dados persistidos/config; pode adicionar testes'
+    allow_new_tests: true
+    allow_new_production_nodes: false
+    max_distance: 3
+  broad:
+    meaning: 'refatoração/feature: potentially_affected aceito como ok (warnings viram info); protected continua violation'
+metrics:
+  unit: 'nós code + test do grafo (features/fluxos/invariantes são agregados, reportados à parte)'
+  precision: '|observed ∩ authorized| / |authorized|'
+  recall: '|observed ∩ authorized| / |observed_catalogued|'
+  closure_recall: '|observed ∩ (closure ∪ authorized)| / |observed_catalogued| — o fechamento ao menos continha o que mudou?'
+  note: 'observed_catalogued exclui arquivos de teste novos e hunks uncatalogued, reportados separadamente'
+anchor_policy_for_older_commits: >-
+  O grafo é ancorado em source_commit. Para um diff de commit anterior (calibração retroativa), as linhas dos
+  hunks são do commit-pai/commit; o footprint re-localiza cada nó no commit analisado pelo symbol da âncora
+  (busca do nome no arquivo daquela revisão) e registra anchor_resolution = exact | relocated | missing.
+  Nós missing (criados depois) não podem ser alterados; linhas sem nó = uncatalogued_change.

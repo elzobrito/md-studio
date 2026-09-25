@@ -1,0 +1,697 @@
+# TRACE-007 — Contratos do md-studio: produtor, consumidores, portadores (DTOs) e evidência. Mudança incompatível => revisar consumers.
+artifact: contracts
+schema_version: 1
+source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+generated_at: '2026-09-24T22:56:21-03:00'
+summary:
+  total: 38
+  by_kind:
+    ipc_command: 21
+    tauri_event: 2
+    schema: 2
+    storage_format: 2
+    export_format: 2
+    policy: 4
+    local_storage: 5
+  without_real_consumer:
+  - CTR-IPC-SEARCH-WORKSPACE
+  - CTR-IPC-RESOLVE-WIKI-LINK
+  with_divergences:
+  - CTR-IPC-LIST-ENTRIES
+  - CTR-IPC-SAVE-DOCUMENT
+  - CTR-IPC-SEARCH-WORKSPACE
+  - CTR-IPC-EXPORT-HTML
+  - CTR-IPC-GET-WORKSPACE-STATS
+  - CTR-IPC-TRIGGER-REINDEX
+  - CTR-IPC-RESOLVE-WIKI-LINK
+  - CTR-IPC-GET-BACKLINKS
+  - CTR-IPC-START-WATCHING
+  - CTR-EVT-WORKSPACE-CHANGE
+  - CTR-INDEX-JSON
+  - CTR-ATOMIC-SAVE
+  - CTR-EXPORT-HTML-DOCUMENT
+  - CTR-SANITIZE-POLICY
+  - CTR-TAURI-CSP
+contracts:
+- id: CTR-IPC-OPEN-WORKSPACE
+  kind: ipc_command
+  name: open_workspace
+  producer:
+  - IPC-OPEN-WORKSPACE
+  consumers:
+  - IPCC-OPEN-WORKSPACE
+  - HDL-DOC-ON-WORKSPACE-READY
+  - HDL-DOC-OPEN-RELATIVE
+  - HDL-DOC-OPEN-WORKSPACE-PATH
+  carriers:
+  - DTO-RS-WORKSPACE-DESCRIPTOR
+  - DTO-TS-WORKSPACE-DESCRIPTOR
+  request: '{path: string}'
+  response: WorkspaceDescriptor {id, rootLabel, kind}
+  evidence:
+  - src-tauri/src/commands/mod.rs:28
+  - src/lib/ipc/client.ts:90
+  - src-tauri/src/lib.rs:71
+- id: CTR-IPC-LIST-ENTRIES
+  kind: ipc_command
+  name: list_entries
+  producer:
+  - IPC-LIST-ENTRIES
+  consumers:
+  - IPCC-LIST-ENTRIES
+  - CMP-FILE-EXPLORER
+  - FN-USE-FILE-TREE
+  - HDL-DOC-OPEN-FOLDER
+  carriers:
+  - DTO-RS-FILE-ENTRY
+  - DTO-TS-FILE-ENTRY
+  request: '{workspaceId, relativePath}'
+  response: FileEntry[] (não recursivo, ordenado por nome)
+  evidence:
+  - src-tauri/src/commands/mod.rs:59
+  - src/lib/ipc/client.ts:92
+  - src-tauri/src/lib.rs:72
+  divergences:
+  - 'docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md descreve list_entries como recursivo (código: fs::read_dir de um nível).'
+- id: CTR-IPC-READ-DOCUMENT
+  kind: ipc_command
+  name: read_document
+  producer:
+  - IPC-READ-DOCUMENT
+  consumers:
+  - IPCC-READ-DOCUMENT
+  - HDL-DOC-OPEN-RELATIVE
+  - HDL-DOC-SAVE-AS
+  carriers:
+  - DTO-RS-DOCUMENT-SNAPSHOT
+  - DTO-TS-DOCUMENT-SNAPSHOT
+  request: '{workspaceId, path}'
+  response: DocumentSnapshot {workspaceId, relativePath, content, encoding, mtimeMs, contentHash(SHA-256), version}
+  evidence:
+  - src-tauri/src/commands/mod.rs:97
+  - src/lib/ipc/client.ts:96
+  - src-tauri/src/lib.rs:73
+- id: CTR-IPC-SAVE-DOCUMENT
+  kind: ipc_command
+  name: save_document
+  producer:
+  - IPC-SAVE-DOCUMENT
+  consumers:
+  - IPCC-SAVE-DOCUMENT
+  - HDL-CREATE-NOTE
+  - HDL-DOC-SAVE-AS
+  - SVC-PERSIST-DOCUMENT
+  carriers:
+  - DTO-RS-SAVE-DOCUMENT-REQUEST
+  - DTO-TS-SAVE-DOCUMENT-REQUEST
+  - DTO-RS-DOCUMENT-SNAPSHOT
+  - DTO-TS-SAVE-RESULT
+  request: '{req: SaveDocumentRequest {workspaceId, relativePath, expectedHash, content}}'
+  response: JSON {ok:true, snapshot} | {ok:false, code:'HashMismatch'|'IoError', message}; erro de cerca de caminho => Err(String) (promise rejeitada)
+  evidence:
+  - src-tauri/src/commands/mod.rs:117
+  - src/lib/ipc/client.ts:98
+  - src-tauri/src/lib.rs:74
+  divergences:
+  - 'TS SaveResult prevê code ''OutsideWorkspace'', mas o Rust nunca o emite: violação de cerca chega como exceção (Err(String)) e não como {ok:false}.'
+  - 'Resposta é serde_json::Value montado à mão: sem struct tipada compartilhada.'
+- id: CTR-IPC-SEARCH-WORKSPACE
+  kind: ipc_command
+  name: search_workspace
+  producer:
+  - IPC-SEARCH-WORKSPACE
+  consumers:
+  - IPCC-SEARCH-WORKSPACE
+  carriers:
+  - DTO-RS-SEARCH-RESULT
+  - DTO-TS-SEARCH-RESULT
+  request: '{workspaceId, query}'
+  response: SearchResult[] {relativePath, line, preview} (máx 200; line.contains case-sensitive; só .md)
+  evidence:
+  - src-tauri/src/commands/mod.rs:163
+  - src/lib/ipc/client.ts:115
+  - src-tauri/src/lib.rs:75
+  consumer_gap: 'Cliente TS existe mas não tem chamador: contrato sem consumidor real.'
+  divergences:
+  - Sem consumidor no frontend.
+  - Docs afirmam busca case-insensitive via search::search_text acionada por FileExplorer/CommandPalette — falso no código.
+- id: CTR-IPC-EXPORT-HTML
+  kind: ipc_command
+  name: export_html
+  producer:
+  - IPC-EXPORT-HTML
+  consumers:
+  - IPCC-EXPORT-HTML
+  - SVC-EXPORT-ACTIVE-DOCUMENT-HTML
+  carriers:
+  - DTO-RS-EXPORT-HTML-REQUEST
+  request: '{req: {html, destination(absoluto), overwrite}}'
+  response: () | Err('ExportTargetExists') | Err('destination must be an absolute path')
+  evidence:
+  - src-tauri/src/commands/mod.rs:216
+  - src/lib/ipc/client.ts:126
+  - src-tauri/src/lib.rs:76
+  divergences:
+  - Erro de destino existente é string; frontend detecta por substring ('ExportTargetExists' ou 'exists').
+  - Sem DTO TS explícito para o request (literal inline em ipc.exportHtml).
+- id: CTR-IPC-EXPORT-EPUB
+  kind: ipc_command
+  name: export_epub
+  producer:
+  - IPC-EXPORT-EPUB
+  consumers:
+  - IPCC-EXPORT-EPUB
+  - SVC-EXPORT-ACTIVE-DOCUMENT-EPUB
+  carriers:
+  - DTO-RS-EXPORT-EPUB-REQUEST
+  - DTO-RS-EPUB-EXPORT-PAYLOAD
+  - DTO-TS-EPUB-EXPORT-PAYLOAD
+  - DTO-RS-EPUB-EXPORT-RESULT
+  - DTO-TS-EPUB-EXPORT-RESULT
+  request: '{req: {workspaceId?, destination(absoluto), overwrite, payload: EpubExportPayload}}'
+  response: EpubExportResult | Err('ExportTargetExists'|'workspace required'|OutsideWorkspace...)
+  evidence:
+  - src-tauri/src/commands/mod.rs:263
+  - src/lib/ipc/client.ts:130
+  - src-tauri/src/lib.rs:77
+- id: CTR-IPC-GET-LAUNCH-PATH
+  kind: ipc_command
+  name: get_launch_path
+  producer:
+  - IPC-GET-LAUNCH-PATH
+  consumers:
+  - IPCC-GET-LAUNCH-PATH
+  - HDL-DOC-LAUNCH-EFFECT
+  carriers: []
+  request: ()
+  response: 'string | null (consumido uma vez: take())'
+  evidence:
+  - src-tauri/src/commands/mod.rs:468
+  - src/lib/ipc/client.ts:142
+  - src-tauri/src/lib.rs:78
+- id: CTR-IPC-CLOSE-SPLASH
+  kind: ipc_command
+  name: close_splash
+  producer:
+  - IPC-CLOSE-SPLASH
+  consumers:
+  - IPCC-CLOSE-SPLASH
+  - HDL-APP-CLOSE-SPLASH-EFFECT
+  carriers: []
+  request: ()
+  response: ()
+  evidence:
+  - src-tauri/src/commands/mod.rs:473
+  - src/App.tsx:200
+  - src-tauri/src/lib.rs:88
+- id: CTR-IPC-GET-WORKSPACE-STATS
+  kind: ipc_command
+  name: get_workspace_stats
+  producer:
+  - IPC-GET-WORKSPACE-STATS
+  consumers:
+  - IPCC-GET-WORKSPACE-STATS
+  - FN-USE-METADATA-REFRESH-STATS
+  carriers:
+  - DTO-RS-WORKSPACE-STATS
+  - DTO-TS-WORKSPACE-STATS
+  request: () — usa o engine do workspace ativo em AppState
+  response: WorkspaceStats
+  evidence:
+  - src-tauri/src/commands/metadata.rs:46
+  - src/lib/ipc/metadata.ts:20
+  - src-tauri/src/lib.rs:79
+  divergences:
+  - Docs listam parâmetros; comando não recebe argumentos.
+- id: CTR-IPC-GET-DOCUMENT-METADATA
+  kind: ipc_command
+  name: get_document_metadata
+  producer:
+  - IPC-GET-DOCUMENT-METADATA
+  consumers:
+  - IPCC-GET-DOCUMENT-METADATA
+  - FN-USE-METADATA-REFRESH-CURRENT-DOC
+  carriers:
+  - DTO-RS-DOCUMENT-METADATA
+  - DTO-TS-DOCUMENT-METADATA
+  request: '{path}'
+  response: DocumentMetadata | null
+  evidence:
+  - src-tauri/src/commands/metadata.rs:90
+  - src/lib/ipc/metadata.ts:36
+  - src-tauri/src/lib.rs:80
+- id: CTR-IPC-GET-ALL-DOCUMENTS
+  kind: ipc_command
+  name: get_all_documents
+  producer:
+  - IPC-GET-ALL-DOCUMENTS
+  consumers:
+  - IPCC-GET-ALL-DOCUMENTS
+  - FN-USE-METADATA-REFRESH-ALL-DOCS
+  carriers:
+  - DTO-RS-DOCUMENT-METADATA
+  - DTO-TS-DOCUMENT-METADATA
+  request: ()
+  response: DocumentMetadata[]
+  evidence:
+  - src-tauri/src/commands/metadata.rs:104
+  - src/lib/ipc/metadata.ts:41
+  - src-tauri/src/lib.rs:81
+- id: CTR-IPC-TRIGGER-REINDEX
+  kind: ipc_command
+  name: trigger_reindex
+  producer:
+  - IPC-TRIGGER-REINDEX
+  consumers:
+  - IPCC-TRIGGER-REINDEX
+  - FN-USE-METADATA-REINDEX
+  - HDL-CREATE-NOTE
+  carriers:
+  - DTO-RS-REINDEX-REPORT
+  - DTO-TS-REINDEX-REPORT
+  request: ()
+  response: ReindexReport (e persiste index.json)
+  evidence:
+  - src-tauri/src/commands/metadata.rs:117
+  - src/lib/ipc/metadata.ts:46
+  - src-tauri/src/lib.rs:82
+  divergences:
+  - Docs indicam outro retorno; código retorna ReindexReport.
+- id: CTR-IPC-GET-WIKI-LINKS-FOR
+  kind: ipc_command
+  name: get_wiki_links_for
+  producer:
+  - IPC-GET-WIKI-LINKS-FOR
+  consumers:
+  - IPCC-GET-WIKI-LINKS-FOR
+  - FN-USE-METADATA-REFRESH-CURRENT-DOC
+  carriers: []
+  request: '{path}'
+  response: WikiLink[]
+  evidence:
+  - src-tauri/src/commands/metadata.rs:131
+  - src/lib/ipc/metadata.ts:53
+  - src-tauri/src/lib.rs:83
+- id: CTR-IPC-RESOLVE-WIKI-LINK
+  kind: ipc_command
+  name: resolve_wiki_link
+  producer:
+  - IPC-RESOLVE-WIKI-LINK
+  consumers:
+  - IPCC-RESOLVE-WIKI-LINK
+  carriers:
+  - DTO-RS-RESOLVED-WIKI-LINK
+  - DTO-TS-RESOLVED-WIKI-LINK
+  request: '{target}'
+  response: ResolvedWikiLink
+  evidence:
+  - src-tauri/src/commands/metadata.rs:147
+  - src/lib/ipc/metadata.ts:58
+  - src-tauri/src/lib.rs:84
+  consumer_gap: 'Cliente TS existe mas não tem chamador: contrato sem consumidor real.'
+  divergences:
+  - Sem consumidor no frontend.
+- id: CTR-IPC-GET-RESOLVED-WIKI-LINKS-FOR
+  kind: ipc_command
+  name: get_resolved_wiki_links_for
+  producer:
+  - IPC-GET-RESOLVED-WIKI-LINKS-FOR
+  consumers:
+  - IPCC-GET-RESOLVED-WIKI-LINKS-FOR
+  - FN-USE-METADATA-REFRESH-CURRENT-DOC
+  carriers:
+  - DTO-RS-RESOLVED-WIKI-LINK
+  - DTO-TS-RESOLVED-WIKI-LINK
+  request: '{path}'
+  response: ResolvedWikiLink[]
+  evidence:
+  - src-tauri/src/commands/metadata.rs:158
+  - src/lib/ipc/metadata.ts:65
+  - src-tauri/src/lib.rs:85
+- id: CTR-IPC-GET-TAGS
+  kind: ipc_command
+  name: get_tags
+  producer:
+  - IPC-GET-TAGS
+  consumers:
+  - IPCC-GET-TAGS
+  - FN-USE-METADATA-REFRESH-TAGS
+  carriers: []
+  request: ()
+  response: string[] ordenado
+  evidence:
+  - src-tauri/src/commands/metadata.rs:173
+  - src/lib/ipc/metadata.ts:70
+  - src-tauri/src/lib.rs:86
+- id: CTR-IPC-GET-BACKLINKS
+  kind: ipc_command
+  name: get_backlinks
+  producer:
+  - IPC-GET-BACKLINKS
+  consumers:
+  - IPCC-GET-BACKLINKS
+  - FN-USE-METADATA-REFRESH-CURRENT-DOC
+  carriers:
+  - DTO-RS-BACKLINK-RESULT
+  - DTO-TS-BACKLINK-RESULT
+  request: '{path} (cercado por resolve_within)'
+  response: BacklinkResult {targetPath, documentCount, occurrenceCount, groups[]}
+  evidence:
+  - src-tauri/src/commands/metadata.rs:233
+  - src/lib/ipc/metadata.ts:75
+  - src-tauri/src/lib.rs:87
+  divergences:
+  - Docs descrevem retorno plano; código retorna grupos.
+- id: CTR-IPC-FORMAT-CODE
+  kind: ipc_command
+  name: format_code
+  producer:
+  - IPC-FORMAT-CODE
+  consumers:
+  - IPCC-FORMAT-CODE
+  - SVC-FORMAT-CODE
+  carriers:
+  - DTO-RS-FORMAT-RESULT
+  - DTO-TS-FORMAT-RESPONSE
+  request: '{language, code}'
+  response: FormatResult {formatted, code, formatter, error?} (timeout 2s; fallback sem ferramenta)
+  evidence:
+  - src-tauri/src/commands/formatter.rs:343
+  - src/services/formatter/index.ts:25
+  - src-tauri/src/lib.rs:89
+- id: CTR-IPC-START-WATCHING
+  kind: ipc_command
+  name: start_watching
+  producer:
+  - IPC-START-WATCHING
+  consumers:
+  - IPCC-START-WATCHING
+  - HDL-DOC-WATCH-EFFECT
+  carriers: []
+  request: '{workspaceId}'
+  response: () — emite workspace://change
+  evidence:
+  - src-tauri/src/watcher/mod.rs:237
+  - src/lib/ipc/client.ts:139
+  - src-tauri/src/lib.rs:90
+  divergences:
+  - Docs citam parâmetro root_path inexistente.
+- id: CTR-IPC-STOP-WATCHING
+  kind: ipc_command
+  name: stop_watching
+  producer:
+  - IPC-STOP-WATCHING
+  consumers:
+  - IPCC-STOP-WATCHING
+  - HDL-DOC-WATCH-EFFECT
+  carriers: []
+  request: ()
+  response: ()
+  evidence:
+  - src-tauri/src/watcher/mod.rs:269
+  - src/lib/ipc/client.ts:140
+  - src-tauri/src/lib.rs:91
+- id: CTR-EVT-WORKSPACE-CHANGE
+  kind: tauri_event
+  name: '"workspace://change"'
+  producer:
+  - FN-SPAWN-WATCHER
+  consumers:
+  - CNS-SUBSCRIBE-WORKSPACE-WATCH
+  - HDL-DOC-WATCH-EFFECT
+  carriers:
+  - DTO-RS-WATCH-EVENT
+  - DTO-TS-WATCH-EVENT
+  shape: 'WatchEventDto {type: created|modified|removed|renamed, relativePath, from?, workspaceId}; debounce 300ms; eco de save interno suprimido por hash (TTL 5s)'
+  evidence:
+  - src-tauri/src/watcher/mod.rs:19
+  - src-tauri/src/watcher/mod.rs:24
+  - src/contracts/types.ts:44
+  - src/lib/ipc/client.ts:314
+  divergences:
+  - TS WatchEvent não declara workspaceId (campo extra ignorado).
+- id: CTR-EVT-APP-OPEN-FILE
+  kind: tauri_event
+  name: '"app://open-file"'
+  producer:
+  - OSI-SINGLE-INSTANCE
+  consumers:
+  - CNS-SUBSCRIBE-OPEN-FILE
+  - HDL-DOC-LAUNCH-EFFECT
+  carriers: []
+  shape: '{path: string} (primeiro argv Markdown existente da 2ª instância)'
+  evidence:
+  - src-tauri/src/lib.rs:41
+  - src/lib/ipc/client.ts:297
+- id: CTR-FRONTMATTER-SCHEMA
+  kind: schema
+  name: FrontmatterSchema (zod, passthrough)
+  producer:
+  - CFG-FRONTMATTER-SCHEMA
+  consumers:
+  - PIPE-FRONTMATTER
+  - SVC-PROCESS-MARKDOWN
+  carriers: []
+  shape: '{title?: string, description?: string, tags?: string[], date?: string|Date, ...passthrough}; erros viram diagnostics ''frontmatter: ...'''
+  evidence:
+  - src/markdown/frontmatter.ts:4
+  - src/markdown/frontmatter.ts:15
+  compatibility: Campos extras aceitos (passthrough); title alimenta ProcessResult.title/export.
+- id: CTR-INDEX-JSON
+  kind: storage_format
+  name: .mdstudio/index.json
+  producer:
+  - FN-SAVE-INDEX
+  consumers:
+  - FN-LOAD-INDEX
+  - IPC-OPEN-WORKSPACE
+  carriers:
+  - REPO-METADATA-INDEX
+  - DTO-RS-DOCUMENT-METADATA
+  shape: 'serde_json pretty de MetadataIndex {documents: {path: DocumentMetadata}, version: u32 (=1), indexed_at}; escrita atômica tmp+rename'
+  evidence:
+  - src-tauri/crates/md-studio-core/src/index/index_persistence.rs:7
+  - src-tauri/crates/md-studio-core/src/index/index_persistence.rs:15
+  - src-tauri/crates/md-studio-core/src/index/index_persistence.rs:41
+  - src-tauri/crates/md-studio-core/src/index/metadata_index.rs:8
+  divergences:
+  - version não é verificado no load; arquivo está versionado no git apesar do .gitignore.
+  compatibility: Mudança incompatível => load_index falha e open_workspace cai no ramo full_reindex (auto-recuperação).
+- id: CTR-ATOMIC-SAVE
+  kind: storage_format
+  name: Protocolo de escrita de documento
+  producer:
+  - FN-ATOMIC-SAVE
+  consumers:
+  - IPC-SAVE-DOCUMENT
+  - FN-WATCHER-SHOULD-SUPPRESS
+  carriers:
+  - CLS-SAVE-ERROR
+  shape: 'Se o arquivo existe: SHA-256 atual deve == expectedHash, senão HashMismatch; escreve .{nome}.tmp-{pid} + sync_all + rename; retorna novo hash'
+  evidence:
+  - src-tauri/crates/md-studio-core/src/persistence.rs:36
+  - src-tauri/crates/md-studio-core/src/persistence.rs:50
+  - src-tauri/crates/md-studio-core/src/persistence.rs:15
+  divergences:
+  - Arquivo inexistente é gravado mesmo com expectedHash não vazio (sem detecção de exclusão externa).
+- id: CTR-EXPORT-HTML-DOCUMENT
+  kind: export_format
+  name: Documento HTML exportado
+  producer:
+  - SVC-EXPORT-HTML-DOCUMENT
+  consumers:
+  - IPC-EXPORT-HTML
+  - FN-DOWNLOAD-HTML
+  carriers: []
+  shape: HTML autocontido <html lang=pt-BR> com corpo de processMarkdown (mesmo sanitize do preview); gravado por atomic_write_bytes; sobrescrita só com confirmação (ExportTargetExists -> confirmOverwrite
+    -> overwrite:true)
+  evidence:
+  - src/services/export.ts:8
+  - src/services/export.ts:12
+  - src-tauri/src/commands/mod.rs:216
+  divergences:
+  - 'Sem meta CSP no HTML exportado: imagens remotas preservadas pelo sanitize (src http/https) carregariam ao abrir o arquivo.'
+- id: CTR-EPUB-PAYLOAD
+  kind: export_format
+  name: EpubExportPayload -> .epub
+  producer:
+  - FN-PROCESS-EPUB-MARKDOWN
+  - FN-CAPTURE-MERMAID-SVGS
+  consumers:
+  - IPC-EXPORT-EPUB
+  - FN-BUILD-EPUB
+  carriers:
+  - DTO-TS-EPUB-EXPORT-PAYLOAD
+  - DTO-RS-EPUB-EXPORT-PAYLOAD
+  - DTO-RS-EPUB-EXPORT-RESULT
+  - DTO-TS-EPUB-EXPORT-RESULT
+  shape: payload {metadata, bodyHtml, mermaidSlots, imageRefs...}; imagens locais cercadas por guard_images (canonicalize + starts_with(root)); zip com mimetype stored
+  evidence:
+  - src/export/epubTypes.ts:16
+  - src-tauri/crates/md-studio-core/src/export/epub_types.rs:53
+  - src-tauri/crates/md-studio-core/src/export/epub_builder.rs:112
+- id: CTR-SANITIZE-POLICY
+  kind: policy
+  name: Política de sanitização do HTML renderizado
+  producer:
+  - CFG-SANITIZE-SCHEMA
+  - PIPE-SANITIZE
+  consumers:
+  - SVC-PROCESS-MARKDOWN
+  - CMP-MARKDOWN-VIEWER
+  - SVC-EXPORT-HTML-DOCUMENT
+  - SVC-PROCESS-PRESENTATION
+  carriers:
+  - CFG-SANITIZE-SCHEMA
+  shape: rehype-sanitize com mdStudioSanitizeSchema, clobberPrefix 'user-content-', href http/https/mailto, src http/https/data; sanitize é o último plugin; styles de HTML bruto removidos após rehype-raw
+  evidence:
+  - src/markdown/sanitize.ts:38
+  - src/markdown/sanitize.ts:101
+  - src/markdown/processor.ts:88
+  - src/markdown/sanitize.ts:15
+  divergences:
+  - 'EPUB usa schema próprio (CFG-EPUB-SANITIZE-SCHEMA, defaultSchema estendido): política divergente.'
+  - security/urlPolicy.allowUrl não está ligado ao pipeline (ProcessOptions.allowRemote sem efeito).
+- id: CTR-EPUB-SANITIZE-POLICY
+  kind: policy
+  name: Sanitização do EPUB
+  producer:
+  - CFG-EPUB-SANITIZE-SCHEMA
+  consumers:
+  - FN-PROCESS-EPUB-MARKDOWN
+  carriers:
+  - CFG-EPUB-SANITIZE-SCHEMA
+  shape: rehype-sanitize com defaultSchema estendido (img src/alt/..., ids de heading)
+  evidence:
+  - src/export/epubProcessor.ts:125
+  - src/export/epubProcessor.ts:324
+- id: CTR-TAURI-CSP
+  kind: policy
+  name: CSP do webview
+  producer:
+  - CFG-TAURI-CSP
+  consumers:
+  - CMP-MARKDOWN-VIEWER
+  - CMP-MERMAID-BLOCK
+  - SCR-PRESENTATION
+  carriers: []
+  shape: 'default-src ''self''; img-src ''self'' data: blob:; style-src ''self'' ''unsafe-inline''; script-src ''self'' ''wasm-unsafe-eval'' ''unsafe-eval''; connect-src ''self'' ipc: http://ipc.localhost
+    data: blob:'
+  evidence:
+  - src-tauri/tauri.conf.json:36
+  divergences:
+  - script-src inclui 'unsafe-eval'.
+  - Único bloqueio efetivo de imagens remotas no preview.
+- id: CTR-CAPABILITIES
+  kind: policy
+  name: Capabilities Tauri (janela main)
+  producer:
+  - PERM-CORE-DEFAULT
+  - PERM-DIALOG-ALLOW-OPEN
+  - PERM-DIALOG-ALLOW-SAVE
+  - PERM-DIALOG-ALLOW-ASK
+  - PERM-OPENER-ALLOW-OPEN-URL
+  consumers:
+  - OSI-PICK-FOLDER
+  - OSI-PICK-MARKDOWN-FILE
+  - OSI-PICK-SAVE-MARKDOWN
+  - OSI-PICK-SAVE-HTML
+  - OSI-PICK-SAVE-EPUB
+  - OSI-CONFIRM-OVERWRITE
+  - OSI-OPEN-EXTERNAL-URL
+  - FN-IPC-INVOKE
+  carriers: []
+  shape: core:default + dialog open/save/ask + opener open-url; sem plugin fs no webview (FS só via comandos Rust)
+  evidence:
+  - src-tauri/capabilities/default.json:7
+  - src-tauri/capabilities/default.json:6
+- id: CTR-LSK-DRAFTS
+  kind: local_storage
+  name: Rascunhos md-studio-draft:v3:*
+  producer:
+  - FN-SAVE-DRAFT
+  consumers:
+  - FN-LOAD-DRAFT
+  - FN-LIST-RECOVERABLE-DRAFTS
+  - FN-CLEAR-DRAFT
+  - FN-REMOVE-DRAFT-KEY
+  - CMP-DRAFT-RECOVERY-DIALOG
+  carriers:
+  - LSK-DRAFTS
+  - LSK-DRAFTS-LEGACY
+  shape: chave = 'md-studio-draft:v3:' + encodeURIComponent(root/rel); valor JSON {content, ts}; legado 'md-studio-draft:*'; retenção 90d, aviso 75d
+  evidence:
+  - src/lib/drafts/recovery.ts:2
+  - src/lib/drafts/recovery.ts:19
+  - src/lib/drafts/recovery.ts:24
+  - src/lib/drafts/recovery.ts:3
+- id: CTR-LSK-SETTINGS
+  kind: local_storage
+  name: md-studio-settings-v2
+  producer:
+  - STO-SETTINGS
+  consumers:
+  - STO-SETTINGS
+  - HDL-DOC-SET-CONTENT
+  carriers:
+  - LSK-SETTINGS
+  shape: JSON de SettingsState (merge com DEFAULT_SETTINGS)
+  evidence:
+  - src/state/settings.ts:21
+- id: CTR-LSK-SESSION
+  kind: local_storage
+  name: md-studio-session-v2
+  producer:
+  - STO-SESSION
+  consumers:
+  - STO-SESSION
+  - RTE-VIEW-MODES
+  - SCR-APP
+  carriers:
+  - LSK-SESSION
+  shape: JSON {viewMode, leftOpen, rightOpen, ...}
+  evidence:
+  - src/state/session.ts:7
+- id: CTR-LSK-RECENT-FILES
+  kind: local_storage
+  name: md-studio.recent-files
+  producer:
+  - STO-RECENT-FILES
+  consumers:
+  - STO-RECENT-FILES
+  - CMP-QUICK-SWITCHER
+  - HDL-APP-CYCLE-RECENT
+  carriers:
+  - LSK-RECENT-FILES
+  shape: JSON RecentFile[] {path, name, ...}
+  evidence:
+  - src/state/recent-files.ts:8
+- id: CTR-LSK-UI-STATE
+  kind: local_storage
+  name: md-studio.ui-state
+  producer:
+  - STO-UI
+  consumers:
+  - STO-UI
+  carriers:
+  - LSK-UI-STATE
+  shape: JSON UIState
+  evidence:
+  - src/state/ui.ts:1
+- id: CTR-FORMATTER-RESPONSE
+  kind: schema
+  name: FormatResponse/FormatResult
+  producer:
+  - IPC-FORMAT-CODE
+  - FN-FORMAT-WEB-CODE
+  consumers:
+  - SVC-FORMAT-CODE
+  - FN-FORMAT-DOCUMENT-OR-CODE-BLOCK
+  - BTN-PREVIEW-FORMAT-CODE
+  carriers:
+  - DTO-RS-FORMAT-RESULT
+  - DTO-TS-FORMAT-RESPONSE
+  shape: '{formatted: bool, code, formatter, error?}'
+  evidence:
+  - src-tauri/src/commands/formatter.rs:9
+  - src/services/formatter/types.ts:6

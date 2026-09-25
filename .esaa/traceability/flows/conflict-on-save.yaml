@@ -1,0 +1,296 @@
+# TRACE-009 — Conflito: alteração externa x edição local. Passos ordenados; via = aresta de edges.yaml que liga o passo de origem (direction reverse = aresta no sentido oposto, ex.: consumes/reads/callback). trigger = início de ramo.
+artifact: conflict-on-save
+schema_version: 1
+source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+generated_at: '2026-09-24T23:03:41-03:00'
+id: FLOW-CONFLICT-ON-SAVE
+name: 'Conflito: alteração externa x edição local'
+required: true
+features:
+- FEAT-CONFLICT
+- FEAT-WATCHER
+entrypoints:
+- ENT-IPC-SAVE-DOCUMENT
+- ENT-IPC-START-WATCHING
+- ENT-TEV-WORKSPACE-CHANGE
+- ENT-BTN-CONFLICT-RELOAD
+- ENT-BTN-CONFLICT-KEEP
+- ENT-BTN-CONFLICT-SAVE-AS
+- ENT-IPC-STOP-WATCHING
+outcome: 'Ramo B: usuário escolhe recarregar/manter/salvar como. Ramo A: só erro de status.'
+steps:
+- step: 1
+  node: HDL-DOC-SAVE
+  trigger: Ramo A — usuário salva com snapshot desatualizado (arquivo mudou no disco)
+- step: 2
+  node: SVC-PERSIST-DOCUMENT
+  via:
+  - from_step: 1
+    edge: HDL-DOC-SAVE|calls|SVC-PERSIST-DOCUMENT
+    direction: forward
+    evidence:
+    - src/state/documentState.ts:339
+    method: observed
+- step: 3
+  node: IPCC-SAVE-DOCUMENT
+  via:
+  - from_step: 2
+    edge: SVC-PERSIST-DOCUMENT|calls|IPCC-SAVE-DOCUMENT
+    direction: forward
+    evidence:
+    - src/services/save.ts:11
+    method: observed
+- step: 4
+  node: IPC-SAVE-DOCUMENT
+  entrypoint: ENT-IPC-SAVE-DOCUMENT
+  via:
+  - from_step: 3
+    edge: IPCC-SAVE-DOCUMENT|calls|IPC-SAVE-DOCUMENT
+    direction: forward
+    evidence:
+    - src/lib/ipc/client.ts:99
+    - src-tauri/src/commands/mod.rs:117
+    - src-tauri/src/lib.rs:74
+    method: observed
+- step: 5
+  node: FN-ATOMIC-SAVE
+  note: hash esperado != hash em disco -> SaveError::HashMismatch
+  via:
+  - from_step: 4
+    edge: IPC-SAVE-DOCUMENT|calls|FN-ATOMIC-SAVE
+    direction: forward
+    evidence:
+    - src-tauri/src/commands/mod.rs:125
+    - src-tauri/src/commands/mod.rs:2
+    - src-tauri/src/persistence/mod.rs:1
+    method: observed
+- step: 6
+  node: FN-CONTENT-HASH
+  via:
+  - from_step: 5
+    edge: FN-ATOMIC-SAVE|calls|FN-CONTENT-HASH
+    direction: forward
+    evidence:
+    - src-tauri/crates/md-studio-core/src/persistence.rs:61
+    method: observed
+- step: 7
+  node: STO-EDITOR
+  note: Ramo A termina em status 'error' com mensagem; ConflictDialog NÃO abre
+  via:
+  - from_step: 1
+    edge: HDL-DOC-SAVE|writes|STO-EDITOR
+    direction: forward
+    evidence:
+    - src/state/documentState.ts:333
+    method: observed
+- step: 8
+  node: HDL-DOC-WATCH-EFFECT
+  trigger: Ramo B — ao abrir arquivo com workspace, o efeito inicia watch e assina eventos
+- step: 9
+  node: IPCC-START-WATCHING
+  via:
+  - from_step: 8
+    edge: HDL-DOC-WATCH-EFFECT|calls|IPCC-START-WATCHING
+    direction: forward
+    evidence:
+    - src/state/documentState.ts:430
+    method: observed
+- step: 10
+  node: IPC-START-WATCHING
+  entrypoint: ENT-IPC-START-WATCHING
+  via:
+  - from_step: 9
+    edge: IPCC-START-WATCHING|calls|IPC-START-WATCHING
+    direction: forward
+    evidence:
+    - src/lib/ipc/client.ts:139
+    - src-tauri/src/watcher/mod.rs:237
+    - src-tauri/src/lib.rs:90
+    method: observed
+- step: 11
+  node: FN-SPAWN-WATCHER
+  note: thread notify com debounce
+  via:
+  - from_step: 10
+    edge: IPC-START-WATCHING|calls|FN-SPAWN-WATCHER
+    direction: forward
+    evidence:
+    - src-tauri/src/watcher/mod.rs:253
+    method: observed
+- step: 12
+  node: FN-WATCHER-SHOULD-SUPPRESS
+  note: 'evento externo: hash não registrado -> não suprime'
+  via:
+  - from_step: 11
+    edge: FN-SPAWN-WATCHER|calls|FN-WATCHER-SHOULD-SUPPRESS
+    direction: forward
+    evidence:
+    - src-tauri/src/watcher/mod.rs:197
+    method: observed
+- step: 13
+  node: TEV-WORKSPACE-CHANGE
+  entrypoint: ENT-TEV-WORKSPACE-CHANGE
+  note: emit workspace://change
+  via:
+  - from_step: 11
+    edge: FN-SPAWN-WATCHER|publishes|TEV-WORKSPACE-CHANGE
+    direction: forward
+    evidence:
+    - src-tauri/src/watcher/mod.rs:201
+    method: observed
+- step: 14
+  node: CNS-SUBSCRIBE-WORKSPACE-WATCH
+  note: listener no frontend
+  via:
+  - from_step: 13
+    edge: CNS-SUBSCRIBE-WORKSPACE-WATCH|consumes|TEV-WORKSPACE-CHANGE
+    direction: reverse
+    evidence:
+    - src/lib/ipc/client.ts:320
+    - src-tauri/src/watcher/mod.rs:19
+    method: observed
+- step: 15
+  node: CMP-CONFLICT-DIALOG
+  note: 'efeito: evento modify no arquivo aberto e dirty -> setConflictPath'
+  via:
+  - from_step: 8
+    edge: HDL-DOC-WATCH-EFFECT|writes|CMP-CONFLICT-DIALOG
+    direction: forward
+    evidence:
+    - src/state/documentState.ts:436
+    - src/App.tsx:835
+    method: observed
+- step: 16
+  node: BTN-CONFLICT-RELOAD
+  entrypoint: ENT-BTN-CONFLICT-RELOAD
+  note: Recarregar do disco
+  via:
+  - from_step: 15
+    edge: CMP-CONFLICT-DIALOG|contains|BTN-CONFLICT-RELOAD
+    direction: forward
+    evidence:
+    - src/components/ConflictDialog.tsx:29
+    method: observed
+- step: 17
+  node: BTN-CONFLICT-KEEP
+  entrypoint: ENT-BTN-CONFLICT-KEEP
+  note: Manter edição local
+  via:
+  - from_step: 15
+    edge: CMP-CONFLICT-DIALOG|contains|BTN-CONFLICT-KEEP
+    direction: forward
+    evidence:
+    - src/components/ConflictDialog.tsx:32
+    method: observed
+- step: 18
+  node: BTN-CONFLICT-SAVE-AS
+  entrypoint: ENT-BTN-CONFLICT-SAVE-AS
+  note: Salvar como
+  via:
+  - from_step: 15
+    edge: CMP-CONFLICT-DIALOG|contains|BTN-CONFLICT-SAVE-AS
+    direction: forward
+    evidence:
+    - src/components/ConflictDialog.tsx:35
+    method: observed
+- step: 19
+  node: HDL-DOC-RESOLVE-CONFLICT
+  via:
+  - from_step: 16
+    edge: BTN-CONFLICT-RELOAD|triggers|HDL-DOC-RESOLVE-CONFLICT
+    direction: forward
+    evidence:
+    - src/components/ConflictDialog.tsx:29
+    - src/App.tsx:837
+    method: observed
+  - from_step: 17
+    edge: BTN-CONFLICT-KEEP|triggers|HDL-DOC-RESOLVE-CONFLICT
+    direction: forward
+    evidence:
+    - src/components/ConflictDialog.tsx:32
+    - src/App.tsx:837
+    method: observed
+  - from_step: 18
+    edge: BTN-CONFLICT-SAVE-AS|triggers|HDL-DOC-RESOLVE-CONFLICT
+    direction: forward
+    evidence:
+    - src/components/ConflictDialog.tsx:35
+    - src/App.tsx:837
+    method: observed
+- step: 20
+  node: HDL-DOC-OPEN-RELATIVE
+  note: 'reload: reabre do disco (rascunho descartado antes, ver passo 25)'
+  via:
+  - from_step: 19
+    edge: HDL-DOC-RESOLVE-CONFLICT|calls|HDL-DOC-OPEN-RELATIVE
+    direction: forward
+    evidence:
+    - src/state/documentState.ts:467
+    method: observed
+- step: 21
+  node: HDL-DOC-SAVE-AS
+  note: 'save-as: grava cópia'
+  via:
+  - from_step: 19
+    edge: HDL-DOC-RESOLVE-CONFLICT|calls|HDL-DOC-SAVE-AS
+    direction: forward
+    evidence:
+    - src/state/documentState.ts:473
+    method: observed
+- step: 22
+  node: IPCC-STOP-WATCHING
+  note: cleanup do efeito ao trocar de arquivo/workspace
+  via:
+  - from_step: 8
+    edge: HDL-DOC-WATCH-EFFECT|calls|IPCC-STOP-WATCHING
+    direction: forward
+    evidence:
+    - src/state/documentState.ts:450
+    method: observed
+- step: 23
+  node: IPC-STOP-WATCHING
+  entrypoint: ENT-IPC-STOP-WATCHING
+  via:
+  - from_step: 22
+    edge: IPCC-STOP-WATCHING|calls|IPC-STOP-WATCHING
+    direction: forward
+    evidence:
+    - src/lib/ipc/client.ts:140
+    - src-tauri/src/watcher/mod.rs:269
+    - src-tauri/src/lib.rs:91
+    method: observed
+- step: 24
+  node: SVC-WATCHER-HUB
+  note: remove watcher ativo
+  via:
+  - from_step: 23
+    edge: IPC-STOP-WATCHING|calls|SVC-WATCHER-HUB
+    direction: forward
+    evidence:
+    - src-tauri/src/watcher/mod.rs:270
+    method: observed
+- step: 25
+  node: FN-CLEAR-DRAFT
+  note: 'reload: descarta o rascunho do caminho em conflito antes de reabrir (fix MD-BUG-CONFLICT-RELOAD-001)'
+  via:
+  - from_step: 19
+    edge: HDL-DOC-RESOLVE-CONFLICT|calls|FN-CLEAR-DRAFT
+    direction: forward
+    evidence:
+    - src/state/documentState.ts:466
+    method: observed
+gaps:
+- description: HashMismatch no save não abre o ConflictDialog (só setSaveStatus error); o diálogo depende exclusivamente do watcher.
+  evidence:
+  - src/state/documentState.ts:302
+  - src/state/documentState.ts:436
+  method: observed
+resolved_gaps:
+- description: '''Recarregar do disco'' passava por openRelative, que reaplicava o rascunho do localStorage (confirmado por teste).'
+  resolved_by: MD-BUG-CONFLICT-RELOAD-001
+  commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+  evidence:
+  - src/state/documentState.ts:466
+  - tests/editor/conflictReload.test.tsx:112
+  method: observed
+trace_task: TRACE-009

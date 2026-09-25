@@ -1,0 +1,211 @@
+# TRACE-009 — Índice de fluxos.
+artifact: index
+schema_version: 1
+source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+generated_at: '2026-09-24T23:03:41-03:00'
+summary:
+  total: 22
+  required: 12
+  entrypoints_covered: 70
+  entrypoints_total: 71
+  entrypoints_without_flow:
+  - ENT-IPC-RESOLVE-WIKI-LINK
+flows:
+- id: FLOW-SAVE-DOCUMENT
+  file: flows/save-document.yaml
+  required: true
+  steps: 18
+  entrypoints:
+  - ENT-SHC-CTRL-S
+  - ENT-BTN-SAVE
+  - ENT-SHC-EDITOR-MOD-S
+  - ENT-IPC-SAVE-DOCUMENT
+- id: FLOW-AUTO-SAVE
+  file: flows/auto-save.yaml
+  required: true
+  steps: 14
+  entrypoints:
+  - ENT-HDL-DOC-SET-CONTENT
+  - ENT-IPC-SAVE-DOCUMENT
+- id: FLOW-CONFLICT-ON-SAVE
+  file: flows/conflict-on-save.yaml
+  required: true
+  steps: 25
+  entrypoints:
+  - ENT-IPC-SAVE-DOCUMENT
+  - ENT-IPC-START-WATCHING
+  - ENT-TEV-WORKSPACE-CHANGE
+  - ENT-BTN-CONFLICT-RELOAD
+  - ENT-BTN-CONFLICT-KEEP
+  - ENT-BTN-CONFLICT-SAVE-AS
+  - ENT-IPC-STOP-WATCHING
+- id: FLOW-OPEN-WORKSPACE
+  file: flows/open-workspace.yaml
+  required: true
+  steps: 21
+  entrypoints:
+  - ENT-SHC-CTRL-SHIFT-O
+  - ENT-BTN-WELCOME-OPEN-FOLDER
+  - ENT-OSI-PICK-FOLDER
+  - ENT-IPC-OPEN-WORKSPACE
+  - ENT-IPC-LIST-ENTRIES
+  - ENT-BTN-EXPLORER-OPEN-FOLDER
+- id: FLOW-OPEN-FILE-FROM-OS
+  file: flows/open-file-from-os.yaml
+  required: true
+  steps: 19
+  entrypoints:
+  - ENT-OSI-FILE-ASSOCIATIONS
+  - ENT-OSI-DESKTOP-ENTRY
+  - ENT-OSI-LAUNCH-ARGV
+  - ENT-HDL-DOC-LAUNCH-EFFECT
+  - ENT-IPC-GET-LAUNCH-PATH
+  - ENT-IPC-READ-DOCUMENT
+  - ENT-OSI-SINGLE-INSTANCE
+  - ENT-TEV-APP-OPEN-FILE
+  - ENT-HDL-DOC-LAUNCH-EFFECT
+- id: FLOW-WIKI-LINK-RESOLVE
+  file: flows/wiki-link-resolve.yaml
+  required: true
+  steps: 22
+  entrypoints:
+  - ENT-SCR-APP
+  - ENT-IPC-GET-RESOLVED-WIKI-LINKS-FOR
+  - ENT-HDL-VIEWER-ON-CLICK
+- id: FLOW-BACKLINKS-QUERY
+  file: flows/backlinks-query.yaml
+  required: true
+  steps: 15
+  entrypoints:
+  - ENT-SCR-APP
+  - ENT-IPC-GET-BACKLINKS
+- id: FLOW-PREVIEW-RENDER
+  file: flows/preview-render.yaml
+  required: true
+  steps: 21
+  entrypoints:
+  - ENT-SCR-APP
+  - ENT-HDL-VIEWER-ON-CLICK
+- id: FLOW-EXPORT-HTML
+  file: flows/export-html.yaml
+  required: true
+  steps: 13
+  entrypoints:
+  - ENT-BTN-EXPORT-HTML
+  - ENT-OSI-PICK-SAVE-HTML
+  - ENT-OSI-CONFIRM-OVERWRITE
+  - ENT-IPC-EXPORT-HTML
+- id: FLOW-FORMAT-CODE-BLOCK
+  file: flows/format-code-block.yaml
+  required: true
+  steps: 17
+  entrypoints:
+  - ENT-SHC-EDITOR-SHIFT-ALT-F
+  - ENT-BTN-TOOLBAR-FORMAT-CODE
+  - ENT-IPC-FORMAT-CODE
+  - ENT-BTN-PREVIEW-FORMAT-CODE
+  - ENT-HDL-DOC-SET-CONTENT
+- id: FLOW-DRAFT-RECOVERY
+  file: flows/draft-recovery.yaml
+  required: true
+  steps: 12
+  entrypoints:
+  - ENT-HDL-DOC-SET-CONTENT
+  - ENT-HDL-APP-DRAFT-RECOVERY-TIMER
+- id: FLOW-WORKSPACE-SEARCH
+  file: flows/workspace-search.yaml
+  required: true
+  steps: 12
+  entrypoints:
+  - ENT-SHC-CTRL-P
+  - ENT-CMP-COMMAND-PALETTE
+  - ENT-SHC-CTRL-P
+  - ENT-BTN-HEADER-QUICK-SEARCH
+  - ENT-IPC-SEARCH-WORKSPACE
+- id: FLOW-OPEN-FILE
+  file: flows/open-file.yaml
+  required: false
+  steps: 16
+  entrypoints:
+  - ENT-SHC-CTRL-O
+  - ENT-BTN-WELCOME-OPEN-FILE
+  - ENT-OSI-PICK-MARKDOWN-FILE
+  - ENT-IPC-READ-DOCUMENT
+  - ENT-BTN-EXPLORER-OPEN-FILE
+- id: FLOW-NEW-DOCUMENT
+  file: flows/new-document.yaml
+  required: false
+  steps: 9
+  entrypoints:
+  - ENT-SHC-CTRL-N
+  - ENT-BTN-HEADER-NEW-DOCUMENT
+  - ENT-BTN-WELCOME-NEW-DOCUMENT
+- id: FLOW-SAVE-AS
+  file: flows/save-as.yaml
+  required: false
+  steps: 9
+  entrypoints:
+  - ENT-SHC-CTRL-SHIFT-S
+  - ENT-OSI-PICK-SAVE-MARKDOWN
+  - ENT-IPC-SAVE-DOCUMENT
+- id: FLOW-CLOSE-FILE
+  file: flows/close-file.yaml
+  required: false
+  steps: 3
+  entrypoints:
+  - ENT-SHC-CTRL-W
+- id: FLOW-PRESENTATION
+  file: flows/presentation.yaml
+  required: false
+  steps: 12
+  entrypoints:
+  - ENT-SHC-F5
+  - ENT-BTN-HEADER-PRESENTATION
+- id: FLOW-EXPORT-EPUB
+  file: flows/export-epub.yaml
+  required: false
+  steps: 17
+  entrypoints:
+  - ENT-BTN-EXPORT-EPUB
+  - ENT-OSI-PICK-SAVE-EPUB
+  - ENT-OSI-CONFIRM-OVERWRITE
+  - ENT-IPC-EXPORT-EPUB
+- id: FLOW-EXPORT-PDF
+  file: flows/export-pdf.yaml
+  required: false
+  steps: 3
+  entrypoints:
+  - ENT-BTN-EXPORT-PDF
+- id: FLOW-APP-BOOT
+  file: flows/app-boot.yaml
+  required: false
+  steps: 12
+  entrypoints:
+  - ENT-FN-RS-MAIN
+  - ENT-OSI-SPLASH-AUTOCLOSE
+  - ENT-SCR-APP
+  - ENT-IPC-CLOSE-SPLASH
+  - ENT-HDL-APP-DRAFT-RECOVERY-TIMER
+  - ENT-HDL-DOC-LAUNCH-EFFECT
+  - ENT-CMP-COMMAND-PALETTE
+- id: FLOW-METADATA-REFRESH
+  file: flows/metadata-refresh.yaml
+  required: false
+  steps: 24
+  entrypoints:
+  - ENT-SCR-APP
+  - ENT-IPC-GET-ALL-DOCUMENTS
+  - ENT-IPC-GET-WORKSPACE-STATS
+  - ENT-IPC-GET-TAGS
+  - ENT-IPC-GET-DOCUMENT-METADATA
+  - ENT-IPC-GET-WIKI-LINKS-FOR
+  - ENT-IPC-TRIGGER-REINDEX
+  - ENT-BTN-EXPLORER-REINDEX
+- id: FLOW-EDITOR-COMMANDS
+  file: flows/editor-commands.yaml
+  required: false
+  steps: 6
+  entrypoints:
+  - ENT-FN-CREATE-SLASH-PLUGIN
+  - ENT-SHC-EDITOR-MOD-SHIFT-S
+  - ENT-HDL-DOC-SET-CONTENT

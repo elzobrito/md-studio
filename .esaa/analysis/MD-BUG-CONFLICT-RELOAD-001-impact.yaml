@@ -1,0 +1,177 @@
+artifact: task-impact
+schema_version: 1
+trace_task: TRACE-017
+task_id: MD-BUG-CONFLICT-RELOAD-001
+projected_at: '2026-09-24T23:20:25-03:00'
+projected_before_change: true
+projection_inputs:
+- descrição da tarefa ESAA MD-BUG-CONFLICT-RELOAD-001 (criada 2026-09-24 23:20 BRT)
+- 'achado da fase A (leitura estática: resolveConflict -> openRelative -> loadDraft)'
+- .esaa/traceability/graph.json (source_commit 5fe4f4d == HEAD; documentState.ts sem mudanças locais, sha256 b583db1b…)
+- impact.py closure/blast
+spec: .esaa/tasks/MD-BUG-CONFLICT-RELOAD-001.yaml
+graph_source_commit: 5fe4f4d2230f039791d6196cb0f0ecfb438825ae
+rationale:
+  HDL-DOC-RESOLVE-CONFLICT: ramo reload deve descartar o rascunho do caminho em conflito antes de reabrir (clearDraft(draftRoot(ws), path))
+  STO-DOCUMENT-STATE: contêiner (hook useDocumentState); deps do useCallback podem mudar (workspace)
+justification: null
+expected_uncatalogued:
+- tests/editor/conflictReload.test.tsx (teste novo)
+blast_radius:
+  change_target:
+  - HDL-DOC-RESOLVE-CONFLICT
+  expected_affected:
+  - STO-DOCUMENT-STATE
+  expected_affected_source: declared
+  suggested_expected_affected:
+  - STO-DOCUMENT-STATE
+  authorized:
+  - HDL-DOC-RESOLVE-CONFLICT
+  - STO-DOCUMENT-STATE
+  potentially_affected:
+  - BTN-CONFLICT-KEEP
+  - BTN-CONFLICT-RELOAD
+  - BTN-CONFLICT-SAVE-AS
+  - SCR-APP
+  protected_in_closure:
+  - id: CMP-CONFLICT-DIALOG
+    reasons:
+    - declared_protected_extra
+    - invariant_member:INV-SHA256-CONFLICT
+  protected_total: 142
+  protected_declared: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: false
+projected:
+  nodes:
+  - HDL-DOC-RESOLVE-CONFLICT
+  - STO-DOCUMENT-STATE
+  features:
+    direct:
+    - FEAT-CONFLICT
+    - FEAT-WATCHER
+    indirect:
+    - FEAT-APP-SCREENS
+    - FEAT-BACKLINKS
+    - FEAT-CREATE-NOTE-FROM-WIKI
+    - FEAT-KATEX
+    - FEAT-LAYOUT-PANELS
+    - FEAT-MERMAID
+    - FEAT-METADATA-INDEX
+    - FEAT-OPEN-FILE
+    - FEAT-OUTGOING-LINKS
+    - FEAT-PREVIEW
+    - FEAT-SANITIZE
+    - FEAT-SAVE
+    - FEAT-SHIKI
+    - FEAT-SPLASH-PACKAGING
+    - FEAT-WIKI-LINKS
+  flows:
+  - FLOW-APP-BOOT
+  - FLOW-BACKLINKS-QUERY
+  - FLOW-CONFLICT-ON-SAVE
+  - FLOW-METADATA-REFRESH
+  - FLOW-PREVIEW-RENDER
+  - FLOW-WIKI-LINK-RESOLVE
+  invariants:
+  - id: INV-SHA256-CONFLICT
+    hit_by:
+    - CMP-CONFLICT-DIALOG
+    tests:
+    - TST-RS-DETECTS-CONFLICT
+  tests:
+    must_run: []
+    should_run:
+    - TST-RS-DETECTS-CONFLICT
+    - TST-TS-EDITOR-AUTOSAVE
+    may_run: []
+  contracts: []
+  data:
+  - STO-DOCUMENT-STATE
+  events: []
+  entrypoints:
+  - ENT-BTN-CONFLICT-KEEP
+  - ENT-BTN-CONFLICT-RELOAD
+  - ENT-BTN-CONFLICT-SAVE-AS
+  - ENT-SCR-APP
+  modules:
+  - MOD-APP-SHELL
+  - MOD-PERSISTENCE
+  - MOD-WATCHER
+closure:
+- id: HDL-DOC-RESOLVE-CONFLICT
+  kind: code
+  type: handler
+  distance: 0
+  anchor: src/state/documentState.ts
+  via: null
+  terminal: false
+- id: BTN-CONFLICT-KEEP
+  kind: code
+  type: button
+  distance: 1
+  anchor: src/components/ConflictDialog.tsx
+  via:
+    node: HDL-DOC-RESOLVE-CONFLICT
+    relation: triggers
+    direction: reverse
+  terminal: false
+- id: BTN-CONFLICT-RELOAD
+  kind: code
+  type: button
+  distance: 1
+  anchor: src/components/ConflictDialog.tsx
+  via:
+    node: HDL-DOC-RESOLVE-CONFLICT
+    relation: triggers
+    direction: reverse
+  terminal: false
+- id: BTN-CONFLICT-SAVE-AS
+  kind: code
+  type: button
+  distance: 1
+  anchor: src/components/ConflictDialog.tsx
+  via:
+    node: HDL-DOC-RESOLVE-CONFLICT
+    relation: triggers
+    direction: reverse
+  terminal: false
+- id: STO-DOCUMENT-STATE
+  kind: code
+  type: store
+  distance: 1
+  anchor: src/state/documentState.ts
+  via:
+    node: HDL-DOC-RESOLVE-CONFLICT
+    relation: contains
+    direction: reverse
+  terminal: false
+- id: CMP-CONFLICT-DIALOG
+  kind: code
+  type: component
+  distance: 2
+  anchor: src/components/ConflictDialog.tsx
+  via:
+    node: BTN-CONFLICT-KEEP
+    relation: contains
+    direction: reverse
+  terminal: false
+- id: SCR-APP
+  kind: code
+  type: screen
+  distance: 2
+  anchor: src/App.tsx
+  via:
+    node: STO-DOCUMENT-STATE
+    relation: calls
+    direction: reverse
+  terminal: false
+hubs: []
+stats:
+  closure_nodes: 7
+  by_distance:
+    '0': 1
+    '1': 4
+    '2': 2

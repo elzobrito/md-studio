@@ -1,0 +1,151 @@
+# TRACE-009 — Consultar backlinks do documento aberto. Passos ordenados; via = aresta de edges.yaml que liga o passo de origem (direction reverse = aresta no sentido oposto, ex.: consumes/reads/callback). trigger = início de ramo.
+artifact: backlinks-query
+schema_version: 1
+source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+generated_at: '2026-09-24T23:03:41-03:00'
+id: FLOW-BACKLINKS-QUERY
+name: Consultar backlinks do documento aberto
+required: true
+features:
+- FEAT-BACKLINKS
+entrypoints:
+- ENT-SCR-APP
+- ENT-IPC-GET-BACKLINKS
+outcome: Painel lista origens com snippet; clique abre na linha.
+steps:
+- step: 1
+  node: SCR-APP
+  entrypoint: ENT-SCR-APP
+  trigger: Documento aberto (doc.relativePath muda)
+- step: 2
+  node: STO-METADATA
+  via:
+  - from_step: 1
+    edge: SCR-APP|calls|STO-METADATA
+    direction: forward
+    evidence:
+    - src/App.tsx:58
+    method: observed
+- step: 3
+  node: FN-USE-METADATA-REFRESH-CURRENT-DOC
+  via:
+  - from_step: 2
+    edge: STO-METADATA|calls|FN-USE-METADATA-REFRESH-CURRENT-DOC
+    direction: forward
+    evidence:
+    - src/hooks/useMetadata.ts:94
+    method: observed
+- step: 4
+  node: IPCC-GET-BACKLINKS
+  via:
+  - from_step: 3
+    edge: FN-USE-METADATA-REFRESH-CURRENT-DOC|calls|IPCC-GET-BACKLINKS
+    direction: forward
+    evidence:
+    - src/hooks/useMetadata.ts:58
+    method: observed
+- step: 5
+  node: IPC-GET-BACKLINKS
+  entrypoint: ENT-IPC-GET-BACKLINKS
+  via:
+  - from_step: 4
+    edge: IPCC-GET-BACKLINKS|calls|IPC-GET-BACKLINKS
+    direction: forward
+    evidence:
+    - src/lib/ipc/metadata.ts:77
+    - src-tauri/src/commands/metadata.rs:233
+    - src-tauri/src/lib.rs:87
+    method: observed
+- step: 6
+  node: FN-FENCE-BACKLINK-TARGET
+  note: fence do alvo
+  via:
+  - from_step: 5
+    edge: IPC-GET-BACKLINKS|calls|FN-FENCE-BACKLINK-TARGET
+    direction: forward
+    evidence:
+    - src-tauri/src/commands/metadata.rs:241
+    method: observed
+- step: 7
+  node: FN-REINDEX-ENGINE-BACKLINKS-FOR
+  via:
+  - from_step: 5
+    edge: IPC-GET-BACKLINKS|calls|FN-REINDEX-ENGINE-BACKLINKS-FOR
+    direction: forward
+    evidence:
+    - src-tauri/src/commands/metadata.rs:242
+    method: observed
+- step: 8
+  node: FN-BACKLINK-INDEX-BACKLINKS-FOR
+  note: consulta índice reverso em memória
+  via:
+  - from_step: 7
+    edge: FN-REINDEX-ENGINE-BACKLINKS-FOR|calls|FN-BACKLINK-INDEX-BACKLINKS-FOR
+    direction: forward
+    evidence:
+    - src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:144
+    method: observed
+- step: 9
+  node: FN-ENRICH-BACKLINK-CONTEXT
+  note: snippet de contexto
+  via:
+  - from_step: 5
+    edge: IPC-GET-BACKLINKS|calls|FN-ENRICH-BACKLINK-CONTEXT
+    direction: forward
+    evidence:
+    - src-tauri/src/commands/metadata.rs:243
+    method: observed
+- step: 10
+  node: FN-READ-SOURCE-LINE
+  note: lê a linha da ocorrência no arquivo de origem
+  via:
+  - from_step: 9
+    edge: FN-ENRICH-BACKLINK-CONTEXT|calls|FN-READ-SOURCE-LINE
+    direction: forward
+    evidence:
+    - src-tauri/src/commands/metadata.rs:227
+    method: observed
+- step: 11
+  node: CMP-BACKLINKS-PANEL
+  trigger: Painel lê backlinks do store
+- step: 12
+  node: STO-METADATA
+  via:
+  - from_step: 11
+    edge: CMP-BACKLINKS-PANEL|reads|STO-METADATA
+    direction: forward
+    evidence:
+    - src/App.tsx:733
+    method: observed
+- step: 13
+  node: HDL-APP-BACKLINK-OPEN-OCCURRENCE
+  note: clique numa ocorrência
+  via:
+  - from_step: 11
+    edge: CMP-BACKLINKS-PANEL|triggers|HDL-APP-BACKLINK-OPEN-OCCURRENCE
+    direction: forward
+    evidence:
+    - src/components/wiki/BacklinksPanel.tsx:100
+    - src/App.tsx:739
+    method: observed
+- step: 14
+  node: HDL-DOC-OPEN-RELATIVE
+  note: abre a origem
+  via:
+  - from_step: 13
+    edge: HDL-APP-BACKLINK-OPEN-OCCURRENCE|calls|HDL-DOC-OPEN-RELATIVE
+    direction: forward
+    evidence:
+    - src/App.tsx:740
+    method: observed
+- step: 15
+  node: STO-EDITOR
+  note: queueGoToLine(linha)
+  via:
+  - from_step: 13
+    edge: HDL-APP-BACKLINK-OPEN-OCCURRENCE|writes|STO-EDITOR
+    direction: forward
+    evidence:
+    - src/App.tsx:747
+    method: observed
+trace_task: TRACE-009

@@ -1,0 +1,236 @@
+# TRACE-009 — Metadados, tags, estatísticas e reindexação. Passos ordenados; via = aresta de edges.yaml que liga o passo de origem (direction reverse = aresta no sentido oposto, ex.: consumes/reads/callback). trigger = início de ramo.
+artifact: metadata-refresh
+schema_version: 1
+source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+generated_at: '2026-09-24T23:03:41-03:00'
+id: FLOW-METADATA-REFRESH
+name: Metadados, tags, estatísticas e reindexação
+required: false
+features:
+- FEAT-METADATA-INDEX
+entrypoints:
+- ENT-SCR-APP
+- ENT-IPC-GET-ALL-DOCUMENTS
+- ENT-IPC-GET-WORKSPACE-STATS
+- ENT-IPC-GET-TAGS
+- ENT-IPC-GET-DOCUMENT-METADATA
+- ENT-IPC-GET-WIKI-LINKS-FOR
+- ENT-IPC-TRIGGER-REINDEX
+- ENT-BTN-EXPLORER-REINDEX
+outcome: Store de metadados atualizado; reindexação real só via painel de backlinks/criação de nota.
+steps:
+- step: 1
+  node: SCR-APP
+  entrypoint: ENT-SCR-APP
+  trigger: Montagem do App
+- step: 2
+  node: STO-METADATA
+  via:
+  - from_step: 1
+    edge: SCR-APP|calls|STO-METADATA
+    direction: forward
+    evidence:
+    - src/App.tsx:58
+    method: observed
+- step: 3
+  node: FN-USE-METADATA-REFRESH-ALL-DOCS
+  via:
+  - from_step: 2
+    edge: STO-METADATA|calls|FN-USE-METADATA-REFRESH-ALL-DOCS
+    direction: forward
+    evidence:
+    - src/hooks/useMetadata.ts:89
+    method: observed
+- step: 4
+  node: IPCC-GET-ALL-DOCUMENTS
+  via:
+  - from_step: 3
+    edge: FN-USE-METADATA-REFRESH-ALL-DOCS|calls|IPCC-GET-ALL-DOCUMENTS
+    direction: forward
+    evidence:
+    - src/hooks/useMetadata.ts:43
+    method: observed
+- step: 5
+  node: IPC-GET-ALL-DOCUMENTS
+  entrypoint: ENT-IPC-GET-ALL-DOCUMENTS
+  via:
+  - from_step: 4
+    edge: IPCC-GET-ALL-DOCUMENTS|calls|IPC-GET-ALL-DOCUMENTS
+    direction: forward
+    evidence:
+    - src/lib/ipc/metadata.ts:43
+    - src-tauri/src/commands/metadata.rs:104
+    - src-tauri/src/lib.rs:81
+    method: observed
+- step: 6
+  node: FN-USE-METADATA-REFRESH-STATS
+  trigger: refreshStats (montagem)
+- step: 7
+  node: IPCC-GET-WORKSPACE-STATS
+  via:
+  - from_step: 6
+    edge: FN-USE-METADATA-REFRESH-STATS|calls|IPCC-GET-WORKSPACE-STATS
+    direction: forward
+    evidence:
+    - src/hooks/useMetadata.ts:25
+    method: observed
+- step: 8
+  node: IPC-GET-WORKSPACE-STATS
+  entrypoint: ENT-IPC-GET-WORKSPACE-STATS
+  via:
+  - from_step: 7
+    edge: IPCC-GET-WORKSPACE-STATS|calls|IPC-GET-WORKSPACE-STATS
+    direction: forward
+    evidence:
+    - src/lib/ipc/metadata.ts:33
+    - src-tauri/src/commands/metadata.rs:46
+    - src-tauri/src/lib.rs:79
+    method: observed
+- step: 9
+  node: FN-USE-METADATA-REFRESH-TAGS
+  trigger: refreshTags (montagem)
+- step: 10
+  node: IPCC-GET-TAGS
+  via:
+  - from_step: 9
+    edge: FN-USE-METADATA-REFRESH-TAGS|calls|IPCC-GET-TAGS
+    direction: forward
+    evidence:
+    - src/hooks/useMetadata.ts:34
+    method: observed
+- step: 11
+  node: IPC-GET-TAGS
+  entrypoint: ENT-IPC-GET-TAGS
+  via:
+  - from_step: 10
+    edge: IPCC-GET-TAGS|calls|IPC-GET-TAGS
+    direction: forward
+    evidence:
+    - src/lib/ipc/metadata.ts:72
+    - src-tauri/src/commands/metadata.rs:173
+    - src-tauri/src/lib.rs:86
+    method: observed
+- step: 12
+  node: FN-USE-METADATA-REFRESH-CURRENT-DOC
+  via:
+  - from_step: 2
+    edge: STO-METADATA|calls|FN-USE-METADATA-REFRESH-CURRENT-DOC
+    direction: forward
+    evidence:
+    - src/hooks/useMetadata.ts:94
+    method: observed
+- step: 13
+  node: IPCC-GET-DOCUMENT-METADATA
+  via:
+  - from_step: 12
+    edge: FN-USE-METADATA-REFRESH-CURRENT-DOC|calls|IPCC-GET-DOCUMENT-METADATA
+    direction: forward
+    evidence:
+    - src/hooks/useMetadata.ts:52
+    method: observed
+- step: 14
+  node: IPC-GET-DOCUMENT-METADATA
+  entrypoint: ENT-IPC-GET-DOCUMENT-METADATA
+  via:
+  - from_step: 13
+    edge: IPCC-GET-DOCUMENT-METADATA|calls|IPC-GET-DOCUMENT-METADATA
+    direction: forward
+    evidence:
+    - src/lib/ipc/metadata.ts:38
+    - src-tauri/src/commands/metadata.rs:90
+    - src-tauri/src/lib.rs:80
+    method: observed
+- step: 15
+  node: IPCC-GET-WIKI-LINKS-FOR
+  via:
+  - from_step: 12
+    edge: FN-USE-METADATA-REFRESH-CURRENT-DOC|calls|IPCC-GET-WIKI-LINKS-FOR
+    direction: forward
+    evidence:
+    - src/hooks/useMetadata.ts:54
+    method: observed
+- step: 16
+  node: IPC-GET-WIKI-LINKS-FOR
+  entrypoint: ENT-IPC-GET-WIKI-LINKS-FOR
+  via:
+  - from_step: 15
+    edge: IPCC-GET-WIKI-LINKS-FOR|calls|IPC-GET-WIKI-LINKS-FOR
+    direction: forward
+    evidence:
+    - src/lib/ipc/metadata.ts:55
+    - src-tauri/src/commands/metadata.rs:131
+    - src-tauri/src/lib.rs:83
+    method: observed
+- step: 17
+  node: CMP-BACKLINKS-PANEL
+  trigger: Botão reindexar do painel de backlinks
+- step: 18
+  node: FN-USE-METADATA-REINDEX
+  via:
+  - from_step: 17
+    edge: CMP-BACKLINKS-PANEL|triggers|FN-USE-METADATA-REINDEX
+    direction: forward
+    evidence:
+    - src/components/wiki/BacklinksPanel.tsx:32
+    - src/App.tsx:737
+    method: observed
+- step: 19
+  node: IPCC-TRIGGER-REINDEX
+  via:
+  - from_step: 18
+    edge: FN-USE-METADATA-REINDEX|calls|IPCC-TRIGGER-REINDEX
+    direction: forward
+    evidence:
+    - src/hooks/useMetadata.ts:69
+    method: observed
+- step: 20
+  node: IPC-TRIGGER-REINDEX
+  entrypoint: ENT-IPC-TRIGGER-REINDEX
+  via:
+  - from_step: 19
+    edge: IPCC-TRIGGER-REINDEX|calls|IPC-TRIGGER-REINDEX
+    direction: forward
+    evidence:
+    - src/lib/ipc/metadata.ts:50
+    - src-tauri/src/commands/metadata.rs:117
+    - src-tauri/src/lib.rs:82
+    method: observed
+- step: 21
+  node: FN-REINDEX-ENGINE-FULL-REINDEX
+  via:
+  - from_step: 20
+    edge: IPC-TRIGGER-REINDEX|calls|FN-REINDEX-ENGINE-FULL-REINDEX
+    direction: forward
+    evidence:
+    - src-tauri/src/commands/metadata.rs:123
+    method: observed
+- step: 22
+  node: BTN-EXPLORER-REINDEX
+  entrypoint: ENT-BTN-EXPLORER-REINDEX
+  trigger: Botão 'Reindexar workspace' do explorador
+- step: 23
+  node: FN-USE-FILE-TREE
+  note: na prática recarrega a árvore (list_entries), não trigger_reindex
+  via:
+  - from_step: 22
+    edge: BTN-EXPLORER-REINDEX|triggers|FN-USE-FILE-TREE
+    direction: forward
+    evidence:
+    - src/components/explorer/WorkspaceHeader.tsx:38
+    - src/components/FileExplorer.tsx:177
+    method: observed
+- step: 24
+  node: IPCC-LIST-ENTRIES
+  via:
+  - from_step: 23
+    edge: FN-USE-FILE-TREE|calls|IPCC-LIST-ENTRIES
+    direction: forward
+    evidence:
+    - src/hooks/useFileTree.ts:34
+    method: observed
+gaps:
+- description: allDocs/stats/tags só são carregados na montagem; não reagem a salvamentos/eventos do watcher.
+  evidence:
+  - src/hooks/useMetadata.ts:86
+  method: inferred
+trace_task: TRACE-009

@@ -1,0 +1,122 @@
+# TRACE-009 — Modo Apresentação. Passos ordenados; via = aresta de edges.yaml que liga o passo de origem (direction reverse = aresta no sentido oposto, ex.: consumes/reads/callback). trigger = início de ramo.
+artifact: presentation
+schema_version: 1
+source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+generated_at: '2026-09-24T23:03:41-03:00'
+id: FLOW-PRESENTATION
+name: Modo Apresentação
+required: false
+features:
+- FEAT-PRESENTATION
+entrypoints:
+- ENT-SHC-F5
+- ENT-BTN-HEADER-PRESENTATION
+outcome: Slides Reveal.js sobre o documento ativo; F5/Esc restaura a UI.
+steps:
+- step: 1
+  node: SHC-F5
+  entrypoint: ENT-SHC-F5
+  trigger: F5
+- step: 2
+  node: BTN-HEADER-PRESENTATION
+  entrypoint: ENT-BTN-HEADER-PRESENTATION
+  trigger: Botão do cabeçalho
+- step: 3
+  node: HDL-APP-START-PRESENTATION
+  via:
+  - from_step: 1
+    edge: SHC-F5|triggers|HDL-APP-START-PRESENTATION
+    direction: forward
+    evidence:
+    - src/App.tsx:343
+    method: observed
+  - from_step: 2
+    edge: BTN-HEADER-PRESENTATION|triggers|HDL-APP-START-PRESENTATION
+    direction: forward
+    evidence:
+    - src/components/header/AppHeader.tsx:123
+    - src/App.tsx:561
+    method: observed
+- step: 4
+  node: FN-CAPTURE-PREVIOUS-UI-STATE
+  via:
+  - from_step: 3
+    edge: HDL-APP-START-PRESENTATION|calls|FN-CAPTURE-PREVIOUS-UI-STATE
+    direction: forward
+    evidence:
+    - src/App.tsx:111
+    method: observed
+- step: 5
+  node: SCR-PRESENTATION
+  via:
+  - from_step: 3
+    edge: HDL-APP-START-PRESENTATION|writes|SCR-PRESENTATION
+    direction: forward
+    evidence:
+    - src/App.tsx:120
+    - src/App.tsx:828
+    method: observed
+- step: 6
+  node: SVC-PROCESS-PRESENTATION
+  via:
+  - from_step: 5
+    edge: SCR-PRESENTATION|calls|SVC-PROCESS-PRESENTATION
+    direction: forward
+    evidence:
+    - src/presentation/PresentationMode.tsx:44
+    method: observed
+- step: 7
+  node: FN-CREATE-PRESENTATION-MODEL
+  via:
+  - from_step: 6
+    edge: SVC-PROCESS-PRESENTATION|calls|FN-CREATE-PRESENTATION-MODEL
+    direction: forward
+    evidence:
+    - src/presentation/processor.ts:29
+    method: observed
+- step: 8
+  node: SVC-PROCESS-MARKDOWN
+  via:
+  - from_step: 6
+    edge: SVC-PROCESS-PRESENTATION|calls|SVC-PROCESS-MARKDOWN
+    direction: forward
+    evidence:
+    - src/presentation/processor.ts:34
+    method: observed
+- step: 9
+  node: CMP-PRESENTATION-STAGE
+  via:
+  - from_step: 5
+    edge: SCR-PRESENTATION|contains|CMP-PRESENTATION-STAGE
+    direction: forward
+    evidence:
+    - src/presentation/PresentationMode.tsx:144
+    method: observed
+- step: 10
+  node: FN-CREATE-PRESENTATION-DECK
+  via:
+  - from_step: 9
+    edge: CMP-PRESENTATION-STAGE|calls|FN-CREATE-PRESENTATION-DECK
+    direction: forward
+    evidence:
+    - src/presentation/PresentationStage.tsx:44
+    method: observed
+- step: 11
+  node: FN-ENHANCE-PRESENTATION-CONTENT
+  via:
+  - from_step: 9
+    edge: CMP-PRESENTATION-STAGE|calls|FN-ENHANCE-PRESENTATION-CONTENT
+    direction: forward
+    evidence:
+    - src/presentation/PresentationStage.tsx:38
+    method: observed
+- step: 12
+  node: HDL-APP-CLOSE-PRESENTATION
+  via:
+  - from_step: 1
+    edge: SHC-F5|triggers|HDL-APP-CLOSE-PRESENTATION
+    direction: forward
+    evidence:
+    - src/App.tsx:341
+    method: observed
+trace_task: TRACE-009

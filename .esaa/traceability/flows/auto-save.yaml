@@ -1,0 +1,148 @@
+# TRACE-009 — Auto-save com debounce a partir da edição. Passos ordenados; via = aresta de edges.yaml que liga o passo de origem (direction reverse = aresta no sentido oposto, ex.: consumes/reads/callback). trigger = início de ramo.
+artifact: auto-save
+schema_version: 1
+source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+generated_at: '2026-09-24T23:03:40-03:00'
+id: FLOW-AUTO-SAVE
+name: Auto-save com debounce a partir da edição
+required: true
+features:
+- FEAT-AUTO-SAVE
+- FEAT-DRAFT-RECOVERY
+- FEAT-WATCHER
+entrypoints:
+- ENT-HDL-DOC-SET-CONTENT
+- ENT-IPC-SAVE-DOCUMENT
+outcome: Conteúdo salvo sem ação do usuário; eco do watcher suprimido.
+steps:
+- step: 1
+  node: CMP-MARKDOWN-EDITOR
+  trigger: Usuário digita no CodeMirror
+- step: 2
+  node: HDL-DOC-SET-CONTENT
+  entrypoint: ENT-HDL-DOC-SET-CONTENT
+  note: onChange -> doc.setContent (dirty=true, status 'modified')
+  via:
+  - from_step: 1
+    edge: CMP-MARKDOWN-EDITOR|triggers|HDL-DOC-SET-CONTENT
+    direction: forward
+    evidence:
+    - src/components/MarkdownEditor.tsx:192
+    - src/App.tsx:669
+    method: observed
+- step: 3
+  node: FN-SAVE-DRAFT
+  note: 1) rascunho imediato no localStorage
+  via:
+  - from_step: 2
+    edge: HDL-DOC-SET-CONTENT|calls|FN-SAVE-DRAFT
+    direction: forward
+    evidence:
+    - src/state/documentState.ts:73
+    method: observed
+- step: 4
+  node: LSK-DRAFTS
+  note: chave de rascunho gravada
+  via:
+  - from_step: 3
+    edge: FN-SAVE-DRAFT|writes|LSK-DRAFTS
+    direction: forward
+    evidence:
+    - src/lib/drafts/recovery.ts:26
+    method: observed
+- step: 5
+  node: STO-SETTINGS
+  note: 2) lê autoSave/autoSaveDelay (padrão 1500 ms)
+  via:
+  - from_step: 2
+    edge: HDL-DOC-SET-CONTENT|reads|STO-SETTINGS
+    direction: forward
+    evidence:
+    - src/state/documentState.ts:80
+    method: observed
+- step: 6
+  node: HDL-DOC-SAVE
+  note: timer de debounce expira -> save()
+  via:
+  - from_step: 2
+    edge: HDL-DOC-SET-CONTENT|calls|HDL-DOC-SAVE
+    direction: forward
+    evidence:
+    - src/state/documentState.ts:84
+    - src/state/documentState.ts:353
+    method: observed
+- step: 7
+  node: SVC-PERSIST-DOCUMENT
+  via:
+  - from_step: 6
+    edge: HDL-DOC-SAVE|calls|SVC-PERSIST-DOCUMENT
+    direction: forward
+    evidence:
+    - src/state/documentState.ts:339
+    method: observed
+- step: 8
+  node: IPCC-SAVE-DOCUMENT
+  via:
+  - from_step: 7
+    edge: SVC-PERSIST-DOCUMENT|calls|IPCC-SAVE-DOCUMENT
+    direction: forward
+    evidence:
+    - src/services/save.ts:11
+    method: observed
+- step: 9
+  node: IPC-SAVE-DOCUMENT
+  entrypoint: ENT-IPC-SAVE-DOCUMENT
+  via:
+  - from_step: 8
+    edge: IPCC-SAVE-DOCUMENT|calls|IPC-SAVE-DOCUMENT
+    direction: forward
+    evidence:
+    - src/lib/ipc/client.ts:99
+    - src-tauri/src/commands/mod.rs:117
+    - src-tauri/src/lib.rs:74
+    method: observed
+- step: 10
+  node: FN-WATCHER-REGISTER-INTERNAL-SAVE
+  note: registra hash+TTL da escrita interna
+  via:
+  - from_step: 9
+    edge: IPC-SAVE-DOCUMENT|calls|FN-WATCHER-REGISTER-INTERNAL-SAVE
+    direction: forward
+    evidence:
+    - src-tauri/src/commands/mod.rs:128
+    method: observed
+- step: 11
+  node: FN-ATOMIC-SAVE
+  note: gravação atômica
+  via:
+  - from_step: 9
+    edge: IPC-SAVE-DOCUMENT|calls|FN-ATOMIC-SAVE
+    direction: forward
+    evidence:
+    - src-tauri/src/commands/mod.rs:125
+    - src-tauri/src/commands/mod.rs:2
+    - src-tauri/src/persistence/mod.rs:1
+    method: observed
+- step: 12
+  node: FILE-MARKDOWN-DOCUMENT
+  via:
+  - from_step: 11
+    edge: FN-ATOMIC-SAVE|writes|FILE-MARKDOWN-DOCUMENT
+    direction: forward
+    evidence:
+    - src-tauri/crates/md-studio-core/src/persistence.rs:59
+    method: observed
+- step: 13
+  node: FN-SPAWN-WATCHER
+  trigger: notify emite evento pela própria gravação (thread do watcher iniciada em start_watching)
+- step: 14
+  node: FN-WATCHER-SHOULD-SUPPRESS
+  note: hash igual ao registrado dentro do TTL -> evento suprimido (sem ConflictDialog)
+  via:
+  - from_step: 13
+    edge: FN-SPAWN-WATCHER|calls|FN-WATCHER-SHOULD-SUPPRESS
+    direction: forward
+    evidence:
+    - src-tauri/src/watcher/mod.rs:197
+    method: observed
+trace_task: TRACE-009
