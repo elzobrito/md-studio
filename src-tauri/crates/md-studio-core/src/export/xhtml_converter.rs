@@ -1,7 +1,7 @@
 use crate::export::epub_types::MermaidSlot;
 use html5ever::tendril::TendrilSink;
 use html5ever::{parse_document, parse_fragment, ParseOpts, QualName};
-use markup5ever::{local_name, namespace_url, ns};
+use markup5ever::{local_name, ns};
 use markup5ever_rcdom::{Handle, NodeData, RcDom};
 use std::cell::Cell;
 use thiserror::Error;
@@ -24,7 +24,13 @@ const VOID_TAGS: &[&str] = &[
 
 pub fn html_to_xhtml(html: &str) -> Result<String, ConversionError> {
     let context = QualName::new(None, ns!(html), local_name!("body"));
-    let dom = parse_fragment(RcDom::default(), ParseOpts::default(), context, Vec::new())
+    let dom = parse_fragment(
+        RcDom::default(),
+        ParseOpts::default(),
+        context,
+        Vec::new(),
+        false,
+    )
         .from_utf8()
         .one(html.as_bytes());
     let seq = Cell::new(1u32);

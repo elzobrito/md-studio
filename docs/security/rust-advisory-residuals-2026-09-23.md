@@ -16,3 +16,19 @@ Responsável pela reavaliação: manutenção do MD Studio. Não ampliar a exce�
 `RUSTSEC-2024-0429` para novos avisos. A tarefa de acompanhamento ESAA deve
 documentar alcance de uso, versões disponíveis, testes e decisão de migração
 Tauri/GTK antes de remover ou renovar a exceção.
+
+## 2026-09-25 — falha do gate na v0.2.3
+
+O push `5fe4f4d` fez `cargo audit` sair 1 em `src-tauri/Cargo.lock`. A
+exceção do glib não foi ampliada. As duas causas saíram do grafo ao subir o
+conversor XHTML de `html5ever` 0.25 / `markup5ever` 0.10 /
+`markup5ever_rcdom` 0.1 / `xml5ever` 0.16 para a linha 0.39.
+
+| Aviso | Origem | Decisão |
+| --- | --- | --- |
+| `RUSTSEC-2020-0071` (`time` 0.1.45) | `xml5ever` 0.16.2 | Removido. `time` restante é 0.3.x. |
+| `RUSTSEC-2026-0097` (`rand` 0.7.3, unsound) | `phf_generator` 0.8.0 via `markup5ever` 0.10 | Removido. `parse_fragment` passa `context_element_allows_scripting = false`. |
+
+`cargo audit --deny unsound --ignore RUSTSEC-2024-0429` no lock do app e
+`cargo audit --deny unsound` no lock do core terminam 0. Os sete avisos
+`unmaintained` desta página continuam permitidos.

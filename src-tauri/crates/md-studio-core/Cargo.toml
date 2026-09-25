@@ -14,9 +14,9 @@ hex = "0.4.3"
 uuid = { version = "1.16.0", features = ["v4"] }
 epub-builder = "0.7"
 zip = "0.6"
-html5ever = "0.25"
-markup5ever = "0.10"
-markup5ever_rcdom = "0.1"
+html5ever = "0.39"
+markup5ever = "0.39"
+markup5ever_rcdom = "0.39"
 
 [dev-dependencies]
 tempfile = "3.19.1"

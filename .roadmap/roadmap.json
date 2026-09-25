@@ -7,11 +7,11 @@
     "run": {
       "run_id": "RUN-0001",
       "status": "success",
-      "last_event_seq": 3047,
-      "projection_hash_sha256": "563a4133c03925b7e7a929326c241a9278f5ebef7c6a61e5e6c4d95da48c70a4",
+      "last_event_seq": 3324,
+      "projection_hash_sha256": "9eb55d1b22dd9caabf9d7e442d9033ab36591ccf21a4b097504a68ce9869ab26",
       "verify_status": "ok"
     },
-    "updated_at": "2026-09-25T00:31:35Z"
+    "updated_at": "2026-09-25T02:24:26Z"
   },
   "project": {
     "name": "MD Studio",
@@ -9719,14 +9719,905 @@
         ]
       },
       "completed_at": "2026-09-25T00:31:35Z"
+    },
+    {
+      "task_id": "MD-SEC-AUDIT-CI-001",
+      "task_kind": "impl",
+      "title": "Remover time 0.1.45 e rand 0.7.3 do Cargo.lock",
+      "description": "O push 5fe4f4d da v0.2.3 falha nos jobs security dos workflows ci, Build Linux App e Build Windows App. pnpm audit passa. cargo audit --file src-tauri/Cargo.lock --deny unsound --ignore RUSTSEC-2024-0429 sai 1 por RUSTSEC-2020-0071 (time 0.1.45, via xml5ever 0.16.2 e markup5ever_rcdom 0.1) e por RUSTSEC-2026-0097 (rand 0.7.3 unsound, via phf_generator 0.8 e markup5ever 0.10). Não ampliar o --ignore. Subir a pilha do conversor XHTML para html5ever/markup5ever/markup5ever_rcdom 0.39, atualizar os dois Cargo.lock e manter os testes EPUB. A exceção RUSTSEC-2024-0429 permanece só para o glib do Tauri/GTK.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "MD-SEC-AUDIT-CI-001",
+        "md_sec_audit_ci_001_pass"
+      ],
+      "outputs": {
+        "files": [
+          "src-tauri/crates/md-studio-core/Cargo.toml",
+          "src-tauri/crates/md-studio-core/Cargo.lock",
+          "src-tauri/Cargo.lock",
+          "src-tauri/crates/md-studio-core/src/export/xhtml_converter.rs",
+          "docs/security/rust-advisory-residuals-2026-09-23.md"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src-tauri/crates/md-studio-core/**",
+        "src-tauri/Cargo.lock",
+        "docs/security/rust-advisory-residuals-2026-09-23.md"
+      ],
+      "task_type": "maintenance",
+      "acceptance_criteria": [
+        "src-tauri/Cargo.lock e o Cargo.lock do core não contêm time 0.1 nem rand 0.7",
+        "cargo audit --file src-tauri/Cargo.lock --deny unsound --ignore RUSTSEC-2024-0429 termina 0",
+        "cargo audit --file src-tauri/crates/md-studio-core/Cargo.lock --deny unsound termina 0",
+        "O gate não ganha nenhum --ignore novo",
+        "cargo test --offline --locked do md-studio-core continua aprovado",
+        "Verify: md_sec_audit_ci_001_pass"
+      ],
+      "required_review_mode": "security",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-25T00:49:29Z",
+      "verification": {
+        "checks": [
+          "md_sec_audit_ci_001_pass"
+        ]
+      },
+      "completed_at": "2026-09-25T00:53:04Z"
+    },
+    {
+      "task_id": "TRACE-001",
+      "task_kind": "impl",
+      "title": "Descoberta do repositório (repository.yaml)",
+      "description": "Inventariar aplicações, tecnologias, pacotes/crates, locais de teste, docs, scripts, config, infra/CI e empacotamento do md-studio em .esaa/traceability/repository.yaml com source_commit (HEAD) e generated_at (BRT). Fora de escopo do roadmap ESAA Software Traceability Graph: CLI, parser AST próprio, language server, Neo4j/graph DB, visualização gráfica, gate CI/CD, bloqueio automático de commit, instrumentação runtime, detecção automática de mudança, plugin de IDE. Sem alteração de código da aplicação; sem commit/push.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        ".esaa/traceability/repository.yaml"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        ".esaa/traceability/**"
+      ],
+      "task_type": "governance",
+      "acceptance_criteria": [
+        "repository.yaml contém source_commit (sha do HEAD) e generated_at em BRT",
+        "Lista aplicações, tecnologias, pacotes/crates, testes, docs, scripts, config, infra/CI e empacotamento com paths reais",
+        "Estrutura física e lógica principal compreensível sem novo scan completo"
+      ],
+      "required_review_mode": "governance",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-25T01:38:27Z",
+      "verification": {
+        "checks": [
+          "repository.yaml parse YAML ok",
+          "source_commit == git rev-parse HEAD (5fe4f4d2230f039791d6196cb0f0ecfb438825ae)",
+          "generated_at em BRT (-03:00)",
+          "paths citados existem no repositório"
+        ]
+      },
+      "completed_at": "2026-09-25T01:44:29Z"
+    },
+    {
+      "task_id": "TRACE-000",
+      "task_kind": "impl",
+      "title": "Schema do grafo de rastreabilidade (schema.yaml + README)",
+      "description": "Definir tipos de nó (genéricos + específicos md-studio justificados), tipos de relação, regras de ID (prefixo por tipo, UPPER-KEBAB, alias estável), âncoras obrigatórias por nó (path, symbol, lines@source_commit), evidência+method obrigatórios por aresta, critério de inclusão, regra de staleness e definição de impacto autorizado para fases posteriores. Executada logo após TRACE-001. Fora de escopo do roadmap ESAA Software Traceability Graph: CLI, parser AST próprio, language server, Neo4j/graph DB, visualização gráfica, gate CI/CD, bloqueio automático de commit, instrumentação runtime, detecção automática de mudança, plugin de IDE. Sem alteração de código da aplicação; sem commit/push.",
+      "status": "done",
+      "depends_on": [
+        "TRACE-001"
+      ],
+      "targets": [
+        ".esaa/traceability/schema.yaml",
+        ".esaa/traceability/README.md"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        ".esaa/traceability/**"
+      ],
+      "task_type": "governance",
+      "acceptance_criteria": [
+        "schema.yaml define node_types e relation_types exigidos pelo roadmap e extensões md-studio justificadas",
+        "Regras de ID, âncoras obrigatórias (path, symbol, lines) e evidência/method por aresta explícitas",
+        "Critério de inclusão, regra de staleness (source_commit vs HEAD) e regra authorized = change_target ∪ expected_affected / potentially_affected=warning / protected=violation documentadas",
+        "README.md explica os artefatos e como mantê-los"
+      ],
+      "required_review_mode": "governance",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-25T01:44:30Z",
+      "verification": {
+        "checks": [
+          "schema.yaml parse YAML ok",
+          "27 node_types / 17 relation_types",
+          "README.md descreve artefatos e regras"
+        ]
+      },
+      "completed_at": "2026-09-25T01:45:25Z"
+    },
+    {
+      "task_id": "TRACE-002",
+      "task_kind": "impl",
+      "title": "Módulos / bounded contexts (modules.yaml)",
+      "description": "Mapear bounded contexts do md-studio (editor, preview, workspace/fs, persistência, watcher, wiki-links, backlinks, índice, busca, formatter, export, mermaid, templates, settings/sessão, drafts, presentation, app shell) com ids estáveis e paths reais. Fora de escopo do roadmap ESAA Software Traceability Graph: CLI, parser AST próprio, language server, Neo4j/graph DB, visualização gráfica, gate CI/CD, bloqueio automático de commit, instrumentação runtime, detecção automática de mudança, plugin de IDE. Sem alteração de código da aplicação; sem commit/push.",
+      "status": "done",
+      "depends_on": [
+        "TRACE-000"
+      ],
+      "targets": [
+        ".esaa/traceability/modules.yaml"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        ".esaa/traceability/**"
+      ],
+      "task_type": "governance",
+      "acceptance_criteria": [
+        "Cada módulo tem id estável MOD-*, descrição e paths reais (frontend e Rust)",
+        "Cobre os contextos principais do produto"
+      ],
+      "required_review_mode": "governance",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-25T01:45:26Z",
+      "verification": {
+        "checks": [
+          "modules.yaml parse ok, 19 ids únicos",
+          "todos os paths/globs de módulos existem no repo",
+          "depends_on derivado de edges observed"
+        ]
+      },
+      "completed_at": "2026-09-25T01:52:26Z"
+    },
+    {
+      "task_id": "TRACE-003",
+      "task_kind": "impl",
+      "title": "Entrypoints (entrypoints.yaml)",
+      "description": "Catalogar entrypoints: botões/menus/atalhos/command palette/slash commands, comandos IPC Tauri (#[tauri::command] e onde o frontend invoca), eventos Tauri, associação de arquivos/args CLI/single-instance, diálogos. Fora de escopo do roadmap ESAA Software Traceability Graph: CLI, parser AST próprio, language server, Neo4j/graph DB, visualização gráfica, gate CI/CD, bloqueio automático de commit, instrumentação runtime, detecção automática de mudança, plugin de IDE. Sem alteração de código da aplicação; sem commit/push.",
+      "status": "done",
+      "depends_on": [
+        "TRACE-002"
+      ],
+      "targets": [
+        ".esaa/traceability/entrypoints.yaml"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        ".esaa/traceability/**"
+      ],
+      "task_type": "governance",
+      "acceptance_criteria": [
+        "Todo #[tauri::command] registrado está listado com handler Rust e chamadores TS (ou ausência explícita)",
+        "Eventos Tauri, atalhos e ações de UI principais listados com evidência path:line"
+      ],
+      "required_review_mode": "governance",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-25T01:52:28Z",
+      "verification": {
+        "checks": [
+          "113 referências path:line válidas em git show source_commit",
+          "21/21 comandos de generate_handler! listados",
+          "ausência de chamador TS explícita para 2 comandos"
+        ]
+      },
+      "completed_at": "2026-09-25T01:53:24Z"
+    },
+    {
+      "task_id": "TRACE-004",
+      "task_kind": "impl",
+      "title": "Nós do grafo (nodes.yaml)",
+      "description": "Gerar nodes.yaml seguindo schema e critério de inclusão, com âncoras path/symbol/lines no source_commit. Fora de escopo do roadmap ESAA Software Traceability Graph: CLI, parser AST próprio, language server, Neo4j/graph DB, visualização gráfica, gate CI/CD, bloqueio automático de commit, instrumentação runtime, detecção automática de mudança, plugin de IDE. Sem alteração de código da aplicação; sem commit/push.",
+      "status": "done",
+      "depends_on": [
+        "TRACE-003"
+      ],
+      "targets": [
+        ".esaa/traceability/nodes.yaml"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        ".esaa/traceability/**"
+      ],
+      "task_type": "governance",
+      "acceptance_criteria": [
+        "Todo nó tem id válido, type do schema, path, symbol e lines existentes no source_commit",
+        "Somente nós em fluxo, contrato, entrypoint ou referenciados por teste/invariante"
+      ],
+      "required_review_mode": "governance",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-25T01:53:26Z",
+      "verification": {
+        "checks": [
+          "333 ids únicos, formato PREFIX-UPPER-KEBAB conforme schema",
+          "todas as âncoras verificadas via git show source_commit (faixa + símbolo na linha inicial)",
+          "todo nó tem inclusion ∈ {entrypoint, flow, contract, test}"
+        ]
+      },
+      "completed_at": "2026-09-25T01:54:08Z"
+    },
+    {
+      "task_id": "TRACE-005",
+      "task_kind": "impl",
+      "title": "Arestas do grafo (edges.yaml)",
+      "description": "Gerar edges.yaml, mapeando em especial a fronteira invoke('<cmd>') TS -> handler Rust com evidência dos dois lados. Fora de escopo do roadmap ESAA Software Traceability Graph: CLI, parser AST próprio, language server, Neo4j/graph DB, visualização gráfica, gate CI/CD, bloqueio automático de commit, instrumentação runtime, detecção automática de mudança, plugin de IDE. Sem alteração de código da aplicação; sem commit/push.",
+      "status": "done",
+      "depends_on": [
+        "TRACE-004"
+      ],
+      "targets": [
+        ".esaa/traceability/edges.yaml"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        ".esaa/traceability/**"
+      ],
+      "task_type": "governance",
+      "acceptance_criteria": [
+        "Toda aresta tem relation do schema, evidence e method (observed|inferred)",
+        "Fronteira IPC TS->Rust mapeada com evidência em ambos os lados"
+      ],
+      "required_review_mode": "governance",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-25T01:54:10Z",
+      "verification": {
+        "checks": [
+          "564 arestas: refs de nós válidas, relation do schema, method e evidence presentes",
+          "todas as evidências path:line existem em git show source_commit",
+          "21 arestas IPC com evidência TS + Rust + generate_handler!"
+        ]
+      },
+      "completed_at": "2026-09-25T01:54:32Z"
+    },
+    {
+      "task_id": "TRACE-006",
+      "task_kind": "impl",
+      "title": "Dados persistidos (nodes/edges de dados)",
+      "description": "Atualizar nós/arestas com arquivos persistidos (save atômico tmp+rename), .mdstudio/index.json, chaves localStorage (drafts, settings, recentes) e caches. Fora de escopo do roadmap ESAA Software Traceability Graph: CLI, parser AST próprio, language server, Neo4j/graph DB, visualização gráfica, gate CI/CD, bloqueio automático de commit, instrumentação runtime, detecção automática de mudança, plugin de IDE. Sem alteração de código da aplicação; sem commit/push.",
+      "status": "done",
+      "depends_on": [
+        "TRACE-005"
+      ],
+      "targets": [
+        ".esaa/traceability/nodes.yaml",
+        ".esaa/traceability/edges.yaml"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        ".esaa/traceability/**"
+      ],
+      "task_type": "governance",
+      "acceptance_criteria": [
+        "Armazenamentos persistidos catalogados com reads/writes evidenciados",
+        "Save atômico e índice representados"
+      ],
+      "required_review_mode": "governance",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-25T01:54:33Z",
+      "verification": {
+        "checks": [
+          "353 nós e 607 arestas revalidados via git show source_commit",
+          "todo file_persisted/local_storage_key tem ≥1 aresta reads/writes com evidência",
+          "save atômico tmp+rename e index.json representados"
+        ]
+      },
+      "completed_at": "2026-09-25T01:55:23Z"
+    },
+    {
+      "task_id": "TRACE-007",
+      "task_kind": "impl",
+      "title": "Contratos (contracts.yaml)",
+      "description": "Catalogar contratos: assinaturas/DTOs IPC (TS vs Rust), payloads de eventos Tauri, schema de front matter, formato index.json, contrato de export HTML, política de sanitização, CSP/capabilities, com consumidores. Fora de escopo do roadmap ESAA Software Traceability Graph: CLI, parser AST próprio, language server, Neo4j/graph DB, visualização gráfica, gate CI/CD, bloqueio automático de commit, instrumentação runtime, detecção automática de mudança, plugin de IDE. Sem alteração de código da aplicação; sem commit/push.",
+      "status": "done",
+      "depends_on": [
+        "TRACE-006"
+      ],
+      "targets": [
+        ".esaa/traceability/contracts.yaml"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        ".esaa/traceability/**"
+      ],
+      "task_type": "governance",
+      "acceptance_criteria": [
+        "Cada contrato lista produtor, consumidores e evidência",
+        "Mudanças incompatíveis podem ser associadas aos consumidores do contrato"
+      ],
+      "required_review_mode": "governance",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-25T01:55:25Z",
+      "verification": {
+        "checks": [
+          "40 contratos com producer/consumers/evidence; todas as refs apontam para nós existentes",
+          "evidências path:line válidas em source_commit",
+          "nodes/edges revalidados (355/609)"
+        ]
+      },
+      "completed_at": "2026-09-25T01:56:34Z"
+    },
+    {
+      "task_id": "TRACE-008",
+      "task_kind": "impl",
+      "title": "Features (features.yaml)",
+      "description": "Mapear funcionalidades visíveis ao usuário (docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md e README) para nós; Presentation Mode com status conforme versão. Fora de escopo do roadmap ESAA Software Traceability Graph: CLI, parser AST próprio, language server, Neo4j/graph DB, visualização gráfica, gate CI/CD, bloqueio automático de commit, instrumentação runtime, detecção automática de mudança, plugin de IDE. Sem alteração de código da aplicação; sem commit/push.",
+      "status": "done",
+      "depends_on": [
+        "TRACE-007"
+      ],
+      "targets": [
+        ".esaa/traceability/features.yaml"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        ".esaa/traceability/**"
+      ],
+      "task_type": "governance",
+      "acceptance_criteria": [
+        "Features do documento de funcionalidades mapeadas a nós existentes",
+        "A partir de uma função/rota é possível achar sua feature"
+      ],
+      "required_review_mode": "governance",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-25T01:56:36Z",
+      "verification": {
+        "checks": [
+          "48 features; todas as refs de nó existem",
+          "node_index: 0 nós sem feature",
+          "135+ evidências de doc/código válidas no source_commit",
+          "nodes/edges revalidados (366/621)"
+        ]
+      },
+      "completed_at": "2026-09-25T02:00:45Z"
+    },
+    {
+      "task_id": "TRACE-009",
+      "task_kind": "impl",
+      "title": "Fluxos ponta a ponta (flows/*.yaml)",
+      "description": "Descrever fluxos principais (save-document, auto-save, conflict-on-save, open-workspace, open-file-from-os, wiki-link-resolve, backlinks-query, preview-render, export-html, format-code-block, draft-recovery, workspace-search) como passos ordenados referenciando ids de nós. Fora de escopo do roadmap ESAA Software Traceability Graph: CLI, parser AST próprio, language server, Neo4j/graph DB, visualização gráfica, gate CI/CD, bloqueio automático de commit, instrumentação runtime, detecção automática de mudança, plugin de IDE. Sem alteração de código da aplicação; sem commit/push.",
+      "status": "done",
+      "depends_on": [
+        "TRACE-008"
+      ],
+      "targets": [
+        ".esaa/traceability/flows/"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        ".esaa/traceability/**"
+      ],
+      "task_type": "governance",
+      "acceptance_criteria": [
+        "Pelo menos os 12 fluxos exigidos existem",
+        "Cada passo referencia um nó existente"
+      ],
+      "required_review_mode": "governance",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-25T02:00:47Z",
+      "verification": {
+        "checks": [
+          "12 fluxos obrigatórios presentes com passos ordenados",
+          "todas as refs de passo (nó/aresta/feature) existem; 386 evidências válidas",
+          "nodes/edges revalidados (366/623)"
+        ]
+      },
+      "completed_at": "2026-09-25T02:04:14Z"
+    },
+    {
+      "task_id": "TRACE-010",
+      "task_kind": "impl",
+      "title": "Mapa de testes",
+      "description": "Mapear testes frontend (tests/**) e Rust (src-tauri incl. crates) para nós/features com arestas covered_by/validates/verifies. Fora de escopo do roadmap ESAA Software Traceability Graph: CLI, parser AST próprio, language server, Neo4j/graph DB, visualização gráfica, gate CI/CD, bloqueio automático de commit, instrumentação runtime, detecção automática de mudança, plugin de IDE. Sem alteração de código da aplicação; sem commit/push.",
+      "status": "done",
+      "depends_on": [
+        "TRACE-009"
+      ],
+      "targets": [
+        ".esaa/traceability/nodes.yaml",
+        ".esaa/traceability/edges.yaml",
+        ".esaa/traceability/tests.yaml"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        ".esaa/traceability/**"
+      ],
+      "task_type": "governance",
+      "acceptance_criteria": [
+        "Todo teste mapeado existe no source_commit",
+        "Dado um nó alterado, um conjunto inicial de testes relevantes é identificável"
+      ],
+      "required_review_mode": "governance",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-25T02:04:15Z",
+      "verification": {
+        "checks": [
+          "66/66 arquivos vitest e 79/79 #[test] do repo mapeados",
+          "nodecheck 515 nós / edgecheck 903 arestas sem problemas",
+          "direção covered_by/validates conferida"
+        ]
+      },
+      "completed_at": "2026-09-25T02:06:42Z"
+    },
+    {
+      "task_id": "TRACE-011",
+      "task_kind": "impl",
+      "title": "Invariantes (invariants.yaml)",
+      "description": "Derivar invariantes de contratos documentados e testes reais (path fence, fs só via Rust, save atômico, conflito por SHA-256, sanitização preview+export, recursos remotos bloqueados, supressão de eco do watcher, retenção de drafts, export sem sobrescrever, offline/sem telemetria etc.). Fora de escopo do roadmap ESAA Software Traceability Graph: CLI, parser AST próprio, language server, Neo4j/graph DB, visualização gráfica, gate CI/CD, bloqueio automático de commit, instrumentação runtime, detecção automática de mudança, plugin de IDE. Sem alteração de código da aplicação; sem commit/push.",
+      "status": "done",
+      "depends_on": [
+        "TRACE-010"
+      ],
+      "targets": [
+        ".esaa/traceability/invariants.yaml"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        ".esaa/traceability/**"
+      ],
+      "task_type": "governance",
+      "acceptance_criteria": [
+        "Cada invariante tem feature, nós e verified_by apenas com testes reais",
+        "Invariantes sem teste marcados verified_by: [] e gap: true"
+      ],
+      "required_review_mode": "governance",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-25T02:06:43Z",
+      "verification": {
+        "checks": [
+          "10 invariantes; refs de nós/testes/features válidas",
+          "evidências enforced_by/gaps válidas no source_commit",
+          "invariantes sem teste têm verified_by: [] e gap: true"
+        ]
+      },
+      "completed_at": "2026-09-25T02:07:55Z"
+    },
+    {
+      "task_id": "TRACE-012",
+      "task_kind": "impl",
+      "title": "Grafo consolidado (graph.json)",
+      "description": "Gerar graph.json derivado dos YAML semânticos (fonte editável) via script em .esaa/traceability/tools/, incluindo source_commit. Fora de escopo do roadmap ESAA Software Traceability Graph: CLI, parser AST próprio, language server, Neo4j/graph DB, visualização gráfica, gate CI/CD, bloqueio automático de commit, instrumentação runtime, detecção automática de mudança, plugin de IDE. Sem alteração de código da aplicação; sem commit/push.",
+      "status": "done",
+      "depends_on": [
+        "TRACE-011"
+      ],
+      "targets": [
+        ".esaa/traceability/graph.json",
+        ".esaa/traceability/tools/"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        ".esaa/traceability/**"
+      ],
+      "task_type": "governance",
+      "acceptance_criteria": [
+        "graph.json gerado por script reprodutível e contém source_commit",
+        "YAML permanece a fonte editável"
+      ],
+      "required_review_mode": "governance",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-25T02:07:57Z",
+      "verification": {
+        "checks": [
+          "graph.json gerado no Nitro pelo script em tools/",
+          "source_commit == HEAD; 0 refs quebradas; 0 arestas sem evidence/method"
+        ]
+      },
+      "completed_at": "2026-09-25T02:09:04Z"
+    },
+    {
+      "task_id": "TRACE-013",
+      "task_kind": "impl",
+      "title": "Validação do grafo (validation.yaml)",
+      "description": "Validar referências quebradas, entrypoints sem fluxo, serviços órfãos, contratos sem consumidor, nós duplicados, ids instáveis, paths inexistentes, símbolos ausentes, âncoras fora de faixa, arestas sem evidência/method e drift source_commit vs HEAD. Fora de escopo do roadmap ESAA Software Traceability Graph: CLI, parser AST próprio, language server, Neo4j/graph DB, visualização gráfica, gate CI/CD, bloqueio automático de commit, instrumentação runtime, detecção automática de mudança, plugin de IDE. Sem alteração de código da aplicação; sem commit/push.",
+      "status": "done",
+      "depends_on": [
+        "TRACE-012"
+      ],
+      "targets": [
+        ".esaa/traceability/validation.yaml",
+        ".esaa/traceability/tools/"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        ".esaa/traceability/**"
+      ],
+      "task_type": "governance",
+      "acceptance_criteria": [
+        "validation.yaml sem nenhuma referência crítica quebrada",
+        "Warnings não críticos listados honestamente"
+      ],
+      "required_review_mode": "governance",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-25T02:09:06Z",
+      "verification": {
+        "checks": [
+          "validation.yaml gerado no Nitro: status pass, critical_issues 0",
+          "avisos listados honestamente",
+          "teste negativo detecta símbolo ausente e ref quebrada"
+        ]
+      },
+      "completed_at": "2026-09-25T02:11:03Z"
+    },
+    {
+      "task_id": "TRACE-014",
+      "task_kind": "impl",
+      "title": "Modelo de fechamento de impacto (impact-model.yaml)",
+      "description": "Definir upstream, downstream, features, testes, invariantes e regras de travessia por tipo de relação. Fora de escopo do roadmap ESAA Software Traceability Graph: CLI, parser AST próprio, language server, Neo4j/graph DB, visualização gráfica, gate CI/CD, bloqueio automático de commit, instrumentação runtime, detecção automática de mudança, plugin de IDE. Sem alteração de código da aplicação; sem commit/push.",
+      "status": "done",
+      "depends_on": [
+        "TRACE-013"
+      ],
+      "targets": [
+        ".esaa/traceability/impact-model.yaml"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        ".esaa/traceability/**"
+      ],
+      "task_type": "governance",
+      "acceptance_criteria": [
+        "Regras de travessia por relation type definidas",
+        "Fechamento inclui features, testes e invariantes"
+      ],
+      "required_review_mode": "governance",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-25T02:12:58Z",
+      "verification": {
+        "checks": [
+          "impact.py closure executa sobre graph.json",
+          "features, testes e invariantes presentes no fechamento"
+        ]
+      },
+      "completed_at": "2026-09-25T02:14:56Z"
+    },
+    {
+      "task_id": "TRACE-015",
+      "task_kind": "impl",
+      "title": "Modelo de blast radius",
+      "description": "Definir change_target, expected_affected, potentially_affected, protected e regra authorized/warning/violation. Fora de escopo do roadmap ESAA Software Traceability Graph: CLI, parser AST próprio, language server, Neo4j/graph DB, visualização gráfica, gate CI/CD, bloqueio automático de commit, instrumentação runtime, detecção automática de mudança, plugin de IDE. Sem alteração de código da aplicação; sem commit/push.",
+      "status": "done",
+      "depends_on": [
+        "TRACE-014"
+      ],
+      "targets": [
+        ".esaa/traceability/blast-radius-model.yaml"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        ".esaa/traceability/**"
+      ],
+      "task_type": "governance",
+      "acceptance_criteria": [
+        "Categorias e regra authorized = change_target ∪ expected_affected; potentially_affected=warning; protected=violation"
+      ],
+      "required_review_mode": "governance",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-25T02:15:17Z",
+      "verification": {
+        "checks": [
+          "impact.py blast executa",
+          "regra authorized/warning/violation documentada"
+        ]
+      },
+      "completed_at": "2026-09-25T02:15:50Z"
+    },
+    {
+      "task_id": "TRACE-016",
+      "task_kind": "impl",
+      "title": "Integração com tarefas ESAA",
+      "description": "Documentar campo traceability {targets, change_policy{mode: surgical}} em tarefas ESAA referenciando ids do grafo, verificando compatibilidade com o schema ESAA sem quebrar verify, com um exemplo. Fora de escopo do roadmap ESAA Software Traceability Graph: CLI, parser AST próprio, language server, Neo4j/graph DB, visualização gráfica, gate CI/CD, bloqueio automático de commit, instrumentação runtime, detecção automática de mudança, plugin de IDE. Sem alteração de código da aplicação; sem commit/push.",
+      "status": "done",
+      "depends_on": [
+        "TRACE-015"
+      ],
+      "targets": [
+        ".esaa/traceability/task-integration.md"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        ".esaa/traceability/**",
+        ".esaa/analysis/**"
+      ],
+      "task_type": "governance",
+      "acceptance_criteria": [
+        "Formato documentado + um exemplo",
+        "ESAA verify continua ok"
+      ],
+      "required_review_mode": "governance",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-25T02:15:57Z",
+      "verification": {
+        "checks": [
+          "schema rejeita campo extra (demonstrado)",
+          "verify ok"
+        ]
+      },
+      "completed_at": "2026-09-25T02:16:31Z"
+    },
+    {
+      "task_id": "TRACE-017",
+      "task_kind": "impl",
+      "title": "Projeção de impacto (.esaa/analysis/<task>-impact.yaml)",
+      "description": "Projetar impacto de uma tarefa a partir dos targets usando o impact model. Fora de escopo do roadmap ESAA Software Traceability Graph: CLI, parser AST próprio, language server, Neo4j/graph DB, visualização gráfica, gate CI/CD, bloqueio automático de commit, instrumentação runtime, detecção automática de mudança, plugin de IDE. Sem alteração de código da aplicação; sem commit/push.",
+      "status": "done",
+      "depends_on": [
+        "TRACE-016"
+      ],
+      "targets": [
+        ".esaa/analysis/"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        ".esaa/traceability/**",
+        ".esaa/analysis/**"
+      ],
+      "task_type": "governance",
+      "acceptance_criteria": [
+        "Arquivo <task>-impact.yaml gerado com nós, features, testes e invariantes projetados"
+      ],
+      "required_review_mode": "governance",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-25T02:16:41Z",
+      "verification": {
+        "checks": [
+          "arquivo impact gerado com nós, features, testes e invariantes",
+          "projeção registrada antes do diff"
+        ]
+      },
+      "completed_at": "2026-09-25T02:17:31Z"
+    },
+    {
+      "task_id": "TRACE-018",
+      "task_kind": "impl",
+      "title": "Footprint de mudança (.esaa/analysis/<task>-footprint.yaml)",
+      "description": "Calcular changed_files do git diff, changed_nodes pela interseção de hunks com âncoras de linha, contratos/dados/eventos alterados. Fora de escopo do roadmap ESAA Software Traceability Graph: CLI, parser AST próprio, language server, Neo4j/graph DB, visualização gráfica, gate CI/CD, bloqueio automático de commit, instrumentação runtime, detecção automática de mudança, plugin de IDE. Sem alteração de código da aplicação; sem commit/push.",
+      "status": "done",
+      "depends_on": [
+        "TRACE-017"
+      ],
+      "targets": [
+        ".esaa/analysis/"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        ".esaa/traceability/**",
+        ".esaa/analysis/**"
+      ],
+      "task_type": "governance",
+      "acceptance_criteria": [
+        "Footprint derivado de diff real com changed_nodes por interseção de linhas"
+      ],
+      "required_review_mode": "governance",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-25T02:17:49Z",
+      "verification": {
+        "checks": [
+          "footprint derivado de diff real",
+          "changed_nodes por interseção de linhas"
+        ]
+      },
+      "completed_at": "2026-09-25T02:18:54Z"
+    },
+    {
+      "task_id": "TRACE-019",
+      "task_kind": "impl",
+      "title": "Drift de impacto",
+      "description": "Calcular impact drift = observado - autorizado e classificar warning/violation. Fora de escopo do roadmap ESAA Software Traceability Graph: CLI, parser AST próprio, language server, Neo4j/graph DB, visualização gráfica, gate CI/CD, bloqueio automático de commit, instrumentação runtime, detecção automática de mudança, plugin de IDE. Sem alteração de código da aplicação; sem commit/push.",
+      "status": "done",
+      "depends_on": [
+        "TRACE-018"
+      ],
+      "targets": [
+        ".esaa/analysis/"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        ".esaa/traceability/**",
+        ".esaa/analysis/**"
+      ],
+      "task_type": "governance",
+      "acceptance_criteria": [
+        "Drift calculado e classificado segundo a regra do blast radius"
+      ],
+      "required_review_mode": "governance",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-25T02:19:08Z",
+      "verification": {
+        "checks": [
+          "drift calculado e classificado segundo o blast radius"
+        ]
+      },
+      "completed_at": "2026-09-25T02:19:18Z"
+    },
+    {
+      "task_id": "TRACE-020",
+      "task_kind": "impl",
+      "title": "Validação real (calibração retroativa + bug novo)",
+      "description": "(a) calibração retroativa em tarefa concluída com diff conhecido, projetando antes de olhar o diff; (b) um bug real pequeno com projeção registrada ANTES da correção; medir precisão/recall e responder às 7 perguntas. Fora de escopo do roadmap ESAA Software Traceability Graph: CLI, parser AST próprio, language server, Neo4j/graph DB, visualização gráfica, gate CI/CD, bloqueio automático de commit, instrumentação runtime, detecção automática de mudança, plugin de IDE. Sem alteração de código da aplicação; sem commit/push.",
+      "status": "done",
+      "depends_on": [
+        "TRACE-019"
+      ],
+      "targets": [
+        ".esaa/analysis/"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        ".esaa/traceability/**",
+        ".esaa/analysis/**"
+      ],
+      "task_type": "governance",
+      "acceptance_criteria": [
+        "Precisão/recall medidos para os dois casos",
+        "7 perguntas respondidas com evidência"
+      ],
+      "required_review_mode": "governance",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-25T02:19:26Z",
+      "verification": {
+        "checks": [
+          "precisão/recall medidos para os dois casos",
+          "7 perguntas respondidas com evidência"
+        ]
+      },
+      "completed_at": "2026-09-25T02:24:26Z"
+    },
+    {
+      "task_id": "MD-BUG-CONFLICT-RELOAD-001",
+      "task_kind": "impl",
+      "title": "Bugfix: 'Recarregar do disco' no ConflictDialog reaplica o rascunho local em vez do conteúdo do disco",
+      "description": "Em conflito (arquivo alterado no disco com edições locais), a escolha 'Recarregar do disco' chama resolveConflict('reload') -> openRelative(path), que carrega loadDraft() do localStorage (gravado a cada setContent) e o reaplica sobre snap.content; depois setDirty(false) mascara o estado. Resultado: o editor mostra a edição local marcada como limpa, não o conteúdo do disco, e o rascunho permanece. Correção cirúrgica em useDocumentState.resolveConflict (HDL-DOC-RESOLVE-CONFLICT): descartar o rascunho do caminho em conflito antes de reabrir. Teste de regressão falhando antes/passando depois. Traceability: .esaa/tasks/MD-BUG-CONFLICT-RELOAD-001.yaml (projeção em .esaa/analysis antes do código). Sem commit/push; não tocar arquivos de MD-SEC-AUDIT-CI-001.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "src/state/documentState.ts",
+        "tests/editor/conflictReload.test.tsx",
+        ".esaa/tasks/MD-BUG-CONFLICT-RELOAD-001.yaml"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src/state/documentState.ts",
+        "tests/editor/conflictReload.test.tsx",
+        ".esaa/tasks/MD-BUG-CONFLICT-RELOAD-001.yaml",
+        ".esaa/analysis/**",
+        ".esaa/traceability/**"
+      ],
+      "task_type": "hotfix",
+      "acceptance_criteria": [
+        "Teste de regressão reproduz o bug (falha antes da correção) e passa depois",
+        "Recarregar do disco exibe snap.content, dirty=false, saveStatus saved e remove o rascunho do caminho",
+        "pnpm test e pnpm typecheck verdes",
+        "traceability: ver .esaa/tasks/MD-BUG-CONFLICT-RELOAD-001.yaml; impact antes do código; footprint/drift sem violation"
+      ],
+      "required_review_mode": "regression",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-25T02:20:25Z",
+      "verification": {
+        "checks": [
+          "teste falha antes e passa depois",
+          "pnpm test 364/364",
+          "pnpm typecheck ok",
+          "drift sem violation"
+        ]
+      },
+      "completed_at": "2026-09-25T02:23:30Z"
     }
   ],
   "indexes": {
     "by_status": {
-      "done": 253
+      "done": 276
     },
     "by_kind": {
-      "impl": 192,
+      "impl": 215,
       "qa": 36,
       "spec": 25
     }
