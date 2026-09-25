@@ -1,0 +1,373 @@
+artifact: task-footprint
+schema_version: 1
+trace_task: TRACE-018
+task_id: MD-SPLIT-SCROLL-001
+diff:
+  base: daf5888731c5ce3cdd5ce0d553a258b3b952f114
+  head: WORKTREE
+  paths_filter:
+  - src/hooks/useScrollSync.ts
+  - src/state/settings.ts
+  - src/hooks/useSettings.ts
+  - src/App.tsx
+  - src/components/settings/EditorSettings.tsx
+  - tests/ux/settingsStore.test.ts
+  - tests/settings/settingsPanel.test.tsx
+  - tests/hooks/useScrollSync.test.tsx
+  excluded_set: []
+  command: git diff -U0 --no-color --no-ext-diff daf5888731c5ce3cdd5ce0d553a258b3b952f114 -- src/hooks/useScrollSync.ts src/state/settings.ts
+    src/hooks/useSettings.ts src/App.tsx src/components/settings/EditorSettings.tsx tests/ux/settingsStore.test.ts tests/settings/settingsPanel.test.tsx
+    tests/hooks/useScrollSync.test.tsx
+graph_source_commit: daf5888731c5ce3cdd5ce0d553a258b3b952f114
+notes: []
+changed_files:
+- path: src/App.tsx
+  status: M
+  added: 3
+  removed: 3
+  hunks:
+  - old:
+    - 75
+    - 75
+    new:
+    - 75
+    - 75
+  - old:
+    - 297
+    - 297
+    new:
+    - 297
+    - 297
+  - old:
+    - 767
+    - 767
+    new:
+    - 767
+    - 767
+  is_test: false
+  catalogued_nodes_in_file: 26
+- path: src/components/settings/EditorSettings.tsx
+  status: M
+  added: 17
+  removed: 0
+  hunks:
+  - old:
+    - 9
+    - 8
+    new:
+    - 10
+    - 10
+  - old:
+    - 13
+    - 12
+    new:
+    - 15
+    - 15
+  - old:
+    - 75
+    - 74
+    new:
+    - 78
+    - 92
+  is_test: false
+  catalogued_nodes_in_file: 0
+- path: src/hooks/useScrollSync.ts
+  status: M
+  added: 5
+  removed: 0
+  hunks:
+  - old:
+    - 16
+    - 15
+    new:
+    - 17
+    - 20
+  - old:
+    - 68
+    - 67
+    new:
+    - 73
+    - 73
+  is_test: false
+  catalogued_nodes_in_file: 1
+- path: src/hooks/useSettings.ts
+  status: M
+  added: 2
+  removed: 0
+  hunks:
+  - old:
+    - 21
+    - 20
+    new:
+    - 22
+    - 22
+  - old:
+    - 48
+    - 47
+    new:
+    - 50
+    - 50
+  is_test: false
+  catalogued_nodes_in_file: 0
+- path: src/state/settings.ts
+  status: M
+  added: 10
+  removed: 0
+  hunks:
+  - old:
+    - 18
+    - 17
+    new:
+    - 19
+    - 19
+  - old:
+    - 106
+    - 105
+    new:
+    - 108
+    - 108
+  - old:
+    - 138
+    - 137
+    new:
+    - 141
+    - 141
+  - old:
+    - 239
+    - 238
+    new:
+    - 243
+    - 249
+  is_test: false
+  catalogued_nodes_in_file: 3
+- path: tests/hooks/useScrollSync.test.tsx
+  status: A
+  added: 71
+  removed: 0
+  hunks:
+  - old:
+    - 0
+    - -1
+    new:
+    - 1
+    - 71
+  is_test: true
+  catalogued_nodes_in_file: 0
+- path: tests/settings/settingsPanel.test.tsx
+  status: M
+  added: 31
+  removed: 0
+  hunks:
+  - old:
+    - 135
+    - 134
+    new:
+    - 136
+    - 166
+  is_test: true
+  catalogued_nodes_in_file: 1
+- path: tests/ux/settingsStore.test.ts
+  status: M
+  added: 4
+  removed: 0
+  hunks:
+  - old:
+    - 67
+    - 66
+    new:
+    - 68
+    - 70
+  - old:
+    - 99
+    - 98
+    new:
+    - 103
+    - 103
+  is_test: true
+  catalogued_nodes_in_file: 1
+changed_nodes:
+- id: HDL-APP-SHORTCUTS
+  kind: code
+  type: handler
+  path: src/App.tsx
+  sides:
+  - old
+  - new
+  lines_hit: 2
+  attribution: line
+  anchor_resolution:
+    old: exact
+    new: relocated
+  created_by_change: false
+- id: SCR-APP
+  kind: code
+  type: screen
+  path: src/App.tsx
+  sides:
+  - old
+  - new
+  lines_hit: 4
+  attribution: line
+  anchor_resolution:
+    old: exact
+    new: relocated
+  created_by_change: false
+- id: FN-USE-SCROLL-SYNC
+  kind: code
+  type: function
+  path: src/hooks/useScrollSync.ts
+  sides:
+  - new
+  lines_hit: 5
+  attribution: line
+  anchor_resolution:
+    old: exact
+    new: relocated
+  created_by_change: false
+- id: CFG-DEFAULT-SETTINGS
+  kind: code
+  type: configuration
+  path: src/state/settings.ts
+  sides:
+  - new
+  lines_hit: 1
+  attribution: line
+  anchor_resolution:
+    old: exact
+    new: relocated
+  created_by_change: false
+- id: STO-SETTINGS
+  kind: code
+  type: store
+  path: src/state/settings.ts
+  sides:
+  - new
+  lines_hit: 8
+  attribution: line
+  anchor_resolution:
+    old: exact
+    new: relocated
+  created_by_change: false
+- id: TST-TS-SETTINGS-SETTINGSPANEL
+  kind: test
+  type: test
+  path: tests/settings/settingsPanel.test.tsx
+  sides:
+  - new
+  lines_hit: 31
+  attribution: line
+  anchor_resolution:
+    old: exact
+    new: relocated
+  created_by_change: false
+- id: TST-TS-UX-SETTINGSSTORE
+  kind: test
+  type: test
+  path: tests/ux/settingsStore.test.ts
+  sides:
+  - new
+  lines_hit: 4
+  attribution: line
+  anchor_resolution:
+    old: exact
+    new: relocated
+  created_by_change: false
+enclosing_nodes: []
+uncatalogued:
+- path: src/components/settings/EditorSettings.tsx
+  is_test: false
+  new_lines:
+  - - 10
+    - 10
+  - - 15
+    - 15
+  - - 78
+    - 92
+  trivial_lines: 3
+  substantive_lines:
+  - new:78
+  - new:79
+  - new:80
+  - new:81
+  - new:82
+  - new:83
+  - new:84
+  - new:85
+  - new:86
+  - new:87
+  - new:88
+  - new:89
+  - new:90
+  - new:91
+- path: src/hooks/useSettings.ts
+  is_test: false
+  new_lines:
+  - - 22
+    - 22
+  - - 50
+    - 50
+  trivial_lines: 0
+  substantive_lines:
+  - new:22
+  - new:50
+- path: src/state/settings.ts
+  is_test: false
+  new_lines:
+  - - 19
+    - 19
+  trivial_lines: 0
+  substantive_lines:
+  - new:19
+new_files: []
+new_test_files:
+- tests/hooks/useScrollSync.test.tsx
+contracts_touched:
+- id: CTR-LSK-SESSION
+  how: consumer
+  node: SCR-APP
+- id: CTR-LSK-SETTINGS
+  how: consumer
+  node: STO-SETTINGS
+- id: CTR-LSK-SETTINGS
+  how: producer
+  node: STO-SETTINGS
+data_touched:
+- id: LSK-SPLIT-RATIO
+  how: read_by_changed
+  node: SCR-APP
+- id: LSK-SETTINGS
+  how: read_by_changed
+  node: STO-SETTINGS
+- id: LSK-SETTINGS
+  how: written_by_changed
+  node: STO-SETTINGS
+- id: STO-SETTINGS
+  how: definition_changed
+  node: STO-SETTINGS
+events_touched: []
+rollup:
+  features:
+  - FEAT-APP-SCREENS
+  - FEAT-AUTO-SAVE
+  - FEAT-GO-TO-LINE
+  - FEAT-LAYOUT-PANELS
+  - FEAT-SETTINGS
+  - FEAT-SHORTCUTS-HELP
+  - FEAT-VIEW-MODES
+  invariants: []
+  flows:
+  - FLOW-APP-BOOT
+  - FLOW-AUTO-SAVE
+  - FLOW-BACKLINKS-QUERY
+  - FLOW-METADATA-REFRESH
+  - FLOW-PREVIEW-RENDER
+  - FLOW-WIKI-LINK-RESOLVE
+stats:
+  files: 8
+  changed_nodes: 7
+  code_nodes: 5
+  test_nodes: 2
+  uncatalogued_files: 3
+  uncatalogued_substantive_lines: 17
+  new_files: 0
+  new_test_files: 1

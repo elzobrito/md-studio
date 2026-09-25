@@ -1,7 +1,7 @@
 # TRACE-009 — Consultar backlinks do documento aberto. Passos ordenados; via = aresta de edges.yaml que liga o passo de origem (direction reverse = aresta no sentido oposto, ex.: consumes/reads/callback). trigger = início de ramo.
 artifact: backlinks-query
 schema_version: 1
-source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+source_commit: daf5888731c5ce3cdd5ce0d553a258b3b952f114
 generated_at: '2026-09-24T23:03:41-03:00'
 id: FLOW-BACKLINKS-QUERY
 name: Consultar backlinks do documento aberto

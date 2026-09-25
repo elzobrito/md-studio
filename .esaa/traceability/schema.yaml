@@ -3,7 +3,7 @@
 # graph.json é derivado (TRACE-012) e validation.yaml é gerado (TRACE-013).
 artifact: schema
 schema_version: 1
-source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+source_commit: daf5888731c5ce3cdd5ce0d553a258b3b952f114
 generated_at: "2026-09-24T22:50:00-03:00"
 
 files:

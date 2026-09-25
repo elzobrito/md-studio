@@ -133,6 +133,37 @@ describe("MD-UI-010: Settings refinado (SettingsPanel)", () => {
     });
   });
 
+  it("persists the split-view scroll synchronization preference from Editor settings", async () => {
+    settingsStore.resetToDefaults();
+    const root = createRoot(container);
+
+    await act(async () => {
+      root.render(<SettingsPanel isOpen={true} onClose={() => {}} />);
+    });
+
+    const editorTab = [...container.querySelectorAll<HTMLButtonElement>('[role="tab"]')]
+      .find((tab) => tab.textContent?.includes("Editor"));
+    expect(editorTab).toBeDefined();
+    await act(async () => editorTab!.click());
+
+    const scrollSyncField = [...container.querySelectorAll<HTMLElement>(".settings-field")]
+      .find((field) => field.textContent?.includes("Rolagem dupla na vista Dividida"));
+    const checkbox = scrollSyncField?.querySelector<HTMLInputElement>('input[type="checkbox"]');
+    expect(checkbox).not.toBeNull();
+    expect(checkbox?.checked).toBe(true);
+
+    await act(async () => {
+      checkbox!.click();
+    });
+
+    expect(settingsStore.getState().splitScrollSync).toBe(false);
+    const saved = JSON.parse(localStorage.getItem("md-studio-settings-v2") || "{}");
+    expect(saved.splitScrollSync).toBe(false);
+
+    act(() => root.unmount());
+    settingsStore.resetToDefaults();
+  });
+
   it("supports keyboard navigation within tablist (ArrowDown, ArrowUp, Home, End)", async () => {
     const root = createRoot(container);
     await act(async () => {

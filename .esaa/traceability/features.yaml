@@ -1,8 +1,7 @@
-# TRACE-008 — Features visíveis ao usuário. implemented_by/entry_nodes = ids de nodes.yaml; docs = path:line; divergences = doc vs código com evidência path:line e method. node_index permite achar a(s) feature(s) a partir de qualquer nó.
 artifact: features
 schema_version: 1
-source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
-generated_at: '2026-09-24T23:06:09-03:00'
+source_commit: daf5888731c5ce3cdd5ce0d553a258b3b952f114
+generated_at: '2026-09-25T15:18:52-03:00'
 summary:
   total: 48
   by_status:
@@ -33,7 +32,8 @@ summary:
     since: v0.2.3
     evidence:
     - docs/release/RELEASE_NOTES_v0.2.3.md:12
-    note: src/presentation/ ausente das tags v0.1.0..v0.2.2 e presente em v0.2.3 (git ls-tree).
+    note: src/presentation/ ausente das tags v0.1.0..v0.2.2 e presente em v0.2.3 (git
+      ls-tree).
 features:
 - id: FEAT-EDITOR
   name: Editor Markdown CodeMirror 6
@@ -58,7 +58,8 @@ features:
   docs:
   - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:14
   divergences:
-  - description: Atalho do editor Mod-Shift-s (tachado) colide com o atalho global Ctrl+Shift+S (Salvar como); precedência depende do foco.
+  - description: Atalho do editor Mod-Shift-s (tachado) colide com o atalho global
+      Ctrl+Shift+S (Salvar como); precedência depende do foco.
     evidence:
     - src/components/MarkdownEditor.tsx:148
     - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:118
@@ -96,11 +97,13 @@ features:
   docs:
   - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:17
   divergences:
-  - description: Só converte clipboard text/html em Markdown; não há tratamento de URL colada sobre seleção ([texto](url)).
+  - description: Só converte clipboard text/html em Markdown; não há tratamento de
+      URL colada sobre seleção ([texto](url)).
     evidence:
     - src/editor/paste/paste-plugin.ts:16
     method: observed
-  - description: 'htmlToMarkdown não trata <table>/<tr>/<td>: tabelas HTML/Excel não viram tabela Markdown.'
+  - description: 'htmlToMarkdown não trata <table>/<tr>/<td>: tabelas HTML/Excel não
+      viram tabela Markdown.'
     evidence:
     - src/editor/paste/html-to-md.ts:149
     method: observed
@@ -114,11 +117,13 @@ features:
   docs:
   - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:18
   divergences:
-  - description: markdownHintExtension (hoverTooltip) não é registrada em nenhuma extensão do editor; só matchHintAtPosition é exercitada por testes.
+  - description: markdownHintExtension (hoverTooltip) não é registrada em nenhuma
+      extensão do editor; só matchHintAtPosition é exercitada por testes.
     evidence:
     - src/editor/hints/hint-plugin.ts:6
     method: observed
-  - description: Doc descreve dicas no rodapé do editor; o código implementa tooltip de hover.
+  - description: Doc descreve dicas no rodapé do editor; o código implementa tooltip
+      de hover.
     evidence:
     - src/editor/hints/hint-plugin.ts:6
     method: observed
@@ -260,7 +265,8 @@ features:
   - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:47
   - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:141
   divergences:
-  - description: IPC resolve_wiki_link (resolução unitária) não tem chamador no frontend; a UI usa get_resolved_wiki_links_for.
+  - description: IPC resolve_wiki_link (resolução unitária) não tem chamador no frontend;
+      a UI usa get_resolved_wiki_links_for.
     evidence:
     - src-tauri/src/lib.rs:84
     method: observed
@@ -428,7 +434,8 @@ features:
   - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:130
   - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:131
   divergences:
-  - description: openRecent contém diretórios candidatos hardcoded do ambiente do desenvolvedor.
+  - description: openRecent contém diretórios candidatos hardcoded do ambiente do
+      desenvolvedor.
     evidence:
     - src/state/documentState.ts:244
     method: observed
@@ -476,7 +483,8 @@ features:
   - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:117
   - README.md:177
   divergences:
-  - description: 'SaveResult ''OutsideWorkspace'' nunca é emitido: erro de fence rejeita a promise (Err) em vez de SaveResult.'
+  - description: 'SaveResult ''OutsideWorkspace'' nunca é emitido: erro de fence rejeita
+      a promise (Err) em vez de SaveResult.'
     evidence:
     - src/contracts/types.ts:36
     method: observed
@@ -527,12 +535,14 @@ features:
   - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:59
   - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:107
   divergences:
-  - description: HashMismatch no save só define status de erro; o ConflictDialog só abre via evento do watcher (setConflictPath).
+  - description: HashMismatch no save só define status de erro; o ConflictDialog só
+      abre via evento do watcher (setConflictPath).
     evidence:
     - src/state/documentState.ts:302
     - src/state/documentState.ts:436
     method: observed
-  - description: '''Recarregar do disco'' chama openRelative, que reaplica o rascunho do localStorage; o recarregamento pode não mostrar o conteúdo do disco.'
+  - description: '''Recarregar do disco'' chama openRelative, que reaplica o rascunho
+      do localStorage; o recarregamento pode não mostrar o conteúdo do disco.'
     evidence:
     - src/state/documentState.ts:456
     method: inferred
@@ -611,7 +621,8 @@ features:
   docs:
   - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:62
   divergences:
-  - description: 'Documento HTML exportado não inclui Content-Security-Policy; recursos remotos (ex.: <img src=https://...>) seriam carregados ao abrir.'
+  - description: 'Documento HTML exportado não inclui Content-Security-Policy; recursos
+      remotos (ex.: <img src=https://...>) seriam carregados ao abrir.'
     evidence:
     - src/services/export.ts:12
     method: observed
@@ -687,7 +698,8 @@ features:
   - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:71
   - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:72
   - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:73
-  notes: CMP-CODE-BLOCK (componente React com botão Formatar) é test_only; o botão real do preview é injetado por MarkdownViewer (BTN-PREVIEW-FORMAT-CODE).
+  notes: CMP-CODE-BLOCK (componente React com botão Formatar) é test_only; o botão
+    real do preview é injetado por MarkdownViewer (BTN-PREVIEW-FORMAT-CODE).
   trace_task: TRACE-008
 - id: FEAT-VIEW-MODES
   name: Modos de visão (source/preview/split) e scroll sync
@@ -704,7 +716,8 @@ features:
   - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:120
   - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:127
   divergences:
-  - description: Doc lista 'zen' como modo de visão (ID zen, tela cheia). ViewMode só tem source|preview|split; F11/toggleZen apenas fecha/abre painéis laterais.
+  - description: Doc lista 'zen' como modo de visão (ID zen, tela cheia). ViewMode
+      só tem source|preview|split; F11/toggleZen apenas fecha/abre painéis laterais.
     evidence:
     - src/state/session.ts:4
     - src/state/session.ts:20
@@ -737,7 +750,8 @@ features:
   - README.md:13
   - docs/release/RELEASE_NOTES_v0.2.3.md:12
   divergences:
-  - description: docs/release/README.md ainda diz 'implementado, em teste; alvo v0.2.3', mas v0.2.3 foi lançada com o recurso (release notes).
+  - description: docs/release/README.md ainda diz 'implementado, em teste; alvo v0.2.3',
+      mas v0.2.3 foi lançada com o recurso (release notes).
     evidence:
     - docs/release/README.md:34
     method: observed
@@ -760,43 +774,32 @@ features:
   trace_task: TRACE-008
 - id: FEAT-COMMAND-PALETTE
   name: Command palette / quick switcher
-  status: partial
+  status: active
   implemented_by:
   - CMP-COMMAND-PALETTE
   - CMP-QUICK-SWITCHER
   - FN-FUZZY-SEARCH
+  - SVC-COMMAND-REGISTRY
   entry_nodes:
   - SHC-CTRL-P
   - BTN-HEADER-QUICK-SEARCH
   docs:
   - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:102
   - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:128
-  divergences:
-  - description: 'App não passa allFiles ao CommandPalette: busca difusa cobre só arquivos recentes, não todas as notas do workspace.'
-    evidence:
-    - src/App.tsx:770
-    method: observed
-  - description: Botão de busca rápida do cabeçalho só renderiza com onOpenSearch, que App não passa.
-    evidence:
-    - src/components/header/AppHeader.tsx:84
-    - src/App.tsx:532
-    method: observed
+  divergences: []
   trace_task: TRACE-008
 - id: FEAT-WORKSPACE-SEARCH
   name: Busca textual no workspace
-  status: backend_only
+  status: active
   implemented_by:
   - IPC-SEARCH-WORKSPACE
   - IPCC-SEARCH-WORKSPACE
   - DTO-RS-SEARCH-RESULT
   - DTO-TS-SEARCH-RESULT
+  - CMP-WORKSPACE-SEARCH
   docs:
   - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:299
-  divergences:
-  - description: Comando search_workspace registrado e com cliente TS, mas sem nenhum gatilho de UI (sem chamador de ipc.searchWorkspace).
-    evidence:
-    - src-tauri/src/lib.rs:75
-    method: observed
+  divergences: []
   trace_task: TRACE-008
 - id: FEAT-SHORTCUTS-HELP
   name: Atalhos globais e modal de ajuda
@@ -921,11 +924,13 @@ features:
   - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:361
   - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:389
   divergences:
-  - description: Botão 'Reindexar workspace' recarrega a árvore (list_entries), não chama trigger_reindex.
+  - description: Botão 'Reindexar workspace' recarrega a árvore (list_entries), não
+      chama trigger_reindex.
     evidence:
     - src/components/explorer/WorkspaceHeader.tsx:39
     method: observed
-  - description: 'Comandos de metadados não recebem workspace_id: operam sobre o único engine ativo.'
+  - description: 'Comandos de metadados não recebem workspace_id: operam sobre o único
+      engine ativo.'
     evidence:
     - src-tauri/src/commands/metadata.rs:46
     method: observed
@@ -945,7 +950,8 @@ features:
   - README.md:15
   - README.md:247
   divergences:
-  - description: EPUB usa schema de sanitize próprio (defaultSchema estendido), diferente do schema do preview/export.
+  - description: EPUB usa schema de sanitize próprio (defaultSchema estendido), diferente
+      do schema do preview/export.
     evidence:
     - src/export/epubProcessor.ts:125
     method: observed
@@ -965,7 +971,8 @@ features:
   - README.md:6
   - README.md:245
   divergences:
-  - description: Política urlPolicy.allowUrl não está ligada ao pipeline (só testes); ProcessOptions.allowRemote não é usado.
+  - description: Política urlPolicy.allowUrl não está ligada ao pipeline (só testes);
+      ProcessOptions.allowRemote não é usado.
     evidence:
     - src/security/urlPolicy.ts:7
     method: observed
@@ -997,6 +1004,112 @@ features:
     - README.md:237
     method: observed
   trace_task: TRACE-008
+- id: FEAT-MD-DOCTOR
+  name: MD Doctor — diagnósticos e linter local
+  status: active
+  implemented_by:
+  - SVC-MD-DOCTOR-LINTER
+  - FN-MD-DOCTOR-HOVER-TOOLTIP
+  - CLS-RS-DOCTOR
+  - FN-RS-DOCTOR-DIAGNOSE
+  docs:
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:20
+  divergences: []
+  trace_task: MD-V03-012
+- id: FEAT-SMART-REFERENCES
+  name: Smart References e auto-complete de wiki links
+  status: active
+  implemented_by:
+  - SVC-SMART-REFERENCES
+  - FN-RESOLVE-SMART-REFERENCE
+  docs:
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:31
+  divergences: []
+  trace_task: MD-V03-013
+- id: FEAT-ASSET-MANAGER
+  name: Asset Manager — colagem e armazenamento local de imagens
+  status: active
+  implemented_by:
+  - SVC-ASSET-PASTE
+  - FN-VALIDATE-ASSET-DESTINATION
+  - FN-RS-SAVE-PASTED-ASSET
+  docs:
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:40
+  divergences: []
+  trace_task: MD-V03-014
+- id: FEAT-SPELL-CHECKER
+  name: Writing Quality — corretor ortográfico pt-BR / en-US
+  status: active
+  implemented_by:
+  - CLS-LOCAL-SPELL-CHECKER
+  - SVC-SPELL-LINTER-EXTENSION
+  docs:
+  - docs/spec/ADR-writing-quality-engine.md:1
+  divergences: []
+  trace_task: MD-V03-015
+- id: FEAT-TABLE-DATA-PASTE
+  name: Table Data Paste — colagem de planilhas e TSV como tabelas GFM
+  status: active
+  implemented_by:
+  - SVC-TABLE-DATA-PASTE
+  docs:
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:50
+  divergences: []
+  trace_task: MD-V03-016
+- id: FEAT-CODE-BLOCK-METADATA
+  name: Code Blocks Avançados com abas e metadados
+  status: active
+  implemented_by:
+  - SVC-CODEBLOCK-METADATA
+  docs:
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:60
+  divergences: []
+  trace_task: MD-V03-018
+- id: FEAT-HOVER-PREVIEW
+  name: Hover Previews locais para links e notas
+  status: active
+  implemented_by:
+  - CMP-HOVER-PREVIEW
+  docs:
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:70
+  divergences: []
+  trace_task: MD-V03-025
+- id: FEAT-TOOLING-SETTINGS
+  name: Painel de Configuração de Ferramentas (Tooling)
+  status: active
+  implemented_by:
+  - CMP-TOOLING-SETTINGS
+  docs:
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:80
+  divergences: []
+  trace_task: MD-V03-022
+- id: FEAT-SOURCE-MAP
+  name: Mapeamento bidirecional de blocos Preview ↔ Editor
+  status: active
+  implemented_by:
+  - SVC-SOURCE-MAP
+  docs:
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:91
+  divergences: []
+  trace_task: MD-V03-019
+- id: FEAT-OUTLINE-FILTER
+  name: Outline hierárquico com filtro e controle de profundidade
+  status: active
+  implemented_by:
+  - CMP-DOCUMENT-OUTLINE
+  docs:
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:92
+  divergences: []
+  trace_task: MD-V03-023
+- id: FEAT-HIDE-INTERNAL-FILES
+  name: Ocultar arquivos internos (.mdstudio) no explorador de arquivos
+  status: active
+  implemented_by:
+  - CMP-FILE-EXPLORER
+  docs:
+  - docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:94
+  divergences: []
+  trace_task: MD-V03-024
 node_index:
   BTN-CONFLICT-KEEP:
   - FEAT-CONFLICT
@@ -1748,7 +1861,9 @@ node_index:
   - FEAT-WATCHER
 cross_cutting:
   FN-IPC-INVOKE: Fachada invoke usada por todas as features com IPC
-  FN-IS-TAURI-RUNTIME: Detecção de runtime (desktop vs browser) usada por todas as features com IPC/diálogos
+  FN-IS-TAURI-RUNTIME: Detecção de runtime (desktop vs browser) usada por todas as
+    features com IPC/diálogos
   CFG-GENERATE-HANDLER: Registro dos 21 comandos IPC (generate_handler!)
-  CLS-APP-STATE: Estado gerenciado do Tauri compartilhado por comandos (registry, watcher, engine)
+  CLS-APP-STATE: Estado gerenciado do Tauri compartilhado por comandos (registry,
+    watcher, engine)
 unmapped_nodes: []

@@ -1,7 +1,7 @@
 # TRACE-009 — Renderizar preview. Passos ordenados; via = aresta de edges.yaml que liga o passo de origem (direction reverse = aresta no sentido oposto, ex.: consumes/reads/callback). trigger = início de ramo.
 artifact: preview-render
 schema_version: 1
-source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+source_commit: daf5888731c5ce3cdd5ce0d553a258b3b952f114
 generated_at: '2026-09-24T23:03:41-03:00'
 id: FLOW-PREVIEW-RENDER
 name: Renderizar preview
@@ -148,7 +148,7 @@ steps:
     edge: SVC-PROCESS-MARKDOWN|contains|PIPE-SHIKI
     direction: forward
     evidence:
-    - src/markdown/processor.ts:54
+    - src/markdown/processor.ts:50
     method: observed
 - step: 15
   node: PIPE-RESTRICT-RENDERER-STYLES

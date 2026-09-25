@@ -6,7 +6,7 @@ Comment={{comment}}
 # Tauri/TAO 0.35.x has an upstream GTK client-side-decoration bug on
 # Wayland where the native window buttons are inert until the window is
 # maximized or resized. XWayland keeps the native controls interactive.
-Exec=/usr/bin/env GDK_BACKEND=x11 {{exec}} %F
+Exec=/usr/bin/env GDK_BACKEND=x11 WEBKIT_DISABLE_DMABUF_RENDERER=1 {{exec}} %F
 StartupWMClass=MD Studio
 Icon={{icon}}
 Name={{name}}

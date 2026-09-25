@@ -7,11 +7,11 @@
     "run": {
       "run_id": "RUN-0001",
       "status": "success",
-      "last_event_seq": 3586,
-      "projection_hash_sha256": "e275de0aa9182ef998e1330bfa5e95fe6352d0fd80c07e56dac6df468cb17a08",
+      "last_event_seq": 3664,
+      "projection_hash_sha256": "0df1036784b7c1485a1075e64918884aceeb8bbac999417e4d937cb300ef8408",
       "verify_status": "ok"
     },
-    "updated_at": "2026-09-25T18:06:34Z"
+    "updated_at": "2026-09-25T21:00:42Z"
   },
   "project": {
     "name": "MD Studio",
@@ -11580,7 +11580,7 @@
       "task_kind": "impl",
       "title": "Atualizar rastreabilidade de software pós-v0.3 preservando baseline G0",
       "description": "Atualizar o sistema de rastreabilidade em .esaa/traceability/ para incorporar capabilities, contratos, fluxos e testes da onda v0.3. Preservar explicitamente a baseline G0. Criar commit reproduzível para G1 e registrar delta de rastreabilidade em v03-graph-delta.md.",
-      "status": "in_progress",
+      "status": "done",
       "depends_on": [],
       "targets": [],
       "outputs": {
@@ -11603,17 +11603,282 @@
       ],
       "required_review_mode": "functional",
       "assigned_to": "agent-impl",
-      "started_at": "2026-09-25T18:06:34Z"
+      "started_at": "2026-09-25T18:06:34Z",
+      "verification": {
+        "checks": [
+          "Baseline G0 preservada explicitamente em .esaa/traceability/snapshots/g0-8eb7b6e.json e g0-validation.yaml",
+          "Commit reproduzível da onda v0.3 definido como source_commit do G1 (daf5888731c5ce3cdd5ce0d553a258b3b952f114)",
+          "Fontes YAML em .esaa/traceability/ atualizadas com novas capabilities, contratos, testes e fluxos",
+          "build_graph.py e validate.py executados com sucesso gerando graph.json e validation.yaml (pass, 0 critical, 23 warnings)",
+          "Relatório v03-graph-delta.md gerado com análise de débito antes vs depois"
+        ]
+      },
+      "completed_at": "2026-09-25T18:21:48Z"
+    },
+    {
+      "task_id": "MD-SPLIT-SCROLL-001",
+      "task_kind": "impl",
+      "title": "Rolagem dupla da vista dividida como preferência",
+      "description": "A vista Dividida mostra Sync OFF na barra de status. useScrollSync só lê enabled na primeira renderização, então quem entra em outro modo e depois muda para Dividida fica com a rolagem dupla desligada, sem um lugar em Configurações para ligá-la. Persistir splitScrollSync no SettingsStore, default true, com checkbox em Configurações > Editor. A barra de status e o atalho Alt+S passam a gravar a mesma preferência. A sincronização só corre quando a vista é split e a preferência está ligada. Não alterar atomic_save nem path fence. Chave nova em md-studio-settings-v2; as chaves já existentes permanecem. Rastreabilidade no sidecar. No complete, copiar o verdict do drift.",
+      "status": "done",
+      "depends_on": [
+        "MD-V03-012"
+      ],
+      "targets": [
+        "FN-USE-SCROLL-SYNC",
+        "STO-SETTINGS",
+        ".esaa/tasks/MD-SPLIT-SCROLL-001.yaml"
+      ],
+      "outputs": {
+        "files": [
+          ".esaa/tasks/MD-SPLIT-SCROLL-001.yaml",
+          ".esaa/analysis/MD-SPLIT-SCROLL-001-impact.yaml",
+          "src/hooks/useScrollSync.ts",
+          "src/state/settings.ts",
+          "src/hooks/useSettings.ts",
+          "src/App.tsx",
+          "src/components/settings/EditorSettings.tsx"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src/hooks/useScrollSync.ts",
+        "src/state/settings.ts",
+        "src/hooks/useSettings.ts",
+        "src/App.tsx",
+        "src/components/settings/EditorSettings.tsx",
+        "tests/**",
+        ".esaa/tasks/MD-SPLIT-SCROLL-001.yaml",
+        ".esaa/analysis/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Configurações > Editor tem a opção de rolagem dupla e ela persiste",
+        "Com a opção ligada e a vista Dividida, editor e preview rolam juntos",
+        "Com a opção desligada, a barra mostra Sync OFF e os painéis rolam separados",
+        "traceability: ver .esaa/tasks/MD-SPLIT-SCROLL-001.yaml; drift sem violation",
+        "Verify: md_split_scroll_001_pass"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-25T18:19:09Z",
+      "verification": {
+        "checks": [
+          "md_split_scroll_001_pass: pnpm exec vitest run tests/hooks/useScrollSync.test.tsx tests/settings/settingsPanel.test.tsx tests/ux/settingsStore.test.ts — 13/13 testes passaram; cobre ligar/desligar, persistência do checkbox e reativação do hook.",
+          "Todos os must_run projetados passaram: pnpm exec vitest run tests/editor/autoSave.test.tsx tests/editor/hints.test.ts tests/editor/smart-paste.test.ts tests/settings/previewReadingWidth.test.tsx tests/settings/settingsPanel.test.tsx tests/ux/settingsStore.test.ts tests/ux/wireframeFidelity.test.ts tests/hooks/useScrollSync.test.tsx — 8 arquivos, 51 testes.",
+          "pnpm test: 82 arquivos e 437 testes passaram.",
+          "pnpm typecheck e pnpm build passaram; Vite emitiu avisos de divisão dinâmica de client.ts/@tauri api e chunk principal acima de 500 kB.",
+          "Traceability: impact projetado antes das edições; blast validado; footprint/drift gerados; verdict warning, zero violações; detalhe de paths/linhas e métricas registrado nas notas.",
+          "git diff --check passou; python -m esaa --root . verify passou antes do complete."
+        ]
+      },
+      "completed_at": "2026-09-25T18:35:19Z"
+    },
+    {
+      "task_id": "MD-TRACE-HANDOFF-SCROLL-001",
+      "task_kind": "qa",
+      "title": "Auditar handoff cross-agent de MD-SPLIT-SCROLL-001",
+      "description": "Reconstruir factualmente a trilha da implementação por Grok/Codex com evidências do event store, Conversation ESAA, Git, sidecar e YAMLs de análise. Produzir somente .esaa/traceability/case-MD-SPLIT-SCROLL-001-handoff.md; preservar todos os artefatos preexistentes.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [],
+      "outputs": {
+        "files": [
+          ".esaa/traceability/case-MD-SPLIT-SCROLL-001-handoff.md"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        ".esaa/traceability/case-MD-SPLIT-SCROLL-001-handoff.md"
+      ],
+      "task_type": "audit",
+      "acceptance_criteria": [
+        "Responder os 14 quesitos do pedido com evidência rastreável e separar fato, ausência de evidência e inferência.",
+        "Não alterar artefatos preexistentes do caso; reportar o estado atual da trilha após a revisão já concluída."
+      ],
+      "required_review_mode": "governance",
+      "assigned_to": "agent-qa",
+      "started_at": "2026-09-25T18:44:09Z",
+      "verification": {
+        "checks": [
+          "Relatório .esaa/traceability/case-MD-SPLIT-SCROLL-001-handoff.md responde aos 14 quesitos e diferencia evidência, ausência de registro e inferência.",
+          "Conferidos eventos EV-00003587–EV-00003605, estado atual do ESAA, artefatos sidecar/impact/footprint/drift e file effects.",
+          "Conferidos registros Conversation ESAA, saídas de comandos Codex preservadas e commit base do grafo TCG.",
+          "python -m esaa --root . verify passou antes do complete."
+        ]
+      },
+      "completed_at": "2026-09-25T18:56:10Z"
+    },
+    {
+      "task_id": "MD-BUILD-LOCAL-008",
+      "task_kind": "impl",
+      "title": "Compilar e atualizar binário local do MD Studio com splitScrollSync para Show Apps",
+      "description": "Recompilar frontend (pnpm build) e backend Tauri em modo release (cargo build --release), atualizando o executável em ~/.local/bin/md-studio para incorporar a preferência splitScrollSync de MD-SPLIT-SCROLL-001.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "dist/**",
+        "src-tauri/target/**"
+      ],
+      "task_type": "maintenance",
+      "acceptance_criteria": [
+        "Frontend compilado com pnpm build terminando com código 0",
+        "Backend compilado com cargo build --release gerando novo binário em src-tauri/target/release/md-studio",
+        "Binário atualizado em ~/.local/bin/md-studio com SHA-256 idêntico ao build de release e contendo a preferência de rolagem dupla"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-25T18:57:55Z",
+      "verification": {
+        "checks": [
+          "Frontend compilado com pnpm build terminando com código 0",
+          "Backend compilado com cargo build --release gerando novo binário em src-tauri/target/release/md-studio",
+          "Binário atualizado em ~/.local/bin/md-studio com SHA-256 idêntico (33aa9bdc3201c895ae4c32440f051d6b9d52dfbb867bc1177e0ccd8a0953397f)"
+        ]
+      },
+      "completed_at": "2026-09-25T19:01:52Z"
+    },
+    {
+      "task_id": "MD-HOTFIX-DESKTOP-003",
+      "task_kind": "impl",
+      "title": "Hotfix: Restaurar GDK_BACKEND=x11 nos lançadores desktop do Ubuntu Wayland",
+      "description": "Corrigir a regressão dos controles de janela (inertes no Ubuntu GNOME sobre Wayland por omissão de GDK_BACKEND=x11) nos lançadores ~/.local/share/applications/md-studio.desktop e MD Studio.desktop, preservando WEBKIT_DISABLE_DMABUF_RENDERER=1. Atualizar src-tauri/linux/md-studio.desktop e adicionar teste automatizado e invariante no Traceability para prevenir futuras regressões.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "OSI-DESKTOP-ENTRY",
+        "ubuntu-wayland-controls"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src-tauri/linux/**",
+        "tests/**",
+        "docs/qa/**",
+        ".esaa/**"
+      ],
+      "task_type": "hotfix",
+      "acceptance_criteria": [
+        "Lançadores locais em ~/.local/share/applications/ contêm GDK_BACKEND=x11 e WEBKIT_DISABLE_DMABUF_RENDERER=1 na linha Exec",
+        "src-tauri/linux/md-studio.desktop contém GDK_BACKEND=x11 e WEBKIT_DISABLE_DMABUF_RENDERER=1",
+        "Teste automatizado em tests/desktop/desktop-launcher.test.ts valida flags obrigatórias nos lançadores",
+        "Invariante INV-DESKTOP-LAUNCHER-ENV registrada e validada no Traceability"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-25T19:43:47Z",
+      "verification": {
+        "checks": [
+          "Lançadores em ~/.local/share/applications/ contêm GDK_BACKEND=x11 e WEBKIT_DISABLE_DMABUF_RENDERER=1 na linha Exec",
+          "Template src-tauri/linux/md-studio.desktop atualizado com ambas as flags",
+          "Vitest tests/desktop/desktop-launcher.test.ts 3/3 aprovados",
+          "Traceability build_graph.py e validate.py executados com sucesso (status pass, 0 critical) registrando INV-DESKTOP-LAUNCHER-ENV",
+          "Issue ISSUE-MD-DESKTOP-CONTROLS-REGRESSION e lição LES-0004 registradas"
+        ]
+      },
+      "issue_id": "ISSUE-MD-DESKTOP-CONTROLS-REGRESSION",
+      "fixes": "MD-BUILD-UBUNTU-001",
+      "completed_at": "2026-09-25T19:50:19Z"
+    },
+    {
+      "task_id": "HF-ISSUE-MD-DESKTOP-CONTROLS-REGRESSION",
+      "task_kind": "impl",
+      "title": "Hotfix for ISSUE-MD-DESKTOP-CONTROLS-REGRESSION",
+      "description": "Apply a minimal hotfix to resolve issue ISSUE-MD-DESKTOP-CONTROLS-REGRESSION without regressing immutable done tasks.",
+      "status": "todo",
+      "depends_on": [],
+      "targets": [
+        "ISSUE-MD-DESKTOP-CONTROLS-REGRESSION"
+      ],
+      "outputs": {
+        "files": [
+          "src/hotfix/HF-ISSUE-MD-DESKTOP-CONTROLS-REGRESSION.txt"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "is_hotfix": true,
+      "issue_id": "ISSUE-MD-DESKTOP-CONTROLS-REGRESSION",
+      "fixes": "MD-BUILD-UBUNTU-001",
+      "scope_patch": [
+        "src/hotfix/"
+      ],
+      "required_verification": [
+        "unit",
+        "regression"
+      ],
+      "baseline_id": "B-000",
+      "superseded_by": [
+        "MD-RELEASE-STORE-003"
+      ]
+    },
+    {
+      "task_id": "MD-RELEASE-STORE-003",
+      "task_kind": "impl",
+      "title": "Publicação do MD Studio v0.2.3 na Ubuntu Snap Store e sincronização Git",
+      "description": "Consolidar as alterações recentes no Git (origin/main), compilar o pacote snap md-studio_0.2.3_amd64.snap com snapcraft core24 via LXD e publicar a nova revisão na Ubuntu Snap Store nos canais stable, candidate e edge.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "*.snap",
+        "parts/**",
+        "stage/**",
+        "prime/**",
+        "src-tauri/target/**",
+        "docs/release/**"
+      ],
+      "task_type": "release",
+      "acceptance_criteria": [
+        "Compilação do pacote snap md-studio_0.2.3_amd64.snap via snapcraft core24",
+        "Publicação na Ubuntu Snap Store com upload nos canais stable, candidate e edge",
+        "Commit e push de todas as alterações pendentes para origin/main"
+      ],
+      "required_review_mode": "release",
+      "supersedes": [
+        "HF-ISSUE-MD-DESKTOP-CONTROLS-REGRESSION"
+      ],
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-25T20:17:20Z",
+      "verification": {
+        "checks": [
+          "Pacote snap md-studio_0.2.3_amd64.snap compilado com sucesso via snapcraft core24 LXD",
+          "Publicação na Canonical Snap Store com upload nos canais stable, candidate e edge (Revision 4 liberada)"
+        ]
+      },
+      "completed_at": "2026-09-25T21:00:42Z"
     }
   ],
   "indexes": {
     "by_status": {
-      "done": 296,
-      "in_progress": 1
+      "done": 302,
+      "todo": 1
     },
     "by_kind": {
-      "impl": 233,
-      "qa": 37,
+      "impl": 238,
+      "qa": 38,
       "spec": 27
     }
   }

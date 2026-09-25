@@ -1,0 +1,187 @@
+artifact: task-drift
+schema_version: 1
+trace_task: TRACE-019
+task_id: MD-SPLIT-SCROLL-001
+inputs:
+  impact: .esaa/analysis/MD-SPLIT-SCROLL-001-impact.yaml
+  footprint: .esaa/analysis/MD-SPLIT-SCROLL-001-footprint.yaml
+  graph_source_commit: daf5888731c5ce3cdd5ce0d553a258b3b952f114
+notes: []
+rule: authorized = change_target ∪ expected_affected; ok ∈ authorized; violation ∈ protected; warning ∈ potentially_affected | out_of_closure
+  | uncatalogued substantive
+authorized:
+- CFG-DEFAULT-SETTINGS
+- CMP-SETTINGS-PANEL
+- FN-USE-SCROLL-SYNC
+- STO-SETTINGS
+observed:
+- CFG-DEFAULT-SETTINGS
+- FN-USE-SCROLL-SYNC
+- HDL-APP-SHORTCUTS
+- SCR-APP
+- STO-SETTINGS
+- TST-TS-SETTINGS-SETTINGSPANEL
+- TST-TS-UX-SETTINGSSTORE
+classification:
+- id: HDL-APP-SHORTCUTS
+  category: out_of_closure
+  severity: warning
+  reasons: []
+- id: SCR-APP
+  category: potentially_affected
+  severity: warning
+  reasons: []
+- id: FN-USE-SCROLL-SYNC
+  category: authorized
+  severity: ok
+  reasons: []
+- id: CFG-DEFAULT-SETTINGS
+  category: authorized
+  severity: ok
+  reasons: []
+- id: STO-SETTINGS
+  category: authorized
+  severity: ok
+  reasons: []
+- id: TST-TS-SETTINGS-SETTINGSPANEL
+  category: out_of_closure
+  severity: warning
+  reasons: []
+- id: TST-TS-UX-SETTINGSSTORE
+  category: out_of_closure
+  severity: warning
+  reasons: []
+drift:
+- id: HDL-APP-SHORTCUTS
+  category: out_of_closure
+  severity: warning
+  reasons: []
+- id: SCR-APP
+  category: potentially_affected
+  severity: warning
+  reasons: []
+- id: TST-TS-SETTINGS-SETTINGSPANEL
+  category: out_of_closure
+  severity: warning
+  reasons: []
+- id: TST-TS-UX-SETTINGSSTORE
+  category: out_of_closure
+  severity: warning
+  reasons: []
+other_findings:
+- path: src/components/settings/EditorSettings.tsx
+  category: uncatalogued_change
+  severity: warning
+  lines:
+  - new:78
+  - new:79
+  - new:80
+  - new:81
+  - new:82
+  - new:83
+  - new:84
+  - new:85
+  - new:86
+  - new:87
+  - new:88
+  - new:89
+  - new:90
+  - new:91
+- path: src/hooks/useSettings.ts
+  category: uncatalogued_change
+  severity: warning
+  lines:
+  - new:22
+  - new:50
+- path: src/state/settings.ts
+  category: uncatalogued_change
+  severity: warning
+  lines:
+  - new:19
+- path: tests/hooks/useScrollSync.test.tsx
+  category: new_test_file
+  severity: info
+not_touched:
+- CMP-SETTINGS-PANEL
+verdict: warning
+metrics:
+  nodes:
+    tp: 3
+    authorized: 4
+    observed: 7
+    precision: 0.75
+    recall: 0.429
+    closure_recall: 0.571
+  code_nodes_only:
+    tp: 3
+    authorized: 4
+    observed: 5
+    precision: 0.75
+    recall: 0.6
+  features:
+    projected_direct:
+    - FEAT-AUTO-SAVE
+    - FEAT-DRAFT-RECOVERY
+    - FEAT-SETTINGS
+    - FEAT-VIEW-MODES
+    - FEAT-WATCHER
+    projected_all: 28
+    observed:
+    - FEAT-APP-SCREENS
+    - FEAT-AUTO-SAVE
+    - FEAT-GO-TO-LINE
+    - FEAT-LAYOUT-PANELS
+    - FEAT-SETTINGS
+    - FEAT-SHORTCUTS-HELP
+    - FEAT-VIEW-MODES
+    observed_in_projected_direct:
+    - FEAT-AUTO-SAVE
+    - FEAT-SETTINGS
+    - FEAT-VIEW-MODES
+    observed_missing_from_projection:
+    - FEAT-GO-TO-LINE
+    precision_direct: 0.6
+    recall_all: 0.857
+  invariants:
+    projected: []
+    observed: []
+    missing_from_projection: []
+  tests:
+    projected_must_run:
+    - TST-TS-EDITOR-AUTOSAVE
+    - TST-TS-EDITOR-HINTS
+    - TST-TS-EDITOR-SMART-PASTE
+    - TST-TS-PREVIEW-READING-WIDTH
+    - TST-TS-SETTINGS-PREVIEWREADINGWIDTH
+    - TST-TS-SETTINGS-SETTINGSPANEL
+    - TST-TS-UX-SETTINGSSTORE
+    - TST-TS-UX-WIREFRAMEFIDELITY
+    changed_test_nodes:
+    - TST-TS-SETTINGS-SETTINGSPANEL
+    - TST-TS-UX-SETTINGSSTORE
+    new_test_files:
+    - tests/hooks/useScrollSync.test.tsx
+  contracts_touched:
+  - id: CTR-LSK-SESSION
+    how: consumer
+    node: SCR-APP
+  - id: CTR-LSK-SETTINGS
+    how: consumer
+    node: STO-SETTINGS
+  - id: CTR-LSK-SETTINGS
+    how: producer
+    node: STO-SETTINGS
+  data_touched:
+  - id: LSK-SPLIT-RATIO
+    how: read_by_changed
+    node: SCR-APP
+  - id: LSK-SETTINGS
+    how: read_by_changed
+    node: STO-SETTINGS
+  - id: LSK-SETTINGS
+    how: written_by_changed
+    node: STO-SETTINGS
+  - id: STO-SETTINGS
+    how: definition_changed
+    node: STO-SETTINGS
+  events_touched: []

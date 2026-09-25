@@ -1,50 +1,50 @@
-# ESAA Software Traceability Graph — TRACE-001 Repository discovery
-# Fonte: leitura direta do código em source_commit (git archive HEAD). Docs usados só para nomear.
 artifact: repository
 schema_version: 1
-source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
-source_commit_short: 8eb7b6e
-source_commit_subject: 'fix(conflict): "Recarregar do disco" descarta rascunho local antes de reabrir'
-generated_at: "2026-09-24T22:43:35-03:00"   # BRT (America/Sao_Paulo)
-generated_by: "ESAA TRACE-001 (agent-impl, runner grok)"
-working_tree_note: >
-  No momento da descoberta o working tree tinha mudanças NÃO commitadas da tarefa ESAA
-  MD-SEC-AUDIT-CI-001 (src-tauri/Cargo.lock, src-tauri/crates/md-studio-core/{Cargo.toml,Cargo.lock},
-  src-tauri/crates/md-studio-core/src/export/xhtml_converter.rs, docs/security/rust-advisory-residuals-2026-09-23.md)
-  e .roadmap/*. Todas as âncoras deste grafo referem-se ao source_commit, não ao working tree.
-  As mudanças de MD-PRES-TEST-FLAKY-001 já estão commitadas em 5fe4f4d.
-
+source_commit: daf5888731c5ce3cdd5ce0d553a258b3b952f114
+source_commit_short: daf5888
+source_commit_subject: 'feat(v0.3): implementa capabilities da onda v0.3 (MD-V03-012..025)'
+generated_at: '2026-09-25T15:18:52-03:00'
+generated_by: ESAA TRACE-001 (agent-impl, runner grok)
+working_tree_note: Grafo G1 pós-onda v0.3 consolidando todas as capabilities implementadas
+  em MD-V03-012..025.
 product:
   name: MD Studio
-  version: 0.2.3            # package.json, src-tauri/Cargo.toml, tauri.conf.json, snap/snapcraft.yaml
+  version: 0.2.3
   identifier: dev.mdstudio.app
   kind: desktop local-first Markdown editor (offline)
   license: MIT
-
 applications:
-  - id: APP-FRONTEND
-    name: Webview frontend (React SPA)
-    root: src/
-    entrypoints: [index.html, src/main.tsx, src/App.tsx]
-    runtime: Tauri webview (produção) | navegador (modo browser/demo via src/lib/browserFs.ts)
-    language: TypeScript 5.8 (TSX)
-  - id: APP-DESKTOP-SHELL
-    name: Tauri 2 backend (Rust)
-    root: src-tauri/
-    entrypoints: [src-tauri/src/main.rs, src-tauri/src/lib.rs]
-    crate: md-studio (lib md_studio_lib)
-    language: Rust (toolchain 1.96.1, rust-toolchain.toml)
-  - id: APP-SPLASH
-    name: Splashscreen window
-    files: [splashscreen.html, public/splashscreen.html]
-    window_label: splashscreen
-
+- id: APP-FRONTEND
+  name: Webview frontend (React SPA)
+  root: src/
+  entrypoints:
+  - index.html
+  - src/main.tsx
+  - src/App.tsx
+  runtime: Tauri webview (produção) | navegador (modo browser/demo via src/lib/browserFs.ts)
+  language: TypeScript 5.8 (TSX)
+- id: APP-DESKTOP-SHELL
+  name: Tauri 2 backend (Rust)
+  root: src-tauri/
+  entrypoints:
+  - src-tauri/src/main.rs
+  - src-tauri/src/lib.rs
+  crate: md-studio (lib md_studio_lib)
+  language: Rust (toolchain 1.96.1, rust-toolchain.toml)
+- id: APP-SPLASH
+  name: Splashscreen window
+  files:
+  - splashscreen.html
+  - public/splashscreen.html
+  window_label: splashscreen
 technologies:
   frontend:
     framework: React 19.0.0
     editor: CodeMirror 6 (@codemirror/* 6.x)
-    markdown_pipeline: unified 11 + remark-parse/gfm/frontmatter/math/directive + remark-rehype + rehype-raw + rehype-sanitize 6 + rehype-katex 7
-    syntax_highlight: shiki 4 via @shikijs/rehype (catppuccin-latte/mocha); highlight.js e rehype-highlight ainda em package.json
+    markdown_pipeline: unified 11 + remark-parse/gfm/frontmatter/math/directive +
+      remark-rehype + rehype-raw + rehype-sanitize 6 + rehype-katex 7
+    syntax_highlight: shiki 4 via @shikijs/rehype (catppuccin-latte/mocha); highlight.js
+      e rehype-highlight ainda em package.json
     math: katex 0.16.21
     diagrams: mermaid 11.16.1 + @panzoom/panzoom
     presentation: reveal.js 6
@@ -60,37 +60,55 @@ technologies:
     paths: dunce, walkdir
     ids: uuid v4
     sync: parking_lot
-    epub: epub-builder 0.7, zip 0.6, html5ever/markup5ever/markup5ever_rcdom (0.25/0.10/0.1 em source_commit)
+    epub: epub-builder 0.7, zip 0.6, html5ever/markup5ever/markup5ever_rcdom (0.25/0.10/0.1
+      em source_commit)
     test: cargo test + tempfile
-
 packages:
-  - id: PKG-NPM-MD-STUDIO
-    manifest: package.json
-    lockfile: pnpm-lock.yaml
-    workspace: pnpm-workspace.yaml
-    scripts: {dev: vite, build: "tsc -b && vite build", test: "vitest run", typecheck: "tsc -b --pretty false", tauri: tauri}
-  - id: PKG-CRATE-MD-STUDIO
-    manifest: src-tauri/Cargo.toml
-    lockfile: src-tauri/Cargo.lock
-    lib: md_studio_lib (staticlib, cdylib, rlib)
-    depends_on: [PKG-CRATE-MD-STUDIO-CORE]
-  - id: PKG-CRATE-MD-STUDIO-CORE
-    manifest: src-tauri/crates/md-studio-core/Cargo.toml
-    lockfile: src-tauri/crates/md-studio-core/Cargo.lock
-    purpose: lógica pura testável sem Tauri (persistência, workspace fence, índice, parsers, export EPUB, launch args)
-    modules: [persistence, workspace, launch, index, parser, export]
-
+- id: PKG-NPM-MD-STUDIO
+  manifest: package.json
+  lockfile: pnpm-lock.yaml
+  workspace: pnpm-workspace.yaml
+  scripts:
+    dev: vite
+    build: tsc -b && vite build
+    test: vitest run
+    typecheck: tsc -b --pretty false
+    tauri: tauri
+- id: PKG-CRATE-MD-STUDIO
+  manifest: src-tauri/Cargo.toml
+  lockfile: src-tauri/Cargo.lock
+  lib: md_studio_lib (staticlib, cdylib, rlib)
+  depends_on:
+  - PKG-CRATE-MD-STUDIO-CORE
+- id: PKG-CRATE-MD-STUDIO-CORE
+  manifest: src-tauri/crates/md-studio-core/Cargo.toml
+  lockfile: src-tauri/crates/md-studio-core/Cargo.lock
+  purpose: lógica pura testável sem Tauri (persistência, workspace fence, índice,
+    parsers, export EPUB, launch args)
+  modules:
+  - persistence
+  - workspace
+  - launch
+  - index
+  - parser
+  - export
 source_layout:
   frontend:
     src/App.tsx: shell React, atalhos globais, orquestração de painéis, export, apresentação
-    src/state/: documentState (workspace+documento+save+watch), settings, session, editor, recent-files, ui
-    src/lib/ipc/: "fachada IPC (client.ts: comandos de workspace/save/export/watch + diálogos; metadata.ts: comandos de metadados)"
+    src/state/: documentState (workspace+documento+save+watch), settings, session,
+      editor, recent-files, ui
+    src/lib/ipc/: 'fachada IPC (client.ts: comandos de workspace/save/export/watch
+      + diálogos; metadata.ts: comandos de metadados)'
     src/lib/drafts/recovery.ts: rascunhos em localStorage
     src/lib/browserFs.ts: File System Access API / demo para modo navegador
-    src/services/: save, export (HTML/EPUB), formatter, navigation, diagramExport, assets, workspaceEvents
-    src/markdown/: pipeline unified (processor, sanitize, shiki, frontmatter, plugins/wiki-links, plugins/alerts, fencedCode, mermaid, math)
-    src/editor/: extensões CodeMirror (formatting, slash, wiki completion, table, paste, hints, line-highlight)
-    src/components/: UI (header, explorer, editor, wiki, settings, statusbar, command, empty, help, layout, workspace)
+    src/services/: save, export (HTML/EPUB), formatter, navigation, diagramExport,
+      assets, workspaceEvents
+    src/markdown/: pipeline unified (processor, sanitize, shiki, frontmatter, plugins/wiki-links,
+      plugins/alerts, fencedCode, mermaid, math)
+    src/editor/: extensões CodeMirror (formatting, slash, wiki completion, table,
+      paste, hints, line-highlight)
+    src/components/: UI (header, explorer, editor, wiki, settings, statusbar, command,
+      empty, help, layout, workspace)
     src/export/: epubProcessor, mermaidCapture, epubTypes
     src/presentation/: Presentation Mode (reveal.js)
     src/security/urlPolicy.ts: política de URL (não conectada ao pipeline; só testada)
@@ -99,73 +117,94 @@ source_layout:
     src/templates/index.ts: 7 modelos de documento
     src/styles/: CSS (inclui print.css para PDF)
   backend:
-    src-tauri/src/lib.rs: AppState, plugins, registro dos 21 comandos (generate_handler!), evento app://open-file
-    src-tauri/src/commands/mod.rs: open_workspace, list_entries, read_document, save_document, search_workspace, export_html, export_epub, get_launch_path, close_splash
+    src-tauri/src/lib.rs: AppState, plugins, registro dos 21 comandos (generate_handler!),
+      evento app://open-file
+    src-tauri/src/commands/mod.rs: open_workspace, list_entries, read_document, save_document,
+      search_workspace, export_html, export_epub, get_launch_path, close_splash
     src-tauri/src/commands/metadata.rs: 10 comandos de metadados/wiki/backlinks
     src-tauri/src/commands/formatter.rs: format_code (CLIs nativas, timeout 2s)
-    src-tauri/src/watcher/mod.rs: WatcherHub (notify, debounce 300ms, supressão de eco), start/stop_watching, evento workspace://change
+    src-tauri/src/watcher/mod.rs: WatcherHub (notify, debounce 300ms, supressão de
+      eco), start/stop_watching, evento workspace://change
     src-tauri/src/contracts/mod.rs: DTOs IPC Rust (camelCase)
     src-tauri/src/{persistence,workspace}/mod.rs: re-export do core
-    src-tauri/src/{assets,diagnostics,search}/mod.rs: helpers sem chamador no app (assets::read_asset, diagnostics::safe_message) / placeholder (search)
-    src-tauri/crates/md-studio-core/src/: persistence.rs, workspace.rs, launch.rs, index/*, parser/*, export/*
-
+    src-tauri/src/{assets,diagnostics,search}/mod.rs: helpers sem chamador no app
+      (assets::read_asset, diagnostics::safe_message) / placeholder (search)
+    src-tauri/crates/md-studio-core/src/: persistence.rs, workspace.rs, launch.rs,
+      index/*, parser/*, export/*
 tests:
   frontend:
-    runner: vitest (vite.config.ts test.include = tests/**/*.{test,spec}.ts(x), env jsdom)
+    runner: vitest (vite.config.ts test.include = tests/**/*.{test,spec}.ts(x), env
+      jsdom)
     root: tests/
-    files: 66 arquivos *.test.ts(x) em 22 pastas (editor, export, markdown, presentation, security, settings, templates, ui, ux, wiki, workspace, ...)
-    fixtures_sem_teste: [tests/security/adversarial/xss.md, tests/conformance/**/*.md, tests/*/README.md]
+    files: 66 arquivos *.test.ts(x) em 22 pastas (editor, export, markdown, presentation,
+      security, settings, templates, ui, ux, wiki, workspace, ...)
+    fixtures_sem_teste:
+    - tests/security/adversarial/xss.md
+    - tests/conformance/**/*.md
+    - tests/*/README.md
   rust:
-    runner: "cargo test (CI: core e src-tauri separadamente)"
-    inline_modules: "#[cfg(test)] mod tests em commands/*.rs, watcher/mod.rs e em quase todo md-studio-core/src"
+    runner: 'cargo test (CI: core e src-tauri separadamente)'
+    inline_modules: '#[cfg(test)] mod tests em commands/*.rs, watcher/mod.rs e em
+      quase todo md-studio-core/src'
     integration: src-tauri/crates/md-studio-core/tests/{atomic_save,epub_builder,export_atomic,watcher_fence,workspace_paths}.rs
     test_fns: 79
   e2e:
     e2e/smoke.md: roteiro manual (sem automação)
-
 docs:
   product_features: docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md
   readme: README.md
-  architecture: [docs/architecture/backlinks-contract.md, docs/architecture/desktop-boundaries.md, docs/architecture/ui-shell-inventory.md]
-  security: [docs/security/threat-model.md, docs/security/rust-advisory-residuals-2026-09-23.md]
+  architecture:
+  - docs/architecture/backlinks-contract.md
+  - docs/architecture/desktop-boundaries.md
+  - docs/architecture/ui-shell-inventory.md
+  security:
+  - docs/security/threat-model.md
+  - docs/security/rust-advisory-residuals-2026-09-23.md
   specs: docs/spec/G01..G23 (stubs de 14 linhas), docs/spec/001-presentation-mode.md
   prd: app/PRD-MD-STUDIO-{CORE,EXTENSIONS,QUALITY}.md
   release: docs/release/{PACKAGING.md,README.md,RELEASE_NOTES_v0.2.0.md,RELEASE_NOTES_v0.2.3.md}
   qa_evidence: docs/qa/** (44 arquivos)
   waves: docs/onda0b, onda0c, onda1, onda2, onda3
-  governance: [AGENTS.md, .claude/CLAUDE.md, PROJETO.md, CHANGELOG.md]
-
+  governance:
+  - AGENTS.md
+  - .claude/CLAUDE.md
+  - PROJETO.md
+  - CHANGELOG.md
 scripts:
-  - scripts/security-gates.sh: pnpm audit, cargo audit (2 locks), gitleaks, semgrep, pnpm typecheck, pnpm test
-  - scripts/install-security-tools.sh: instala semgrep/gitleaks/cargo-audit em tmp e roda security-gates
-  - tools/tauri-docker-build.sh: build em container rust:bookworm
-  - tools/enrich_roadmap_descriptions.py: utilitário de roadmap (governança)
-
+- scripts/security-gates.sh: pnpm audit, cargo audit (2 locks), gitleaks, semgrep,
+    pnpm typecheck, pnpm test
+- scripts/install-security-tools.sh: instala semgrep/gitleaks/cargo-audit em tmp e
+    roda security-gates
+- tools/tauri-docker-build.sh: build em container rust:bookworm
+- tools/enrich_roadmap_descriptions.py: utilitário de roadmap (governança)
 configuration:
-  - src-tauri/tauri.conf.json: janelas main (oculta até splash fechar) e splashscreen, CSP, bundle, fileAssociations (md, markdown, mdx)
-  - src-tauri/capabilities/default.json: core:default, dialog:allow-open/save/ask, opener:allow-open-url (janela main)
-  - vite.config.ts, tsconfig.json, rust-toolchain.toml
-  - frontend localStorage keys: md-studio-settings-v2, md-studio-session-v2, md-studio.recent-files, md-studio.ui-state, md-studio.file-tree.expanded, md-studio.panel-width.<side>, md-studio.split-ratio, md-studio-draft:v3:<doc>
-
+- src-tauri/tauri.conf.json: janelas main (oculta até splash fechar) e splashscreen,
+    CSP, bundle, fileAssociations (md, markdown, mdx)
+- src-tauri/capabilities/default.json: core:default, dialog:allow-open/save/ask, opener:allow-open-url
+    (janela main)
+- vite.config.ts, tsconfig.json, rust-toolchain.toml
+- frontend localStorage keys: md-studio-settings-v2, md-studio-session-v2, md-studio.recent-files,
+    md-studio.ui-state, md-studio.file-tree.expanded, md-studio.panel-width.<side>,
+    md-studio.split-ratio, md-studio-draft:v3:<doc>
 persisted_data:
-  - user Markdown files (save atômico tmp+fsync+rename via md-studio-core::persistence)
-  - <workspace>/.mdstudio/index.json (MetadataIndex serializado, gravação atômica)
-  - exports HTML/EPUB em destino absoluto escolhido pelo usuário (atomic_write_bytes)
-  - localStorage do webview (settings, sessão, recentes, UI, rascunhos)
-  - nota: .mdstudio/index.json do próprio repositório está versionado apesar de .mdstudio estar no .gitignore
-
+- user Markdown files (save atômico tmp+fsync+rename via md-studio-core::persistence)
+- <workspace>/.mdstudio/index.json (MetadataIndex serializado, gravação atômica)
+- exports HTML/EPUB em destino absoluto escolhido pelo usuário (atomic_write_bytes)
+- localStorage do webview (settings, sessão, recentes, UI, rascunhos)
+- nota: .mdstudio/index.json do próprio repositório está versionado apesar de .mdstudio
+    estar no .gitignore
 infra_ci:
-  - .github/workflows/ci.yml: pnpm build + cargo test (core e src-tauri)
-  - .github/workflows/security-gates.yml: scripts/install-security-tools.sh
-  - .github/workflows/build-linux.yml: pnpm tauri build (.deb, .AppImage, .rpm), release em tags v*
-  - .github/workflows/build-windows.yml: pnpm tauri build (NSIS/MSI), release em tags v*
-
+- .github/workflows/ci.yml: pnpm build + cargo test (core e src-tauri)
+- .github/workflows/security-gates.yml: scripts/install-security-tools.sh
+- .github/workflows/build-linux.yml: pnpm tauri build (.deb, .AppImage, .rpm), release
+    em tags v*
+- .github/workflows/build-windows.yml: pnpm tauri build (NSIS/MSI), release em tags
+    v*
 packaging:
-  - Tauri bundle targets all (tauri.conf.json bundle), ícones em src-tauri/icons
-  - Linux .desktop template: src-tauri/linux/md-studio.desktop (Exec ... %F, GDK_BACKEND=x11)
-  - Snap: snap/snapcraft.yaml (core24, strict, grade stable)
-  - Artefatos .snap locais na raiz (não versionados)
-
+- Tauri bundle targets all (tauri.conf.json bundle), ícones em src-tauri/icons
+- Linux .desktop template: src-tauri/linux/md-studio.desktop (Exec ... %F, GDK_BACKEND=x11)
+- Snap: snap/snapcraft.yaml (core24, strict, grade stable)
+- Artefatos .snap locais na raiz (não versionados)
 governance:
   esaa_root: .roadmap/ (event store activity.jsonl + projeções; CLI python -m esaa)
   traceability_root: .esaa/traceability/ (este grafo; não commitado)

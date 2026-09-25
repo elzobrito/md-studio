@@ -1,0 +1,270 @@
+artifact: task-impact
+schema_version: 1
+trace_task: TRACE-017
+task_id: MD-SPLIT-SCROLL-001
+projected_at: '2026-09-25T15:19:31-03:00'
+projected_before_change: true
+projection_inputs:
+- preferência de rolagem dupla da vista Dividida
+- .esaa/traceability/graph.json
+- .esaa/traceability/case-MD-HOTFIX-EXPAND-002.md
+spec: .esaa/tasks/MD-SPLIT-SCROLL-001.yaml
+graph_source_commit: daf5888731c5ce3cdd5ce0d553a258b3b952f114
+rationale:
+  FN-USE-SCROLL-SYNC: A rolagem dupla passa a seguir a preferência persistida e reage quando ela muda.
+  STO-SETTINGS: A preferência splitScrollSync mora no store já usado pelas outras opções do editor.
+  CMP-SETTINGS-PANEL: O checkbox fica na aba Editor desse painel.
+justification:
+  LSK-SETTINGS: Uma chave nova, splitScrollSync, entra no objeto já gravado em md-studio-settings-v2. As chaves existentes não mudam de nome nem
+    de formato.
+  CFG-DEFAULT-SETTINGS: O default novo é true, ao lado dos defaults atuais. Nenhum default antigo é reescrito.
+expected_uncatalogued: null
+blast_radius:
+  change_target:
+  - FN-USE-SCROLL-SYNC
+  - STO-SETTINGS
+  expected_affected:
+  - CFG-DEFAULT-SETTINGS
+  - CMP-SETTINGS-PANEL
+  expected_affected_source: declared
+  suggested_expected_affected:
+  - TST-TS-EDITOR-AUTOSAVE
+  - TST-TS-EDITOR-HINTS
+  - TST-TS-EDITOR-SMART-PASTE
+  - TST-TS-PREVIEW-READING-WIDTH
+  - TST-TS-SETTINGS-PREVIEWREADINGWIDTH
+  - TST-TS-SETTINGS-SETTINGSPANEL
+  - TST-TS-UX-SETTINGSSTORE
+  - TST-TS-UX-WIREFRAMEFIDELITY
+  authorized:
+  - CFG-DEFAULT-SETTINGS
+  - CMP-SETTINGS-PANEL
+  - FN-USE-SCROLL-SYNC
+  - STO-SETTINGS
+  potentially_affected:
+  - BTN-PREVIEW-FORMAT-CODE
+  - CMP-MARKDOWN-EDITOR
+  - HDL-APP-START-PRESENTATION
+  - HDL-DOC-SET-CONTENT
+  - SCR-APP
+  - STO-DOCUMENT-STATE
+  - STO-EDITOR
+  protected_in_closure:
+  - id: CTR-LSK-SETTINGS
+    reasons:
+    - contract_surface
+  - id: LSK-SETTINGS
+    reasons:
+    - contract_surface:CTR-LSK-SETTINGS
+    - declared_protected_extra
+    - persisted_data
+  protected_total: 138
+  protected_declared:
+  - id: CFG-DEFAULT-SETTINGS
+    reasons:
+    - security_config
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: false
+projected:
+  nodes:
+  - CFG-DEFAULT-SETTINGS
+  - CMP-SETTINGS-PANEL
+  - FN-USE-SCROLL-SYNC
+  - STO-SETTINGS
+  features:
+    direct:
+    - FEAT-AUTO-SAVE
+    - FEAT-DRAFT-RECOVERY
+    - FEAT-SETTINGS
+    - FEAT-VIEW-MODES
+    - FEAT-WATCHER
+    indirect:
+    - FEAT-APP-SCREENS
+    - FEAT-BACKLINKS
+    - FEAT-CODE-FORMATTER
+    - FEAT-CONFLICT
+    - FEAT-CREATE-NOTE-FROM-WIKI
+    - FEAT-EDITOR
+    - FEAT-FORMATTING-TOOLBAR
+    - FEAT-KATEX
+    - FEAT-LAYOUT-PANELS
+    - FEAT-MERMAID
+    - FEAT-METADATA-INDEX
+    - FEAT-OPEN-FILE
+    - FEAT-OUTGOING-LINKS
+    - FEAT-PRESENTATION
+    - FEAT-PREVIEW
+    - FEAT-SANITIZE
+    - FEAT-SAVE
+    - FEAT-SHIKI
+    - FEAT-SHORTCUTS-HELP
+    - FEAT-SLASH-COMMANDS
+    - FEAT-SPLASH-PACKAGING
+    - FEAT-TEMPLATES
+    - FEAT-WIKI-LINKS
+  flows:
+  - FLOW-APP-BOOT
+  - FLOW-AUTO-SAVE
+  - FLOW-BACKLINKS-QUERY
+  - FLOW-CLOSE-FILE
+  - FLOW-CONFLICT-ON-SAVE
+  - FLOW-DRAFT-RECOVERY
+  - FLOW-EDITOR-COMMANDS
+  - FLOW-FORMAT-CODE-BLOCK
+  - FLOW-METADATA-REFRESH
+  - FLOW-NEW-DOCUMENT
+  - FLOW-PRESENTATION
+  - FLOW-PREVIEW-RENDER
+  - FLOW-SAVE-DOCUMENT
+  - FLOW-WIKI-LINK-RESOLVE
+  invariants: []
+  tests:
+    must_run:
+    - TST-TS-EDITOR-AUTOSAVE
+    - TST-TS-EDITOR-HINTS
+    - TST-TS-EDITOR-SMART-PASTE
+    - TST-TS-PREVIEW-READING-WIDTH
+    - TST-TS-SETTINGS-PREVIEWREADINGWIDTH
+    - TST-TS-SETTINGS-SETTINGSPANEL
+    - TST-TS-UX-SETTINGSSTORE
+    - TST-TS-UX-WIREFRAMEFIDELITY
+    should_run:
+    - TST-TS-EDITOR-CONFLICTRELOAD
+    may_run:
+    - TST-TS-EDITOR-SINGLESAVE
+    - TST-TS-UX-EDITORSTORE
+  contracts:
+  - CTR-LSK-SETTINGS
+  data:
+  - LSK-SETTINGS
+  - STO-DOCUMENT-STATE
+  - STO-EDITOR
+  - STO-SETTINGS
+  events: []
+  entrypoints:
+  - ENT-BTN-PREVIEW-FORMAT-CODE
+  - ENT-HDL-DOC-SET-CONTENT
+  - ENT-SCR-APP
+  modules:
+  - MOD-APP-SHELL
+  - MOD-EDITOR
+  - MOD-FORMATTER
+  - MOD-PERSISTENCE
+  - MOD-PRESENTATION
+  - MOD-PREVIEW
+  - MOD-SETTINGS-SESSION
+closure:
+- id: FN-USE-SCROLL-SYNC
+  kind: code
+  type: function
+  distance: 0
+  anchor: src/hooks/useScrollSync.ts
+  via: null
+  terminal: false
+- id: STO-SETTINGS
+  kind: code
+  type: store
+  distance: 0
+  anchor: src/state/settings.ts
+  via: null
+  terminal: false
+- id: CTR-LSK-SETTINGS
+  kind: contract
+  type: contract
+  distance: 1
+  anchor: null
+  via:
+    node: STO-SETTINGS
+    relation: implemented_by
+    direction: reverse
+  terminal: false
+- id: HDL-DOC-SET-CONTENT
+  kind: code
+  type: handler
+  distance: 1
+  anchor: src/state/documentState.ts
+  via:
+    node: STO-SETTINGS
+    relation: reads
+    direction: reverse
+  terminal: false
+- id: LSK-SETTINGS
+  kind: code
+  type: local_storage_key
+  distance: 1
+  anchor: src/state/settings.ts
+  via:
+    node: STO-SETTINGS
+    relation: writes
+    direction: forward
+  terminal: false
+- id: SCR-APP
+  kind: code
+  type: screen
+  distance: 1
+  anchor: src/App.tsx
+  via:
+    node: FN-USE-SCROLL-SYNC
+    relation: calls
+    direction: reverse
+  terminal: false
+- id: BTN-PREVIEW-FORMAT-CODE
+  kind: code
+  type: button
+  distance: 2
+  anchor: src/components/MarkdownViewer.tsx
+  via:
+    node: HDL-DOC-SET-CONTENT
+    relation: calls
+    direction: reverse
+  terminal: false
+- id: CMP-MARKDOWN-EDITOR
+  kind: code
+  type: component
+  distance: 2
+  anchor: src/components/MarkdownEditor.tsx
+  via:
+    node: HDL-DOC-SET-CONTENT
+    relation: triggers
+    direction: reverse
+  terminal: false
+- id: STO-DOCUMENT-STATE
+  kind: code
+  type: store
+  distance: 2
+  anchor: src/state/documentState.ts
+  via:
+    node: HDL-DOC-SET-CONTENT
+    relation: contains
+    direction: reverse
+  terminal: false
+- id: STO-EDITOR
+  kind: code
+  type: store
+  distance: 2
+  anchor: src/state/editor.ts
+  via:
+    node: HDL-DOC-SET-CONTENT
+    relation: writes
+    direction: forward
+  terminal: false
+- id: HDL-APP-START-PRESENTATION
+  kind: code
+  type: handler
+  distance: 3
+  anchor: src/App.tsx
+  via:
+    node: STO-EDITOR
+    relation: reads
+    direction: reverse
+  terminal: true
+hubs: []
+stats:
+  closure_nodes: 11
+  by_distance:
+    '0': 2
+    '1': 4
+    '2': 4
+    '3': 1

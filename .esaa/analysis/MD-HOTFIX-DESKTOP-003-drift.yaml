@@ -1,0 +1,189 @@
+artifact: task-drift
+schema_version: 1
+trace_task: TRACE-019
+task_id: MD-HOTFIX-DESKTOP-003
+inputs:
+  impact: .esaa/analysis/MD-HOTFIX-DESKTOP-003-impact.yaml
+  footprint: .esaa/analysis/MD-HOTFIX-DESKTOP-003-footprint.yaml
+  graph_source_commit: daf5888731c5ce3cdd5ce0d553a258b3b952f114
+notes: []
+rule: authorized = change_target ∪ expected_affected; ok ∈ authorized; violation ∈ protected; warning ∈ potentially_affected | out_of_closure
+  | uncatalogued substantive
+authorized:
+- FEAT-SPLASH-PACKAGING
+- OSI-DESKTOP-ENTRY
+observed:
+- OSI-DESKTOP-ENTRY
+classification:
+- id: OSI-DESKTOP-ENTRY
+  category: authorized
+  severity: ok
+  reasons: []
+drift: []
+other_findings:
+- path: .esaa/traceability/invariants.yaml
+  category: uncatalogued_change
+  severity: warning
+  lines:
+  - old:4
+  - old:5
+  - old:7
+  - old:9
+  - old:29
+  - old:59
+  - old:66
+  - old:87
+  - old:91
+  - old:95
+  - old:99
+  - old:117
+  - old:128
+  - old:144
+  - old:155
+  - old:185
+  - old:189
+  - old:196
+  - old:211
+  - old:215
+  - old:219
+  - old:223
+  - old:227
+  - old:245
+  - old:252
+  - old:273
+  - old:294
+  - old:314
+  - old:315
+  - old:319
+  - new:3
+  - new:4
+  - new:6
+  - new:8
+  - new:15
+  - new:26
+  - new:30
+  - new:31
+  - new:58
+  - new:62
+  - new:63
+  - new:64
+  - new:71
+  - new:72
+  - new:93
+  - new:94
+  - new:98
+  - new:99
+  - new:103
+  - new:104
+  - new:108
+  - new:109
+  - new:127
+  - new:128
+  - new:139
+  - new:140
+  - new:156
+  - new:157
+  - new:168
+  - new:169
+  - new:199
+  - new:200
+  - new:204
+  - new:205
+  - new:212
+  - new:213
+  - new:228
+  - new:229
+  - new:233
+  - new:234
+  - new:238
+  - new:239
+  - new:243
+  - new:244
+  - new:248
+  - new:249
+  - new:267
+  - new:268
+  - new:275
+  - new:276
+  - new:297
+  - new:298
+  - new:319
+  - new:320
+  - new:340
+  - new:341
+  - new:342
+  - new:346
+  - new:347
+  - new:352
+  - new:353
+  - new:354
+  - new:355
+  - new:356
+  - new:357
+  - new:358
+  - new:359
+  - new:360
+  - new:361
+  - new:362
+  - new:363
+  - new:364
+  - new:365
+  - new:366
+  - new:367
+  - new:368
+  - new:369
+- path: src-tauri/linux/md-studio.desktop
+  category: uncatalogued_change
+  severity: warning
+  lines:
+  - new:9
+- path: docs/qa/hotfix-desktop-wayland-controls.md
+  category: new_production_file
+  severity: warning
+- path: tests/desktop/desktop-launcher.test.ts
+  category: new_test_file
+  severity: info
+not_touched:
+- FEAT-SPLASH-PACKAGING
+verdict: warning
+metrics:
+  nodes:
+    tp: 1
+    authorized: 2
+    observed: 1
+    precision: 0.5
+    recall: 1.0
+    closure_recall: 1.0
+  code_nodes_only:
+    tp: 1
+    authorized: 1
+    observed: 1
+    precision: 1.0
+    recall: 1.0
+  features:
+    projected_direct:
+    - FEAT-OPEN-FILE
+    - FEAT-OPEN-FROM-OS
+    - FEAT-SPLASH-PACKAGING
+    projected_all: 3
+    observed:
+    - FEAT-SPLASH-PACKAGING
+    observed_in_projected_direct:
+    - FEAT-SPLASH-PACKAGING
+    observed_missing_from_projection: []
+    precision_direct: 0.333
+    recall_all: 1.0
+  invariants:
+    projected: []
+    observed:
+    - INV-DESKTOP-LAUNCHER-ENV
+    missing_from_projection:
+    - INV-DESKTOP-LAUNCHER-ENV
+  tests:
+    projected_must_run: []
+    changed_test_nodes: []
+    new_test_files:
+    - tests/desktop/desktop-launcher.test.ts
+  contracts_touched: []
+  data_touched: []
+  events_touched: []

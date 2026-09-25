@@ -46,10 +46,18 @@ export function generatePastedAssetName(extension = "png"): string {
 /**
  * Calcula o hash SHA-256 de um buffer no navegador/WebView.
  */
-export async function computeBufferSha256(buffer: ArrayBuffer): Promise<string> {
-  const digest = await crypto.subtle.digest("SHA-256", buffer);
-  const hashArray = Array.from(new Uint8Array(digest));
-  return hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
+export async function computeBufferSha256(buffer: ArrayBuffer | Uint8Array): Promise<string> {
+  const bytes = buffer instanceof Uint8Array ? buffer : new Uint8Array(buffer);
+  const copy = new Uint8Array(bytes.length);
+  copy.set(bytes);
+  try {
+    const digest = await crypto.subtle.digest("SHA-256", copy);
+    const hashArray = Array.from(new Uint8Array(digest));
+    return hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
+  } catch {
+    const { createHash } = await import("crypto");
+    return createHash("sha256").update(copy).digest("hex");
+  }
 }
 
 /**
@@ -87,17 +95,33 @@ export async function handlePastedImageAsset(
     return { success: false, error: validation.reason };
   }
 
-async function blobToArrayBuffer(blob: Blob): Promise<ArrayBuffer> {
-  if (typeof blob.arrayBuffer === "function") {
-    return await blob.arrayBuffer();
+  async function blobToArrayBuffer(blob: Blob): Promise<ArrayBuffer> {
+    if (typeof (blob as any).arrayBuffer === "function") {
+      try {
+        const ab = await blob.arrayBuffer();
+        if (ab) return ab;
+      } catch {
+        // fallback to FileReader
+      }
+    }
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const res = reader.result;
+        if (res instanceof ArrayBuffer) {
+          resolve(res);
+        } else if (res && (res as any).buffer instanceof ArrayBuffer) {
+          resolve((res as any).buffer);
+        } else if (res) {
+          resolve(new Uint8Array(res as any).buffer as ArrayBuffer);
+        } else {
+          resolve(new ArrayBuffer(0));
+        }
+      };
+      reader.onerror = () => reject(reader.error);
+      reader.readAsArrayBuffer(blob);
+    });
   }
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(reader.result as ArrayBuffer);
-    reader.onerror = () => reject(reader.error);
-    reader.readAsArrayBuffer(blob);
-  });
-}
 
   const buffer = await blobToArrayBuffer(imageBlob);
   const sha256 = await computeBufferSha256(buffer);

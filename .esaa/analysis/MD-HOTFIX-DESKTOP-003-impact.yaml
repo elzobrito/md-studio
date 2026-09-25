@@ -1,0 +1,73 @@
+artifact: task-impact
+schema_version: 1
+trace_task: TRACE-017
+task_id: MD-HOTFIX-DESKTOP-003
+projected_at: '2026-09-25T16:43:25-03:00'
+projected_before_change: true
+projection_inputs:
+- restauração de GDK_BACKEND=x11 e WEBKIT_DISABLE_DMABUF_RENDERER=1 nos lançadores desktop
+- .esaa/traceability/graph.json
+- docs/qa/hotfix-desktop-ubuntu.md
+spec: .esaa/tasks/MD-HOTFIX-DESKTOP-003.yaml
+graph_source_commit: daf5888731c5ce3cdd5ce0d553a258b3b952f114
+rationale:
+  OSI-DESKTOP-ENTRY: O template e os lançadores locais passam a carregar GDK_BACKEND=x11 e WEBKIT_DISABLE_DMABUF_RENDERER=1 para garantir botões
+    de controle de janela funcionais no Ubuntu GNOME/Wayland.
+justification:
+  FEAT-SPLASH-PACKAGING: Preserva comportamento de empacotamento com ambas as variáveis de compatibilidade.
+expected_uncatalogued: null
+blast_radius:
+  change_target:
+  - OSI-DESKTOP-ENTRY
+  expected_affected:
+  - FEAT-SPLASH-PACKAGING
+  expected_affected_source: declared
+  suggested_expected_affected: []
+  authorized:
+  - FEAT-SPLASH-PACKAGING
+  - OSI-DESKTOP-ENTRY
+  potentially_affected: []
+  protected_in_closure: []
+  protected_total: 139
+  protected_declared: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: false
+projected:
+  nodes:
+  - FEAT-SPLASH-PACKAGING
+  - OSI-DESKTOP-ENTRY
+  features:
+    direct:
+    - FEAT-OPEN-FILE
+    - FEAT-OPEN-FROM-OS
+    - FEAT-SPLASH-PACKAGING
+    indirect: []
+  flows:
+  - FLOW-OPEN-FILE-FROM-OS
+  invariants: []
+  tests:
+    must_run: []
+    should_run: []
+    may_run: []
+  contracts: []
+  data: []
+  events: []
+  entrypoints:
+  - ENT-OSI-DESKTOP-ENTRY
+  modules:
+  - MOD-PACKAGING
+closure:
+- id: OSI-DESKTOP-ENTRY
+  kind: code
+  type: os_integration
+  distance: 0
+  anchor: src-tauri/linux/md-studio.desktop
+  via: null
+  terminal: false
+hubs: []
+stats:
+  closure_nodes: 1
+  by_distance:
+    '0': 1

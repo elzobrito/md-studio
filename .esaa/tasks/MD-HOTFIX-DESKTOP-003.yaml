@@ -1,0 +1,34 @@
+artifact: task-traceability
+schema_version: 1
+task_id: MD-HOTFIX-DESKTOP-003
+written_at: '2026-09-25T16:44:00-03:00'
+projected_before_change: true
+projection_inputs:
+  - restauração de GDK_BACKEND=x11 e WEBKIT_DISABLE_DMABUF_RENDERER=1 nos lançadores desktop
+  - .esaa/traceability/graph.json
+  - docs/qa/hotfix-desktop-ubuntu.md
+graph:
+  path: .esaa/traceability/graph.json
+  source_commit: daf5888731c5ce3cdd5ce0d553a258b3b952f114
+traceability:
+  targets:
+    - OSI-DESKTOP-ENTRY
+  expected_affected:
+    - FEAT-SPLASH-PACKAGING
+  protected_extra: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: false
+  rationale:
+    OSI-DESKTOP-ENTRY: O template e os lançadores locais passam a carregar GDK_BACKEND=x11 e WEBKIT_DISABLE_DMABUF_RENDERER=1 para garantir botões de controle de janela funcionais no Ubuntu GNOME/Wayland.
+  justification:
+    FEAT-SPLASH-PACKAGING: Preserva comportamento de empacotamento com ambas as variáveis de compatibilidade.
+artifacts:
+  impact: .esaa/analysis/MD-HOTFIX-DESKTOP-003-impact.yaml
+  footprint: .esaa/analysis/MD-HOTFIX-DESKTOP-003-footprint.yaml
+  drift: .esaa/analysis/MD-HOTFIX-DESKTOP-003-drift.yaml
+expected_uncatalogued:
+  - tests/desktop/desktop-launcher.test.ts
+  - docs/qa/hotfix-desktop-wayland-controls.md
+close_rule: O complete copia verdict. warning cita path e linhas. violation bloqueia.

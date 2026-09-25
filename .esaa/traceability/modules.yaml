@@ -1,13 +1,13 @@
-# TRACE-002 — Bounded contexts do md-studio. depends_on derivado de arestas observed entre módulos (edges.yaml).
 artifact: modules
 schema_version: 1
-source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
-generated_at: '2026-09-24T23:08:29-03:00'
+source_commit: daf5888731c5ce3cdd5ce0d553a258b3b952f114
+generated_at: '2026-09-25T15:18:52-03:00'
 module_count: 19
 modules:
 - id: MOD-APP-SHELL
   name: Shell da aplicação
-  description: Composição React (App.tsx), header, atalhos globais, boot Tauri (run/AppState/generate_handler!), fachada IPC.
+  description: Composição React (App.tsx), header, atalhos globais, boot Tauri (run/AppState/generate_handler!),
+    fachada IPC.
   paths:
   - src/App.tsx
   - src/main.tsx
@@ -39,7 +39,8 @@ modules:
   - MOD-WORKSPACE-FS
 - id: MOD-EDITOR
   name: Editor
-  description: 'CodeMirror 6: keymaps, toolbar de formatação, slash menu, smart paste, estado do cursor.'
+  description: 'CodeMirror 6: keymaps, toolbar de formatação, slash menu, smart paste,
+    estado do cursor.'
   paths:
   - src/components/MarkdownEditor.tsx
   - src/components/editor/**
@@ -59,7 +60,8 @@ modules:
   - MOD-WIKI-LINKS
 - id: MOD-PREVIEW
   name: Preview / pipeline Markdown
-  description: Pipeline unified/remark/rehype até HTML sanitizado; navegação por links e headings.
+  description: Pipeline unified/remark/rehype até HTML sanitizado; navegação por links
+    e headings.
   paths:
   - src/components/MarkdownViewer.tsx
   - src/components/DocumentOutline.tsx
@@ -96,7 +98,8 @@ modules:
   depends_on: []
 - id: MOD-WORKSPACE-FS
   name: Workspace e sistema de arquivos
-  description: Abrir pasta/arquivo, listar e ler documentos com cerca de caminho; launch por argv/SO; modo browser.
+  description: Abrir pasta/arquivo, listar e ler documentos com cerca de caminho;
+    launch por argv/SO; modo browser.
   paths:
   - src/components/FileExplorer.tsx
   - src/components/explorer/**
@@ -164,7 +167,8 @@ modules:
   - MOD-WORKSPACE-FS
 - id: MOD-WATCHER
   name: Watcher e conflito externo
-  description: notify + debounce, supressão de eco do save interno, evento workspace://change, ConflictDialog.
+  description: notify + debounce, supressão de eco do save interno, evento workspace://change,
+    ConflictDialog.
   paths:
   - src-tauri/src/watcher/mod.rs
   - src/components/ConflictDialog.tsx
@@ -189,7 +193,8 @@ modules:
   - MOD-WORKSPACE-FS
 - id: MOD-WIKI-LINKS
   name: Wiki links
-  description: Parsing, resolução segura e renderização de [[links]], autocomplete e criação de nota.
+  description: Parsing, resolução segura e renderização de [[links]], autocomplete
+    e criação de nota.
   paths:
   - src-tauri/crates/md-studio-core/src/index/wiki_resolve.rs
   - src-tauri/crates/md-studio-core/src/parser/wiki_link_parser.rs
@@ -213,7 +218,8 @@ modules:
   - MOD-WORKSPACE-FS
 - id: MOD-BACKLINKS
   name: Backlinks
-  description: Índice reverso de links resolvidos, cerca do alvo e contexto de linha; painel de backlinks.
+  description: Índice reverso de links resolvidos, cerca do alvo e contexto de linha;
+    painel de backlinks.
   paths:
   - src-tauri/crates/md-studio-core/src/index/backlink_index.rs
   - src-tauri/src/commands/metadata.rs (get_backlinks)
@@ -235,7 +241,8 @@ modules:
   - MOD-WORKSPACE-FS
 - id: MOD-METADATA-INDEX
   name: Índice de metadados
-  description: ReindexEngine, extração de metadados, persistência .mdstudio/index.json, hook useMetadata.
+  description: ReindexEngine, extração de metadados, persistência .mdstudio/index.json,
+    hook useMetadata.
   paths:
   - src-tauri/crates/md-studio-core/src/index/**
   - src-tauri/crates/md-studio-core/src/parser/tag_parser.rs
@@ -260,12 +267,15 @@ modules:
   - MOD-WORKSPACE-FS
 - id: MOD-SEARCH
   name: Busca
-  description: Quick switcher (fuzzy sobre recentes) e comando search_workspace (sem UI).
+  description: Quick switcher, Command Registry e busca textual WorkspaceSearch com
+    UI completa.
   paths:
   - src/components/command/**
   - src/utils/fuzzy-search.ts
   - src-tauri/src/commands/mod.rs (search_workspace)
   - src-tauri/src/search/mod.rs
+  - src/components/workspace/**
+  - src/commands/**
   node_count: 9
   node_types:
     button: 1
@@ -281,7 +291,8 @@ modules:
   - MOD-WORKSPACE-FS
 - id: MOD-FORMATTER
   name: Formatador de código
-  description: Prettier (web) e CLIs nativas via format_code; formatação de blocos cercados.
+  description: Prettier (web) e CLIs nativas via format_code; formatação de blocos
+    cercados.
   paths:
   - src/services/formatter/**
   - src/editor/formatting/formatCodeBlock.ts
@@ -349,7 +360,8 @@ modules:
   - MOD-EDITOR
 - id: MOD-SETTINGS-SESSION
   name: Configurações, sessão e recentes
-  description: Stores persistidos em localStorage (settings, sessão, UI, recentes, larguras de painel).
+  description: Stores persistidos em localStorage (settings, sessão, UI, recentes,
+    larguras de painel).
   paths:
   - src/state/settings.ts
   - src/state/session.ts
@@ -388,7 +400,8 @@ modules:
   - MOD-APP-SHELL
 - id: MOD-PRESENTATION
   name: Modo apresentação
-  description: Segmentação em slides, deck Reveal, sessão e restauração da UI (liberado em v0.2.3).
+  description: Segmentação em slides, deck Reveal, sessão e restauração da UI (liberado
+    em v0.2.3).
   paths:
   - src/presentation/**
   node_count: 14
@@ -407,7 +420,8 @@ modules:
   - MOD-SETTINGS-SESSION
 - id: MOD-SECURITY-POLICY
   name: Política de segurança
-  description: Sanitize/estilos do pipeline, CSP Tauri, capabilities, cercas de caminho, política de URL.
+  description: Sanitize/estilos do pipeline, CSP Tauri, capabilities, cercas de caminho,
+    política de URL.
   paths:
   - src/markdown/sanitize.ts
   - src/security/urlPolicy.ts

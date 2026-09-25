@@ -1,18 +1,18 @@
-# TRACE-011 — Invariantes. verified_by contém apenas testes reais (ids de tests.yaml) que exercitam a invariante; sem teste => verified_by: [] e gap: true. coverage: full|partial|none. enforced_by/gaps.evidence = path:line no source_commit. Arestas verifies (teste -> INV) são materializadas em graph.json (TRACE-012).
 artifact: invariants
 schema_version: 1
-source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
-generated_at: '2026-09-24T23:07:39-03:00'
+source_commit: daf5888731c5ce3cdd5ce0d553a258b3b952f114
+generated_at: '2026-09-25T15:18:52-03:00'
 summary:
-  total: 10
+  total: 11
   by_coverage:
-    partial: 6
+    partial: 7
     none: 3
     full: 1
   without_tests:
   - INV-FS-ONLY-VIA-RUST
   - INV-REMOTE-RESOURCES-BLOCKED
   - INV-OFFLINE-NO-TELEMETRY
+  - INV-DESKTOP-LAUNCHER-ENV
   with_gap:
   - INV-PATH-FENCE
   - INV-FS-ONLY-VIA-RUST
@@ -23,10 +23,12 @@ summary:
   - INV-WATCHER-ECHO-SUPPRESSION
   - INV-EXPORT-NO-SILENT-OVERWRITE
   - INV-OFFLINE-NO-TELEMETRY
+  - INV-DESKTOP-LAUNCHER-ENV
 invariants:
 - id: INV-PATH-FENCE
   name: 'Path fence: todo acesso a arquivo fica dentro da raiz do workspace'
-  statement: Caminhos relativos vindos do frontend são resolvidos contra a raiz canônica e rejeitados se escaparem (../, absolutos, symlink para fora).
+  statement: Caminhos relativos vindos do frontend são resolvidos contra a raiz canônica
+    e rejeitados se escaparem (../, absolutos, symlink para fora).
   features:
   - FEAT-PATH-FENCING
   nodes:
@@ -53,17 +55,21 @@ invariants:
   - TST-RS-EXPORT-EPUB-REQUIRES-KNOWN-WORKSPACE-AND-REJECTS-ESCAPE
   - TST-TS-WIKI-CREATE-NOTE
   - TST-TS-MARKDOWN-CORE-NAVIGATION-RESOLVERELATIVELINK
+  - TST-TS-ASSET-PASTE
   coverage: partial
   gap: true
   gaps:
-  - description: Nenhum teste exercita os handlers IPC read_document/save_document/list_entries com caminho malicioso (fence testado só na função resolve_within e nos fences auxiliares).
+  - description: Nenhum teste exercita os handlers IPC read_document/save_document/list_entries
+      com caminho malicioso (fence testado só na função resolve_within e nos fences
+      auxiliares).
     evidence:
     - src-tauri/src/commands/mod.rs:117
     method: observed
   trace_task: TRACE-011
 - id: INV-FS-ONLY-VIA-RUST
   name: Acesso ao sistema de arquivos só via comandos Rust
-  statement: 'O webview não recebe plugin fs; leitura/gravação passam pelos 21 comandos IPC registrados. Exceção: modo navegador (dev) usa File System Access API.'
+  statement: 'O webview não recebe plugin fs; leitura/gravação passam pelos 21 comandos
+    IPC registrados. Exceção: modo navegador (dev) usa File System Access API.'
   features:
   - FEAT-SAVE
   - FEAT-OPEN-FILE
@@ -84,19 +90,23 @@ invariants:
   coverage: none
   gap: true
   gaps:
-  - description: Sem teste que verifique as capabilities (ausência de fs:*) ou que o frontend não importe @tauri-apps/plugin-fs; garantido só por configuração.
+  - description: Sem teste que verifique as capabilities (ausência de fs:*) ou que
+      o frontend não importe @tauri-apps/plugin-fs; garantido só por configuração.
     evidence:
     - src-tauri/capabilities/default.json:6
     method: observed
-  - description: Modo navegador grava via File System Access API (writeBrowserFile), fora do Rust.
+  - description: Modo navegador grava via File System Access API (writeBrowserFile),
+      fora do Rust.
     evidence:
     - src/lib/browserFs.ts:209
     method: observed
-  notes: 'Verificado estaticamente: package.json e Cargo.toml não declaram plugin fs.'
+  notes: 'Verificado estaticamente: package.json e Cargo.toml não declaram plugin
+    fs.'
   trace_task: TRACE-011
 - id: INV-ATOMIC-SAVE
   name: Gravação atômica (tmp + fsync + rename)
-  statement: save_document e export_* escrevem em arquivo temporário no mesmo diretório, fazem fsync e renomeiam sobre o destino.
+  statement: save_document e export_* escrevem em arquivo temporário no mesmo diretório,
+    fazem fsync e renomeiam sobre o destino.
   features:
   - FEAT-SAVE
   - FEAT-EXPORT-HTML
@@ -114,7 +124,8 @@ invariants:
   coverage: partial
   gap: true
   gaps:
-  - description: Testes verificam só o conteúdo final; não simulam falha no meio da escrita nem checam ausência de .tmp residual.
+  - description: Testes verificam só o conteúdo final; não simulam falha no meio da
+      escrita nem checam ausência de .tmp residual.
     evidence:
     - src-tauri/crates/md-studio-core/tests/atomic_save.rs:6
     method: observed
@@ -125,7 +136,8 @@ invariants:
   trace_task: TRACE-011
 - id: INV-SHA256-CONFLICT
   name: Detecção de conflito por SHA-256 antes de gravar
-  statement: save_document compara o hash esperado (snapshot) com o SHA-256 atual do disco e recusa com HashMismatch se diferente.
+  statement: save_document compara o hash esperado (snapshot) com o SHA-256 atual
+    do disco e recusa com HashMismatch se diferente.
   features:
   - FEAT-CONFLICT
   nodes:
@@ -141,7 +153,8 @@ invariants:
   coverage: partial
   gap: true
   gaps:
-  - description: 'Arquivo removido externamente não é detectado: com expected_hash não vazio o save recria o arquivo.'
+  - description: 'Arquivo removido externamente não é detectado: com expected_hash
+      não vazio o save recria o arquivo.'
     evidence:
     - src-tauri/crates/md-studio-core/src/persistence.rs:43
     method: observed
@@ -152,7 +165,8 @@ invariants:
   trace_task: TRACE-011
 - id: INV-SANITIZE-PREVIEW-EXPORT
   name: Sanitização obrigatória no preview, export HTML, apresentação e EPUB
-  statement: Todo HTML derivado de Markdown passa por rehype-sanitize (schema restrito) antes de ir ao DOM ou a arquivo exportado.
+  statement: Todo HTML derivado de Markdown passa por rehype-sanitize (schema restrito)
+    antes de ir ao DOM ou a arquivo exportado.
   features:
   - FEAT-SANITIZE
   - FEAT-PREVIEW
@@ -182,18 +196,21 @@ invariants:
   coverage: partial
   gap: true
   gaps:
-  - description: Nenhum teste XSS para o pipeline EPUB (schema próprio); epubProcessor.test não cobre scripts/on*.
+  - description: Nenhum teste XSS para o pipeline EPUB (schema próprio); epubProcessor.test
+      não cobre scripts/on*.
     evidence:
     - src/export/epubProcessor.ts:125
     method: observed
-  - description: Fixture tests/security/adversarial/xss.md não é usado por nenhum teste.
+  - description: Fixture tests/security/adversarial/xss.md não é usado por nenhum
+      teste.
     evidence:
     - tests/security/adversarial/xss.md:1
     method: observed
   trace_task: TRACE-011
 - id: INV-REMOTE-RESOURCES-BLOCKED
   name: Recursos remotos bloqueados
-  statement: Nenhum recurso remoto (imagens, scripts, conexões) é carregado a partir do conteúdo Markdown.
+  statement: Nenhum recurso remoto (imagens, scripts, conexões) é carregado a partir
+    do conteúdo Markdown.
   features:
   - FEAT-OFFLINE-PRIVACY
   - FEAT-EXPORT-HTML
@@ -208,23 +225,28 @@ invariants:
   coverage: none
   gap: true
   gaps:
-  - description: 'No app, o bloqueio vem só do CSP do webview (img-src ''self'' data: blob:; connect-src local); não há teste do CSP.'
+  - description: 'No app, o bloqueio vem só do CSP do webview (img-src ''self'' data:
+      blob:; connect-src local); não há teste do CSP.'
     evidence:
     - src-tauri/tauri.conf.json:36
     method: observed
-  - description: urlPolicy.allowUrl não está ligado ao pipeline; o único teste (TST-TS-SECURITY-CONTENT-URLPOLICY) cobre essa função isolada e não verifica o produto.
+  - description: urlPolicy.allowUrl não está ligado ao pipeline; o único teste (TST-TS-SECURITY-CONTENT-URLPOLICY)
+      cobre essa função isolada e não verifica o produto.
     evidence:
     - src/security/urlPolicy.ts:7
     method: observed
-  - description: 'HTML exportado não tem CSP: imagens remotas carregariam ao abrir o arquivo num navegador.'
+  - description: 'HTML exportado não tem CSP: imagens remotas carregariam ao abrir
+      o arquivo num navegador.'
     evidence:
     - src/services/export.ts:12
     method: observed
-  notes: TST-TS-SECURITY-CONTENT-URLPOLICY não é contado em verified_by por testar código não ligado.
+  notes: TST-TS-SECURITY-CONTENT-URLPOLICY não é contado em verified_by por testar
+    código não ligado.
   trace_task: TRACE-011
 - id: INV-WATCHER-ECHO-SUPPRESSION
   name: Supressão de eco do watcher para gravações internas
-  statement: Eventos do notify gerados por gravação do próprio app (hash registrado dentro do TTL) não chegam ao frontend como alteração externa.
+  statement: Eventos do notify gerados por gravação do próprio app (hash registrado
+    dentro do TTL) não chegam ao frontend como alteração externa.
   features:
   - FEAT-WATCHER
   - FEAT-AUTO-SAVE
@@ -242,14 +264,16 @@ invariants:
   coverage: partial
   gap: true
   gaps:
-  - description: Teste cobre WatcherHub isolado; a chamada register_internal_save dentro de save_document e o descarte em spawn_watcher não têm teste de integração.
+  - description: Teste cobre WatcherHub isolado; a chamada register_internal_save
+      dentro de save_document e o descarte em spawn_watcher não têm teste de integração.
     evidence:
     - src-tauri/src/commands/mod.rs:128
     method: observed
   trace_task: TRACE-011
 - id: INV-DRAFT-RETENTION
   name: 'Retenção de rascunhos: 90 dias, aviso no dia 75, exportação antes de excluir'
-  statement: Rascunhos locais expiram 90 dias após a última edição; a partir do dia 75 há aviso; expirados exigem oportunidade de exportar antes da exclusão.
+  statement: Rascunhos locais expiram 90 dias após a última edição; a partir do dia
+    75 há aviso; expirados exigem oportunidade de exportar antes da exclusão.
   features:
   - FEAT-DRAFT-RECOVERY
   nodes:
@@ -270,7 +294,8 @@ invariants:
   trace_task: TRACE-011
 - id: INV-EXPORT-NO-SILENT-OVERWRITE
   name: Export não sobrescreve sem confirmação
-  statement: export_html/export_epub recusam destino existente sem overwrite=true; o frontend pede confirmação e só então repete com overwrite.
+  statement: export_html/export_epub recusam destino existente sem overwrite=true;
+    o frontend pede confirmação e só então repete com overwrite.
   features:
   - FEAT-EXPORT-HTML
   - FEAT-EXPORT-EPUB
@@ -291,7 +316,8 @@ invariants:
   coverage: partial
   gap: true
   gaps:
-  - description: Recusa de sobrescrita no comando Rust export_epub não tem teste (só export_html).
+  - description: Recusa de sobrescrita no comando Rust export_epub não tem teste (só
+      export_html).
     evidence:
     - src-tauri/src/commands/mod.rs:255
     method: observed
@@ -311,13 +337,33 @@ invariants:
   coverage: none
   gap: true
   gaps:
-  - description: 'Sem teste; verificado só estaticamente: nenhum fetch/XMLHttpRequest/WebSocket em src/, nenhuma dependência de telemetria/HTTP client em package.json/Cargo.toml, CSP connect-src restrito
-      a ipc/self.'
+  - description: 'Sem teste; verificado só estaticamente: nenhum fetch/XMLHttpRequest/WebSocket
+      em src/, nenhuma dependência de telemetria/HTTP client em package.json/Cargo.toml,
+      CSP connect-src restrito a ipc/self.'
     evidence:
     - src-tauri/tauri.conf.json:36
     method: inferred
-  - description: opener:allow-open-url permite abrir links externos no navegador do sistema (ação explícita do usuário, não telemetria).
+  - description: opener:allow-open-url permite abrir links externos no navegador do
+      sistema (ação explícita do usuário, não telemetria).
     evidence:
     - src-tauri/capabilities/default.json:6
     method: observed
   trace_task: TRACE-011
+- id: INV-DESKTOP-LAUNCHER-ENV
+  name: 'Lançadores desktop Linux mantêm flags de ambiente essenciais (GDK_BACKEND=x11 e WEBKIT_DISABLE_DMABUF_RENDERER=1)'
+  statement: Os arquivos de lançador .desktop para o Linux devem conter GDK_BACKEND=x11 e WEBKIT_DISABLE_DMABUF_RENDERER=1 na linha Exec para evitar o bug upstream do Tauri/TAO onde botões nativos de controle de janela (minimizar, maximizar, fechar) ficam inertes no Ubuntu GNOME sobre Wayland e garantir estabilidade gráfica.
+  features:
+  - FEAT-SPLASH-PACKAGING
+  nodes:
+  - OSI-DESKTOP-ENTRY
+  enforced_by:
+  - src-tauri/linux/md-studio.desktop:9
+  verified_by: []
+  coverage: partial
+  gap: true
+  gaps:
+  - description: Teste unitário tests/desktop/desktop-launcher.test.ts valida flags GDK_BACKEND=x11 e WEBKIT_DISABLE_DMABUF_RENDERER=1 no template do repo e nos lançadores do usuário.
+    evidence:
+    - src-tauri/linux/md-studio.desktop:9
+    method: observed
+  trace_task: MD-HOTFIX-DESKTOP-003

@@ -19,6 +19,7 @@ export function useSettings(): SettingsState & {
   setPreviewReadingWidth: (width: PreviewReadingWidth) => void;
   setLineWrapping: (enabled: boolean) => void;
   setLineNumbers: (enabled: boolean) => void;
+  setSplitScrollSync: (enabled: boolean) => void;
   setAutoSave: (enabled: boolean) => void;
   setAutoSaveDelay: (delay: number) => void;
   resetToDefaults: () => void;
@@ -46,6 +47,7 @@ export function useSettings(): SettingsState & {
     setPreviewReadingWidth: (prw) => settingsStore.setPreviewReadingWidth(prw),
     setLineWrapping: (lw) => settingsStore.setLineWrapping(lw),
     setLineNumbers: (ln) => settingsStore.setLineNumbers(ln),
+    setSplitScrollSync: (enabled) => settingsStore.setSplitScrollSync(enabled),
     setAutoSave: (as) => settingsStore.setAutoSave(as),
     setAutoSaveDelay: (asd) => settingsStore.setAutoSaveDelay(asd),
     resetToDefaults: () => settingsStore.resetToDefaults(),

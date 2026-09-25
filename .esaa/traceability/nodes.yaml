@@ -1,8 +1,7 @@
-# TRACE-004/006/010 — Nós do grafo. Âncoras (path/symbol/lines) válidas no source_commit; symbol entre aspas = literal. Ver schema.yaml.
 artifact: nodes
 schema_version: 1
-source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
-generated_at: '2026-09-24T23:06:21-03:00'
+source_commit: daf5888731c5ce3cdd5ce0d553a258b3b952f114
+generated_at: '2026-09-25T15:18:52-03:00'
 summary:
   total: 516
   by_type:
@@ -86,7 +85,8 @@ nodes:
   alias: src/App.tsx#className={`center mode-${view}`}
   inclusion:
   - flow
-  notes: 'Sem router: ''rotas'' são modos de visão do centro (session.viewMode). A constante VIEW_OPTIONS (App.tsx:48) não é usada.'
+  notes: 'Sem router: ''rotas'' são modos de visão do centro (session.viewMode). A
+    constante VIEW_OPTIONS (App.tsx:48) não é usada.'
   trace_task: TRACE-004
 - id: CMP-APP-HEADER
   type: component
@@ -271,8 +271,8 @@ nodes:
     path: src/components/command/CommandPalette.tsx
     symbol: '"e.key.toLowerCase() === "p""'
     lines:
-    - 22
-    - 22
+    - 197
+    - 197
   alias: src/components/command/CommandPalette.tsx#e.key.toLowerCase() === "p
   inclusion:
   - entrypoint
@@ -799,8 +799,8 @@ nodes:
     path: src/lib/ipc/client.ts
     symbol: subscribeOpenFile
     lines:
-    - 297
-    - 310
+    - 306
+    - 319
   alias: src/lib/ipc/client.ts#subscribeOpenFile
   inclusion:
   - flow
@@ -856,8 +856,8 @@ nodes:
     path: src/lib/ipc/client.ts
     symbol: browserInvoke
     lines:
-    - 223
-    - 292
+    - 232
+    - 301
   alias: src/lib/ipc/client.ts#browserInvoke
   inclusion:
   - flow
@@ -933,7 +933,6 @@ nodes:
     - 115
     - 125
   alias: src/lib/ipc/client.ts#ipc.searchWorkspace
-  status: dead_code
   inclusion:
   - contract
   notes: Sem chamador no frontend.
@@ -946,8 +945,8 @@ nodes:
     path: src/lib/ipc/client.ts
     symbol: ipc.exportHtml
     lines:
-    - 126
-    - 129
+    - 135
+    - 138
   alias: src/lib/ipc/client.ts#ipc.exportHtml
   inclusion:
   - flow
@@ -961,8 +960,8 @@ nodes:
     path: src/lib/ipc/client.ts
     symbol: ipc.exportEpub
     lines:
-    - 130
-    - 138
+    - 139
+    - 147
   alias: src/lib/ipc/client.ts#ipc.exportEpub
   inclusion:
   - flow
@@ -976,8 +975,8 @@ nodes:
     path: src/lib/ipc/client.ts
     symbol: ipc.startWatching
     lines:
-    - 139
-    - 139
+    - 148
+    - 148
   alias: src/lib/ipc/client.ts#ipc.startWatching
   inclusion:
   - flow
@@ -991,8 +990,8 @@ nodes:
     path: src/lib/ipc/client.ts
     symbol: ipc.stopWatching
     lines:
-    - 140
-    - 140
+    - 149
+    - 149
   alias: src/lib/ipc/client.ts#ipc.stopWatching
   inclusion:
   - flow
@@ -1006,8 +1005,8 @@ nodes:
     path: src/lib/ipc/client.ts
     symbol: ipc.getLaunchPath
     lines:
-    - 142
-    - 145
+    - 151
+    - 154
   alias: src/lib/ipc/client.ts#ipc.getLaunchPath
   inclusion:
   - flow
@@ -1021,8 +1020,8 @@ nodes:
     path: src/lib/ipc/metadata.ts
     symbol: getWorkspaceStats
     lines:
-    - 20
-    - 34
+    - 21
+    - 35
   alias: src/lib/ipc/metadata.ts#getWorkspaceStats
   inclusion:
   - flow
@@ -1036,8 +1035,8 @@ nodes:
     path: src/lib/ipc/metadata.ts
     symbol: getDocumentMetadata
     lines:
-    - 36
-    - 39
+    - 37
+    - 40
   alias: src/lib/ipc/metadata.ts#getDocumentMetadata
   inclusion:
   - flow
@@ -1051,8 +1050,8 @@ nodes:
     path: src/lib/ipc/metadata.ts
     symbol: getAllDocuments
     lines:
-    - 41
-    - 44
+    - 42
+    - 45
   alias: src/lib/ipc/metadata.ts#getAllDocuments
   inclusion:
   - flow
@@ -1066,8 +1065,8 @@ nodes:
     path: src/lib/ipc/metadata.ts
     symbol: triggerReindex
     lines:
-    - 46
-    - 51
+    - 47
+    - 52
   alias: src/lib/ipc/metadata.ts#triggerReindex
   inclusion:
   - flow
@@ -1081,8 +1080,8 @@ nodes:
     path: src/lib/ipc/metadata.ts
     symbol: getWikiLinksFor
     lines:
-    - 53
-    - 56
+    - 54
+    - 57
   alias: src/lib/ipc/metadata.ts#getWikiLinksFor
   inclusion:
   - flow
@@ -1096,10 +1095,9 @@ nodes:
     path: src/lib/ipc/metadata.ts
     symbol: resolveWikiLink
     lines:
-    - 58
-    - 63
+    - 59
+    - 64
   alias: src/lib/ipc/metadata.ts#resolveWikiLink
-  status: dead_code
   inclusion:
   - contract
   notes: Sem chamador no frontend.
@@ -1112,8 +1110,8 @@ nodes:
     path: src/lib/ipc/metadata.ts
     symbol: getResolvedWikiLinksFor
     lines:
-    - 65
-    - 68
+    - 66
+    - 69
   alias: src/lib/ipc/metadata.ts#getResolvedWikiLinksFor
   inclusion:
   - flow
@@ -1127,8 +1125,8 @@ nodes:
     path: src/lib/ipc/metadata.ts
     symbol: getTags
     lines:
-    - 70
-    - 73
+    - 71
+    - 74
   alias: src/lib/ipc/metadata.ts#getTags
   inclusion:
   - flow
@@ -1142,8 +1140,8 @@ nodes:
     path: src/lib/ipc/metadata.ts
     symbol: getBacklinks
     lines:
-    - 75
-    - 78
+    - 76
+    - 79
   alias: src/lib/ipc/metadata.ts#getBacklinks
   inclusion:
   - flow
@@ -1157,8 +1155,8 @@ nodes:
     path: src/services/formatter/index.ts
     symbol: '"invoke<FormatResponse>("format_code""'
     lines:
-    - 25
-    - 25
+    - 26
+    - 26
   alias: src/services/formatter/index.ts#invoke<FormatResponse>("format_code
   inclusion:
   - flow
@@ -1172,8 +1170,8 @@ nodes:
     path: src/lib/ipc/client.ts
     symbol: pickFolder
     lines:
-    - 153
-    - 174
+    - 162
+    - 183
   alias: src/lib/ipc/client.ts#pickFolder
   inclusion:
   - entrypoint
@@ -1187,8 +1185,8 @@ nodes:
     path: src/lib/ipc/client.ts
     symbol: pickMarkdownFile
     lines:
-    - 176
-    - 195
+    - 185
+    - 204
   alias: src/lib/ipc/client.ts#pickMarkdownFile
   inclusion:
   - entrypoint
@@ -1202,8 +1200,8 @@ nodes:
     path: src/lib/ipc/client.ts
     symbol: pickSaveMarkdownFile
     lines:
-    - 197
-    - 213
+    - 206
+    - 222
   alias: src/lib/ipc/client.ts#pickSaveMarkdownFile
   inclusion:
   - entrypoint
@@ -1217,8 +1215,8 @@ nodes:
     path: src/lib/ipc/client.ts
     symbol: pickSaveHtmlFile
     lines:
-    - 353
-    - 367
+    - 362
+    - 376
   alias: src/lib/ipc/client.ts#pickSaveHtmlFile
   inclusion:
   - entrypoint
@@ -1232,8 +1230,8 @@ nodes:
     path: src/lib/ipc/client.ts
     symbol: pickSaveEpubFile
     lines:
-    - 336
-    - 351
+    - 345
+    - 360
   alias: src/lib/ipc/client.ts#pickSaveEpubFile
   inclusion:
   - entrypoint
@@ -1247,8 +1245,8 @@ nodes:
     path: src/lib/ipc/client.ts
     symbol: confirmOverwrite
     lines:
-    - 369
-    - 381
+    - 378
+    - 390
   alias: src/lib/ipc/client.ts#confirmOverwrite
   inclusion:
   - entrypoint
@@ -1262,8 +1260,8 @@ nodes:
     path: src/services/navigation.ts
     symbol: openExternalUrl
     lines:
-    - 93
-    - 100
+    - 101
+    - 108
   alias: src/services/navigation.ts#openExternalUrl
   inclusion:
   - flow
@@ -2168,8 +2166,8 @@ nodes:
     path: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs
     symbol: ReindexEngine::reindex_file
     lines:
-    - 73
-    - 111
+    - 85
+    - 123
   alias: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs#ReindexEngine::reindex_file
   inclusion:
   - flow
@@ -2182,8 +2180,8 @@ nodes:
     path: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs
     symbol: ReindexEngine::remove_file
     lines:
-    - 114
-    - 130
+    - 126
+    - 142
   alias: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs#ReindexEngine::remove_file
   inclusion:
   - flow
@@ -2196,8 +2194,8 @@ nodes:
     path: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs
     symbol: ReindexEngine::rebuild_backlinks
     lines:
-    - 134
-    - 139
+    - 146
+    - 151
   alias: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs#ReindexEngine::rebuild_backlinks
   inclusion:
   - flow
@@ -2210,8 +2208,8 @@ nodes:
     path: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs
     symbol: ReindexEngine::backlinks_for
     lines:
-    - 141
-    - 145
+    - 153
+    - 157
   alias: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs#ReindexEngine::backlinks_for
   inclusion:
   - flow
@@ -2224,8 +2222,8 @@ nodes:
     path: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs
     symbol: ReindexEngine::apply_external_change
     lines:
-    - 149
-    - 168
+    - 161
+    - 180
   alias: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs#ReindexEngine::apply_external_change
   inclusion:
   - flow
@@ -2971,8 +2969,8 @@ nodes:
     path: src/types/metadata.ts
     symbol: ReindexReport
     lines:
-    - 55
-    - 59
+    - 76
+    - 80
   alias: src/types/metadata.ts#ReindexReport
   inclusion:
   - contract
@@ -2985,8 +2983,8 @@ nodes:
     path: src/types/metadata.ts
     symbol: BacklinkResult
     lines:
-    - 73
-    - 78
+    - 94
+    - 99
   alias: src/types/metadata.ts#BacklinkResult
   inclusion:
   - contract
@@ -3145,7 +3143,8 @@ nodes:
   alias: src/state/documentState.ts#useDocumentState.openRecent
   inclusion:
   - flow
-  notes: Contém diretórios candidatos hardcoded (/home/elzobrito/...) para resolver recentes sem workspace.
+  notes: Contém diretórios candidatos hardcoded (/home/elzobrito/...) para resolver
+    recentes sem workspace.
   trace_task: TRACE-004
 - id: HDL-DOC-SAVE-AS
   type: handler
@@ -3216,7 +3215,8 @@ nodes:
   alias: src/state/documentState.ts#useDocumentState.resolveConflict
   inclusion:
   - flow
-  notes: '''reload'' chama openRelative, que reaplica rascunho do localStorage (possível não recarregar do disco).'
+  notes: '''reload'' chama openRelative, que reaplica rascunho do localStorage (possível
+    não recarregar do disco).'
   trace_task: TRACE-004
 - id: HDL-DOC-WATCH-EFFECT
   type: handler
@@ -3240,8 +3240,8 @@ nodes:
     path: src/lib/ipc/client.ts
     symbol: subscribeWorkspaceWatch
     lines:
-    - 314
-    - 332
+    - 323
+    - 341
   alias: src/lib/ipc/client.ts#subscribeWorkspaceWatch
   inclusion:
   - flow
@@ -3700,8 +3700,8 @@ nodes:
     path: src/components/FileExplorer.tsx
     symbol: FileExplorer
     lines:
-    - 23
-    - 282
+    - 56
+    - 315
   alias: src/components/FileExplorer.tsx#FileExplorer
   inclusion:
   - flow
@@ -3714,8 +3714,8 @@ nodes:
     path: src/components/FileExplorer.tsx
     symbol: FileExplorer.handleOpenFolder
     lines:
-    - 88
-    - 115
+    - 136
+    - 163
   alias: src/components/FileExplorer.tsx#FileExplorer.handleOpenFolder
   inclusion:
   - flow
@@ -3728,8 +3728,8 @@ nodes:
     path: src/components/FileExplorer.tsx
     symbol: FileExplorer.handleOpenFile
     lines:
-    - 117
-    - 141
+    - 165
+    - 189
   alias: src/components/FileExplorer.tsx#FileExplorer.handleOpenFile
   inclusion:
   - flow
@@ -3742,8 +3742,8 @@ nodes:
     path: src/components/FileExplorer.tsx
     symbol: FileExplorer.onEntryClick
     lines:
-    - 143
-    - 161
+    - 191
+    - 209
   alias: src/components/FileExplorer.tsx#FileExplorer.onEntryClick
   inclusion:
   - flow
@@ -3756,8 +3756,8 @@ nodes:
     path: src/components/FileExplorer.tsx
     symbol: '"onClick={() => void handleOpenFolder()}"'
     lines:
-    - 194
-    - 194
+    - 242
+    - 242
   alias: src/components/FileExplorer.tsx#onClick={() => void handleOpenFolder()}
   inclusion:
   - entrypoint
@@ -3771,8 +3771,8 @@ nodes:
     path: src/components/FileExplorer.tsx
     symbol: '"onClick={() => void handleOpenFile()}"'
     lines:
-    - 205
-    - 205
+    - 253
+    - 253
   alias: src/components/FileExplorer.tsx#onClick={() => void handleOpenFile()}
   inclusion:
   - entrypoint
@@ -3792,7 +3792,8 @@ nodes:
   inclusion:
   - entrypoint
   - flow
-  notes: Rotulado 'Reindexar workspace', mas FileExplorer liga onReindex a reload() da árvore (list_entries), não a trigger_reindex.
+  notes: Rotulado 'Reindexar workspace', mas FileExplorer liga onReindex a reload()
+    da árvore (list_entries), não a trigger_reindex.
   trace_task: TRACE-004
 - id: FN-USE-FILE-TREE
   type: function
@@ -3905,8 +3906,8 @@ nodes:
     path: src/editor/wiki/wiki-completion.ts
     symbol: createWikiCompletionExtensions
     lines:
-    - 88
-    - 154
+    - 123
+    - 189
   alias: src/editor/wiki/wiki-completion.ts#createWikiCompletionExtensions
   inclusion:
   - flow
@@ -3919,8 +3920,8 @@ nodes:
     path: src/editor/wiki/wiki-completion.ts
     symbol: wikiCandidates
     lines:
-    - 24
-    - 48
+    - 25
+    - 49
   alias: src/editor/wiki/wiki-completion.ts#wikiCandidates
   inclusion:
   - flow
@@ -3933,8 +3934,8 @@ nodes:
     path: src/services/formatter/index.ts
     symbol: formatCode
     lines:
-    - 8
-    - 38
+    - 9
+    - 39
   alias: src/services/formatter/index.ts#formatCode
   inclusion:
   - flow
@@ -4047,8 +4048,8 @@ nodes:
     path: src/components/MarkdownViewer.tsx
     symbol: MarkdownViewer
     lines:
-    - 10
-    - 263
+    - 14
+    - 290
   alias: src/components/MarkdownViewer.tsx#MarkdownViewer
   inclusion:
   - flow
@@ -4061,8 +4062,8 @@ nodes:
     path: src/components/MarkdownViewer.tsx
     symbol: MarkdownViewer.onClick
     lines:
-    - 54
-    - 119
+    - 66
+    - 131
   alias: src/components/MarkdownViewer.tsx#MarkdownViewer.onClick
   inclusion:
   - entrypoint
@@ -4076,8 +4077,8 @@ nodes:
     path: src/components/MarkdownViewer.tsx
     symbol: '"formatBtn.title = "Formatar bloco de código""'
     lines:
-    - 158
-    - 158
+    - 439
+    - 439
   alias: src/components/MarkdownViewer.tsx#formatBtn.title = "Formatar bloco de código
   inclusion:
   - entrypoint
@@ -4091,8 +4092,8 @@ nodes:
     path: src/services/navigation.ts
     symbol: scrollToHeading
     lines:
-    - 39
-    - 47
+    - 40
+    - 48
   alias: src/services/navigation.ts#scrollToHeading
   inclusion:
   - flow
@@ -4105,8 +4106,8 @@ nodes:
     path: src/services/navigation.ts
     symbol: resolveRelativeLink
     lines:
-    - 58
-    - 87
+    - 60
+    - 89
   alias: src/services/navigation.ts#resolveRelativeLink
   inclusion:
   - flow
@@ -4119,8 +4120,8 @@ nodes:
     path: src/components/DocumentOutline.tsx
     symbol: DocumentOutline
     lines:
-    - 14
-    - 132
+    - 15
+    - 133
   alias: src/components/DocumentOutline.tsx#DocumentOutline
   inclusion:
   - flow
@@ -4133,8 +4134,8 @@ nodes:
     path: src/markdown/processor.ts
     symbol: processMarkdown
     lines:
-    - 32
-    - 94
+    - 33
+    - 95
   alias: src/markdown/processor.ts#processMarkdown
   inclusion:
   - flow
@@ -4177,8 +4178,8 @@ nodes:
     path: src/markdown/processor.ts
     symbol: '"processor.use(remarkGfm)"'
     lines:
-    - 49
-    - 49
+    - 50
+    - 50
   alias: src/markdown/processor.ts#processor.use(remarkGfm)
   inclusion:
   - flow
@@ -4192,8 +4193,8 @@ nodes:
     path: src/markdown/processor.ts
     symbol: '"processor.use(remarkMath)"'
     lines:
-    - 51
-    - 51
+    - 52
+    - 52
   alias: src/markdown/processor.ts#processor.use(remarkMath)
   inclusion:
   - flow
@@ -4207,9 +4208,10 @@ nodes:
     path: src/markdown/processor.ts
     symbol: '".use(remarkRehype, { allowDangerousHtml: true })"'
     lines:
-    - 57
-    - 57
-  alias: 'src/markdown/processor.ts#.use(remarkRehype, { allowDangerousHtml: true })'
+    - 58
+    - 58
+  alias: 'src/markdown/processor.ts#.use(remarkRehype, { allowDangerousHtml: true
+    })'
   inclusion:
   - flow
   - contract
@@ -4222,8 +4224,8 @@ nodes:
     path: src/markdown/processor.ts
     symbol: '".use(rehypeRaw)"'
     lines:
-    - 58
-    - 58
+    - 59
+    - 59
   alias: src/markdown/processor.ts#.use(rehypeRaw)
   inclusion:
   - flow
@@ -4267,8 +4269,8 @@ nodes:
     path: src/markdown/processor.ts
     symbol: rehypeHeadingIds
     lines:
-    - 97
-    - 110
+    - 98
+    - 111
   alias: src/markdown/processor.ts#rehypeHeadingIds
   inclusion:
   - flow
@@ -4282,8 +4284,8 @@ nodes:
     path: src/markdown/processor.ts
     symbol: rehypeMermaidBlocks
     lines:
-    - 113
-    - 117
+    - 124
+    - 128
   alias: src/markdown/processor.ts#rehypeMermaidBlocks
   inclusion:
   - flow
@@ -4297,8 +4299,8 @@ nodes:
     path: src/markdown/shiki.ts
     symbol: getHighlighter
     lines:
-    - 27
-    - 38
+    - 28
+    - 39
   alias: src/markdown/shiki.ts#getHighlighter
   inclusion:
   - flow
@@ -4327,9 +4329,10 @@ nodes:
     path: src/markdown/processor.ts
     symbol: '".use(rehypeKatex, { throwOnError: false, trust: false })"'
     lines:
-    - 87
-    - 87
-  alias: 'src/markdown/processor.ts#.use(rehypeKatex, { throwOnError: false, trust: false })'
+    - 88
+    - 88
+  alias: 'src/markdown/processor.ts#.use(rehypeKatex, { throwOnError: false, trust:
+    false })'
   inclusion:
   - flow
   - contract
@@ -4357,8 +4360,8 @@ nodes:
     path: src/markdown/processor.ts
     symbol: hastToHtml
     lines:
-    - 192
-    - 214
+    - 203
+    - 225
   alias: src/markdown/processor.ts#hastToHtml
   inclusion:
   - flow
@@ -4696,8 +4699,8 @@ nodes:
     path: src/components/command/CommandPalette.tsx
     symbol: CommandPalette
     lines:
-    - 14
-    - 40
+    - 15
+    - 41
   alias: src/components/command/CommandPalette.tsx#CommandPalette
   inclusion:
   - entrypoint
@@ -5054,8 +5057,8 @@ nodes:
     path: src/editor/paste/paste-plugin.ts
     symbol: smartPasteExtension
     lines:
-    - 5
-    - 37
+    - 6
+    - 38
   alias: src/editor/paste/paste-plugin.ts#smartPasteExtension
   inclusion:
   - flow
@@ -5083,8 +5086,8 @@ nodes:
     path: src/lib/ipc/client.ts
     symbol: contentHashCache
     lines:
-    - 221
-    - 221
+    - 230
+    - 230
   alias: src/lib/ipc/client.ts#contentHashCache
   inclusion:
   - flow
@@ -5223,8 +5226,8 @@ nodes:
     path: src/components/settings/SettingsPanel.tsx
     symbol: SettingsPanel
     lines:
-    - 190
-    - 329
+    - 210
+    - 349
   alias: src/components/settings/SettingsPanel.tsx#SettingsPanel
   inclusion:
   - flow
@@ -5257,7 +5260,8 @@ nodes:
   status: dead_code
   inclusion:
   - invariant
-  notes: Extensão hoverTooltip definida mas não registrada no editor (nenhum import fora do próprio módulo).
+  notes: Extensão hoverTooltip definida mas não registrada no editor (nenhum import
+    fora do próprio módulo).
   trace_task: TRACE-008
 - id: FN-MATCH-HINT-AT-POSITION
   type: function
@@ -5368,7 +5372,8 @@ nodes:
     lines:
     - 49
     - 134
-  alias: 'tests/editor/conflictReload.test.tsx#MD-BUG-CONFLICT-RELOAD-001: ConflictDialog ''Recarregar do disco'''
+  alias: 'tests/editor/conflictReload.test.tsx#MD-BUG-CONFLICT-RELOAD-001: ConflictDialog
+    ''Recarregar do disco'''
   inclusion:
   - test
   trace_task: MD-BUG-CONFLICT-RELOAD-001
@@ -5396,7 +5401,8 @@ nodes:
     lines:
     - 10
     - 80
-  alias: tests/editor/formatCodeBlock.test.ts#formatCodeBlockAtCursor (CodeMirror 6)
+  alias: tests/editor/formatCodeBlock.test.ts#formatCodeBlockAtCursor (CodeMirror
+    6)
   inclusion:
   - test
   trace_task: TRACE-010
@@ -5410,7 +5416,8 @@ nodes:
     lines:
     - 82
     - 133
-  alias: tests/editor/formatCodeBlock.test.ts#formatDocumentOrCodeBlock (CodeMirror 6)
+  alias: tests/editor/formatCodeBlock.test.ts#formatDocumentOrCodeBlock (CodeMirror
+    6)
   inclusion:
   - test
   trace_task: TRACE-010
@@ -5466,7 +5473,8 @@ nodes:
     lines:
     - 10
     - 120
-  alias: tests/editor/mermaid-interactive.test.tsx#Interactive Mermaid Component & Export
+  alias: tests/editor/mermaid-interactive.test.tsx#Interactive Mermaid Component &
+    Export
   inclusion:
   - test
   trace_task: TRACE-010
@@ -5522,7 +5530,8 @@ nodes:
     lines:
     - 7
     - 69
-  alias: 'tests/empty/emptyState.test.tsx#MD-UI-EMPTY-001: Empty State & Welcome Screen Hierarchy'
+  alias: 'tests/empty/emptyState.test.tsx#MD-UI-EMPTY-001: Empty State & Welcome Screen
+    Hierarchy'
   inclusion:
   - test
   trace_task: TRACE-010
@@ -5550,7 +5559,8 @@ nodes:
     lines:
     - 7
     - 247
-  alias: 'tests/export/epubProcessor.test.ts#MD-EPUB-001: Frontend EPUB Processor (md_epub_001_processor_pass)'
+  alias: 'tests/export/epubProcessor.test.ts#MD-EPUB-001: Frontend EPUB Processor
+    (md_epub_001_processor_pass)'
   inclusion:
   - test
   trace_task: TRACE-010
@@ -5620,7 +5630,8 @@ nodes:
     lines:
     - 10
     - 219
-  alias: 'tests/export/mermaidCapture.test.ts#MD-EPUB-002: Mermaid Capture & Sanitization (md_epub_002_mermaid_capture_pass)'
+  alias: 'tests/export/mermaidCapture.test.ts#MD-EPUB-002: Mermaid Capture & Sanitization
+    (md_epub_002_mermaid_capture_pass)'
   inclusion:
   - test
   trace_task: TRACE-010
@@ -5648,7 +5659,8 @@ nodes:
     lines:
     - 12
     - 340
-  alias: tests/foundation/metadata.test.ts#Onda 1 — Foundation & Metadata Engine QA Suite
+  alias: tests/foundation/metadata.test.ts#Onda 1 — Foundation & Metadata Engine QA
+    Suite
   inclusion:
   - test
   trace_task: TRACE-010
@@ -5662,7 +5674,8 @@ nodes:
     lines:
     - 39
     - 182
-  alias: tests/guided-markdown/guidedMarkdownIntegration.test.ts#Guided Markdown Integration Suite (Onda 0B Gate)
+  alias: tests/guided-markdown/guidedMarkdownIntegration.test.ts#Guided Markdown Integration
+    Suite (Onda 0B Gate)
   inclusion:
   - test
   trace_task: TRACE-010
@@ -5690,7 +5703,8 @@ nodes:
     lines:
     - 8
     - 115
-  alias: 'tests/header/topBar.test.tsx#MD-UI-HEADER-001: Header Polish & Dynamic Window Title'
+  alias: 'tests/header/topBar.test.tsx#MD-UI-HEADER-001: Header Polish & Dynamic Window
+    Title'
   inclusion:
   - test
   trace_task: TRACE-010
@@ -5732,7 +5746,8 @@ nodes:
     lines:
     - 6
     - 76
-  alias: tests/markdown/code/code-highlight.test.ts#code syntax highlighting with Shiki
+  alias: tests/markdown/code/code-highlight.test.ts#code syntax highlighting with
+    Shiki
   inclusion:
   - test
   trace_task: TRACE-010
@@ -5900,7 +5915,8 @@ nodes:
     lines:
     - 8
     - 70
-  alias: 'tests/panel/collapsiblePanel.test.tsx#MD-UI-PANEL-001: Collapsible Right Panel & StatusBar'
+  alias: 'tests/panel/collapsiblePanel.test.tsx#MD-UI-PANEL-001: Collapsible Right
+    Panel & StatusBar'
   inclusion:
   - test
   trace_task: TRACE-010
@@ -5914,7 +5930,8 @@ nodes:
     lines:
     - 11
     - 121
-  alias: tests/presentation/accessibility.test.ts#Presentation Accessibility & Themes (MD-PRES-006)
+  alias: tests/presentation/accessibility.test.ts#Presentation Accessibility & Themes
+    (MD-PRES-006)
   inclusion:
   - test
   trace_task: TRACE-010
@@ -5956,7 +5973,8 @@ nodes:
     lines:
     - 31
     - 47
-  alias: tests/presentation/ds005-repro-segment.test.ts#MD-DS-005 segmentação dos documentos de reprodução
+  alias: tests/presentation/ds005-repro-segment.test.ts#MD-DS-005 segmentação dos
+    documentos de reprodução
   inclusion:
   - test
   trace_task: TRACE-010
@@ -5970,7 +5988,8 @@ nodes:
     lines:
     - 8
     - 128
-  alias: tests/presentation/lifecycle.test.ts#Presentation Mode Lifecycle & Performance QA (MD-PRES-007)
+  alias: tests/presentation/lifecycle.test.ts#Presentation Mode Lifecycle & Performance
+    QA (MD-PRES-007)
   inclusion:
   - test
   trace_task: TRACE-010
@@ -6040,7 +6059,8 @@ nodes:
     lines:
     - 9
     - 73
-  alias: tests/security/adversarial/draft-recovery.test.ts#local draft recovery and retention
+  alias: tests/security/adversarial/draft-recovery.test.ts#local draft recovery and
+    retention
   inclusion:
   - test
   trace_task: TRACE-010
@@ -6082,7 +6102,8 @@ nodes:
     lines:
     - 13
     - 99
-  alias: 'tests/settings/previewReadingWidth.test.tsx#MD-UI-005: Preview Controlled Reading Width'
+  alias: 'tests/settings/previewReadingWidth.test.tsx#MD-UI-005: Preview Controlled
+    Reading Width'
   inclusion:
   - test
   trace_task: TRACE-010
@@ -6110,7 +6131,8 @@ nodes:
     lines:
     - 10
     - 190
-  alias: 'tests/templates/new-document-modal.test.tsx#MD-UI-009: Novo Documento com Iconografia Consistente (md_ui_009_templates_pass)'
+  alias: 'tests/templates/new-document-modal.test.tsx#MD-UI-009: Novo Documento com
+    Iconografia Consistente (md_ui_009_templates_pass)'
   inclusion:
   - test
   trace_task: TRACE-010
@@ -6166,7 +6188,8 @@ nodes:
     lines:
     - 9
     - 81
-  alias: 'tests/ui/designSystem.test.tsx#MD-UI-BUTTONS-001: Design System Button Migration Hotspots'
+  alias: 'tests/ui/designSystem.test.tsx#MD-UI-BUTTONS-001: Design System Button Migration
+    Hotspots'
   inclusion:
   - test
   trace_task: TRACE-010
@@ -6514,8 +6537,8 @@ nodes:
     path: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs
     symbol: test_reindex_engine_workflow
     lines:
-    - 223
-    - 266
+    - 235
+    - 278
   alias: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs#test_reindex_engine_workflow
   inclusion:
   - test
@@ -6528,8 +6551,8 @@ nodes:
     path: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs
     symbol: add_and_remove_link_via_reindex_file_updates_backlinks
     lines:
-    - 269
-    - 285
+    - 281
+    - 297
   alias: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs#add_and_remove_link_via_reindex_file_updates_backlinks
   inclusion:
   - test
@@ -6542,8 +6565,8 @@ nodes:
     path: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs
     symbol: retarget_a_to_b_and_multi_save_does_not_duplicate
     lines:
-    - 288
-    - 304
+    - 300
+    - 316
   alias: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs#retarget_a_to_b_and_multi_save_does_not_duplicate
   inclusion:
   - test
@@ -6556,8 +6579,8 @@ nodes:
     path: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs
     symbol: creating_unresolved_target_then_reindex_establishes_relation
     lines:
-    - 307
-    - 318
+    - 319
+    - 330
   alias: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs#creating_unresolved_target_then_reindex_establishes_relation
   inclusion:
   - test
@@ -6570,8 +6593,8 @@ nodes:
     path: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs
     symbol: external_delete_and_watch_apply_remove_backlinks
     lines:
-    - 321
-    - 332
+    - 333
+    - 344
   alias: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs#external_delete_and_watch_apply_remove_backlinks
   inclusion:
   - test
@@ -6584,8 +6607,8 @@ nodes:
     path: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs
     symbol: rebuild_matches_incremental_and_loaded_snapshot
     lines:
-    - 335
-    - 359
+    - 347
+    - 371
   alias: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs#rebuild_matches_incremental_and_loaded_snapshot
   inclusion:
   - test
@@ -7430,3 +7453,449 @@ nodes:
   inclusion:
   - test
   trace_task: TRACE-010
+- id: SVC-MD-DOCTOR-LINTER
+  type: service
+  module: MOD-EDITOR
+  name: MD Doctor CodeMirror Linter
+  anchor:
+    path: src/editor/mdDoctorLinter.ts
+    symbol: mdDoctorExtension
+    lines:
+    - 175
+    - 181
+  alias: src/editor/mdDoctorLinter.ts#mdDoctorExtension
+  trace_task: MD-V03-012
+- id: FN-MD-DOCTOR-HOVER-TOOLTIP
+  type: function
+  module: MOD-EDITOR
+  name: MD Doctor Hover Tooltip Extension
+  anchor:
+    path: src/editor/mdDoctorLinter.ts
+    symbol: doctorTooltipExtension
+    lines:
+    - 65
+    - 126
+  alias: src/editor/mdDoctorLinter.ts#doctorTooltipExtension
+  trace_task: MD-V03-012
+- id: CLS-RS-DOCTOR
+  type: class
+  module: MOD-WORKSPACE-FS
+  name: Doctor diagnostics engine (Rust)
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/doctor/mod.rs
+    symbol: Doctor
+    lines:
+    - 35
+    - 37
+  alias: src-tauri/crates/md-studio-core/src/doctor/mod.rs#Doctor
+  trace_task: MD-V03-012
+- id: FN-RS-DOCTOR-DIAGNOSE
+  type: function
+  module: MOD-WORKSPACE-FS
+  name: Doctor document diagnose function
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/doctor/mod.rs
+    symbol: diagnose
+    lines:
+    - 39
+    - 116
+  alias: src-tauri/crates/md-studio-core/src/doctor/mod.rs#diagnose
+  trace_task: MD-V03-012
+- id: FN-RESOLVE-SMART-REFERENCE
+  type: function
+  module: MOD-EDITOR
+  name: Resolve smart references to headings or files
+  anchor:
+    path: src/editor/smartReferences.ts
+    symbol: resolveSmartReference
+    lines:
+    - 111
+    - 160
+  alias: src/editor/smartReferences.ts#resolveSmartReference
+  trace_task: MD-V03-013
+- id: SVC-SMART-REFERENCES
+  type: service
+  module: MOD-EDITOR
+  name: Smart references extension for CodeMirror
+  anchor:
+    path: src/editor/smartReferences.ts
+    symbol: getSmartReferenceCandidates
+    lines:
+    - 21
+    - 60
+  alias: src/editor/smartReferences.ts#getSmartReferenceCandidates
+  trace_task: MD-V03-013
+- id: SVC-ASSET-PASTE
+  type: service
+  module: MOD-WORKSPACE-FS
+  name: Asset paste handler
+  anchor:
+    path: src/services/assetPaste.ts
+    symbol: handlePastedImageAsset
+    lines:
+    - 64
+    - 115
+  alias: src/services/assetPaste.ts#handlePastedImageAsset
+  trace_task: MD-V03-014
+- id: FN-VALIDATE-ASSET-DESTINATION
+  type: function
+  module: MOD-WORKSPACE-FS
+  name: Validate asset target path within vault
+  anchor:
+    path: src/services/assetPaste.ts
+    symbol: validateAssetDestination
+    lines:
+    - 21
+    - 37
+  alias: src/services/assetPaste.ts#validateAssetDestination
+  trace_task: MD-V03-014
+- id: FN-RS-SAVE-PASTED-ASSET
+  type: function
+  module: MOD-WORKSPACE-FS
+  name: Save pasted asset to vault disk
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/assets/mod.rs
+    symbol: save_pasted_asset
+    lines:
+    - 60
+    - 116
+  alias: src-tauri/crates/md-studio-core/src/assets/mod.rs#save_pasted_asset
+  trace_task: MD-V03-014
+- id: CLS-LOCAL-SPELL-CHECKER
+  type: class
+  module: MOD-EDITOR
+  name: Local spell checker dictionary engine
+  anchor:
+    path: src/editor/spellcheck/spellChecker.ts
+    symbol: LocalSpellChecker
+    lines:
+    - 66
+    - 172
+  alias: src/editor/spellcheck/spellChecker.ts#LocalSpellChecker
+  trace_task: MD-V03-015
+- id: SVC-SPELL-LINTER-EXTENSION
+  type: service
+  module: MOD-EDITOR
+  name: Spell checker CodeMirror extension
+  anchor:
+    path: src/editor/spellcheck/spellLinter.ts
+    symbol: createSpellExtension
+    lines:
+    - 254
+    - 264
+  alias: src/editor/spellcheck/spellLinter.ts#createSpellExtension
+  trace_task: MD-V03-015
+- id: SVC-TABLE-DATA-PASTE
+  type: service
+  module: MOD-EDITOR
+  name: Tabular data paste and GFM converter
+  anchor:
+    path: src/editor/tableDataPaste.ts
+    symbol: handleTabularPaste
+    lines:
+    - 236
+    - 260
+  alias: src/editor/tableDataPaste.ts#handleTabularPaste
+  trace_task: MD-V03-016
+- id: SVC-COMMAND-REGISTRY
+  type: service
+  module: MOD-SEARCH
+  name: Central command registry instance
+  anchor:
+    path: src/commands/commandRegistry.ts
+    symbol: commandRegistry
+    lines:
+    - 63
+    - 63
+  alias: src/commands/commandRegistry.ts#commandRegistry
+  trace_task: MD-V03-017
+- id: SVC-CODEBLOCK-METADATA
+  type: service
+  module: MOD-PREVIEW
+  name: Advanced code block metadata and tabs
+  anchor:
+    path: src/markdown/codeBlockMetadata.ts
+    symbol: parseCodeBlockMetadata
+    lines:
+    - 48
+    - 110
+  alias: src/markdown/codeBlockMetadata.ts#parseCodeBlockMetadata
+  trace_task: MD-V03-018
+- id: CMP-HOVER-PREVIEW
+  type: component
+  module: MOD-EDITOR
+  name: Hover preview popup component
+  anchor:
+    path: src/components/editor/HoverPreview.tsx
+    symbol: HoverPreview
+    lines:
+    - 52
+    - 170
+  alias: src/components/editor/HoverPreview.tsx#HoverPreview
+  trace_task: MD-V03-025
+- id: CMP-WORKSPACE-SEARCH
+  type: component
+  module: MOD-SEARCH
+  name: Workspace search and replace component
+  anchor:
+    path: src/components/workspace/WorkspaceSearch.tsx
+    symbol: WorkspaceSearch
+    lines:
+    - 243
+    - 450
+  alias: src/components/workspace/WorkspaceSearch.tsx#WorkspaceSearch
+  trace_task: MD-V03-021
+- id: CMP-TOOLING-SETTINGS
+  type: component
+  module: MOD-SETTINGS-SESSION
+  name: Tooling settings configuration panel
+  anchor:
+    path: src/components/settings/ToolingSettings.tsx
+    symbol: ToolingSettings
+    lines:
+    - 8
+    - 80
+  alias: src/components/settings/ToolingSettings.tsx#ToolingSettings
+  trace_task: MD-V03-022
+- id: SVC-SOURCE-MAP
+  type: service
+  module: MOD-PREVIEW
+  name: Markdown source map position injector
+  anchor:
+    path: src/markdown/sourceMap.ts
+    symbol: attachSourcePositionsToHast
+    lines:
+    - 48
+    - 101
+  alias: src/markdown/sourceMap.ts#attachSourcePositionsToHast
+  trace_task: MD-V03-019
+- id: SVC-FORMATTER-CAPABILITIES
+  type: service
+  module: MOD-FORMATTER
+  name: Formatter capabilities registry snapshot
+  anchor:
+    path: src/services/formatter/capabilities.ts
+    symbol: getFormatterCapabilitiesSnapshot
+    lines:
+    - 123
+    - 166
+  alias: src/services/formatter/capabilities.ts#getFormatterCapabilitiesSnapshot
+  trace_task: MD-V03-020
+- id: TST-TS-COMMAND-REGISTRY
+  type: test
+  module: MOD-SEARCH
+  anchor:
+    path: tests/commands/commandRegistry.test.ts
+    symbol: '"Command Palette & Registry (MD-V03-017)"'
+    lines:
+    - 4
+    - 88
+  alias: tests/commands/commandRegistry.test.ts#Command Palette & Registry (MD-V03-017)
+  name: Command Palette & Registry tests
+  test_framework: vitest
+  test_kind: unit
+  trace_task: MD-V03-017
+- id: TST-TS-DOCUMENT-OUTLINE-FILTER
+  type: test
+  module: MOD-PREVIEW
+  anchor:
+    path: tests/components/documentOutline.test.tsx
+    symbol: '"Outline hierárquico, filtrável e sincronizado ao heading atual"'
+    lines:
+    - 7
+    - 136
+  alias: tests/components/documentOutline.test.tsx#Outline hierárquico, filtrável
+    e sincronizado ao heading atual
+  name: Hierarchical Document Outline filter tests
+  test_framework: vitest
+  test_kind: unit
+  trace_task: MD-V03-023
+- id: TST-TS-HIDE-INTERNAL-FILES
+  type: test
+  module: MOD-WORKSPACE-FS
+  anchor:
+    path: tests/components/hideInternalFiles.test.tsx
+    symbol: '"MD-V03-024: Ocultar .mdstudio no File Tree"'
+    lines:
+    - 25
+    - 152
+  alias: 'tests/components/hideInternalFiles.test.tsx#MD-V03-024: Ocultar .mdstudio
+    no File Tree'
+  name: Hide internal files tests
+  test_framework: vitest
+  test_kind: unit
+  trace_task: MD-V03-024
+- id: TST-TS-HOVER-PREVIEW
+  type: test
+  module: MOD-EDITOR
+  anchor:
+    path: tests/components/hoverPreview.test.tsx
+    symbol: '"MD-V03-025: Hover Previews locais, sanitizados e canceláveis"'
+    lines:
+    - 68
+    - 286
+  alias: 'tests/components/hoverPreview.test.tsx#MD-V03-025: Hover Previews locais,
+    sanitizados e canceláveis'
+  name: Hover Preview component tests
+  test_framework: vitest
+  test_kind: unit
+  trace_task: MD-V03-025
+- id: TST-TS-MD-DOCTOR-LINTER
+  type: test
+  module: MOD-EDITOR
+  anchor:
+    path: tests/editor/mdDoctorLinter.test.ts
+    symbol: '"MD-V03-012: MD Doctor CodeMirror Linter"'
+    lines:
+    - 12
+    - 101
+  alias: 'tests/editor/mdDoctorLinter.test.ts#MD-V03-012: MD Doctor CodeMirror Linter'
+  name: MD Doctor CodeMirror linter tests
+  test_framework: vitest
+  test_kind: unit
+  trace_task: MD-V03-012
+- id: TST-TS-SMART-REFERENCES
+  type: test
+  module: MOD-EDITOR
+  anchor:
+    path: tests/editor/smartReferences.test.ts
+    symbol: '"Smart References (MD-V03-013)"'
+    lines:
+    - 37
+    - 100
+  alias: tests/editor/smartReferences.test.ts#Smart References (MD-V03-013)
+  name: Smart References extension tests
+  test_framework: vitest
+  test_kind: unit
+  trace_task: MD-V03-013
+- id: TST-TS-SPELL-CHECKER
+  type: test
+  module: MOD-EDITOR
+  anchor:
+    path: tests/editor/spellChecker.test.ts
+    symbol: '"Writing Quality fase 1 - Spell Checker (MD-V03-015)"'
+    lines:
+    - 5
+    - 90
+  alias: tests/editor/spellChecker.test.ts#Writing Quality fase 1 - Spell Checker
+    (MD-V03-015)
+  name: Writing quality spell checker tests
+  test_framework: vitest
+  test_kind: unit
+  trace_task: MD-V03-015
+- id: TST-TS-TABLE-DATA-PASTE
+  type: test
+  module: MOD-EDITOR
+  anchor:
+    path: tests/editor/tableDataPaste.test.ts
+    symbol: '"Table Data Paste (MD-V03-016)"'
+    lines:
+    - 12
+    - 118
+  alias: tests/editor/tableDataPaste.test.ts#Table Data Paste (MD-V03-016)
+  name: Table Data Paste tests
+  test_framework: vitest
+  test_kind: unit
+  trace_task: MD-V03-016
+- id: TST-TS-CODEBLOCK-METADATA
+  type: test
+  module: MOD-PREVIEW
+  anchor:
+    path: tests/markdown/codeBlockMetadata.test.ts
+    symbol: '"Code Blocks Avançados (MD-V03-018)"'
+    lines:
+    - 8
+    - 82
+  alias: tests/markdown/codeBlockMetadata.test.ts#Code Blocks Avançados (MD-V03-018)
+  name: Advanced code block metadata tests
+  test_framework: vitest
+  test_kind: unit
+  trace_task: MD-V03-018
+- id: TST-TS-SOURCE-MAP
+  type: test
+  module: MOD-PREVIEW
+  anchor:
+    path: tests/markdown/sourceMap.test.ts
+    symbol: '"Preview ↔ Source Mapping por bloco (MD-V03-019)"'
+    lines:
+    - 8
+    - 69
+  alias: tests/markdown/sourceMap.test.ts#Preview ↔ Source Mapping por bloco (MD-V03-019)
+  name: Preview source mapping tests
+  test_framework: vitest
+  test_kind: unit
+  trace_task: MD-V03-019
+- id: TST-TS-ASSET-PASTE
+  type: test
+  module: MOD-WORKSPACE-FS
+  anchor:
+    path: tests/services/assetPaste.test.ts
+    symbol: '"Asset Manager (MD-V03-014)"'
+    lines:
+    - 8
+    - 60
+  alias: tests/services/assetPaste.test.ts#Asset Manager (MD-V03-014)
+  name: Asset Manager paste tests
+  test_framework: vitest
+  test_kind: unit
+  trace_task: MD-V03-014
+- id: TST-TS-FORMATTER-CAPABILITIES
+  type: test
+  module: MOD-FORMATTER
+  anchor:
+    path: tests/services/formatterCapabilities.test.ts
+    symbol: '"Formatter Capabilities: registry consultável do hub existente"'
+    lines:
+    - 9
+    - 76
+  alias: 'tests/services/formatterCapabilities.test.ts#Formatter Capabilities: registry
+    consultável do hub existente'
+  name: Formatter capabilities registry tests
+  test_framework: vitest
+  test_kind: unit
+  trace_task: MD-V03-020
+- id: TST-TS-PREVIEW-READING-WIDTH
+  type: test
+  module: MOD-SETTINGS-SESSION
+  anchor:
+    path: tests/settings/previewReadingWidth.test.tsx
+    symbol: '"MD-UI-005: Preview Controlled Reading Width"'
+    lines:
+    - 13
+    - 112
+  alias: 'tests/settings/previewReadingWidth.test.tsx#MD-UI-005: Preview Controlled
+    Reading Width'
+  name: Preview reading width test
+  test_framework: vitest
+  test_kind: unit
+  trace_task: MD-HOTFIX-EXPAND-002
+- id: TST-TS-TOOLING-SETTINGS
+  type: test
+  module: MOD-SETTINGS-SESSION
+  anchor:
+    path: tests/settings/toolingSettings.test.tsx
+    symbol: '"Tooling Settings: painel informativo das ferramentas locais (MD-V03-022)"'
+    lines:
+    - 6
+    - 81
+  alias: 'tests/settings/toolingSettings.test.tsx#Tooling Settings: painel informativo
+    das ferramentas locais (MD-V03-022)'
+  name: Tooling settings tests
+  test_framework: vitest
+  test_kind: unit
+  trace_task: MD-V03-022
+- id: TST-TS-WORKSPACE-SEARCH
+  type: test
+  module: MOD-SEARCH
+  anchor:
+    path: tests/workspace/workspaceSearch.test.tsx
+    symbol: '"Workspace Search com Replace All confirmado (MD-V03-020)"'
+    lines:
+    - 10
+    - 174
+  alias: tests/workspace/workspaceSearch.test.tsx#Workspace Search com Replace All
+    confirmado (MD-V03-020)
+  name: Workspace Search tests
+  test_framework: vitest
+  test_kind: unit
+  trace_task: MD-V03-021

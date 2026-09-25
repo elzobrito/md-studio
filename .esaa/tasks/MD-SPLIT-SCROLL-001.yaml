@@ -1,0 +1,39 @@
+artifact: task-traceability
+schema_version: 1
+task_id: MD-SPLIT-SCROLL-001
+written_at: '2026-09-25T15:19:27-03:00'
+projected_before_change: true
+projection_inputs:
+  - preferência de rolagem dupla da vista Dividida
+  - .esaa/traceability/graph.json
+  - .esaa/traceability/case-MD-HOTFIX-EXPAND-002.md
+graph:
+  path: .esaa/traceability/graph.json
+  source_commit: daf5888731c5ce3cdd5ce0d553a258b3b952f114
+traceability:
+  targets:
+    - FN-USE-SCROLL-SYNC
+    - STO-SETTINGS
+  expected_affected:
+    - CMP-SETTINGS-PANEL
+    - CFG-DEFAULT-SETTINGS
+  protected_extra:
+    - LSK-SETTINGS
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: false
+  rationale:
+    FN-USE-SCROLL-SYNC: A rolagem dupla passa a seguir a preferência persistida e reage quando ela muda.
+    STO-SETTINGS: A preferência splitScrollSync mora no store já usado pelas outras opções do editor.
+    CMP-SETTINGS-PANEL: O checkbox fica na aba Editor desse painel.
+  justification:
+    LSK-SETTINGS: Uma chave nova, splitScrollSync, entra no objeto já gravado em md-studio-settings-v2. As chaves existentes não mudam de nome nem de formato.
+    CFG-DEFAULT-SETTINGS: O default novo é true, ao lado dos defaults atuais. Nenhum default antigo é reescrito.
+artifacts:
+  impact: .esaa/analysis/MD-SPLIT-SCROLL-001-impact.yaml
+  footprint: .esaa/analysis/MD-SPLIT-SCROLL-001-footprint.yaml
+  drift: .esaa/analysis/MD-SPLIT-SCROLL-001-drift.yaml
+expected_uncatalogued:
+  - src/components/settings/EditorSettings.tsx
+close_rule: O complete copia verdict. warning cita path e linhas. violation bloqueia.

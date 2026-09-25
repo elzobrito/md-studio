@@ -1,77 +1,77 @@
 {
  "artifact": "graph",
  "schema_version": 1,
- "source_commit": "daf5888731c5ce3cdd5ce0d553a258b3b952f114",
- "generated_at": "2026-09-25T18:01:05-03:00",
+ "source_commit": "8eb7b6e18a672b94199397f1cc0d0ec7def6609c",
+ "generated_at": "2026-09-25T08:08:52-03:00",
  "generator": "tools/build_graph.py",
  "inputs": {
-  "repository.yaml": "89c03f66c863f256cb7ae52530055d4e0180b8f9661684cc76de7f539c34f718",
-  "schema.yaml": "69e99745dcb4413fd4a2a11e8f308daa50938ac1c9a2f07106dfdc1ea99f1df9",
-  "modules.yaml": "bb1021b071e1af7d2f40103cfb872721eb34f30fdb7683e703849df871c0c186",
-  "entrypoints.yaml": "940ed03959e861bdcde8427c611ee29f7e1bbe1511b88d76c1508f40894e549d",
-  "nodes.yaml": "a95ce8d3dbb2ba0901f6720c77aad493fd48c42e70a221548387a99725921cc0",
-  "edges.yaml": "88e5898118275815586e75ea33d51ff25fd878bfae0486563cf851a3cde67ab7",
-  "contracts.yaml": "c7baef17c5ea2f905598e49d5f3241c744787c65c94eb95cdeec544025d58fac",
-  "features.yaml": "bc7d88be625ee0a704d553efa5456c878aa603b0a12ebdedb6b14358cc88cb87",
-  "tests.yaml": "e2249d88bb692effc93b98f784e268907444d294b7339a1f0afecbf864cad26c",
-  "invariants.yaml": "df8223223c815cfb990ce3b5a6971d6d7a0979e5a6afd80da8447c8f0de93361",
-  "flows/app-boot.yaml": "273d0d43a3170d4d4089dab5f3c85b8114510b92d3ab8e6d02ff30c44d18a6e9",
-  "flows/auto-save.yaml": "f32273514e2e1faaaf6ecfe5395c28ff8000ca3aa876e48c6097603e7520a2a5",
-  "flows/backlinks-query.yaml": "dc0c67ca1ba4e4db12f8cc111c6aefb87ba50170dd5516f7887250d485a07afd",
-  "flows/close-file.yaml": "bb888432a298a61d81e502cfcc6ff7ff2aeb6f3cfb5009152b2909e50973d7a8",
-  "flows/conflict-on-save.yaml": "b1d64cefbe0a36a4856495d6f1f64790506579e427351e9194ae8e2af1522163",
-  "flows/draft-recovery.yaml": "2bcd288cd9d6a90e7c6656d01de2aa95b3f3c84d869bc1960c6c9164c542200d",
-  "flows/editor-commands.yaml": "b7ebf95bc7e7b512fbe59a07d655ccf2e081d0448c461d5d690394fe727a63b2",
-  "flows/export-epub.yaml": "57a8ed607906688347c552c7bf280ddbd4d88d077a0a837d5d596a03dd26212c",
-  "flows/export-html.yaml": "75e3cc6769317ea0a20991e9401192d68a5b44a45ad58c1a2acdcae0085f079c",
-  "flows/export-pdf.yaml": "41406139a0fcbe132c2a3f12317ecd42d92fadbae771f8d7f37ec7bf72e00742",
-  "flows/format-code-block.yaml": "e84c69f41443af913547c2217c59872d02c4fb7f565cd68f466e75b1b819539a",
-  "flows/metadata-refresh.yaml": "53789a879b4d142c049a8675ddbf698ce8f4c02dae70fcc06cd07895c02e0545",
-  "flows/new-document.yaml": "a1b1c2c68de98f17be760051444f0b3bf507d58f541bad3a863f11aa8ef25be8",
-  "flows/open-file-from-os.yaml": "4c6d9f7b87e6e35af197d1fed98b892e9b88a24cf19ef043ce0ee3ff42a41612",
-  "flows/open-file.yaml": "961c8ba513e2f8c1075efdfe13f9b3360027767490b6fad2922ef4dc6d61d77f",
-  "flows/open-workspace.yaml": "23ce3aac55fe0d075d570eb1bdb6ff55c02cf8e32e23378fba43efcc330286cc",
-  "flows/presentation.yaml": "c59c0c149a59c3660eb750d0e13d36ffa2fe0b27e459cf16f552681987284e4d",
-  "flows/preview-render.yaml": "2ed44cb1cdc85f1cab4e3e7f52534600b38e877a59039e055d5da1e5729f4753",
-  "flows/save-as.yaml": "8e464d1087b54d3ffd2714b2fa1241c863226537eceda06852ad18571b794e27",
-  "flows/save-document.yaml": "4fa2b5beb8e725c25b8b08a171cdd028cebd5b7c3f4219079b6e41c3edb8b2f1",
-  "flows/wiki-link-resolve.yaml": "abd6f180d2a56a815a758e2860dcbeea76079375438903dd84602f1acca8d448",
-  "flows/workspace-search.yaml": "88771f0af888b72c92afffa628bf5491c1d5783b36cc9ea63e9af86cc9f06b66"
+  "repository.yaml": "565dcd088f20e6fc229a6d79f2d90c08b08ca20d6132b32771684febb0d0ff34",
+  "schema.yaml": "21dabeac3227b9a175d117813ebabe75cf1f5743758fce890df63c5d519c295b",
+  "modules.yaml": "5c97f5c6c1100a32e75c269f7bceb15cfd2fc405b3d496ec753bb70e175fa0b8",
+  "entrypoints.yaml": "28087c03e561d7aa64490cd224f1f3898579cecf6752fa1a6d573b9d9149d6ce",
+  "nodes.yaml": "b8b8eaeafa2ab5b0bd077fff03ba72f8364a85a19887a68e3a914f865df30ea7",
+  "edges.yaml": "c060eaa263b4e1a7f1be9bfdf5a2b17b3ce8b989a61c3f619be30ab0d6cc6764",
+  "contracts.yaml": "8e247bb886968ef0dd8cdd08095996a0fd6a0d229d3b5948dde8c4f6eae4fae1",
+  "features.yaml": "bbcc5c08c7004d1bf508374859e6fec068cbdc3cbc2b77239a7dc7762fcea4a8",
+  "tests.yaml": "fc1c1e929b62fc2447b47213c96168bb92606c9378de1d3cc178be8bed2d66e3",
+  "invariants.yaml": "be189feea0957ef377abc9fd519255fede81d74df04a404a1acc67d6b91a8720",
+  "flows/app-boot.yaml": "18252e393ac3a556394ad98f3d1832cb3f3c9903568c8495f8b9121381604114",
+  "flows/auto-save.yaml": "d80ef950a396ba23da9ea7e52a965b7dba874642d689d375fe8bc0366601e4b4",
+  "flows/backlinks-query.yaml": "ff458c269a46a3ab33f706282f8c50b97d25006084af80747e1da8cc9216137d",
+  "flows/close-file.yaml": "1a7ab1db38dc4c85ff14400ff8d6c3e8828d8fcd83c93cb9078dc7e7ce4b17d6",
+  "flows/conflict-on-save.yaml": "bcac07151a9bc921faa361f8da88fa7d2bd45386309b45c558af0d9bf19baf17",
+  "flows/draft-recovery.yaml": "8a2ea50880e6af76ff8a07cd1a5aa64e6ef928d10d0f63f0a98e00c66f331efa",
+  "flows/editor-commands.yaml": "962c83b0f464198ecb91dab4223eb7888be9bb7b5e5bf1ffe2aa7cabd0b79c56",
+  "flows/export-epub.yaml": "9fe73990a388da23a62ec7572fa6dd43ef3d0951d9963a53b3be592b1749a6e5",
+  "flows/export-html.yaml": "aa41f31fd4b9f51f19aa46a3effff75436ae8252f7a96f98500d6e9318d7ce83",
+  "flows/export-pdf.yaml": "224a6135faf72c5b0b9b13c44242147cca50e1e92402819f3276643acbea66c2",
+  "flows/format-code-block.yaml": "90485b54fae8aa7bca2363641e106a38fce5066f24f3a93dd122c1857491307c",
+  "flows/metadata-refresh.yaml": "8ca41617bf14aff6e24ef0732e9c68e1cc48b64441e4550a2eaa426c84d2608b",
+  "flows/new-document.yaml": "9be5798014534ddc168cc1db0d6bbb75f3be79f14770351b7c2d4a65f168c443",
+  "flows/open-file-from-os.yaml": "2e31c628e5f1fafe6f62de78112fb7a0b7b2ecfb77cb9d9e81ba3f8ed1818b24",
+  "flows/open-file.yaml": "317a1eee705270e28af0deb733d34de314dd158afa056db4aa1010e5c5a1c07a",
+  "flows/open-workspace.yaml": "f31091b668b05cc38a70efe49997892199c02e30c08575e9fc0a049213617eb3",
+  "flows/presentation.yaml": "b50931303daaf159abf8acb2178efe90c10c8978ce6f5c60029fefca7a37cc8a",
+  "flows/preview-render.yaml": "62eaeda627074809c3d9d0c56cc316304da49e2d6bb9c25c992d2dde041addba",
+  "flows/save-as.yaml": "3e3f96852df8af50472332d34dae4d91f5db86df00195a8c35318354ad67a36e",
+  "flows/save-document.yaml": "14ffb7b063f3474ed9bcc7e56231912415be96ae7304d83c6bbcddd897fc7991",
+  "flows/wiki-link-resolve.yaml": "25e698c01875a2d2bb1b3958cfe439269dccce82ac59e75a0078007504885a09",
+  "flows/workspace-search.yaml": "f6ce2c5c6867ecb73e4e851fc7637217d7e2458479c9e9ef9440e43635b0a859"
  },
  "stats": {
-  "nodes": 770,
-  "edges": 2605,
+  "nodes": 724,
+  "edges": 2500,
   "nodes_by_kind": {
-   "code": 386,
+   "code": 367,
    "contract": 38,
    "entrypoint": 71,
-   "feature": 59,
+   "feature": 48,
    "flow": 22,
-   "invariant": 11,
+   "invariant": 10,
    "module": 19,
-   "test": 164
+   "test": 149
   },
   "edges_by_relation": {
-   "calls": 285,
+   "calls": 269,
    "configured_by": 30,
    "consumes": 2,
-   "contains": 1041,
-   "covered_by": 271,
-   "depends_on": 139,
-   "implemented_by": 506,
+   "contains": 1000,
+   "covered_by": 249,
+   "depends_on": 135,
+   "implemented_by": 485,
    "implements": 67,
    "publishes": 2,
    "reads": 40,
    "requires": 8,
    "triggers": 111,
    "validates": 35,
-   "verifies": 28,
+   "verifies": 27,
    "writes": 40
   },
   "edges_by_method": {
-   "derived": 1651,
+   "derived": 1591,
    "inferred": 19,
-   "observed": 935
+   "observed": 890
   }
  },
  "nodes": [
@@ -147,8 +147,8 @@
     "path": "src/components/FileExplorer.tsx",
     "symbol": "\"onClick={() => void handleOpenFile()}\"",
     "lines": [
-     253,
-     253
+     205,
+     205
     ]
    },
    "alias": "src/components/FileExplorer.tsx#onClick={() => void handleOpenFile()}",
@@ -168,8 +168,8 @@
     "path": "src/components/FileExplorer.tsx",
     "symbol": "\"onClick={() => void handleOpenFolder()}\"",
     "lines": [
-     242,
-     242
+     194,
+     194
     ]
    },
    "alias": "src/components/FileExplorer.tsx#onClick={() => void handleOpenFolder()}",
@@ -339,8 +339,8 @@
     "path": "src/components/MarkdownViewer.tsx",
     "symbol": "\"formatBtn.title = \"Formatar bloco de código\"\"",
     "lines": [
-     439,
-     439
+     158,
+     158
     ]
    },
    "alias": "src/components/MarkdownViewer.tsx#formatBtn.title = \"Formatar bloco de código",
@@ -700,23 +700,6 @@
    "kind": "code"
   },
   {
-   "id": "CLS-LOCAL-SPELL-CHECKER",
-   "type": "class",
-   "module": "MOD-EDITOR",
-   "name": "Local spell checker dictionary engine",
-   "anchor": {
-    "path": "src/editor/spellcheck/spellChecker.ts",
-    "symbol": "LocalSpellChecker",
-    "lines": [
-     66,
-     172
-    ]
-   },
-   "alias": "src/editor/spellcheck/spellChecker.ts#LocalSpellChecker",
-   "trace_task": "MD-V03-015",
-   "kind": "code"
-  },
-  {
    "id": "CLS-PRESENTATION-SESSION-MANAGER",
    "type": "class",
    "name": "PresentationSessionManager",
@@ -736,23 +719,6 @@
    ],
    "notes": "Sem uso na aplicação; só em tests/presentation/session.test.tsx.",
    "trace_task": "TRACE-004",
-   "kind": "code"
-  },
-  {
-   "id": "CLS-RS-DOCTOR",
-   "type": "class",
-   "module": "MOD-WORKSPACE-FS",
-   "name": "Doctor diagnostics engine (Rust)",
-   "anchor": {
-    "path": "src-tauri/crates/md-studio-core/src/doctor/mod.rs",
-    "symbol": "Doctor",
-    "lines": [
-     35,
-     37
-    ]
-   },
-   "alias": "src-tauri/crates/md-studio-core/src/doctor/mod.rs#Doctor",
-   "trace_task": "MD-V03-012",
    "kind": "code"
   },
   {
@@ -846,8 +812,8 @@
     "path": "src/components/command/CommandPalette.tsx",
     "symbol": "CommandPalette",
     "lines": [
-     15,
-     41
+     14,
+     40
     ]
    },
    "alias": "src/components/command/CommandPalette.tsx#CommandPalette",
@@ -908,8 +874,8 @@
     "path": "src/components/DocumentOutline.tsx",
     "symbol": "DocumentOutline",
     "lines": [
-     15,
-     133
+     14,
+     132
     ]
    },
    "alias": "src/components/DocumentOutline.tsx#DocumentOutline",
@@ -968,8 +934,8 @@
     "path": "src/components/FileExplorer.tsx",
     "symbol": "FileExplorer",
     "lines": [
-     56,
-     315
+     23,
+     282
     ]
    },
    "alias": "src/components/FileExplorer.tsx#FileExplorer",
@@ -1020,23 +986,6 @@
    "kind": "code"
   },
   {
-   "id": "CMP-HOVER-PREVIEW",
-   "type": "component",
-   "module": "MOD-EDITOR",
-   "name": "Hover preview popup component",
-   "anchor": {
-    "path": "src/components/editor/HoverPreview.tsx",
-    "symbol": "HoverPreview",
-    "lines": [
-     52,
-     170
-    ]
-   },
-   "alias": "src/components/editor/HoverPreview.tsx#HoverPreview",
-   "trace_task": "MD-V03-025",
-   "kind": "code"
-  },
-  {
    "id": "CMP-MARKDOWN-EDITOR",
    "type": "component",
    "name": "MarkdownEditor",
@@ -1065,8 +1014,8 @@
     "path": "src/components/MarkdownViewer.tsx",
     "symbol": "MarkdownViewer",
     "lines": [
-     14,
-     290
+     10,
+     263
     ]
    },
    "alias": "src/components/MarkdownViewer.tsx#MarkdownViewer",
@@ -1205,8 +1154,8 @@
     "path": "src/components/settings/SettingsPanel.tsx",
     "symbol": "SettingsPanel",
     "lines": [
-     210,
-     349
+     190,
+     329
     ]
    },
    "alias": "src/components/settings/SettingsPanel.tsx#SettingsPanel",
@@ -1277,40 +1226,6 @@
    "kind": "code"
   },
   {
-   "id": "CMP-TOOLING-SETTINGS",
-   "type": "component",
-   "module": "MOD-SETTINGS-SESSION",
-   "name": "Tooling settings configuration panel",
-   "anchor": {
-    "path": "src/components/settings/ToolingSettings.tsx",
-    "symbol": "ToolingSettings",
-    "lines": [
-     8,
-     80
-    ]
-   },
-   "alias": "src/components/settings/ToolingSettings.tsx#ToolingSettings",
-   "trace_task": "MD-V03-022",
-   "kind": "code"
-  },
-  {
-   "id": "CMP-WORKSPACE-SEARCH",
-   "type": "component",
-   "module": "MOD-SEARCH",
-   "name": "Workspace search and replace component",
-   "anchor": {
-    "path": "src/components/workspace/WorkspaceSearch.tsx",
-    "symbol": "WorkspaceSearch",
-    "lines": [
-     243,
-     450
-    ]
-   },
-   "alias": "src/components/workspace/WorkspaceSearch.tsx#WorkspaceSearch",
-   "trace_task": "MD-V03-021",
-   "kind": "code"
-  },
-  {
    "id": "CNS-SUBSCRIBE-OPEN-FILE",
    "type": "consumer",
    "name": "subscribeOpenFile",
@@ -1319,8 +1234,8 @@
     "path": "src/lib/ipc/client.ts",
     "symbol": "subscribeOpenFile",
     "lines": [
-     306,
-     319
+     297,
+     310
     ]
    },
    "alias": "src/lib/ipc/client.ts#subscribeOpenFile",
@@ -1339,8 +1254,8 @@
     "path": "src/lib/ipc/client.ts",
     "symbol": "subscribeWorkspaceWatch",
     "lines": [
-     323,
-     341
+     314,
+     332
     ]
    },
    "alias": "src/lib/ipc/client.ts#subscribeWorkspaceWatch",
@@ -1946,8 +1861,8 @@
     "path": "src/types/metadata.ts",
     "symbol": "BacklinkResult",
     "lines": [
-     94,
-     99
+     73,
+     78
     ]
    },
    "alias": "src/types/metadata.ts#BacklinkResult",
@@ -2106,8 +2021,8 @@
     "path": "src/types/metadata.ts",
     "symbol": "ReindexReport",
     "lines": [
-     76,
-     80
+     55,
+     59
     ]
    },
    "alias": "src/types/metadata.ts#ReindexReport",
@@ -2840,18 +2755,6 @@
    "divergences": 0
   },
   {
-   "id": "FEAT-ASSET-MANAGER",
-   "kind": "feature",
-   "type": "feature",
-   "name": "Asset Manager — colagem e armazenamento local de imagens",
-   "status": "active",
-   "since": null,
-   "docs": [
-    "docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:40"
-   ],
-   "divergences": 0
-  },
-  {
    "id": "FEAT-AUTO-SAVE",
    "kind": "feature",
    "type": "feature",
@@ -2881,18 +2784,6 @@
    "divergences": 0
   },
   {
-   "id": "FEAT-CODE-BLOCK-METADATA",
-   "kind": "feature",
-   "type": "feature",
-   "name": "Code Blocks Avançados com abas e metadados",
-   "status": "active",
-   "since": null,
-   "docs": [
-    "docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:60"
-   ],
-   "divergences": 0
-  },
-  {
    "id": "FEAT-CODE-FORMATTER",
    "kind": "feature",
    "type": "feature",
@@ -2914,13 +2805,13 @@
    "kind": "feature",
    "type": "feature",
    "name": "Command palette / quick switcher",
-   "status": "active",
+   "status": "partial",
    "since": null,
    "docs": [
     "docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:102",
     "docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:128"
    ],
-   "divergences": 0
+   "divergences": 2
   },
   {
    "id": "FEAT-CONFLICT",
@@ -3073,30 +2964,6 @@
    "divergences": 0
   },
   {
-   "id": "FEAT-HIDE-INTERNAL-FILES",
-   "kind": "feature",
-   "type": "feature",
-   "name": "Ocultar arquivos internos (.mdstudio) no explorador de arquivos",
-   "status": "active",
-   "since": null,
-   "docs": [
-    "docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:94"
-   ],
-   "divergences": 0
-  },
-  {
-   "id": "FEAT-HOVER-PREVIEW",
-   "kind": "feature",
-   "type": "feature",
-   "name": "Hover Previews locais para links e notas",
-   "status": "active",
-   "since": null,
-   "docs": [
-    "docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:70"
-   ],
-   "divergences": 0
-  },
-  {
    "id": "FEAT-KATEX",
    "kind": "feature",
    "type": "feature",
@@ -3118,18 +2985,6 @@
    "docs": [
     "docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:125",
     "docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:126"
-   ],
-   "divergences": 0
-  },
-  {
-   "id": "FEAT-MD-DOCTOR",
-   "kind": "feature",
-   "type": "feature",
-   "name": "MD Doctor — diagnósticos e linter local",
-   "status": "active",
-   "since": null,
-   "docs": [
-    "docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:20"
    ],
    "divergences": 0
   },
@@ -3249,18 +3104,6 @@
    "docs": [
     "docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:145",
     "docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:146"
-   ],
-   "divergences": 0
-  },
-  {
-   "id": "FEAT-OUTLINE-FILTER",
-   "kind": "feature",
-   "type": "feature",
-   "name": "Outline hierárquico com filtro e controle de profundidade",
-   "status": "active",
-   "since": null,
-   "docs": [
-    "docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:92"
    ],
    "divergences": 0
   },
@@ -3426,42 +3269,6 @@
    "divergences": 2
   },
   {
-   "id": "FEAT-SMART-REFERENCES",
-   "kind": "feature",
-   "type": "feature",
-   "name": "Smart References e auto-complete de wiki links",
-   "status": "active",
-   "since": null,
-   "docs": [
-    "docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:31"
-   ],
-   "divergences": 0
-  },
-  {
-   "id": "FEAT-SOURCE-MAP",
-   "kind": "feature",
-   "type": "feature",
-   "name": "Mapeamento bidirecional de blocos Preview ↔ Editor",
-   "status": "active",
-   "since": null,
-   "docs": [
-    "docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:91"
-   ],
-   "divergences": 0
-  },
-  {
-   "id": "FEAT-SPELL-CHECKER",
-   "kind": "feature",
-   "type": "feature",
-   "name": "Writing Quality — corretor ortográfico pt-BR / en-US",
-   "status": "active",
-   "since": null,
-   "docs": [
-    "docs/spec/ADR-writing-quality-engine.md:1"
-   ],
-   "divergences": 0
-  },
-  {
    "id": "FEAT-SPLASH-PACKAGING",
    "kind": "feature",
    "type": "feature",
@@ -3473,18 +3280,6 @@
     "README.md:214"
    ],
    "divergences": 1
-  },
-  {
-   "id": "FEAT-TABLE-DATA-PASTE",
-   "kind": "feature",
-   "type": "feature",
-   "name": "Table Data Paste — colagem de planilhas e TSV como tabelas GFM",
-   "status": "active",
-   "since": null,
-   "docs": [
-    "docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:50"
-   ],
-   "divergences": 0
   },
   {
    "id": "FEAT-TABLE-TOOLBAR",
@@ -3510,18 +3305,6 @@
     "docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:22",
     "docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:101",
     "docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:114"
-   ],
-   "divergences": 0
-  },
-  {
-   "id": "FEAT-TOOLING-SETTINGS",
-   "kind": "feature",
-   "type": "feature",
-   "name": "Painel de Configuração de Ferramentas (Tooling)",
-   "status": "active",
-   "since": null,
-   "docs": [
-    "docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:80"
    ],
    "divergences": 0
   },
@@ -3584,12 +3367,12 @@
    "kind": "feature",
    "type": "feature",
    "name": "Busca textual no workspace",
-   "status": "active",
+   "status": "backend_only",
    "since": null,
    "docs": [
     "docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md:299"
    ],
-   "divergences": 0
+   "divergences": 1
   },
   {
    "id": "FILE-EXPORT-EPUB",
@@ -4164,8 +3947,8 @@
     "path": "src/lib/ipc/client.ts",
     "symbol": "browserInvoke",
     "lines": [
-     232,
-     301
+     223,
+     292
     ]
    },
    "alias": "src/lib/ipc/client.ts#browserInvoke",
@@ -4367,8 +4150,8 @@
     "path": "src/editor/wiki/wiki-completion.ts",
     "symbol": "createWikiCompletionExtensions",
     "lines": [
-     123,
-     189
+     88,
+     154
     ]
    },
    "alias": "src/editor/wiki/wiki-completion.ts#createWikiCompletionExtensions",
@@ -5184,23 +4967,6 @@
    "kind": "code"
   },
   {
-   "id": "FN-MD-DOCTOR-HOVER-TOOLTIP",
-   "type": "function",
-   "module": "MOD-EDITOR",
-   "name": "MD Doctor Hover Tooltip Extension",
-   "anchor": {
-    "path": "src/editor/mdDoctorLinter.ts",
-    "symbol": "doctorTooltipExtension",
-    "lines": [
-     65,
-     126
-    ]
-   },
-   "alias": "src/editor/mdDoctorLinter.ts#doctorTooltipExtension",
-   "trace_task": "MD-V03-012",
-   "kind": "code"
-  },
-  {
    "id": "FN-MERMAID-SVG-TO-PNG",
    "type": "function",
    "name": "mermaidSvgToPng",
@@ -5429,8 +5195,8 @@
     "path": "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs",
     "symbol": "ReindexEngine::apply_external_change",
     "lines": [
-     161,
-     180
+     149,
+     168
     ]
    },
    "alias": "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs#ReindexEngine::apply_external_change",
@@ -5449,8 +5215,8 @@
     "path": "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs",
     "symbol": "ReindexEngine::backlinks_for",
     "lines": [
-     153,
-     157
+     141,
+     145
     ]
    },
    "alias": "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs#ReindexEngine::backlinks_for",
@@ -5509,8 +5275,8 @@
     "path": "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs",
     "symbol": "ReindexEngine::rebuild_backlinks",
     "lines": [
-     146,
-     151
+     134,
+     139
     ]
    },
    "alias": "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs#ReindexEngine::rebuild_backlinks",
@@ -5529,8 +5295,8 @@
     "path": "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs",
     "symbol": "ReindexEngine::reindex_file",
     "lines": [
-     85,
-     123
+     73,
+     111
     ]
    },
    "alias": "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs#ReindexEngine::reindex_file",
@@ -5549,8 +5315,8 @@
     "path": "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs",
     "symbol": "ReindexEngine::remove_file",
     "lines": [
-     126,
-     142
+     114,
+     130
     ]
    },
    "alias": "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs#ReindexEngine::remove_file",
@@ -5649,8 +5415,8 @@
     "path": "src/services/navigation.ts",
     "symbol": "resolveRelativeLink",
     "lines": [
-     60,
-     89
+     58,
+     87
     ]
    },
    "alias": "src/services/navigation.ts#resolveRelativeLink",
@@ -5658,23 +5424,6 @@
     "flow"
    ],
    "trace_task": "TRACE-004",
-   "kind": "code"
-  },
-  {
-   "id": "FN-RESOLVE-SMART-REFERENCE",
-   "type": "function",
-   "module": "MOD-EDITOR",
-   "name": "Resolve smart references to headings or files",
-   "anchor": {
-    "path": "src/editor/smartReferences.ts",
-    "symbol": "resolveSmartReference",
-    "lines": [
-     111,
-     160
-    ]
-   },
-   "alias": "src/editor/smartReferences.ts#resolveSmartReference",
-   "trace_task": "MD-V03-013",
    "kind": "code"
   },
   {
@@ -5738,23 +5487,6 @@
    "kind": "code"
   },
   {
-   "id": "FN-RS-DOCTOR-DIAGNOSE",
-   "type": "function",
-   "module": "MOD-WORKSPACE-FS",
-   "name": "Doctor document diagnose function",
-   "anchor": {
-    "path": "src-tauri/crates/md-studio-core/src/doctor/mod.rs",
-    "symbol": "diagnose",
-    "lines": [
-     39,
-     116
-    ]
-   },
-   "alias": "src-tauri/crates/md-studio-core/src/doctor/mod.rs#diagnose",
-   "trace_task": "MD-V03-012",
-   "kind": "code"
-  },
-  {
    "id": "FN-RS-MAIN",
    "type": "function",
    "name": "main",
@@ -5793,23 +5525,6 @@
     "flow"
    ],
    "trace_task": "TRACE-004",
-   "kind": "code"
-  },
-  {
-   "id": "FN-RS-SAVE-PASTED-ASSET",
-   "type": "function",
-   "module": "MOD-WORKSPACE-FS",
-   "name": "Save pasted asset to vault disk",
-   "anchor": {
-    "path": "src-tauri/crates/md-studio-core/src/assets/mod.rs",
-    "symbol": "save_pasted_asset",
-    "lines": [
-     60,
-     116
-    ]
-   },
-   "alias": "src-tauri/crates/md-studio-core/src/assets/mod.rs#save_pasted_asset",
-   "trace_task": "MD-V03-014",
    "kind": "code"
   },
   {
@@ -5901,8 +5616,8 @@
     "path": "src/services/navigation.ts",
     "symbol": "scrollToHeading",
     "lines": [
-     40,
-     48
+     39,
+     47
     ]
    },
    "alias": "src/services/navigation.ts#scrollToHeading",
@@ -5941,8 +5656,8 @@
     "path": "src/editor/paste/paste-plugin.ts",
     "symbol": "smartPasteExtension",
     "lines": [
-     6,
-     38
+     5,
+     37
     ]
    },
    "alias": "src/editor/paste/paste-plugin.ts#smartPasteExtension",
@@ -6153,23 +5868,6 @@
    "kind": "code"
   },
   {
-   "id": "FN-VALIDATE-ASSET-DESTINATION",
-   "type": "function",
-   "module": "MOD-WORKSPACE-FS",
-   "name": "Validate asset target path within vault",
-   "anchor": {
-    "path": "src/services/assetPaste.ts",
-    "symbol": "validateAssetDestination",
-    "lines": [
-     21,
-     37
-    ]
-   },
-   "alias": "src/services/assetPaste.ts#validateAssetDestination",
-   "trace_task": "MD-V03-014",
-   "kind": "code"
-  },
-  {
    "id": "FN-WATCHER-REGISTER-INTERNAL-SAVE",
    "type": "function",
    "name": "WatcherHub::register_internal_save",
@@ -6238,8 +5936,8 @@
     "path": "src/editor/wiki/wiki-completion.ts",
     "symbol": "wikiCandidates",
     "lines": [
-     25,
-     49
+     24,
+     48
     ]
    },
    "alias": "src/editor/wiki/wiki-completion.ts#wikiCandidates",
@@ -6983,8 +6681,8 @@
     "path": "src/components/FileExplorer.tsx",
     "symbol": "FileExplorer.onEntryClick",
     "lines": [
-     191,
-     209
+     143,
+     161
     ]
    },
    "alias": "src/components/FileExplorer.tsx#FileExplorer.onEntryClick",
@@ -7003,8 +6701,8 @@
     "path": "src/components/FileExplorer.tsx",
     "symbol": "FileExplorer.handleOpenFile",
     "lines": [
-     165,
-     189
+     117,
+     141
     ]
    },
    "alias": "src/components/FileExplorer.tsx#FileExplorer.handleOpenFile",
@@ -7023,8 +6721,8 @@
     "path": "src/components/FileExplorer.tsx",
     "symbol": "FileExplorer.handleOpenFolder",
     "lines": [
-     136,
-     163
+     88,
+     115
     ]
    },
    "alias": "src/components/FileExplorer.tsx#FileExplorer.handleOpenFolder",
@@ -7043,8 +6741,8 @@
     "path": "src/components/MarkdownViewer.tsx",
     "symbol": "MarkdownViewer.onClick",
     "lines": [
-     66,
-     131
+     54,
+     119
     ]
    },
    "alias": "src/components/MarkdownViewer.tsx#MarkdownViewer.onClick",
@@ -7060,14 +6758,6 @@
    "kind": "invariant",
    "type": "invariant",
    "name": "Gravação atômica (tmp + fsync + rename)",
-   "coverage": "partial",
-   "gap": true
-  },
-  {
-   "id": "INV-DESKTOP-LAUNCHER-ENV",
-   "kind": "invariant",
-   "type": "invariant",
-   "name": "Lançadores desktop Linux mantêm flags de ambiente essenciais (GDK_BACKEND=x11 e WEBKIT_DISABLE_DMABUF_RENDERER=1)",
    "coverage": "partial",
    "gap": true
   },
@@ -7639,8 +7329,8 @@
     "path": "src/lib/ipc/client.ts",
     "symbol": "ipc.exportEpub",
     "lines": [
-     139,
-     147
+     130,
+     138
     ]
    },
    "alias": "src/lib/ipc/client.ts#ipc.exportEpub",
@@ -7660,8 +7350,8 @@
     "path": "src/lib/ipc/client.ts",
     "symbol": "ipc.exportHtml",
     "lines": [
-     135,
-     138
+     126,
+     129
     ]
    },
    "alias": "src/lib/ipc/client.ts#ipc.exportHtml",
@@ -7681,8 +7371,8 @@
     "path": "src/services/formatter/index.ts",
     "symbol": "\"invoke<FormatResponse>(\"format_code\"\"",
     "lines": [
-     26,
-     26
+     25,
+     25
     ]
    },
    "alias": "src/services/formatter/index.ts#invoke<FormatResponse>(\"format_code",
@@ -7702,8 +7392,8 @@
     "path": "src/lib/ipc/metadata.ts",
     "symbol": "getAllDocuments",
     "lines": [
-     42,
-     45
+     41,
+     44
     ]
    },
    "alias": "src/lib/ipc/metadata.ts#getAllDocuments",
@@ -7723,8 +7413,8 @@
     "path": "src/lib/ipc/metadata.ts",
     "symbol": "getBacklinks",
     "lines": [
-     76,
-     79
+     75,
+     78
     ]
    },
    "alias": "src/lib/ipc/metadata.ts#getBacklinks",
@@ -7744,8 +7434,8 @@
     "path": "src/lib/ipc/metadata.ts",
     "symbol": "getDocumentMetadata",
     "lines": [
-     37,
-     40
+     36,
+     39
     ]
    },
    "alias": "src/lib/ipc/metadata.ts#getDocumentMetadata",
@@ -7765,8 +7455,8 @@
     "path": "src/lib/ipc/client.ts",
     "symbol": "ipc.getLaunchPath",
     "lines": [
-     151,
-     154
+     142,
+     145
     ]
    },
    "alias": "src/lib/ipc/client.ts#ipc.getLaunchPath",
@@ -7786,8 +7476,8 @@
     "path": "src/lib/ipc/metadata.ts",
     "symbol": "getResolvedWikiLinksFor",
     "lines": [
-     66,
-     69
+     65,
+     68
     ]
    },
    "alias": "src/lib/ipc/metadata.ts#getResolvedWikiLinksFor",
@@ -7807,8 +7497,8 @@
     "path": "src/lib/ipc/metadata.ts",
     "symbol": "getTags",
     "lines": [
-     71,
-     74
+     70,
+     73
     ]
    },
    "alias": "src/lib/ipc/metadata.ts#getTags",
@@ -7828,8 +7518,8 @@
     "path": "src/lib/ipc/metadata.ts",
     "symbol": "getWikiLinksFor",
     "lines": [
-     54,
-     57
+     53,
+     56
     ]
    },
    "alias": "src/lib/ipc/metadata.ts#getWikiLinksFor",
@@ -7849,8 +7539,8 @@
     "path": "src/lib/ipc/metadata.ts",
     "symbol": "getWorkspaceStats",
     "lines": [
-     21,
-     35
+     20,
+     34
     ]
    },
    "alias": "src/lib/ipc/metadata.ts#getWorkspaceStats",
@@ -7933,11 +7623,12 @@
     "path": "src/lib/ipc/metadata.ts",
     "symbol": "resolveWikiLink",
     "lines": [
-     59,
-     64
+     58,
+     63
     ]
    },
    "alias": "src/lib/ipc/metadata.ts#resolveWikiLink",
+   "status": "dead_code",
    "inclusion": [
     "contract"
    ],
@@ -7980,6 +7671,7 @@
     ]
    },
    "alias": "src/lib/ipc/client.ts#ipc.searchWorkspace",
+   "status": "dead_code",
    "inclusion": [
     "contract"
    ],
@@ -7996,8 +7688,8 @@
     "path": "src/lib/ipc/client.ts",
     "symbol": "ipc.startWatching",
     "lines": [
-     148,
-     148
+     139,
+     139
     ]
    },
    "alias": "src/lib/ipc/client.ts#ipc.startWatching",
@@ -8017,8 +7709,8 @@
     "path": "src/lib/ipc/client.ts",
     "symbol": "ipc.stopWatching",
     "lines": [
-     149,
-     149
+     140,
+     140
     ]
    },
    "alias": "src/lib/ipc/client.ts#ipc.stopWatching",
@@ -8038,8 +7730,8 @@
     "path": "src/lib/ipc/metadata.ts",
     "symbol": "triggerReindex",
     "lines": [
-     47,
-     52
+     46,
+     51
     ]
    },
    "alias": "src/lib/ipc/metadata.ts#triggerReindex",
@@ -8398,9 +8090,7 @@
     "src/components/command/**",
     "src/utils/fuzzy-search.ts",
     "src-tauri/src/commands/mod.rs (search_workspace)",
-    "src-tauri/src/search/mod.rs",
-    "src/components/workspace/**",
-    "src/commands/**"
+    "src-tauri/src/search/mod.rs"
    ]
   },
   {
@@ -8493,8 +8183,8 @@
     "path": "src/lib/ipc/client.ts",
     "symbol": "confirmOverwrite",
     "lines": [
-     378,
-     390
+     369,
+     381
     ]
    },
    "alias": "src/lib/ipc/client.ts#confirmOverwrite",
@@ -8577,8 +8267,8 @@
     "path": "src/services/navigation.ts",
     "symbol": "openExternalUrl",
     "lines": [
-     101,
-     108
+     93,
+     100
     ]
    },
    "alias": "src/services/navigation.ts#openExternalUrl",
@@ -8597,8 +8287,8 @@
     "path": "src/lib/ipc/client.ts",
     "symbol": "pickFolder",
     "lines": [
-     162,
-     183
+     153,
+     174
     ]
    },
    "alias": "src/lib/ipc/client.ts#pickFolder",
@@ -8618,8 +8308,8 @@
     "path": "src/lib/ipc/client.ts",
     "symbol": "pickMarkdownFile",
     "lines": [
-     185,
-     204
+     176,
+     195
     ]
    },
    "alias": "src/lib/ipc/client.ts#pickMarkdownFile",
@@ -8639,8 +8329,8 @@
     "path": "src/lib/ipc/client.ts",
     "symbol": "pickSaveEpubFile",
     "lines": [
-     345,
-     360
+     336,
+     351
     ]
    },
    "alias": "src/lib/ipc/client.ts#pickSaveEpubFile",
@@ -8660,8 +8350,8 @@
     "path": "src/lib/ipc/client.ts",
     "symbol": "pickSaveHtmlFile",
     "lines": [
-     362,
-     376
+     353,
+     367
     ]
    },
    "alias": "src/lib/ipc/client.ts#pickSaveHtmlFile",
@@ -8681,8 +8371,8 @@
     "path": "src/lib/ipc/client.ts",
     "symbol": "pickSaveMarkdownFile",
     "lines": [
-     206,
-     222
+     197,
+     213
     ]
    },
    "alias": "src/lib/ipc/client.ts#pickSaveMarkdownFile",
@@ -8906,8 +8596,8 @@
     "path": "src/markdown/processor.ts",
     "symbol": "hastToHtml",
     "lines": [
-     203,
-     225
+     192,
+     214
     ]
    },
    "alias": "src/markdown/processor.ts#hastToHtml",
@@ -8927,8 +8617,8 @@
     "path": "src/markdown/processor.ts",
     "symbol": "rehypeHeadingIds",
     "lines": [
-     98,
-     111
+     97,
+     110
     ]
    },
    "alias": "src/markdown/processor.ts#rehypeHeadingIds",
@@ -8948,8 +8638,8 @@
     "path": "src/markdown/processor.ts",
     "symbol": "\".use(rehypeKatex, { throwOnError: false, trust: false })\"",
     "lines": [
-     88,
-     88
+     87,
+     87
     ]
    },
    "alias": "src/markdown/processor.ts#.use(rehypeKatex, { throwOnError: false, trust: false })",
@@ -8969,8 +8659,8 @@
     "path": "src/markdown/processor.ts",
     "symbol": "rehypeMermaidBlocks",
     "lines": [
-     124,
-     128
+     113,
+     117
     ]
    },
    "alias": "src/markdown/processor.ts#rehypeMermaidBlocks",
@@ -8990,8 +8680,8 @@
     "path": "src/markdown/processor.ts",
     "symbol": "\".use(rehypeRaw)\"",
     "lines": [
-     59,
-     59
+     58,
+     58
     ]
    },
    "alias": "src/markdown/processor.ts#.use(rehypeRaw)",
@@ -9011,8 +8701,8 @@
     "path": "src/markdown/processor.ts",
     "symbol": "\"processor.use(remarkGfm)\"",
     "lines": [
-     50,
-     50
+     49,
+     49
     ]
    },
    "alias": "src/markdown/processor.ts#processor.use(remarkGfm)",
@@ -9032,8 +8722,8 @@
     "path": "src/markdown/processor.ts",
     "symbol": "\"processor.use(remarkMath)\"",
     "lines": [
-     52,
-     52
+     51,
+     51
     ]
    },
    "alias": "src/markdown/processor.ts#processor.use(remarkMath)",
@@ -9053,8 +8743,8 @@
     "path": "src/markdown/processor.ts",
     "symbol": "\".use(remarkRehype, { allowDangerousHtml: true })\"",
     "lines": [
-     58,
-     58
+     57,
+     57
     ]
    },
    "alias": "src/markdown/processor.ts#.use(remarkRehype, { allowDangerousHtml: true })",
@@ -9116,8 +8806,8 @@
     "path": "src/markdown/shiki.ts",
     "symbol": "getHighlighter",
     "lines": [
-     28,
-     39
+     27,
+     38
     ]
    },
    "alias": "src/markdown/shiki.ts#getHighlighter",
@@ -9383,8 +9073,8 @@
     "path": "src/components/command/CommandPalette.tsx",
     "symbol": "\"e.key.toLowerCase() === \"p\"\"",
     "lines": [
-     197,
-     197
+     22,
+     22
     ]
    },
    "alias": "src/components/command/CommandPalette.tsx#e.key.toLowerCase() === \"p",
@@ -9573,8 +9263,8 @@
     "path": "src/lib/ipc/client.ts",
     "symbol": "contentHashCache",
     "lines": [
-     230,
-     230
+     221,
+     221
     ]
    },
    "alias": "src/lib/ipc/client.ts#contentHashCache",
@@ -9725,57 +9415,6 @@
    "kind": "code"
   },
   {
-   "id": "SVC-ASSET-PASTE",
-   "type": "service",
-   "module": "MOD-WORKSPACE-FS",
-   "name": "Asset paste handler",
-   "anchor": {
-    "path": "src/services/assetPaste.ts",
-    "symbol": "handlePastedImageAsset",
-    "lines": [
-     64,
-     115
-    ]
-   },
-   "alias": "src/services/assetPaste.ts#handlePastedImageAsset",
-   "trace_task": "MD-V03-014",
-   "kind": "code"
-  },
-  {
-   "id": "SVC-CODEBLOCK-METADATA",
-   "type": "service",
-   "module": "MOD-PREVIEW",
-   "name": "Advanced code block metadata and tabs",
-   "anchor": {
-    "path": "src/markdown/codeBlockMetadata.ts",
-    "symbol": "parseCodeBlockMetadata",
-    "lines": [
-     48,
-     110
-    ]
-   },
-   "alias": "src/markdown/codeBlockMetadata.ts#parseCodeBlockMetadata",
-   "trace_task": "MD-V03-018",
-   "kind": "code"
-  },
-  {
-   "id": "SVC-COMMAND-REGISTRY",
-   "type": "service",
-   "module": "MOD-SEARCH",
-   "name": "Central command registry instance",
-   "anchor": {
-    "path": "src/commands/commandRegistry.ts",
-    "symbol": "commandRegistry",
-    "lines": [
-     63,
-     63
-    ]
-   },
-   "alias": "src/commands/commandRegistry.ts#commandRegistry",
-   "trace_task": "MD-V03-017",
-   "kind": "code"
-  },
-  {
    "id": "SVC-EXPORT-ACTIVE-DOCUMENT-EPUB",
    "type": "service",
    "name": "exportActiveDocumentEpub",
@@ -9844,8 +9483,8 @@
     "path": "src/services/formatter/index.ts",
     "symbol": "formatCode",
     "lines": [
-     9,
-     39
+     8,
+     38
     ]
    },
    "alias": "src/services/formatter/index.ts#formatCode",
@@ -9853,40 +9492,6 @@
     "flow"
    ],
    "trace_task": "TRACE-004",
-   "kind": "code"
-  },
-  {
-   "id": "SVC-FORMATTER-CAPABILITIES",
-   "type": "service",
-   "module": "MOD-FORMATTER",
-   "name": "Formatter capabilities registry snapshot",
-   "anchor": {
-    "path": "src/services/formatter/capabilities.ts",
-    "symbol": "getFormatterCapabilitiesSnapshot",
-    "lines": [
-     123,
-     166
-    ]
-   },
-   "alias": "src/services/formatter/capabilities.ts#getFormatterCapabilitiesSnapshot",
-   "trace_task": "MD-V03-020",
-   "kind": "code"
-  },
-  {
-   "id": "SVC-MD-DOCTOR-LINTER",
-   "type": "service",
-   "module": "MOD-EDITOR",
-   "name": "MD Doctor CodeMirror Linter",
-   "anchor": {
-    "path": "src/editor/mdDoctorLinter.ts",
-    "symbol": "mdDoctorExtension",
-    "lines": [
-     175,
-     181
-    ]
-   },
-   "alias": "src/editor/mdDoctorLinter.ts#mdDoctorExtension",
-   "trace_task": "MD-V03-012",
    "kind": "code"
   },
   {
@@ -9918,8 +9523,8 @@
     "path": "src/markdown/processor.ts",
     "symbol": "processMarkdown",
     "lines": [
-     33,
-     95
+     32,
+     94
     ]
    },
    "alias": "src/markdown/processor.ts#processMarkdown",
@@ -9967,74 +9572,6 @@
     "flow"
    ],
    "trace_task": "TRACE-004",
-   "kind": "code"
-  },
-  {
-   "id": "SVC-SMART-REFERENCES",
-   "type": "service",
-   "module": "MOD-EDITOR",
-   "name": "Smart references extension for CodeMirror",
-   "anchor": {
-    "path": "src/editor/smartReferences.ts",
-    "symbol": "getSmartReferenceCandidates",
-    "lines": [
-     21,
-     60
-    ]
-   },
-   "alias": "src/editor/smartReferences.ts#getSmartReferenceCandidates",
-   "trace_task": "MD-V03-013",
-   "kind": "code"
-  },
-  {
-   "id": "SVC-SOURCE-MAP",
-   "type": "service",
-   "module": "MOD-PREVIEW",
-   "name": "Markdown source map position injector",
-   "anchor": {
-    "path": "src/markdown/sourceMap.ts",
-    "symbol": "attachSourcePositionsToHast",
-    "lines": [
-     48,
-     101
-    ]
-   },
-   "alias": "src/markdown/sourceMap.ts#attachSourcePositionsToHast",
-   "trace_task": "MD-V03-019",
-   "kind": "code"
-  },
-  {
-   "id": "SVC-SPELL-LINTER-EXTENSION",
-   "type": "service",
-   "module": "MOD-EDITOR",
-   "name": "Spell checker CodeMirror extension",
-   "anchor": {
-    "path": "src/editor/spellcheck/spellLinter.ts",
-    "symbol": "createSpellExtension",
-    "lines": [
-     254,
-     264
-    ]
-   },
-   "alias": "src/editor/spellcheck/spellLinter.ts#createSpellExtension",
-   "trace_task": "MD-V03-015",
-   "kind": "code"
-  },
-  {
-   "id": "SVC-TABLE-DATA-PASTE",
-   "type": "service",
-   "module": "MOD-EDITOR",
-   "name": "Tabular data paste and GFM converter",
-   "anchor": {
-    "path": "src/editor/tableDataPaste.ts",
-    "symbol": "handleTabularPaste",
-    "lines": [
-     236,
-     260
-    ]
-   },
-   "alias": "src/editor/tableDataPaste.ts#handleTabularPaste",
-   "trace_task": "MD-V03-016",
    "kind": "code"
   },
   {
@@ -10150,8 +9687,8 @@
     "path": "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs",
     "symbol": "add_and_remove_link_via_reindex_file_updates_backlinks",
     "lines": [
-     281,
-     297
+     269,
+     285
     ]
    },
    "alias": "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs#add_and_remove_link_via_reindex_file_updates_backlinks",
@@ -10250,8 +9787,8 @@
     "path": "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs",
     "symbol": "creating_unresolved_target_then_reindex_establishes_relation",
     "lines": [
-     319,
-     330
+     307,
+     318
     ]
    },
    "alias": "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs#creating_unresolved_target_then_reindex_establishes_relation",
@@ -10510,8 +10047,8 @@
     "path": "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs",
     "symbol": "external_delete_and_watch_apply_remove_backlinks",
     "lines": [
-     333,
-     344
+     321,
+     332
     ]
    },
    "alias": "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs#external_delete_and_watch_apply_remove_backlinks",
@@ -10810,8 +10347,8 @@
     "path": "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs",
     "symbol": "rebuild_matches_incremental_and_loaded_snapshot",
     "lines": [
-     347,
-     371
+     335,
+     359
     ]
    },
    "alias": "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs#rebuild_matches_incremental_and_loaded_snapshot",
@@ -10990,8 +10527,8 @@
     "path": "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs",
     "symbol": "retarget_a_to_b_and_multi_save_does_not_duplicate",
     "lines": [
-     300,
-     316
+     288,
+     304
     ]
    },
    "alias": "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs#retarget_a_to_b_and_multi_save_does_not_duplicate",
@@ -11470,8 +11007,8 @@
     "path": "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs",
     "symbol": "test_reindex_engine_workflow",
     "lines": [
-     235,
-     278
+     223,
+     266
     ]
    },
    "alias": "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs#test_reindex_engine_workflow",
@@ -11679,82 +11216,6 @@
     "test"
    ],
    "trace_task": "TRACE-010",
-   "kind": "test"
-  },
-  {
-   "id": "TST-TS-ASSET-PASTE",
-   "type": "test",
-   "module": "MOD-WORKSPACE-FS",
-   "anchor": {
-    "path": "tests/services/assetPaste.test.ts",
-    "symbol": "\"Asset Manager (MD-V03-014)\"",
-    "lines": [
-     8,
-     60
-    ]
-   },
-   "alias": "tests/services/assetPaste.test.ts#Asset Manager (MD-V03-014)",
-   "name": "Asset Manager paste tests",
-   "test_framework": "vitest",
-   "test_kind": "unit",
-   "trace_task": "MD-V03-014",
-   "kind": "test"
-  },
-  {
-   "id": "TST-TS-CODEBLOCK-METADATA",
-   "type": "test",
-   "module": "MOD-PREVIEW",
-   "anchor": {
-    "path": "tests/markdown/codeBlockMetadata.test.ts",
-    "symbol": "\"Code Blocks Avançados (MD-V03-018)\"",
-    "lines": [
-     8,
-     82
-    ]
-   },
-   "alias": "tests/markdown/codeBlockMetadata.test.ts#Code Blocks Avançados (MD-V03-018)",
-   "name": "Advanced code block metadata tests",
-   "test_framework": "vitest",
-   "test_kind": "unit",
-   "trace_task": "MD-V03-018",
-   "kind": "test"
-  },
-  {
-   "id": "TST-TS-COMMAND-REGISTRY",
-   "type": "test",
-   "module": "MOD-SEARCH",
-   "anchor": {
-    "path": "tests/commands/commandRegistry.test.ts",
-    "symbol": "\"Command Palette & Registry (MD-V03-017)\"",
-    "lines": [
-     4,
-     88
-    ]
-   },
-   "alias": "tests/commands/commandRegistry.test.ts#Command Palette & Registry (MD-V03-017)",
-   "name": "Command Palette & Registry tests",
-   "test_framework": "vitest",
-   "test_kind": "unit",
-   "trace_task": "MD-V03-017",
-   "kind": "test"
-  },
-  {
-   "id": "TST-TS-DOCUMENT-OUTLINE-FILTER",
-   "type": "test",
-   "module": "MOD-PREVIEW",
-   "anchor": {
-    "path": "tests/components/documentOutline.test.tsx",
-    "symbol": "\"Outline hierárquico, filtrável e sincronizado ao heading atual\"",
-    "lines": [
-     7,
-     136
-    ]
-   },
-   "alias": "tests/components/documentOutline.test.tsx#Outline hierárquico, filtrável e sincronizado ao heading atual",
-   "name": "Hierarchical Document Outline filter tests",
-   "test_framework": "vitest",
-   "test_kind": "unit",
-   "trace_task": "MD-V03-023",
    "kind": "test"
   },
   {
@@ -12158,25 +11619,6 @@
    "kind": "test"
   },
   {
-   "id": "TST-TS-FORMATTER-CAPABILITIES",
-   "type": "test",
-   "module": "MOD-FORMATTER",
-   "anchor": {
-    "path": "tests/services/formatterCapabilities.test.ts",
-    "symbol": "\"Formatter Capabilities: registry consultável do hub existente\"",
-    "lines": [
-     9,
-     76
-    ]
-   },
-   "alias": "tests/services/formatterCapabilities.test.ts#Formatter Capabilities: registry consultável do hub existente",
-   "name": "Formatter capabilities registry tests",
-   "test_framework": "vitest",
-   "test_kind": "unit",
-   "trace_task": "MD-V03-020",
-   "kind": "test"
-  },
-  {
    "id": "TST-TS-FORMATTER-WEB",
    "type": "test",
    "name": "Web Formatter (Prettier Standalone)",
@@ -12294,44 +11736,6 @@
     "test"
    ],
    "trace_task": "TRACE-010",
-   "kind": "test"
-  },
-  {
-   "id": "TST-TS-HIDE-INTERNAL-FILES",
-   "type": "test",
-   "module": "MOD-WORKSPACE-FS",
-   "anchor": {
-    "path": "tests/components/hideInternalFiles.test.tsx",
-    "symbol": "\"MD-V03-024: Ocultar .mdstudio no File Tree\"",
-    "lines": [
-     25,
-     152
-    ]
-   },
-   "alias": "tests/components/hideInternalFiles.test.tsx#MD-V03-024: Ocultar .mdstudio no File Tree",
-   "name": "Hide internal files tests",
-   "test_framework": "vitest",
-   "test_kind": "unit",
-   "trace_task": "MD-V03-024",
-   "kind": "test"
-  },
-  {
-   "id": "TST-TS-HOVER-PREVIEW",
-   "type": "test",
-   "module": "MOD-EDITOR",
-   "anchor": {
-    "path": "tests/components/hoverPreview.test.tsx",
-    "symbol": "\"MD-V03-025: Hover Previews locais, sanitizados e canceláveis\"",
-    "lines": [
-     68,
-     286
-    ]
-   },
-   "alias": "tests/components/hoverPreview.test.tsx#MD-V03-025: Hover Previews locais, sanitizados e canceláveis",
-   "name": "Hover Preview component tests",
-   "test_framework": "vitest",
-   "test_kind": "unit",
-   "trace_task": "MD-V03-025",
    "kind": "test"
   },
   {
@@ -12595,25 +11999,6 @@
    "kind": "test"
   },
   {
-   "id": "TST-TS-MD-DOCTOR-LINTER",
-   "type": "test",
-   "module": "MOD-EDITOR",
-   "anchor": {
-    "path": "tests/editor/mdDoctorLinter.test.ts",
-    "symbol": "\"MD-V03-012: MD Doctor CodeMirror Linter\"",
-    "lines": [
-     12,
-     101
-    ]
-   },
-   "alias": "tests/editor/mdDoctorLinter.test.ts#MD-V03-012: MD Doctor CodeMirror Linter",
-   "name": "MD Doctor CodeMirror linter tests",
-   "test_framework": "vitest",
-   "test_kind": "unit",
-   "trace_task": "MD-V03-012",
-   "kind": "test"
-  },
-  {
    "id": "TST-TS-PANEL-COLLAPSIBLEPANEL",
    "type": "test",
    "name": "MD-UI-PANEL-001: Collapsible Right Panel & StatusBar",
@@ -12814,25 +12199,6 @@
    "kind": "test"
   },
   {
-   "id": "TST-TS-PREVIEW-READING-WIDTH",
-   "type": "test",
-   "module": "MOD-SETTINGS-SESSION",
-   "anchor": {
-    "path": "tests/settings/previewReadingWidth.test.tsx",
-    "symbol": "\"MD-UI-005: Preview Controlled Reading Width\"",
-    "lines": [
-     13,
-     112
-    ]
-   },
-   "alias": "tests/settings/previewReadingWidth.test.tsx#MD-UI-005: Preview Controlled Reading Width",
-   "name": "Preview reading width test",
-   "test_framework": "vitest",
-   "test_kind": "unit",
-   "trace_task": "MD-HOTFIX-EXPAND-002",
-   "kind": "test"
-  },
-  {
    "id": "TST-TS-SECURITY-ADVERSARIAL-DRAFT-RECOVERY",
    "type": "test",
    "name": "local draft recovery and retention",
@@ -12933,82 +12299,6 @@
    "kind": "test"
   },
   {
-   "id": "TST-TS-SMART-REFERENCES",
-   "type": "test",
-   "module": "MOD-EDITOR",
-   "anchor": {
-    "path": "tests/editor/smartReferences.test.ts",
-    "symbol": "\"Smart References (MD-V03-013)\"",
-    "lines": [
-     37,
-     100
-    ]
-   },
-   "alias": "tests/editor/smartReferences.test.ts#Smart References (MD-V03-013)",
-   "name": "Smart References extension tests",
-   "test_framework": "vitest",
-   "test_kind": "unit",
-   "trace_task": "MD-V03-013",
-   "kind": "test"
-  },
-  {
-   "id": "TST-TS-SOURCE-MAP",
-   "type": "test",
-   "module": "MOD-PREVIEW",
-   "anchor": {
-    "path": "tests/markdown/sourceMap.test.ts",
-    "symbol": "\"Preview ↔ Source Mapping por bloco (MD-V03-019)\"",
-    "lines": [
-     8,
-     69
-    ]
-   },
-   "alias": "tests/markdown/sourceMap.test.ts#Preview ↔ Source Mapping por bloco (MD-V03-019)",
-   "name": "Preview source mapping tests",
-   "test_framework": "vitest",
-   "test_kind": "unit",
-   "trace_task": "MD-V03-019",
-   "kind": "test"
-  },
-  {
-   "id": "TST-TS-SPELL-CHECKER",
-   "type": "test",
-   "module": "MOD-EDITOR",
-   "anchor": {
-    "path": "tests/editor/spellChecker.test.ts",
-    "symbol": "\"Writing Quality fase 1 - Spell Checker (MD-V03-015)\"",
-    "lines": [
-     5,
-     90
-    ]
-   },
-   "alias": "tests/editor/spellChecker.test.ts#Writing Quality fase 1 - Spell Checker (MD-V03-015)",
-   "name": "Writing quality spell checker tests",
-   "test_framework": "vitest",
-   "test_kind": "unit",
-   "trace_task": "MD-V03-015",
-   "kind": "test"
-  },
-  {
-   "id": "TST-TS-TABLE-DATA-PASTE",
-   "type": "test",
-   "module": "MOD-EDITOR",
-   "anchor": {
-    "path": "tests/editor/tableDataPaste.test.ts",
-    "symbol": "\"Table Data Paste (MD-V03-016)\"",
-    "lines": [
-     12,
-     118
-    ]
-   },
-   "alias": "tests/editor/tableDataPaste.test.ts#Table Data Paste (MD-V03-016)",
-   "name": "Table Data Paste tests",
-   "test_framework": "vitest",
-   "test_kind": "unit",
-   "trace_task": "MD-V03-016",
-   "kind": "test"
-  },
-  {
    "id": "TST-TS-TEMPLATES-NEW-DOCUMENT-MODAL",
    "type": "test",
    "name": "MD-UI-009: Novo Documento com Iconografia Consistente (md_ui_009_templates_pass)",
@@ -13046,25 +12336,6 @@
     "test"
    ],
    "trace_task": "TRACE-010",
-   "kind": "test"
-  },
-  {
-   "id": "TST-TS-TOOLING-SETTINGS",
-   "type": "test",
-   "module": "MOD-SETTINGS-SESSION",
-   "anchor": {
-    "path": "tests/settings/toolingSettings.test.tsx",
-    "symbol": "\"Tooling Settings: painel informativo das ferramentas locais (MD-V03-022)\"",
-    "lines": [
-     6,
-     81
-    ]
-   },
-   "alias": "tests/settings/toolingSettings.test.tsx#Tooling Settings: painel informativo das ferramentas locais (MD-V03-022)",
-   "name": "Tooling settings tests",
-   "test_framework": "vitest",
-   "test_kind": "unit",
-   "trace_task": "MD-V03-022",
    "kind": "test"
   },
   {
@@ -13328,25 +12599,6 @@
    "kind": "test"
   },
   {
-   "id": "TST-TS-WORKSPACE-SEARCH",
-   "type": "test",
-   "module": "MOD-SEARCH",
-   "anchor": {
-    "path": "tests/workspace/workspaceSearch.test.tsx",
-    "symbol": "\"Workspace Search com Replace All confirmado (MD-V03-020)\"",
-    "lines": [
-     10,
-     174
-    ]
-   },
-   "alias": "tests/workspace/workspaceSearch.test.tsx#Workspace Search com Replace All confirmado (MD-V03-020)",
-   "name": "Workspace Search tests",
-   "test_framework": "vitest",
-   "test_kind": "unit",
-   "trace_task": "MD-V03-021",
-   "kind": "test"
-  },
-  {
    "id": "TST-TS-WORKSPACE-WORKSPACERAIL",
    "type": "test",
    "name": "MD-UI-007: Workspace Activity Rail",
@@ -13516,7 +12768,7 @@
    "to": "FN-REPLACE-FENCED-CODE-BLOCK",
    "relation": "calls",
    "evidence": [
-    "src/components/MarkdownViewer.tsx:439"
+    "src/components/MarkdownViewer.tsx:175"
    ],
    "method": "observed",
    "source": "edges.yaml",
@@ -13684,17 +12936,6 @@
    "trace_task": "TRACE-005"
   },
   {
-   "id": "CLS-LOCAL-SPELL-CHECKER|covered_by|TST-TS-SPELL-CHECKER",
-   "from": "CLS-LOCAL-SPELL-CHECKER",
-   "to": "TST-TS-SPELL-CHECKER",
-   "relation": "covered_by",
-   "evidence": [
-    "tests/editor/spellChecker.test.ts:7"
-   ],
-   "method": "observed",
-   "source": "edges.yaml"
-  },
-  {
    "id": "CLS-PRESENTATION-SESSION-MANAGER|covered_by|TST-TS-PRESENTATION-SESSION",
    "from": "CLS-PRESENTATION-SESSION-MANAGER",
    "to": "TST-TS-PRESENTATION-SESSION",
@@ -13706,28 +12947,6 @@
    "method": "observed",
    "source": "edges.yaml",
    "trace_task": "TRACE-010"
-  },
-  {
-   "id": "CLS-RS-DOCTOR|contains|FN-RS-DOCTOR-DIAGNOSE",
-   "from": "CLS-RS-DOCTOR",
-   "to": "FN-RS-DOCTOR-DIAGNOSE",
-   "relation": "contains",
-   "evidence": [
-    "src-tauri/crates/md-studio-core/src/doctor/mod.rs:39"
-   ],
-   "method": "observed",
-   "source": "edges.yaml"
-  },
-  {
-   "id": "CLS-RS-DOCTOR|covered_by|TST-TS-MD-DOCTOR-LINTER",
-   "from": "CLS-RS-DOCTOR",
-   "to": "TST-TS-MD-DOCTOR-LINTER",
-   "relation": "covered_by",
-   "evidence": [
-    "tests/editor/mdDoctorLinter.test.ts:14"
-   ],
-   "method": "observed",
-   "source": "edges.yaml"
   },
   {
    "id": "CLS-SAVE-ERROR|implements|CTR-ATOMIC-SAVE",
@@ -13941,17 +13160,6 @@
    "trace_task": "TRACE-010"
   },
   {
-   "id": "CMP-COMMAND-PALETTE|calls|SVC-COMMAND-REGISTRY",
-   "from": "CMP-COMMAND-PALETTE",
-   "to": "SVC-COMMAND-REGISTRY",
-   "relation": "calls",
-   "evidence": [
-    "src/components/command/CommandPalette.tsx:41"
-   ],
-   "method": "observed",
-   "source": "edges.yaml"
-  },
-  {
    "id": "CMP-COMMAND-PALETTE|contains|CMP-QUICK-SWITCHER",
    "from": "CMP-COMMAND-PALETTE",
    "to": "CMP-QUICK-SWITCHER",
@@ -14034,17 +13242,6 @@
    "method": "observed",
    "source": "edges.yaml",
    "trace_task": "TRACE-005"
-  },
-  {
-   "id": "CMP-DOCUMENT-OUTLINE|covered_by|TST-TS-DOCUMENT-OUTLINE-FILTER",
-   "from": "CMP-DOCUMENT-OUTLINE",
-   "to": "TST-TS-DOCUMENT-OUTLINE-FILTER",
-   "relation": "covered_by",
-   "evidence": [
-    "tests/components/documentOutline.test.tsx:9"
-   ],
-   "method": "observed",
-   "source": "edges.yaml"
   },
   {
    "id": "CMP-DOCUMENT-OUTLINE|covered_by|TST-TS-PANEL-COLLAPSIBLEPANEL",
@@ -14190,7 +13387,7 @@
    "to": "IPCC-LIST-ENTRIES",
    "relation": "calls",
    "evidence": [
-    "src/components/FileExplorer.tsx:56"
+    "src/components/FileExplorer.tsx:55"
    ],
    "method": "observed",
    "source": "edges.yaml",
@@ -14270,17 +13467,6 @@
    "trace_task": "TRACE-005"
   },
   {
-   "id": "CMP-FILE-EXPLORER|covered_by|TST-TS-HIDE-INTERNAL-FILES",
-   "from": "CMP-FILE-EXPLORER",
-   "to": "TST-TS-HIDE-INTERNAL-FILES",
-   "relation": "covered_by",
-   "evidence": [
-    "tests/components/hideInternalFiles.test.tsx:25"
-   ],
-   "method": "observed",
-   "source": "edges.yaml"
-  },
-  {
    "id": "CMP-FILE-EXPLORER|depends_on|CTR-IPC-LIST-ENTRIES",
    "from": "CMP-FILE-EXPLORER",
    "to": "CTR-IPC-LIST-ENTRIES",
@@ -14341,41 +13527,6 @@
    "method": "observed",
    "source": "edges.yaml",
    "trace_task": "TRACE-010"
-  },
-  {
-   "id": "CMP-HOVER-PREVIEW|calls|IPCC-RESOLVE-WIKI-LINK",
-   "from": "CMP-HOVER-PREVIEW",
-   "to": "IPCC-RESOLVE-WIKI-LINK",
-   "relation": "calls",
-   "evidence": [
-    "src/components/editor/HoverPreview.tsx:83"
-   ],
-   "method": "observed",
-   "source": "edges.yaml"
-  },
-  {
-   "id": "CMP-HOVER-PREVIEW|covered_by|TST-TS-HOVER-PREVIEW",
-   "from": "CMP-HOVER-PREVIEW",
-   "to": "TST-TS-HOVER-PREVIEW",
-   "relation": "covered_by",
-   "evidence": [
-    "tests/components/hoverPreview.test.tsx:68"
-   ],
-   "method": "observed",
-   "source": "edges.yaml"
-  },
-  {
-   "id": "CMP-HOVER-PREVIEW|depends_on|CTR-IPC-RESOLVE-WIKI-LINK",
-   "from": "CMP-HOVER-PREVIEW",
-   "to": "CTR-IPC-RESOLVE-WIKI-LINK",
-   "relation": "depends_on",
-   "evidence": [
-    "src-tauri/src/commands/metadata.rs:147",
-    "src/lib/ipc/metadata.ts:59",
-    "src-tauri/src/lib.rs:84"
-   ],
-   "method": "derived",
-   "source": "contracts.yaml:consumers"
   },
   {
    "id": "CMP-MARKDOWN-EDITOR|calls|FN-CREATE-SLASH-PLUGIN",
@@ -14462,39 +13613,6 @@
    "trace_task": "TRACE-005"
   },
   {
-   "id": "CMP-MARKDOWN-EDITOR|contains|SVC-MD-DOCTOR-LINTER",
-   "from": "CMP-MARKDOWN-EDITOR",
-   "to": "SVC-MD-DOCTOR-LINTER",
-   "relation": "contains",
-   "evidence": [
-    "src/editor/mdDoctorLinter.ts:175"
-   ],
-   "method": "observed",
-   "source": "edges.yaml"
-  },
-  {
-   "id": "CMP-MARKDOWN-EDITOR|contains|SVC-SMART-REFERENCES",
-   "from": "CMP-MARKDOWN-EDITOR",
-   "to": "SVC-SMART-REFERENCES",
-   "relation": "contains",
-   "evidence": [
-    "src/editor/smartReferences.ts:21"
-   ],
-   "method": "observed",
-   "source": "edges.yaml"
-  },
-  {
-   "id": "CMP-MARKDOWN-EDITOR|contains|SVC-SPELL-LINTER-EXTENSION",
-   "from": "CMP-MARKDOWN-EDITOR",
-   "to": "SVC-SPELL-LINTER-EXTENSION",
-   "relation": "contains",
-   "evidence": [
-    "src/editor/spellcheck/spellLinter.ts:254"
-   ],
-   "method": "observed",
-   "source": "edges.yaml"
-  },
-  {
    "id": "CMP-MARKDOWN-EDITOR|covered_by|TST-TS-EDITOR-SINGLESAVE",
    "from": "CMP-MARKDOWN-EDITOR",
    "to": "TST-TS-EDITOR-SINGLESAVE",
@@ -14562,28 +13680,6 @@
    "trace_task": "TRACE-005"
   },
   {
-   "id": "CMP-MARKDOWN-VIEWER|calls|IPCC-RESOLVE-WIKI-LINK",
-   "from": "CMP-MARKDOWN-VIEWER",
-   "to": "IPCC-RESOLVE-WIKI-LINK",
-   "relation": "calls",
-   "evidence": [
-    "src/components/MarkdownViewer.tsx:185"
-   ],
-   "method": "observed",
-   "source": "edges.yaml"
-  },
-  {
-   "id": "CMP-MARKDOWN-VIEWER|calls|SVC-CODEBLOCK-METADATA",
-   "from": "CMP-MARKDOWN-VIEWER",
-   "to": "SVC-CODEBLOCK-METADATA",
-   "relation": "calls",
-   "evidence": [
-    "src/components/MarkdownViewer.tsx:503"
-   ],
-   "method": "observed",
-   "source": "edges.yaml"
-  },
-  {
    "id": "CMP-MARKDOWN-VIEWER|calls|SVC-PROCESS-MARKDOWN",
    "from": "CMP-MARKDOWN-VIEWER",
    "to": "SVC-PROCESS-MARKDOWN",
@@ -14623,17 +13719,6 @@
    "trace_task": "TRACE-005"
   },
   {
-   "id": "CMP-MARKDOWN-VIEWER|contains|CMP-HOVER-PREVIEW",
-   "from": "CMP-MARKDOWN-VIEWER",
-   "to": "CMP-HOVER-PREVIEW",
-   "relation": "contains",
-   "evidence": [
-    "src/components/MarkdownViewer.tsx:546"
-   ],
-   "method": "observed",
-   "source": "edges.yaml"
-  },
-  {
    "id": "CMP-MARKDOWN-VIEWER|contains|CMP-MERMAID-BLOCK",
    "from": "CMP-MARKDOWN-VIEWER",
    "to": "CMP-MERMAID-BLOCK",
@@ -14669,19 +13754,6 @@
    "method": "observed",
    "source": "edges.yaml",
    "trace_task": "TRACE-010"
-  },
-  {
-   "id": "CMP-MARKDOWN-VIEWER|depends_on|CTR-IPC-RESOLVE-WIKI-LINK",
-   "from": "CMP-MARKDOWN-VIEWER",
-   "to": "CTR-IPC-RESOLVE-WIKI-LINK",
-   "relation": "depends_on",
-   "evidence": [
-    "src-tauri/src/commands/metadata.rs:147",
-    "src/lib/ipc/metadata.ts:59",
-    "src-tauri/src/lib.rs:84"
-   ],
-   "method": "derived",
-   "source": "contracts.yaml:consumers"
   },
   {
    "id": "CMP-MARKDOWN-VIEWER|depends_on|CTR-SANITIZE-POLICY",
@@ -14972,17 +14044,6 @@
    "trace_task": "TRACE-010"
   },
   {
-   "id": "CMP-SETTINGS-PANEL|contains|CMP-TOOLING-SETTINGS",
-   "from": "CMP-SETTINGS-PANEL",
-   "to": "CMP-TOOLING-SETTINGS",
-   "relation": "contains",
-   "evidence": [
-    "src/components/settings/SettingsPanel.tsx:288"
-   ],
-   "method": "observed",
-   "source": "edges.yaml"
-  },
-  {
    "id": "CMP-SETTINGS-PANEL|covered_by|TST-TS-SETTINGS-SETTINGSPANEL",
    "from": "CMP-SETTINGS-PANEL",
    "to": "TST-TS-SETTINGS-SETTINGSPANEL",
@@ -15023,69 +14084,12 @@
    "trace_task": "TRACE-006"
   },
   {
-   "id": "CMP-TOOLING-SETTINGS|calls|SVC-FORMATTER-CAPABILITIES",
-   "from": "CMP-TOOLING-SETTINGS",
-   "to": "SVC-FORMATTER-CAPABILITIES",
-   "relation": "calls",
-   "evidence": [
-    "src/components/settings/ToolingSettings.tsx:17"
-   ],
-   "method": "observed",
-   "source": "edges.yaml"
-  },
-  {
-   "id": "CMP-TOOLING-SETTINGS|covered_by|TST-TS-TOOLING-SETTINGS",
-   "from": "CMP-TOOLING-SETTINGS",
-   "to": "TST-TS-TOOLING-SETTINGS",
-   "relation": "covered_by",
-   "evidence": [
-    "tests/settings/toolingSettings.test.tsx:6"
-   ],
-   "method": "observed",
-   "source": "edges.yaml"
-  },
-  {
-   "id": "CMP-WORKSPACE-SEARCH|calls|IPCC-SEARCH-WORKSPACE",
-   "from": "CMP-WORKSPACE-SEARCH",
-   "to": "IPCC-SEARCH-WORKSPACE",
-   "relation": "calls",
-   "evidence": [
-    "src/components/workspace/WorkspaceSearch.tsx:280"
-   ],
-   "method": "observed",
-   "source": "edges.yaml"
-  },
-  {
-   "id": "CMP-WORKSPACE-SEARCH|covered_by|TST-TS-WORKSPACE-SEARCH",
-   "from": "CMP-WORKSPACE-SEARCH",
-   "to": "TST-TS-WORKSPACE-SEARCH",
-   "relation": "covered_by",
-   "evidence": [
-    "tests/workspace/workspaceSearch.test.tsx:12"
-   ],
-   "method": "observed",
-   "source": "edges.yaml"
-  },
-  {
-   "id": "CMP-WORKSPACE-SEARCH|depends_on|CTR-IPC-SEARCH-WORKSPACE",
-   "from": "CMP-WORKSPACE-SEARCH",
-   "to": "CTR-IPC-SEARCH-WORKSPACE",
-   "relation": "depends_on",
-   "evidence": [
-    "src-tauri/src/commands/mod.rs:163",
-    "src/lib/ipc/client.ts:115",
-    "src-tauri/src/lib.rs:75"
-   ],
-   "method": "derived",
-   "source": "contracts.yaml:consumers"
-  },
-  {
    "id": "CNS-SUBSCRIBE-OPEN-FILE|consumes|TEV-APP-OPEN-FILE",
    "from": "CNS-SUBSCRIBE-OPEN-FILE",
    "to": "TEV-APP-OPEN-FILE",
    "relation": "consumes",
    "evidence": [
-    "src/lib/ipc/client.ts:306",
+    "src/lib/ipc/client.ts:302",
     "src-tauri/src/lib.rs:41"
    ],
    "method": "observed",
@@ -15110,7 +14114,7 @@
    "to": "TEV-WORKSPACE-CHANGE",
    "relation": "consumes",
    "evidence": [
-    "src/lib/ipc/client.ts:323",
+    "src/lib/ipc/client.ts:320",
     "src-tauri/src/watcher/mod.rs:19"
    ],
    "method": "observed",
@@ -15402,7 +14406,7 @@
    "relation": "implemented_by",
    "evidence": [
     "src-tauri/src/commands/metadata.rs:104",
-    "src/lib/ipc/metadata.ts:42",
+    "src/lib/ipc/metadata.ts:41",
     "src-tauri/src/lib.rs:81"
    ],
    "method": "derived",
@@ -15415,7 +14419,7 @@
    "relation": "implemented_by",
    "evidence": [
     "src-tauri/src/commands/metadata.rs:233",
-    "src/lib/ipc/metadata.ts:76",
+    "src/lib/ipc/metadata.ts:75",
     "src-tauri/src/lib.rs:87"
    ],
    "method": "derived",
@@ -15428,7 +14432,7 @@
    "relation": "implemented_by",
    "evidence": [
     "src-tauri/src/commands/metadata.rs:90",
-    "src/lib/ipc/metadata.ts:37",
+    "src/lib/ipc/metadata.ts:36",
     "src-tauri/src/lib.rs:80"
    ],
    "method": "derived",
@@ -15454,7 +14458,7 @@
    "relation": "implemented_by",
    "evidence": [
     "src-tauri/src/commands/metadata.rs:158",
-    "src/lib/ipc/metadata.ts:66",
+    "src/lib/ipc/metadata.ts:65",
     "src-tauri/src/lib.rs:85"
    ],
    "method": "derived",
@@ -15467,7 +14471,7 @@
    "relation": "implemented_by",
    "evidence": [
     "src-tauri/src/commands/metadata.rs:173",
-    "src/lib/ipc/metadata.ts:71",
+    "src/lib/ipc/metadata.ts:70",
     "src-tauri/src/lib.rs:86"
    ],
    "method": "derived",
@@ -15480,7 +14484,7 @@
    "relation": "implemented_by",
    "evidence": [
     "src-tauri/src/commands/metadata.rs:131",
-    "src/lib/ipc/metadata.ts:54",
+    "src/lib/ipc/metadata.ts:53",
     "src-tauri/src/lib.rs:83"
    ],
    "method": "derived",
@@ -15493,7 +14497,7 @@
    "relation": "implemented_by",
    "evidence": [
     "src-tauri/src/commands/metadata.rs:46",
-    "src/lib/ipc/metadata.ts:21",
+    "src/lib/ipc/metadata.ts:20",
     "src-tauri/src/lib.rs:79"
    ],
    "method": "derived",
@@ -15545,7 +14549,7 @@
    "relation": "implemented_by",
    "evidence": [
     "src-tauri/src/commands/metadata.rs:147",
-    "src/lib/ipc/metadata.ts:59",
+    "src/lib/ipc/metadata.ts:58",
     "src-tauri/src/lib.rs:84"
    ],
    "method": "derived",
@@ -15610,7 +14614,7 @@
    "relation": "implemented_by",
    "evidence": [
     "src-tauri/src/commands/metadata.rs:117",
-    "src/lib/ipc/metadata.ts:47",
+    "src/lib/ipc/metadata.ts:46",
     "src-tauri/src/lib.rs:82"
    ],
    "method": "derived",
@@ -16190,7 +15194,7 @@
    "to": "CTR-IPC-GET-BACKLINKS",
    "relation": "implements",
    "evidence": [
-    "src/types/metadata.ts:94"
+    "src/types/metadata.ts:73"
    ],
    "method": "derived",
    "source": "contracts.yaml:carriers"
@@ -16311,7 +15315,7 @@
    "to": "CTR-IPC-TRIGGER-REINDEX",
    "relation": "implements",
    "evidence": [
-    "src/types/metadata.ts:76"
+    "src/types/metadata.ts:55"
    ],
    "method": "derived",
    "source": "contracts.yaml:carriers"
@@ -16608,7 +15612,7 @@
    "to": "CMP-COMMAND-PALETTE",
    "relation": "triggers",
    "evidence": [
-    "src/components/command/CommandPalette.tsx:15"
+    "src/components/command/CommandPalette.tsx:14"
    ],
    "method": "derived",
    "source": "entrypoints.yaml"
@@ -17265,39 +16269,6 @@
    "source": "features.yaml:implemented_by"
   },
   {
-   "id": "FEAT-ASSET-MANAGER|implemented_by|FN-RS-SAVE-PASTED-ASSET",
-   "from": "FEAT-ASSET-MANAGER",
-   "to": "FN-RS-SAVE-PASTED-ASSET",
-   "relation": "implemented_by",
-   "evidence": [
-    "src-tauri/crates/md-studio-core/src/assets/mod.rs:60"
-   ],
-   "method": "derived",
-   "source": "features.yaml:implemented_by"
-  },
-  {
-   "id": "FEAT-ASSET-MANAGER|implemented_by|FN-VALIDATE-ASSET-DESTINATION",
-   "from": "FEAT-ASSET-MANAGER",
-   "to": "FN-VALIDATE-ASSET-DESTINATION",
-   "relation": "implemented_by",
-   "evidence": [
-    "src/services/assetPaste.ts:21"
-   ],
-   "method": "derived",
-   "source": "features.yaml:implemented_by"
-  },
-  {
-   "id": "FEAT-ASSET-MANAGER|implemented_by|SVC-ASSET-PASTE",
-   "from": "FEAT-ASSET-MANAGER",
-   "to": "SVC-ASSET-PASTE",
-   "relation": "implemented_by",
-   "evidence": [
-    "src/services/assetPaste.ts:64"
-   ],
-   "method": "derived",
-   "source": "features.yaml:implemented_by"
-  },
-  {
    "id": "FEAT-AUTO-SAVE|contains|FLOW-AUTO-SAVE",
    "from": "FEAT-AUTO-SAVE",
    "to": "FLOW-AUTO-SAVE",
@@ -17397,7 +16368,7 @@
    "to": "DTO-TS-BACKLINK-RESULT",
    "relation": "implemented_by",
    "evidence": [
-    "src/types/metadata.ts:94"
+    "src/types/metadata.ts:73"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -17496,7 +16467,7 @@
    "to": "FN-REINDEX-ENGINE-BACKLINKS-FOR",
    "relation": "implemented_by",
    "evidence": [
-    "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:153"
+    "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:141"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -17507,7 +16478,7 @@
    "to": "FN-REINDEX-ENGINE-REBUILD-BACKLINKS",
    "relation": "implemented_by",
    "evidence": [
-    "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:146"
+    "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:134"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -17540,7 +16511,7 @@
    "to": "IPCC-GET-BACKLINKS",
    "relation": "implemented_by",
    "evidence": [
-    "src/lib/ipc/metadata.ts:76"
+    "src/lib/ipc/metadata.ts:75"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -17552,17 +16523,6 @@
    "relation": "implemented_by",
    "evidence": [
     "src-tauri/crates/md-studio-core/src/index/backlink_index.rs:43"
-   ],
-   "method": "derived",
-   "source": "features.yaml:implemented_by"
-  },
-  {
-   "id": "FEAT-CODE-BLOCK-METADATA|implemented_by|SVC-CODEBLOCK-METADATA",
-   "from": "FEAT-CODE-BLOCK-METADATA",
-   "to": "SVC-CODEBLOCK-METADATA",
-   "relation": "implemented_by",
-   "evidence": [
-    "src/markdown/codeBlockMetadata.ts:48"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -17584,7 +16544,7 @@
    "to": "BTN-PREVIEW-FORMAT-CODE",
    "relation": "implemented_by",
    "evidence": [
-    "src/components/MarkdownViewer.tsx:439"
+    "src/components/MarkdownViewer.tsx:158"
    ],
    "method": "derived",
    "source": "features.yaml:entry_nodes",
@@ -17751,7 +16711,7 @@
    "to": "IPCC-FORMAT-CODE",
    "relation": "implemented_by",
    "evidence": [
-    "src/services/formatter/index.ts:26"
+    "src/services/formatter/index.ts:25"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -17774,7 +16734,7 @@
    "to": "SVC-FORMAT-CODE",
    "relation": "implemented_by",
    "evidence": [
-    "src/services/formatter/index.ts:9"
+    "src/services/formatter/index.ts:8"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -17785,7 +16745,7 @@
    "to": "FLOW-WORKSPACE-SEARCH",
    "relation": "contains",
    "evidence": [
-    "src/components/command/CommandPalette.tsx:197"
+    "src/components/command/CommandPalette.tsx:22"
    ],
    "method": "derived",
    "source": "flows:features"
@@ -17808,7 +16768,7 @@
    "to": "CMP-COMMAND-PALETTE",
    "relation": "implemented_by",
    "evidence": [
-    "src/components/command/CommandPalette.tsx:15"
+    "src/components/command/CommandPalette.tsx:14"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -17841,22 +16801,11 @@
    "to": "SHC-CTRL-P",
    "relation": "implemented_by",
    "evidence": [
-    "src/components/command/CommandPalette.tsx:197"
+    "src/components/command/CommandPalette.tsx:22"
    ],
    "method": "derived",
    "source": "features.yaml:entry_nodes",
    "role": "entry"
-  },
-  {
-   "id": "FEAT-COMMAND-PALETTE|implemented_by|SVC-COMMAND-REGISTRY",
-   "from": "FEAT-COMMAND-PALETTE",
-   "to": "SVC-COMMAND-REGISTRY",
-   "relation": "implemented_by",
-   "evidence": [
-    "src/commands/commandRegistry.ts:63"
-   ],
-   "method": "derived",
-   "source": "features.yaml:implemented_by"
   },
   {
    "id": "FEAT-CONFLICT|contains|FLOW-CONFLICT-ON-SAVE",
@@ -18495,7 +17444,7 @@
    "to": "IPCC-EXPORT-EPUB",
    "relation": "implemented_by",
    "evidence": [
-    "src/lib/ipc/client.ts:139"
+    "src/lib/ipc/client.ts:130"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -18506,7 +17455,7 @@
    "to": "OSI-PICK-SAVE-EPUB",
    "relation": "implemented_by",
    "evidence": [
-    "src/lib/ipc/client.ts:345"
+    "src/lib/ipc/client.ts:336"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -18628,7 +17577,7 @@
    "to": "IPCC-EXPORT-HTML",
    "relation": "implemented_by",
    "evidence": [
-    "src/lib/ipc/client.ts:135"
+    "src/lib/ipc/client.ts:126"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -18639,7 +17588,7 @@
    "to": "OSI-CONFIRM-OVERWRITE",
    "relation": "implemented_by",
    "evidence": [
-    "src/lib/ipc/client.ts:378"
+    "src/lib/ipc/client.ts:369"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -18650,7 +17599,7 @@
    "to": "OSI-PICK-SAVE-HTML",
    "relation": "implemented_by",
    "evidence": [
-    "src/lib/ipc/client.ts:362"
+    "src/lib/ipc/client.ts:353"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -18821,28 +17770,6 @@
    "role": "entry"
   },
   {
-   "id": "FEAT-HIDE-INTERNAL-FILES|implemented_by|CMP-FILE-EXPLORER",
-   "from": "FEAT-HIDE-INTERNAL-FILES",
-   "to": "CMP-FILE-EXPLORER",
-   "relation": "implemented_by",
-   "evidence": [
-    "src/components/FileExplorer.tsx:56"
-   ],
-   "method": "derived",
-   "source": "features.yaml:implemented_by"
-  },
-  {
-   "id": "FEAT-HOVER-PREVIEW|implemented_by|CMP-HOVER-PREVIEW",
-   "from": "FEAT-HOVER-PREVIEW",
-   "to": "CMP-HOVER-PREVIEW",
-   "relation": "implemented_by",
-   "evidence": [
-    "src/components/editor/HoverPreview.tsx:52"
-   ],
-   "method": "derived",
-   "source": "features.yaml:implemented_by"
-  },
-  {
    "id": "FEAT-KATEX|contains|FLOW-PREVIEW-RENDER",
    "from": "FEAT-KATEX",
    "to": "FLOW-PREVIEW-RENDER",
@@ -18859,7 +17786,7 @@
    "to": "PIPE-KATEX",
    "relation": "implemented_by",
    "evidence": [
-    "src/markdown/processor.ts:88"
+    "src/markdown/processor.ts:87"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by",
@@ -18873,7 +17800,7 @@
    "to": "PIPE-REMARK-MATH",
    "relation": "implemented_by",
    "evidence": [
-    "src/markdown/processor.ts:52"
+    "src/markdown/processor.ts:51"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -18933,50 +17860,6 @@
    "method": "derived",
    "source": "features.yaml:entry_nodes",
    "role": "entry"
-  },
-  {
-   "id": "FEAT-MD-DOCTOR|implemented_by|CLS-RS-DOCTOR",
-   "from": "FEAT-MD-DOCTOR",
-   "to": "CLS-RS-DOCTOR",
-   "relation": "implemented_by",
-   "evidence": [
-    "src-tauri/crates/md-studio-core/src/doctor/mod.rs:35"
-   ],
-   "method": "derived",
-   "source": "features.yaml:implemented_by"
-  },
-  {
-   "id": "FEAT-MD-DOCTOR|implemented_by|FN-MD-DOCTOR-HOVER-TOOLTIP",
-   "from": "FEAT-MD-DOCTOR",
-   "to": "FN-MD-DOCTOR-HOVER-TOOLTIP",
-   "relation": "implemented_by",
-   "evidence": [
-    "src/editor/mdDoctorLinter.ts:65"
-   ],
-   "method": "derived",
-   "source": "features.yaml:implemented_by"
-  },
-  {
-   "id": "FEAT-MD-DOCTOR|implemented_by|FN-RS-DOCTOR-DIAGNOSE",
-   "from": "FEAT-MD-DOCTOR",
-   "to": "FN-RS-DOCTOR-DIAGNOSE",
-   "relation": "implemented_by",
-   "evidence": [
-    "src-tauri/crates/md-studio-core/src/doctor/mod.rs:39"
-   ],
-   "method": "derived",
-   "source": "features.yaml:implemented_by"
-  },
-  {
-   "id": "FEAT-MD-DOCTOR|implemented_by|SVC-MD-DOCTOR-LINTER",
-   "from": "FEAT-MD-DOCTOR",
-   "to": "SVC-MD-DOCTOR-LINTER",
-   "relation": "implemented_by",
-   "evidence": [
-    "src/editor/mdDoctorLinter.ts:175"
-   ],
-   "method": "derived",
-   "source": "features.yaml:implemented_by"
   },
   {
    "id": "FEAT-MERMAID-EXPORT|implemented_by|CMP-MERMAID-BLOCK",
@@ -19076,7 +17959,7 @@
    "to": "PIPE-MERMAID-BLOCKS",
    "relation": "implemented_by",
    "evidence": [
-    "src/markdown/processor.ts:124"
+    "src/markdown/processor.ts:113"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -19165,7 +18048,7 @@
    "to": "DTO-TS-REINDEX-REPORT",
    "relation": "implemented_by",
    "evidence": [
-    "src/types/metadata.ts:76"
+    "src/types/metadata.ts:55"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -19286,7 +18169,7 @@
    "to": "FN-REINDEX-ENGINE-APPLY-EXTERNAL-CHANGE",
    "relation": "implemented_by",
    "evidence": [
-    "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:161"
+    "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:149"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -19319,7 +18202,7 @@
    "to": "FN-REINDEX-ENGINE-REINDEX-FILE",
    "relation": "implemented_by",
    "evidence": [
-    "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:85"
+    "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:73"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -19330,7 +18213,7 @@
    "to": "FN-REINDEX-ENGINE-REMOVE-FILE",
    "relation": "implemented_by",
    "evidence": [
-    "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:126"
+    "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:114"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -19473,7 +18356,7 @@
    "to": "IPCC-GET-ALL-DOCUMENTS",
    "relation": "implemented_by",
    "evidence": [
-    "src/lib/ipc/metadata.ts:42"
+    "src/lib/ipc/metadata.ts:41"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -19484,7 +18367,7 @@
    "to": "IPCC-GET-DOCUMENT-METADATA",
    "relation": "implemented_by",
    "evidence": [
-    "src/lib/ipc/metadata.ts:37"
+    "src/lib/ipc/metadata.ts:36"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -19495,7 +18378,7 @@
    "to": "IPCC-GET-TAGS",
    "relation": "implemented_by",
    "evidence": [
-    "src/lib/ipc/metadata.ts:71"
+    "src/lib/ipc/metadata.ts:70"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -19506,7 +18389,7 @@
    "to": "IPCC-GET-WORKSPACE-STATS",
    "relation": "implemented_by",
    "evidence": [
-    "src/lib/ipc/metadata.ts:21"
+    "src/lib/ipc/metadata.ts:20"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -19517,7 +18400,7 @@
    "to": "IPCC-TRIGGER-REINDEX",
    "relation": "implemented_by",
    "evidence": [
-    "src/lib/ipc/metadata.ts:47"
+    "src/lib/ipc/metadata.ts:46"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -19660,7 +18543,7 @@
    "to": "BTN-EXPLORER-OPEN-FILE",
    "relation": "implemented_by",
    "evidence": [
-    "src/components/FileExplorer.tsx:253"
+    "src/components/FileExplorer.tsx:205"
    ],
    "method": "derived",
    "source": "features.yaml:entry_nodes",
@@ -19772,7 +18655,7 @@
    "to": "HDL-EXPLORER-ENTRY-CLICK",
    "relation": "implemented_by",
    "evidence": [
-    "src/components/FileExplorer.tsx:191"
+    "src/components/FileExplorer.tsx:143"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -19783,7 +18666,7 @@
    "to": "HDL-EXPLORER-OPEN-FILE",
    "relation": "implemented_by",
    "evidence": [
-    "src/components/FileExplorer.tsx:165"
+    "src/components/FileExplorer.tsx:117"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -19816,7 +18699,7 @@
    "to": "OSI-PICK-MARKDOWN-FILE",
    "relation": "implemented_by",
    "evidence": [
-    "src/lib/ipc/client.ts:185"
+    "src/lib/ipc/client.ts:176"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -19861,7 +18744,7 @@
    "to": "CNS-SUBSCRIBE-OPEN-FILE",
    "relation": "implemented_by",
    "evidence": [
-    "src/lib/ipc/client.ts:306"
+    "src/lib/ipc/client.ts:297"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -19916,7 +18799,7 @@
    "to": "IPCC-GET-LAUNCH-PATH",
    "relation": "implemented_by",
    "evidence": [
-    "src/lib/ipc/client.ts:151"
+    "src/lib/ipc/client.ts:142"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -19988,7 +18871,7 @@
    "to": "BTN-EXPLORER-OPEN-FOLDER",
    "relation": "implemented_by",
    "evidence": [
-    "src/components/FileExplorer.tsx:242"
+    "src/components/FileExplorer.tsx:194"
    ],
    "method": "derived",
    "source": "features.yaml:entry_nodes",
@@ -20012,7 +18895,7 @@
    "to": "CMP-FILE-EXPLORER",
    "relation": "implemented_by",
    "evidence": [
-    "src/components/FileExplorer.tsx:56"
+    "src/components/FileExplorer.tsx:23"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -20067,7 +18950,7 @@
    "to": "FN-BROWSER-INVOKE",
    "relation": "implemented_by",
    "evidence": [
-    "src/lib/ipc/client.ts:232"
+    "src/lib/ipc/client.ts:223"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -20188,7 +19071,7 @@
    "to": "HDL-EXPLORER-ENTRY-CLICK",
    "relation": "implemented_by",
    "evidence": [
-    "src/components/FileExplorer.tsx:191"
+    "src/components/FileExplorer.tsx:143"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -20199,7 +19082,7 @@
    "to": "HDL-EXPLORER-OPEN-FOLDER",
    "relation": "implemented_by",
    "evidence": [
-    "src/components/FileExplorer.tsx:136"
+    "src/components/FileExplorer.tsx:88"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -20265,7 +19148,7 @@
    "to": "OSI-PICK-FOLDER",
    "relation": "implemented_by",
    "evidence": [
-    "src/lib/ipc/client.ts:162"
+    "src/lib/ipc/client.ts:153"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -20324,18 +19207,7 @@
    "to": "IPCC-GET-RESOLVED-WIKI-LINKS-FOR",
    "relation": "implemented_by",
    "evidence": [
-    "src/lib/ipc/metadata.ts:66"
-   ],
-   "method": "derived",
-   "source": "features.yaml:implemented_by"
-  },
-  {
-   "id": "FEAT-OUTLINE-FILTER|implemented_by|CMP-DOCUMENT-OUTLINE",
-   "from": "FEAT-OUTLINE-FILTER",
-   "to": "CMP-DOCUMENT-OUTLINE",
-   "relation": "implemented_by",
-   "evidence": [
-    "src/components/DocumentOutline.tsx:15"
+    "src/lib/ipc/metadata.ts:65"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -20346,7 +19218,7 @@
    "to": "CMP-DOCUMENT-OUTLINE",
    "relation": "implemented_by",
    "evidence": [
-    "src/components/DocumentOutline.tsx:15"
+    "src/components/DocumentOutline.tsx:14"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by",
@@ -20360,7 +19232,7 @@
    "to": "FN-SCROLL-TO-HEADING",
    "relation": "implemented_by",
    "evidence": [
-    "src/services/navigation.ts:40"
+    "src/services/navigation.ts:39"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -20382,7 +19254,7 @@
    "to": "PIPE-HEADING-IDS",
    "relation": "implemented_by",
    "evidence": [
-    "src/markdown/processor.ts:98"
+    "src/markdown/processor.ts:97"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -20626,7 +19498,7 @@
    "to": "CMP-MARKDOWN-VIEWER",
    "relation": "implemented_by",
    "evidence": [
-    "src/components/MarkdownViewer.tsx:14"
+    "src/components/MarkdownViewer.tsx:10"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by",
@@ -20640,7 +19512,7 @@
    "to": "FN-RESOLVE-RELATIVE-LINK",
    "relation": "implemented_by",
    "evidence": [
-    "src/services/navigation.ts:60"
+    "src/services/navigation.ts:58"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -20651,7 +19523,7 @@
    "to": "OSI-OPEN-EXTERNAL-URL",
    "relation": "implemented_by",
    "evidence": [
-    "src/services/navigation.ts:101"
+    "src/services/navigation.ts:93"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -20662,7 +19534,7 @@
    "to": "PIPE-HAST-TO-HTML",
    "relation": "implemented_by",
    "evidence": [
-    "src/markdown/processor.ts:203"
+    "src/markdown/processor.ts:192"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -20673,7 +19545,7 @@
    "to": "PIPE-HEADING-IDS",
    "relation": "implemented_by",
    "evidence": [
-    "src/markdown/processor.ts:98"
+    "src/markdown/processor.ts:97"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -20684,7 +19556,7 @@
    "to": "PIPE-REMARK-GFM",
    "relation": "implemented_by",
    "evidence": [
-    "src/markdown/processor.ts:50"
+    "src/markdown/processor.ts:49"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -20695,7 +19567,7 @@
    "to": "PIPE-REMARK-REHYPE",
    "relation": "implemented_by",
    "evidence": [
-    "src/markdown/processor.ts:58"
+    "src/markdown/processor.ts:57"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -20706,7 +19578,7 @@
    "to": "SVC-PROCESS-MARKDOWN",
    "relation": "implemented_by",
    "evidence": [
-    "src/markdown/processor.ts:33"
+    "src/markdown/processor.ts:32"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -20797,7 +19669,7 @@
    "to": "PIPE-REHYPE-RAW",
    "relation": "implemented_by",
    "evidence": [
-    "src/markdown/processor.ts:59"
+    "src/markdown/processor.ts:58"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -20863,7 +19735,7 @@
    "to": "OSI-PICK-SAVE-MARKDOWN",
    "relation": "implemented_by",
    "evidence": [
-    "src/lib/ipc/client.ts:206"
+    "src/lib/ipc/client.ts:197"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -21087,7 +19959,7 @@
    "to": "STO-BROWSER-HASH-CACHE",
    "relation": "implemented_by",
    "evidence": [
-    "src/lib/ipc/client.ts:230"
+    "src/lib/ipc/client.ts:221"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -21131,7 +20003,7 @@
    "to": "CMP-SETTINGS-PANEL",
    "relation": "implemented_by",
    "evidence": [
-    "src/components/settings/SettingsPanel.tsx:210"
+    "src/components/settings/SettingsPanel.tsx:190"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -21209,7 +20081,7 @@
    "to": "PIPE-SHIKI",
    "relation": "implemented_by",
    "evidence": [
-    "src/markdown/shiki.ts:28"
+    "src/markdown/shiki.ts:27"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by",
@@ -21339,68 +20211,13 @@
    "to": "FN-SMART-PASTE",
    "relation": "implemented_by",
    "evidence": [
-    "src/editor/paste/paste-plugin.ts:6"
+    "src/editor/paste/paste-plugin.ts:5"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by",
    "also_from": [
     "features.yaml:entry_nodes"
    ]
-  },
-  {
-   "id": "FEAT-SMART-REFERENCES|implemented_by|FN-RESOLVE-SMART-REFERENCE",
-   "from": "FEAT-SMART-REFERENCES",
-   "to": "FN-RESOLVE-SMART-REFERENCE",
-   "relation": "implemented_by",
-   "evidence": [
-    "src/editor/smartReferences.ts:111"
-   ],
-   "method": "derived",
-   "source": "features.yaml:implemented_by"
-  },
-  {
-   "id": "FEAT-SMART-REFERENCES|implemented_by|SVC-SMART-REFERENCES",
-   "from": "FEAT-SMART-REFERENCES",
-   "to": "SVC-SMART-REFERENCES",
-   "relation": "implemented_by",
-   "evidence": [
-    "src/editor/smartReferences.ts:21"
-   ],
-   "method": "derived",
-   "source": "features.yaml:implemented_by"
-  },
-  {
-   "id": "FEAT-SOURCE-MAP|implemented_by|SVC-SOURCE-MAP",
-   "from": "FEAT-SOURCE-MAP",
-   "to": "SVC-SOURCE-MAP",
-   "relation": "implemented_by",
-   "evidence": [
-    "src/markdown/sourceMap.ts:48"
-   ],
-   "method": "derived",
-   "source": "features.yaml:implemented_by"
-  },
-  {
-   "id": "FEAT-SPELL-CHECKER|implemented_by|CLS-LOCAL-SPELL-CHECKER",
-   "from": "FEAT-SPELL-CHECKER",
-   "to": "CLS-LOCAL-SPELL-CHECKER",
-   "relation": "implemented_by",
-   "evidence": [
-    "src/editor/spellcheck/spellChecker.ts:66"
-   ],
-   "method": "derived",
-   "source": "features.yaml:implemented_by"
-  },
-  {
-   "id": "FEAT-SPELL-CHECKER|implemented_by|SVC-SPELL-LINTER-EXTENSION",
-   "from": "FEAT-SPELL-CHECKER",
-   "to": "SVC-SPELL-LINTER-EXTENSION",
-   "relation": "implemented_by",
-   "evidence": [
-    "src/editor/spellcheck/spellLinter.ts:254"
-   ],
-   "method": "derived",
-   "source": "features.yaml:implemented_by"
   },
   {
    "id": "FEAT-SPLASH-PACKAGING|contains|FLOW-APP-BOOT",
@@ -21498,17 +20315,6 @@
    "relation": "implemented_by",
    "evidence": [
     "src-tauri/src/lib.rs:59"
-   ],
-   "method": "derived",
-   "source": "features.yaml:implemented_by"
-  },
-  {
-   "id": "FEAT-TABLE-DATA-PASTE|implemented_by|SVC-TABLE-DATA-PASTE",
-   "from": "FEAT-TABLE-DATA-PASTE",
-   "to": "SVC-TABLE-DATA-PASTE",
-   "relation": "implemented_by",
-   "evidence": [
-    "src/editor/tableDataPaste.ts:236"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -21641,17 +20447,6 @@
    "role": "entry"
   },
   {
-   "id": "FEAT-TOOLING-SETTINGS|implemented_by|CMP-TOOLING-SETTINGS",
-   "from": "FEAT-TOOLING-SETTINGS",
-   "to": "CMP-TOOLING-SETTINGS",
-   "relation": "implemented_by",
-   "evidence": [
-    "src/components/settings/ToolingSettings.tsx:8"
-   ],
-   "method": "derived",
-   "source": "features.yaml:implemented_by"
-  },
-  {
    "id": "FEAT-VIEW-MODES|implemented_by|FN-USE-SCROLL-SYNC",
    "from": "FEAT-VIEW-MODES",
    "to": "FN-USE-SCROLL-SYNC",
@@ -21746,7 +20541,7 @@
    "to": "CNS-SUBSCRIBE-WORKSPACE-WATCH",
    "relation": "implemented_by",
    "evidence": [
-    "src/lib/ipc/client.ts:323"
+    "src/lib/ipc/client.ts:314"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -21801,7 +20596,7 @@
    "to": "FN-REINDEX-ENGINE-APPLY-EXTERNAL-CHANGE",
    "relation": "implemented_by",
    "evidence": [
-    "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:161"
+    "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:149"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -21879,7 +20674,7 @@
    "to": "IPCC-START-WATCHING",
    "relation": "implemented_by",
    "evidence": [
-    "src/lib/ipc/client.ts:148"
+    "src/lib/ipc/client.ts:139"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -21890,7 +20685,7 @@
    "to": "IPCC-STOP-WATCHING",
    "relation": "implemented_by",
    "evidence": [
-    "src/lib/ipc/client.ts:149"
+    "src/lib/ipc/client.ts:140"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -21923,7 +20718,7 @@
    "to": "FN-CREATE-WIKI-COMPLETION-EXTENSIONS",
    "relation": "implemented_by",
    "evidence": [
-    "src/editor/wiki/wiki-completion.ts:123"
+    "src/editor/wiki/wiki-completion.ts:88"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by",
@@ -21937,7 +20732,7 @@
    "to": "FN-WIKI-CANDIDATES",
    "relation": "implemented_by",
    "evidence": [
-    "src/editor/wiki/wiki-completion.ts:25"
+    "src/editor/wiki/wiki-completion.ts:24"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -22014,7 +20809,7 @@
    "to": "HDL-VIEWER-ON-CLICK",
    "relation": "implemented_by",
    "evidence": [
-    "src/components/MarkdownViewer.tsx:66"
+    "src/components/MarkdownViewer.tsx:54"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by",
@@ -22061,7 +20856,7 @@
    "to": "IPCC-GET-RESOLVED-WIKI-LINKS-FOR",
    "relation": "implemented_by",
    "evidence": [
-    "src/lib/ipc/metadata.ts:66"
+    "src/lib/ipc/metadata.ts:65"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -22072,7 +20867,7 @@
    "to": "IPCC-GET-WIKI-LINKS-FOR",
    "relation": "implemented_by",
    "evidence": [
-    "src/lib/ipc/metadata.ts:54"
+    "src/lib/ipc/metadata.ts:53"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -22083,7 +20878,7 @@
    "to": "IPCC-RESOLVE-WIKI-LINK",
    "relation": "implemented_by",
    "evidence": [
-    "src/lib/ipc/metadata.ts:59"
+    "src/lib/ipc/metadata.ts:58"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -22105,21 +20900,10 @@
    "to": "FLOW-WORKSPACE-SEARCH",
    "relation": "contains",
    "evidence": [
-    "src/components/command/CommandPalette.tsx:197"
+    "src/components/command/CommandPalette.tsx:22"
    ],
    "method": "derived",
    "source": "flows:features"
-  },
-  {
-   "id": "FEAT-WORKSPACE-SEARCH|implemented_by|CMP-WORKSPACE-SEARCH",
-   "from": "FEAT-WORKSPACE-SEARCH",
-   "to": "CMP-WORKSPACE-SEARCH",
-   "relation": "implemented_by",
-   "evidence": [
-    "src/components/workspace/WorkspaceSearch.tsx:243"
-   ],
-   "method": "derived",
-   "source": "features.yaml:implemented_by"
   },
   {
    "id": "FEAT-WORKSPACE-SEARCH|implemented_by|DTO-RS-SEARCH-RESULT",
@@ -22842,7 +21626,7 @@
    "to": "CNS-SUBSCRIBE-WORKSPACE-WATCH",
    "relation": "contains",
    "evidence": [
-    "src/lib/ipc/client.ts:323",
+    "src/lib/ipc/client.ts:320",
     "src-tauri/src/watcher/mod.rs:19"
    ],
    "method": "derived",
@@ -23862,7 +22646,7 @@
    "to": "BTN-PREVIEW-FORMAT-CODE",
    "relation": "contains",
    "evidence": [
-    "src/components/MarkdownViewer.tsx:439"
+    "src/components/MarkdownViewer.tsx:158"
    ],
    "method": "derived",
    "source": "flows",
@@ -24003,7 +22787,7 @@
    "to": "FN-REPLACE-FENCED-CODE-BLOCK",
    "relation": "contains",
    "evidence": [
-    "src/components/MarkdownViewer.tsx:439"
+    "src/components/MarkdownViewer.tsx:175"
    ],
    "method": "derived",
    "source": "flows",
@@ -24587,7 +23371,7 @@
    "to": "CNS-SUBSCRIBE-OPEN-FILE",
    "relation": "contains",
    "evidence": [
-    "src/lib/ipc/client.ts:306",
+    "src/lib/ipc/client.ts:302",
     "src-tauri/src/lib.rs:41"
    ],
    "method": "derived",
@@ -24807,7 +23591,7 @@
    "to": "BTN-EXPLORER-OPEN-FILE",
    "relation": "contains",
    "evidence": [
-    "src/components/FileExplorer.tsx:253"
+    "src/components/FileExplorer.tsx:205"
    ],
    "method": "derived",
    "source": "flows",
@@ -25022,7 +23806,7 @@
    "to": "BTN-EXPLORER-OPEN-FOLDER",
    "relation": "contains",
    "evidence": [
-    "src/components/FileExplorer.tsx:242"
+    "src/components/FileExplorer.tsx:194"
    ],
    "method": "derived",
    "source": "flows",
@@ -25064,7 +23848,7 @@
    "to": "CMP-FILE-EXPLORER",
    "relation": "contains",
    "evidence": [
-    "src/components/FileExplorer.tsx:56"
+    "src/components/FileExplorer.tsx:23"
    ],
    "method": "derived",
    "source": "flows",
@@ -25704,7 +24488,7 @@
    "to": "PIPE-SHIKI",
    "relation": "contains",
    "evidence": [
-    "src/markdown/processor.ts:50"
+    "src/markdown/processor.ts:54"
    ],
    "method": "derived",
    "source": "flows",
@@ -26181,7 +24965,7 @@
    "to": "CMP-MARKDOWN-VIEWER",
    "relation": "contains",
    "evidence": [
-    "src/components/MarkdownViewer.tsx:14"
+    "src/components/MarkdownViewer.tsx:10"
    ],
    "method": "derived",
    "source": "flows",
@@ -26310,7 +25094,7 @@
    "to": "HDL-VIEWER-ON-CLICK",
    "relation": "contains",
    "evidence": [
-    "src/components/MarkdownViewer.tsx:66"
+    "src/components/MarkdownViewer.tsx:54"
    ],
    "method": "derived",
    "source": "flows",
@@ -26453,7 +25237,7 @@
    "to": "CMP-COMMAND-PALETTE",
    "relation": "contains",
    "evidence": [
-    "src/components/command/CommandPalette.tsx:15"
+    "src/components/command/CommandPalette.tsx:14"
    ],
    "method": "derived",
    "source": "flows",
@@ -26570,7 +25354,7 @@
    "to": "SHC-CTRL-P",
    "relation": "contains",
    "evidence": [
-    "src/components/command/CommandPalette.tsx:197"
+    "src/components/command/CommandPalette.tsx:22"
    ],
    "method": "derived",
    "source": "flows",
@@ -27005,7 +25789,7 @@
    "to": "FN-READ-BROWSER-FILE",
    "relation": "calls",
    "evidence": [
-    "src/lib/ipc/client.ts:250"
+    "src/lib/ipc/client.ts:243"
    ],
    "method": "observed",
    "source": "edges.yaml",
@@ -28490,17 +27274,6 @@
    "trace_task": "TRACE-010"
   },
   {
-   "id": "FN-MD-DOCTOR-HOVER-TOOLTIP|covered_by|TST-TS-MD-DOCTOR-LINTER",
-   "from": "FN-MD-DOCTOR-HOVER-TOOLTIP",
-   "to": "TST-TS-MD-DOCTOR-LINTER",
-   "relation": "covered_by",
-   "evidence": [
-    "tests/editor/mdDoctorLinter.test.ts:35"
-   ],
-   "method": "observed",
-   "source": "edges.yaml"
-  },
-  {
    "id": "FN-MERMAID-SVG-TO-PNG|calls|FN-EMBED-STYLES-IN-SVG",
    "from": "FN-MERMAID-SVG-TO-PNG",
    "to": "FN-EMBED-STYLES-IN-SVG",
@@ -28845,7 +27618,7 @@
    "to": "FN-REINDEX-ENGINE-REMOVE-FILE",
    "relation": "calls",
    "evidence": [
-    "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:161"
+    "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:152"
    ],
    "method": "observed",
    "source": "edges.yaml",
@@ -29092,7 +27865,7 @@
    "to": "TST-RS-EXTERNAL-DELETE-AND-WATCH-APPLY-REMOVE-BACKLINKS",
    "relation": "covered_by",
    "evidence": [
-    "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:333"
+    "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:326"
    ],
    "method": "observed",
    "source": "edges.yaml",
@@ -29165,7 +27938,7 @@
    "to": "FN-BACKLINK-INDEX-REBUILD",
    "relation": "calls",
    "evidence": [
-    "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:115",
+    "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:108",
     "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:172"
    ],
    "method": "observed",
@@ -29204,7 +27977,7 @@
    "to": "TST-RS-ADD-AND-REMOVE-LINK-VIA-REINDEX-FILE-UPDATES-BACKLINKS",
    "relation": "covered_by",
    "evidence": [
-    "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:281"
+    "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:279"
    ],
    "method": "observed",
    "source": "edges.yaml",
@@ -29301,7 +28074,7 @@
    "to": "REPO-METADATA-INDEX",
    "relation": "writes",
    "evidence": [
-    "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:126"
+    "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:124"
    ],
    "method": "observed",
    "source": "edges.yaml",
@@ -29421,17 +28194,6 @@
    "method": "observed",
    "source": "edges.yaml",
    "trace_task": "TRACE-010"
-  },
-  {
-   "id": "FN-RESOLVE-SMART-REFERENCE|covered_by|TST-TS-SMART-REFERENCES",
-   "from": "FN-RESOLVE-SMART-REFERENCE",
-   "to": "TST-TS-SMART-REFERENCES",
-   "relation": "covered_by",
-   "evidence": [
-    "tests/editor/smartReferences.test.ts:50"
-   ],
-   "method": "observed",
-   "source": "edges.yaml"
   },
   {
    "id": "FN-RESOLVE-WIKI-LINK-CORE|calls|FN-IS-SAFE-RELATIVE-TARGET",
@@ -29555,17 +28317,6 @@
    "trace_task": "TRACE-005"
   },
   {
-   "id": "FN-RS-DOCTOR-DIAGNOSE|covered_by|TST-TS-MD-DOCTOR-LINTER",
-   "from": "FN-RS-DOCTOR-DIAGNOSE",
-   "to": "TST-TS-MD-DOCTOR-LINTER",
-   "relation": "covered_by",
-   "evidence": [
-    "tests/editor/mdDoctorLinter.test.ts:14"
-   ],
-   "method": "observed",
-   "source": "edges.yaml"
-  },
-  {
    "id": "FN-RS-MAIN|calls|FN-RS-RUN",
    "from": "FN-RS-MAIN",
    "to": "FN-RS-RUN",
@@ -29636,17 +28387,6 @@
    "method": "observed",
    "source": "edges.yaml",
    "trace_task": "TRACE-005"
-  },
-  {
-   "id": "FN-RS-SAVE-PASTED-ASSET|covered_by|TST-TS-ASSET-PASTE",
-   "from": "FN-RS-SAVE-PASTED-ASSET",
-   "to": "TST-TS-ASSET-PASTE",
-   "relation": "covered_by",
-   "evidence": [
-    "tests/services/assetPaste.test.ts:10"
-   ],
-   "method": "observed",
-   "source": "edges.yaml"
   },
   {
    "id": "FN-SAFE-WIKI-NOTE-PATH|calls|FN-SANITIZE-WIKI-FILE-NAME",
@@ -29804,33 +28544,11 @@
    "to": "FN-HTML-TO-MARKDOWN",
    "relation": "calls",
    "evidence": [
-    "src/editor/paste/paste-plugin.ts:20"
+    "src/editor/paste/paste-plugin.ts:22"
    ],
    "method": "observed",
    "source": "edges.yaml",
    "trace_task": "TRACE-010"
-  },
-  {
-   "id": "FN-SMART-PASTE|calls|SVC-ASSET-PASTE",
-   "from": "FN-SMART-PASTE",
-   "to": "SVC-ASSET-PASTE",
-   "relation": "calls",
-   "evidence": [
-    "src/services/assetPaste.ts:64"
-   ],
-   "method": "observed",
-   "source": "edges.yaml"
-  },
-  {
-   "id": "FN-SMART-PASTE|calls|SVC-TABLE-DATA-PASTE",
-   "from": "FN-SMART-PASTE",
-   "to": "SVC-TABLE-DATA-PASTE",
-   "relation": "calls",
-   "evidence": [
-    "src/editor/paste/paste-plugin.ts:18"
-   ],
-   "method": "observed",
-   "source": "edges.yaml"
   },
   {
    "id": "FN-SPAWN-WATCHER|calls|FN-APPLY-WATCH-TO-ENGINE",
@@ -29964,7 +28682,7 @@
    "relation": "depends_on",
    "evidence": [
     "src-tauri/src/commands/metadata.rs:104",
-    "src/lib/ipc/metadata.ts:42",
+    "src/lib/ipc/metadata.ts:41",
     "src-tauri/src/lib.rs:81"
    ],
    "method": "derived",
@@ -30025,7 +28743,7 @@
    "relation": "depends_on",
    "evidence": [
     "src-tauri/src/commands/metadata.rs:233",
-    "src/lib/ipc/metadata.ts:76",
+    "src/lib/ipc/metadata.ts:75",
     "src-tauri/src/lib.rs:87"
    ],
    "method": "derived",
@@ -30038,7 +28756,7 @@
    "relation": "depends_on",
    "evidence": [
     "src-tauri/src/commands/metadata.rs:90",
-    "src/lib/ipc/metadata.ts:37",
+    "src/lib/ipc/metadata.ts:36",
     "src-tauri/src/lib.rs:80"
    ],
    "method": "derived",
@@ -30051,7 +28769,7 @@
    "relation": "depends_on",
    "evidence": [
     "src-tauri/src/commands/metadata.rs:158",
-    "src/lib/ipc/metadata.ts:66",
+    "src/lib/ipc/metadata.ts:65",
     "src-tauri/src/lib.rs:85"
    ],
    "method": "derived",
@@ -30064,7 +28782,7 @@
    "relation": "depends_on",
    "evidence": [
     "src-tauri/src/commands/metadata.rs:131",
-    "src/lib/ipc/metadata.ts:54",
+    "src/lib/ipc/metadata.ts:53",
     "src-tauri/src/lib.rs:83"
    ],
    "method": "derived",
@@ -30089,7 +28807,7 @@
    "relation": "depends_on",
    "evidence": [
     "src-tauri/src/commands/metadata.rs:46",
-    "src/lib/ipc/metadata.ts:21",
+    "src/lib/ipc/metadata.ts:20",
     "src-tauri/src/lib.rs:79"
    ],
    "method": "derived",
@@ -30114,7 +28832,7 @@
    "relation": "depends_on",
    "evidence": [
     "src-tauri/src/commands/metadata.rs:173",
-    "src/lib/ipc/metadata.ts:71",
+    "src/lib/ipc/metadata.ts:70",
     "src-tauri/src/lib.rs:86"
    ],
    "method": "derived",
@@ -30163,7 +28881,7 @@
    "relation": "depends_on",
    "evidence": [
     "src-tauri/src/commands/metadata.rs:117",
-    "src/lib/ipc/metadata.ts:47",
+    "src/lib/ipc/metadata.ts:46",
     "src-tauri/src/lib.rs:82"
    ],
    "method": "derived",
@@ -30192,17 +28910,6 @@
    "method": "observed",
    "source": "edges.yaml",
    "trace_task": "TRACE-006"
-  },
-  {
-   "id": "FN-VALIDATE-ASSET-DESTINATION|covered_by|TST-TS-ASSET-PASTE",
-   "from": "FN-VALIDATE-ASSET-DESTINATION",
-   "to": "TST-TS-ASSET-PASTE",
-   "relation": "covered_by",
-   "evidence": [
-    "tests/services/assetPaste.test.ts:25"
-   ],
-   "method": "observed",
-   "source": "edges.yaml"
   },
   {
    "id": "FN-WATCHER-REGISTER-INTERNAL-SAVE|covered_by|TST-RS-INTERNAL-SAVE-SUPPRESSION-FLOW",
@@ -30809,7 +29516,7 @@
    "relation": "depends_on",
    "evidence": [
     "src-tauri/src/commands/metadata.rs:117",
-    "src/lib/ipc/metadata.ts:47",
+    "src/lib/ipc/metadata.ts:46",
     "src-tauri/src/lib.rs:82"
    ],
    "method": "derived",
@@ -31702,7 +30409,7 @@
    "to": "OSI-OPEN-EXTERNAL-URL",
    "relation": "calls",
    "evidence": [
-    "src/components/MarkdownViewer.tsx:100"
+    "src/components/MarkdownViewer.tsx:98"
    ],
    "method": "observed",
    "source": "edges.yaml",
@@ -31754,17 +30461,6 @@
    "evidence": [
     "src-tauri/crates/md-studio-core/src/persistence.rs:57",
     "src-tauri/crates/md-studio-core/src/persistence.rs:59"
-   ],
-   "method": "derived",
-   "source": "invariants.yaml:nodes"
-  },
-  {
-   "id": "INV-DESKTOP-LAUNCHER-ENV|implemented_by|OSI-DESKTOP-ENTRY",
-   "from": "INV-DESKTOP-LAUNCHER-ENV",
-   "to": "OSI-DESKTOP-ENTRY",
-   "relation": "implemented_by",
-   "evidence": [
-    "src-tauri/linux/md-studio.desktop:9"
    ],
    "method": "derived",
    "source": "invariants.yaml:nodes"
@@ -33782,7 +32478,7 @@
    "relation": "depends_on",
    "evidence": [
     "src-tauri/src/commands/metadata.rs:104",
-    "src/lib/ipc/metadata.ts:42",
+    "src/lib/ipc/metadata.ts:41",
     "src-tauri/src/lib.rs:81"
    ],
    "method": "derived",
@@ -33810,7 +32506,7 @@
    "relation": "depends_on",
    "evidence": [
     "src-tauri/src/commands/metadata.rs:233",
-    "src/lib/ipc/metadata.ts:76",
+    "src/lib/ipc/metadata.ts:75",
     "src-tauri/src/lib.rs:87"
    ],
    "method": "derived",
@@ -33851,7 +32547,7 @@
    "relation": "depends_on",
    "evidence": [
     "src-tauri/src/commands/metadata.rs:90",
-    "src/lib/ipc/metadata.ts:37",
+    "src/lib/ipc/metadata.ts:36",
     "src-tauri/src/lib.rs:80"
    ],
    "method": "derived",
@@ -33919,7 +32615,7 @@
    "relation": "depends_on",
    "evidence": [
     "src-tauri/src/commands/metadata.rs:158",
-    "src/lib/ipc/metadata.ts:66",
+    "src/lib/ipc/metadata.ts:65",
     "src-tauri/src/lib.rs:85"
    ],
    "method": "derived",
@@ -33960,7 +32656,7 @@
    "relation": "depends_on",
    "evidence": [
     "src-tauri/src/commands/metadata.rs:173",
-    "src/lib/ipc/metadata.ts:71",
+    "src/lib/ipc/metadata.ts:70",
     "src-tauri/src/lib.rs:86"
    ],
    "method": "derived",
@@ -34001,7 +32697,7 @@
    "relation": "depends_on",
    "evidence": [
     "src-tauri/src/commands/metadata.rs:131",
-    "src/lib/ipc/metadata.ts:54",
+    "src/lib/ipc/metadata.ts:53",
     "src-tauri/src/lib.rs:83"
    ],
    "method": "derived",
@@ -34042,7 +32738,7 @@
    "relation": "depends_on",
    "evidence": [
     "src-tauri/src/commands/metadata.rs:46",
-    "src/lib/ipc/metadata.ts:21",
+    "src/lib/ipc/metadata.ts:20",
     "src-tauri/src/lib.rs:79"
    ],
    "method": "derived",
@@ -34190,7 +32886,7 @@
    "relation": "depends_on",
    "evidence": [
     "src-tauri/src/commands/metadata.rs:147",
-    "src/lib/ipc/metadata.ts:59",
+    "src/lib/ipc/metadata.ts:58",
     "src-tauri/src/lib.rs:84"
    ],
    "method": "derived",
@@ -34427,7 +33123,7 @@
    "relation": "depends_on",
    "evidence": [
     "src-tauri/src/commands/metadata.rs:117",
-    "src/lib/ipc/metadata.ts:47",
+    "src/lib/ipc/metadata.ts:46",
     "src-tauri/src/lib.rs:82"
    ],
    "method": "derived",
@@ -34912,7 +33608,7 @@
    "to": "DTO-TS-BACKLINK-RESULT",
    "relation": "contains",
    "evidence": [
-    "src/types/metadata.ts:94"
+    "src/types/metadata.ts:73"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -35011,7 +33707,7 @@
    "to": "FN-REINDEX-ENGINE-BACKLINKS-FOR",
    "relation": "contains",
    "evidence": [
-    "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:153"
+    "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:141"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -35044,7 +33740,7 @@
    "to": "IPCC-GET-BACKLINKS",
    "relation": "contains",
    "evidence": [
-    "src/lib/ipc/metadata.ts:76"
+    "src/lib/ipc/metadata.ts:75"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -35336,17 +34032,6 @@
    "source": "nodes.yaml:module"
   },
   {
-   "id": "MOD-EDITOR|contains|CLS-LOCAL-SPELL-CHECKER",
-   "from": "MOD-EDITOR",
-   "to": "CLS-LOCAL-SPELL-CHECKER",
-   "relation": "contains",
-   "evidence": [
-    "src/editor/spellcheck/spellChecker.ts:66"
-   ],
-   "method": "derived",
-   "source": "nodes.yaml:module"
-  },
-  {
    "id": "MOD-EDITOR|contains|CMP-FORMATTING-TOOLBAR",
    "from": "MOD-EDITOR",
    "to": "CMP-FORMATTING-TOOLBAR",
@@ -35364,17 +34049,6 @@
    "relation": "contains",
    "evidence": [
     "src/components/editor/GoToLine.tsx:11"
-   ],
-   "method": "derived",
-   "source": "nodes.yaml:module"
-  },
-  {
-   "id": "MOD-EDITOR|contains|CMP-HOVER-PREVIEW",
-   "from": "MOD-EDITOR",
-   "to": "CMP-HOVER-PREVIEW",
-   "relation": "contains",
-   "evidence": [
-    "src/components/editor/HoverPreview.tsx:52"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -35446,34 +34120,12 @@
    "source": "nodes.yaml:module"
   },
   {
-   "id": "MOD-EDITOR|contains|FN-MD-DOCTOR-HOVER-TOOLTIP",
-   "from": "MOD-EDITOR",
-   "to": "FN-MD-DOCTOR-HOVER-TOOLTIP",
-   "relation": "contains",
-   "evidence": [
-    "src/editor/mdDoctorLinter.ts:65"
-   ],
-   "method": "derived",
-   "source": "nodes.yaml:module"
-  },
-  {
-   "id": "MOD-EDITOR|contains|FN-RESOLVE-SMART-REFERENCE",
-   "from": "MOD-EDITOR",
-   "to": "FN-RESOLVE-SMART-REFERENCE",
-   "relation": "contains",
-   "evidence": [
-    "src/editor/smartReferences.ts:111"
-   ],
-   "method": "derived",
-   "source": "nodes.yaml:module"
-  },
-  {
    "id": "MOD-EDITOR|contains|FN-SMART-PASTE",
    "from": "MOD-EDITOR",
    "to": "FN-SMART-PASTE",
    "relation": "contains",
    "evidence": [
-    "src/editor/paste/paste-plugin.ts:6"
+    "src/editor/paste/paste-plugin.ts:5"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -35496,50 +34148,6 @@
    "relation": "contains",
    "evidence": [
     "src/state/editor.ts:13"
-   ],
-   "method": "derived",
-   "source": "nodes.yaml:module"
-  },
-  {
-   "id": "MOD-EDITOR|contains|SVC-MD-DOCTOR-LINTER",
-   "from": "MOD-EDITOR",
-   "to": "SVC-MD-DOCTOR-LINTER",
-   "relation": "contains",
-   "evidence": [
-    "src/editor/mdDoctorLinter.ts:175"
-   ],
-   "method": "derived",
-   "source": "nodes.yaml:module"
-  },
-  {
-   "id": "MOD-EDITOR|contains|SVC-SMART-REFERENCES",
-   "from": "MOD-EDITOR",
-   "to": "SVC-SMART-REFERENCES",
-   "relation": "contains",
-   "evidence": [
-    "src/editor/smartReferences.ts:21"
-   ],
-   "method": "derived",
-   "source": "nodes.yaml:module"
-  },
-  {
-   "id": "MOD-EDITOR|contains|SVC-SPELL-LINTER-EXTENSION",
-   "from": "MOD-EDITOR",
-   "to": "SVC-SPELL-LINTER-EXTENSION",
-   "relation": "contains",
-   "evidence": [
-    "src/editor/spellcheck/spellLinter.ts:254"
-   ],
-   "method": "derived",
-   "source": "nodes.yaml:module"
-  },
-  {
-   "id": "MOD-EDITOR|contains|SVC-TABLE-DATA-PASTE",
-   "from": "MOD-EDITOR",
-   "to": "SVC-TABLE-DATA-PASTE",
-   "relation": "contains",
-   "evidence": [
-    "src/editor/tableDataPaste.ts:236"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -35683,61 +34291,6 @@
    "relation": "contains",
    "evidence": [
     "tests/guided-markdown/guidedMarkdownIntegration.test.ts:39"
-   ],
-   "method": "derived",
-   "source": "nodes.yaml:module"
-  },
-  {
-   "id": "MOD-EDITOR|contains|TST-TS-HOVER-PREVIEW",
-   "from": "MOD-EDITOR",
-   "to": "TST-TS-HOVER-PREVIEW",
-   "relation": "contains",
-   "evidence": [
-    "tests/components/hoverPreview.test.tsx:68"
-   ],
-   "method": "derived",
-   "source": "nodes.yaml:module"
-  },
-  {
-   "id": "MOD-EDITOR|contains|TST-TS-MD-DOCTOR-LINTER",
-   "from": "MOD-EDITOR",
-   "to": "TST-TS-MD-DOCTOR-LINTER",
-   "relation": "contains",
-   "evidence": [
-    "tests/editor/mdDoctorLinter.test.ts:12"
-   ],
-   "method": "derived",
-   "source": "nodes.yaml:module"
-  },
-  {
-   "id": "MOD-EDITOR|contains|TST-TS-SMART-REFERENCES",
-   "from": "MOD-EDITOR",
-   "to": "TST-TS-SMART-REFERENCES",
-   "relation": "contains",
-   "evidence": [
-    "tests/editor/smartReferences.test.ts:37"
-   ],
-   "method": "derived",
-   "source": "nodes.yaml:module"
-  },
-  {
-   "id": "MOD-EDITOR|contains|TST-TS-SPELL-CHECKER",
-   "from": "MOD-EDITOR",
-   "to": "TST-TS-SPELL-CHECKER",
-   "relation": "contains",
-   "evidence": [
-    "tests/editor/spellChecker.test.ts:5"
-   ],
-   "method": "derived",
-   "source": "nodes.yaml:module"
-  },
-  {
-   "id": "MOD-EDITOR|contains|TST-TS-TABLE-DATA-PASTE",
-   "from": "MOD-EDITOR",
-   "to": "TST-TS-TABLE-DATA-PASTE",
-   "relation": "contains",
-   "evidence": [
-    "tests/editor/tableDataPaste.test.ts:12"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -36023,7 +34576,7 @@
    "to": "IPCC-EXPORT-EPUB",
    "relation": "contains",
    "evidence": [
-    "src/lib/ipc/client.ts:139"
+    "src/lib/ipc/client.ts:130"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -36034,7 +34587,7 @@
    "to": "IPCC-EXPORT-HTML",
    "relation": "contains",
    "evidence": [
-    "src/lib/ipc/client.ts:135"
+    "src/lib/ipc/client.ts:126"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -36045,7 +34598,7 @@
    "to": "OSI-CONFIRM-OVERWRITE",
    "relation": "contains",
    "evidence": [
-    "src/lib/ipc/client.ts:378"
+    "src/lib/ipc/client.ts:369"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -36056,7 +34609,7 @@
    "to": "OSI-PICK-SAVE-EPUB",
    "relation": "contains",
    "evidence": [
-    "src/lib/ipc/client.ts:345"
+    "src/lib/ipc/client.ts:336"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -36067,7 +34620,7 @@
    "to": "OSI-PICK-SAVE-HTML",
    "relation": "contains",
    "evidence": [
-    "src/lib/ipc/client.ts:362"
+    "src/lib/ipc/client.ts:353"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -36342,7 +34895,7 @@
    "to": "BTN-PREVIEW-FORMAT-CODE",
    "relation": "contains",
    "evidence": [
-    "src/components/MarkdownViewer.tsx:439"
+    "src/components/MarkdownViewer.tsx:158"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -36507,7 +35060,7 @@
    "to": "IPCC-FORMAT-CODE",
    "relation": "contains",
    "evidence": [
-    "src/services/formatter/index.ts:26"
+    "src/services/formatter/index.ts:25"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -36529,18 +35082,7 @@
    "to": "SVC-FORMAT-CODE",
    "relation": "contains",
    "evidence": [
-    "src/services/formatter/index.ts:9"
-   ],
-   "method": "derived",
-   "source": "nodes.yaml:module"
-  },
-  {
-   "id": "MOD-FORMATTER|contains|SVC-FORMATTER-CAPABILITIES",
-   "from": "MOD-FORMATTER",
-   "to": "SVC-FORMATTER-CAPABILITIES",
-   "relation": "contains",
-   "evidence": [
-    "src/services/formatter/capabilities.ts:123"
+    "src/services/formatter/index.ts:8"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -36629,17 +35171,6 @@
    "relation": "contains",
    "evidence": [
     "src-tauri/src/commands/formatter.rs:352"
-   ],
-   "method": "derived",
-   "source": "nodes.yaml:module"
-  },
-  {
-   "id": "MOD-FORMATTER|contains|TST-TS-FORMATTER-CAPABILITIES",
-   "from": "MOD-FORMATTER",
-   "to": "TST-TS-FORMATTER-CAPABILITIES",
-   "relation": "contains",
-   "evidence": [
-    "tests/services/formatterCapabilities.test.ts:9"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -36738,7 +35269,7 @@
    "to": "PIPE-MERMAID-BLOCKS",
    "relation": "contains",
    "evidence": [
-    "src/markdown/processor.ts:124"
+    "src/markdown/processor.ts:113"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -36804,7 +35335,7 @@
    "to": "DTO-TS-REINDEX-REPORT",
    "relation": "contains",
    "evidence": [
-    "src/types/metadata.ts:76"
+    "src/types/metadata.ts:55"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -36925,7 +35456,7 @@
    "to": "FN-REINDEX-ENGINE-APPLY-EXTERNAL-CHANGE",
    "relation": "contains",
    "evidence": [
-    "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:161"
+    "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:149"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -36958,7 +35489,7 @@
    "to": "FN-REINDEX-ENGINE-REBUILD-BACKLINKS",
    "relation": "contains",
    "evidence": [
-    "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:146"
+    "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:134"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -36969,7 +35500,7 @@
    "to": "FN-REINDEX-ENGINE-REINDEX-FILE",
    "relation": "contains",
    "evidence": [
-    "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:85"
+    "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:73"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -36980,7 +35511,7 @@
    "to": "FN-REINDEX-ENGINE-REMOVE-FILE",
    "relation": "contains",
    "evidence": [
-    "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:126"
+    "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:114"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -37123,7 +35654,7 @@
    "to": "IPCC-GET-ALL-DOCUMENTS",
    "relation": "contains",
    "evidence": [
-    "src/lib/ipc/metadata.ts:42"
+    "src/lib/ipc/metadata.ts:41"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -37134,7 +35665,7 @@
    "to": "IPCC-GET-DOCUMENT-METADATA",
    "relation": "contains",
    "evidence": [
-    "src/lib/ipc/metadata.ts:37"
+    "src/lib/ipc/metadata.ts:36"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -37145,7 +35676,7 @@
    "to": "IPCC-GET-TAGS",
    "relation": "contains",
    "evidence": [
-    "src/lib/ipc/metadata.ts:71"
+    "src/lib/ipc/metadata.ts:70"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -37156,7 +35687,7 @@
    "to": "IPCC-GET-WORKSPACE-STATS",
    "relation": "contains",
    "evidence": [
-    "src/lib/ipc/metadata.ts:21"
+    "src/lib/ipc/metadata.ts:20"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -37167,7 +35698,7 @@
    "to": "IPCC-TRIGGER-REINDEX",
    "relation": "contains",
    "evidence": [
-    "src/lib/ipc/metadata.ts:47"
+    "src/lib/ipc/metadata.ts:46"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -37211,7 +35742,7 @@
    "to": "TST-RS-ADD-AND-REMOVE-LINK-VIA-REINDEX-FILE-UPDATES-BACKLINKS",
    "relation": "contains",
    "evidence": [
-    "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:281"
+    "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:269"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -37222,7 +35753,7 @@
    "to": "TST-RS-CREATING-UNRESOLVED-TARGET-THEN-REINDEX-ESTABLISHES-RELATION",
    "relation": "contains",
    "evidence": [
-    "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:319"
+    "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:307"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -37233,7 +35764,7 @@
    "to": "TST-RS-EXTERNAL-DELETE-AND-WATCH-APPLY-REMOVE-BACKLINKS",
    "relation": "contains",
    "evidence": [
-    "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:333"
+    "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:321"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -37244,7 +35775,7 @@
    "to": "TST-RS-REBUILD-MATCHES-INCREMENTAL-AND-LOADED-SNAPSHOT",
    "relation": "contains",
    "evidence": [
-    "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:347"
+    "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:335"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -37277,7 +35808,7 @@
    "to": "TST-RS-RETARGET-A-TO-B-AND-MULTI-SAVE-DOES-NOT-DUPLICATE",
    "relation": "contains",
    "evidence": [
-    "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:300"
+    "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:288"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -37365,7 +35896,7 @@
    "to": "TST-RS-TEST-REINDEX-ENGINE-WORKFLOW",
    "relation": "contains",
    "evidence": [
-    "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:235"
+    "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:223"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -37728,7 +36259,7 @@
    "to": "OSI-PICK-SAVE-MARKDOWN",
    "relation": "contains",
    "evidence": [
-    "src/lib/ipc/client.ts:206"
+    "src/lib/ipc/client.ts:197"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -38091,7 +36622,7 @@
    "to": "CMP-DOCUMENT-OUTLINE",
    "relation": "contains",
    "evidence": [
-    "src/components/DocumentOutline.tsx:15"
+    "src/components/DocumentOutline.tsx:14"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -38102,7 +36633,7 @@
    "to": "CMP-MARKDOWN-VIEWER",
    "relation": "contains",
    "evidence": [
-    "src/components/MarkdownViewer.tsx:14"
+    "src/components/MarkdownViewer.tsx:10"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -38113,7 +36644,7 @@
    "to": "FN-RESOLVE-RELATIVE-LINK",
    "relation": "contains",
    "evidence": [
-    "src/services/navigation.ts:60"
+    "src/services/navigation.ts:58"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -38124,7 +36655,7 @@
    "to": "FN-SCROLL-TO-HEADING",
    "relation": "contains",
    "evidence": [
-    "src/services/navigation.ts:40"
+    "src/services/navigation.ts:39"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -38157,7 +36688,7 @@
    "to": "HDL-VIEWER-ON-CLICK",
    "relation": "contains",
    "evidence": [
-    "src/components/MarkdownViewer.tsx:66"
+    "src/components/MarkdownViewer.tsx:54"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -38168,7 +36699,7 @@
    "to": "OSI-OPEN-EXTERNAL-URL",
    "relation": "contains",
    "evidence": [
-    "src/services/navigation.ts:101"
+    "src/services/navigation.ts:93"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -38201,7 +36732,7 @@
    "to": "PIPE-HAST-TO-HTML",
    "relation": "contains",
    "evidence": [
-    "src/markdown/processor.ts:203"
+    "src/markdown/processor.ts:192"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -38212,7 +36743,7 @@
    "to": "PIPE-HEADING-IDS",
    "relation": "contains",
    "evidence": [
-    "src/markdown/processor.ts:98"
+    "src/markdown/processor.ts:97"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -38223,7 +36754,7 @@
    "to": "PIPE-KATEX",
    "relation": "contains",
    "evidence": [
-    "src/markdown/processor.ts:88"
+    "src/markdown/processor.ts:87"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -38234,7 +36765,7 @@
    "to": "PIPE-REMARK-GFM",
    "relation": "contains",
    "evidence": [
-    "src/markdown/processor.ts:50"
+    "src/markdown/processor.ts:49"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -38245,7 +36776,7 @@
    "to": "PIPE-REMARK-MATH",
    "relation": "contains",
    "evidence": [
-    "src/markdown/processor.ts:52"
+    "src/markdown/processor.ts:51"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -38256,7 +36787,7 @@
    "to": "PIPE-REMARK-REHYPE",
    "relation": "contains",
    "evidence": [
-    "src/markdown/processor.ts:58"
+    "src/markdown/processor.ts:57"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -38267,18 +36798,7 @@
    "to": "PIPE-SHIKI",
    "relation": "contains",
    "evidence": [
-    "src/markdown/shiki.ts:28"
-   ],
-   "method": "derived",
-   "source": "nodes.yaml:module"
-  },
-  {
-   "id": "MOD-PREVIEW|contains|SVC-CODEBLOCK-METADATA",
-   "from": "MOD-PREVIEW",
-   "to": "SVC-CODEBLOCK-METADATA",
-   "relation": "contains",
-   "evidence": [
-    "src/markdown/codeBlockMetadata.ts:48"
+    "src/markdown/shiki.ts:27"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -38289,40 +36809,7 @@
    "to": "SVC-PROCESS-MARKDOWN",
    "relation": "contains",
    "evidence": [
-    "src/markdown/processor.ts:33"
-   ],
-   "method": "derived",
-   "source": "nodes.yaml:module"
-  },
-  {
-   "id": "MOD-PREVIEW|contains|SVC-SOURCE-MAP",
-   "from": "MOD-PREVIEW",
-   "to": "SVC-SOURCE-MAP",
-   "relation": "contains",
-   "evidence": [
-    "src/markdown/sourceMap.ts:48"
-   ],
-   "method": "derived",
-   "source": "nodes.yaml:module"
-  },
-  {
-   "id": "MOD-PREVIEW|contains|TST-TS-CODEBLOCK-METADATA",
-   "from": "MOD-PREVIEW",
-   "to": "TST-TS-CODEBLOCK-METADATA",
-   "relation": "contains",
-   "evidence": [
-    "tests/markdown/codeBlockMetadata.test.ts:8"
-   ],
-   "method": "derived",
-   "source": "nodes.yaml:module"
-  },
-  {
-   "id": "MOD-PREVIEW|contains|TST-TS-DOCUMENT-OUTLINE-FILTER",
-   "from": "MOD-PREVIEW",
-   "to": "TST-TS-DOCUMENT-OUTLINE-FILTER",
-   "relation": "contains",
-   "evidence": [
-    "tests/components/documentOutline.test.tsx:7"
+    "src/markdown/processor.ts:32"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -38460,17 +36947,6 @@
    "source": "nodes.yaml:module"
   },
   {
-   "id": "MOD-PREVIEW|contains|TST-TS-SOURCE-MAP",
-   "from": "MOD-PREVIEW",
-   "to": "TST-TS-SOURCE-MAP",
-   "relation": "contains",
-   "evidence": [
-    "tests/markdown/sourceMap.test.ts:8"
-   ],
-   "method": "derived",
-   "source": "nodes.yaml:module"
-  },
-  {
    "id": "MOD-SEARCH|contains|BTN-HEADER-QUICK-SEARCH",
    "from": "MOD-SEARCH",
    "to": "BTN-HEADER-QUICK-SEARCH",
@@ -38487,7 +36963,7 @@
    "to": "CMP-COMMAND-PALETTE",
    "relation": "contains",
    "evidence": [
-    "src/components/command/CommandPalette.tsx:15"
+    "src/components/command/CommandPalette.tsx:14"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -38499,17 +36975,6 @@
    "relation": "contains",
    "evidence": [
     "src/components/command/QuickSwitcher.tsx:24"
-   ],
-   "method": "derived",
-   "source": "nodes.yaml:module"
-  },
-  {
-   "id": "MOD-SEARCH|contains|CMP-WORKSPACE-SEARCH",
-   "from": "MOD-SEARCH",
-   "to": "CMP-WORKSPACE-SEARCH",
-   "relation": "contains",
-   "evidence": [
-    "src/components/workspace/WorkspaceSearch.tsx:243"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -38575,40 +37040,7 @@
    "to": "SHC-CTRL-P",
    "relation": "contains",
    "evidence": [
-    "src/components/command/CommandPalette.tsx:197"
-   ],
-   "method": "derived",
-   "source": "nodes.yaml:module"
-  },
-  {
-   "id": "MOD-SEARCH|contains|SVC-COMMAND-REGISTRY",
-   "from": "MOD-SEARCH",
-   "to": "SVC-COMMAND-REGISTRY",
-   "relation": "contains",
-   "evidence": [
-    "src/commands/commandRegistry.ts:63"
-   ],
-   "method": "derived",
-   "source": "nodes.yaml:module"
-  },
-  {
-   "id": "MOD-SEARCH|contains|TST-TS-COMMAND-REGISTRY",
-   "from": "MOD-SEARCH",
-   "to": "TST-TS-COMMAND-REGISTRY",
-   "relation": "contains",
-   "evidence": [
-    "tests/commands/commandRegistry.test.ts:4"
-   ],
-   "method": "derived",
-   "source": "nodes.yaml:module"
-  },
-  {
-   "id": "MOD-SEARCH|contains|TST-TS-WORKSPACE-SEARCH",
-   "from": "MOD-SEARCH",
-   "to": "TST-TS-WORKSPACE-SEARCH",
-   "relation": "contains",
-   "evidence": [
-    "tests/workspace/workspaceSearch.test.tsx:10"
+    "src/components/command/CommandPalette.tsx:22"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -38762,7 +37194,7 @@
    "to": "PIPE-REHYPE-RAW",
    "relation": "contains",
    "evidence": [
-    "src/markdown/processor.ts:59"
+    "src/markdown/processor.ts:58"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -38905,7 +37337,7 @@
    "to": "CMP-SETTINGS-PANEL",
    "relation": "contains",
    "evidence": [
-    "src/components/settings/SettingsPanel.tsx:210"
+    "src/components/settings/SettingsPanel.tsx:190"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -38917,17 +37349,6 @@
    "relation": "contains",
    "evidence": [
     "src/components/layout/SplitDivider.tsx:47"
-   ],
-   "method": "derived",
-   "source": "nodes.yaml:module"
-  },
-  {
-   "id": "MOD-SETTINGS-SESSION|contains|CMP-TOOLING-SETTINGS",
-   "from": "MOD-SETTINGS-SESSION",
-   "to": "CMP-TOOLING-SETTINGS",
-   "relation": "contains",
-   "evidence": [
-    "src/components/settings/ToolingSettings.tsx:8"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -39076,17 +37497,6 @@
    "source": "nodes.yaml:module"
   },
   {
-   "id": "MOD-SETTINGS-SESSION|contains|TST-TS-PREVIEW-READING-WIDTH",
-   "from": "MOD-SETTINGS-SESSION",
-   "to": "TST-TS-PREVIEW-READING-WIDTH",
-   "relation": "contains",
-   "evidence": [
-    "tests/settings/previewReadingWidth.test.tsx:13"
-   ],
-   "method": "derived",
-   "source": "nodes.yaml:module"
-  },
-  {
    "id": "MOD-SETTINGS-SESSION|contains|TST-TS-SETTINGS-PREVIEWREADINGWIDTH",
    "from": "MOD-SETTINGS-SESSION",
    "to": "TST-TS-SETTINGS-PREVIEWREADINGWIDTH",
@@ -39104,17 +37514,6 @@
    "relation": "contains",
    "evidence": [
     "tests/settings/settingsPanel.test.tsx:9"
-   ],
-   "method": "derived",
-   "source": "nodes.yaml:module"
-  },
-  {
-   "id": "MOD-SETTINGS-SESSION|contains|TST-TS-TOOLING-SETTINGS",
-   "from": "MOD-SETTINGS-SESSION",
-   "to": "TST-TS-TOOLING-SETTINGS",
-   "relation": "contains",
-   "evidence": [
-    "tests/settings/toolingSettings.test.tsx:6"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -39301,7 +37700,7 @@
    "to": "CNS-SUBSCRIBE-WORKSPACE-WATCH",
    "relation": "contains",
    "evidence": [
-    "src/lib/ipc/client.ts:323"
+    "src/lib/ipc/client.ts:314"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -39444,7 +37843,7 @@
    "to": "IPCC-START-WATCHING",
    "relation": "contains",
    "evidence": [
-    "src/lib/ipc/client.ts:148"
+    "src/lib/ipc/client.ts:139"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -39455,7 +37854,7 @@
    "to": "IPCC-STOP-WATCHING",
    "relation": "contains",
    "evidence": [
-    "src/lib/ipc/client.ts:149"
+    "src/lib/ipc/client.ts:140"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -39576,7 +37975,7 @@
    "to": "FN-CREATE-WIKI-COMPLETION-EXTENSIONS",
    "relation": "contains",
    "evidence": [
-    "src/editor/wiki/wiki-completion.ts:123"
+    "src/editor/wiki/wiki-completion.ts:88"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -39642,7 +38041,7 @@
    "to": "FN-WIKI-CANDIDATES",
    "relation": "contains",
    "evidence": [
-    "src/editor/wiki/wiki-completion.ts:25"
+    "src/editor/wiki/wiki-completion.ts:24"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -39697,7 +38096,7 @@
    "to": "IPCC-GET-RESOLVED-WIKI-LINKS-FOR",
    "relation": "contains",
    "evidence": [
-    "src/lib/ipc/metadata.ts:66"
+    "src/lib/ipc/metadata.ts:65"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -39708,7 +38107,7 @@
    "to": "IPCC-GET-WIKI-LINKS-FOR",
    "relation": "contains",
    "evidence": [
-    "src/lib/ipc/metadata.ts:54"
+    "src/lib/ipc/metadata.ts:53"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -39719,7 +38118,7 @@
    "to": "IPCC-RESOLVE-WIKI-LINK",
    "relation": "contains",
    "evidence": [
-    "src/lib/ipc/metadata.ts:59"
+    "src/lib/ipc/metadata.ts:58"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -39873,7 +38272,7 @@
    "to": "BTN-EXPLORER-OPEN-FILE",
    "relation": "contains",
    "evidence": [
-    "src/components/FileExplorer.tsx:253"
+    "src/components/FileExplorer.tsx:205"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -39884,7 +38283,7 @@
    "to": "BTN-EXPLORER-OPEN-FOLDER",
    "relation": "contains",
    "evidence": [
-    "src/components/FileExplorer.tsx:242"
+    "src/components/FileExplorer.tsx:194"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -39912,23 +38311,12 @@
    "source": "nodes.yaml:module"
   },
   {
-   "id": "MOD-WORKSPACE-FS|contains|CLS-RS-DOCTOR",
-   "from": "MOD-WORKSPACE-FS",
-   "to": "CLS-RS-DOCTOR",
-   "relation": "contains",
-   "evidence": [
-    "src-tauri/crates/md-studio-core/src/doctor/mod.rs:35"
-   ],
-   "method": "derived",
-   "source": "nodes.yaml:module"
-  },
-  {
    "id": "MOD-WORKSPACE-FS|contains|CMP-FILE-EXPLORER",
    "from": "MOD-WORKSPACE-FS",
    "to": "CMP-FILE-EXPLORER",
    "relation": "contains",
    "evidence": [
-    "src/components/FileExplorer.tsx:56"
+    "src/components/FileExplorer.tsx:23"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -39939,7 +38327,7 @@
    "to": "CNS-SUBSCRIBE-OPEN-FILE",
    "relation": "contains",
    "evidence": [
-    "src/lib/ipc/client.ts:306"
+    "src/lib/ipc/client.ts:297"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -40005,7 +38393,7 @@
    "to": "FN-BROWSER-INVOKE",
    "relation": "contains",
    "evidence": [
-    "src/lib/ipc/client.ts:232"
+    "src/lib/ipc/client.ts:223"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -40055,45 +38443,12 @@
    "source": "nodes.yaml:module"
   },
   {
-   "id": "MOD-WORKSPACE-FS|contains|FN-RS-DOCTOR-DIAGNOSE",
-   "from": "MOD-WORKSPACE-FS",
-   "to": "FN-RS-DOCTOR-DIAGNOSE",
-   "relation": "contains",
-   "evidence": [
-    "src-tauri/crates/md-studio-core/src/doctor/mod.rs:39"
-   ],
-   "method": "derived",
-   "source": "nodes.yaml:module"
-  },
-  {
-   "id": "MOD-WORKSPACE-FS|contains|FN-RS-SAVE-PASTED-ASSET",
-   "from": "MOD-WORKSPACE-FS",
-   "to": "FN-RS-SAVE-PASTED-ASSET",
-   "relation": "contains",
-   "evidence": [
-    "src-tauri/crates/md-studio-core/src/assets/mod.rs:60"
-   ],
-   "method": "derived",
-   "source": "nodes.yaml:module"
-  },
-  {
    "id": "MOD-WORKSPACE-FS|contains|FN-USE-FILE-TREE",
    "from": "MOD-WORKSPACE-FS",
    "to": "FN-USE-FILE-TREE",
    "relation": "contains",
    "evidence": [
     "src/hooks/useFileTree.ts:26"
-   ],
-   "method": "derived",
-   "source": "nodes.yaml:module"
-  },
-  {
-   "id": "MOD-WORKSPACE-FS|contains|FN-VALIDATE-ASSET-DESTINATION",
-   "from": "MOD-WORKSPACE-FS",
-   "to": "FN-VALIDATE-ASSET-DESTINATION",
-   "relation": "contains",
-   "evidence": [
-    "src/services/assetPaste.ts:21"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -40247,7 +38602,7 @@
    "to": "HDL-EXPLORER-ENTRY-CLICK",
    "relation": "contains",
    "evidence": [
-    "src/components/FileExplorer.tsx:191"
+    "src/components/FileExplorer.tsx:143"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -40258,7 +38613,7 @@
    "to": "HDL-EXPLORER-OPEN-FILE",
    "relation": "contains",
    "evidence": [
-    "src/components/FileExplorer.tsx:165"
+    "src/components/FileExplorer.tsx:117"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -40269,7 +38624,7 @@
    "to": "HDL-EXPLORER-OPEN-FOLDER",
    "relation": "contains",
    "evidence": [
-    "src/components/FileExplorer.tsx:136"
+    "src/components/FileExplorer.tsx:88"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -40324,7 +38679,7 @@
    "to": "IPCC-GET-LAUNCH-PATH",
    "relation": "contains",
    "evidence": [
-    "src/lib/ipc/client.ts:151"
+    "src/lib/ipc/client.ts:142"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -40390,7 +38745,7 @@
    "to": "OSI-PICK-FOLDER",
    "relation": "contains",
    "evidence": [
-    "src/lib/ipc/client.ts:162"
+    "src/lib/ipc/client.ts:153"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -40401,7 +38756,7 @@
    "to": "OSI-PICK-MARKDOWN-FILE",
    "relation": "contains",
    "evidence": [
-    "src/lib/ipc/client.ts:185"
+    "src/lib/ipc/client.ts:176"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -40445,18 +38800,7 @@
    "to": "STO-BROWSER-HASH-CACHE",
    "relation": "contains",
    "evidence": [
-    "src/lib/ipc/client.ts:230"
-   ],
-   "method": "derived",
-   "source": "nodes.yaml:module"
-  },
-  {
-   "id": "MOD-WORKSPACE-FS|contains|SVC-ASSET-PASTE",
-   "from": "MOD-WORKSPACE-FS",
-   "to": "SVC-ASSET-PASTE",
-   "relation": "contains",
-   "evidence": [
-    "src/services/assetPaste.ts:64"
+    "src/lib/ipc/client.ts:221"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -40512,28 +38856,6 @@
    "relation": "contains",
    "evidence": [
     "src-tauri/crates/md-studio-core/src/launch.rs:116"
-   ],
-   "method": "derived",
-   "source": "nodes.yaml:module"
-  },
-  {
-   "id": "MOD-WORKSPACE-FS|contains|TST-TS-ASSET-PASTE",
-   "from": "MOD-WORKSPACE-FS",
-   "to": "TST-TS-ASSET-PASTE",
-   "relation": "contains",
-   "evidence": [
-    "tests/services/assetPaste.test.ts:8"
-   ],
-   "method": "derived",
-   "source": "nodes.yaml:module"
-  },
-  {
-   "id": "MOD-WORKSPACE-FS|contains|TST-TS-HIDE-INTERNAL-FILES",
-   "from": "MOD-WORKSPACE-FS",
-   "to": "TST-TS-HIDE-INTERNAL-FILES",
-   "relation": "contains",
-   "evidence": [
-    "tests/components/hideInternalFiles.test.tsx:25"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -40700,7 +39022,7 @@
    "to": "PERM-DIALOG-ALLOW-OPEN",
    "relation": "requires",
    "evidence": [
-    "src/lib/ipc/client.ts:162",
+    "src/lib/ipc/client.ts:156",
     "src-tauri/capabilities/default.json:8"
    ],
    "method": "observed",
@@ -40725,7 +39047,7 @@
    "to": "PERM-DIALOG-ALLOW-OPEN",
    "relation": "requires",
    "evidence": [
-    "src/lib/ipc/client.ts:185",
+    "src/lib/ipc/client.ts:179",
     "src-tauri/capabilities/default.json:8"
    ],
    "method": "observed",
@@ -41727,17 +40049,6 @@
    "method": "observed",
    "source": "edges.yaml",
    "trace_task": "TRACE-006"
-  },
-  {
-   "id": "SCR-APP|contains|CMP-WORKSPACE-SEARCH",
-   "from": "SCR-APP",
-   "to": "CMP-WORKSPACE-SEARCH",
-   "relation": "contains",
-   "evidence": [
-    "src/components/workspace/WorkspaceSearch.tsx:243"
-   ],
-   "method": "observed",
-   "source": "edges.yaml"
   },
   {
    "id": "SCR-APP|contains|HDL-APP-BACKLINK-OPEN-OCCURRENCE",
@@ -42758,17 +41069,6 @@
    "trace_task": "TRACE-010"
   },
   {
-   "id": "STO-SETTINGS|covered_by|TST-TS-PREVIEW-READING-WIDTH",
-   "from": "STO-SETTINGS",
-   "to": "TST-TS-PREVIEW-READING-WIDTH",
-   "relation": "covered_by",
-   "evidence": [
-    "tests/settings/previewReadingWidth.test.tsx:13"
-   ],
-   "method": "observed",
-   "source": "edges.yaml"
-  },
-  {
    "id": "STO-SETTINGS|covered_by|TST-TS-SETTINGS-PREVIEWREADINGWIDTH",
    "from": "STO-SETTINGS",
    "to": "TST-TS-SETTINGS-PREVIEWREADINGWIDTH",
@@ -42902,61 +41202,6 @@
    "method": "observed",
    "source": "edges.yaml",
    "trace_task": "TRACE-006"
-  },
-  {
-   "id": "SVC-ASSET-PASTE|calls|FN-RS-SAVE-PASTED-ASSET",
-   "from": "SVC-ASSET-PASTE",
-   "to": "FN-RS-SAVE-PASTED-ASSET",
-   "relation": "calls",
-   "evidence": [
-    "src-tauri/crates/md-studio-core/src/assets/mod.rs:60"
-   ],
-   "method": "observed",
-   "source": "edges.yaml"
-  },
-  {
-   "id": "SVC-ASSET-PASTE|calls|FN-VALIDATE-ASSET-DESTINATION",
-   "from": "SVC-ASSET-PASTE",
-   "to": "FN-VALIDATE-ASSET-DESTINATION",
-   "relation": "calls",
-   "evidence": [
-    "src/services/assetPaste.ts:74"
-   ],
-   "method": "observed",
-   "source": "edges.yaml"
-  },
-  {
-   "id": "SVC-ASSET-PASTE|covered_by|TST-TS-ASSET-PASTE",
-   "from": "SVC-ASSET-PASTE",
-   "to": "TST-TS-ASSET-PASTE",
-   "relation": "covered_by",
-   "evidence": [
-    "tests/services/assetPaste.test.ts:10"
-   ],
-   "method": "observed",
-   "source": "edges.yaml"
-  },
-  {
-   "id": "SVC-CODEBLOCK-METADATA|covered_by|TST-TS-CODEBLOCK-METADATA",
-   "from": "SVC-CODEBLOCK-METADATA",
-   "to": "TST-TS-CODEBLOCK-METADATA",
-   "relation": "covered_by",
-   "evidence": [
-    "tests/markdown/codeBlockMetadata.test.ts:10"
-   ],
-   "method": "observed",
-   "source": "edges.yaml"
-  },
-  {
-   "id": "SVC-COMMAND-REGISTRY|covered_by|TST-TS-COMMAND-REGISTRY",
-   "from": "SVC-COMMAND-REGISTRY",
-   "to": "TST-TS-COMMAND-REGISTRY",
-   "relation": "covered_by",
-   "evidence": [
-    "tests/commands/commandRegistry.test.ts:6"
-   ],
-   "method": "observed",
-   "source": "edges.yaml"
   },
   {
    "id": "SVC-EXPORT-ACTIVE-DOCUMENT-EPUB|calls|FN-CAPTURE-MERMAID-SVGS",
@@ -43298,55 +41543,11 @@
    "to": "DTO-TS-FORMAT-RESPONSE",
    "relation": "depends_on",
    "evidence": [
-    "src/services/formatter/index.ts:9"
+    "src/services/formatter/index.ts:8"
    ],
    "method": "observed",
    "source": "edges.yaml",
    "trace_task": "TRACE-005"
-  },
-  {
-   "id": "SVC-FORMATTER-CAPABILITIES|covered_by|TST-TS-FORMATTER-CAPABILITIES",
-   "from": "SVC-FORMATTER-CAPABILITIES",
-   "to": "TST-TS-FORMATTER-CAPABILITIES",
-   "relation": "covered_by",
-   "evidence": [
-    "tests/services/formatterCapabilities.test.ts:11"
-   ],
-   "method": "observed",
-   "source": "edges.yaml"
-  },
-  {
-   "id": "SVC-MD-DOCTOR-LINTER|calls|CLS-RS-DOCTOR",
-   "from": "SVC-MD-DOCTOR-LINTER",
-   "to": "CLS-RS-DOCTOR",
-   "relation": "calls",
-   "evidence": [
-    "src-tauri/crates/md-studio-core/src/doctor/mod.rs:35"
-   ],
-   "method": "observed",
-   "source": "edges.yaml"
-  },
-  {
-   "id": "SVC-MD-DOCTOR-LINTER|calls|FN-MD-DOCTOR-HOVER-TOOLTIP",
-   "from": "SVC-MD-DOCTOR-LINTER",
-   "to": "FN-MD-DOCTOR-HOVER-TOOLTIP",
-   "relation": "calls",
-   "evidence": [
-    "src/editor/mdDoctorLinter.ts:180"
-   ],
-   "method": "observed",
-   "source": "edges.yaml"
-  },
-  {
-   "id": "SVC-MD-DOCTOR-LINTER|covered_by|TST-TS-MD-DOCTOR-LINTER",
-   "from": "SVC-MD-DOCTOR-LINTER",
-   "to": "TST-TS-MD-DOCTOR-LINTER",
-   "relation": "covered_by",
-   "evidence": [
-    "tests/editor/mdDoctorLinter.test.ts:14"
-   ],
-   "method": "observed",
-   "source": "edges.yaml"
   },
   {
    "id": "SVC-PERSIST-DOCUMENT|calls|FN-CLEAR-DRAFT",
@@ -43408,17 +41609,6 @@
    "method": "observed",
    "source": "edges.yaml",
    "trace_task": "TRACE-005"
-  },
-  {
-   "id": "SVC-PROCESS-MARKDOWN|calls|SVC-SOURCE-MAP",
-   "from": "SVC-PROCESS-MARKDOWN",
-   "to": "SVC-SOURCE-MAP",
-   "relation": "calls",
-   "evidence": [
-    "src/markdown/processor.ts:103"
-   ],
-   "method": "observed",
-   "source": "edges.yaml"
   },
   {
    "id": "SVC-PROCESS-MARKDOWN|contains|PIPE-FRONTMATTER",
@@ -43582,7 +41772,7 @@
    "to": "PIPE-SHIKI",
    "relation": "contains",
    "evidence": [
-    "src/markdown/processor.ts:50"
+    "src/markdown/processor.ts:54"
    ],
    "method": "observed",
    "source": "edges.yaml",
@@ -43827,7 +42017,7 @@
    "to": "FN-REINDEX-ENGINE-REBUILD-BACKLINKS",
    "relation": "contains",
    "evidence": [
-    "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:146"
+    "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:134"
    ],
    "method": "observed",
    "source": "edges.yaml",
@@ -43887,101 +42077,11 @@
    "to": "TST-RS-REBUILD-MATCHES-INCREMENTAL-AND-LOADED-SNAPSHOT",
    "relation": "covered_by",
    "evidence": [
-    "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:347"
+    "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:353"
    ],
    "method": "observed",
    "source": "edges.yaml",
    "trace_task": "TRACE-010"
-  },
-  {
-   "id": "SVC-SMART-REFERENCES|calls|FN-RESOLVE-SMART-REFERENCE",
-   "from": "SVC-SMART-REFERENCES",
-   "to": "FN-RESOLVE-SMART-REFERENCE",
-   "relation": "calls",
-   "evidence": [
-    "src/editor/smartReferences.ts:111"
-   ],
-   "method": "observed",
-   "source": "edges.yaml"
-  },
-  {
-   "id": "SVC-SMART-REFERENCES|calls|IPCC-RESOLVE-WIKI-LINK",
-   "from": "SVC-SMART-REFERENCES",
-   "to": "IPCC-RESOLVE-WIKI-LINK",
-   "relation": "calls",
-   "evidence": [
-    "src/editor/smartReferences.ts:133"
-   ],
-   "method": "observed",
-   "source": "edges.yaml"
-  },
-  {
-   "id": "SVC-SMART-REFERENCES|covered_by|TST-TS-SMART-REFERENCES",
-   "from": "SVC-SMART-REFERENCES",
-   "to": "TST-TS-SMART-REFERENCES",
-   "relation": "covered_by",
-   "evidence": [
-    "tests/editor/smartReferences.test.ts:39"
-   ],
-   "method": "observed",
-   "source": "edges.yaml"
-  },
-  {
-   "id": "SVC-SMART-REFERENCES|depends_on|CTR-IPC-RESOLVE-WIKI-LINK",
-   "from": "SVC-SMART-REFERENCES",
-   "to": "CTR-IPC-RESOLVE-WIKI-LINK",
-   "relation": "depends_on",
-   "evidence": [
-    "src-tauri/src/commands/metadata.rs:147",
-    "src/lib/ipc/metadata.ts:59",
-    "src-tauri/src/lib.rs:84"
-   ],
-   "method": "derived",
-   "source": "contracts.yaml:consumers"
-  },
-  {
-   "id": "SVC-SOURCE-MAP|covered_by|TST-TS-SOURCE-MAP",
-   "from": "SVC-SOURCE-MAP",
-   "to": "TST-TS-SOURCE-MAP",
-   "relation": "covered_by",
-   "evidence": [
-    "tests/markdown/sourceMap.test.ts:10"
-   ],
-   "method": "observed",
-   "source": "edges.yaml"
-  },
-  {
-   "id": "SVC-SPELL-LINTER-EXTENSION|calls|CLS-LOCAL-SPELL-CHECKER",
-   "from": "SVC-SPELL-LINTER-EXTENSION",
-   "to": "CLS-LOCAL-SPELL-CHECKER",
-   "relation": "calls",
-   "evidence": [
-    "src/editor/spellcheck/spellLinter.ts:157"
-   ],
-   "method": "observed",
-   "source": "edges.yaml"
-  },
-  {
-   "id": "SVC-SPELL-LINTER-EXTENSION|covered_by|TST-TS-SPELL-CHECKER",
-   "from": "SVC-SPELL-LINTER-EXTENSION",
-   "to": "TST-TS-SPELL-CHECKER",
-   "relation": "covered_by",
-   "evidence": [
-    "tests/editor/spellChecker.test.ts:35"
-   ],
-   "method": "observed",
-   "source": "edges.yaml"
-  },
-  {
-   "id": "SVC-TABLE-DATA-PASTE|covered_by|TST-TS-TABLE-DATA-PASTE",
-   "from": "SVC-TABLE-DATA-PASTE",
-   "to": "TST-TS-TABLE-DATA-PASTE",
-   "relation": "covered_by",
-   "evidence": [
-    "tests/editor/tableDataPaste.test.ts:14"
-   ],
-   "method": "observed",
-   "source": "edges.yaml"
   },
   {
    "id": "SVC-WATCHER-HUB|contains|FN-WATCHER-REGISTER-INTERNAL-SAVE",
@@ -44594,17 +42694,6 @@
    "relation": "verifies",
    "evidence": [
     "src-tauri/crates/md-studio-core/tests/atomic_save.rs:6"
-   ],
-   "method": "derived",
-   "source": "invariants.yaml:verified_by"
-  },
-  {
-   "id": "TST-TS-ASSET-PASTE|verifies|INV-PATH-FENCE",
-   "from": "TST-TS-ASSET-PASTE",
-   "to": "INV-PATH-FENCE",
-   "relation": "verifies",
-   "evidence": [
-    "tests/services/assetPaste.test.ts:8"
    ],
    "method": "derived",
    "source": "invariants.yaml:verified_by"

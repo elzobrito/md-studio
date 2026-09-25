@@ -72,7 +72,7 @@ export function App() {
   const [recoveryOpen, setRecoveryOpen] = useState(recoveryDrafts.length > 0);
   const announcedDrafts = useRef(new Set(recoveryDrafts.filter((draft) => draft.expiringSoon).map((draft) => `${draft.key}:${draft.expired ? "expired" : "warning"}`)));
   const [unresolvedWikiTarget, setUnresolvedWikiTarget] = useState<string | null>(null);
-  const scrollSync = useScrollSync({ enabled: view === "split" });
+  const scrollSync = useScrollSync({ enabled: view === "split" && settings.splitScrollSync });
   const [splitRatio, setSplitRatio] = useState<number>(() => loadSavedSplitRatio());
   const centerRef = useRef<HTMLElement | null>(null);
 
@@ -294,7 +294,7 @@ export function App() {
       {
         key: "s",
         alt: true,
-        action: () => scrollSync.toggleSync(),
+        action: () => settings.setSplitScrollSync(!settings.splitScrollSync),
         description: "Alternar sincronização de scroll",
         category: "Visualização",
       },
@@ -764,7 +764,7 @@ export function App() {
         content={doc.content}
         fileName={doc.relativePath ? doc.relativePath.split("/").pop() : undefined}
         syncScroll={scrollSync.syncEnabled}
-        onToggleSyncScroll={scrollSync.toggleSync}
+        onToggleSyncScroll={() => settings.setSplitScrollSync(!settings.splitScrollSync)}
         onGoToLine={() => setGoToLineOpen(true)}
       />
       <CommandPalette onOpenFile={(p) => {

@@ -7,10 +7,12 @@ export function EditorSettings() {
   const {
     lineWrapping,
     lineNumbers,
+    splitScrollSync,
     autoSave,
     autoSaveDelay,
     setLineWrapping,
     setLineNumbers,
+    setSplitScrollSync,
     setAutoSave,
     setAutoSaveDelay,
   } = useSettings();
@@ -70,6 +72,21 @@ export function EditorSettings() {
           </label>
           <span className="settings-hint">
             Converte automaticamente conteúdo HTML copiado da web para Markdown limpo ao colar.
+          </span>
+        </div>
+
+        <div className="settings-field">
+          <label className="settings-label" style={{ display: "flex", alignItems: "center", gap: "8px", cursor: "pointer" }}>
+            <input
+              type="checkbox"
+              checked={splitScrollSync}
+              onChange={(e) => setSplitScrollSync(e.target.checked)}
+              style={{ cursor: "pointer" }}
+            />
+            <span>Rolagem dupla na vista Dividida: {splitScrollSync ? "Ativada" : "Desativada"}</span>
+          </label>
+          <span className="settings-hint">
+            Quando ligada, o editor e o preview rolam juntos no modo Dividida. A barra de status mostra Sync ON ou OFF e o atalho Alt+S grava a mesma preferência.
           </span>
         </div>
 

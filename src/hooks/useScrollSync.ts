@@ -15,6 +15,10 @@ export function useScrollSync(options: UseScrollSyncOptions = {}) {
   }, []);
 
   useEffect(() => {
+    if (options.enabled !== undefined) setSyncEnabled(options.enabled);
+  }, [options.enabled]);
+
+  useEffect(() => {
     if (!syncEnabled || !editorScroller || !previewScroller) return;
 
     let timeoutId: number;
@@ -66,6 +70,7 @@ export function useScrollSync(options: UseScrollSyncOptions = {}) {
       editorScroller.removeEventListener("scroll", handleEditorScroll);
       previewScroller.removeEventListener("scroll", handlePreviewScroll);
       window.clearTimeout(timeoutId);
+      isSyncingRef.current = null;
     };
   }, [syncEnabled, editorScroller, previewScroller]);
 

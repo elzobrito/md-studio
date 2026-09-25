@@ -4,7 +4,7 @@
     "esaa_version": "0.4.x",
     "generated_by": "esaa.project",
     "source_event_store": ".roadmap/activity.jsonl",
-    "updated_at": "2026-09-25T18:06:34Z"
+    "updated_at": "2026-09-25T21:00:42Z"
   },
   "lessons": [
     {
@@ -82,6 +82,30 @@
           "ref": "WG-003"
         }
       ]
+    },
+    {
+      "lesson_id": "LES-0004",
+      "status": "active",
+      "created_at": "2026-09-25T19:44:16Z",
+      "title": "Regressão: Controles de janela inertes no Ubuntu GNOME/Wayland por omissão de GDK_BACKEND=x11",
+      "mistake": "Ao atualizar arquivos de lançador .desktop (como para adicionar WEBKIT_DISABLE_DMABUF_RENDERER=1), a variável crítica GDK_BACKEND=x11 foi omitida, causando regressão de botões de janela inertes devido ao bug upstream Tauri/TAO no Wayland.",
+      "rule": "Lançadores desktop Linux (.desktop) para Ubuntu GNOME/Wayland DEVEM manter GDK_BACKEND=x11 e WEBKIT_DISABLE_DMABUF_RENDERER=1 para garantir interatividade dos controles nativos de janela e estabilidade gráfica.",
+      "scope": {
+        "task_kinds": [
+          "impl",
+          "qa"
+        ]
+      },
+      "enforcement": {
+        "mode": "warn",
+        "applies_to": "workflow_gate"
+      },
+      "source_refs": [
+        {
+          "task_id": "MD-BUILD-UBUNTU-001",
+          "event_id": "EV-00003640"
+        }
+      ]
     }
   ],
   "indexes": {
@@ -89,12 +113,14 @@
       "impl": [
         "LES-0001",
         "LES-0002",
-        "LES-0003"
+        "LES-0003",
+        "LES-0004"
       ],
       "qa": [
         "LES-0001",
         "LES-0002",
-        "LES-0003"
+        "LES-0003",
+        "LES-0004"
       ],
       "spec": [
         "LES-0001",
@@ -108,7 +134,8 @@
         "LES-0003"
       ],
       "workflow_gate": [
-        "LES-0001"
+        "LES-0001",
+        "LES-0004"
       ]
     }
   }

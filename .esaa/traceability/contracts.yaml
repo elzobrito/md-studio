@@ -1,8 +1,7 @@
-# TRACE-007 — Contratos do md-studio: produtor, consumidores, portadores (DTOs) e evidência. Mudança incompatível => revisar consumers.
 artifact: contracts
 schema_version: 1
-source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
-generated_at: '2026-09-24T22:56:21-03:00'
+source_commit: daf5888731c5ce3cdd5ce0d553a258b3b952f114
+generated_at: '2026-09-25T15:18:52-03:00'
 summary:
   total: 38
   by_kind:
@@ -13,9 +12,7 @@ summary:
     export_format: 2
     policy: 4
     local_storage: 5
-  without_real_consumer:
-  - CTR-IPC-SEARCH-WORKSPACE
-  - CTR-IPC-RESOLVE-WIKI-LINK
+  without_real_consumer: []
   with_divergences:
   - CTR-IPC-LIST-ENTRIES
   - CTR-IPC-SAVE-DOCUMENT
@@ -72,7 +69,8 @@ contracts:
   - src/lib/ipc/client.ts:92
   - src-tauri/src/lib.rs:72
   divergences:
-  - 'docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md descreve list_entries como recursivo (código: fs::read_dir de um nível).'
+  - 'docs/FUNCIONALIDADES_FUNCOES_E_ROTAS.md descreve list_entries como recursivo
+    (código: fs::read_dir de um nível).'
 - id: CTR-IPC-READ-DOCUMENT
   kind: ipc_command
   name: read_document
@@ -86,7 +84,8 @@ contracts:
   - DTO-RS-DOCUMENT-SNAPSHOT
   - DTO-TS-DOCUMENT-SNAPSHOT
   request: '{workspaceId, path}'
-  response: DocumentSnapshot {workspaceId, relativePath, content, encoding, mtimeMs, contentHash(SHA-256), version}
+  response: DocumentSnapshot {workspaceId, relativePath, content, encoding, mtimeMs,
+    contentHash(SHA-256), version}
   evidence:
   - src-tauri/src/commands/mod.rs:97
   - src/lib/ipc/client.ts:96
@@ -107,13 +106,15 @@ contracts:
   - DTO-RS-DOCUMENT-SNAPSHOT
   - DTO-TS-SAVE-RESULT
   request: '{req: SaveDocumentRequest {workspaceId, relativePath, expectedHash, content}}'
-  response: JSON {ok:true, snapshot} | {ok:false, code:'HashMismatch'|'IoError', message}; erro de cerca de caminho => Err(String) (promise rejeitada)
+  response: JSON {ok:true, snapshot} | {ok:false, code:'HashMismatch'|'IoError', message};
+    erro de cerca de caminho => Err(String) (promise rejeitada)
   evidence:
   - src-tauri/src/commands/mod.rs:117
   - src/lib/ipc/client.ts:98
   - src-tauri/src/lib.rs:74
   divergences:
-  - 'TS SaveResult prevê code ''OutsideWorkspace'', mas o Rust nunca o emite: violação de cerca chega como exceção (Err(String)) e não como {ok:false}.'
+  - 'TS SaveResult prevê code ''OutsideWorkspace'', mas o Rust nunca o emite: violação
+    de cerca chega como exceção (Err(String)) e não como {ok:false}.'
   - 'Resposta é serde_json::Value montado à mão: sem struct tipada compartilhada.'
 - id: CTR-IPC-SEARCH-WORKSPACE
   kind: ipc_command
@@ -122,19 +123,20 @@ contracts:
   - IPC-SEARCH-WORKSPACE
   consumers:
   - IPCC-SEARCH-WORKSPACE
+  - CMP-WORKSPACE-SEARCH
   carriers:
   - DTO-RS-SEARCH-RESULT
   - DTO-TS-SEARCH-RESULT
   request: '{workspaceId, query}'
-  response: SearchResult[] {relativePath, line, preview} (máx 200; line.contains case-sensitive; só .md)
+  response: SearchResult[] {relativePath, line, preview} (máx 200; line.contains case-sensitive;
+    só .md)
   evidence:
   - src-tauri/src/commands/mod.rs:163
   - src/lib/ipc/client.ts:115
   - src-tauri/src/lib.rs:75
-  consumer_gap: 'Cliente TS existe mas não tem chamador: contrato sem consumidor real.'
   divergences:
-  - Sem consumidor no frontend.
-  - Docs afirmam busca case-insensitive via search::search_text acionada por FileExplorer/CommandPalette — falso no código.
+  - Docs afirmam busca case-insensitive via search::search_text acionada por FileExplorer/CommandPalette
+    — falso no código.
 - id: CTR-IPC-EXPORT-HTML
   kind: ipc_command
   name: export_html
@@ -146,13 +148,15 @@ contracts:
   carriers:
   - DTO-RS-EXPORT-HTML-REQUEST
   request: '{req: {html, destination(absoluto), overwrite}}'
-  response: () | Err('ExportTargetExists') | Err('destination must be an absolute path')
+  response: () | Err('ExportTargetExists') | Err('destination must be an absolute
+    path')
   evidence:
   - src-tauri/src/commands/mod.rs:216
   - src/lib/ipc/client.ts:126
   - src-tauri/src/lib.rs:76
   divergences:
-  - Erro de destino existente é string; frontend detecta por substring ('ExportTargetExists' ou 'exists').
+  - Erro de destino existente é string; frontend detecta por substring ('ExportTargetExists'
+    ou 'exists').
   - Sem DTO TS explícito para o request (literal inline em ipc.exportHtml).
 - id: CTR-IPC-EXPORT-EPUB
   kind: ipc_command
@@ -219,7 +223,7 @@ contracts:
   response: WorkspaceStats
   evidence:
   - src-tauri/src/commands/metadata.rs:46
-  - src/lib/ipc/metadata.ts:20
+  - src/lib/ipc/metadata.ts:21
   - src-tauri/src/lib.rs:79
   divergences:
   - Docs listam parâmetros; comando não recebe argumentos.
@@ -238,7 +242,7 @@ contracts:
   response: DocumentMetadata | null
   evidence:
   - src-tauri/src/commands/metadata.rs:90
-  - src/lib/ipc/metadata.ts:36
+  - src/lib/ipc/metadata.ts:37
   - src-tauri/src/lib.rs:80
 - id: CTR-IPC-GET-ALL-DOCUMENTS
   kind: ipc_command
@@ -255,7 +259,7 @@ contracts:
   response: DocumentMetadata[]
   evidence:
   - src-tauri/src/commands/metadata.rs:104
-  - src/lib/ipc/metadata.ts:41
+  - src/lib/ipc/metadata.ts:42
   - src-tauri/src/lib.rs:81
 - id: CTR-IPC-TRIGGER-REINDEX
   kind: ipc_command
@@ -273,7 +277,7 @@ contracts:
   response: ReindexReport (e persiste index.json)
   evidence:
   - src-tauri/src/commands/metadata.rs:117
-  - src/lib/ipc/metadata.ts:46
+  - src/lib/ipc/metadata.ts:47
   - src-tauri/src/lib.rs:82
   divergences:
   - Docs indicam outro retorno; código retorna ReindexReport.
@@ -290,7 +294,7 @@ contracts:
   response: WikiLink[]
   evidence:
   - src-tauri/src/commands/metadata.rs:131
-  - src/lib/ipc/metadata.ts:53
+  - src/lib/ipc/metadata.ts:54
   - src-tauri/src/lib.rs:83
 - id: CTR-IPC-RESOLVE-WIKI-LINK
   kind: ipc_command
@@ -299,6 +303,9 @@ contracts:
   - IPC-RESOLVE-WIKI-LINK
   consumers:
   - IPCC-RESOLVE-WIKI-LINK
+  - CMP-MARKDOWN-VIEWER
+  - CMP-HOVER-PREVIEW
+  - SVC-SMART-REFERENCES
   carriers:
   - DTO-RS-RESOLVED-WIKI-LINK
   - DTO-TS-RESOLVED-WIKI-LINK
@@ -306,11 +313,9 @@ contracts:
   response: ResolvedWikiLink
   evidence:
   - src-tauri/src/commands/metadata.rs:147
-  - src/lib/ipc/metadata.ts:58
+  - src/lib/ipc/metadata.ts:59
   - src-tauri/src/lib.rs:84
-  consumer_gap: 'Cliente TS existe mas não tem chamador: contrato sem consumidor real.'
-  divergences:
-  - Sem consumidor no frontend.
+  divergences: []
 - id: CTR-IPC-GET-RESOLVED-WIKI-LINKS-FOR
   kind: ipc_command
   name: get_resolved_wiki_links_for
@@ -326,7 +331,7 @@ contracts:
   response: ResolvedWikiLink[]
   evidence:
   - src-tauri/src/commands/metadata.rs:158
-  - src/lib/ipc/metadata.ts:65
+  - src/lib/ipc/metadata.ts:66
   - src-tauri/src/lib.rs:85
 - id: CTR-IPC-GET-TAGS
   kind: ipc_command
@@ -341,7 +346,7 @@ contracts:
   response: string[] ordenado
   evidence:
   - src-tauri/src/commands/metadata.rs:173
-  - src/lib/ipc/metadata.ts:70
+  - src/lib/ipc/metadata.ts:71
   - src-tauri/src/lib.rs:86
 - id: CTR-IPC-GET-BACKLINKS
   kind: ipc_command
@@ -358,7 +363,7 @@ contracts:
   response: BacklinkResult {targetPath, documentCount, occurrenceCount, groups[]}
   evidence:
   - src-tauri/src/commands/metadata.rs:233
-  - src/lib/ipc/metadata.ts:75
+  - src/lib/ipc/metadata.ts:76
   - src-tauri/src/lib.rs:87
   divergences:
   - Docs descrevem retorno plano; código retorna grupos.
@@ -374,7 +379,8 @@ contracts:
   - DTO-RS-FORMAT-RESULT
   - DTO-TS-FORMAT-RESPONSE
   request: '{language, code}'
-  response: FormatResult {formatted, code, formatter, error?} (timeout 2s; fallback sem ferramenta)
+  response: FormatResult {formatted, code, formatter, error?} (timeout 2s; fallback
+    sem ferramenta)
   evidence:
   - src-tauri/src/commands/formatter.rs:343
   - src/services/formatter/index.ts:25
@@ -422,7 +428,8 @@ contracts:
   carriers:
   - DTO-RS-WATCH-EVENT
   - DTO-TS-WATCH-EVENT
-  shape: 'WatchEventDto {type: created|modified|removed|renamed, relativePath, from?, workspaceId}; debounce 300ms; eco de save interno suprimido por hash (TTL 5s)'
+  shape: 'WatchEventDto {type: created|modified|removed|renamed, relativePath, from?,
+    workspaceId}; debounce 300ms; eco de save interno suprimido por hash (TTL 5s)'
   evidence:
   - src-tauri/src/watcher/mod.rs:19
   - src-tauri/src/watcher/mod.rs:24
@@ -452,7 +459,8 @@ contracts:
   - PIPE-FRONTMATTER
   - SVC-PROCESS-MARKDOWN
   carriers: []
-  shape: '{title?: string, description?: string, tags?: string[], date?: string|Date, ...passthrough}; erros viram diagnostics ''frontmatter: ...'''
+  shape: '{title?: string, description?: string, tags?: string[], date?: string|Date,
+    ...passthrough}; erros viram diagnostics ''frontmatter: ...'''
   evidence:
   - src/markdown/frontmatter.ts:4
   - src/markdown/frontmatter.ts:15
@@ -468,7 +476,8 @@ contracts:
   carriers:
   - REPO-METADATA-INDEX
   - DTO-RS-DOCUMENT-METADATA
-  shape: 'serde_json pretty de MetadataIndex {documents: {path: DocumentMetadata}, version: u32 (=1), indexed_at}; escrita atômica tmp+rename'
+  shape: 'serde_json pretty de MetadataIndex {documents: {path: DocumentMetadata},
+    version: u32 (=1), indexed_at}; escrita atômica tmp+rename'
   evidence:
   - src-tauri/crates/md-studio-core/src/index/index_persistence.rs:7
   - src-tauri/crates/md-studio-core/src/index/index_persistence.rs:15
@@ -476,7 +485,8 @@ contracts:
   - src-tauri/crates/md-studio-core/src/index/metadata_index.rs:8
   divergences:
   - version não é verificado no load; arquivo está versionado no git apesar do .gitignore.
-  compatibility: Mudança incompatível => load_index falha e open_workspace cai no ramo full_reindex (auto-recuperação).
+  compatibility: Mudança incompatível => load_index falha e open_workspace cai no
+    ramo full_reindex (auto-recuperação).
 - id: CTR-ATOMIC-SAVE
   kind: storage_format
   name: Protocolo de escrita de documento
@@ -487,13 +497,15 @@ contracts:
   - FN-WATCHER-SHOULD-SUPPRESS
   carriers:
   - CLS-SAVE-ERROR
-  shape: 'Se o arquivo existe: SHA-256 atual deve == expectedHash, senão HashMismatch; escreve .{nome}.tmp-{pid} + sync_all + rename; retorna novo hash'
+  shape: 'Se o arquivo existe: SHA-256 atual deve == expectedHash, senão HashMismatch;
+    escreve .{nome}.tmp-{pid} + sync_all + rename; retorna novo hash'
   evidence:
   - src-tauri/crates/md-studio-core/src/persistence.rs:36
   - src-tauri/crates/md-studio-core/src/persistence.rs:50
   - src-tauri/crates/md-studio-core/src/persistence.rs:15
   divergences:
-  - Arquivo inexistente é gravado mesmo com expectedHash não vazio (sem detecção de exclusão externa).
+  - Arquivo inexistente é gravado mesmo com expectedHash não vazio (sem detecção de
+    exclusão externa).
 - id: CTR-EXPORT-HTML-DOCUMENT
   kind: export_format
   name: Documento HTML exportado
@@ -503,14 +515,16 @@ contracts:
   - IPC-EXPORT-HTML
   - FN-DOWNLOAD-HTML
   carriers: []
-  shape: HTML autocontido <html lang=pt-BR> com corpo de processMarkdown (mesmo sanitize do preview); gravado por atomic_write_bytes; sobrescrita só com confirmação (ExportTargetExists -> confirmOverwrite
-    -> overwrite:true)
+  shape: HTML autocontido <html lang=pt-BR> com corpo de processMarkdown (mesmo sanitize
+    do preview); gravado por atomic_write_bytes; sobrescrita só com confirmação (ExportTargetExists
+    -> confirmOverwrite -> overwrite:true)
   evidence:
   - src/services/export.ts:8
   - src/services/export.ts:12
   - src-tauri/src/commands/mod.rs:216
   divergences:
-  - 'Sem meta CSP no HTML exportado: imagens remotas preservadas pelo sanitize (src http/https) carregariam ao abrir o arquivo.'
+  - 'Sem meta CSP no HTML exportado: imagens remotas preservadas pelo sanitize (src
+    http/https) carregariam ao abrir o arquivo.'
 - id: CTR-EPUB-PAYLOAD
   kind: export_format
   name: EpubExportPayload -> .epub
@@ -525,7 +539,9 @@ contracts:
   - DTO-RS-EPUB-EXPORT-PAYLOAD
   - DTO-RS-EPUB-EXPORT-RESULT
   - DTO-TS-EPUB-EXPORT-RESULT
-  shape: payload {metadata, bodyHtml, mermaidSlots, imageRefs...}; imagens locais cercadas por guard_images (canonicalize + starts_with(root)); zip com mimetype stored
+  shape: payload {metadata, bodyHtml, mermaidSlots, imageRefs...}; imagens locais
+    cercadas por guard_images (canonicalize + starts_with(root)); zip com mimetype
+    stored
   evidence:
   - src/export/epubTypes.ts:16
   - src-tauri/crates/md-studio-core/src/export/epub_types.rs:53
@@ -543,15 +559,19 @@ contracts:
   - SVC-PROCESS-PRESENTATION
   carriers:
   - CFG-SANITIZE-SCHEMA
-  shape: rehype-sanitize com mdStudioSanitizeSchema, clobberPrefix 'user-content-', href http/https/mailto, src http/https/data; sanitize é o último plugin; styles de HTML bruto removidos após rehype-raw
+  shape: rehype-sanitize com mdStudioSanitizeSchema, clobberPrefix 'user-content-',
+    href http/https/mailto, src http/https/data; sanitize é o último plugin; styles
+    de HTML bruto removidos após rehype-raw
   evidence:
   - src/markdown/sanitize.ts:38
   - src/markdown/sanitize.ts:101
   - src/markdown/processor.ts:88
   - src/markdown/sanitize.ts:15
   divergences:
-  - 'EPUB usa schema próprio (CFG-EPUB-SANITIZE-SCHEMA, defaultSchema estendido): política divergente.'
-  - security/urlPolicy.allowUrl não está ligado ao pipeline (ProcessOptions.allowRemote sem efeito).
+  - 'EPUB usa schema próprio (CFG-EPUB-SANITIZE-SCHEMA, defaultSchema estendido):
+    política divergente.'
+  - security/urlPolicy.allowUrl não está ligado ao pipeline (ProcessOptions.allowRemote
+    sem efeito).
 - id: CTR-EPUB-SANITIZE-POLICY
   kind: policy
   name: Sanitização do EPUB
@@ -575,8 +595,9 @@ contracts:
   - CMP-MERMAID-BLOCK
   - SCR-PRESENTATION
   carriers: []
-  shape: 'default-src ''self''; img-src ''self'' data: blob:; style-src ''self'' ''unsafe-inline''; script-src ''self'' ''wasm-unsafe-eval'' ''unsafe-eval''; connect-src ''self'' ipc: http://ipc.localhost
-    data: blob:'
+  shape: 'default-src ''self''; img-src ''self'' data: blob:; style-src ''self'' ''unsafe-inline'';
+    script-src ''self'' ''wasm-unsafe-eval'' ''unsafe-eval''; connect-src ''self''
+    ipc: http://ipc.localhost data: blob:'
   evidence:
   - src-tauri/tauri.conf.json:36
   divergences:
@@ -601,7 +622,8 @@ contracts:
   - OSI-OPEN-EXTERNAL-URL
   - FN-IPC-INVOKE
   carriers: []
-  shape: core:default + dialog open/save/ask + opener open-url; sem plugin fs no webview (FS só via comandos Rust)
+  shape: core:default + dialog open/save/ask + opener open-url; sem plugin fs no webview
+    (FS só via comandos Rust)
   evidence:
   - src-tauri/capabilities/default.json:7
   - src-tauri/capabilities/default.json:6
@@ -619,7 +641,8 @@ contracts:
   carriers:
   - LSK-DRAFTS
   - LSK-DRAFTS-LEGACY
-  shape: chave = 'md-studio-draft:v3:' + encodeURIComponent(root/rel); valor JSON {content, ts}; legado 'md-studio-draft:*'; retenção 90d, aviso 75d
+  shape: chave = 'md-studio-draft:v3:' + encodeURIComponent(root/rel); valor JSON
+    {content, ts}; legado 'md-studio-draft:*'; retenção 90d, aviso 75d
   evidence:
   - src/lib/drafts/recovery.ts:2
   - src/lib/drafts/recovery.ts:19

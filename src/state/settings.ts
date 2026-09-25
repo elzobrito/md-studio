@@ -16,6 +16,7 @@ export interface SettingsState {
   markdownHints: boolean;
   autoSave: boolean;
   autoSaveDelay: number;
+  splitScrollSync: boolean;
 }
 
 const STORAGE_KEY = "md-studio-settings-v2";
@@ -104,6 +105,7 @@ export const DEFAULT_SETTINGS: SettingsState = {
   markdownHints: true,
   autoSave: true,
   autoSaveDelay: 1500,
+  splitScrollSync: true,
 };
 
 
@@ -136,6 +138,7 @@ class SettingsStore {
           ...DEFAULT_SETTINGS,
           ...parsed,
           previewReadingWidth: readingWidth,
+          splitScrollSync: typeof parsed.splitScrollSync === "boolean" ? parsed.splitScrollSync : true,
         };
       }
     } catch {
@@ -233,6 +236,13 @@ class SettingsStore {
   public setMarkdownHints(markdownHints: boolean) {
     if (this.state.markdownHints === markdownHints) return;
     this.state = { ...this.state, markdownHints };
+    this.save();
+    this.notify();
+  }
+
+  public setSplitScrollSync(splitScrollSync: boolean) {
+    if (this.state.splitScrollSync === splitScrollSync) return;
+    this.state = { ...this.state, splitScrollSync };
     this.save();
     this.notify();
   }

@@ -65,6 +65,9 @@ describe("settingsStore", () => {
 
     // Auto-save toggle and delay clamping
     expect(settingsStore.getState().autoSave).toBe(true);
+    expect(settingsStore.getState().splitScrollSync).toBe(true);
+    settingsStore.setSplitScrollSync(false);
+    expect(settingsStore.getState().splitScrollSync).toBe(false);
     settingsStore.setAutoSave(false);
     expect(settingsStore.getState().autoSave).toBe(false);
 
@@ -97,5 +100,6 @@ describe("settingsStore", () => {
     expect(settingsStore.getState().lineWrapping).toBe(DEFAULT_SETTINGS.lineWrapping);
     expect(settingsStore.getState().autoSave).toBe(DEFAULT_SETTINGS.autoSave);
     expect(settingsStore.getState().autoSaveDelay).toBe(DEFAULT_SETTINGS.autoSaveDelay);
+    expect(settingsStore.getState().splitScrollSync).toBe(DEFAULT_SETTINGS.splitScrollSync);
   });
 });

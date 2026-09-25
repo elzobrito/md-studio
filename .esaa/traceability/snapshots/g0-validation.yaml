@@ -1,28 +1,28 @@
 # TRACE-013 — Validação dos artefatos de rastreabilidade (gerado por tools/validate.py; não editar à mão).
 artifact: validation
 schema_version: 1
-source_commit: daf5888731c5ce3cdd5ce0d553a258b3b952f114
-head: daf5888731c5ce3cdd5ce0d553a258b3b952f114
-generated_at: '2026-09-25T18:01:07-03:00'
+source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+head: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
+generated_at: '2026-09-25T08:08:55-03:00'
 generator: tools/validate.py
 summary:
   status: pass
   critical_issues: 0
-  warning_issues: 31
+  warning_issues: 26
   checks_with_findings:
-    warning: 4
+    warning: 5
     info: 2
   stats:
-    nodes: 550
-    edges: 954
+    nodes: 516
+    edges: 909
     modules: 19
     entrypoints: 71
     contracts: 38
-    features: 59
+    features: 48
     flows: 22
-    tests: 164
-    invariants: 11
-    evidence_refs_checked: 2048
+    tests: 149
+    invariants: 10
+    evidence_refs_checked: 1994
 checks:
   missing_artifacts:
     severity: critical
@@ -71,7 +71,7 @@ checks:
     items: []
   invalid_evidence_lines:
     severity: critical
-    description: Evidências path:line inexistentes ou em linha vazia no source_commit (2048 verificadas)
+    description: Evidências path:line inexistentes ou em linha vazia no source_commit (1994 verificadas)
     count: 0
     items: []
   invariant_without_test_or_gap:
@@ -93,8 +93,10 @@ checks:
   known_dead_or_test_only:
     severity: info
     description: Unidades marcadas dead_code/test_only sem aresta de entrada (achados já documentados)
-    count: 5
+    count: 7
     items:
+    - IPCC-SEARCH-WORKSPACE (dead_code)
+    - IPCC-RESOLVE-WIKI-LINK (dead_code)
     - FN-FENCE-RELATIVE (test_only)
     - FN-CLEAR-INDEX (test_only)
     - CMP-CODE-BLOCK (test_only)
@@ -103,8 +105,10 @@ checks:
   contracts_without_consumer:
     severity: warning
     description: Contratos sem consumidor (lista vazia ou sem consumidor real no produto)
-    count: 0
-    items: []
+    count: 2
+    items:
+    - CTR-IPC-RESOLVE-WIKI-LINK
+    - CTR-IPC-SEARCH-WORKSPACE
   tests_without_mapped_node:
     severity: warning
     description: Testes que não cobrem nenhum nó modelado (exercitam unidades não modeladas)
@@ -126,7 +130,7 @@ checks:
   invariants_with_gap:
     severity: warning
     description: 'Invariantes com cobertura parcial ou sem teste (gap: true)'
-    count: 10
+    count: 9
     items:
     - INV-PATH-FENCE (partial)
     - INV-FS-ONLY-VIA-RUST (none)
@@ -137,11 +141,10 @@ checks:
     - INV-WATCHER-ECHO-SUPPRESSION (partial)
     - INV-EXPORT-NO-SILENT-OVERWRITE (partial)
     - INV-OFFLINE-NO-TELEMETRY (none)
-    - INV-DESKTOP-LAUNCHER-ENV (partial)
   features_with_divergences:
     severity: info
     description: Features com divergência doc x código registrada
-    count: 14
+    count: 16
     items:
     - FEAT-FORMATTING-TOOLBAR (1)
     - FEAT-SMART-PASTE (2)
@@ -153,28 +156,19 @@ checks:
     - FEAT-EXPORT-HTML (1)
     - FEAT-VIEW-MODES (1)
     - FEAT-PRESENTATION (1)
+    - FEAT-COMMAND-PALETTE (2)
+    - FEAT-WORKSPACE-SEARCH (1)
     - FEAT-METADATA-INDEX (2)
     - FEAT-SANITIZE (1)
     - FEAT-OFFLINE-PRIVACY (2)
     - FEAT-SPLASH-PACKAGING (1)
   source_commit_drift:
     severity: warning
-    description: Drift entre source_commit (daf5888731c5) e HEAD/working tree (âncoras continuam válidas no source_commit)
-    count: 7
+    description: Drift entre source_commit (8eb7b6e18a67) e HEAD/working tree (âncoras continuam válidas no source_commit)
+    count: 1
     items:
-    - 'working tree modificado: src-tauri/linux/md-studio.desktop — nós stale (âncora não bate no working tree): []; nós com âncora ainda válida: [''OSI-DESKTOP-ENTRY'']; evidências no arquivo: 6'
-    - 'working tree modificado: src/App.tsx — nós stale (âncora não bate no working tree): []; nós com âncora ainda válida: [''SCR-APP'', ''RTE-VIEW-MODES'', ''HDL-APP-SHORTCUTS'', ''SHC-CTRL-S'', ''SHC-CTRL-SHIFT-S'',
-      ''SHC-CTRL-O'', ''SHC-CTRL-SHIFT-O'', ''SHC-CTRL-N'', ''SHC-CTRL-W'', ''SHC-F5'', ''HDL-APP-OPEN-NEW-DOCUMENT'', ''HDL-APP-SELECT-TEMPLATE'', ''HDL-APP-EXPORT-HTML'', ''HDL-APP-EXPORT-EPUB'', ''HDL-APP-EXPORT-PDF'',
-      ''HDL-APP-OPEN-FOLDER-WELCOME'', ''HDL-APP-OPEN-FILE-WELCOME'', ''HDL-APP-START-PRESENTATION'', ''HDL-APP-CLOSE-PRESENTATION'', ''HDL-APP-CYCLE-RECENT'', ''HDL-APP-GO-TO-HEADING'', ''HDL-APP-DRAFT-RECOVERY-TIMER'',
-      ''HDL-APP-BACKLINK-OPEN-OCCURRENCE'', ''HDL-APP-CLOSE-SPLASH-EFFECT'', ''IPCC-CLOSE-SPLASH'', ''OSI-WINDOW-PRINT'']; evidências no arquivo: 196'
-    - 'working tree modificado: src/hooks/useScrollSync.ts — nós stale (âncora não bate no working tree): []; nós com âncora ainda válida: [''FN-USE-SCROLL-SYNC'']; evidências no arquivo: 0'
-    - 'working tree modificado: src/services/assetPaste.ts — nós stale (âncora não bate no working tree): [''SVC-ASSET-PASTE'']; nós com âncora ainda válida: [''FN-VALIDATE-ASSET-DESTINATION'']; evidências
-      no arquivo: 2'
-    - 'working tree modificado: src/state/settings.ts — nós stale (âncora não bate no working tree): [''STO-SETTINGS'', ''CFG-DEFAULT-SETTINGS'', ''LSK-SETTINGS'']; nós com âncora ainda válida: []; evidências
-      no arquivo: 5'
-    - 'working tree modificado: tests/settings/settingsPanel.test.tsx — nós stale (âncora não bate no working tree): []; nós com âncora ainda válida: [''TST-TS-SETTINGS-SETTINGSPANEL'']; evidências no arquivo:
-      4'
-    - 'working tree modificado: tests/ux/settingsStore.test.ts — nós stale (âncora não bate no working tree): []; nós com âncora ainda válida: [''TST-TS-UX-SETTINGSSTORE'']; evidências no arquivo: 4'
+    - 'working tree modificado: src-tauri/crates/md-studio-core/src/export/xhtml_converter.rs — nós stale (âncora não bate no working tree): []; nós com âncora ainda válida: [''FN-HTML-TO-XHTML'']; evidências
+      no arquivo: 0'
   graph_json_stale:
     severity: warning
     description: graph.json desatualizado em relação aos artefatos

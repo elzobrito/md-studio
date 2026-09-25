@@ -1,0 +1,542 @@
+artifact: task-footprint
+schema_version: 1
+trace_task: TRACE-018
+task_id: MD-HOTFIX-DESKTOP-003
+diff:
+  base: daf5888731c5ce3cdd5ce0d553a258b3b952f114
+  head: WORKTREE
+  paths_filter:
+  - src-tauri/linux/md-studio.desktop
+  - tests/desktop/desktop-launcher.test.ts
+  - docs/qa/hotfix-desktop-wayland-controls.md
+  - .esaa/traceability/invariants.yaml
+  excluded_set: []
+  command: git diff -U0 --no-color --no-ext-diff daf5888731c5ce3cdd5ce0d553a258b3b952f114 -- src-tauri/linux/md-studio.desktop tests/desktop/desktop-launcher.test.ts
+    docs/qa/hotfix-desktop-wayland-controls.md .esaa/traceability/invariants.yaml
+graph_source_commit: daf5888731c5ce3cdd5ce0d553a258b3b952f114
+notes: []
+changed_files:
+- path: .esaa/traceability/invariants.yaml
+  status: M
+  added: 77
+  removed: 31
+  hunks:
+  - old:
+    - 1
+    - 1
+    new:
+    - 0
+    - -1
+  - old:
+    - 4
+    - 5
+    new:
+    - 3
+    - 4
+  - old:
+    - 7
+    - 7
+    new:
+    - 6
+    - 6
+  - old:
+    - 9
+    - 9
+    new:
+    - 8
+    - 8
+  - old:
+    - 15
+    - 14
+    new:
+    - 15
+    - 15
+  - old:
+    - 25
+    - 24
+    new:
+    - 26
+    - 26
+  - old:
+    - 29
+    - 29
+    new:
+    - 30
+    - 31
+  - old:
+    - 55
+    - 54
+    new:
+    - 58
+    - 58
+  - old:
+    - 59
+    - 59
+    new:
+    - 62
+    - 64
+  - old:
+    - 66
+    - 66
+    new:
+    - 71
+    - 72
+  - old:
+    - 87
+    - 87
+    new:
+    - 93
+    - 94
+  - old:
+    - 91
+    - 91
+    new:
+    - 98
+    - 99
+  - old:
+    - 95
+    - 95
+    new:
+    - 103
+    - 104
+  - old:
+    - 99
+    - 99
+    new:
+    - 108
+    - 109
+  - old:
+    - 117
+    - 117
+    new:
+    - 127
+    - 128
+  - old:
+    - 128
+    - 128
+    new:
+    - 139
+    - 140
+  - old:
+    - 144
+    - 144
+    new:
+    - 156
+    - 157
+  - old:
+    - 155
+    - 155
+    new:
+    - 168
+    - 169
+  - old:
+    - 185
+    - 185
+    new:
+    - 199
+    - 200
+  - old:
+    - 189
+    - 189
+    new:
+    - 204
+    - 205
+  - old:
+    - 196
+    - 196
+    new:
+    - 212
+    - 213
+  - old:
+    - 211
+    - 211
+    new:
+    - 228
+    - 229
+  - old:
+    - 215
+    - 215
+    new:
+    - 233
+    - 234
+  - old:
+    - 219
+    - 219
+    new:
+    - 238
+    - 239
+  - old:
+    - 223
+    - 223
+    new:
+    - 243
+    - 244
+  - old:
+    - 227
+    - 227
+    new:
+    - 248
+    - 249
+  - old:
+    - 245
+    - 245
+    new:
+    - 267
+    - 268
+  - old:
+    - 252
+    - 252
+    new:
+    - 275
+    - 276
+  - old:
+    - 273
+    - 273
+    new:
+    - 297
+    - 298
+  - old:
+    - 294
+    - 294
+    new:
+    - 319
+    - 320
+  - old:
+    - 314
+    - 315
+    new:
+    - 340
+    - 342
+  - old:
+    - 319
+    - 319
+    new:
+    - 346
+    - 347
+  - old:
+    - 323
+    - 322
+    new:
+    - 352
+    - 369
+  is_test: false
+  catalogued_nodes_in_file: 0
+- path: docs/qa/hotfix-desktop-wayland-controls.md
+  status: A
+  added: 47
+  removed: 0
+  hunks:
+  - old:
+    - 0
+    - -1
+    new:
+    - 1
+    - 47
+  is_test: false
+  catalogued_nodes_in_file: 0
+- path: src-tauri/linux/md-studio.desktop
+  status: M
+  added: 1
+  removed: 1
+  hunks:
+  - old:
+    - 9
+    - 9
+    new:
+    - 9
+    - 9
+  is_test: false
+  catalogued_nodes_in_file: 1
+- path: tests/desktop/desktop-launcher.test.ts
+  status: A
+  added: 60
+  removed: 0
+  hunks:
+  - old:
+    - 0
+    - -1
+    new:
+    - 1
+    - 60
+  is_test: true
+  catalogued_nodes_in_file: 0
+changed_nodes:
+- id: OSI-DESKTOP-ENTRY
+  kind: code
+  type: os_integration
+  path: src-tauri/linux/md-studio.desktop
+  sides:
+  - old
+  lines_hit: 1
+  attribution: line
+  anchor_resolution:
+    old: exact
+  created_by_change: false
+enclosing_nodes: []
+uncatalogued:
+- path: .esaa/traceability/invariants.yaml
+  is_test: false
+  old_lines:
+  - - 1
+    - 1
+  - - 4
+    - 5
+  - - 7
+    - 7
+  - - 9
+    - 9
+  - - 29
+    - 29
+  - - 59
+    - 59
+  - - 66
+    - 66
+  - - 87
+    - 87
+  - - 91
+    - 91
+  - - 95
+    - 95
+  - - 99
+    - 99
+  - - 117
+    - 117
+  - - 128
+    - 128
+  - - 144
+    - 144
+  - - 155
+    - 155
+  - - 185
+    - 185
+  - - 189
+    - 189
+  - - 196
+    - 196
+  - - 211
+    - 211
+  - - 215
+    - 215
+  - - 219
+    - 219
+  - - 223
+    - 223
+  - - 227
+    - 227
+  - - 245
+    - 245
+  - - 252
+    - 252
+  - - 273
+    - 273
+  - - 294
+    - 294
+  - - 314
+    - 315
+  - - 319
+    - 319
+  new_lines:
+  - - 3
+    - 4
+  - - 6
+    - 6
+  - - 8
+    - 8
+  - - 15
+    - 15
+  - - 26
+    - 26
+  - - 30
+    - 31
+  - - 58
+    - 58
+  - - 62
+    - 64
+  - - 71
+    - 72
+  - - 93
+    - 94
+  - - 98
+    - 99
+  - - 103
+    - 104
+  - - 108
+    - 109
+  - - 127
+    - 128
+  - - 139
+    - 140
+  - - 156
+    - 157
+  - - 168
+    - 169
+  - - 199
+    - 200
+  - - 204
+    - 205
+  - - 212
+    - 213
+  - - 228
+    - 229
+  - - 233
+    - 234
+  - - 238
+    - 239
+  - - 243
+    - 244
+  - - 248
+    - 249
+  - - 267
+    - 268
+  - - 275
+    - 276
+  - - 297
+    - 298
+  - - 319
+    - 320
+  - - 340
+    - 342
+  - - 346
+    - 347
+  - - 352
+    - 369
+  trivial_lines: 1
+  substantive_lines:
+  - old:4
+  - old:5
+  - old:7
+  - old:9
+  - old:29
+  - old:59
+  - old:66
+  - old:87
+  - old:91
+  - old:95
+  - old:99
+  - old:117
+  - old:128
+  - old:144
+  - old:155
+  - old:185
+  - old:189
+  - old:196
+  - old:211
+  - old:215
+  - old:219
+  - old:223
+  - old:227
+  - old:245
+  - old:252
+  - old:273
+  - old:294
+  - old:314
+  - old:315
+  - old:319
+  - new:3
+  - new:4
+  - new:6
+  - new:8
+  - new:15
+  - new:26
+  - new:30
+  - new:31
+  - new:58
+  - new:62
+  - new:63
+  - new:64
+  - new:71
+  - new:72
+  - new:93
+  - new:94
+  - new:98
+  - new:99
+  - new:103
+  - new:104
+  - new:108
+  - new:109
+  - new:127
+  - new:128
+  - new:139
+  - new:140
+  - new:156
+  - new:157
+  - new:168
+  - new:169
+  - new:199
+  - new:200
+  - new:204
+  - new:205
+  - new:212
+  - new:213
+  - new:228
+  - new:229
+  - new:233
+  - new:234
+  - new:238
+  - new:239
+  - new:243
+  - new:244
+  - new:248
+  - new:249
+  - new:267
+  - new:268
+  - new:275
+  - new:276
+  - new:297
+  - new:298
+  - new:319
+  - new:320
+  - new:340
+  - new:341
+  - new:342
+  - new:346
+  - new:347
+  - new:352
+  - new:353
+  - new:354
+  - new:355
+  - new:356
+  - new:357
+  - new:358
+  - new:359
+  - new:360
+  - new:361
+  - new:362
+  - new:363
+  - new:364
+  - new:365
+  - new:366
+  - new:367
+  - new:368
+  - new:369
+- path: src-tauri/linux/md-studio.desktop
+  is_test: false
+  new_lines:
+  - - 9
+    - 9
+  trivial_lines: 0
+  substantive_lines:
+  - new:9
+new_files:
+- docs/qa/hotfix-desktop-wayland-controls.md
+new_test_files:
+- tests/desktop/desktop-launcher.test.ts
+contracts_touched: []
+data_touched: []
+events_touched: []
+rollup:
+  features:
+  - FEAT-SPLASH-PACKAGING
+  invariants:
+  - INV-DESKTOP-LAUNCHER-ENV
+  flows:
+  - FLOW-OPEN-FILE-FROM-OS
+stats:
+  files: 4
+  changed_nodes: 1
+  code_nodes: 1
+  test_nodes: 0
+  uncatalogued_files: 2
+  uncatalogued_substantive_lines: 108
+  new_files: 1
+  new_test_files: 1

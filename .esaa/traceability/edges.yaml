@@ -1,8 +1,7 @@
-# TRACE-005/006/010 — Arestas do grafo (from -> to). evidence = path:line no source_commit; method observed|inferred. boundary: ipc exige evidência TS (invoke) + Rust (fn) + registro (generate_handler!).
 artifact: edges
 schema_version: 1
-source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
-generated_at: '2026-09-24T23:06:21-03:00'
+source_commit: daf5888731c5ce3cdd5ce0d553a258b3b952f114
+generated_at: '2026-09-25T15:18:52-03:00'
 summary:
   total: 909
   by_relation:
@@ -566,7 +565,7 @@ edges:
   to: TEV-APP-OPEN-FILE
   relation: consumes
   evidence:
-  - src/lib/ipc/client.ts:302
+  - src/lib/ipc/client.ts:306
   - src-tauri/src/lib.rs:41
   method: observed
   trace_task: TRACE-005
@@ -2429,7 +2428,7 @@ edges:
   to: IPCC-LIST-ENTRIES
   relation: calls
   evidence:
-  - src/components/FileExplorer.tsx:55
+  - src/components/FileExplorer.tsx:56
   method: observed
   trace_task: TRACE-005
 - id: BTN-EXPLORER-OPEN-FOLDER|triggers|HDL-EXPLORER-OPEN-FOLDER
@@ -2607,7 +2606,7 @@ edges:
   to: PERM-DIALOG-ALLOW-OPEN
   relation: requires
   evidence:
-  - src/lib/ipc/client.ts:156
+  - src/lib/ipc/client.ts:162
   - src-tauri/capabilities/default.json:8
   method: observed
   trace_task: TRACE-005
@@ -2616,7 +2615,7 @@ edges:
   to: PERM-DIALOG-ALLOW-OPEN
   relation: requires
   evidence:
-  - src/lib/ipc/client.ts:179
+  - src/lib/ipc/client.ts:185
   - src-tauri/capabilities/default.json:8
   method: observed
   trace_task: TRACE-005
@@ -2715,7 +2714,7 @@ edges:
   to: TEV-WORKSPACE-CHANGE
   relation: consumes
   evidence:
-  - src/lib/ipc/client.ts:320
+  - src/lib/ipc/client.ts:323
   - src-tauri/src/watcher/mod.rs:19
   method: observed
   trace_task: TRACE-005
@@ -2889,7 +2888,8 @@ edges:
   evidence:
   - src/state/documentState.ts:467
   method: observed
-  notes: 'reload: descarta o rascunho (clearDraft, :466) e reabre do disco via openRelative (fix MD-BUG-CONFLICT-RELOAD-001)'
+  notes: 'reload: descarta o rascunho (clearDraft, :466) e reabre do disco via openRelative
+    (fix MD-BUG-CONFLICT-RELOAD-001)'
   trace_task: TRACE-005
 - id: HDL-DOC-RESOLVE-CONFLICT|calls|FN-CLEAR-DRAFT
   from: HDL-DOC-RESOLVE-CONFLICT
@@ -2898,7 +2898,7 @@ edges:
   evidence:
   - src/state/documentState.ts:466
   method: observed
-  notes: 'reload descarta o rascunho do caminho em conflito antes de reabrir'
+  notes: reload descarta o rascunho do caminho em conflito antes de reabrir
   trace_task: MD-BUG-CONFLICT-RELOAD-001
 - id: HDL-DOC-RESOLVE-CONFLICT|calls|HDL-DOC-SAVE-AS
   from: HDL-DOC-RESOLVE-CONFLICT
@@ -3135,7 +3135,8 @@ edges:
   - src-tauri/crates/md-studio-core/src/export/epub_builder.rs:240
   method: inferred
   confidence: 0.8
-  notes: bytes do zip montados em replace_entries (mimetype stored primeiro) e gravados via atomic_write_bytes
+  notes: bytes do zip montados em replace_entries (mimetype stored primeiro) e gravados
+    via atomic_write_bytes
   trace_task: TRACE-006
 - id: FN-BUILD-EPUB|depends_on|DTO-RS-EPUB-EXPORT-PAYLOAD
   from: FN-BUILD-EPUB
@@ -3226,7 +3227,7 @@ edges:
   to: OSI-OPEN-EXTERNAL-URL
   relation: calls
   evidence:
-  - src/components/MarkdownViewer.tsx:98
+  - src/components/MarkdownViewer.tsx:100
   method: observed
   trace_task: TRACE-005
 - id: HDL-VIEWER-ON-CLICK|calls|FN-RESOLVE-RELATIVE-LINK
@@ -3250,7 +3251,7 @@ edges:
   to: FN-REPLACE-FENCED-CODE-BLOCK
   relation: calls
   evidence:
-  - src/components/MarkdownViewer.tsx:175
+  - src/components/MarkdownViewer.tsx:439
   method: observed
   trace_task: TRACE-005
 - id: BTN-PREVIEW-FORMAT-CODE|calls|HDL-DOC-SET-CONTENT
@@ -3382,7 +3383,7 @@ edges:
   to: PIPE-SHIKI
   relation: contains
   evidence:
-  - src/markdown/processor.ts:54
+  - src/markdown/processor.ts:50
   method: observed
   notes: ordem 11/15
   trace_task: TRACE-005
@@ -3468,7 +3469,8 @@ edges:
   - src-tauri/tauri.conf.json:36
   method: inferred
   confidence: 0.9
-  notes: 'imagens remotas no preview só são bloqueadas pela CSP (img-src ''self'' data: blob:)'
+  notes: 'imagens remotas no preview só são bloqueadas pela CSP (img-src ''self''
+    data: blob:)'
   trace_task: TRACE-005
 - id: SVC-PROCESS-MARKDOWN|depends_on|FN-ALLOW-URL
   from: SVC-PROCESS-MARKDOWN
@@ -3547,7 +3549,8 @@ edges:
   - src/App.tsx:377
   method: inferred
   confidence: 0.5
-  notes: 'Colisão de atalho: com foco no editor, Ctrl+Shift+S aplica tachado e também pode acionar ''Salvar como'' global.'
+  notes: 'Colisão de atalho: com foco no editor, Ctrl+Shift+S aplica tachado e também
+    pode acionar ''Salvar como'' global.'
   trace_task: TRACE-005
 - id: SHC-EDITOR-SHIFT-ALT-F|triggers|FN-FORMAT-DOCUMENT-OR-CODE-BLOCK
   from: SHC-EDITOR-SHIFT-ALT-F
@@ -3634,7 +3637,7 @@ edges:
   to: DTO-TS-FORMAT-RESPONSE
   relation: depends_on
   evidence:
-  - src/services/formatter/index.ts:8
+  - src/services/formatter/index.ts:9
   method: observed
   trace_task: TRACE-005
 - id: IPC-FORMAT-CODE|calls|FN-FORMAT-CODE-INTERNAL
@@ -3796,7 +3799,8 @@ edges:
   evidence:
   - src/hooks/useMetadata.ts:89
   method: observed
-  notes: 'Somente no mount (deps estáveis): lista não é recarregada ao abrir workspace — inferido.'
+  notes: 'Somente no mount (deps estáveis): lista não é recarregada ao abrir workspace
+    — inferido.'
   trace_task: TRACE-005
 - id: IPC-GET-WORKSPACE-STATS|calls|FN-GET-ENGINE
   from: IPC-GET-WORKSPACE-STATS
@@ -4011,7 +4015,7 @@ edges:
   to: FN-REINDEX-ENGINE-REBUILD-BACKLINKS
   relation: contains
   evidence:
-  - src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:134
+  - src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:146
   method: observed
   trace_task: TRACE-005
 - id: SVC-REINDEX-ENGINE|contains|FN-REINDEX-ENGINE-BACKLINKS-FOR
@@ -4111,7 +4115,7 @@ edges:
   to: FN-BACKLINK-INDEX-REBUILD
   relation: calls
   evidence:
-  - src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:108
+  - src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:115
   - src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:172
   method: observed
   trace_task: TRACE-005
@@ -4120,7 +4124,7 @@ edges:
   to: REPO-METADATA-INDEX
   relation: writes
   evidence:
-  - src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:124
+  - src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:126
   method: observed
   trace_task: TRACE-005
 - id: FN-REINDEX-ENGINE-REMOVE-FILE|calls|FN-BACKLINK-INDEX-REMOVE-SOURCE
@@ -4154,7 +4158,7 @@ edges:
   to: FN-REINDEX-ENGINE-REMOVE-FILE
   relation: calls
   evidence:
-  - src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:152
+  - src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:161
   method: observed
   trace_task: TRACE-005
 - id: FN-REINDEX-ENGINE-APPLY-EXTERNAL-CHANGE|calls|FN-REINDEX-ENGINE-REINDEX-FILE
@@ -5046,7 +5050,7 @@ edges:
   to: FN-READ-BROWSER-FILE
   relation: calls
   evidence:
-  - src/lib/ipc/client.ts:243
+  - src/lib/ipc/client.ts:250
   method: observed
   trace_task: TRACE-006
 - id: FN-BROWSER-INVOKE|calls|FN-WRITE-BROWSER-FILE
@@ -5261,7 +5265,8 @@ edges:
   - src/components/MarkdownEditor.tsx:192
   - src/App.tsx:669
   method: observed
-  notes: updateListener do CodeMirror chama props.onChange, ligado a doc.setContent em App.
+  notes: updateListener do CodeMirror chama props.onChange, ligado a doc.setContent
+    em App.
   trace_task: TRACE-009
 - id: STO-METADATA|calls|FN-USE-METADATA-REFRESH-CURRENT-DOC
   from: STO-METADATA
@@ -5277,7 +5282,7 @@ edges:
   to: FN-HTML-TO-MARKDOWN
   relation: calls
   evidence:
-  - src/editor/paste/paste-plugin.ts:22
+  - src/editor/paste/paste-plugin.ts:20
   method: observed
   trace_task: TRACE-010
 - id: STO-SETTINGS|covered_by|TST-TS-EDITOR-AUTOSAVE
@@ -6818,7 +6823,7 @@ edges:
   to: TST-RS-ADD-AND-REMOVE-LINK-VIA-REINDEX-FILE-UPDATES-BACKLINKS
   relation: covered_by
   evidence:
-  - src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:279
+  - src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:281
   method: observed
   trace_task: TRACE-010
 - id: FN-REINDEX-ENGINE-BACKLINKS-FOR|covered_by|TST-RS-ADD-AND-REMOVE-LINK-VIA-REINDEX-FILE-UPDATES-BACKLINKS
@@ -6901,7 +6906,7 @@ edges:
   to: TST-RS-EXTERNAL-DELETE-AND-WATCH-APPLY-REMOVE-BACKLINKS
   relation: covered_by
   evidence:
-  - src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:326
+  - src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:333
   method: observed
   trace_task: TRACE-010
 - id: FN-REINDEX-ENGINE-FULL-REINDEX|covered_by|TST-RS-EXTERNAL-DELETE-AND-WATCH-APPLY-REMOVE-BACKLINKS
@@ -6958,7 +6963,7 @@ edges:
   to: TST-RS-REBUILD-MATCHES-INCREMENTAL-AND-LOADED-SNAPSHOT
   relation: covered_by
   evidence:
-  - src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:353
+  - src-tauri/crates/md-studio-core/src/index/reindex_engine.rs:347
   method: observed
   trace_task: TRACE-010
 - id: FN-REINDEX-ENGINE-REBUILD-BACKLINKS|covered_by|TST-RS-REBUILD-MATCHES-INCREMENTAL-AND-LOADED-SNAPSHOT
@@ -7721,3 +7726,318 @@ edges:
   - src-tauri/src/watcher/mod.rs:337
   method: observed
   trace_task: TRACE-010
+- id: CMP-WORKSPACE-SEARCH|calls|IPCC-SEARCH-WORKSPACE
+  from: CMP-WORKSPACE-SEARCH
+  relation: calls
+  to: IPCC-SEARCH-WORKSPACE
+  evidence:
+  - src/components/workspace/WorkspaceSearch.tsx:280
+  method: observed
+- id: CMP-HOVER-PREVIEW|calls|IPCC-RESOLVE-WIKI-LINK
+  from: CMP-HOVER-PREVIEW
+  relation: calls
+  to: IPCC-RESOLVE-WIKI-LINK
+  evidence:
+  - src/components/editor/HoverPreview.tsx:83
+  method: observed
+- id: CMP-MARKDOWN-VIEWER|calls|IPCC-RESOLVE-WIKI-LINK
+  from: CMP-MARKDOWN-VIEWER
+  relation: calls
+  to: IPCC-RESOLVE-WIKI-LINK
+  evidence:
+  - src/components/MarkdownViewer.tsx:185
+  method: observed
+- id: SVC-SMART-REFERENCES|calls|IPCC-RESOLVE-WIKI-LINK
+  from: SVC-SMART-REFERENCES
+  relation: calls
+  to: IPCC-RESOLVE-WIKI-LINK
+  evidence:
+  - src/editor/smartReferences.ts:133
+  method: observed
+- id: CMP-COMMAND-PALETTE|calls|SVC-COMMAND-REGISTRY
+  from: CMP-COMMAND-PALETTE
+  relation: calls
+  to: SVC-COMMAND-REGISTRY
+  evidence:
+  - src/components/command/CommandPalette.tsx:41
+  method: observed
+- id: SVC-MD-DOCTOR-LINTER|calls|FN-MD-DOCTOR-HOVER-TOOLTIP
+  from: SVC-MD-DOCTOR-LINTER
+  relation: calls
+  to: FN-MD-DOCTOR-HOVER-TOOLTIP
+  evidence:
+  - src/editor/mdDoctorLinter.ts:180
+  method: observed
+- id: SVC-SPELL-LINTER-EXTENSION|calls|CLS-LOCAL-SPELL-CHECKER
+  from: SVC-SPELL-LINTER-EXTENSION
+  relation: calls
+  to: CLS-LOCAL-SPELL-CHECKER
+  evidence:
+  - src/editor/spellcheck/spellLinter.ts:157
+  method: observed
+- id: SVC-ASSET-PASTE|calls|FN-VALIDATE-ASSET-DESTINATION
+  from: SVC-ASSET-PASTE
+  relation: calls
+  to: FN-VALIDATE-ASSET-DESTINATION
+  evidence:
+  - src/services/assetPaste.ts:74
+  method: observed
+- id: CMP-SETTINGS-PANEL|contains|CMP-TOOLING-SETTINGS
+  from: CMP-SETTINGS-PANEL
+  relation: contains
+  to: CMP-TOOLING-SETTINGS
+  evidence:
+  - src/components/settings/SettingsPanel.tsx:288
+  method: observed
+- id: SVC-MD-DOCTOR-LINTER|covered_by|TST-TS-MD-DOCTOR-LINTER
+  from: SVC-MD-DOCTOR-LINTER
+  relation: covered_by
+  to: TST-TS-MD-DOCTOR-LINTER
+  evidence:
+  - tests/editor/mdDoctorLinter.test.ts:14
+  method: observed
+- id: FN-MD-DOCTOR-HOVER-TOOLTIP|covered_by|TST-TS-MD-DOCTOR-LINTER
+  from: FN-MD-DOCTOR-HOVER-TOOLTIP
+  relation: covered_by
+  to: TST-TS-MD-DOCTOR-LINTER
+  evidence:
+  - tests/editor/mdDoctorLinter.test.ts:35
+  method: observed
+- id: CLS-RS-DOCTOR|covered_by|TST-TS-MD-DOCTOR-LINTER
+  from: CLS-RS-DOCTOR
+  relation: covered_by
+  to: TST-TS-MD-DOCTOR-LINTER
+  evidence:
+  - tests/editor/mdDoctorLinter.test.ts:14
+  method: observed
+- id: FN-RS-DOCTOR-DIAGNOSE|covered_by|TST-TS-MD-DOCTOR-LINTER
+  from: FN-RS-DOCTOR-DIAGNOSE
+  relation: covered_by
+  to: TST-TS-MD-DOCTOR-LINTER
+  evidence:
+  - tests/editor/mdDoctorLinter.test.ts:14
+  method: observed
+- id: SVC-SMART-REFERENCES|covered_by|TST-TS-SMART-REFERENCES
+  from: SVC-SMART-REFERENCES
+  relation: covered_by
+  to: TST-TS-SMART-REFERENCES
+  evidence:
+  - tests/editor/smartReferences.test.ts:39
+  method: observed
+- id: FN-RESOLVE-SMART-REFERENCE|covered_by|TST-TS-SMART-REFERENCES
+  from: FN-RESOLVE-SMART-REFERENCE
+  relation: covered_by
+  to: TST-TS-SMART-REFERENCES
+  evidence:
+  - tests/editor/smartReferences.test.ts:50
+  method: observed
+- id: SVC-ASSET-PASTE|covered_by|TST-TS-ASSET-PASTE
+  from: SVC-ASSET-PASTE
+  relation: covered_by
+  to: TST-TS-ASSET-PASTE
+  evidence:
+  - tests/services/assetPaste.test.ts:10
+  method: observed
+- id: FN-VALIDATE-ASSET-DESTINATION|covered_by|TST-TS-ASSET-PASTE
+  from: FN-VALIDATE-ASSET-DESTINATION
+  relation: covered_by
+  to: TST-TS-ASSET-PASTE
+  evidence:
+  - tests/services/assetPaste.test.ts:25
+  method: observed
+- id: FN-RS-SAVE-PASTED-ASSET|covered_by|TST-TS-ASSET-PASTE
+  from: FN-RS-SAVE-PASTED-ASSET
+  relation: covered_by
+  to: TST-TS-ASSET-PASTE
+  evidence:
+  - tests/services/assetPaste.test.ts:10
+  method: observed
+- id: CLS-LOCAL-SPELL-CHECKER|covered_by|TST-TS-SPELL-CHECKER
+  from: CLS-LOCAL-SPELL-CHECKER
+  relation: covered_by
+  to: TST-TS-SPELL-CHECKER
+  evidence:
+  - tests/editor/spellChecker.test.ts:7
+  method: observed
+- id: SVC-SPELL-LINTER-EXTENSION|covered_by|TST-TS-SPELL-CHECKER
+  from: SVC-SPELL-LINTER-EXTENSION
+  relation: covered_by
+  to: TST-TS-SPELL-CHECKER
+  evidence:
+  - tests/editor/spellChecker.test.ts:35
+  method: observed
+- id: SVC-TABLE-DATA-PASTE|covered_by|TST-TS-TABLE-DATA-PASTE
+  from: SVC-TABLE-DATA-PASTE
+  relation: covered_by
+  to: TST-TS-TABLE-DATA-PASTE
+  evidence:
+  - tests/editor/tableDataPaste.test.ts:14
+  method: observed
+- id: SVC-COMMAND-REGISTRY|covered_by|TST-TS-COMMAND-REGISTRY
+  from: SVC-COMMAND-REGISTRY
+  relation: covered_by
+  to: TST-TS-COMMAND-REGISTRY
+  evidence:
+  - tests/commands/commandRegistry.test.ts:6
+  method: observed
+- id: SVC-CODEBLOCK-METADATA|covered_by|TST-TS-CODEBLOCK-METADATA
+  from: SVC-CODEBLOCK-METADATA
+  relation: covered_by
+  to: TST-TS-CODEBLOCK-METADATA
+  evidence:
+  - tests/markdown/codeBlockMetadata.test.ts:10
+  method: observed
+- id: CMP-HOVER-PREVIEW|covered_by|TST-TS-HOVER-PREVIEW
+  from: CMP-HOVER-PREVIEW
+  relation: covered_by
+  to: TST-TS-HOVER-PREVIEW
+  evidence:
+  - tests/components/hoverPreview.test.tsx:68
+  method: observed
+- id: CMP-WORKSPACE-SEARCH|covered_by|TST-TS-WORKSPACE-SEARCH
+  from: CMP-WORKSPACE-SEARCH
+  relation: covered_by
+  to: TST-TS-WORKSPACE-SEARCH
+  evidence:
+  - tests/workspace/workspaceSearch.test.tsx:12
+  method: observed
+- id: CMP-TOOLING-SETTINGS|covered_by|TST-TS-TOOLING-SETTINGS
+  from: CMP-TOOLING-SETTINGS
+  relation: covered_by
+  to: TST-TS-TOOLING-SETTINGS
+  evidence:
+  - tests/settings/toolingSettings.test.tsx:6
+  method: observed
+- id: SVC-SOURCE-MAP|covered_by|TST-TS-SOURCE-MAP
+  from: SVC-SOURCE-MAP
+  relation: covered_by
+  to: TST-TS-SOURCE-MAP
+  evidence:
+  - tests/markdown/sourceMap.test.ts:10
+  method: observed
+- id: SVC-FORMATTER-CAPABILITIES|covered_by|TST-TS-FORMATTER-CAPABILITIES
+  from: SVC-FORMATTER-CAPABILITIES
+  relation: covered_by
+  to: TST-TS-FORMATTER-CAPABILITIES
+  evidence:
+  - tests/services/formatterCapabilities.test.ts:11
+  method: observed
+- id: CMP-DOCUMENT-OUTLINE|covered_by|TST-TS-DOCUMENT-OUTLINE-FILTER
+  from: CMP-DOCUMENT-OUTLINE
+  relation: covered_by
+  to: TST-TS-DOCUMENT-OUTLINE-FILTER
+  evidence:
+  - tests/components/documentOutline.test.tsx:9
+  method: observed
+- id: CMP-FILE-EXPLORER|covered_by|TST-TS-HIDE-INTERNAL-FILES
+  from: CMP-FILE-EXPLORER
+  relation: covered_by
+  to: TST-TS-HIDE-INTERNAL-FILES
+  evidence:
+  - tests/components/hideInternalFiles.test.tsx:25
+  method: observed
+- id: STO-SETTINGS|covered_by|TST-TS-PREVIEW-READING-WIDTH
+  from: STO-SETTINGS
+  relation: covered_by
+  to: TST-TS-PREVIEW-READING-WIDTH
+  evidence:
+  - tests/settings/previewReadingWidth.test.tsx:13
+  method: observed
+- id: SCR-APP|contains|CMP-WORKSPACE-SEARCH
+  from: SCR-APP
+  relation: contains
+  to: CMP-WORKSPACE-SEARCH
+  evidence:
+  - src/components/workspace/WorkspaceSearch.tsx:243
+  method: observed
+- id: CMP-MARKDOWN-VIEWER|contains|CMP-HOVER-PREVIEW
+  from: CMP-MARKDOWN-VIEWER
+  relation: contains
+  to: CMP-HOVER-PREVIEW
+  evidence:
+  - src/components/MarkdownViewer.tsx:546
+  method: observed
+- id: CMP-MARKDOWN-VIEWER|calls|SVC-CODEBLOCK-METADATA
+  from: CMP-MARKDOWN-VIEWER
+  relation: calls
+  to: SVC-CODEBLOCK-METADATA
+  evidence:
+  - src/components/MarkdownViewer.tsx:503
+  method: observed
+- id: SVC-PROCESS-MARKDOWN|calls|SVC-SOURCE-MAP
+  from: SVC-PROCESS-MARKDOWN
+  relation: calls
+  to: SVC-SOURCE-MAP
+  evidence:
+  - src/markdown/processor.ts:103
+  method: observed
+- id: SVC-SMART-REFERENCES|calls|FN-RESOLVE-SMART-REFERENCE
+  from: SVC-SMART-REFERENCES
+  relation: calls
+  to: FN-RESOLVE-SMART-REFERENCE
+  evidence:
+  - src/editor/smartReferences.ts:111
+  method: observed
+- id: CMP-MARKDOWN-EDITOR|contains|SVC-SMART-REFERENCES
+  from: CMP-MARKDOWN-EDITOR
+  relation: contains
+  to: SVC-SMART-REFERENCES
+  evidence:
+  - src/editor/smartReferences.ts:21
+  method: observed
+- id: CMP-MARKDOWN-EDITOR|contains|SVC-MD-DOCTOR-LINTER
+  from: CMP-MARKDOWN-EDITOR
+  relation: contains
+  to: SVC-MD-DOCTOR-LINTER
+  evidence:
+  - src/editor/mdDoctorLinter.ts:175
+  method: observed
+- id: SVC-MD-DOCTOR-LINTER|calls|CLS-RS-DOCTOR
+  from: SVC-MD-DOCTOR-LINTER
+  relation: calls
+  to: CLS-RS-DOCTOR
+  evidence:
+  - src-tauri/crates/md-studio-core/src/doctor/mod.rs:35
+  method: observed
+- id: CLS-RS-DOCTOR|contains|FN-RS-DOCTOR-DIAGNOSE
+  from: CLS-RS-DOCTOR
+  relation: contains
+  to: FN-RS-DOCTOR-DIAGNOSE
+  evidence:
+  - src-tauri/crates/md-studio-core/src/doctor/mod.rs:39
+  method: observed
+- id: CMP-MARKDOWN-EDITOR|contains|SVC-SPELL-LINTER-EXTENSION
+  from: CMP-MARKDOWN-EDITOR
+  relation: contains
+  to: SVC-SPELL-LINTER-EXTENSION
+  evidence:
+  - src/editor/spellcheck/spellLinter.ts:254
+  method: observed
+- id: FN-SMART-PASTE|calls|SVC-TABLE-DATA-PASTE
+  from: FN-SMART-PASTE
+  relation: calls
+  to: SVC-TABLE-DATA-PASTE
+  evidence:
+  - src/editor/paste/paste-plugin.ts:18
+  method: observed
+- id: FN-SMART-PASTE|calls|SVC-ASSET-PASTE
+  from: FN-SMART-PASTE
+  relation: calls
+  to: SVC-ASSET-PASTE
+  evidence:
+  - src/services/assetPaste.ts:64
+  method: observed
+- id: SVC-ASSET-PASTE|calls|FN-RS-SAVE-PASTED-ASSET
+  from: SVC-ASSET-PASTE
+  relation: calls
+  to: FN-RS-SAVE-PASTED-ASSET
+  evidence:
+  - src-tauri/crates/md-studio-core/src/assets/mod.rs:60
+  method: observed
+- id: CMP-TOOLING-SETTINGS|calls|SVC-FORMATTER-CAPABILITIES
+  from: CMP-TOOLING-SETTINGS
+  relation: calls
+  to: SVC-FORMATTER-CAPABILITIES
+  evidence:
+  - src/components/settings/ToolingSettings.tsx:17
+  method: observed

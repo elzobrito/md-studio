@@ -1,8 +1,7 @@
-# TRACE-010 — Índice de testes. covers = nós com aresta covered_by (nó -> teste); validates = contratos/DTO/config validados; features derivadas via features.yaml node_index. Evidência de cada aresta em edges.yaml (linha de import + linha de uso no bloco do teste, ou linha de chamada no #[test]).
 artifact: tests
 schema_version: 1
-source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
-generated_at: '2026-09-24T23:06:22-03:00'
+source_commit: daf5888731c5ce3cdd5ce0d553a258b3b952f114
+generated_at: '2026-09-25T15:18:52-03:00'
 summary:
   total: 149
   by_framework:
@@ -64,7 +63,8 @@ summary:
   - TST-TS-UX-BREADCRUMB
   - TST-TS-WORKSPACE-WORKSPACERAIL
   - TST-RS-NAV-AND-NCX-INCLUDE-H1-H2-ONLY
-  method_note: Cobertura estática (import+uso / chamada), não cobertura de execução. Testes sem nó mapeado exercitam unidades não modeladas (unmodeled_targets).
+  method_note: Cobertura estática (import+uso / chamada), não cobertura de execução.
+    Testes sem nó mapeado exercitam unidades não modeladas (unmodeled_targets).
 tests:
 - id: TST-TS-EDITOR-AUTOSAVE
   framework: vitest
@@ -177,7 +177,8 @@ tests:
   - renders compact functional groups and '+ Inserir' menu button
   - triggers one-click formatting actions on the CodeMirror document
   - triggers contextual document or code formatting when clicking format code button
-  - opens and closes '+ Inserir' menu, displaying options and triggering structural inserts
+  - opens and closes '+ Inserir' menu, displaying options and triggering structural
+    inserts
   - supports keyboard navigation inside the insert menu
   - closes the insert menu on click outside
   covers:
@@ -345,7 +346,8 @@ tests:
   - 7
   - 69
   cases:
-  - renders WelcomeScreen with Abrir Pasta as primary, Abrir Arquivo as secondary, and Novo Documento as ghost
+  - renders WelcomeScreen with Abrir Pasta as primary, Abrir Arquivo as secondary,
+    and Novo Documento as ghost
   - does not render interrogation mark (?) icon and displays Ctrl+P hint
   - renders EmptyState with concise copy, no app title, no ? icon, and Ctrl+P hint
   covers:
@@ -524,7 +526,8 @@ tests:
   - formats unformatted HTML and CSS
   - formats unformatted YAML
   - tolerates syntax errors gracefully without throwing
-  - unified formatCode orchestrator handles web languages and gracefully falls back for non-web
+  - unified formatCode orchestrator handles web languages and gracefully falls back
+    for non-web
   - unified formatCode delegates to Tauri IPC when __TAURI_INTERNALS__ is present
   covers:
   - FN-FORMAT-WEB-CODE
@@ -1315,7 +1318,8 @@ tests:
   - 236
   cases:
   - does not render when isOpen is false
-  - renders modal structure, vector icons, ARIA tablist and canonical tabs when isOpen is true
+  - renders modal structure, vector icons, ARIA tablist and canonical tabs when isOpen
+    is true
   - switches active tab and updates tabpanel when clicking different tabs
   - supports keyboard navigation within tablist (ArrowDown, ArrowUp, Home, End)
   - calls onClose when clicking close button, Fechar button, overlay or pressing Escape
@@ -3054,3 +3058,286 @@ tests:
   - FEAT-AUTO-SAVE
   - FEAT-WATCHER
   trace_task: TRACE-010
+- id: TST-TS-COMMAND-REGISTRY
+  framework: vitest
+  kind: unit
+  path: tests/commands/commandRegistry.test.ts
+  symbol: '"Command Palette & Registry (MD-V03-017)"'
+  lines:
+  - 4
+  - 88
+  cases:
+  - registers and lists commands correctly
+  - executes registered command action
+  - filters commands by category
+  covers:
+  - SVC-COMMAND-REGISTRY
+  - CMP-COMMAND-PALETTE
+  validates: []
+  features:
+  - FEAT-COMMAND-PALETTE
+  trace_task: MD-V03-017
+- id: TST-TS-DOCUMENT-OUTLINE-FILTER
+  framework: vitest
+  kind: unit
+  path: tests/components/documentOutline.test.tsx
+  symbol: '"Outline hierárquico, filtrável e sincronizado ao heading atual"'
+  lines:
+  - 7
+  - 136
+  cases:
+  - filters outline items by search text
+  - collapses and expands outline hierarchy
+  - respects max depth setting
+  covers:
+  - CMP-DOCUMENT-OUTLINE
+  - FN-SCROLL-TO-HEADING
+  validates: []
+  features:
+  - FEAT-OUTLINE-FILTER
+  trace_task: MD-V03-023
+- id: TST-TS-HIDE-INTERNAL-FILES
+  framework: vitest
+  kind: unit
+  path: tests/components/hideInternalFiles.test.tsx
+  symbol: '"MD-V03-024: Ocultar .mdstudio no File Tree"'
+  lines:
+  - 25
+  - 152
+  cases:
+  - hides .mdstudio directory by default
+  - displays .mdstudio directory when showInternalFiles is true
+  covers:
+  - CMP-FILE-EXPLORER
+  - STO-SETTINGS
+  validates: []
+  features:
+  - FEAT-HIDE-INTERNAL-FILES
+  trace_task: MD-V03-024
+- id: TST-TS-HOVER-PREVIEW
+  framework: vitest
+  kind: unit
+  path: tests/components/hoverPreview.test.tsx
+  symbol: '"MD-V03-025: Hover Previews locais, sanitizados e canceláveis"'
+  lines:
+  - 68
+  - 286
+  cases:
+  - renders hover preview on link hover
+  - cancels hover preview on mouse leave
+  - sanitizes preview content
+  - rejects paths escaping workspace
+  covers:
+  - CMP-HOVER-PREVIEW
+  - CMP-MARKDOWN-VIEWER
+  validates:
+  - DTO-TS-RESOLVED-WIKI-LINK
+  features:
+  - FEAT-HOVER-PREVIEW
+  trace_task: MD-V03-025
+- id: TST-TS-MD-DOCTOR-LINTER
+  framework: vitest
+  kind: unit
+  path: tests/editor/mdDoctorLinter.test.ts
+  symbol: '"MD-V03-012: MD Doctor CodeMirror Linter"'
+  lines:
+  - 12
+  - 101
+  cases:
+  - creates lint diagnostics for broken links and heading issues
+  - displays hover tooltip for doctor diagnostic
+  covers:
+  - SVC-MD-DOCTOR-LINTER
+  - FN-MD-DOCTOR-HOVER-TOOLTIP
+  - CLS-RS-DOCTOR
+  - FN-RS-DOCTOR-DIAGNOSE
+  validates: []
+  features:
+  - FEAT-MD-DOCTOR
+  trace_task: MD-V03-012
+- id: TST-TS-SMART-REFERENCES
+  framework: vitest
+  kind: unit
+  path: tests/editor/smartReferences.test.ts
+  symbol: '"Smart References (MD-V03-013)"'
+  lines:
+  - 37
+  - 100
+  cases:
+  - suggests headings and links in autocomplete
+  - resolves smart reference target to document position
+  covers:
+  - SVC-SMART-REFERENCES
+  - FN-RESOLVE-SMART-REFERENCE
+  validates:
+  - DTO-TS-RESOLVED-WIKI-LINK
+  features:
+  - FEAT-SMART-REFERENCES
+  trace_task: MD-V03-013
+- id: TST-TS-SPELL-CHECKER
+  framework: vitest
+  kind: unit
+  path: tests/editor/spellChecker.test.ts
+  symbol: '"Writing Quality fase 1 - Spell Checker (MD-V03-015)"'
+  lines:
+  - 5
+  - 90
+  cases:
+  - detects misspelled words in pt-BR and en-US
+  - suggests replacements using levenshtein distance
+  - creates lint diagnostics in editor
+  covers:
+  - CLS-LOCAL-SPELL-CHECKER
+  - SVC-SPELL-LINTER-EXTENSION
+  validates: []
+  features:
+  - FEAT-SPELL-CHECKER
+  trace_task: MD-V03-015
+- id: TST-TS-TABLE-DATA-PASTE
+  framework: vitest
+  kind: unit
+  path: tests/editor/tableDataPaste.test.ts
+  symbol: '"Table Data Paste (MD-V03-016)"'
+  lines:
+  - 12
+  - 118
+  cases:
+  - parses TSV clipboard data
+  - converts tabular data to GFM markdown table
+  - escapes pipe characters and newlines
+  covers:
+  - SVC-TABLE-DATA-PASTE
+  validates: []
+  features:
+  - FEAT-TABLE-DATA-PASTE
+  trace_task: MD-V03-016
+- id: TST-TS-CODEBLOCK-METADATA
+  framework: vitest
+  kind: unit
+  path: tests/markdown/codeBlockMetadata.test.ts
+  symbol: '"Code Blocks Avançados (MD-V03-018)"'
+  lines:
+  - 8
+  - 82
+  cases:
+  - parses line highlight ranges and filenames from code block meta
+  - renders copy button and language badge
+  covers:
+  - SVC-CODEBLOCK-METADATA
+  validates: []
+  features:
+  - FEAT-CODE-BLOCK-METADATA
+  trace_task: MD-V03-018
+- id: TST-TS-SOURCE-MAP
+  framework: vitest
+  kind: unit
+  path: tests/markdown/sourceMap.test.ts
+  symbol: '"Preview ↔ Source Mapping por bloco (MD-V03-019)"'
+  lines:
+  - 8
+  - 69
+  cases:
+  - attaches data-source-line and data-source-offset attributes to AST elements
+  - locates source position from DOM element
+  covers:
+  - SVC-SOURCE-MAP
+  - SVC-PROCESS-MARKDOWN
+  validates: []
+  features:
+  - FEAT-SOURCE-MAP
+  trace_task: MD-V03-019
+- id: TST-TS-ASSET-PASTE
+  framework: vitest
+  kind: unit
+  path: tests/services/assetPaste.test.ts
+  symbol: '"Asset Manager (MD-V03-014)"'
+  lines:
+  - 8
+  - 60
+  cases:
+  - validates asset destination within vault
+  - rejects parent directory escape
+  - saves pasted asset and generates markdown embed
+  covers:
+  - SVC-ASSET-PASTE
+  - FN-VALIDATE-ASSET-DESTINATION
+  - FN-RS-SAVE-PASTED-ASSET
+  validates: []
+  features:
+  - FEAT-ASSET-MANAGER
+  trace_task: MD-V03-014
+- id: TST-TS-FORMATTER-CAPABILITIES
+  framework: vitest
+  kind: unit
+  path: tests/services/formatterCapabilities.test.ts
+  symbol: '"Formatter Capabilities: registry consultável do hub existente"'
+  lines:
+  - 9
+  - 76
+  cases:
+  - returns registry of available formatters
+  - detects prettier web and cli formatters
+  covers:
+  - SVC-FORMATTER-CAPABILITIES
+  - SVC-FORMAT-CODE
+  validates: []
+  features:
+  - FEAT-FORMAT-CODE-BLOCK
+  trace_task: MD-V03-020
+- id: TST-TS-PREVIEW-READING-WIDTH
+  framework: vitest
+  kind: unit
+  path: tests/settings/previewReadingWidth.test.tsx
+  symbol: '"MD-UI-005: Preview Controlled Reading Width"'
+  lines:
+  - 13
+  - 112
+  cases:
+  - applies reading width styles in preview mode
+  - expands content width when sidebars are collapsed
+  covers:
+  - STO-SETTINGS
+  - CMP-MARKDOWN-VIEWER
+  validates: []
+  features:
+  - FEAT-SETTINGS
+  - FEAT-PREVIEW-RENDER
+  trace_task: MD-HOTFIX-EXPAND-002
+- id: TST-TS-TOOLING-SETTINGS
+  framework: vitest
+  kind: unit
+  path: tests/settings/toolingSettings.test.tsx
+  symbol: '"Tooling Settings: painel informativo das ferramentas locais (MD-V03-022)"'
+  lines:
+  - 6
+  - 81
+  cases:
+  - renders tooling status toggles and information
+  - updates settings when tooling options change
+  covers:
+  - CMP-TOOLING-SETTINGS
+  - STO-SETTINGS
+  validates: []
+  features:
+  - FEAT-TOOLING-SETTINGS
+  trace_task: MD-V03-022
+- id: TST-TS-WORKSPACE-SEARCH
+  framework: vitest
+  kind: unit
+  path: tests/workspace/workspaceSearch.test.tsx
+  symbol: '"Workspace Search com Replace All confirmado (MD-V03-020)"'
+  lines:
+  - 10
+  - 174
+  cases:
+  - searches workspace documents with query
+  - builds replace plan with occurrence counts
+  - executes replace across workspace files
+  covers:
+  - CMP-WORKSPACE-SEARCH
+  - IPCC-SEARCH-WORKSPACE
+  validates:
+  - DTO-TS-SEARCH-RESULT
+  features:
+  - FEAT-WORKSPACE-SEARCH
+  trace_task: MD-V03-021

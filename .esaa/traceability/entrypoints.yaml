@@ -1,8 +1,7 @@
-# TRACE-003 — Entrypoints do md-studio. Evidência path:line no source_commit. ts_callers derivados de edges.yaml.
 artifact: entrypoints
 schema_version: 1
-source_commit: 8eb7b6e18a672b94199397f1cc0d0ec7def6609c
-generated_at: '2026-09-24T22:53:06-03:00'
+source_commit: daf5888731c5ce3cdd5ce0d553a258b3b952f114
+generated_at: '2026-09-25T15:18:52-03:00'
 summary:
   total: 71
   by_kind:
@@ -22,9 +21,7 @@ summary:
     ui_edit: 1
     ui_link: 1
   ipc_registered: 21
-  ipc_without_frontend_caller:
-  - IPC-SEARCH-WORKSPACE
-  - IPC-RESOLVE-WIKI-LINK
+  ipc_without_frontend_caller: []
 entrypoints:
 - id: ENT-IPC-OPEN-WORKSPACE
   kind: ipc_command
@@ -126,9 +123,9 @@ entrypoints:
   registered_at: src-tauri/src/lib.rs:75
   ts_clients:
   - IPCC-SEARCH-WORKSPACE
-  ts_callers: []
-  ts_callers_note: 'AUSÊNCIA EXPLÍCITA: nenhum código do frontend chama este cliente/comando.'
-  status: dead_code
+  ts_callers:
+  - CMP-WORKSPACE-SEARCH
+  status: active
 - id: ENT-IPC-EXPORT-HTML
   kind: ipc_command
   node: IPC-EXPORT-HTML
@@ -318,9 +315,11 @@ entrypoints:
   registered_at: src-tauri/src/lib.rs:84
   ts_clients:
   - IPCC-RESOLVE-WIKI-LINK
-  ts_callers: []
-  ts_callers_note: 'AUSÊNCIA EXPLÍCITA: nenhum código do frontend chama este cliente/comando.'
-  status: dead_code
+  ts_callers:
+  - CMP-MARKDOWN-VIEWER
+  - CMP-HOVER-PREVIEW
+  - SVC-SMART-REFERENCES
+  status: active
 - id: ENT-IPC-GET-RESOLVED-WIKI-LINKS-FOR
   kind: ipc_command
   node: IPC-GET-RESOLVED-WIKI-LINKS-FOR
@@ -601,7 +600,8 @@ entrypoints:
   name: onClick={onReindex}
   evidence:
   - src/components/explorer/WorkspaceHeader.tsx:38
-  notes: Rotulado 'Reindexar workspace', mas FileExplorer liga onReindex a reload() da árvore (list_entries), não a trigger_reindex.
+  notes: Rotulado 'Reindexar workspace', mas FileExplorer liga onReindex a reload()
+    da árvore (list_entries), não a trigger_reindex.
 - id: ENT-SHC-EDITOR-MOD-S
   kind: shortcut
   node: SHC-EDITOR-MOD-S
@@ -716,7 +716,7 @@ entrypoints:
   node: CMP-COMMAND-PALETTE
   name: CommandPalette
   evidence:
-  - src/components/command/CommandPalette.tsx:14
+  - src/components/command/CommandPalette.tsx:15
   notes: 'App.tsx não passa allFiles: quick switcher cobre só recentes.'
 - id: ENT-FN-CREATE-SLASH-PLUGIN
   kind: slash_commands

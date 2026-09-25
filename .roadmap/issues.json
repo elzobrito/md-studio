@@ -4,10 +4,38 @@
     "esaa_version": "0.4.x",
     "generated_by": "esaa.project",
     "source_event_store": ".roadmap/activity.jsonl",
-    "last_event_seq": 3586,
-    "updated_at": "2026-09-25T18:06:34Z"
+    "last_event_seq": 3664,
+    "updated_at": "2026-09-25T21:00:42Z"
   },
   "issues": [
+    {
+      "issue_id": "ISSUE-MD-DESKTOP-CONTROLS-REGRESSION",
+      "status": "resolved",
+      "severity": "high",
+      "title": "Regressão: Controles de janela inertes no Ubuntu GNOME/Wayland por omissão de GDK_BACKEND=x11",
+      "baseline_id": null,
+      "affected": {},
+      "evidence": {
+        "symptom": "Barra de título e botões minimizar, maximizar e fechar ficam sem resposta a cliques na janela restaurada no Ubuntu GNOME sob Wayland",
+        "repro_steps": [
+          "Executar md-studio pelo Show Apps após atualização do .desktop sem a flag GDK_BACKEND=x11",
+          "Tentar minimizar, maximizar ou fechar a janela em estado restaurado (não maximizado)"
+        ]
+      },
+      "resolution": {
+        "status": "resolved_by_command",
+        "hotfix_task_id": "MD-HOTFIX-DESKTOP-003"
+      },
+      "links": {
+        "reported_by_task_id": "MD-BUILD-UBUNTU-001",
+        "fixes_task_id": "MD-BUILD-UBUNTU-001",
+        "hotfix_task_id": "HF-ISSUE-MD-DESKTOP-CONTROLS-REGRESSION"
+      },
+      "timeline": {
+        "created_event_seq": 3640,
+        "resolved_event_seq": 3647
+      }
+    },
     {
       "issue_id": "ISSUE-MD-DS-004-UNVERIFIED-VISUAL",
       "status": "resolved",
@@ -64,9 +92,43 @@
         "created_event_seq": 2680,
         "resolved_event_seq": 2703
       }
+    },
+    {
+      "issue_id": "ISSUE-MD-TRACE-HANDOFF-TIMELINE-001",
+      "status": "open",
+      "severity": "low",
+      "title": "Corrigir horário de geração do drift no relatório de handoff",
+      "baseline_id": null,
+      "affected": {
+        "paths": [
+          ".esaa/traceability/case-MD-SPLIT-SCROLL-001-handoff.md"
+        ]
+      },
+      "evidence": {
+        "symptom": "A seção 1–2 do relatório situa a geração do drift às 18:30:36Z. O histórico Codex mostra o comando conjunto footprint.py && drift.py concluído às 18:29:48.119Z; a execução das 18:30:36.772Z apenas inspecionou o YAML existente e consultou --help.",
+        "repro_steps": [
+          "Leia o registro de sessão Codex 01a0d406-56e5-7ed2-9eac-acdab70b1376 em 2026-09-25T18:29:48.119Z; o stdout confirma footprint e drift gerados em sequência.",
+          "Compare com 2026-09-25T18:30:36.772Z, cujo comando executa impact.py project --help e lê o YAML de drift já presente.",
+          "O relatório `.esaa/traceability/case-MD-SPLIT-SCROLL-001-handoff.md` deve ser interpretado com a hora correta de geração: 18:29:48Z."
+        ]
+      },
+      "resolution": null,
+      "links": {
+        "reported_by_task_id": "MD-TRACE-HANDOFF-SCROLL-001",
+        "fixes_task_id": null,
+        "hotfix_task_id": null
+      },
+      "timeline": {
+        "created_event_seq": 3625,
+        "resolved_event_seq": null
+      }
     }
   ],
   "indexes": {
-    "open_by_baseline": {}
+    "open_by_baseline": {
+      "unknown": [
+        "ISSUE-MD-TRACE-HANDOFF-TIMELINE-001"
+      ]
+    }
   }
 }
