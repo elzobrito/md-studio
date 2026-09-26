@@ -11,21 +11,17 @@ describe("MD-UI-PANEL-001: Collapsible Right Panel & StatusBar", () => {
     uiStore.setRight(true);
   });
 
-  it("renders DocumentOutline with a close button (×) having aria-label and title", () => {
-    let closed = false;
+  it("renders DocumentOutline with a collapse sections button (≡) having aria-label and title", () => {
     const html = renderToString(
       <DocumentOutline
         content="# Hello\n## Sub"
         onNavigate={() => {}}
-        onClose={() => {
-          closed = true;
-        }}
       />
     );
 
-    expect(html).toContain('class="outline-close-btn"');
-    expect(html).toContain('aria-label="Fechar painel"');
-    expect(html).toContain('×');
+    expect(html).toContain('class="outline-collapse-all-btn"');
+    expect(html).toContain('title="Colapsar seções"');
+    expect(html).toContain('≡');
   });
 
   it("renders [sumário] button in StatusBar when rightOpen is false", () => {

@@ -31,8 +31,7 @@ describe("MD-UX-RIGHT-PANEL-001: Right Panel Accordion & UX Parity", () => {
     };
   });
 
-  it("DocumentOutline: fecha o painel invocando onClose ao clicar em [×]", async () => {
-    let closed = false;
+  it("DocumentOutline: não renderiza botão [×] no sumário e colapsa/expande via botão [≡]", async () => {
     const root = createRoot(container);
 
     await act(async () => {
@@ -40,56 +39,39 @@ describe("MD-UX-RIGHT-PANEL-001: Right Panel Accordion & UX Parity", () => {
         <DocumentOutline
           content="# MD Studio"
           onNavigate={() => {}}
-          onClose={() => {
-            closed = true;
-          }}
         />
       );
     });
 
+    // Botão de fechar [×] foi removido do cabeçalho do sumário
     const closeBtn = container.querySelector<HTMLButtonElement>(".outline-close-btn");
-    expect(closeBtn).not.toBeNull();
-    expect(closeBtn?.getAttribute("aria-label")).toBe("Fechar painel");
+    expect(closeBtn).toBeNull();
 
-    await act(async () => {
-      closeBtn?.click();
-    });
-
-    expect(closed).toBe(true);
-
-    act(() => root.unmount());
-  });
-
-  it("DocumentOutline: botão de colapsar subtópicos [≡] fica desabilitado quando não há subseções", async () => {
-    const root = createRoot(container);
-
-    // Documento com apenas 1 heading (como no print do usuário)
-    await act(async () => {
-      root.render(<DocumentOutline content="# MD Studio" onNavigate={() => {}} />);
-    });
-
-    const collapseAllBtn = container.querySelector<HTMLButtonElement>(".outline-collapse-all-btn");
-    expect(collapseAllBtn).not.toBeNull();
-    expect(collapseAllBtn?.disabled).toBe(true);
-    expect(collapseAllBtn?.title).toBe("Sem subtópicos aninhados para colapsar");
-
-    act(() => root.unmount());
-  });
-
-  it("DocumentOutline: botão de colapsar subtópicos [≡] fica habilitado quando há subseções", async () => {
-    const root = createRoot(container);
-
-    // Documento com H1 e H2
-    await act(async () => {
-      root.render(
-        <DocumentOutline content={"# MD Studio\n## Subseção"} onNavigate={() => {}} />
-      );
-    });
-
+    // Botão [≡] de colapsar seções está presente e habilitado mesmo com 1 heading
     const collapseAllBtn = container.querySelector<HTMLButtonElement>(".outline-collapse-all-btn");
     expect(collapseAllBtn).not.toBeNull();
     expect(collapseAllBtn?.disabled).toBe(false);
     expect(collapseAllBtn?.title).toBe("Colapsar seções");
+    expect(collapseAllBtn?.getAttribute("aria-expanded")).toBe("true");
+    expect(container.querySelector(".outline-list")).not.toBeNull();
+
+    // Clicar em [≡] para colapsar seções
+    await act(async () => {
+      collapseAllBtn?.click();
+    });
+
+    expect(collapseAllBtn?.title).toBe("Expandir seções");
+    expect(collapseAllBtn?.getAttribute("aria-expanded")).toBe("false");
+    expect(container.querySelector(".outline-list")).toBeNull();
+
+    // Clicar novamente em [≡] para expandir seções
+    await act(async () => {
+      collapseAllBtn?.click();
+    });
+
+    expect(collapseAllBtn?.title).toBe("Colapsar seções");
+    expect(collapseAllBtn?.getAttribute("aria-expanded")).toBe("true");
+    expect(container.querySelector(".outline-list")).not.toBeNull();
 
     act(() => root.unmount());
   });

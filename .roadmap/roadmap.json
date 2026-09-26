@@ -7,11 +7,11 @@
     "run": {
       "run_id": "RUN-0001",
       "status": "success",
-      "last_event_seq": 3685,
-      "projection_hash_sha256": "22cdfbbc06e8bd724861c0f99f6577b952e4287d38a2ed6e4aa345755f85b651",
+      "last_event_seq": 3697,
+      "projection_hash_sha256": "84d007f355dc3522919ba5b419c9e591c807d36a9f0e9b390aa2c1b5b4894faa",
       "verify_status": "ok"
     },
-    "updated_at": "2026-09-26T00:00:28Z"
+    "updated_at": "2026-09-26T00:18:52Z"
   },
   "project": {
     "name": "MD Studio",
@@ -11915,14 +11915,51 @@
         ]
       },
       "completed_at": "2026-09-26T00:00:28Z"
+    },
+    {
+      "task_id": "MD-UX-SUMARIO-COLLAPSE-001",
+      "task_kind": "impl",
+      "title": "Remover fechar painel do sumário e fazer colapsar seções recolher o sumário",
+      "description": "Remover o botão [fechar painel] do cabeçalho do Sumário, manter apenas o botão [colapsar seções] e fazer com que seu clique recolha/expanda o conteúdo do Sumário. Recompilar o binário local em ~/.local/bin/md-studio.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "src/components/DocumentOutline.tsx",
+        "src/App.tsx"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Botão [fechar painel] removido do cabeçalho do Sumário",
+        "Botão [colapsar seções] alterna a expansão e o recolhimento do conteúdo do Sumário",
+        "Testes automatizados atualizados e passando",
+        "Binário local ~/.local/bin/md-studio recompilado com sucesso"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-26T00:12:10Z",
+      "verification": {
+        "checks": [
+          "Botão [fechar painel] removido do cabeçalho do Sumário",
+          "Botão [colapsar seções] alterna a expansão e o recolhimento do conteúdo do Sumário",
+          "Testes automatizados atualizados e passando",
+          "Binário local ~/.local/bin/md-studio recompilado com sucesso"
+        ]
+      },
+      "completed_at": "2026-09-26T00:18:52Z"
     }
   ],
   "indexes": {
     "by_status": {
-      "done": 304
+      "done": 305
     },
     "by_kind": {
-      "impl": 239,
+      "impl": 240,
       "qa": 38,
       "spec": 27
     }

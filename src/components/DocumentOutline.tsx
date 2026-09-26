@@ -111,14 +111,6 @@ export function DocumentOutline({ content, onNavigate, onClose, cursorLine }: Pr
       });
   }, [filteredItems, allItems, collapsedIds, filter]);
 
-  const handleClose = () => {
-    if (onClose) {
-      onClose();
-    } else {
-      uiStore.setRight(false);
-    }
-  };
-
   return (
     <nav className="outline outline-container" aria-label="Sumário">
       <div className="outline-header">
@@ -127,7 +119,7 @@ export function DocumentOutline({ content, onNavigate, onClose, cursorLine }: Pr
           className="outline-accordion-toggle"
           onClick={() => setIsExpanded(!isExpanded)}
           aria-expanded={isExpanded}
-          title={isExpanded ? "Recolher Sumário" : "Expandir Sumário"}
+          title={isExpanded ? "Colapsar seções" : "Expandir seções"}
         >
           <span className="accordion-chevron" aria-hidden="true">
             {isExpanded ? "▼" : "▶"}
@@ -139,34 +131,12 @@ export function DocumentOutline({ content, onNavigate, onClose, cursorLine }: Pr
           <button
             type="button"
             className="outline-collapse-all-btn"
-            disabled={!hasSubsections}
-            onClick={() => {
-              if (!hasSubsections) return;
-              if (collapsedIds.size > 0) {
-                setCollapsedIds(new Set());
-              } else {
-                setCollapsedIds(new Set(allItems.map((i) => i.id)));
-              }
-            }}
-            title={
-              !hasSubsections
-                ? "Sem subtópicos aninhados para colapsar"
-                : collapsedIds.size > 0
-                  ? "Expandir seções"
-                  : "Colapsar seções"
-            }
-            aria-label="Alternar colapso de seções"
+            onClick={() => setIsExpanded(!isExpanded)}
+            title={isExpanded ? "Colapsar seções" : "Expandir seções"}
+            aria-label={isExpanded ? "Colapsar seções" : "Expandir seções"}
+            aria-expanded={isExpanded}
           >
             ≡
-          </button>
-          <button
-            type="button"
-            className="outline-close-btn"
-            onClick={handleClose}
-            title="Fechar painel (Ctrl+J)"
-            aria-label="Fechar painel"
-          >
-            ×
           </button>
         </div>
       </div>
