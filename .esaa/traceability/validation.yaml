@@ -2,13 +2,13 @@
 artifact: validation
 schema_version: 1
 source_commit: daf5888731c5ce3cdd5ce0d553a258b3b952f114
-head: daf5888731c5ce3cdd5ce0d553a258b3b952f114
-generated_at: '2026-09-25T18:01:07-03:00'
+head: b8bdc62f9003c7b32bb122c9701247a7f3dbc486
+generated_at: '2026-09-25T21:00:46-03:00'
 generator: tools/validate.py
 summary:
   status: pass
   critical_issues: 0
-  warning_issues: 31
+  warning_issues: 29
   checks_with_findings:
     warning: 4
     info: 2
@@ -160,21 +160,21 @@ checks:
   source_commit_drift:
     severity: warning
     description: Drift entre source_commit (daf5888731c5) e HEAD/working tree (âncoras continuam válidas no source_commit)
-    count: 7
+    count: 5
     items:
-    - 'working tree modificado: src-tauri/linux/md-studio.desktop — nós stale (âncora não bate no working tree): []; nós com âncora ainda válida: [''OSI-DESKTOP-ENTRY'']; evidências no arquivo: 6'
-    - 'working tree modificado: src/App.tsx — nós stale (âncora não bate no working tree): []; nós com âncora ainda válida: [''SCR-APP'', ''RTE-VIEW-MODES'', ''HDL-APP-SHORTCUTS'', ''SHC-CTRL-S'', ''SHC-CTRL-SHIFT-S'',
-      ''SHC-CTRL-O'', ''SHC-CTRL-SHIFT-O'', ''SHC-CTRL-N'', ''SHC-CTRL-W'', ''SHC-F5'', ''HDL-APP-OPEN-NEW-DOCUMENT'', ''HDL-APP-SELECT-TEMPLATE'', ''HDL-APP-EXPORT-HTML'', ''HDL-APP-EXPORT-EPUB'', ''HDL-APP-EXPORT-PDF'',
-      ''HDL-APP-OPEN-FOLDER-WELCOME'', ''HDL-APP-OPEN-FILE-WELCOME'', ''HDL-APP-START-PRESENTATION'', ''HDL-APP-CLOSE-PRESENTATION'', ''HDL-APP-CYCLE-RECENT'', ''HDL-APP-GO-TO-HEADING'', ''HDL-APP-DRAFT-RECOVERY-TIMER'',
-      ''HDL-APP-BACKLINK-OPEN-OCCURRENCE'', ''HDL-APP-CLOSE-SPLASH-EFFECT'', ''IPCC-CLOSE-SPLASH'', ''OSI-WINDOW-PRINT'']; evidências no arquivo: 196'
-    - 'working tree modificado: src/hooks/useScrollSync.ts — nós stale (âncora não bate no working tree): []; nós com âncora ainda válida: [''FN-USE-SCROLL-SYNC'']; evidências no arquivo: 0'
-    - 'working tree modificado: src/services/assetPaste.ts — nós stale (âncora não bate no working tree): [''SVC-ASSET-PASTE'']; nós com âncora ainda válida: [''FN-VALIDATE-ASSET-DESTINATION'']; evidências
-      no arquivo: 2'
-    - 'working tree modificado: src/state/settings.ts — nós stale (âncora não bate no working tree): [''STO-SETTINGS'', ''CFG-DEFAULT-SETTINGS'', ''LSK-SETTINGS'']; nós com âncora ainda válida: []; evidências
-      no arquivo: 5'
-    - 'working tree modificado: tests/settings/settingsPanel.test.tsx — nós stale (âncora não bate no working tree): []; nós com âncora ainda válida: [''TST-TS-SETTINGS-SETTINGSPANEL'']; evidências no arquivo:
-      4'
-    - 'working tree modificado: tests/ux/settingsStore.test.ts — nós stale (âncora não bate no working tree): []; nós com âncora ainda válida: [''TST-TS-UX-SETTINGSSTORE'']; evidências no arquivo: 4'
+    - 'HEAD b8bdc62f9003 != source_commit daf5888731c5; 63 arquivo(s) alterado(s); nós possivelmente stale: [''CFG-DEFAULT-SETTINGS'', ''FN-USE-SCROLL-SYNC'', ''FN-VALIDATE-ASSET-DESTINATION'', ''HDL-APP-BACKLINK-OPEN-OCCURRENCE'',
+      ''HDL-APP-CLOSE-PRESENTATION'', ''HDL-APP-CLOSE-SPLASH-EFFECT'', ''HDL-APP-CYCLE-RECENT'', ''HDL-APP-DRAFT-RECOVERY-TIMER'', ''HDL-APP-EXPORT-EPUB'', ''HDL-APP-EXPORT-HTML'', ''HDL-APP-EXPORT-PDF'',
+      ''HDL-APP-GO-TO-HEADING'', ''HDL-APP-OPEN-FILE-WELCOME'', ''HDL-APP-OPEN-FOLDER-WELCOME'', ''HDL-APP-OPEN-NEW-DOCUMENT'', ''HDL-APP-SELECT-TEMPLATE'', ''HDL-APP-SHORTCUTS'', ''HDL-APP-START-PRESENTATION'',
+      ''IPCC-CLOSE-SPLASH'', ''LSK-SETTINGS'', ''OSI-DESKTOP-ENTRY'', ''OSI-WINDOW-PRINT'', ''RTE-VIEW-MODES'', ''SCR-APP'', ''SHC-CTRL-N'', ''SHC-CTRL-O'', ''SHC-CTRL-S'', ''SHC-CTRL-SHIFT-O'', ''SHC-CTRL-SHIFT-S'',
+      ''SHC-CTRL-W'', ''SHC-F5'', ''STO-SETTINGS'', ''SVC-ASSET-PASTE'', ''TST-TS-SETTINGS-SETTINGSPANEL'', ''TST-TS-UX-SETTINGSSTORE'']'
+    - 'working tree modificado: src/App.tsx — nós stale (âncora não bate no working tree): [''HDL-APP-BACKLINK-OPEN-OCCURRENCE'']; nós com âncora ainda válida: [''SCR-APP'', ''RTE-VIEW-MODES'', ''HDL-APP-SHORTCUTS'',
+      ''SHC-CTRL-S'', ''SHC-CTRL-SHIFT-S'', ''SHC-CTRL-O'', ''SHC-CTRL-SHIFT-O'', ''SHC-CTRL-N'', ''SHC-CTRL-W'', ''SHC-F5'', ''HDL-APP-OPEN-NEW-DOCUMENT'', ''HDL-APP-SELECT-TEMPLATE'', ''HDL-APP-EXPORT-HTML'',
+      ''HDL-APP-EXPORT-EPUB'', ''HDL-APP-EXPORT-PDF'', ''HDL-APP-OPEN-FOLDER-WELCOME'', ''HDL-APP-OPEN-FILE-WELCOME'', ''HDL-APP-START-PRESENTATION'', ''HDL-APP-CLOSE-PRESENTATION'', ''HDL-APP-CYCLE-RECENT'',
+      ''HDL-APP-GO-TO-HEADING'', ''HDL-APP-DRAFT-RECOVERY-TIMER'', ''HDL-APP-CLOSE-SPLASH-EFFECT'', ''IPCC-CLOSE-SPLASH'', ''OSI-WINDOW-PRINT'']; evidências no arquivo: 196'
+    - 'working tree modificado: src/components/DocumentOutline.tsx — nós stale (âncora não bate no working tree): []; nós com âncora ainda válida: [''CMP-DOCUMENT-OUTLINE'']; evidências no arquivo: 2'
+    - 'working tree modificado: src/components/wiki/BacklinksPanel.tsx — nós stale (âncora não bate no working tree): []; nós com âncora ainda válida: [''CMP-BACKLINKS-PANEL'']; evidências no arquivo: 5'
+    - 'working tree modificado: src/components/wiki/OutgoingLinksPanel.tsx — nós stale (âncora não bate no working tree): [''CMP-OUTGOING-LINKS-PANEL'']; nós com âncora ainda válida: []; evidências no arquivo:
+      3'
   graph_json_stale:
     severity: warning
     description: graph.json desatualizado em relação aos artefatos

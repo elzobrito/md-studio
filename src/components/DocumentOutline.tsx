@@ -13,6 +13,7 @@ interface Props {
 }
 
 export function DocumentOutline({ content, onNavigate, onClose, cursorLine }: Props) {
+  const [isExpanded, setIsExpanded] = useState(true);
   const [filter, setFilter] = useState("");
   const [maxDepth, setMaxDepth] = useState<number>(6); // 1 = H1, 2 = H1-H2, 3 = H1-H3, 6 = Todos
   const [collapsedIds, setCollapsedIds] = useState<Set<string>>(new Set());
@@ -21,6 +22,14 @@ export function DocumentOutline({ content, onNavigate, onClose, cursorLine }: Pr
   const allItems = useMemo(() => extractOutline(content), [content]);
   const allSlugs = useMemo(() => allItems.map((it) => it.id), [allItems]);
   const scrollActiveSlug = useScrollTracking(allSlugs);
+
+  // Determinar se há subtópicos (filhos) no documento para habilitar o colapso interno
+  const hasSubsections = useMemo(() => {
+    return allItems.some((it, idx) => {
+      const next = allItems[idx + 1];
+      return next && next.level > it.level;
+    });
+  }, [allItems]);
 
   // Se houver cursorLine no editor, encontrar o heading ativo mais próximo
   const activeSlug = useMemo(() => {
@@ -113,19 +122,39 @@ export function DocumentOutline({ content, onNavigate, onClose, cursorLine }: Pr
   return (
     <nav className="outline outline-container" aria-label="Sumário">
       <div className="outline-header">
-        <h2 className="outline-title">Sumário</h2>
+        <button
+          type="button"
+          className="outline-accordion-toggle"
+          onClick={() => setIsExpanded(!isExpanded)}
+          aria-expanded={isExpanded}
+          title={isExpanded ? "Recolher Sumário" : "Expandir Sumário"}
+        >
+          <span className="accordion-chevron" aria-hidden="true">
+            {isExpanded ? "▼" : "▶"}
+          </span>
+          <h2 className="outline-title">Sumário</h2>
+          <span className="outline-header-count">({allItems.length})</span>
+        </button>
         <div className="outline-header-actions">
           <button
             type="button"
             className="outline-collapse-all-btn"
+            disabled={!hasSubsections}
             onClick={() => {
+              if (!hasSubsections) return;
               if (collapsedIds.size > 0) {
                 setCollapsedIds(new Set());
               } else {
                 setCollapsedIds(new Set(allItems.map((i) => i.id)));
               }
             }}
-            title={collapsedIds.size > 0 ? "Expandir seções" : "Colapsar seções"}
+            title={
+              !hasSubsections
+                ? "Sem subtópicos aninhados para colapsar"
+                : collapsedIds.size > 0
+                  ? "Expandir seções"
+                  : "Colapsar seções"
+            }
             aria-label="Alternar colapso de seções"
           >
             ≡
@@ -134,7 +163,7 @@ export function DocumentOutline({ content, onNavigate, onClose, cursorLine }: Pr
             type="button"
             className="outline-close-btn"
             onClick={handleClose}
-            title="Fechar painel (Ctrl+Shift+\)"
+            title="Fechar painel (Ctrl+J)"
             aria-label="Fechar painel"
           >
             ×
@@ -142,77 +171,81 @@ export function DocumentOutline({ content, onNavigate, onClose, cursorLine }: Pr
         </div>
       </div>
 
-      {/* Controles de Profundidade H1 / H2 / H3 / Todos */}
-      <div
-        className="outline-depth-controls"
-        style={{
-          display: "flex",
-          gap: "4px",
-          padding: "4px 8px",
-          borderBottom: "1px solid #313244",
-          fontSize: "11px",
-        }}
-      >
-        <span style={{ color: "#a6adc8", alignSelf: "center", marginRight: "2px" }}>Nível:</span>
-        {[
-          { label: "H1", val: 1 },
-          { label: "H2", val: 2 },
-          { label: "H3", val: 3 },
-          { label: "Todos", val: 6 },
-        ].map((btn) => (
-          <button
-            key={btn.label}
-            type="button"
-            onClick={() => setMaxDepth(btn.val)}
+      {isExpanded && (
+        <>
+          {/* Controles de Profundidade H1 / H2 / H3 / Todos */}
+          <div
+            className="outline-depth-controls"
             style={{
-              background: maxDepth === btn.val ? "#89b4fa" : "#181825",
-              color: maxDepth === btn.val ? "#11111b" : "#cdd6f4",
-              border: "1px solid #313244",
-              borderRadius: "3px",
-              padding: "2px 6px",
-              cursor: "pointer",
-              fontWeight: maxDepth === btn.val ? 600 : 400,
+              display: "flex",
+              gap: "4px",
+              padding: "4px 8px",
+              borderBottom: "1px solid #313244",
+              fontSize: "11px",
             }}
           >
-            {btn.label}
-          </button>
-        ))}
-      </div>
+            <span style={{ color: "#a6adc8", alignSelf: "center", marginRight: "2px" }}>Nível:</span>
+            {[
+              { label: "H1", val: 1 },
+              { label: "H2", val: 2 },
+              { label: "H3", val: 3 },
+              { label: "Todos", val: 6 },
+            ].map((btn) => (
+              <button
+                key={btn.label}
+                type="button"
+                onClick={() => setMaxDepth(btn.val)}
+                style={{
+                  background: maxDepth === btn.val ? "#89b4fa" : "#181825",
+                  color: maxDepth === btn.val ? "#11111b" : "#cdd6f4",
+                  border: "1px solid #313244",
+                  borderRadius: "3px",
+                  padding: "2px 6px",
+                  cursor: "pointer",
+                  fontWeight: maxDepth === btn.val ? 600 : 400,
+                }}
+              >
+                {btn.label}
+              </button>
+            ))}
+          </div>
 
-      {allItems.length > 3 && (
-        <input
-          type="text"
-          className="outline-search"
-          placeholder="🔍 Filtrar..."
-          value={filter}
-          onChange={(e) => setFilter(e.target.value)}
-          aria-label="Filtrar headings do sumário"
-        />
-      )}
-
-      {filteredItems.length === 0 ? (
-        <p className="outline-empty">
-          {allItems.length === 0 ? "Nenhum heading no documento." : "Nenhum heading corresponde ao filtro."}
-        </p>
-      ) : (
-        <ul className="outline-list">
-          {itemsWithChildFlags.map((it) => (
-            <OutlineItem
-              key={it.id}
-              heading={it}
-              isActive={activeSlug === it.id}
-              onClick={(id) => onNavigate(id, it.line)}
-              hasChildren={it.hasChildren}
-              isCollapsed={it.isCollapsed}
-              onToggleCollapse={() => toggleCollapse(it.id)}
+          {allItems.length > 3 && (
+            <input
+              type="text"
+              className="outline-search"
+              placeholder="🔍 Filtrar..."
+              value={filter}
+              onChange={(e) => setFilter(e.target.value)}
+              aria-label="Filtrar headings do sumário"
             />
-          ))}
-        </ul>
-      )}
+          )}
 
-      <div className="outline-footer">
-        <span className="outline-count">{allItems.length} headings</span>
-      </div>
+          {filteredItems.length === 0 ? (
+            <p className="outline-empty">
+              {allItems.length === 0 ? "Nenhum heading no documento." : "Nenhum heading corresponde ao filtro."}
+            </p>
+          ) : (
+            <ul className="outline-list">
+              {itemsWithChildFlags.map((it) => (
+                <OutlineItem
+                  key={it.id}
+                  heading={it}
+                  isActive={activeSlug === it.id}
+                  onClick={(id) => onNavigate(id, it.line)}
+                  hasChildren={it.hasChildren}
+                  isCollapsed={it.isCollapsed}
+                  onToggleCollapse={() => toggleCollapse(it.id)}
+                />
+              ))}
+            </ul>
+          )}
+
+          <div className="outline-footer">
+            <span className="outline-count">{allItems.length} headings</span>
+          </div>
+        </>
+      )}
     </nav>
   );
 }

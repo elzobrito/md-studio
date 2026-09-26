@@ -33,6 +33,7 @@ export function BacklinksPanel(props: {
   onOpenOccurrence?: (path: string, line: number) => void | Promise<unknown>;
 }) {
   const { result, loading, error, onRetry, onOpenOccurrence } = props;
+  const [isSectionExpanded, setIsSectionExpanded] = useState(true);
   const [collapsed, setCollapsed] = useState<Set<string>>(new Set());
   const [activeId, setActiveId] = useState<FocusId | null>(null);
   const itemRefs = useRef<Map<FocusId, HTMLButtonElement>>(new Map());
@@ -107,15 +108,34 @@ export function BacklinksPanel(props: {
   };
 
   return (
-    <section className="backlinks card outgoing-links" aria-labelledby="backlinks-title">
-      <header>
-        <h2 id="backlinks-title">Backlinks</h2>
+    <section className={`backlinks card outgoing-links${!isSectionExpanded ? " is-collapsed" : ""}`} aria-labelledby="backlinks-title">
+      <header
+        className="panel-accordion-header"
+        onClick={() => setIsSectionExpanded(!isSectionExpanded)}
+        role="button"
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            setIsSectionExpanded(!isSectionExpanded);
+          }
+        }}
+        aria-expanded={isSectionExpanded}
+        title={isSectionExpanded ? "Recolher backlinks" : "Expandir backlinks"}
+      >
+        <div className="panel-accordion-title">
+          <span className="accordion-chevron" aria-hidden="true">
+            {isSectionExpanded ? "▼" : "▶"}
+          </span>
+          <h2 id="backlinks-title">Backlinks</h2>
+        </div>
         <span aria-label={backlinkCountLabel(result.documentCount, result.occurrenceCount)}>
           {backlinkCountLabel(result.documentCount, result.occurrenceCount)}
         </span>
       </header>
 
-      {loading ? (
+      {isSectionExpanded && (
+        loading ? (
         <p className="outgoing-links-empty" role="status">
           Carregando backlinks…
         </p>
@@ -192,7 +212,7 @@ export function BacklinksPanel(props: {
             );
           })}
         </ul>
-      )}
+      ))}
     </section>
   );
 }

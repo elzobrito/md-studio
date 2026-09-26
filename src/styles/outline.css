@@ -119,6 +119,30 @@
   width: 14px;
 }
 
+.outline-accordion-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+}
+
+.outline-accordion-toggle:hover .outline-title,
+.outline-accordion-toggle:hover .accordion-chevron {
+  color: var(--color-accent);
+}
+
+.outline-header-count {
+  font-size: 11px;
+  color: var(--text-secondary);
+  font-weight: normal;
+}
+
 .outline-header-actions {
   display: flex;
   align-items: center;
@@ -137,10 +161,16 @@
   transition: all 150ms ease;
 }
 
-.outline-collapse-all-btn:hover {
+.outline-collapse-all-btn:hover:not(:disabled) {
   background-color: var(--color-hover);
   color: var(--text-primary);
   border-color: var(--color-accent);
+}
+
+.outline-collapse-all-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  border-color: var(--border);
 }
 
 .outline-close-btn {

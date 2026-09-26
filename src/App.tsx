@@ -720,7 +720,26 @@ export function App() {
             isResizing={rightPanel.isResizing}
             aria-label="Metadados"
           >
-            <DocumentOutline content={doc.content} onNavigate={goToHeading} />
+            <div className="right-panel-header">
+              <div className="right-panel-title">
+                <span className="right-panel-icon" aria-hidden="true">📑</span>
+                <span>Sumário e Metadados</span>
+              </div>
+              <button
+                type="button"
+                className="right-panel-close-btn"
+                onClick={() => session.setRightOpen(false)}
+                title="Fechar painel (Ctrl+J)"
+                aria-label="Fechar painel lateral"
+              >
+                ×
+              </button>
+            </div>
+            <DocumentOutline
+              content={doc.content}
+              onNavigate={goToHeading}
+              onClose={() => session.setRightOpen(false)}
+            />
             <OutgoingLinksPanel
               links={metadata.resolvedWikiLinks}
               onOpen={async (path) => {
