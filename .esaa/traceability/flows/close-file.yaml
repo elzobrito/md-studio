@@ -1,7 +1,7 @@
 # TRACE-009 — Fechar documento. Passos ordenados; via = aresta de edges.yaml que liga o passo de origem (direction reverse = aresta no sentido oposto, ex.: consumes/reads/callback). trigger = início de ramo.
 artifact: close-file
 schema_version: 1
-source_commit: daf5888731c5ce3cdd5ce0d553a258b3b952f114
+source_commit: bf5d9b485db1dab7eafd89ff1b5a0e23bf9e7e6c
 generated_at: '2026-09-24T23:03:41-03:00'
 id: FLOW-CLOSE-FILE
 name: Fechar documento

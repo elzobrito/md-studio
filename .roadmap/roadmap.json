@@ -7,11 +7,11 @@
     "run": {
       "run_id": "RUN-0001",
       "status": "success",
-      "last_event_seq": 3697,
-      "projection_hash_sha256": "84d007f355dc3522919ba5b419c9e591c807d36a9f0e9b390aa2c1b5b4894faa",
+      "last_event_seq": 3709,
+      "projection_hash_sha256": "ed45712ed7b015bc1ed815a4c0baecd61409b347c3e178ee39c4f7606157b6b4",
       "verify_status": "ok"
     },
-    "updated_at": "2026-09-26T00:18:52Z"
+    "updated_at": "2026-09-27T15:20:52Z"
   },
   "project": {
     "name": "MD Studio",
@@ -11952,14 +11952,52 @@
         ]
       },
       "completed_at": "2026-09-26T00:18:52Z"
+    },
+    {
+      "task_id": "MD-TRACE-G2-001",
+      "task_kind": "impl",
+      "title": "Reconciliação e atualização da baseline do TCG para G2",
+      "description": "Reconciliar e atualizar o Grafo de Rastreabilidade Semântica (TCG) para a baseline G2 no commit atual bf5d9b4. Arquivar snapshot G1, atualizar âncoras de nós deslocados, mapear novos testes (rightPanelAccordion, desktop-launcher), atualizar features afetadas (painel lateral e sumário) e gerar novo graph.json e validation.yaml.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        ".esaa/traceability/**"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "maintenance",
+      "acceptance_criteria": [
+        "Snapshot da baseline G1 arquivado em .esaa/traceability/snapshots/",
+        "source_commit atualizado para bf5d9b485db1dab7eafd89ff1b5a0e23bf9e7e6c em todos os YAMLs do TCG",
+        "Nós e testes novos ou modificados re-ancorados com precisão",
+        "build_graph.py e validate.py executados com status pass e 0 critical",
+        "Relatório de delta e reconciliação registrado em .esaa/traceability/g2-graph-delta.md"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-27T15:12:58Z",
+      "verification": {
+        "checks": [
+          "Snapshot da baseline G1 arquivado em .esaa/traceability/snapshots/",
+          "source_commit atualizado para bf5d9b485db1dab7eafd89ff1b5a0e23bf9e7e6c em todos os YAMLs do TCG",
+          "Nós e testes novos ou modificados re-ancorados com precisão",
+          "build_graph.py e validate.py executados com status pass e 0 critical",
+          "Relatório de delta e reconciliação registrado em .esaa/traceability/g2-graph-delta.md"
+        ]
+      },
+      "completed_at": "2026-09-27T15:20:52Z"
     }
   ],
   "indexes": {
     "by_status": {
-      "done": 305
+      "done": 306
     },
     "by_kind": {
-      "impl": 240,
+      "impl": 241,
       "qa": 38,
       "spec": 27
     }

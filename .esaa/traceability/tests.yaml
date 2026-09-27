@@ -1,6 +1,6 @@
 artifact: tests
 schema_version: 1
-source_commit: daf5888731c5ce3cdd5ce0d553a258b3b952f114
+source_commit: bf5d9b485db1dab7eafd89ff1b5a0e23bf9e7e6c
 generated_at: '2026-09-25T15:18:52-03:00'
 summary:
   total: 149
@@ -3341,3 +3341,50 @@ tests:
   features:
   - FEAT-WORKSPACE-SEARCH
   trace_task: MD-V03-021
+- id: TST-TS-PANEL-RIGHT-PANEL-ACCORDION
+  framework: vitest
+  kind: integration
+  path: tests/panel/rightPanelAccordion.test.tsx
+  symbol: '"MD-UX-RIGHT-PANEL-001: Right Panel Accordion & UX Parity"'
+  lines:
+  - 12
+  - 208
+  covers:
+  - CMP-DOCUMENT-OUTLINE
+  - CMP-OUTGOING-LINKS-PANEL
+  - CMP-BACKLINKS-PANEL
+  - CMP-SETTINGS
+  validates: []
+  features:
+  - FEAT-OUTLINE
+  - FEAT-WIKI-LINKS
+  - FEAT-SETTINGS
+  trace_task: MD-TRACE-G2-001
+- id: TST-TS-DESKTOP-LAUNCHER
+  framework: vitest
+  kind: unit
+  path: tests/desktop/desktop-launcher.test.ts
+  symbol: '"INV-DESKTOP-LAUNCHER-ENV: Linux Desktop Launchers"'
+  lines:
+  - 6
+  - 60
+  covers:
+  - OSI-DESKTOP-ENTRY
+  validates: []
+  features:
+  - FEAT-SPLASH-PACKAGING
+  trace_task: MD-TRACE-G2-001
+- id: TST-TS-HOOKS-USE-SCROLL-SYNC
+  framework: vitest
+  kind: unit
+  path: tests/hooks/useScrollSync.test.tsx
+  symbol: '"useScrollSync"'
+  lines:
+  - 8
+  - 127
+  covers:
+  - FN-USE-SCROLL-SYNC
+  validates: []
+  features:
+  - FEAT-VIEW-MODES
+  trace_task: MD-TRACE-G2-001

@@ -1,6 +1,6 @@
 artifact: nodes
 schema_version: 1
-source_commit: daf5888731c5ce3cdd5ce0d553a258b3b952f114
+source_commit: bf5d9b485db1dab7eafd89ff1b5a0e23bf9e7e6c
 generated_at: '2026-09-25T15:18:52-03:00'
 summary:
   total: 516
@@ -607,8 +607,8 @@ nodes:
     path: src/App.tsx
     symbol: '"onOpenOccurrence={async (path, line) => {"'
     lines:
-    - 739
-    - 739
+    - 758
+    - 769
   alias: src/App.tsx#onOpenOccurrence={async (path, line) => {
   inclusion:
   - flow
@@ -3511,8 +3511,8 @@ nodes:
     path: src/state/settings.ts
     symbol: SettingsStore
     lines:
-    - 112
-    - 323
+    - 114
+    - 345
   alias: src/state/settings.ts#SettingsStore
   inclusion:
   - flow
@@ -3525,8 +3525,8 @@ nodes:
     path: src/state/settings.ts
     symbol: DEFAULT_SETTINGS
     lines:
-    - 92
-    - 107
+    - 93
+    - 108
   alias: src/state/settings.ts#DEFAULT_SETTINGS
   inclusion:
   - contract
@@ -3539,8 +3539,8 @@ nodes:
     path: src/state/settings.ts
     symbol: STORAGE_KEY
     lines:
-    - 21
-    - 21
+    - 22
+    - 22
   alias: src/state/settings.ts#STORAGE_KEY
   inclusion:
   - flow
@@ -4121,7 +4121,7 @@ nodes:
     symbol: DocumentOutline
     lines:
     - 15
-    - 133
+    - 207
   alias: src/components/DocumentOutline.tsx#DocumentOutline
   inclusion:
   - flow
@@ -4602,7 +4602,7 @@ nodes:
     symbol: BacklinksPanel
     lines:
     - 28
-    - 198
+    - 105
   alias: src/components/wiki/BacklinksPanel.tsx#BacklinksPanel
   inclusion:
   - flow
@@ -4615,8 +4615,8 @@ nodes:
     path: src/components/wiki/OutgoingLinksPanel.tsx
     symbol: OutgoingLinksPanel
     lines:
-    - 4
-    - 47
+    - 5
+    - 70
   alias: src/components/wiki/OutgoingLinksPanel.tsx#OutgoingLinksPanel
   inclusion:
   - flow
@@ -5914,7 +5914,7 @@ nodes:
     symbol: '"MD-UI-PANEL-001: Collapsible Right Panel & StatusBar"'
     lines:
     - 8
-    - 70
+    - 67
   alias: 'tests/panel/collapsiblePanel.test.tsx#MD-UI-PANEL-001: Collapsible Right
     Panel & StatusBar'
   inclusion:
@@ -7533,8 +7533,8 @@ nodes:
     path: src/services/assetPaste.ts
     symbol: handlePastedImageAsset
     lines:
-    - 64
-    - 115
+    - 72
+    - 134
   alias: src/services/assetPaste.ts#handlePastedImageAsset
   trace_task: MD-V03-014
 - id: FN-VALIDATE-ASSET-DESTINATION
@@ -7899,3 +7899,61 @@ nodes:
   test_framework: vitest
   test_kind: unit
   trace_task: MD-V03-021
+- id: TST-TS-PANEL-RIGHT-PANEL-ACCORDION
+  type: test
+  name: Right Panel Accordion & UX Parity
+  module: MOD-PREVIEW
+  anchor:
+    path: tests/panel/rightPanelAccordion.test.tsx
+    symbol: '"MD-UX-RIGHT-PANEL-001: Right Panel Accordion & UX Parity"'
+    lines:
+    - 12
+    - 208
+  alias: 'tests/panel/rightPanelAccordion.test.tsx#MD-UX-RIGHT-PANEL-001: Right Panel
+    Accordion & UX Parity'
+  inclusion:
+  - flow
+  trace_task: MD-TRACE-G2-001
+- id: TST-TS-DESKTOP-LAUNCHER
+  type: test
+  name: Linux Desktop Launchers Environment Verification
+  module: MOD-PACKAGING
+  anchor:
+    path: tests/desktop/desktop-launcher.test.ts
+    symbol: '"INV-DESKTOP-LAUNCHER-ENV: Linux Desktop Launchers"'
+    lines:
+    - 6
+    - 60
+  alias: 'tests/desktop/desktop-launcher.test.ts#INV-DESKTOP-LAUNCHER-ENV: Linux Desktop
+    Launchers'
+  inclusion:
+  - flow
+  trace_task: MD-TRACE-G2-001
+- id: TST-TS-HOOKS-USE-SCROLL-SYNC
+  type: test
+  name: useScrollSync unit tests
+  module: MOD-PREVIEW
+  anchor:
+    path: tests/hooks/useScrollSync.test.tsx
+    symbol: '"useScrollSync"'
+    lines:
+    - 8
+    - 72
+  alias: tests/hooks/useScrollSync.test.tsx#useScrollSync
+  inclusion:
+  - flow
+  trace_task: MD-TRACE-G2-001
+- id: CMP-SETTINGS
+  type: component
+  name: Settings
+  module: MOD-SETTINGS-SESSION
+  anchor:
+    path: src/components/Settings.tsx
+    symbol: Settings
+    lines:
+    - 7
+    - 40
+  alias: src/components/Settings.tsx#Settings
+  inclusion:
+  - flow
+  trace_task: MD-TRACE-G2-001

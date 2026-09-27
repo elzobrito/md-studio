@@ -1,6 +1,6 @@
 artifact: features
 schema_version: 1
-source_commit: daf5888731c5ce3cdd5ce0d553a258b3b952f114
+source_commit: bf5d9b485db1dab7eafd89ff1b5a0e23bf9e7e6c
 generated_at: '2026-09-25T15:18:52-03:00'
 summary:
   total: 48
@@ -838,6 +838,7 @@ features:
   - CFG-DEFAULT-SETTINGS
   - STO-UI
   - LSK-UI-STATE
+  - CMP-SETTINGS
   entry_nodes:
   - HDL-APP-SHORTCUTS
   docs:
@@ -1859,6 +1860,8 @@ node_index:
   - FEAT-OPEN-FROM-OS
   TEV-WORKSPACE-CHANGE:
   - FEAT-WATCHER
+  CMP-SETTINGS:
+  - FEAT-SETTINGS
 cross_cutting:
   FN-IPC-INVOKE: Fachada invoke usada por todas as features com IPC
   FN-IS-TAURI-RUNTIME: Detecção de runtime (desktop vs browser) usada por todas as

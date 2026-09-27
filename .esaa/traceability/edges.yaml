@@ -1,6 +1,6 @@
 artifact: edges
 schema_version: 1
-source_commit: daf5888731c5ce3cdd5ce0d553a258b3b952f114
+source_commit: bf5d9b485db1dab7eafd89ff1b5a0e23bf9e7e6c
 generated_at: '2026-09-25T15:18:52-03:00'
 summary:
   total: 909
@@ -4812,7 +4812,7 @@ edges:
   to: LSK-SETTINGS
   relation: reads
   evidence:
-  - src/state/settings.ts:127
+  - src/state/settings.ts:129
   method: observed
   trace_task: TRACE-006
 - id: STO-SETTINGS|writes|LSK-SETTINGS
@@ -4828,7 +4828,7 @@ edges:
   to: CFG-DEFAULT-SETTINGS
   relation: configured_by
   evidence:
-  - src/state/settings.ts:113
+  - src/state/settings.ts:115
   method: observed
   trace_task: TRACE-005
 - id: STO-SESSION|reads|LSK-SESSION
@@ -8041,3 +8041,66 @@ edges:
   evidence:
   - src/components/settings/ToolingSettings.tsx:17
   method: observed
+- id: CMP-DOCUMENT-OUTLINE|covered_by|TST-TS-PANEL-RIGHT-PANEL-ACCORDION
+  from: CMP-DOCUMENT-OUTLINE
+  to: TST-TS-PANEL-RIGHT-PANEL-ACCORDION
+  relation: covered_by
+  evidence:
+  - tests/panel/rightPanelAccordion.test.tsx:5
+  - tests/panel/rightPanelAccordion.test.tsx:40
+  method: observed
+  trace_task: MD-TRACE-G2-001
+- id: CMP-OUTGOING-LINKS-PANEL|covered_by|TST-TS-PANEL-RIGHT-PANEL-ACCORDION
+  from: CMP-OUTGOING-LINKS-PANEL
+  to: TST-TS-PANEL-RIGHT-PANEL-ACCORDION
+  relation: covered_by
+  evidence:
+  - tests/panel/rightPanelAccordion.test.tsx:6
+  - tests/panel/rightPanelAccordion.test.tsx:120
+  method: observed
+  trace_task: MD-TRACE-G2-001
+- id: CMP-BACKLINKS-PANEL|covered_by|TST-TS-PANEL-RIGHT-PANEL-ACCORDION
+  from: CMP-BACKLINKS-PANEL
+  to: TST-TS-PANEL-RIGHT-PANEL-ACCORDION
+  relation: covered_by
+  evidence:
+  - tests/panel/rightPanelAccordion.test.tsx:7
+  - tests/panel/rightPanelAccordion.test.tsx:159
+  method: observed
+  trace_task: MD-TRACE-G2-001
+- id: CMP-SETTINGS|covered_by|TST-TS-PANEL-RIGHT-PANEL-ACCORDION
+  from: CMP-SETTINGS
+  to: TST-TS-PANEL-RIGHT-PANEL-ACCORDION
+  relation: covered_by
+  evidence:
+  - tests/panel/rightPanelAccordion.test.tsx:8
+  - tests/panel/rightPanelAccordion.test.tsx:190
+  method: observed
+  trace_task: MD-TRACE-G2-001
+- id: OSI-DESKTOP-ENTRY|covered_by|TST-TS-DESKTOP-LAUNCHER
+  from: OSI-DESKTOP-ENTRY
+  to: TST-TS-DESKTOP-LAUNCHER
+  relation: covered_by
+  evidence:
+  - tests/desktop/desktop-launcher.test.ts:9
+  - tests/desktop/desktop-launcher.test.ts:23
+  method: observed
+  trace_task: MD-TRACE-G2-001
+- id: FN-USE-SCROLL-SYNC|covered_by|TST-TS-HOOKS-USE-SCROLL-SYNC
+  from: FN-USE-SCROLL-SYNC
+  to: TST-TS-HOOKS-USE-SCROLL-SYNC
+  relation: covered_by
+  evidence:
+  - tests/hooks/useScrollSync.test.tsx:4
+  - tests/hooks/useScrollSync.test.tsx:8
+  method: observed
+  trace_task: MD-TRACE-G2-001
+- id: SCR-APP|contains|CMP-SETTINGS
+  from: SCR-APP
+  to: CMP-SETTINGS
+  relation: contains
+  evidence:
+  - src/App.tsx:6
+  - src/App.tsx:770
+  method: observed
+  trace_task: MD-TRACE-G2-001

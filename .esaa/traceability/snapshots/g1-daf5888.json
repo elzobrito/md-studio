@@ -1,77 +1,77 @@
 {
  "artifact": "graph",
  "schema_version": 1,
- "source_commit": "bf5d9b485db1dab7eafd89ff1b5a0e23bf9e7e6c",
- "generated_at": "2026-09-27T12:20:30-03:00",
+ "source_commit": "daf5888731c5ce3cdd5ce0d553a258b3b952f114",
+ "generated_at": "2026-09-25T21:00:43-03:00",
  "generator": "tools/build_graph.py",
  "inputs": {
-  "repository.yaml": "854a3274ca50e22e4d589ce5204496d9c547927ea7ea02fd6bfc2a0d233c1759",
-  "schema.yaml": "18083993b1ee7d4c7727513102df2432e19a3ef324ffa2b83041345bafb0223c",
-  "modules.yaml": "6c6f2a0822eff7633308c0f57178e5145e98b12a7ae6044c8e6c4b1ff0fe3e34",
-  "entrypoints.yaml": "0001eec54964d15f01f6de8da877346fabfe8817fe747d7b2f698eb8c8880f45",
-  "nodes.yaml": "4e418c356baa8a8cc4f4a9b420ae425162f71b5babed24cc16f66112d851d32e",
-  "edges.yaml": "047274f29b28f4cebc42dc85826e0fd251f782687da24265b1804d8eba5b8867",
-  "contracts.yaml": "7beb8f20c97f665b216f4fda9a6404c4bab0266f94bf947c877e80cf6885b21f",
-  "features.yaml": "2459641c8acd12cb9b794d0265c698ecd5262be6a58899c2770afa1addd0e2c5",
-  "tests.yaml": "c9c7f5df0e19ff620a2c05f305cc98514a6379533f874209e6dc8e121e4ca9a4",
-  "invariants.yaml": "ae7963ca85844132ca63fe80afa7b7c0abc0ceaf316ce008efdb392dd4cb9bf6",
-  "flows/app-boot.yaml": "9c2993a43ddd14e109806d752f5b7d1465c20297ba5d8ed15981e06858988484",
-  "flows/auto-save.yaml": "61e2a835a2c3d0d7ba91c385404264762fe9628dd8a0a9a36cf2915f7340cf24",
-  "flows/backlinks-query.yaml": "bb6bc3129811ef8feff8c07049c787d0599ff97277045125de8b482b8a779741",
-  "flows/close-file.yaml": "b0f8becb080dcd695614447e8e792557cb4dd0268bc3c242ba5827c43640cc26",
-  "flows/conflict-on-save.yaml": "ed28d89a07dd3907f3842111ea8f5032c4ef561693be1640c642dd2ce41f5037",
-  "flows/draft-recovery.yaml": "7a3177aa5d5ffc24e76398b6162ad9e843321eb30f30281147a2e3dd43f4554e",
-  "flows/editor-commands.yaml": "47c4f6bad81317273dd1a987c5749468fed66ad12eef4633a694602f240a7585",
-  "flows/export-epub.yaml": "b76ffea7d863bed7bf9b7e1dc63cd2db66daced0871d1666d6f10ecaa63417c2",
-  "flows/export-html.yaml": "01dfc49ef4eb86c66c7f7932441b0e76ea723ede2606aeb1994594adf237ff57",
-  "flows/export-pdf.yaml": "53ac0abbf3eeb4c3eaaaf22ebab41ed5bdeafeb4ac97f23cc19a8688b5682807",
-  "flows/format-code-block.yaml": "566260ad09d013da4fcfc1ca3e733cf87f5977a77248b26d8a3b1a19a91c97d7",
-  "flows/metadata-refresh.yaml": "074cf008c5ae3d1f5d5695dd95357e99bb9b4e94714b8d2dc531a61943a1c69d",
-  "flows/new-document.yaml": "2e2002cb58f9d966b699971283324ddc03865a2669986039b7356b8082b91e6f",
-  "flows/open-file-from-os.yaml": "9d84823de4cb7f238753d40aa2f123fb7a21e7956b60e9c51323bfc83bd5abe1",
-  "flows/open-file.yaml": "940561ebd72e426eebe287531b562cc6d6179a663a59a605856f2db83615f2b8",
-  "flows/open-workspace.yaml": "f303f31e75f7b44c5381c69a3a0cc766da41b2b98d23277840f260d70f2e4bb2",
-  "flows/presentation.yaml": "aa09b19ee70696931499822f7f582de9527ebfe8eed9aa258cd35cd7e92e74bf",
-  "flows/preview-render.yaml": "c827b36e422e4e56e0007865bdb6b2d83c0214141ef1bd3df897bd35a5c26315",
-  "flows/save-as.yaml": "0857021e604b3deef76d3a91781baf54dfd3da74c58a95af310a0d7b8fc2bcde",
-  "flows/save-document.yaml": "5d769548441c2092a570585fb5281648de141a0e794010ce3eab224c5c1a00da",
-  "flows/wiki-link-resolve.yaml": "e44d2bac51a274274d4cb69d34332f5aa693104644675a08885dabe88ba2f4bc",
-  "flows/workspace-search.yaml": "7882bdba40d8863d15c261902fa3fd4826c8813fda3ccea994ef3320aa769128"
+  "repository.yaml": "89c03f66c863f256cb7ae52530055d4e0180b8f9661684cc76de7f539c34f718",
+  "schema.yaml": "69e99745dcb4413fd4a2a11e8f308daa50938ac1c9a2f07106dfdc1ea99f1df9",
+  "modules.yaml": "bb1021b071e1af7d2f40103cfb872721eb34f30fdb7683e703849df871c0c186",
+  "entrypoints.yaml": "940ed03959e861bdcde8427c611ee29f7e1bbe1511b88d76c1508f40894e549d",
+  "nodes.yaml": "a95ce8d3dbb2ba0901f6720c77aad493fd48c42e70a221548387a99725921cc0",
+  "edges.yaml": "88e5898118275815586e75ea33d51ff25fd878bfae0486563cf851a3cde67ab7",
+  "contracts.yaml": "c7baef17c5ea2f905598e49d5f3241c744787c65c94eb95cdeec544025d58fac",
+  "features.yaml": "bc7d88be625ee0a704d553efa5456c878aa603b0a12ebdedb6b14358cc88cb87",
+  "tests.yaml": "e2249d88bb692effc93b98f784e268907444d294b7339a1f0afecbf864cad26c",
+  "invariants.yaml": "df8223223c815cfb990ce3b5a6971d6d7a0979e5a6afd80da8447c8f0de93361",
+  "flows/app-boot.yaml": "273d0d43a3170d4d4089dab5f3c85b8114510b92d3ab8e6d02ff30c44d18a6e9",
+  "flows/auto-save.yaml": "f32273514e2e1faaaf6ecfe5395c28ff8000ca3aa876e48c6097603e7520a2a5",
+  "flows/backlinks-query.yaml": "dc0c67ca1ba4e4db12f8cc111c6aefb87ba50170dd5516f7887250d485a07afd",
+  "flows/close-file.yaml": "bb888432a298a61d81e502cfcc6ff7ff2aeb6f3cfb5009152b2909e50973d7a8",
+  "flows/conflict-on-save.yaml": "b1d64cefbe0a36a4856495d6f1f64790506579e427351e9194ae8e2af1522163",
+  "flows/draft-recovery.yaml": "2bcd288cd9d6a90e7c6656d01de2aa95b3f3c84d869bc1960c6c9164c542200d",
+  "flows/editor-commands.yaml": "b7ebf95bc7e7b512fbe59a07d655ccf2e081d0448c461d5d690394fe727a63b2",
+  "flows/export-epub.yaml": "57a8ed607906688347c552c7bf280ddbd4d88d077a0a837d5d596a03dd26212c",
+  "flows/export-html.yaml": "75e3cc6769317ea0a20991e9401192d68a5b44a45ad58c1a2acdcae0085f079c",
+  "flows/export-pdf.yaml": "41406139a0fcbe132c2a3f12317ecd42d92fadbae771f8d7f37ec7bf72e00742",
+  "flows/format-code-block.yaml": "e84c69f41443af913547c2217c59872d02c4fb7f565cd68f466e75b1b819539a",
+  "flows/metadata-refresh.yaml": "53789a879b4d142c049a8675ddbf698ce8f4c02dae70fcc06cd07895c02e0545",
+  "flows/new-document.yaml": "a1b1c2c68de98f17be760051444f0b3bf507d58f541bad3a863f11aa8ef25be8",
+  "flows/open-file-from-os.yaml": "4c6d9f7b87e6e35af197d1fed98b892e9b88a24cf19ef043ce0ee3ff42a41612",
+  "flows/open-file.yaml": "961c8ba513e2f8c1075efdfe13f9b3360027767490b6fad2922ef4dc6d61d77f",
+  "flows/open-workspace.yaml": "23ce3aac55fe0d075d570eb1bdb6ff55c02cf8e32e23378fba43efcc330286cc",
+  "flows/presentation.yaml": "c59c0c149a59c3660eb750d0e13d36ffa2fe0b27e459cf16f552681987284e4d",
+  "flows/preview-render.yaml": "2ed44cb1cdc85f1cab4e3e7f52534600b38e877a59039e055d5da1e5729f4753",
+  "flows/save-as.yaml": "8e464d1087b54d3ffd2714b2fa1241c863226537eceda06852ad18571b794e27",
+  "flows/save-document.yaml": "4fa2b5beb8e725c25b8b08a171cdd028cebd5b7c3f4219079b6e41c3edb8b2f1",
+  "flows/wiki-link-resolve.yaml": "abd6f180d2a56a815a758e2860dcbeea76079375438903dd84602f1acca8d448",
+  "flows/workspace-search.yaml": "88771f0af888b72c92afffa628bf5491c1d5783b36cc9ea63e9af86cc9f06b66"
  },
  "stats": {
-  "nodes": 774,
-  "edges": 2618,
+  "nodes": 770,
+  "edges": 2605,
   "nodes_by_kind": {
-   "code": 387,
+   "code": 386,
    "contract": 38,
    "entrypoint": 71,
    "feature": 59,
    "flow": 22,
    "invariant": 11,
    "module": 19,
-   "test": 167
+   "test": 164
   },
   "edges_by_relation": {
    "calls": 285,
    "configured_by": 30,
    "consumes": 2,
-   "contains": 1046,
-   "covered_by": 277,
+   "contains": 1041,
+   "covered_by": 271,
    "depends_on": 139,
-   "implemented_by": 507,
+   "implemented_by": 506,
    "implements": 67,
    "publishes": 2,
    "reads": 40,
    "requires": 8,
    "triggers": 111,
    "validates": 35,
-   "verifies": 29,
+   "verifies": 28,
    "writes": 40
   },
   "edges_by_method": {
-   "derived": 1657,
+   "derived": 1651,
    "inferred": 19,
-   "observed": 942
+   "observed": 935
   }
  },
  "nodes": [
@@ -465,8 +465,8 @@
     "path": "src/state/settings.ts",
     "symbol": "DEFAULT_SETTINGS",
     "lines": [
-     93,
-     108
+     92,
+     107
     ]
    },
    "alias": "src/state/settings.ts#DEFAULT_SETTINGS",
@@ -805,7 +805,7 @@
     "symbol": "BacklinksPanel",
     "lines": [
      28,
-     105
+     198
     ]
    },
    "alias": "src/components/wiki/BacklinksPanel.tsx#BacklinksPanel",
@@ -909,7 +909,7 @@
     "symbol": "DocumentOutline",
     "lines": [
      15,
-     207
+     133
     ]
    },
    "alias": "src/components/DocumentOutline.tsx#DocumentOutline",
@@ -1125,8 +1125,8 @@
     "path": "src/components/wiki/OutgoingLinksPanel.tsx",
     "symbol": "OutgoingLinksPanel",
     "lines": [
-     5,
-     70
+     4,
+     47
     ]
    },
    "alias": "src/components/wiki/OutgoingLinksPanel.tsx#OutgoingLinksPanel",
@@ -1194,26 +1194,6 @@
     "flow"
    ],
    "trace_task": "TRACE-004",
-   "kind": "code"
-  },
-  {
-   "id": "CMP-SETTINGS",
-   "type": "component",
-   "name": "Settings",
-   "module": "MOD-SETTINGS-SESSION",
-   "anchor": {
-    "path": "src/components/Settings.tsx",
-    "symbol": "Settings",
-    "lines": [
-     7,
-     40
-    ]
-   },
-   "alias": "src/components/Settings.tsx#Settings",
-   "inclusion": [
-    "flow"
-   ],
-   "trace_task": "MD-TRACE-G2-001",
    "kind": "code"
   },
   {
@@ -6398,8 +6378,8 @@
     "path": "src/App.tsx",
     "symbol": "\"onOpenOccurrence={async (path, line) => {\"",
     "lines": [
-     758,
-     769
+     739,
+     739
     ]
    },
    "alias": "src/App.tsx#onOpenOccurrence={async (path, line) => {",
@@ -8205,8 +8185,8 @@
     "path": "src/state/settings.ts",
     "symbol": "STORAGE_KEY",
     "lines": [
-     22,
-     22
+     21,
+     21
     ]
    },
    "alias": "src/state/settings.ts#STORAGE_KEY",
@@ -9713,8 +9693,8 @@
     "path": "src/state/settings.ts",
     "symbol": "SettingsStore",
     "lines": [
-     114,
-     345
+     112,
+     323
     ]
    },
    "alias": "src/state/settings.ts#SettingsStore",
@@ -9753,8 +9733,8 @@
     "path": "src/services/assetPaste.ts",
     "symbol": "handlePastedImageAsset",
     "lines": [
-     72,
-     134
+     64,
+     115
     ]
    },
    "alias": "src/services/assetPaste.ts#handlePastedImageAsset",
@@ -11759,26 +11739,6 @@
    "kind": "test"
   },
   {
-   "id": "TST-TS-DESKTOP-LAUNCHER",
-   "type": "test",
-   "name": "Linux Desktop Launchers Environment Verification",
-   "module": "MOD-PACKAGING",
-   "anchor": {
-    "path": "tests/desktop/desktop-launcher.test.ts",
-    "symbol": "\"INV-DESKTOP-LAUNCHER-ENV: Linux Desktop Launchers\"",
-    "lines": [
-     6,
-     60
-    ]
-   },
-   "alias": "tests/desktop/desktop-launcher.test.ts#INV-DESKTOP-LAUNCHER-ENV: Linux Desktop Launchers",
-   "inclusion": [
-    "flow"
-   ],
-   "trace_task": "MD-TRACE-G2-001",
-   "kind": "test"
-  },
-  {
    "id": "TST-TS-DOCUMENT-OUTLINE-FILTER",
    "type": "test",
    "module": "MOD-PREVIEW",
@@ -12356,26 +12316,6 @@
    "kind": "test"
   },
   {
-   "id": "TST-TS-HOOKS-USE-SCROLL-SYNC",
-   "type": "test",
-   "name": "useScrollSync unit tests",
-   "module": "MOD-PREVIEW",
-   "anchor": {
-    "path": "tests/hooks/useScrollSync.test.tsx",
-    "symbol": "\"useScrollSync\"",
-    "lines": [
-     8,
-     72
-    ]
-   },
-   "alias": "tests/hooks/useScrollSync.test.tsx#useScrollSync",
-   "inclusion": [
-    "flow"
-   ],
-   "trace_task": "MD-TRACE-G2-001",
-   "kind": "test"
-  },
-  {
    "id": "TST-TS-HOVER-PREVIEW",
    "type": "test",
    "module": "MOD-EDITOR",
@@ -12683,7 +12623,7 @@
     "symbol": "\"MD-UI-PANEL-001: Collapsible Right Panel & StatusBar\"",
     "lines": [
      8,
-     67
+     70
     ]
    },
    "alias": "tests/panel/collapsiblePanel.test.tsx#MD-UI-PANEL-001: Collapsible Right Panel & StatusBar",
@@ -12691,26 +12631,6 @@
     "test"
    ],
    "trace_task": "TRACE-010",
-   "kind": "test"
-  },
-  {
-   "id": "TST-TS-PANEL-RIGHT-PANEL-ACCORDION",
-   "type": "test",
-   "name": "Right Panel Accordion & UX Parity",
-   "module": "MOD-PREVIEW",
-   "anchor": {
-    "path": "tests/panel/rightPanelAccordion.test.tsx",
-    "symbol": "\"MD-UX-RIGHT-PANEL-001: Right Panel Accordion & UX Parity\"",
-    "lines": [
-     12,
-     208
-    ]
-   },
-   "alias": "tests/panel/rightPanelAccordion.test.tsx#MD-UX-RIGHT-PANEL-001: Right Panel Accordion & UX Parity",
-   "inclusion": [
-    "flow"
-   ],
-   "trace_task": "MD-TRACE-G2-001",
    "kind": "test"
   },
   {
@@ -13933,19 +13853,6 @@
    "trace_task": "TRACE-010"
   },
   {
-   "id": "CMP-BACKLINKS-PANEL|covered_by|TST-TS-PANEL-RIGHT-PANEL-ACCORDION",
-   "from": "CMP-BACKLINKS-PANEL",
-   "to": "TST-TS-PANEL-RIGHT-PANEL-ACCORDION",
-   "relation": "covered_by",
-   "evidence": [
-    "tests/panel/rightPanelAccordion.test.tsx:7",
-    "tests/panel/rightPanelAccordion.test.tsx:159"
-   ],
-   "method": "observed",
-   "source": "edges.yaml",
-   "trace_task": "MD-TRACE-G2-001"
-  },
-  {
    "id": "CMP-BACKLINKS-PANEL|covered_by|TST-TS-WIKI-BACKLINKS-PANEL",
    "from": "CMP-BACKLINKS-PANEL",
    "to": "TST-TS-WIKI-BACKLINKS-PANEL",
@@ -14151,19 +14058,6 @@
    "method": "observed",
    "source": "edges.yaml",
    "trace_task": "TRACE-010"
-  },
-  {
-   "id": "CMP-DOCUMENT-OUTLINE|covered_by|TST-TS-PANEL-RIGHT-PANEL-ACCORDION",
-   "from": "CMP-DOCUMENT-OUTLINE",
-   "to": "TST-TS-PANEL-RIGHT-PANEL-ACCORDION",
-   "relation": "covered_by",
-   "evidence": [
-    "tests/panel/rightPanelAccordion.test.tsx:5",
-    "tests/panel/rightPanelAccordion.test.tsx:40"
-   ],
-   "method": "observed",
-   "source": "edges.yaml",
-   "trace_task": "MD-TRACE-G2-001"
   },
   {
    "id": "CMP-DOCUMENT-OUTLINE|triggers|HDL-APP-GO-TO-HEADING",
@@ -14952,19 +14846,6 @@
    "trace_task": "TRACE-005"
   },
   {
-   "id": "CMP-OUTGOING-LINKS-PANEL|covered_by|TST-TS-PANEL-RIGHT-PANEL-ACCORDION",
-   "from": "CMP-OUTGOING-LINKS-PANEL",
-   "to": "TST-TS-PANEL-RIGHT-PANEL-ACCORDION",
-   "relation": "covered_by",
-   "evidence": [
-    "tests/panel/rightPanelAccordion.test.tsx:6",
-    "tests/panel/rightPanelAccordion.test.tsx:120"
-   ],
-   "method": "observed",
-   "source": "edges.yaml",
-   "trace_task": "MD-TRACE-G2-001"
-  },
-  {
    "id": "CMP-OUTGOING-LINKS-PANEL|triggers|CMP-CREATE-NOTE-FROM-WIKI",
    "from": "CMP-OUTGOING-LINKS-PANEL",
    "to": "CMP-CREATE-NOTE-FROM-WIKI",
@@ -15113,19 +14994,6 @@
    "method": "observed",
    "source": "edges.yaml",
    "trace_task": "TRACE-010"
-  },
-  {
-   "id": "CMP-SETTINGS|covered_by|TST-TS-PANEL-RIGHT-PANEL-ACCORDION",
-   "from": "CMP-SETTINGS",
-   "to": "TST-TS-PANEL-RIGHT-PANEL-ACCORDION",
-   "relation": "covered_by",
-   "evidence": [
-    "tests/panel/rightPanelAccordion.test.tsx:8",
-    "tests/panel/rightPanelAccordion.test.tsx:190"
-   ],
-   "method": "observed",
-   "source": "edges.yaml",
-   "trace_task": "MD-TRACE-G2-001"
   },
   {
    "id": "CMP-SPLIT-DIVIDER|covered_by|TST-TS-LAYOUT-SPLITVIEW",
@@ -15790,7 +15658,7 @@
    "to": "STO-SETTINGS",
    "relation": "implemented_by",
    "evidence": [
-    "src/state/settings.ts:22"
+    "src/state/settings.ts:21"
    ],
    "method": "derived",
    "source": "contracts.yaml:producer"
@@ -17424,7 +17292,7 @@
    "to": "SVC-ASSET-PASTE",
    "relation": "implemented_by",
    "evidence": [
-    "src/services/assetPaste.ts:72"
+    "src/services/assetPaste.ts:64"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -17446,7 +17314,7 @@
    "to": "CFG-DEFAULT-SETTINGS",
    "relation": "implemented_by",
    "evidence": [
-    "src/state/settings.ts:93"
+    "src/state/settings.ts:92"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -17482,7 +17350,7 @@
    "to": "STO-SETTINGS",
    "relation": "implemented_by",
    "evidence": [
-    "src/state/settings.ts:114"
+    "src/state/settings.ts:112"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -17650,7 +17518,7 @@
    "to": "HDL-APP-BACKLINK-OPEN-OCCURRENCE",
    "relation": "implemented_by",
    "evidence": [
-    "src/App.tsx:758"
+    "src/App.tsx:739"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -20442,7 +20310,7 @@
    "to": "CMP-OUTGOING-LINKS-PANEL",
    "relation": "implemented_by",
    "evidence": [
-    "src/components/wiki/OutgoingLinksPanel.tsx:5"
+    "src/components/wiki/OutgoingLinksPanel.tsx:4"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by",
@@ -21252,18 +21120,7 @@
    "to": "CFG-DEFAULT-SETTINGS",
    "relation": "implemented_by",
    "evidence": [
-    "src/state/settings.ts:93"
-   ],
-   "method": "derived",
-   "source": "features.yaml:implemented_by"
-  },
-  {
-   "id": "FEAT-SETTINGS|implemented_by|CMP-SETTINGS",
-   "from": "FEAT-SETTINGS",
-   "to": "CMP-SETTINGS",
-   "relation": "implemented_by",
-   "evidence": [
-    "src/components/Settings.tsx:7"
+    "src/state/settings.ts:92"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -21297,7 +21154,7 @@
    "to": "LSK-SETTINGS",
    "relation": "implemented_by",
    "evidence": [
-    "src/state/settings.ts:22"
+    "src/state/settings.ts:21"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -21319,7 +21176,7 @@
    "to": "STO-SETTINGS",
    "relation": "implemented_by",
    "evidence": [
-    "src/state/settings.ts:114"
+    "src/state/settings.ts:112"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -26338,7 +26195,7 @@
    "to": "CMP-OUTGOING-LINKS-PANEL",
    "relation": "contains",
    "evidence": [
-    "src/components/wiki/OutgoingLinksPanel.tsx:5"
+    "src/components/wiki/OutgoingLinksPanel.tsx:4"
    ],
    "method": "derived",
    "source": "flows",
@@ -30337,19 +30194,6 @@
    "trace_task": "TRACE-006"
   },
   {
-   "id": "FN-USE-SCROLL-SYNC|covered_by|TST-TS-HOOKS-USE-SCROLL-SYNC",
-   "from": "FN-USE-SCROLL-SYNC",
-   "to": "TST-TS-HOOKS-USE-SCROLL-SYNC",
-   "relation": "covered_by",
-   "evidence": [
-    "tests/hooks/useScrollSync.test.tsx:4",
-    "tests/hooks/useScrollSync.test.tsx:8"
-   ],
-   "method": "observed",
-   "source": "edges.yaml",
-   "trace_task": "MD-TRACE-G2-001"
-  },
-  {
    "id": "FN-VALIDATE-ASSET-DESTINATION|covered_by|TST-TS-ASSET-PASTE",
    "from": "FN-VALIDATE-ASSET-DESTINATION",
    "to": "TST-TS-ASSET-PASTE",
@@ -31607,7 +31451,7 @@
    "to": "CTR-LSK-SETTINGS",
    "relation": "depends_on",
    "evidence": [
-    "src/state/settings.ts:22"
+    "src/state/settings.ts:21"
    ],
    "method": "derived",
    "source": "contracts.yaml:consumers"
@@ -34639,7 +34483,7 @@
    "to": "CTR-LSK-SETTINGS",
    "relation": "implements",
    "evidence": [
-    "src/state/settings.ts:22"
+    "src/state/settings.ts:21"
    ],
    "method": "derived",
    "source": "contracts.yaml:carriers"
@@ -35178,7 +35022,7 @@
    "to": "HDL-APP-BACKLINK-OPEN-OCCURRENCE",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:758"
+    "src/App.tsx:739"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -37659,17 +37503,6 @@
    "source": "nodes.yaml:module"
   },
   {
-   "id": "MOD-PACKAGING|contains|TST-TS-DESKTOP-LAUNCHER",
-   "from": "MOD-PACKAGING",
-   "to": "TST-TS-DESKTOP-LAUNCHER",
-   "relation": "contains",
-   "evidence": [
-    "tests/desktop/desktop-launcher.test.ts:6"
-   ],
-   "method": "derived",
-   "source": "nodes.yaml:module"
-  },
-  {
    "id": "MOD-PERSISTENCE|contains|BTN-SAVE",
    "from": "MOD-PERSISTENCE",
    "to": "BTN-SAVE",
@@ -38495,17 +38328,6 @@
    "source": "nodes.yaml:module"
   },
   {
-   "id": "MOD-PREVIEW|contains|TST-TS-HOOKS-USE-SCROLL-SYNC",
-   "from": "MOD-PREVIEW",
-   "to": "TST-TS-HOOKS-USE-SCROLL-SYNC",
-   "relation": "contains",
-   "evidence": [
-    "tests/hooks/useScrollSync.test.tsx:8"
-   ],
-   "method": "derived",
-   "source": "nodes.yaml:module"
-  },
-  {
    "id": "MOD-PREVIEW|contains|TST-TS-MARKDOWN-CODE-CODE",
    "from": "MOD-PREVIEW",
    "to": "TST-TS-MARKDOWN-CODE-CODE",
@@ -38633,17 +38455,6 @@
    "relation": "contains",
    "evidence": [
     "tests/markdown/slash.test.ts:20"
-   ],
-   "method": "derived",
-   "source": "nodes.yaml:module"
-  },
-  {
-   "id": "MOD-PREVIEW|contains|TST-TS-PANEL-RIGHT-PANEL-ACCORDION",
-   "from": "MOD-PREVIEW",
-   "to": "TST-TS-PANEL-RIGHT-PANEL-ACCORDION",
-   "relation": "contains",
-   "evidence": [
-    "tests/panel/rightPanelAccordion.test.tsx:12"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -39083,18 +38894,7 @@
    "to": "CFG-DEFAULT-SETTINGS",
    "relation": "contains",
    "evidence": [
-    "src/state/settings.ts:93"
-   ],
-   "method": "derived",
-   "source": "nodes.yaml:module"
-  },
-  {
-   "id": "MOD-SETTINGS-SESSION|contains|CMP-SETTINGS",
-   "from": "MOD-SETTINGS-SESSION",
-   "to": "CMP-SETTINGS",
-   "relation": "contains",
-   "evidence": [
-    "src/components/Settings.tsx:7"
+    "src/state/settings.ts:92"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -39193,7 +38993,7 @@
    "to": "LSK-SETTINGS",
    "relation": "contains",
    "evidence": [
-    "src/state/settings.ts:22"
+    "src/state/settings.ts:21"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -39248,7 +39048,7 @@
    "to": "STO-SETTINGS",
    "relation": "contains",
    "evidence": [
-    "src/state/settings.ts:114"
+    "src/state/settings.ts:112"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -39743,7 +39543,7 @@
    "to": "CMP-OUTGOING-LINKS-PANEL",
    "relation": "contains",
    "evidence": [
-    "src/components/wiki/OutgoingLinksPanel.tsx:5"
+    "src/components/wiki/OutgoingLinksPanel.tsx:4"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -40656,7 +40456,7 @@
    "to": "SVC-ASSET-PASTE",
    "relation": "contains",
    "evidence": [
-    "src/services/assetPaste.ts:72"
+    "src/services/assetPaste.ts:64"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -40786,19 +40586,6 @@
    "method": "observed",
    "source": "edges.yaml",
    "trace_task": "TRACE-005"
-  },
-  {
-   "id": "OSI-DESKTOP-ENTRY|covered_by|TST-TS-DESKTOP-LAUNCHER",
-   "from": "OSI-DESKTOP-ENTRY",
-   "to": "TST-TS-DESKTOP-LAUNCHER",
-   "relation": "covered_by",
-   "evidence": [
-    "tests/desktop/desktop-launcher.test.ts:9",
-    "tests/desktop/desktop-launcher.test.ts:23"
-   ],
-   "method": "observed",
-   "source": "edges.yaml",
-   "trace_task": "MD-TRACE-G2-001"
   },
   {
    "id": "OSI-DESKTOP-ENTRY|triggers|OSI-LAUNCH-ARGV",
@@ -41906,19 +41693,6 @@
    "trace_task": "TRACE-005"
   },
   {
-   "id": "SCR-APP|contains|CMP-SETTINGS",
-   "from": "SCR-APP",
-   "to": "CMP-SETTINGS",
-   "relation": "contains",
-   "evidence": [
-    "src/App.tsx:6",
-    "src/App.tsx:770"
-   ],
-   "method": "observed",
-   "source": "edges.yaml",
-   "trace_task": "MD-TRACE-G2-001"
-  },
-  {
    "id": "SCR-APP|contains|CMP-SETTINGS-PANEL",
    "from": "SCR-APP",
    "to": "CMP-SETTINGS-PANEL",
@@ -42938,7 +42712,7 @@
    "to": "CFG-DEFAULT-SETTINGS",
    "relation": "configured_by",
    "evidence": [
-    "src/state/settings.ts:115"
+    "src/state/settings.ts:113"
    ],
    "method": "observed",
    "source": "edges.yaml",
@@ -43052,7 +42826,7 @@
    "to": "CTR-LSK-SETTINGS",
    "relation": "depends_on",
    "evidence": [
-    "src/state/settings.ts:22"
+    "src/state/settings.ts:21"
    ],
    "method": "derived",
    "source": "contracts.yaml:consumers"
@@ -43063,7 +42837,7 @@
    "to": "LSK-SETTINGS",
    "relation": "reads",
    "evidence": [
-    "src/state/settings.ts:129"
+    "src/state/settings.ts:127"
    ],
    "method": "observed",
    "source": "edges.yaml",
@@ -44831,17 +44605,6 @@
    "relation": "verifies",
    "evidence": [
     "tests/services/assetPaste.test.ts:8"
-   ],
-   "method": "derived",
-   "source": "invariants.yaml:verified_by"
-  },
-  {
-   "id": "TST-TS-DESKTOP-LAUNCHER|verifies|INV-DESKTOP-LAUNCHER-ENV",
-   "from": "TST-TS-DESKTOP-LAUNCHER",
-   "to": "INV-DESKTOP-LAUNCHER-ENV",
-   "relation": "verifies",
-   "evidence": [
-    "tests/desktop/desktop-launcher.test.ts:6"
    ],
    "method": "derived",
    "source": "invariants.yaml:verified_by"

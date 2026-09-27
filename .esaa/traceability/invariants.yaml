@@ -1,6 +1,6 @@
 artifact: invariants
 schema_version: 1
-source_commit: daf5888731c5ce3cdd5ce0d553a258b3b952f114
+source_commit: bf5d9b485db1dab7eafd89ff1b5a0e23bf9e7e6c
 generated_at: '2026-09-25T15:18:52-03:00'
 summary:
   total: 11
@@ -350,19 +350,26 @@ invariants:
     method: observed
   trace_task: TRACE-011
 - id: INV-DESKTOP-LAUNCHER-ENV
-  name: 'Lançadores desktop Linux mantêm flags de ambiente essenciais (GDK_BACKEND=x11 e WEBKIT_DISABLE_DMABUF_RENDERER=1)'
-  statement: Os arquivos de lançador .desktop para o Linux devem conter GDK_BACKEND=x11 e WEBKIT_DISABLE_DMABUF_RENDERER=1 na linha Exec para evitar o bug upstream do Tauri/TAO onde botões nativos de controle de janela (minimizar, maximizar, fechar) ficam inertes no Ubuntu GNOME sobre Wayland e garantir estabilidade gráfica.
+  name: Lançadores desktop Linux mantêm flags de ambiente essenciais (GDK_BACKEND=x11
+    e WEBKIT_DISABLE_DMABUF_RENDERER=1)
+  statement: Os arquivos de lançador .desktop para o Linux devem conter GDK_BACKEND=x11
+    e WEBKIT_DISABLE_DMABUF_RENDERER=1 na linha Exec para evitar o bug upstream do
+    Tauri/TAO onde botões nativos de controle de janela (minimizar, maximizar, fechar)
+    ficam inertes no Ubuntu GNOME sobre Wayland e garantir estabilidade gráfica.
   features:
   - FEAT-SPLASH-PACKAGING
   nodes:
   - OSI-DESKTOP-ENTRY
   enforced_by:
   - src-tauri/linux/md-studio.desktop:9
-  verified_by: []
+  verified_by:
+  - TST-TS-DESKTOP-LAUNCHER
   coverage: partial
   gap: true
   gaps:
-  - description: Teste unitário tests/desktop/desktop-launcher.test.ts valida flags GDK_BACKEND=x11 e WEBKIT_DISABLE_DMABUF_RENDERER=1 no template do repo e nos lançadores do usuário.
+  - description: Teste unitário tests/desktop/desktop-launcher.test.ts valida flags
+      GDK_BACKEND=x11 e WEBKIT_DISABLE_DMABUF_RENDERER=1 no template do repo e nos
+      lançadores do usuário.
     evidence:
     - src-tauri/linux/md-studio.desktop:9
     method: observed
