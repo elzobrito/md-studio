@@ -1,6 +1,11 @@
 import type {
   DocumentSnapshot,
+  FileDiffGutter,
   FileEntry,
+  GitCommitSummary,
+  GitFileStatus,
+  HistoryEntry,
+  HistorySnapshot,
   SaveDocumentRequest,
   SaveResult,
   SearchResult,
@@ -152,6 +157,99 @@ export const ipc = {
     const raw = await invoke<string | null>("get_launch_path");
     return typeof raw === "string" && raw.length > 0 ? raw : null;
   },
+  listHistoryEntries: async (workspaceId: string, relativePath: string): Promise<HistoryEntry[]> => {
+    const list = await invoke<unknown[]>("list_history_entries", { workspaceId, relativePath });
+    return (Array.isArray(list) ? list : []).map((e) => {
+      const o = asRecord(e);
+      return {
+        path: pickStr(o, "path", "path"),
+        timestamp: Number(o.timestamp ?? o.mtimeMs ?? 0),
+        hash: pickStr(o, "hash", "hash"),
+        size: Number(o.size ?? 0),
+        reason: pickStr(o, "reason", "reason"),
+      };
+    });
+  },
+  getHistorySnapshot: async (
+    workspaceId: string,
+    relativePath: string,
+    hash: string,
+  ): Promise<HistorySnapshot> => {
+    const raw = await invoke<unknown>("get_history_snapshot", { workspaceId, relativePath, hash });
+    const o = asRecord(raw);
+    const entryObj = asRecord(o.entry);
+    return {
+      entry: {
+        path: pickStr(entryObj, "path", "path"),
+        timestamp: Number(entryObj.timestamp ?? 0),
+        hash: pickStr(entryObj, "hash", "hash"),
+        size: Number(entryObj.size ?? 0),
+        reason: pickStr(entryObj, "reason", "reason"),
+      },
+      content: typeof o.content === "string" ? o.content : "",
+    };
+  },
+  restoreHistoryEntry: async (
+    workspaceId: string,
+    relativePath: string,
+    hash: string,
+    expectedCurrentHash: string,
+  ): Promise<DocumentSnapshot> => {
+    const raw = await invoke<unknown>("restore_history_entry", {
+      workspaceId,
+      relativePath,
+      hash,
+      expectedCurrentHash,
+    });
+    return normalizeSnapshot(raw);
+  },
+  gitIsRepository: async (workspaceId: string): Promise<boolean> => {
+    return Boolean(await invoke<boolean>("git_is_repository", { workspaceId }));
+  },
+  gitGetStatus: async (workspaceId: string): Promise<GitFileStatus[]> => {
+    const list = await invoke<unknown[]>("git_get_status", { workspaceId });
+    return (Array.isArray(list) ? list : []).map((item) => {
+      const o = asRecord(item);
+      return {
+        path: pickStr(o, "path", "path"),
+        status: (pickStr(o, "status", "status") || "M") as GitFileStatus["status"],
+        isStaged: Boolean(o.isStaged ?? o.is_staged),
+      };
+    });
+  },
+  gitGetFileDiff: async (workspaceId: string, relativePath: string): Promise<FileDiffGutter> => {
+    const raw = await invoke<unknown>("git_get_file_diff", { workspaceId, relativePath });
+    const o = asRecord(raw);
+    return {
+      addedLines: Array.isArray(o.addedLines ?? o.added_lines) ? (o.addedLines ?? o.added_lines) as number[] : [],
+      modifiedLines: Array.isArray(o.modifiedLines ?? o.modified_lines) ? (o.modifiedLines ?? o.modified_lines) as number[] : [],
+      deletedLines: Array.isArray(o.deletedLines ?? o.deleted_lines) ? (o.deletedLines ?? o.deleted_lines) as number[] : [],
+    };
+  },
+  gitGetFileHistory: async (
+    workspaceId: string,
+    relativePath: string,
+    limit?: number,
+  ): Promise<GitCommitSummary[]> => {
+    const list = await invoke<unknown[]>("git_get_file_history", { workspaceId, relativePath, limit });
+    return (Array.isArray(list) ? list : []).map((item) => {
+      const o = asRecord(item);
+      return {
+        hash: pickStr(o, "hash", "hash"),
+        shortHash: pickStr(o, "shortHash", "short_hash"),
+        author: pickStr(o, "author", "author"),
+        date: pickStr(o, "date", "date"),
+        summary: pickStr(o, "summary", "summary"),
+      };
+    });
+  },
+  gitGetFileAtCommit: async (
+    workspaceId: string,
+    relativePath: string,
+    commitHash?: string,
+  ): Promise<string> => {
+    return (await invoke<string>("git_get_file_at_commit", { workspaceId, relativePath, commitHash })) || "";
+  },
 };
 
 export type PickFolderResult =
@@ -297,6 +395,14 @@ async function browserInvoke<T>(cmd: string, args?: Record<string, unknown>): Pr
     throw new Error("export_epub is only available in Tauri desktop runtime");
   }
   if (cmd === "get_launch_path") return null as T;
+  if (cmd === "list_history_entries") return [] as T;
+  if (cmd === "get_history_snapshot") throw new Error("not supported in browser mock");
+  if (cmd === "restore_history_entry") throw new Error("not supported in browser mock");
+  if (cmd === "git_is_repository") return false as T;
+  if (cmd === "git_get_status") return [] as T;
+  if (cmd === "git_get_file_diff") return { addedLines: [], modifiedLines: [], deletedLines: [] } as T;
+  if (cmd === "git_get_file_history") return [] as T;
+  if (cmd === "git_get_file_at_commit") return "" as T;
   throw new Error(`browser IPC missing: ${cmd}`);
 }
 

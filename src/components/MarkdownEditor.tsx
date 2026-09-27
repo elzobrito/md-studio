@@ -209,12 +209,12 @@ export function MarkdownEditor(props: {
     setEditorView(view);
     editorStore.setTotalLines(view.state.doc.lines);
 
-    const unregisterGoToLine = editorStore.registerGoToLine((targetLine: number) => {
-      goToLineWithHighlight(view, targetLine);
+    const unregisterGoToLine = editorStore.registerGoToLine((targetLine: number, targetCol?: number) => {
+      goToLineWithHighlight(view, targetLine, targetCol);
     });
     const queued = consumeQueuedGoToLine();
     if (queued != null) {
-      goToLineWithHighlight(view, queued);
+      goToLineWithHighlight(view, queued.line, queued.col);
     }
 
     onScroller?.(view.scrollDOM);

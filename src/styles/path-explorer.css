@@ -1,0 +1,150 @@
+.path-explorer-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(2px);
+}
+
+.path-explorer-modal {
+  width: 90vw;
+  max-width: 720px;
+  background-color: var(--bg-primary, #1e1e1e);
+  color: var(--text-primary, #ffffff);
+  border: 1px solid var(--border-color, #333333);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+}
+
+.path-explorer-header {
+  padding: 12px 18px;
+  border-bottom: 1px solid var(--border-color, #333333);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.path-explorer-title {
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.path-explorer-body {
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.path-inputs-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.path-input-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.path-input-group label {
+  font-size: 11px;
+  text-transform: uppercase;
+  color: var(--text-secondary, #a0a0a0);
+  font-weight: 600;
+}
+
+.path-select {
+  padding: 6px 10px;
+  font-size: 12px;
+  border-radius: 4px;
+  border: 1px solid var(--border-color, #333333);
+  background-color: var(--bg-secondary, #252526);
+  color: var(--text-primary, #ffffff);
+  outline: none;
+}
+
+.path-result-area {
+  min-height: 120px;
+  background-color: var(--bg-secondary, #252526);
+  border: 1px solid var(--border-color, #333333);
+  border-radius: 6px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.path-steps-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.path-step-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.path-step-node {
+  padding: 6px 12px;
+  border-radius: 4px;
+  background-color: var(--bg-tertiary, #2d2d2d);
+  border: 1px solid var(--border-color, #333333);
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.15s ease;
+}
+
+.path-step-node:hover {
+  background-color: var(--accent-soft, rgba(59, 130, 246, 0.15));
+  border-color: var(--accent-primary, #3b82f6);
+}
+
+.path-step-kind-badge {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 1px 4px;
+  border-radius: 2px;
+  background-color: var(--bg-primary, #1e1e1e);
+}
+
+.path-step-arrow {
+  color: var(--text-muted, #737373);
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding-left: 20px;
+}
+
+.path-step-relation {
+  font-family: monospace;
+  font-size: 10px;
+  color: var(--accent-primary, #3b82f6);
+}
+
+.path-empty-message {
+  text-align: center;
+  color: var(--text-muted, #737373);
+  font-size: 13px;
+}

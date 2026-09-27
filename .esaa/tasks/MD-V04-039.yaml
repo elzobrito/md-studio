@@ -1,0 +1,33 @@
+task_id: MD-V04-039
+title: "Git enxuto: status M/A/D, diff gutter e histórico isolado de arquivos"
+status: in_progress
+assigned_to: agent-impl
+deliverables:
+  - path: src-tauri/crates/md-studio-core/src/git.rs
+    description: "GitProvider nativo baseado em git2-rs com status M/A/D, diff gutter, histórico de commits e visualização de blob at commit"
+  - path: src-tauri/src/commands/mod.rs
+    description: "Comandos IPC git_is_repository, git_get_status, git_get_file_diff, git_get_file_history e git_get_file_at_commit com degradação graciosa"
+  - path: src/contracts/types.ts
+    description: "Contratos tipados GitFileStatus, FileDiffGutter e GitCommitSummary"
+  - path: src/lib/ipc/client.ts
+    description: "Métodos IPC Git com fallback seguro para mock de browser"
+  - path: src/editor/git/gitGutter.ts
+    description: "Extensão CodeMirror 6 para renderização de diff gutter não-invasivo (adicionado, modificado, deletado)"
+  - path: src/components/git/FileHistoryModal.tsx
+    description: "Modal de histórico de commits do arquivo com diff unificado"
+  - path: src/styles/git-gutter.css
+    description: "Estilos dos marcadores discretos do gutter"
+  - path: src/styles/git-history.css
+    description: "Estilos do modal de histórico Git"
+  - path: tests/git/git-gutter.test.ts
+    description: "Testes unitários da extensão CodeMirror Git diff gutter"
+acceptance_criteria:
+  - "Implementação do GitProvider seguindo a ADR aprovada: ATENDIDO (git2-rs nativo com default-features = false)"
+  - "Diff gutter discreto e não invasivo no CodeMirror integrado aos temas: ATENDIDO (gitGutter.ts)"
+  - "Histórico de versões do arquivo ativo com visualização de diff: ATENDIDO (FileHistoryModal.tsx)"
+  - "Degradação graciosa: se o Git não existir, componentes se ocultam sem erros: ATENDIDO"
+verification:
+  checks:
+    - "pnpm test tests/git/git-gutter.test.ts"
+    - "cargo test --manifest-path src-tauri/crates/md-studio-core/Cargo.toml"
+    - "pnpm typecheck"

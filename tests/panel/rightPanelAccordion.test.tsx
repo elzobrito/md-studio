@@ -6,6 +6,7 @@ import { DocumentOutline } from "../../src/components/DocumentOutline";
 import { OutgoingLinksPanel } from "../../src/components/wiki/OutgoingLinksPanel";
 import { BacklinksPanel } from "../../src/components/wiki/BacklinksPanel";
 import { Settings } from "../../src/components/Settings";
+import { UnifiedRightPanel } from "../../src/components/layout/UnifiedRightPanel";
 import type { SessionApi } from "../../src/state/session";
 import type { BacklinkResult, ResolvedWikiLink } from "../../src/types/metadata";
 
@@ -202,6 +203,101 @@ describe("MD-UX-RIGHT-PANEL-001: Right Panel Accordion & UX Parity", () => {
 
     expect(header?.getAttribute("aria-expanded")).toBe("true");
     expect(container.querySelector("select")).not.toBeNull();
+
+    act(() => root.unmount());
+  });
+
+  it("UnifiedRightPanel: permite alternar abas e executa lazy mount", async () => {
+    const root = createRoot(container);
+    const mockSession: Partial<SessionApi> = {
+      viewMode: "split",
+      setViewMode: vi.fn(),
+    };
+    const mockBacklinks: BacklinkResult = {
+      targetPath: "doc.md",
+      documentCount: 0,
+      occurrenceCount: 0,
+      groups: [],
+    };
+
+    await act(async () => {
+      root.render(
+        <UnifiedRightPanel
+          content="# Titulo"
+          onNavigateHeading={() => {}}
+          outgoingLinks={[]}
+          onOpenOutgoingLink={async () => {}}
+          onUnresolvedWikiTarget={() => {}}
+          backlinkResult={mockBacklinks}
+          backlinksLoading={false}
+          onRetryBacklinks={() => {}}
+          onOpenBacklinkOccurrence={async () => {}}
+          session={mockSession as SessionApi}
+          onClose={() => {}}
+          initialTab="outline"
+        />
+      );
+    });
+
+    // Inicia na aba Sumário: outline visível
+    expect(container.querySelector(".outline-list")).not.toBeNull();
+
+    // Inspector e Health não foram montados inicialmente (lazy mount)
+    expect(container.querySelector(".document-inspector")).toBeNull();
+    expect(container.querySelector(".workspace-health-panel")).toBeNull();
+
+    // Clicar na aba Links
+    const buttons = container.querySelectorAll<HTMLButtonElement>(".unified-tab-btn");
+    const linksBtn = Array.from(buttons).find((b) => b.textContent?.includes("Links"));
+    expect(linksBtn).not.toBeNull();
+
+    await act(async () => {
+      linksBtn?.click();
+    });
+
+    // Outline não está mais visível, OutgoingLinksPanel está visível
+    expect(container.querySelector(".outline-list")).toBeNull();
+    expect(container.querySelector(".panel-accordion-header")).not.toBeNull();
+
+    act(() => root.unmount());
+  });
+
+  it("UnifiedRightPanel: modo 'Todos' renderiza acordeão completo com todas as seções", async () => {
+    const root = createRoot(container);
+    const mockSession: Partial<SessionApi> = {
+      viewMode: "split",
+      setViewMode: vi.fn(),
+    };
+    const mockBacklinks: BacklinkResult = {
+      targetPath: "doc.md",
+      documentCount: 0,
+      occurrenceCount: 0,
+      groups: [],
+    };
+
+    await act(async () => {
+      root.render(
+        <UnifiedRightPanel
+          content="# Titulo"
+          onNavigateHeading={() => {}}
+          outgoingLinks={[]}
+          onOpenOutgoingLink={async () => {}}
+          onUnresolvedWikiTarget={() => {}}
+          backlinkResult={mockBacklinks}
+          backlinksLoading={false}
+          onRetryBacklinks={() => {}}
+          onOpenBacklinkOccurrence={async () => {}}
+          session={mockSession as SessionApi}
+          onClose={() => {}}
+          initialTab="accordion"
+        />
+      );
+    });
+
+    // Modo acordeão renderiza múltiplos componentes
+    expect(container.querySelector(".outline-list")).not.toBeNull();
+    const accordionHeaders = container.querySelectorAll(".panel-accordion-header");
+    expect(accordionHeaders.length).toBeGreaterThanOrEqual(2);
 
     act(() => root.unmount());
   });

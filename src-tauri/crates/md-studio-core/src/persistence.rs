@@ -33,13 +33,35 @@ pub fn read_file(path: &Path) -> Result<(String, String, u64), std::io::Error> {
     Ok((buf, hash, mtime))
 }
 
-pub fn atomic_save(path: &Path, expected_hash: &str, content: &str) -> Result<String, SaveError> {
+#[derive(Debug, Clone)]
+pub struct PreviousDocumentState {
+    pub content: String,
+    pub hash: String,
+    pub mtime_ms: u64,
+}
+
+#[derive(Debug, Clone)]
+pub struct AtomicSaveOutcome {
+    pub new_hash: String,
+    pub previous: Option<PreviousDocumentState>,
+}
+
+pub fn atomic_save_with_previous(
+    path: &Path,
+    expected_hash: &str,
+    content: &str,
+) -> Result<AtomicSaveOutcome, SaveError> {
+    let mut previous = None;
     if path.exists() {
-        let (current, hash, _) = read_file(path)?;
-        let _ = current;
+        let (current, hash, mtime) = read_file(path)?;
         if hash != expected_hash {
             return Err(SaveError::HashMismatch);
         }
+        previous = Some(PreviousDocumentState {
+            content: current,
+            hash,
+            mtime_ms: mtime,
+        });
     } else if !expected_hash.is_empty() && expected_hash != "new" {
         // allow empty/new sentinel for first write
     }
@@ -58,7 +80,14 @@ pub fn atomic_save(path: &Path, expected_hash: &str, content: &str) -> Result<St
     }
     fs::rename(&tmp, path)?;
     // best-effort dir fsync omitted for portability
-    Ok(content_hash(content.as_bytes()))
+    Ok(AtomicSaveOutcome {
+        new_hash: content_hash(content.as_bytes()),
+        previous,
+    })
+}
+
+pub fn atomic_save(path: &Path, expected_hash: &str, content: &str) -> Result<String, SaveError> {
+    atomic_save_with_previous(path, expected_hash, content).map(|o| o.new_hash)
 }
 
 

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ipc, isTauriRuntime, pickFolder, pickMarkdownFile } from "../lib/ipc";
 import { supportsDirectoryPicker } from "../lib/browserFs";
-import type { FileEntry, WorkspaceDescriptor } from "../contracts/types";
+import type { FileEntry, GitFileStatus, WorkspaceDescriptor } from "../contracts/types";
 import { FileTree } from "./explorer/FileTree";
 import { WorkspaceHeader } from "./explorer/WorkspaceHeader";
 import { TreeSearch } from "./explorer/TreeSearch";
@@ -11,6 +11,8 @@ import { useFileTree } from "../hooks/useFileTree";
 import { useTreeSearch } from "../hooks/useTreeSearch";
 import { settingsStore } from "../state/settings";
 import type { FileTreeNode } from "../types/file-tree";
+import type { FileState } from "../services/fileStateAggregator";
+import { aggregateFileStates } from "../services/fileStateAggregator";
 
 function parentRel(dir: string): string {
   if (!dir) return "";
@@ -63,6 +65,8 @@ export function FileExplorer(props: {
   query: string;
   onQuery: (q: string) => void;
   activePath: string;
+  fileStates?: Map<string, FileState>;
+  isDirty?: boolean;
 }) {
   const [showInternalFiles, setShowInternalFiles] = useState(() =>
     settingsStore.getShowInternalFiles(),
@@ -78,6 +82,40 @@ export function FileExplorer(props: {
     props.workspace,
     props.activePath,
   );
+
+  const [gitStatuses, setGitStatuses] = useState<GitFileStatus[]>([]);
+
+  useEffect(() => {
+    if (!props.workspace?.id) {
+      setGitStatuses([]);
+      return;
+    }
+    let isCancelled = false;
+    ipc.gitGetStatus(props.workspace.id)
+      .then((statuses) => {
+        if (!isCancelled && Array.isArray(statuses)) {
+          setGitStatuses(statuses);
+        }
+      })
+      .catch(() => {
+        if (!isCancelled) setGitStatuses([]);
+      });
+    return () => {
+      isCancelled = true;
+    };
+  }, [props.workspace?.id]);
+
+  const aggregatedStates = useMemo(() => {
+    if (props.fileStates) return props.fileStates;
+    const dirtyPaths: string[] = [];
+    if (props.isDirty && props.activePath) {
+      dirtyPaths.push(props.activePath);
+    }
+    return aggregateFileStates({
+      gitStatuses,
+      dirtyPaths,
+    });
+  }, [props.fileStates, gitStatuses, props.isDirty, props.activePath]);
 
   const visibleTree = useMemo(() => {
     return processInternalNodes(tree, showInternalFiles);
@@ -312,6 +350,7 @@ export function FileExplorer(props: {
                 });
               }}
               isLoading={isLoading}
+              fileStates={aggregatedStates}
             />
             <RecentFiles
               onOpenFile={(path) => {

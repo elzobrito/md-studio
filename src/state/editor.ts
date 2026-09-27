@@ -17,7 +17,7 @@ class EditorStore {
   private cursorCol: number = 1;
   private wordCount: number = 0;
   private totalLines: number = 1;
-  private goToLineHandler?: (line: number) => void;
+  private goToLineHandler?: (line: number, col?: number) => void;
   private listeners: Set<Listener> = new Set();
 
   public getSaveStatus(): SaveStatus {
@@ -65,7 +65,7 @@ class EditorStore {
     this.notify();
   }
 
-  public registerGoToLine(handler: (line: number) => void): () => void {
+  public registerGoToLine(handler: (line: number, col?: number) => void): () => void {
     this.goToLineHandler = handler;
     return () => {
       if (this.goToLineHandler === handler) {
@@ -74,8 +74,12 @@ class EditorStore {
     };
   }
 
-  public goToLine(line: number) {
-    this.goToLineHandler?.(line);
+  public goToLine(line: number, col?: number) {
+    if (col != null) {
+      this.goToLineHandler?.(line, col);
+    } else {
+      this.goToLineHandler?.(line);
+    }
   }
 
   public subscribe(listener: Listener): () => void {

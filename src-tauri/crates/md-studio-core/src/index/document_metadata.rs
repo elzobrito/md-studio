@@ -9,6 +9,8 @@ pub struct DocumentMetadata {
     pub headings: Vec<Heading>,
     pub links: Vec<Link>,
     pub wiki_links: Vec<WikiLink>,
+    #[serde(default)]
+    pub blocks: Vec<BlockReference>,
     pub tags: Vec<String>,
     pub images: Vec<String>,
     pub tables: usize,
@@ -25,6 +27,14 @@ pub struct Heading {
     pub depth: u8,   // 1-6
     pub text: String,
     pub anchor: String,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
+#[serde(rename_all = "camelCase")]
+pub struct BlockReference {
+    pub id: String,
+    pub line: usize,
+    pub snippet: Option<String>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
@@ -69,6 +79,11 @@ mod tests {
                 alias: Some("Meu Guia".to_string()),
                 line: 5,
             }],
+            blocks: vec![BlockReference {
+                id: "atomic-save".to_string(),
+                line: 10,
+                snippet: Some("Persistência atômica".to_string()),
+            }],
             tags: vec!["rust".to_string(), "tauri".to_string()],
             images: vec!["img/logo.png".to_string()],
             tables: 1,
@@ -81,6 +96,8 @@ mod tests {
 
         let json = serde_json::to_string(&meta).expect("serialize");
         assert!(json.contains("\"wikiLinks\":"));
+        assert!(json.contains("\"blocks\":"));
+        assert!(json.contains("\"atomic-save\""));
         assert!(json.contains("\"wordCount\":"));
         assert!(json.contains("\"lastModified\":"));
         assert!(json.contains("\"mermaidBlocks\":"));

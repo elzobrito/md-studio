@@ -1,0 +1,39 @@
+artifact: task-traceability
+schema_version: 1
+task_id: MD-V04-035
+written_at: '2026-09-27T13:20:45-03:00'
+projected_before_change: true
+projection_inputs:
+- spec 035-document-inspector.md
+- ROADMAP-CANONICO-MD-STUDIO-v0.3-v0.5.md
+- .esaa/traceability/graph.json (source_commit bf5d9b485db1dab7eafd89ff1b5a0e23bf9e7e6c)
+- .esaa/traceability/g2-graph-delta.md
+graph:
+  path: .esaa/traceability/graph.json
+  source_commit: bf5d9b485db1dab7eafd89ff1b5a0e23bf9e7e6c
+traceability:
+  targets:
+  - src/services/documentInspector.ts
+  - src/components/inspector/DocumentInspector.tsx
+  - src/styles/document-inspector.css
+  expected_affected: []
+  protected_extra:
+  - INV-DESKTOP-LAUNCHER-ENV
+  - TST-TS-DESKTOP-LAUNCHER
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: true
+  rationale:
+    src/services/documentInspector.ts: Agregação unificada read-only de visão 360° combinando MetadataIndex, Knowledge Graph, Backlinks e TODOs.
+    src/components/inspector/DocumentInspector.tsx: Componente com seções recolhíveis, métricas e navegação direta para elementos do documento ativo.
+    src/styles/document-inspector.css: Estilização do Document Inspector.
+  justification:
+    INV-DESKTOP-LAUNCHER-ENV: Invariante mantida; testes 100% aprovados.
+artifacts:
+  impact: .esaa/analysis/MD-V04-035-impact.yaml
+  footprint: .esaa/analysis/MD-V04-035-footprint.yaml
+  drift: .esaa/analysis/MD-V04-035-drift.yaml
+expected_uncatalogued:
+- tests/inspector/document-inspector.test.ts
+close_rule: O complete copia verdict. warning cita path e linhas. precision de nó não cobre arquivo sem nó. must_run exige saída do comando. violation bloqueia.

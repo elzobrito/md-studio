@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import type { FileTreeNode as FileTreeNodeType } from "../../types/file-tree";
+import type { FileState } from "../../services/fileStateAggregator";
 import { FileTreeNode } from "./FileTreeNode";
 import { FileTreeFolder } from "./FileTreeFolder";
 import "../../styles/file-tree.css";
@@ -10,9 +11,10 @@ interface Props {
   onToggleFolder: (path: string) => void;
   onOpenFile: (path: string) => void;
   isLoading?: boolean;
+  fileStates?: Map<string, FileState>;
 }
 
-export function FileTree({ tree, activePath, onToggleFolder, onOpenFile, isLoading }: Props) {
+export function FileTree({ tree, activePath, onToggleFolder, onOpenFile, isLoading, fileStates }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -38,14 +40,16 @@ export function FileTree({ tree, activePath, onToggleFolder, onOpenFile, isLoadi
   return (
     <div className="file-tree" ref={containerRef}>
       <ul className="file-tree-list">
-        {tree.map((node) =>
-          node.type === "folder" ? (
+        {tree.map((node) => {
+          const normPath = node.path.replace(/\\/g, "/").trim().replace(/^\/+/, "");
+          return node.type === "folder" ? (
             <FileTreeFolder
               key={node.id}
               node={node}
               depth={0}
               onToggle={onToggleFolder}
               onFileOpen={onOpenFile}
+              fileStates={fileStates}
             />
           ) : (
             <FileTreeNode
@@ -54,9 +58,10 @@ export function FileTree({ tree, activePath, onToggleFolder, onOpenFile, isLoadi
               depth={0}
               isActive={!!node.isActive}
               onOpen={onOpenFile}
+              fileState={fileStates?.get(normPath)}
             />
-          ),
-        )}
+          );
+        })}
       </ul>
     </div>
   );

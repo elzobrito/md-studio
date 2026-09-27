@@ -1,0 +1,17 @@
+task_id: MD-V04-041
+impact_summary: "Exibição de badges discretos de modificação, status Git e alertas de Health na File Tree com agregação performática em memória O(1) e degradação graciosa"
+affected_files:
+  - src/services/fileStateAggregator.ts
+  - src/components/explorer/FileTreeNode.tsx
+  - src/components/explorer/FileTree.tsx
+  - src/components/explorer/FileTreeFolder.tsx
+  - src/components/FileExplorer.tsx
+  - src/styles/file-tree.css
+  - tests/explorer/file-state-aggregator.test.ts
+  - tests/explorer/file-tree-badges.test.tsx
+compatibility_analysis:
+  breaking_changes: []
+  regressions_risk: "Baixo. FileTree e FileTreeNode aceitam fileStates opcionalmente com degradação graciosa se ausente. Nenhuma alteração disruptiva na estrutura do DOM ou no comportamento de clique e navegação."
+verification_evidence:
+  vitest: "12 tests passed in tests/explorer/ (6 file-state-aggregator + 6 file-tree-badges)"
+  typescript: "tsc -b passed with zero errors"

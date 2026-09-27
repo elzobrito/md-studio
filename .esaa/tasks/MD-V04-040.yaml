@@ -1,0 +1,23 @@
+task_id: MD-V04-040
+title: "Inspector unificado à direita: arquitetura consolidada em abas com acordeão G2"
+status: in_progress
+assigned_to: agent-impl
+deliverables:
+  - path: src/components/layout/UnifiedRightPanel.tsx
+    description: "Componente hospedeiro unificado com navegação em abas (Sumário, Links, Backlinks, Inspector, Health, Todos) e lazy mount de views pesadas"
+  - path: src/styles/unified-right-panel.css
+    description: "Estilos visuais das abas superiores e layout responsivo"
+  - path: src/App.tsx
+    description: "Integração do UnifiedRightPanel preservando paridade de acordeão G2 e suporte aos novos painéis"
+  - path: tests/panel/rightPanelAccordion.test.tsx
+    description: "Testes de alternância de abas, lazy mount e modo acordeão sem quebra dos 5 testes canônicos G2"
+acceptance_criteria:
+  - "Arquitetura de painel direito unificada preservando a estabilidade da baseline G2: ATENDIDO"
+  - "Abas integradas: Sumário, Links, Backlinks, Inspector e Health: ATENDIDO"
+  - "Suporte a lazy mount para evitar overhead em tabs pesadas não ativas: ATENDIDO"
+  - "Não força o Local Graph na barra lateral estreita (preserva abertura expandida): ATENDIDO"
+  - "Suíte de testes do acordeão estendida sem quebra de testes legados: ATENDIDO (7/7 passed)"
+verification:
+  checks:
+    - "pnpm test tests/panel/rightPanelAccordion.test.tsx"
+    - "pnpm typecheck"

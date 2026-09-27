@@ -1,0 +1,19 @@
+task_id: MD-BUILD-LOCAL-009
+title: "Compilação e validação do binário local do MD Studio com capabilities v0.4"
+status: in_progress
+assigned_to: agent-impl
+deliverables:
+  - path: src-tauri/target/debug/md-studio
+    description: "Binário local do MD Studio compilado com todas as capabilities v0.4 integradas"
+  - path: dist/
+    description: "Build de produção do frontend Vite/React compilado sem erros"
+acceptance_criteria:
+  - "Compilação completa via pnpm build e cargo build sem erros: ATENDIDO"
+  - "Binário local funcional no Show Apps do Ubuntu: ATENDIDO"
+  - "Preservação da invariante INV-DESKTOP-LAUNCHER-ENV: ATENDIDO"
+  - "Testes automatizados executando com 100% de sucesso: ATENDIDO"
+verification:
+  checks:
+    - "pnpm test tests/desktop/desktop-launcher.test.ts"
+    - "pnpm build"
+    - "cargo build --manifest-path src-tauri/Cargo.toml"

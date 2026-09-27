@@ -24,11 +24,31 @@ export interface DocumentSnapshot {
   version: number;
 }
 
+export type SaveReason =
+  | "before-manual-save"
+  | "before-autosave-checkpoint"
+  | "pre-restore"
+  | "before-save-as-overwrite";
+
+export interface HistoryEntry {
+  path: string;
+  timestamp: number;
+  hash: string;
+  size: number;
+  reason: string;
+}
+
+export interface HistorySnapshot {
+  entry: HistoryEntry;
+  content: string;
+}
+
 export interface SaveDocumentRequest {
   workspaceId: WorkspaceId;
   relativePath: string;
   expectedHash: string;
   content: string;
+  reason?: SaveReason | string;
 }
 
 export type SaveResult =
@@ -52,3 +72,26 @@ export type IpcErrorCode =
   | "PermissionDenied"
   | "InvalidPath"
   | "IoError";
+
+export type GitStatusCode = "M" | "A" | "D" | "R";
+
+export interface GitFileStatus {
+  path: string;
+  status: GitStatusCode;
+  isStaged: boolean;
+}
+
+export interface FileDiffGutter {
+  addedLines: number[];
+  modifiedLines: number[];
+  deletedLines: number[];
+}
+
+export interface GitCommitSummary {
+  hash: string;
+  shortHash: string;
+  author: string;
+  date: string;
+  summary: string;
+}
+

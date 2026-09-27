@@ -179,6 +179,7 @@ mod tests {
             headings: vec![],
             links: vec![],
             wiki_links: links,
+            blocks: vec![],
             tags: vec![],
             images: vec![],
             tables: 0,

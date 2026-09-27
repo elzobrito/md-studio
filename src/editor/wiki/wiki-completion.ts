@@ -5,6 +5,7 @@ export interface WikiDocumentCandidate {
   path: string;
   title: string | null;
   headings?: Array<{ depth: number; text: string; anchor: string }>;
+  blocks?: Array<{ id: string; snippet?: string }>;
 }
 
 export interface WikiCompletionItem {
@@ -22,20 +23,27 @@ export interface WikiCompletionState {
   coords: { left: number; bottom: number } | null;
 }
 
+export interface WikiCandidateOptions {
+  exactMatch?: boolean;
+  limit?: number;
+  placeholders?: readonly string[];
+}
+
 export function wikiCandidates(
   documents: readonly WikiDocumentCandidate[],
   query: string,
-  options?: { exactMatch?: boolean; limit?: number },
+  options?: WikiCandidateOptions,
 ): WikiCompletionItem[] {
   const needle = query.trim().toLocaleLowerCase();
   const seen = new Set<string>();
   const limit = options?.limit ?? 12;
   const exact = options?.exactMatch ?? false;
+  const placeholders = options?.placeholders ?? [];
 
-  if (needle.includes("#")) {
-    const parts = needle.split("#");
+  if (needle.includes("#^")) {
+    const parts = needle.split("#^");
     const docQuery = parts[0].trim();
-    const headingQuery = parts.slice(1).join("#").trim();
+    const blockQuery = parts.slice(1).join("#^").trim();
     const items: WikiCompletionItem[] = [];
 
     for (const doc of documents) {
@@ -44,13 +52,13 @@ export function wikiCandidates(
       const target = doc.title?.trim() || stem;
 
       if (!docQuery || target.toLocaleLowerCase().includes(docQuery) || normalized.toLocaleLowerCase().includes(docQuery)) {
-        if (doc.headings) {
-          for (const h of doc.headings) {
-            if (!headingQuery || h.text.toLocaleLowerCase().includes(headingQuery) || h.anchor.includes(headingQuery)) {
+        if (doc.blocks) {
+          for (const b of doc.blocks) {
+            if (!blockQuery || b.id.toLocaleLowerCase().includes(blockQuery)) {
               items.push({
-                label: `${target}#${h.text}`,
-                detail: `${normalized} #${h.anchor}`,
-                target: `${target}#${h.text}`,
+                label: `${target}#^${b.id}`,
+                detail: b.snippet ? `^${b.id}: ${b.snippet}` : `${normalized} #^${b.id}`,
+                target: `${target}#^${b.id}`,
               });
             }
           }
@@ -60,31 +68,88 @@ export function wikiCandidates(
     return items.slice(0, limit);
   }
 
-  return documents
-    .map((document) => {
-      const normalized = document.path.replace(/\\/g, "/");
+  if (needle.includes("#")) {
+    const parts = needle.split("#");
+    const docQuery = parts[0].trim();
+    const subQuery = parts.slice(1).join("#").trim();
+    const isBlockQuery = subQuery.startsWith("^");
+    const cleanSubQuery = isBlockQuery ? subQuery.slice(1).trim() : subQuery;
+    const items: WikiCompletionItem[] = [];
+
+    for (const doc of documents) {
+      const normalized = doc.path.replace(/\\/g, "/");
       const stem = normalized.split("/").pop()?.replace(/\.md$/i, "") || normalized;
-      const target = document.title?.trim() || stem;
-      return { label: target, detail: normalized, target };
-    })
-    .filter((item) => {
-      const key = item.target.toLocaleLowerCase();
-      const matches = !needle
-        ? true
-        : exact
-        ? key === needle || item.detail.toLocaleLowerCase() === needle
-        : key.includes(needle) || item.detail.toLocaleLowerCase().includes(needle);
-      if (!matches || seen.has(key)) return false;
+      const target = doc.title?.trim() || stem;
+
+      if (!docQuery || target.toLocaleLowerCase().includes(docQuery) || normalized.toLocaleLowerCase().includes(docQuery)) {
+        if (!isBlockQuery && doc.headings) {
+          for (const h of doc.headings) {
+            if (!cleanSubQuery || h.text.toLocaleLowerCase().includes(cleanSubQuery) || h.anchor.includes(cleanSubQuery)) {
+              items.push({
+                label: `${target}#${h.text}`,
+                detail: `${normalized} #${h.anchor}`,
+                target: `${target}#${h.text}`,
+              });
+            }
+          }
+        }
+        if ((isBlockQuery || !cleanSubQuery) && doc.blocks) {
+          for (const b of doc.blocks) {
+            if (!cleanSubQuery || b.id.toLocaleLowerCase().includes(cleanSubQuery)) {
+              items.push({
+                label: `${target}#^${b.id}`,
+                detail: b.snippet ? `^${b.id}: ${b.snippet}` : `${normalized} #^${b.id}`,
+                target: `${target}#^${b.id}`,
+              });
+            }
+          }
+        }
+      }
+    }
+    return items.slice(0, limit);
+  }
+
+  const results: WikiCompletionItem[] = [];
+
+  for (const document of documents) {
+    const normalized = document.path.replace(/\\/g, "/");
+    const stem = normalized.split("/").pop()?.replace(/\.md$/i, "") || normalized;
+    const target = document.title?.trim() || stem;
+    const key = target.toLocaleLowerCase();
+    const matches = !needle
+      ? true
+      : exact
+      ? key === needle || normalized.toLocaleLowerCase() === needle
+      : key.includes(needle) || normalized.toLocaleLowerCase().includes(needle);
+
+    if (matches && !seen.has(key)) {
       seen.add(key);
-      return true;
-    })
-    .sort((a, b) => a.label.localeCompare(b.label))
-    .slice(0, limit);
+      results.push({ label: target, detail: normalized, target });
+    }
+  }
+
+  // Include matching registered placeholders
+  for (const placeholder of placeholders) {
+    const key = placeholder.trim().toLocaleLowerCase();
+    if (!key || seen.has(key)) continue;
+    const matches = !needle ? true : exact ? key === needle : key.includes(needle);
+    if (matches) {
+      seen.add(key);
+      results.push({
+        label: placeholder.trim(),
+        detail: "placeholder (nota futura)",
+        target: placeholder.trim(),
+      });
+    }
+  }
+
+  return results.sort((a, b) => a.label.localeCompare(b.label)).slice(0, limit);
 }
 
 export function detectWikiCompletion(
   view: EditorView,
   documents: readonly WikiDocumentCandidate[],
+  options?: WikiCandidateOptions,
 ): WikiCompletionState | null {
   const selection = view.state.selection.main;
   if (!selection.empty) return null;
@@ -95,7 +160,7 @@ export function detectWikiCompletion(
 
   const query = match[1];
   const from = selection.head - query.length;
-  const items = wikiCandidates(documents, query);
+  const items = wikiCandidates(documents, query, options);
   if (!items.length) return null;
   const rect = view.coordsAtPos(selection.head);
   return {
@@ -123,6 +188,7 @@ export function insertWikiCompletion(
 export function createWikiCompletionExtensions(
   getDocuments: () => readonly WikiDocumentCandidate[],
   onChange: (state: WikiCompletionState | null) => void,
+  getOptions?: () => WikiCandidateOptions | undefined,
 ) {
   let current: WikiCompletionState | null = null;
   const publish = (next: WikiCompletionState | null) => {
@@ -132,12 +198,12 @@ export function createWikiCompletionExtensions(
 
   const plugin = ViewPlugin.fromClass(class {
     constructor(view: EditorView) {
-      publish(detectWikiCompletion(view, getDocuments()));
+      publish(detectWikiCompletion(view, getDocuments(), getOptions?.()));
     }
 
     update(update: ViewUpdate) {
       if (update.docChanged || update.selectionSet) {
-        publish(detectWikiCompletion(update.view, getDocuments()));
+        publish(detectWikiCompletion(update.view, getDocuments(), getOptions?.()));
       }
     }
 

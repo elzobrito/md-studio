@@ -1,0 +1,23 @@
+artifact: task-impact
+schema_version: 1
+task_id: MD-V04-039-SPIKE
+projected_at: '2026-09-27T12:40:05-03:00'
+projected_before_change: true
+projection_inputs:
+- spec 039-git-enxuto.md
+- ROADMAP-CANONICO-MD-STUDIO-v0.3-v0.5.md
+- .esaa/traceability/graph.json (source_commit bf5d9b485db1dab7eafd89ff1b5a0e23bf9e7e6c)
+- .esaa/traceability/g2-graph-delta.md
+spec: .esaa/tasks/MD-V04-039-SPIKE.yaml
+graph_source_commit: bf5d9b485db1dab7eafd89ff1b5a0e23bf9e7e6c
+rationale:
+  docs/spec/ADR-git-provider.md: Decisão arquitetural de uso de git2-rs para GitProvider enxuto.
+justification:
+  INV-DESKTOP-LAUNCHER-ENV: Zero impacto em runtime; o spike é 100% documental.
+expected_uncatalogued:
+- docs/spec/ADR-git-provider.md
+blast_radius:
+  change_target:
+  - docs/spec/ADR-git-provider.md
+  expected_affected: []
+  expected_affected_source: declared

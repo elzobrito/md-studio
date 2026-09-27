@@ -1,7 +1,7 @@
 use std::fs;
 use std::path::Path;
 use std::time::UNIX_EPOCH;
-use crate::index::document_metadata::{DocumentMetadata, Heading, Link};
+use crate::index::document_metadata::{BlockReference, DocumentMetadata, Heading, Link};
 use crate::parser::{parse_tags, parse_wiki_links};
 
 fn normalize_char(c: char) -> char {
@@ -57,6 +57,7 @@ pub fn extract_metadata_from_str(path: &Path, content: &str, mtime: u64) -> Docu
     let mut headings = Vec::new();
     let mut links = Vec::new();
     let mut images = Vec::new();
+    let mut blocks = Vec::new();
     let mut tables = 0;
     let mut mermaid_blocks = 0;
     let mut katex_blocks = 0;
@@ -162,6 +163,25 @@ pub fn extract_metadata_from_str(path: &Path, content: &str, mtime: u64) -> Docu
             }
         }
 
+        // 4.5 Detecção de Block Reference (^block-id terminal)
+        if !in_table && !trimmed.starts_with('#') {
+            if let Some(caret_idx) = trimmed.rfind('^') {
+                if caret_idx > 0 && trimmed.as_bytes()[caret_idx - 1].is_ascii_whitespace() {
+                    let candidate = &trimmed[caret_idx + 1..];
+                    if !candidate.is_empty()
+                        && candidate.chars().all(|c| c.is_ascii_alphanumeric() || c == '_' || c == '-')
+                        && !trimmed.ends_with('`')
+                    {
+                        blocks.push(BlockReference {
+                            id: candidate.to_string(),
+                            line: line_num,
+                            snippet: Some(trimmed[..caret_idx].trim().to_string()),
+                        });
+                    }
+                }
+            }
+        }
+
         // 5. Detecção de Tabelas Markdown
         if trimmed.starts_with('|') && trimmed.contains('|') {
             if !in_table {
@@ -252,6 +272,7 @@ pub fn extract_metadata_from_str(path: &Path, content: &str, mtime: u64) -> Docu
         headings,
         links,
         wiki_links,
+        blocks,
         tags,
         images,
         tables,

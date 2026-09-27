@@ -1,0 +1,13 @@
+task_id: MD-BUILD-LOCAL-009
+impact_summary: "Compilação e validação do binário local desktop do MD Studio com frontend integrado e compatibilidade de ambiente Wayland/X11 preservada"
+affected_files:
+  - dist/
+  - src-tauri/target/debug/md-studio
+compatibility_analysis:
+  breaking_changes: []
+  regressions_risk: "Nenhum risco de regressão. Invariante INV-DESKTOP-LAUNCHER-ENV (GDK_BACKEND=x11 WEBKIT_DISABLE_DMABUF_RENDERER=1) 100% verificada e testada."
+verification_evidence:
+  vitest: "3 tests passed in tests/desktop/desktop-launcher.test.ts"
+  pnpm_build: "pnpm build executed with 0 errors in 23.4s"
+  cargo_build: "cargo build --manifest-path src-tauri/Cargo.toml executed with 0 errors"
+  cargo_test: "All 62 tests in md-studio-core passed, 21 tests in md-studio passed"

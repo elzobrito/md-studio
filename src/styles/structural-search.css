@@ -1,0 +1,300 @@
+.structural-search-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(2px);
+}
+
+.structural-search-modal {
+  width: 90%;
+  max-width: 760px;
+  max-height: 85vh;
+  background-color: var(--color-bg-primary, #1e1e1e);
+  color: var(--color-text-primary, #d4d4d4);
+  border: 1px solid var(--color-border, #3c3c3c);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+
+.structural-search-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--color-border, #333);
+}
+
+.structural-search-header h2 {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.structural-search-close-btn {
+  background: none;
+  border: none;
+  color: var(--color-text-secondary, #888);
+  font-size: 18px;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.structural-search-close-btn:hover {
+  background: var(--color-bg-hover, #2a2a2a);
+  color: var(--color-text-primary, #fff);
+}
+
+.structural-search-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 16px 18px;
+  overflow-y: auto;
+  gap: 16px;
+}
+
+.structural-search-presets {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.structural-search-presets-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--color-text-secondary, #888);
+}
+
+.structural-preset-btn {
+  background: var(--color-bg-secondary, #252526);
+  border: 1px solid var(--color-border, #3c3c3c);
+  color: var(--color-text-primary, #ccc);
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.structural-preset-btn:hover {
+  background: var(--color-bg-hover, #2d2d2d);
+  border-color: var(--color-accent, #007acc);
+}
+
+.structural-query-builder {
+  background: var(--color-bg-secondary, #181818);
+  border: 1px solid var(--color-border, #333);
+  border-radius: 6px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.structural-builder-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.structural-combinator-select {
+  background: var(--color-bg-input, #2a2a2a);
+  color: var(--color-text-primary, #d4d4d4);
+  border: 1px solid var(--color-border, #444);
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 12px;
+}
+
+.structural-predicate-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.structural-predicate-select {
+  flex: 0 0 200px;
+  background: var(--color-bg-input, #2a2a2a);
+  color: var(--color-text-primary, #d4d4d4);
+  border: 1px solid var(--color-border, #444);
+  border-radius: 4px;
+  padding: 5px 8px;
+  font-size: 12px;
+}
+
+.structural-predicate-input {
+  flex: 1;
+  background: var(--color-bg-input, #2a2a2a);
+  color: var(--color-text-primary, #d4d4d4);
+  border: 1px solid var(--color-border, #444);
+  border-radius: 4px;
+  padding: 5px 8px;
+  font-size: 12px;
+}
+
+.structural-predicate-remove-btn {
+  background: none;
+  border: none;
+  color: #ff5555;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.structural-predicate-remove-btn:hover {
+  background: rgba(255, 85, 85, 0.15);
+}
+
+.structural-builder-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 6px;
+  border-top: 1px solid var(--color-border, #282828);
+}
+
+.structural-add-btn {
+  background: none;
+  border: 1px dashed var(--color-border, #555);
+  color: var(--color-text-secondary, #aaa);
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.structural-add-btn:hover {
+  background: var(--color-bg-hover, #2a2a2a);
+  color: var(--color-text-primary, #fff);
+  border-color: var(--color-accent, #007acc);
+}
+
+.structural-run-btn {
+  background: var(--color-accent, #007acc);
+  color: #fff;
+  border: none;
+  padding: 5px 14px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.structural-run-btn:hover {
+  background: #0062a3;
+}
+
+.structural-cancel-btn {
+  background: #cc3333;
+  color: #fff;
+  border: none;
+  padding: 5px 14px;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.structural-results-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--color-text-secondary, #888);
+}
+
+.structural-results-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.structural-result-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 12px;
+  background: var(--color-bg-secondary, #222);
+  border: 1px solid var(--color-border, #333);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.structural-result-card:hover {
+  background: var(--color-bg-hover, #2a2a2a);
+  border-color: var(--color-accent, #007acc);
+}
+
+.structural-card-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-primary, #fff);
+}
+
+.structural-card-path {
+  font-size: 11px;
+  color: var(--color-text-secondary, #777);
+  font-family: monospace;
+}
+
+.structural-card-reasons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.structural-badge {
+  font-size: 10px;
+  background: rgba(0, 122, 204, 0.2);
+  color: #4daafc;
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+
+.structural-empty-state {
+  text-align: center;
+  padding: 30px;
+  color: var(--color-text-secondary, #666);
+  font-size: 13px;
+}
+
+.structural-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  padding-top: 8px;
+}
+
+.structural-page-btn {
+  background: var(--color-bg-secondary, #252526);
+  border: 1px solid var(--color-border, #3c3c3c);
+  color: var(--color-text-primary, #ccc);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.structural-page-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}

@@ -70,6 +70,7 @@ mod tests {
             headings: vec![],
             links: vec![],
             wiki_links: vec![],
+            blocks: vec![],
             tags: vec!["tag".to_string()],
             images: vec![],
             tables: 0,

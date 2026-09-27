@@ -87,6 +87,7 @@ mod tests {
             headings: vec![],
             links: vec![],
             wiki_links: vec![],
+            blocks: vec![],
             tags: vec!["teste".to_string()],
             images: vec![],
             tables: 0,

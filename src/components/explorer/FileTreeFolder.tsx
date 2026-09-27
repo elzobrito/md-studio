@@ -1,4 +1,5 @@
 import type { FileTreeNode as FileTreeNodeType } from "../../types/file-tree";
+import type { FileState } from "../../services/fileStateAggregator";
 import { FileTreeNode } from "./FileTreeNode";
 
 interface Props {
@@ -6,9 +7,10 @@ interface Props {
   depth: number;
   onToggle: (path: string) => void;
   onFileOpen: (path: string) => void;
+  fileStates?: Map<string, FileState>;
 }
 
-export function FileTreeFolder({ node, depth, onToggle, onFileOpen }: Props) {
+export function FileTreeFolder({ node, depth, onToggle, onFileOpen, fileStates }: Props) {
   const isExpanded = !!node.isExpanded;
   const indent = depth * 16;
 
@@ -46,14 +48,16 @@ export function FileTreeFolder({ node, depth, onToggle, onFileOpen }: Props) {
 
       {isExpanded && node.children && node.children.length > 0 && (
         <ul className="file-tree-list file-tree-children">
-          {node.children.map((child) =>
-            child.type === "folder" ? (
+          {node.children.map((child) => {
+            const normPath = child.path.replace(/\\/g, "/").trim().replace(/^\/+/, "");
+            return child.type === "folder" ? (
               <FileTreeFolder
                 key={child.id}
                 node={child}
                 depth={depth + 1}
                 onToggle={onToggle}
                 onFileOpen={onFileOpen}
+                fileStates={fileStates}
               />
             ) : (
               <FileTreeNode
@@ -62,9 +66,10 @@ export function FileTreeFolder({ node, depth, onToggle, onFileOpen }: Props) {
                 depth={depth + 1}
                 isActive={!!child.isActive}
                 onOpen={onFileOpen}
+                fileState={fileStates?.get(normPath)}
               />
-            ),
-          )}
+            );
+          })}
         </ul>
       )}
     </li>

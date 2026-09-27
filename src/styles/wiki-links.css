@@ -170,3 +170,30 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+/* Block References & Placeholders v0.4 */
+.wiki-status.is-placeholder {
+  color: var(--warning, #eab308);
+  background: rgba(234, 179, 8, 0.15);
+  border: 1px dashed var(--warning, #eab308);
+}
+
+.wiki-link.is-placeholder {
+  color: var(--warning, #eab308);
+  border-bottom: 1px dashed var(--warning, #eab308);
+  text-decoration: none;
+}
+
+.block-anchor {
+  opacity: 0.55;
+  font-size: 0.8em;
+  margin-left: 0.35rem;
+  color: var(--fg-muted);
+  user-select: none;
+  font-family: var(--font-mono, monospace);
+}
+
+.block-anchor:hover {
+  opacity: 1;
+  color: var(--accent);
+}

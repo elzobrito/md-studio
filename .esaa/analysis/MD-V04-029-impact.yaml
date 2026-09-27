@@ -1,0 +1,23 @@
+artifact: task-impact
+schema_version: 1
+task_id: MD-V04-029
+projected_at: '2026-09-27T13:09:20-03:00'
+projected_before_change: true
+projection_inputs:
+- spec 029-toc-manager.md
+- ROADMAP-CANONICO-MD-STUDIO-v0.3-v0.5.md
+- .esaa/traceability/graph.json (source_commit bf5d9b485db1dab7eafd89ff1b5a0e23bf9e7e6c)
+- .esaa/traceability/g2-graph-delta.md
+spec: .esaa/tasks/MD-V04-029.yaml
+graph_source_commit: bf5d9b485db1dab7eafd89ff1b5a0e23bf9e7e6c
+rationale:
+  src/services/tocManager.ts: Gerenciamento atômico de TOCs com marcadores controlados, paridade estrita de slugs e proteção de listas manuais.
+justification:
+  INV-DESKTOP-LAUNCHER-ENV: Invariante mantida; zero quebra de integridade.
+expected_uncatalogued:
+- tests/toc/toc-manager.test.ts
+blast_radius:
+  change_target:
+  - src/services/tocManager.ts
+  expected_affected: []
+  expected_affected_source: declared

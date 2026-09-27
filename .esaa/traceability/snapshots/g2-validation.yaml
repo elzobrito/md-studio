@@ -1,0 +1,219 @@
+# TRACE-013 — Validação dos artefatos de rastreabilidade (gerado por tools/validate.py; não editar à mão).
+artifact: validation
+schema_version: 1
+source_commit: bf5d9b485db1dab7eafd89ff1b5a0e23bf9e7e6c
+head: c9a515aef201c802c84349e423d2b31cf23bd793
+generated_at: '2026-09-27T13:59:35-03:00'
+generator: tools/validate.py
+summary:
+  status: pass
+  critical_issues: 0
+  warning_issues: 45
+  checks_with_findings:
+    warning: 4
+    info: 2
+  stats:
+    nodes: 554
+    edges: 961
+    modules: 19
+    entrypoints: 71
+    contracts: 38
+    features: 59
+    flows: 22
+    tests: 167
+    invariants: 11
+    evidence_refs_checked: 2062
+checks:
+  missing_artifacts:
+    severity: critical
+    description: Artefatos obrigatórios ausentes
+    count: 0
+    items: []
+  source_commit_mismatch:
+    severity: critical
+    description: source_commit divergente entre artefatos
+    count: 0
+    items: []
+  duplicate_ids:
+    severity: critical
+    description: Ids duplicados (nós, módulos, entrypoints, contratos, features, fluxos, invariantes, arestas)
+    count: 0
+    items: []
+  duplicate_anchors:
+    severity: warning
+    description: Nós distintos com âncora idêntica (path+symbol+lines)
+    count: 0
+    items: []
+  unstable_ids:
+    severity: critical
+    description: Ids fora do padrão, com prefixo errado ou derivados de linha/hash
+    count: 0
+    items: []
+  broken_refs:
+    severity: critical
+    description: Referências a ids inexistentes em qualquer artefato
+    count: 0
+    items: []
+  missing_paths_symbols:
+    severity: critical
+    description: Âncoras com path inexistente ou símbolo ausente na linha inicial (no source_commit)
+    count: 0
+    items: []
+  anchor_out_of_range:
+    severity: critical
+    description: Âncoras com intervalo de linhas fora do arquivo
+    count: 0
+    items: []
+  edges_without_evidence_or_method:
+    severity: critical
+    description: Arestas sem evidence/method, inferred sem confidence, relação inválida ou IPC sem evidência dos 3 lados
+    count: 0
+    items: []
+  invalid_evidence_lines:
+    severity: critical
+    description: Evidências path:line inexistentes ou em linha vazia no source_commit (2062 verificadas)
+    count: 0
+    items: []
+  invariant_without_test_or_gap:
+    severity: critical
+    description: 'Invariantes sem verified_by e sem gap: true'
+    count: 0
+    items: []
+  entrypoints_without_flow:
+    severity: warning
+    description: Entrypoints cujo nó não aparece em nenhum fluxo
+    count: 1
+    items:
+    - ENT-IPC-RESOLVE-WIKI-LINK (IPC-RESOLVE-WIKI-LINK)
+  orphan_services:
+    severity: warning
+    description: Unidades de código sem nenhuma aresta de entrada (nem entrypoint) e sem status dead_code/test_only
+    count: 0
+    items: []
+  known_dead_or_test_only:
+    severity: info
+    description: Unidades marcadas dead_code/test_only sem aresta de entrada (achados já documentados)
+    count: 5
+    items:
+    - FN-FENCE-RELATIVE (test_only)
+    - FN-CLEAR-INDEX (test_only)
+    - CMP-CODE-BLOCK (test_only)
+    - CLS-PRESENTATION-SESSION-MANAGER (test_only)
+    - FN-MARKDOWN-HINT-EXTENSION (dead_code)
+  contracts_without_consumer:
+    severity: warning
+    description: Contratos sem consumidor (lista vazia ou sem consumidor real no produto)
+    count: 0
+    items: []
+  tests_without_mapped_node:
+    severity: warning
+    description: Testes que não cobrem nenhum nó modelado (exercitam unidades não modeladas)
+    count: 13
+    items:
+    - TST-TS-EDITOR-CURSOR
+    - TST-TS-EDITOR-GUTTER
+    - TST-TS-EDITOR-TABLE
+    - TST-TS-HELP-CHEATSHEET
+    - TST-TS-MARKDOWN-CODE-CODE
+    - TST-TS-MARKDOWN-CORE-NAVIGATION-NAVIGATION-OUTLINE
+    - TST-TS-MARKDOWN-FORMATTING
+    - TST-TS-MARKDOWN-MATH-MATH-MATH
+    - TST-TS-MARKDOWN-MATH-MATH-UNTRUSTED-KATEX-INPUT
+    - TST-TS-UI-BUTTON
+    - TST-TS-UX-BREADCRUMB
+    - TST-TS-WORKSPACE-WORKSPACERAIL
+    - TST-RS-NAV-AND-NCX-INCLUDE-H1-H2-ONLY
+  invariants_with_gap:
+    severity: warning
+    description: 'Invariantes com cobertura parcial ou sem teste (gap: true)'
+    count: 10
+    items:
+    - INV-PATH-FENCE (partial)
+    - INV-FS-ONLY-VIA-RUST (none)
+    - INV-ATOMIC-SAVE (partial)
+    - INV-SHA256-CONFLICT (partial)
+    - INV-SANITIZE-PREVIEW-EXPORT (partial)
+    - INV-REMOTE-RESOURCES-BLOCKED (none)
+    - INV-WATCHER-ECHO-SUPPRESSION (partial)
+    - INV-EXPORT-NO-SILENT-OVERWRITE (partial)
+    - INV-OFFLINE-NO-TELEMETRY (none)
+    - INV-DESKTOP-LAUNCHER-ENV (partial)
+  features_with_divergences:
+    severity: info
+    description: Features com divergência doc x código registrada
+    count: 14
+    items:
+    - FEAT-FORMATTING-TOOLBAR (1)
+    - FEAT-SMART-PASTE (2)
+    - FEAT-CONTEXTUAL-HINTS (2)
+    - FEAT-WIKI-LINKS (1)
+    - FEAT-RECENT-FILES (1)
+    - FEAT-SAVE (1)
+    - FEAT-CONFLICT (2)
+    - FEAT-EXPORT-HTML (1)
+    - FEAT-VIEW-MODES (1)
+    - FEAT-PRESENTATION (1)
+    - FEAT-METADATA-INDEX (2)
+    - FEAT-SANITIZE (1)
+    - FEAT-OFFLINE-PRIVACY (2)
+    - FEAT-SPLASH-PACKAGING (1)
+  source_commit_drift:
+    severity: warning
+    description: Drift entre source_commit (bf5d9b485db1) e HEAD/working tree (âncoras continuam válidas no source_commit)
+    count: 21
+    items:
+    - 'HEAD c9a515aef201 != source_commit bf5d9b485db1; 42 arquivo(s) alterado(s); nós possivelmente stale: []'
+    - 'working tree modificado: src-tauri/crates/md-studio-core/src/assets/mod.rs — nós stale (âncora não bate no working tree): []; nós com âncora ainda válida: [''FN-RS-SAVE-PASTED-ASSET'']; evidências
+      no arquivo: 1'
+    - 'working tree modificado: src-tauri/crates/md-studio-core/src/index/backlink_index.rs — nós stale (âncora não bate no working tree): [''TST-RS-EMPTY-WORKSPACE-HAS-NO-BACKLINKS'', ''TST-RS-INDEXES-RESOLVED-ONLY-AND-IGNORES-ALIAS'',
+      ''TST-RS-SKIPS-UNRESOLVED-AMBIGUOUS-AND-UNSAFE-TARGETS'', ''TST-RS-DISCARDS-SELF-LINKS-BEFORE-PUBLIC-STORE'', ''TST-RS-INDEXES-UNICODE-RESOLVED-TARGETS'', ''TST-RS-REPLACE-SOURCE-IS-IDEMPOTENT-AND-DROPS-OLD-EDGES'',
+      ''TST-RS-REMOVE-SOURCE-DROPS-INCOMING-EDGES'', ''TST-RS-SORTS-GROUPS-BY-TITLE-CI-THEN-PATH-AND-OCCURRENCES-LINE-ASC'']; nós com âncora ainda válida: [''REPO-BACKLINK-INDEX'', ''FN-BACKLINK-INDEX-REBUILD'',
+      ''FN-BACKLINK-INDEX-REPLACE-SOURCE'', ''FN-BACKLINK-INDEX-REMOVE-SOURCE'', ''FN-BACKLINK-INDEX-BACKLINKS-FOR'', ''FN-BACKLINK-INDEX-INGEST-SOURCE'', ''DTO-RS-BACKLINK-RESULT'']; evidências no arquivo:
+      81'
+    - 'working tree modificado: src-tauri/crates/md-studio-core/src/index/document_metadata.rs — nós stale (âncora não bate no working tree): [''TST-RS-TEST-DOCUMENT-METADATA-SERDE-CAMEL-CASE'']; nós com
+      âncora ainda válida: [''DTO-RS-DOCUMENT-METADATA'']; evidências no arquivo: 2'
+    - 'working tree modificado: src-tauri/crates/md-studio-core/src/index/index_persistence.rs — nós stale (âncora não bate no working tree): []; nós com âncora ainda válida: [''FILE-INDEX-JSON'', ''FN-SAVE-INDEX'',
+      ''FN-LOAD-INDEX'', ''FN-CLEAR-INDEX'', ''FILE-INDEX-TMP'', ''TST-RS-TEST-INDEX-PERSISTENCE-LIFECYCLE'']; evidências no arquivo: 16'
+    - 'working tree modificado: src-tauri/crates/md-studio-core/src/index/metadata_extractor.rs — nós stale (âncora não bate no working tree): [''TST-RS-TEST-EXTRACT-METADATA-COMPREHENSIVE'']; nós com âncora
+      ainda válida: [''FN-EXTRACT-METADATA'', ''FN-EXTRACT-METADATA-FROM-STR'']; evidências no arquivo: 6'
+    - 'working tree modificado: src-tauri/crates/md-studio-core/src/index/metadata_index.rs — nós stale (âncora não bate no working tree): [''TST-RS-TEST-METADATA-INDEX-OPERATIONS'', ''TST-RS-TEST-METADATA-INDEX-SERDE-ROUNDTRIP''];
+      nós com âncora ainda válida: [''REPO-METADATA-INDEX'']; evidências no arquivo: 8'
+    - 'working tree modificado: src-tauri/crates/md-studio-core/src/index/wiki_resolve.rs — nós stale (âncora não bate no working tree): [''TST-RS-RESOLVES-EXACT-PATH-WITH-OR-WITHOUT-EXTENSION'', ''TST-RS-RESOLVES-STEM-AND-TITLE-CASE-INSENSITIVELY'',
+      ''TST-RS-REPORTS-MISSING-UNSAFE-AND-AMBIGUOUS-TARGETS'', ''TST-RS-RESOLVE-ALL-PRESERVES-ALIAS-AND-SOURCE-LINE'']; nós com âncora ainda válida: [''FN-RESOLVE-WIKI-LINK-CORE'', ''FN-RESOLVE-ALL'', ''FN-IS-SAFE-RELATIVE-TARGET'',
+      ''DTO-RS-RESOLVED-WIKI-LINK'']; evidências no arquivo: 21'
+    - 'working tree modificado: src-tauri/crates/md-studio-core/src/persistence.rs — nós stale (âncora não bate no working tree): [''FN-ATOMIC-SAVE'', ''FN-ATOMIC-WRITE-BYTES'', ''FILE-SAVE-TMP'']; nós
+      com âncora ainda válida: [''FN-CONTENT-HASH'', ''FN-READ-FILE'', ''CLS-SAVE-ERROR'']; evidências no arquivo: 24'
+    - 'working tree modificado: src-tauri/src/commands/mod.rs — nós stale (âncora não bate no working tree): [''IPC-OPEN-WORKSPACE'', ''IPC-LIST-ENTRIES'', ''IPC-READ-DOCUMENT'', ''IPC-SAVE-DOCUMENT'',
+      ''IPC-SEARCH-WORKSPACE'', ''IPC-EXPORT-HTML'', ''IPC-EXPORT-EPUB'', ''IPC-GET-LAUNCH-PATH'', ''IPC-CLOSE-SPLASH'', ''FN-RESOLVE-WORKSPACE-ROOT'', ''FN-EXPORT-EPUB-IN'', ''DTO-RS-EXPORT-HTML-REQUEST'',
+      ''DTO-RS-EXPORT-EPUB-REQUEST'', ''TST-RS-EXPORT-WRITES-RENDERED-HTML-NOT-PRE-STUB'', ''TST-RS-EXPORT-REFUSES-OVERWRITE-WITHOUT-FLAG'', ''TST-RS-EXPORT-OVERWRITE-WHEN-ALLOWED'', ''TST-RS-EXPORT-EPUB-REQUEST-DESERIALIZES-CAMEL-CASE'',
+      ''TST-RS-EXPORT-EPUB-REFUSES-NON-ABSOLUTE-DESTINATION'', ''TST-RS-EXPORT-EPUB-REQUIRES-KNOWN-WORKSPACE-AND-REJECTS-ESCAPE'', ''TST-RS-EXPORT-EPUB-WRITES-PACKAGE-AND-REFUSES-CLOBBER'']; nós com âncora
+      ainda válida: [''DTO-RS-SAVE-DOCUMENT-REQUEST'']; evidências no arquivo: 147'
+    - 'working tree modificado: src-tauri/src/lib.rs — nós stale (âncora não bate no working tree): []; nós com âncora ainda válida: [''FN-RS-RUN'', ''CLS-APP-STATE'', ''CFG-GENERATE-HANDLER'', ''OSI-SPLASH-AUTOCLOSE'',
+      ''OSI-SINGLE-INSTANCE'', ''OSI-LAUNCH-ARGV'', ''TEV-APP-OPEN-FILE'']; evidências no arquivo: 162'
+    - 'working tree modificado: src/App.tsx — nós stale (âncora não bate no working tree): [''SCR-APP'', ''RTE-VIEW-MODES'', ''HDL-APP-SHORTCUTS'', ''SHC-CTRL-S'', ''SHC-CTRL-SHIFT-S'', ''SHC-CTRL-O'',
+      ''SHC-CTRL-SHIFT-O'', ''SHC-CTRL-N'', ''SHC-CTRL-W'', ''SHC-F5'', ''HDL-APP-OPEN-NEW-DOCUMENT'', ''HDL-APP-SELECT-TEMPLATE'', ''HDL-APP-EXPORT-HTML'', ''HDL-APP-EXPORT-EPUB'', ''HDL-APP-EXPORT-PDF'',
+      ''HDL-APP-OPEN-FOLDER-WELCOME'', ''HDL-APP-OPEN-FILE-WELCOME'', ''HDL-APP-START-PRESENTATION'', ''HDL-APP-CLOSE-PRESENTATION'', ''HDL-APP-CYCLE-RECENT'', ''HDL-APP-GO-TO-HEADING'', ''HDL-APP-DRAFT-RECOVERY-TIMER'',
+      ''HDL-APP-BACKLINK-OPEN-OCCURRENCE'', ''HDL-APP-CLOSE-SPLASH-EFFECT'', ''IPCC-CLOSE-SPLASH'', ''OSI-WINDOW-PRINT'']; nós com âncora ainda válida: []; evidências no arquivo: 198'
+    - 'working tree modificado: src/components/FileExplorer.tsx — nós stale (âncora não bate no working tree): [''CMP-FILE-EXPLORER'', ''HDL-EXPLORER-OPEN-FOLDER'', ''HDL-EXPLORER-OPEN-FILE'', ''HDL-EXPLORER-ENTRY-CLICK'',
+      ''BTN-EXPLORER-OPEN-FOLDER'', ''BTN-EXPLORER-OPEN-FILE'']; nós com âncora ainda válida: []; evidências no arquivo: 26'
+    - 'working tree modificado: src/components/MarkdownEditor.tsx — nós stale (âncora não bate no working tree): []; nós com âncora ainda válida: [''CMP-MARKDOWN-EDITOR'', ''SHC-EDITOR-MOD-S'', ''SHC-EDITOR-MOD-SHIFT-S'',
+      ''SHC-EDITOR-SHIFT-ALT-F'']; evidências no arquivo: 26'
+    - 'working tree modificado: src/contracts/types.ts — nós stale (âncora não bate no working tree): [''DTO-TS-SAVE-DOCUMENT-REQUEST'', ''DTO-TS-SAVE-RESULT'', ''DTO-TS-SEARCH-RESULT'', ''DTO-TS-WATCH-EVENT'',
+      ''DTO-TS-IPC-ERROR-CODE'']; nós com âncora ainda válida: [''DTO-TS-WORKSPACE-DESCRIPTOR'', ''DTO-TS-FILE-ENTRY'', ''DTO-TS-DOCUMENT-SNAPSHOT'']; evidências no arquivo: 9'
+    - 'working tree modificado: src/editor/wiki/wiki-completion.ts — nós stale (âncora não bate no working tree): [''FN-CREATE-WIKI-COMPLETION-EXTENSIONS'', ''FN-WIKI-CANDIDATES'']; nós com âncora ainda
+      válida: []; evidências no arquivo: 2'
+    - 'working tree modificado: src/lib/ipc/client.ts — nós stale (âncora não bate no working tree): [''CNS-SUBSCRIBE-OPEN-FILE'', ''FN-IPC-INVOKE'', ''FN-IS-TAURI-RUNTIME'', ''FN-BROWSER-INVOKE'', ''IPCC-OPEN-WORKSPACE'',
+      ''IPCC-LIST-ENTRIES'', ''IPCC-READ-DOCUMENT'', ''IPCC-SAVE-DOCUMENT'', ''IPCC-SEARCH-WORKSPACE'', ''IPCC-EXPORT-HTML'', ''IPCC-EXPORT-EPUB'', ''IPCC-START-WATCHING'', ''IPCC-STOP-WATCHING'', ''IPCC-GET-LAUNCH-PATH'',
+      ''OSI-PICK-FOLDER'', ''OSI-PICK-MARKDOWN-FILE'', ''OSI-PICK-SAVE-MARKDOWN'', ''OSI-PICK-SAVE-HTML'', ''OSI-PICK-SAVE-EPUB'', ''OSI-CONFIRM-OVERWRITE'', ''CNS-SUBSCRIBE-WORKSPACE-WATCH'', ''STO-BROWSER-HASH-CACHE''];
+      nós com âncora ainda válida: []; evidências no arquivo: 75'
+    - 'working tree modificado: src/markdown/plugins/wiki-links.ts — nós stale (âncora não bate no working tree): [''PIPE-WIKI-LINKS'']; nós com âncora ainda válida: []; evidências no arquivo: 1'
+    - 'working tree modificado: src/state/editor.ts — nós stale (âncora não bate no working tree): []; nós com âncora ainda válida: [''STO-EDITOR'']; evidências no arquivo: 0'
+    - 'working tree modificado: tests/panel/rightPanelAccordion.test.tsx — nós stale (âncora não bate no working tree): [''TST-TS-PANEL-RIGHT-PANEL-ACCORDION'']; nós com âncora ainda válida: []; evidências
+      no arquivo: 8'
+    - 'working tree modificado: tests/wiki/wiki-completion.test.ts — nós stale (âncora não bate no working tree): []; nós com âncora ainda válida: [''TST-TS-WIKI-WIKI-COMPLETION'']; evidências no arquivo:
+      2'
+  graph_json_stale:
+    severity: warning
+    description: graph.json desatualizado em relação aos artefatos
+    count: 0
+    items: []

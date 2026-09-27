@@ -1,0 +1,13 @@
+task_id: MD-V04-038
+impact_summary: "Implementação da busca estrutural (Knowledge Graph Query Engine) com AST de predicados, indexador e UI builder"
+affected_files:
+  - src/services/structuralSearch.ts
+  - src/components/search/StructuralSearchModal.tsx
+  - src/styles/structural-search.css
+  - tests/search/structural-search.test.ts
+compatibility_analysis:
+  breaking_changes: []
+  regressions_risk: "Nenhum risco de regressão. Utiliza o Knowledge Graph existente como fonte de dados em modo somente leitura."
+verification_evidence:
+  vitest: "13 tests passed in tests/search/structural-search.test.ts"
+  typescript: "tsc -b passed with zero errors"

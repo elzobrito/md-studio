@@ -1,0 +1,13 @@
+task_id: MD-V04-040
+impact_summary: "Consolidação do painel direito (Unified Right Panel) com navegação em abas, lazy mount de views analíticas e suporte completo ao acordeão legado G2"
+affected_files:
+  - src/components/layout/UnifiedRightPanel.tsx
+  - src/styles/unified-right-panel.css
+  - src/App.tsx
+  - tests/panel/rightPanelAccordion.test.tsx
+compatibility_analysis:
+  breaking_changes: []
+  regressions_risk: "Nenhum risco de regressão. Todos os seletores e comportamentos da baseline G2 (DocumentOutline, OutgoingLinksPanel, BacklinksPanel, Settings) foram preservados integralmente."
+verification_evidence:
+  vitest: "7 tests passed in tests/panel/rightPanelAccordion.test.tsx (including 5 legacy tests and 2 new unified panel tests)"
+  typescript: "tsc -b passed with zero errors"

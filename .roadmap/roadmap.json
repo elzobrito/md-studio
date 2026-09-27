@@ -7,11 +7,11 @@
     "run": {
       "run_id": "RUN-0001",
       "status": "success",
-      "last_event_seq": 3709,
-      "projection_hash_sha256": "ed45712ed7b015bc1ed815a4c0baecd61409b347c3e178ee39c4f7606157b6b4",
+      "last_event_seq": 3946,
+      "projection_hash_sha256": "cbdb4504e9a8a2d3b1c3f1e2d55b3d49151d2ad3aec2ca1092bda77e94636df4",
       "verify_status": "ok"
     },
-    "updated_at": "2026-09-27T15:20:52Z"
+    "updated_at": "2026-09-27T16:59:20Z"
   },
   "project": {
     "name": "MD Studio",
@@ -11990,16 +11990,801 @@
         ]
       },
       "completed_at": "2026-09-27T15:20:52Z"
+    },
+    {
+      "task_id": "MD-V04-026",
+      "task_kind": "impl",
+      "title": "Local History / Time Machine: snapshots deduplicados SHA-256 e restore seguro",
+      "description": "Implementar a capability da spec 026-local-history.md. Histórico local de versões intermediárias independente de Git, com lista temporal, diff, restore seguro e cópia de trecho. Snapshots acionados por saves deliberados (atomic_save) e deduplicados por SHA-256. Respeitar isolamento com Draft Recovery e Path Fencing da baseline G2.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        ".esaa/tasks/MD-V04-026.yaml",
+        "src/**"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Snapshots deduplicados por SHA-256 armazenados no metadata store local",
+        "Timeline temporal navegável com diff de versões e cópia de trecho",
+        "Restore seguro via atomic_save preservando versão atual antes da sobrescrita",
+        "Zero impacto no salvamento normal do documento em caso de falha de histórico",
+        "Preservação da baseline G2 e conformidade estrita com Path Fencing"
+      ],
+      "required_review_mode": "security",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-27T16:29:10Z",
+      "verification": {
+        "checks": [
+          "pnpm test tests/history/history-diff.test.ts",
+          "cargo test --manifest-path src-tauri/crates/md-studio-core/Cargo.toml",
+          "pnpm typecheck"
+        ]
+      },
+      "completed_at": "2026-09-27T16:36:44Z"
+    },
+    {
+      "task_id": "MD-V04-027",
+      "task_kind": "impl",
+      "title": "Block References & Placeholders: granularidade de bloco e links intencionais",
+      "description": "Implementar a capability da spec 027-block-references-placeholders.md. Estender referências além de arquivo para Heading, Block (^block-id) e Placeholder ([[nota-futura]]). Distinguir notas futuras de links acidentalmente quebrados sem reimplementar orphan detection, broken links ou o resolver de WikiLinks existente.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        ".esaa/tasks/MD-V04-027.yaml",
+        "src/**"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Parsing e suporte à âncora ^block-id ao final de parágrafos e blocos",
+        "Resolução estruturada de [[Documento#^block-id]] e [[Documento#heading-title]]",
+        "Distinção semântica entre placeholder ([[nota-futura]]) e broken link no resolver",
+        "Smart completion integrado para blocos e cabeçalhos no CodeMirror",
+        "Integração incremental com MetadataIndex preservando a baseline G2"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-27T15:43:11Z",
+      "verification": {
+        "checks": [
+          "Parsing e suporte à âncora ^block-id ao final de parágrafos e blocos",
+          "Resolução estruturada de [[Documento#^block-id]] e [[Documento#heading-title]]",
+          "Distinção semântica entre placeholder ([[nota-futura]]) e broken link no resolver",
+          "Smart completion integrado para blocos e cabeçalhos no CodeMirror",
+          "Integração incremental com MetadataIndex preservando a baseline G2"
+        ]
+      },
+      "completed_at": "2026-09-27T15:52:12Z"
+    },
+    {
+      "task_id": "MD-V04-028",
+      "task_kind": "impl",
+      "title": "TODO Explorer: indexação e navegação operacional de annotations no Workspace Rail",
+      "description": "Implementar a capability da spec 028-todo-explorer.md. Indexação incremental de marcações TODO, FIXME, NOTE, WARN, HACK e tags customizadas. Exibição navegável integrada ao Workspace Rail à esquerda, com filtros por tag/pasta e agrupamento por arquivo, navegando diretamente para a posição linha/coluna.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        ".esaa/tasks/MD-V04-028.yaml",
+        "src/**"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Extração incremental de annotations (TODO, FIXME, NOTE, WARN, HACK) via MetadataIndex",
+        "Painel dedicado no Workspace Rail sem afetar o File Explorer existente",
+        "Filtros por tag, pasta e busca textual rápida com contadores",
+        "Ignora falsos positivos em code fences, inline code e frontmatter",
+        "Salto direto para linha e coluna do arquivo correspondente no editor"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-27T16:01:03Z",
+      "verification": {
+        "checks": [
+          "pnpm test tests/todo/todo-explorer.test.ts",
+          "pnpm typecheck"
+        ]
+      },
+      "completed_at": "2026-09-27T16:07:01Z"
+    },
+    {
+      "task_id": "MD-V04-029",
+      "task_kind": "impl",
+      "title": "TOC Manager: geração e manutenção de sumário Markdown estruturado na AST",
+      "description": "Implementar a capability da spec 029-toc-manager.md. Geração, atualização e remoção de sumários Markdown explícitos inseridos no corpo do documento delimitados por marcadores estáveis (<!-- md-studio:toc:start --> e <!-- md-studio:toc:end -->). Reusar exatamente os mesmos slugs de headings do renderer de preview e proteger TOCs manuais de sobrescrita.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        ".esaa/tasks/MD-V04-029.yaml",
+        "src/**"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Inserção e atualização atômica de sumário entre marcadores controlados",
+        "Slugs e âncoras rigorosamente idênticos ao renderer de preview do MD Studio",
+        "Controle de profundidade configurável de cabeçalhos (H1..H6)",
+        "Detecção de TOCs manuais sem marcadores exigindo confirmação de substituição",
+        "Undo/Redo transparente integrado ao editor CodeMirror"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-27T16:08:16Z",
+      "verification": {
+        "checks": [
+          "pnpm test tests/toc/toc-manager.test.ts",
+          "pnpm typecheck"
+        ]
+      },
+      "completed_at": "2026-09-27T16:09:33Z"
+    },
+    {
+      "task_id": "MD-V04-030",
+      "task_kind": "impl",
+      "title": "Bookmarks: marcadores persistentes no gutter com reancoragem contextual resiliente",
+      "description": "Implementar a capability da spec 030-bookmarks.md. Marcadores de navegação intra-documento persistentes por workspace sem poluir o Markdown. Indicadores visuais no gutter do CodeMirror, atalhos para alternância anterior/próximo e reancoragem inteligente por linha + contexto/hash/snippet contra alterações moderadas no arquivo, marcando stale quando irrecuperável.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        ".esaa/tasks/MD-V04-030.yaml",
+        "src/**"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Toggle de bookmarks com persistência nos metadados do workspace (.md-studio/)",
+        "Indicador discreto no gutter do CodeMirror em harmonia com temas dark/light",
+        "Comandos e atalhos de navegação Próximo/Anterior e quick list",
+        "Algoritmo resiliente de reancoragem baseado em contexto e snippet da linha",
+        "Estado stale explícito quando o alvo não for localizável com segurança"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-27T16:10:29Z",
+      "verification": {
+        "checks": [
+          "pnpm test tests/bookmarks/bookmarks.test.ts",
+          "pnpm typecheck"
+        ]
+      },
+      "completed_at": "2026-09-27T16:12:11Z"
+    },
+    {
+      "task_id": "MD-V04-031",
+      "task_kind": "impl",
+      "title": "Knowledge Graph: projeção relacional derivada in-memory do workspace",
+      "description": "Implementar a infraestrutura central da spec 031-knowledge-graph.md. Projeção in-memory relacional, determinística e reconstruível sobre as entidades do workspace (Document, Heading, Block, Asset, Tag, Placeholder) e relações (CONTAINS, LINKS_TO, REFERENCES, USES, TAGGED_AS). MetadataIndex permanece como fonte de verdade primária. Suporte a rebuild total e atualização incremental.",
+      "status": "done",
+      "depends_on": [
+        "MD-V04-027"
+      ],
+      "targets": [
+        ".esaa/tasks/MD-V04-031.yaml",
+        "src/**",
+        "src-tauri/**"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Grafo in-memory gerado a partir do MetadataIndex e Block References",
+        "Modelagem completa de nós canônicos e arestas direcionadas tipadas",
+        "Snapshot versionado por geração (GraphSnapshot) com hash determinístico",
+        "Atualização incremental orientada a eventos do filesystem watcher",
+        "Rebuild total a frio garantido sem corrupção do MetadataIndex"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-27T15:56:04Z",
+      "verification": {
+        "checks": [
+          "pnpm test tests/graph/knowledge-graph.test.ts",
+          "cargo test --manifest-path src-tauri/crates/md-studio-core/Cargo.toml graph"
+        ]
+      },
+      "completed_at": "2026-09-27T15:59:43Z"
+    },
+    {
+      "task_id": "MD-V04-032",
+      "task_kind": "impl",
+      "title": "Impact Analysis: consulta reversa explicável de dependências estruturais",
+      "description": "Implementar a capability da spec 032-impact-analysis.md. Consultas reversas no Knowledge Graph para responder Se eu mexer neste item, quem depende dele? para Documentos, Headings, Blocos e Assets. Totalmente read-only, explicável e sem score opaco de risco.",
+      "status": "done",
+      "depends_on": [
+        "MD-V04-031"
+      ],
+      "targets": [
+        ".esaa/tasks/MD-V04-032.yaml",
+        "src/**"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Modelo de consulta ImpactReport agregando dependências de entrada e saída",
+        "Análise para as 4 classes canônicas: Documentos, Headings, Blocks e Assets",
+        "Resumo claro de conexões dependentes e documentos afetados",
+        "Estritamente read-only, servindo de base para o Inspector e futuras refatorações"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-27T16:12:48Z",
+      "verification": {
+        "checks": [
+          "pnpm test tests/graph/impact-analysis.test.ts",
+          "pnpm typecheck"
+        ]
+      },
+      "completed_at": "2026-09-27T16:14:51Z"
+    },
+    {
+      "task_id": "MD-V04-033-SPIKE",
+      "task_kind": "spec",
+      "title": "Spike e ADR do visualizador e layout local/offline do Local Graph",
+      "description": "Spike técnico e elaboração da Architecture Decision Record (ADR) da spec 033-local-graph.md. Avaliar e selecionar motor de layout e biblioteca de renderização de grafos 100% local e offline (sem CDNs, sem chamadas externas, compatível com WebKitGTK e WebView2). Definir limites de nós (node caps) para grafos densos e estratégia de cancelamento assíncrono. Entrega: docs/spec/ADR-local-graph-engine.md.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        ".esaa/tasks/MD-V04-033-SPIKE.yaml",
+        "docs/spec/ADR-local-graph-engine.md"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "ADR registrada em docs/spec/ADR-local-graph-engine.md com métricas de memória e render",
+        "Garantia de conformidade 100% offline e local-first (zero CDNs e scripts externos)",
+        "Testes de viabilidade em Linux WebKitGTK e Windows WebView2",
+        "Nenhum arquivo em src/ ou src-tauri/ modificado (escopo estrito de documentação)"
+      ],
+      "required_review_mode": "docs",
+      "assigned_to": "agent-spec",
+      "started_at": "2026-09-27T15:38:26Z",
+      "verification": {
+        "checks": [
+          "ADR registrada em docs/spec/ADR-local-graph-engine.md com métricas de memória e render",
+          "Garantia de conformidade 100% offline e local-first (zero CDNs e scripts externos)",
+          "Testes de viabilidade em Linux WebKitGTK e Windows WebView2",
+          "Nenhum arquivo em src/ ou src-tauri/ modificado (escopo estrito de documentação)"
+        ]
+      },
+      "completed_at": "2026-09-27T15:39:33Z"
+    },
+    {
+      "task_id": "MD-V04-033",
+      "task_kind": "impl",
+      "title": "Local Graph: visualização contextual de vizinhança relacional (1-2 hops)",
+      "description": "Implementar a capability da spec 033-local-graph.md seguindo a ADR aprovada em MD-V04-033-SPIKE. Projeção visual contextual em área ampla dedicada (drawer, modal ou view principal, não comprimida na sidebar estreita) mostrando vizinhança de 1 ou 2 hops do documento ativo. Filtros por relação, node cap para evitar densidade excessiva, layout cancelável e navegação ao clicar.",
+      "status": "done",
+      "depends_on": [
+        "MD-V04-031",
+        "MD-V04-033-SPIKE"
+      ],
+      "targets": [
+        ".esaa/tasks/MD-V04-033.yaml",
+        "src/**"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Renderização de subgrafo contextual centrado no documento atual em 1 ou 2 saltos",
+        "Interface de controles: alternância de profundidade, filtros de arestas e legenda",
+        "Abertura em superfície com largura adequada conforme diretrizes de UX",
+        "Consultas e cálculos de layout canceláveis sem travar a interface",
+        "Truncamento determinístico com aviso explicativo em vizinhanças densas"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-27T16:15:22Z",
+      "verification": {
+        "checks": [
+          "pnpm test tests/graph/local-graph.test.ts",
+          "pnpm typecheck"
+        ]
+      },
+      "completed_at": "2026-09-27T16:16:54Z"
+    },
+    {
+      "task_id": "MD-V04-034",
+      "task_kind": "impl",
+      "title": "Find Relationship / Path Explorer: menor caminho relacional entre nós do workspace",
+      "description": "Implementar a capability da spec 034-find-relationship.md. Algoritmo de busca de caminhos (BFS sobre o Knowledge Graph) para localizar conexões estruturais entre dois nós quaisquer do workspace. Apresentação em sequência de passos legível e navegável na UI/Command Palette com filtros por tipo de aresta.",
+      "status": "done",
+      "depends_on": [
+        "MD-V04-031"
+      ],
+      "targets": [
+        ".esaa/tasks/MD-V04-034.yaml",
+        "src/**"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Seleção de nós de origem e destino via busca rápida no workspace",
+        "Cálculo de menor caminho via BFS com profundidade limitada e cancelamento",
+        "Exibição sequencial explicável das conexões encontradas",
+        "Clique em qualquer nó do caminho navega diretamente ao item correspondente"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-27T16:17:26Z",
+      "verification": {
+        "checks": [
+          "pnpm test tests/graph/path-explorer.test.ts",
+          "pnpm typecheck"
+        ]
+      },
+      "completed_at": "2026-09-27T16:18:52Z"
+    },
+    {
+      "task_id": "MD-V04-035",
+      "task_kind": "impl",
+      "title": "Document Inspector: visão consolidada 360° da estrutura do documento ativo",
+      "description": "Implementar a capability da spec 035-document-inspector.md. Painel unificado que agrega a visão estrutural do documento aberto: Headings, Links de entrada (Backlinks), Links de saída, Assets referenciados, Block references, Broken links, TODOs do documento e métricas estruturais.",
+      "status": "done",
+      "depends_on": [
+        "MD-V04-031",
+        "MD-V04-028"
+      ],
+      "targets": [
+        ".esaa/tasks/MD-V04-035.yaml",
+        "src/**"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Agregação read-only em tempo real combinando MetadataIndex, Knowledge Graph e TODOs",
+        "Atualização sincronizada com a troca do documento ativo",
+        "Seções expansíveis/recolhíveis com contadores e navegação direta por clique",
+        "Ausência de recomputações desnecessárias durante pintura do editor"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-27T16:19:39Z",
+      "verification": {
+        "checks": [
+          "pnpm test tests/inspector/document-inspector.test.ts",
+          "pnpm typecheck"
+        ]
+      },
+      "completed_at": "2026-09-27T16:21:14Z"
+    },
+    {
+      "task_id": "MD-V04-036",
+      "task_kind": "impl",
+      "title": "Workspace Analytics: métricas descritivas locais e explicáveis da documentação",
+      "description": "Implementar a capability da spec 036-workspace-analytics.md. Painel de métricas determinísticas e explicáveis derivadas do MetadataIndex e Knowledge Graph: documentos mais referenciados, centralidade explicável, densidade de links por documento, distribuição de headings, contagem de assets e TODOs. Sem telemetria remota e sem scores opacos.",
+      "status": "done",
+      "depends_on": [
+        "MD-V04-031"
+      ],
+      "targets": [
+        ".esaa/tasks/MD-V04-036.yaml",
+        "src/**"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Agregação e cálculo local de métricas de densidade, centralidade e volume",
+        "Cada métrica exibe fórmula ou critério explicável para o usuário",
+        "100% offline, sem qualquer envio de telemetria ou analytics externa",
+        "Cache incremental para workspaces com centenas de documentos"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-27T16:22:24Z",
+      "verification": {
+        "checks": [
+          "pnpm test tests/analytics/workspace-analytics.test.ts",
+          "pnpm typecheck"
+        ]
+      },
+      "completed_at": "2026-09-27T16:24:02Z"
+    },
+    {
+      "task_id": "MD-V04-037",
+      "task_kind": "impl",
+      "title": "Workspace Health: painel operacional de integridade, links e assets",
+      "description": "Implementar a capability da spec 037-workspace-health.md. Painel operacional consolidado de integridade: detecção de broken links, links ambíguos, documentos órfãos, assets faltando ou não utilizados, TODOs e anomalias estruturais. Consumir diagnósticos do MD Doctor e Backlinks existentes sem duplicar regras.",
+      "status": "done",
+      "depends_on": [
+        "MD-V04-031",
+        "MD-V04-028"
+      ],
+      "targets": [
+        ".esaa/tasks/MD-V04-037.yaml",
+        "src/**"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Painel Health com filtros por severidade e categoria de anomalia",
+        "Consolidação de diagnósticos de MD Doctor, Backlinks e TODO Explorer",
+        "Navegação direta para os arquivos e linhas com problemas",
+        "Limpeza automática de problemas obsoletos após reindexação do arquivo"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-27T16:24:43Z",
+      "verification": {
+        "checks": [
+          "pnpm test tests/health/workspace-health.test.ts",
+          "pnpm typecheck"
+        ]
+      },
+      "completed_at": "2026-09-27T16:26:29Z"
+    },
+    {
+      "task_id": "MD-V04-038",
+      "task_kind": "impl",
+      "title": "Structural Search: motor de busca baseado em relações de grafo e predicados",
+      "description": "Implementar a capability da spec 038-structural-search.md. Consultas estruturais além de busca por texto (ex.: documentos referenciando X, documentos órfãos em pasta Z, arquivos sem backlinks, documentos que usam asset Y). Motor de query tipado sobre o Knowledge Graph com interface gráfica de filtros amigável.",
+      "status": "done",
+      "depends_on": [
+        "MD-V04-031"
+      ],
+      "targets": [
+        ".esaa/tasks/MD-V04-038.yaml",
+        "src/**"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Query engine tipada e composável executada sobre o Knowledge Graph",
+        "Filtros gráficos para relacionamentos estruturais comuns",
+        "Resultados agrupados e navegáveis com suporte a paginação e limites",
+        "Consultas pesadas canceláveis sem congelar o aplicativo"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-27T16:26:46Z",
+      "verification": {
+        "checks": [
+          "pnpm test tests/search/structural-search.test.ts",
+          "pnpm typecheck"
+        ]
+      },
+      "completed_at": "2026-09-27T16:28:48Z"
+    },
+    {
+      "task_id": "MD-V04-039-SPIKE",
+      "task_kind": "spec",
+      "title": "Spike e ADR do Git Provider: git2-rs vs Git CLI para Git enxuto",
+      "description": "Spike técnico e decisão arquitetural obrigatória da spec 039-git-enxuto.md. Comparar o uso da crate git2-rs (Rust nativo via libgit2) versus execução do Git CLI local via subprocesso seguro com allowlist. Medir overhead no bundle, compatibilidade cross-platform (Linux/Windows), detecção de repositório e latência de status/diff. Entrega: docs/spec/ADR-git-provider.md.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        ".esaa/tasks/MD-V04-039-SPIKE.yaml",
+        "docs/spec/ADR-git-provider.md"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "ADR registrada em docs/spec/ADR-git-provider.md com a decisão entre git2-rs e Git CLI",
+        "Avaliação de impacto no instalador Snap, Linux x11/Wayland e Windows",
+        "Especificação da interface abstrata GitProvider isolando a UI do backend",
+        "Nenhum arquivo em src/ ou src-tauri/ modificado (escopo estrito de documentação)"
+      ],
+      "required_review_mode": "docs",
+      "assigned_to": "agent-spec",
+      "started_at": "2026-09-27T15:39:44Z",
+      "verification": {
+        "checks": [
+          "ADR registrada em docs/spec/ADR-git-provider.md com a decisão entre git2-rs e Git CLI",
+          "Avaliação de impacto no instalador Snap, Linux x11/Wayland e Windows",
+          "Especificação da interface abstrata GitProvider isolando a UI do backend",
+          "Nenhum arquivo em src/ ou src-tauri/ modificado (escopo estrito de documentação)"
+        ]
+      },
+      "completed_at": "2026-09-27T15:40:29Z"
+    },
+    {
+      "task_id": "MD-V04-039",
+      "task_kind": "impl",
+      "title": "Git enxuto: status M/A/D, diff gutter e histórico isolado de arquivos",
+      "description": "Implementar a capability da spec 039-git-enxuto.md baseada no GitProvider aprovado no spike. Exibição discreta de status M/A/D, marcadores de diff no gutter do editor CodeMirror e histórico simples de revisões do arquivo. O app deve funcionar perfeitamente sem falhas caso o Git não esteja instalado ou a pasta não seja repositório Git. Fora de escopo: commit, push, pull e merge.",
+      "status": "done",
+      "depends_on": [
+        "MD-V04-039-SPIKE"
+      ],
+      "targets": [
+        ".esaa/tasks/MD-V04-039.yaml",
+        "src/**",
+        "src-tauri/**"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Implementação do GitProvider seguindo a ADR aprovada",
+        "Diff gutter discreto e não invasivo no CodeMirror integrado aos temas",
+        "Histórico de versões do arquivo ativo com visualização de diff",
+        "Degradação graciosa: se o Git não existir, componentes se ocultam sem erros"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-27T16:37:38Z",
+      "verification": {
+        "checks": [
+          "pnpm test tests/git/git-gutter.test.ts",
+          "cargo test --manifest-path src-tauri/crates/md-studio-core/Cargo.toml",
+          "pnpm typecheck"
+        ]
+      },
+      "completed_at": "2026-09-27T16:43:56Z"
+    },
+    {
+      "task_id": "MD-V04-040",
+      "task_kind": "impl",
+      "title": "Inspector unificado à direita: arquitetura consolidada em abas com acordeão G2",
+      "description": "Implementar a evolução da UI da spec 040-inspector-unificado.md, integrando sobre a baseline G2 existente (rightPanelAccordion, TST-TS-PANEL-RIGHT-PANEL-ACCORDION, CMP-DOCUMENT-OUTLINE, CMP-BACKLINKS-PANEL, CMP-OUTGOING-LINKS-PANEL, CMP-SETTINGS). Consolidar as abas Sumário, Links, Backlinks, Document Inspector e Health de forma coesa e com lazy mount para views pesadas.",
+      "status": "done",
+      "depends_on": [
+        "MD-V04-035",
+        "MD-V04-037"
+      ],
+      "targets": [
+        ".esaa/tasks/MD-V04-040.yaml",
+        "src/components/**",
+        "tests/panel/**"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Arquitetura de painel direito unificada preservando a estabilidade da baseline G2",
+        "Abas integradas: Sumário, Links, Backlinks, Inspector e Health",
+        "Suporte a lazy mount para evitar overhead em tabs pesadas não ativas",
+        "Não força o Local Graph na barra lateral estreita (preserva abertura expandida)",
+        "Suíte de testes do acordeão estendida sem quebra de testes legados"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-27T16:45:11Z",
+      "verification": {
+        "checks": [
+          "pnpm test tests/panel/rightPanelAccordion.test.tsx",
+          "pnpm typecheck"
+        ]
+      },
+      "completed_at": "2026-09-27T16:49:24Z"
+    },
+    {
+      "task_id": "MD-V04-041",
+      "task_kind": "impl",
+      "title": "File Tree com estados: badges discretos de modificação, Git e health",
+      "description": "Implementar a capability da spec 041-file-tree-estados.md. Exibir indicadores discretos e informativos na árvore de arquivos para status de modificação (dirty), status Git (M/A/D), alertas de saúde (Health) e diagnósticos estruturais, combinados em uma camada de estado em memória de alta performance.",
+      "status": "done",
+      "depends_on": [
+        "MD-V04-039",
+        "MD-V04-037"
+      ],
+      "targets": [
+        ".esaa/tasks/MD-V04-041.yaml",
+        "src/**"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Agregador de estado FileState em memória consumindo Git e Health",
+        "Badges discretos com tooltip e prioridade visual definida",
+        "Não degrada a performance de rolagem ou virtualização do File Explorer",
+        "Degradação graciosa se provedores de Git ou Health estiverem inativos"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-27T16:49:49Z",
+      "verification": {
+        "checks": [
+          "pnpm test tests/explorer/",
+          "pnpm typecheck"
+        ]
+      },
+      "completed_at": "2026-09-27T16:54:53Z"
+    },
+    {
+      "task_id": "MD-BUILD-LOCAL-009",
+      "task_kind": "impl",
+      "title": "Compilação e validação do binário local do MD Studio com capabilities v0.4",
+      "description": "Compilar o binário local do MD Studio com todas as capabilities da v0.4 integradas, testando no ambiente desktop Ubuntu (Wayland com compatibilidade X11/dmabuf validada em TST-TS-DESKTOP-LAUNCHER e invariante INV-DESKTOP-LAUNCHER-ENV fechada na baseline G2).",
+      "status": "done",
+      "depends_on": [
+        "MD-V04-026",
+        "MD-V04-027",
+        "MD-V04-028",
+        "MD-V04-029",
+        "MD-V04-030",
+        "MD-V04-032",
+        "MD-V04-033",
+        "MD-V04-034",
+        "MD-V04-036",
+        "MD-V04-038",
+        "MD-V04-040",
+        "MD-V04-041"
+      ],
+      "targets": [
+        ".esaa/tasks/MD-BUILD-LOCAL-009.yaml",
+        "src-tauri/**"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "maintenance",
+      "acceptance_criteria": [
+        "Compilação completa via pnpm build e cargo build sem erros",
+        "Binário local funcional no Show Apps do Ubuntu",
+        "Preservação da invariante INV-DESKTOP-LAUNCHER-ENV",
+        "Testes automatizados executando com 100% de sucesso"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-27T16:55:16Z",
+      "verification": {
+        "checks": [
+          "pnpm test tests/desktop/desktop-launcher.test.ts",
+          "pnpm build",
+          "cargo build --manifest-path src-tauri/Cargo.toml"
+        ]
+      },
+      "completed_at": "2026-09-27T16:58:57Z"
+    },
+    {
+      "task_id": "MD-TRACE-V04-001",
+      "task_kind": "impl",
+      "title": "Reconciliação e atualização da baseline do TCG para G3 (pós-v0.4)",
+      "description": "Reconciliar o Grafo de Rastreabilidade Semântica de Software (TCG) para a baseline G3 pós-v0.4. Arquivar o snapshot da baseline G2 em snapshots/g2-bf5d9b4.json, catalogar todos os novos nós de código, teste, contratos e features da v0.4, verificar arestas e gerar g3-graph-delta.md com 0 nós stale e status pass no validate.py.",
+      "status": "in_progress",
+      "depends_on": [
+        "MD-BUILD-LOCAL-009"
+      ],
+      "targets": [
+        ".esaa/traceability/**"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "maintenance",
+      "acceptance_criteria": [
+        "Snapshot da baseline G2 arquivado em .esaa/traceability/snapshots/g2-bf5d9b4.json",
+        "Novos nós e testes da v0.4 catalogados e re-ancorados com precisão cirúrgica",
+        "build_graph.py e validate.py com status pass e 0 critical",
+        "Relatório detalhado registrado em .esaa/traceability/g3-graph-delta.md"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-27T16:59:20Z"
+    },
+    {
+      "task_id": "MD-V04-QA-001",
+      "task_kind": "qa",
+      "title": "QA unificada e Release Gate da v0.4 (Documentation Engineering)",
+      "description": "Auditoria final, execução da suíte completa de regressão e validação dos gates da release v0.4: testes unitários (pnpm test 100% pass), typecheck (pnpm typecheck 0 erros), testes Rust (cargo test --locked 100% pass), auditoria de segurança local-first e conformidade com os contratos do produto.",
+      "status": "todo",
+      "depends_on": [
+        "MD-TRACE-V04-001"
+      ],
+      "targets": [
+        "docs/qa/v0.4-release-gate.md"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "audit",
+      "acceptance_criteria": [
+        "100% dos testes unitários e de integração TypeScript passando",
+        "100% dos testes Rust passando",
+        "Typecheck sem erros",
+        "Verificação de segurança local-first (zero CDNs, zero telemetria, Path Fencing preservado)",
+        "Rastreabilidade íntegra na baseline G3 com validate.py pass"
+      ],
+      "required_review_mode": "release"
     }
   ],
   "indexes": {
     "by_status": {
-      "done": 306
+      "done": 325,
+      "in_progress": 1,
+      "todo": 1
     },
     "by_kind": {
-      "impl": 241,
-      "qa": 38,
-      "spec": 27
+      "impl": 259,
+      "qa": 39,
+      "spec": 29
     }
   }
 }

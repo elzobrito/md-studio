@@ -17,7 +17,9 @@ import { CommandPalette } from "./components/command/CommandPalette";
 import { ResizablePanel } from "./components/layout/ResizablePanel";
 import { useResizablePanel } from "./hooks/useResizablePanel";
 import { SplitDivider, loadSavedSplitRatio } from "./components/layout/SplitDivider";
-import { WorkspaceRail } from "./components/workspace/WorkspaceRail";
+import { WorkspaceRail, type WorkspaceActivityId } from "./components/workspace/WorkspaceRail";
+import { TodoExplorer } from "./components/todo/TodoExplorer";
+import { extractAnnotations, type Annotation } from "./services/todoExplorer";
 import { PanelControls } from "./components/header/PanelControls";
 import { AppHeader } from "./components/header/AppHeader";
 import { Breadcrumb } from "./components/header/Breadcrumb";
@@ -35,6 +37,7 @@ import { recentFilesStore } from "./state/recent-files";
 import { useMetadata } from "./hooks/useMetadata";
 import { OutgoingLinksPanel } from "./components/wiki/OutgoingLinksPanel";
 import { BacklinksPanel } from "./components/wiki/BacklinksPanel";
+import { UnifiedRightPanel } from "./components/layout/UnifiedRightPanel";
 import { CreateNoteFromWiki } from "./components/wiki/CreateNoteFromWiki";
 import { NewDocumentModal } from "./components/editor/NewDocumentModal";
 import { DraftRecoveryDialog } from "./components/DraftRecoveryDialog";
@@ -99,6 +102,27 @@ export function App() {
   const handleOpenNewDocument = useCallback(() => {
     setNewDocModalOpen(true);
   }, []);
+
+  const [workspaceActivity, setWorkspaceActivity] = useState<WorkspaceActivityId>("explorer");
+  const [annotationsMap, setAnnotationsMap] = useState<Map<string, Annotation[]>>(new Map());
+
+  useEffect(() => {
+    if (!doc.relativePath) return;
+    const anns = extractAnnotations(doc.content, doc.relativePath);
+    setAnnotationsMap((prev) => {
+      const next = new Map(prev);
+      next.set(doc.relativePath, anns);
+      return next;
+    });
+  }, [doc.content, doc.relativePath]);
+
+  const allAnnotations = useMemo(() => {
+    const list: Annotation[] = [];
+    for (const anns of annotationsMap.values()) {
+      list.push(...anns);
+    }
+    return list;
+  }, [annotationsMap]);
 
   const [presentationOpen, setPresentationOpen] = useState(false);
   const savedUiState = useRef<PreviousUiState | null>(null);
@@ -595,10 +619,15 @@ export function App() {
           className={`workspace-sidebar-container${leftCollapsed ? " is-collapsed" : ""}`}
         >
           <WorkspaceRail
-            activeActivity="explorer"
+            activeActivity={workspaceActivity}
             isPanelOpen={!leftCollapsed}
-            onToggleActivity={() => {
-              session.setLeftOpen(leftCollapsed);
+            onToggleActivity={(id) => {
+              if (id === workspaceActivity) {
+                session.setLeftOpen(leftCollapsed);
+              } else {
+                setWorkspaceActivity(id);
+                session.setLeftOpen(true);
+              }
             }}
           />
           {!leftCollapsed && (
@@ -609,23 +638,43 @@ export function App() {
               isResizing={leftPanel.isResizing}
               aria-label="Workspace"
             >
-              <FileExplorer
-                workspace={doc.workspace}
-                onOpenRelative={(path) => {
-                  void doc.openRelative(path);
-                  setIsWriting(true);
-                }}
-                onOpenRecent={(path) => {
-                  void doc.openRecent(path);
-                  setIsWriting(true);
-                }}
-                onOpenFolder={doc.openFolder}
-                onOpenFile={doc.openFile}
-                onWorkspaceReady={doc.onWorkspaceReady}
-                query={query}
-                onQuery={setQuery}
-                activePath={doc.relativePath}
-              />
+              {workspaceActivity === "todo" ? (
+                <TodoExplorer
+                  annotations={allAnnotations}
+                  activePath={doc.relativePath}
+                  onNavigate={async (path, line, col) => {
+                    if (path !== doc.relativePath) {
+                      const opened = await doc.openRelative(path);
+                      if (opened) {
+                        setIsWriting(true);
+                        window.setTimeout(() => {
+                          editorStore.goToLine(line, col);
+                        }, 100);
+                      }
+                    } else {
+                      editorStore.goToLine(line, col);
+                    }
+                  }}
+                />
+              ) : (
+                <FileExplorer
+                  workspace={doc.workspace}
+                  onOpenRelative={(path) => {
+                    void doc.openRelative(path);
+                    setIsWriting(true);
+                  }}
+                  onOpenRecent={(path) => {
+                    void doc.openRecent(path);
+                    setIsWriting(true);
+                  }}
+                  onOpenFolder={doc.openFolder}
+                  onOpenFile={doc.openFile}
+                  onWorkspaceReady={doc.onWorkspaceReady}
+                  query={query}
+                  onQuery={setQuery}
+                  activePath={doc.relativePath}
+                />
+              )}
             </ResizablePanel>
           )}
         </div>
@@ -720,42 +769,22 @@ export function App() {
             isResizing={rightPanel.isResizing}
             aria-label="Metadados"
           >
-            <div className="right-panel-header">
-              <div className="right-panel-title">
-                <span className="right-panel-icon" aria-hidden="true">📑</span>
-                <span>Sumário e Metadados</span>
-              </div>
-              <button
-                type="button"
-                className="right-panel-close-btn"
-                onClick={() => session.setRightOpen(false)}
-                title="Fechar painel (Ctrl+J)"
-                aria-label="Fechar painel lateral"
-              >
-                ×
-              </button>
-            </div>
-            <DocumentOutline
+            <UnifiedRightPanel
               content={doc.content}
-              onNavigate={goToHeading}
-              onClose={() => session.setRightOpen(false)}
-            />
-            <OutgoingLinksPanel
-              links={metadata.resolvedWikiLinks}
-              onOpen={async (path) => {
+              onNavigateHeading={goToHeading}
+              outgoingLinks={metadata.resolvedWikiLinks}
+              onOpenOutgoingLink={async (path) => {
                 const opened = await doc.openRelative(path);
                 if (opened) setIsWriting(true);
               }}
-              onUnresolved={setUnresolvedWikiTarget}
-            />
-            <BacklinksPanel
-              result={metadata.backlinks}
-              loading={metadata.loading}
-              error={metadata.error}
-              onRetry={() => {
+              onUnresolvedWikiTarget={setUnresolvedWikiTarget}
+              backlinkResult={metadata.backlinks}
+              backlinksLoading={metadata.loading}
+              backlinksError={metadata.error}
+              onRetryBacklinks={() => {
                 void metadata.reindex();
               }}
-              onOpenOccurrence={async (path, line) => {
+              onOpenBacklinkOccurrence={async (path, line) => {
                 const opened = await doc.openRelative(path);
                 if (!opened) return;
                 setIsWriting(true);
@@ -765,16 +794,13 @@ export function App() {
                 queueGoToLine(line);
                 editorStore.goToLine(line);
               }}
+              session={session}
+              onClose={() => session.setRightOpen(false)}
+              diagnostics={doc.diagnostics}
+              activeDocumentPath={doc.relativePath}
+              snapshot={undefined}
+              initialTab="accordion"
             />
-            <Settings session={session} />
-            <section className="card" aria-label="Diagnósticos">
-              <h2>Diagnósticos</h2>
-              <ul className="diag-list">
-                {doc.diagnostics.map((d, i) => (
-                  <li key={i}>{d}</li>
-                ))}
-              </ul>
-            </section>
           </ResizablePanel>
         )}
       </div>

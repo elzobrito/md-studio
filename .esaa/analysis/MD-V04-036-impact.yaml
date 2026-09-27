@@ -1,0 +1,27 @@
+artifact: task-impact
+schema_version: 1
+task_id: MD-V04-036
+projected_at: '2026-09-27T13:23:42-03:00'
+projected_before_change: true
+projection_inputs:
+- spec 036-workspace-analytics.md
+- ROADMAP-CANONICO-MD-STUDIO-v0.3-v0.5.md
+- .esaa/traceability/graph.json (source_commit bf5d9b485db1dab7eafd89ff1b5a0e23bf9e7e6c)
+- .esaa/traceability/g2-graph-delta.md
+spec: .esaa/tasks/MD-V04-036.yaml
+graph_source_commit: bf5d9b485db1dab7eafd89ff1b5a0e23bf9e7e6c
+rationale:
+  src/services/workspaceAnalytics.ts: Cálculo de métricas determinísticas locais do workspace (densidade, centralidade, ranking de referências, distribuição de seções) com fórmulas explicáveis e zero telemetria externa.
+  src/components/analytics/WorkspaceAnalyticsModal.tsx: Modal de visualização de métricas e estatísticas com rankings navegáveis.
+  src/styles/workspace-analytics.css: Estilização do modal Workspace Analytics.
+justification:
+  INV-DESKTOP-LAUNCHER-ENV: Invariante mantida; zero quebra de integridade.
+expected_uncatalogued:
+- tests/analytics/workspace-analytics.test.ts
+blast_radius:
+  change_target:
+  - src/services/workspaceAnalytics.ts
+  - src/components/analytics/WorkspaceAnalyticsModal.tsx
+  - src/styles/workspace-analytics.css
+  expected_affected: []
+  expected_affected_source: declared

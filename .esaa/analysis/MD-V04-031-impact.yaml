@@ -1,0 +1,37 @@
+artifact: task-impact
+schema_version: 1
+task_id: MD-V04-031
+projected_at: '2026-09-27T12:59:35-03:00'
+projected_before_change: true
+projection_inputs:
+- spec 031-knowledge-graph.md
+- ROADMAP-CANONICO-MD-STUDIO-v0.3-v0.5.md
+- .esaa/traceability/graph.json (source_commit bf5d9b485db1dab7eafd89ff1b5a0e23bf9e7e6c)
+- .esaa/traceability/g2-graph-delta.md
+spec: .esaa/tasks/MD-V04-031.yaml
+graph_source_commit: bf5d9b485db1dab7eafd89ff1b5a0e23bf9e7e6c
+rationale:
+  src-tauri/crates/md-studio-core/src/graph/mod.rs: Módulo KnowledgeGraph e testes unitários.
+  src-tauri/crates/md-studio-core/src/graph/node.rs: Estruturas de nós canônicos e tipos GraphNodeType.
+  src-tauri/crates/md-studio-core/src/graph/edge.rs: Estruturas de arestas direcionadas tipadas GraphEdgeType.
+  src-tauri/crates/md-studio-core/src/graph/snapshot.rs: Snapshot versionado GraphSnapshot com hash determinístico.
+  src-tauri/crates/md-studio-core/src/graph/projector.rs: Projeção in-memory do grafo com rebuild e updates incrementais.
+  src-tauri/crates/md-studio-core/src/graph/query.rs: Consultas de subgrafo contextual, impacto e busca de caminhos (BFS).
+  src-tauri/crates/md-studio-core/src/lib.rs: Exportação pública do módulo graph.
+  src/services/knowledgeGraph.ts: Camada de serviço TypeScript de projeção e consulta do grafo local.
+justification:
+  INV-DESKTOP-LAUNCHER-ENV: Invariante mantida; zero quebra de integridade.
+expected_uncatalogued:
+- tests/graph/knowledge-graph.test.ts
+blast_radius:
+  change_target:
+  - src-tauri/crates/md-studio-core/src/graph/mod.rs
+  - src-tauri/crates/md-studio-core/src/graph/node.rs
+  - src-tauri/crates/md-studio-core/src/graph/edge.rs
+  - src-tauri/crates/md-studio-core/src/graph/snapshot.rs
+  - src-tauri/crates/md-studio-core/src/graph/projector.rs
+  - src-tauri/crates/md-studio-core/src/graph/query.rs
+  - src-tauri/crates/md-studio-core/src/lib.rs
+  - src/services/knowledgeGraph.ts
+  expected_affected: []
+  expected_affected_source: declared

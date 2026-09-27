@@ -1,0 +1,22 @@
+task_id: MD-V04-038
+title: "Structural Search: motor de busca baseado em relações de grafo e predicados"
+status: in_progress
+assigned_to: agent-impl
+deliverables:
+  - path: src/services/structuralSearch.ts
+    description: "Query engine tipada e indexador em memória para predicados estruturais sobre o Knowledge Graph"
+  - path: src/components/search/StructuralSearchModal.tsx
+    description: "Modal com builder visual de predicados, presets e paginação"
+  - path: src/styles/structural-search.css
+    description: "Estilos para interface de busca estrutural"
+  - path: tests/search/structural-search.test.ts
+    description: "Testes unitários cobrindo todos os operadores, combinações AND/OR, cancelamento e benchmark de 500 docs"
+acceptance_criteria:
+  - "Query engine tipada e composável executada sobre o Knowledge Graph: ATENDIDO"
+  - "Filtros gráficos para relacionamentos estruturais comuns: ATENDIDO"
+  - "Resultados agrupados e navegáveis com suporte a paginação e limites: ATENDIDO"
+  - "Consultas pesadas canceláveis sem congelar o aplicativo: ATENDIDO"
+verification:
+  checks:
+    - "pnpm test tests/search/structural-search.test.ts"
+    - "pnpm typecheck"

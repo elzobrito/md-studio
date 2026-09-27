@@ -317,6 +317,7 @@ mod tests {
             headings: vec![],
             links: vec![],
             wiki_links: vec![],
+            blocks: vec![],
             tags: vec![],
             images: vec!["assets/dup1.png".to_string(), "assets/missing.png".to_string()],
             tables: 0,

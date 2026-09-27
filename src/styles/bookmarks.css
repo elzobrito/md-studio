@@ -1,0 +1,27 @@
+.cm-bookmark-gutter {
+  width: 18px;
+  background-color: transparent;
+  user-select: none;
+}
+
+.cm-bookmark-marker {
+  width: 14px;
+  height: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-primary, #3b82f6);
+  cursor: pointer;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+  margin: auto;
+}
+
+.cm-bookmark-marker:hover {
+  transform: scale(1.15);
+  opacity: 0.9;
+}
+
+.cm-bookmark-marker svg {
+  width: 12px;
+  height: 12px;
+}

@@ -28,26 +28,34 @@ export const backlinkLineTheme = EditorView.theme({
   },
 });
 
-let pendingLine: number | null = null;
+export interface QueuedLineTarget {
+  line: number;
+  col?: number;
+}
+
+let pendingTarget: QueuedLineTarget | null = null;
 let highlightTimer: number | null = null;
 
-export function queueGoToLine(line: number) {
-  pendingLine = line;
+export function queueGoToLine(line: number, col?: number) {
+  pendingTarget = { line, col };
 }
 
-export function consumeQueuedGoToLine(): number | null {
-  const line = pendingLine;
-  pendingLine = null;
-  return line;
+export function consumeQueuedGoToLine(): QueuedLineTarget | null {
+  const target = pendingTarget;
+  pendingTarget = null;
+  return target;
 }
 
-export function goToLineWithHighlight(view: EditorView, line: number) {
+export function goToLineWithHighlight(view: EditorView, line: number, col?: number) {
   const valid = Math.max(1, Math.min(line, view.state.doc.lines));
   const info = view.state.doc.line(valid);
-  pendingLine = null;
+  pendingTarget = null;
+  const colOffset = col != null && col > 1 ? Math.min(col - 1, info.length) : 0;
+  const targetPos = info.from + colOffset;
+
   view.dispatch({
-    selection: { anchor: info.from },
-    effects: [setHighlight.of(valid), EditorView.scrollIntoView(info.from)],
+    selection: { anchor: targetPos },
+    effects: [setHighlight.of(valid), EditorView.scrollIntoView(targetPos)],
     scrollIntoView: true,
   });
   view.focus();

@@ -1,0 +1,30 @@
+task_id: MD-V04-041
+title: "File Tree com estados: badges discretos de modificação, Git e health"
+status: in_progress
+assigned_to: agent-impl
+deliverables:
+  - path: src/services/fileStateAggregator.ts
+    description: "Serviço de agregação em memória de estados de arquivos (Git, Health e Dirty state) com normalização de caminhos O(1)"
+  - path: src/components/explorer/FileTreeNode.tsx
+    description: "Renderização de nós da árvore com badges discretos para status de modificação, Git (M/A/D/R) e Health (error/warning) com tooltips legíveis"
+  - path: src/components/explorer/FileTree.tsx
+    description: "Encaminhamento do mapa agregado de estados para nós e pastas filhas"
+  - path: src/components/explorer/FileTreeFolder.tsx
+    description: "Propagação recursiva do mapa de estados para subárvores"
+  - path: src/components/FileExplorer.tsx
+    description: "Integração do agregador de estados consumindo Git via IPC e dirty state do documento ativo"
+  - path: src/styles/file-tree.css
+    description: "Estilos CSS para badges discretos, distinção semiótica (letras e ícones além de cor) e alinhamento à direita"
+  - path: tests/explorer/file-state-aggregator.test.ts
+    description: "Testes unitários do agregador de estado"
+  - path: tests/explorer/file-tree-badges.test.tsx
+    description: "Testes de renderização de badges, degradação graciosa e distribuição na árvore"
+acceptance_criteria:
+  - "Agregador de estado FileState em memória consumindo Git e Health: ATENDIDO"
+  - "Badges discretos com tooltip e prioridade visual definida: ATENDIDO"
+  - "Não degrada a performance de rolagem ou virtualização do File Explorer: ATENDIDO"
+  - "Degradação graciosa se provedores de Git ou Health estiverem inativos: ATENDIDO"
+verification:
+  checks:
+    - "pnpm test tests/explorer/"
+    - "pnpm typecheck"

@@ -1,0 +1,22 @@
+task_id: MD-V04-039
+impact_summary: "Implementação da capability Git enxuto com GitProvider (git2-rs), IPC seguro, diff gutter no CodeMirror e modal de histórico de arquivo"
+affected_files:
+  - src-tauri/crates/md-studio-core/Cargo.toml
+  - src-tauri/crates/md-studio-core/src/git.rs
+  - src-tauri/crates/md-studio-core/src/lib.rs
+  - src-tauri/src/commands/mod.rs
+  - src-tauri/src/lib.rs
+  - src/contracts/types.ts
+  - src/lib/ipc/client.ts
+  - src/editor/git/gitGutter.ts
+  - src/components/git/FileHistoryModal.tsx
+  - src/styles/git-gutter.css
+  - src/styles/git-history.css
+  - tests/git/git-gutter.test.ts
+compatibility_analysis:
+  breaking_changes: []
+  regressions_risk: "Nenhum risco de regressão. Degradação graciosa completa quando a pasta não for um repositório Git ou o Git estiver ausente."
+verification_evidence:
+  vitest: "3 tests passed in tests/git/git-gutter.test.ts"
+  cargo: "62 tests passed in md-studio-core (including 4 dedicated git provider tests)"
+  typescript: "tsc -b passed with zero errors"

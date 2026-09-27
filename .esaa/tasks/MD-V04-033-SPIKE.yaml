@@ -1,0 +1,35 @@
+artifact: task-traceability
+schema_version: 1
+task_id: MD-V04-033-SPIKE
+written_at: '2026-09-27T12:38:55-03:00'
+projected_before_change: true
+projection_inputs:
+- spec 033-local-graph.md
+- ROADMAP-CANONICO-MD-STUDIO-v0.3-v0.5.md
+- .esaa/traceability/graph.json (source_commit bf5d9b485db1dab7eafd89ff1b5a0e23bf9e7e6c)
+- .esaa/traceability/g2-graph-delta.md
+graph:
+  path: .esaa/traceability/graph.json
+  source_commit: bf5d9b485db1dab7eafd89ff1b5a0e23bf9e7e6c
+traceability:
+  targets:
+  - docs/spec/ADR-local-graph-engine.md
+  expected_affected: []
+  protected_extra:
+  - INV-DESKTOP-LAUNCHER-ENV
+  - TST-TS-DESKTOP-LAUNCHER
+  change_policy:
+    mode: surgical
+    allow_new_tests: false
+    allow_new_production_nodes: false
+  rationale:
+    docs/spec/ADR-local-graph-engine.md: Registro da ADR que define o motor SVG concêntrico para o Local Graph.
+  justification:
+    INV-DESKTOP-LAUNCHER-ENV: Zero impacto no runtime desktop; spike 100% documentado e offline.
+artifacts:
+  impact: .esaa/analysis/MD-V04-033-SPIKE-impact.yaml
+  footprint: .esaa/analysis/MD-V04-033-SPIKE-footprint.yaml
+  drift: .esaa/analysis/MD-V04-033-SPIKE-drift.yaml
+expected_uncatalogued:
+- docs/spec/ADR-local-graph-engine.md
+close_rule: O complete copia verdict. warning cita path e linhas. precision de nó não cobre arquivo sem nó. must_run exige saída do comando. violation bloqueia.

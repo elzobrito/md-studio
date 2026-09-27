@@ -1,5 +1,5 @@
 use crate::contracts::{DocumentSnapshot, FileEntry, SearchResult, WorkspaceDescriptor};
-use crate::persistence::{atomic_save, atomic_write_bytes, content_hash, read_file};
+use crate::persistence::{atomic_write_bytes, content_hash, read_file};
 use crate::workspace::WorkspaceError;
 use crate::AppState;
 use serde::Deserialize;
@@ -15,6 +15,8 @@ pub struct SaveDocumentRequest {
     pub relative_path: String,
     pub expected_hash: String,
     pub content: String,
+    #[serde(default)]
+    pub reason: Option<String>,
 }
 
 pub mod metadata;
@@ -119,11 +121,32 @@ pub fn save_document(
     state: State<'_, AppState>,
 ) -> Result<serde_json::Value, String> {
     let reg = state.workspaces.lock();
+    let ws_root = reg.get(&req.workspace_id).map(|w| w.root.clone());
     let full = reg
         .resolve(&req.workspace_id, &req.relative_path)
         .map_err(map_ws_err)?;
-    match atomic_save(&full, &req.expected_hash, &req.content) {
-        Ok(hash) => {
+
+    match md_studio_core::persistence::atomic_save_with_previous(&full, &req.expected_hash, &req.content) {
+        Ok(outcome) => {
+            let hash = outcome.new_hash;
+
+            // Histórico local (Time Machine): salvar snapshot da versão anterior substituída
+            if let (Some(root), Some(prev)) = (ws_root, outcome.previous) {
+                let reason = req.reason.unwrap_or_else(|| "before-manual-save".to_string());
+                let now_ms = std::time::SystemTime::now()
+                    .duration_since(std::time::UNIX_EPOCH)
+                    .map(|d| d.as_millis() as u64)
+                    .unwrap_or(0);
+                // Falha do histórico nunca impede o save principal (spec 026 regra #39)
+                let _ = md_studio_core::history::HistoryStore::record_snapshot(
+                    &root,
+                    &req.relative_path,
+                    &prev.content,
+                    &reason,
+                    now_ms,
+                );
+            }
+
             // Registra a escrita interna para suprimir falso positivo no WatcherHub
             state.watcher.register_internal_save(&req.workspace_id, &req.relative_path, &hash);
 
@@ -158,6 +181,144 @@ pub fn save_document(
         })),
     }
 }
+
+#[tauri::command]
+pub fn list_history_entries(
+    workspace_id: String,
+    relative_path: String,
+    state: State<'_, AppState>,
+) -> Result<Vec<md_studio_core::history::HistoryEntry>, String> {
+    let reg = state.workspaces.lock();
+    let ws = reg.get(&workspace_id).ok_or_else(|| "workspace not found".to_string())?;
+    md_studio_core::history::HistoryStore::list_entries(&ws.root, &relative_path)
+        .map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+pub fn get_history_snapshot(
+    workspace_id: String,
+    relative_path: String,
+    hash: String,
+    state: State<'_, AppState>,
+) -> Result<md_studio_core::history::HistorySnapshot, String> {
+    let reg = state.workspaces.lock();
+    let ws = reg.get(&workspace_id).ok_or_else(|| "workspace not found".to_string())?;
+    md_studio_core::history::HistoryStore::get_snapshot(&ws.root, &relative_path, &hash)
+        .map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+pub fn restore_history_entry(
+    workspace_id: String,
+    relative_path: String,
+    hash: String,
+    expected_current_hash: String,
+    state: State<'_, AppState>,
+) -> Result<DocumentSnapshot, String> {
+    let reg = state.workspaces.lock();
+    let ws = reg.get(&workspace_id).ok_or_else(|| "workspace not found".to_string())?;
+    let now_ms = std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .map(|d| d.as_millis() as u64)
+        .unwrap_or(0);
+
+    let restored = md_studio_core::history::HistoryStore::restore_entry(
+        &ws.root,
+        &relative_path,
+        &hash,
+        &expected_current_hash,
+        now_ms,
+    )
+    .map_err(|e| e.to_string())?;
+
+    // Registra a escrita interna para suprimir falso positivo no WatcherHub
+    state.watcher.register_internal_save(&workspace_id, &relative_path, &restored.content_hash);
+
+    // Reindexar arquivo restaurado
+    if let Some(engine) = state.metadata_engine.lock().as_ref().cloned() {
+        let full = ws.root.join(&relative_path);
+        let _ = engine.reindex_file(&full);
+        if let Ok(idx) = engine.index.lock() {
+            let _ = md_studio_core::index::save_index(&idx, &engine.root);
+        }
+    }
+
+    Ok(DocumentSnapshot {
+        workspace_id,
+        relative_path,
+        content: restored.content,
+        encoding: "utf-8".into(),
+        mtime_ms: restored.timestamp_ms,
+        content_hash: restored.content_hash,
+        version: 3,
+    })
+}
+
+#[tauri::command]
+pub fn git_is_repository(workspace_id: String, state: State<'_, AppState>) -> Result<bool, String> {
+    let reg = state.workspaces.lock();
+    let Some(ws) = reg.get(&workspace_id) else { return Ok(false); };
+    Ok(md_studio_core::git::GitProvider::is_repository(&ws.root))
+}
+
+#[tauri::command]
+pub fn git_get_status(
+    workspace_id: String,
+    state: State<'_, AppState>,
+) -> Result<Vec<md_studio_core::git::GitFileStatus>, String> {
+    let reg = state.workspaces.lock();
+    let Some(ws) = reg.get(&workspace_id) else { return Ok(vec![]); };
+    if !md_studio_core::git::GitProvider::is_repository(&ws.root) {
+        return Ok(vec![]);
+    }
+    md_studio_core::git::GitProvider::get_status(&ws.root).map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+pub fn git_get_file_diff(
+    workspace_id: String,
+    relative_path: String,
+    state: State<'_, AppState>,
+) -> Result<md_studio_core::git::FileDiffGutter, String> {
+    let reg = state.workspaces.lock();
+    let Some(ws) = reg.get(&workspace_id) else {
+        return Ok(md_studio_core::git::FileDiffGutter::default());
+    };
+    if !md_studio_core::git::GitProvider::is_repository(&ws.root) {
+        return Ok(md_studio_core::git::FileDiffGutter::default());
+    }
+    md_studio_core::git::GitProvider::get_file_diff(&ws.root, &relative_path).map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+pub fn git_get_file_history(
+    workspace_id: String,
+    relative_path: String,
+    limit: Option<usize>,
+    state: State<'_, AppState>,
+) -> Result<Vec<md_studio_core::git::GitCommitSummary>, String> {
+    let reg = state.workspaces.lock();
+    let Some(ws) = reg.get(&workspace_id) else { return Ok(vec![]); };
+    if !md_studio_core::git::GitProvider::is_repository(&ws.root) {
+        return Ok(vec![]);
+    }
+    md_studio_core::git::GitProvider::get_file_history(&ws.root, &relative_path, limit.unwrap_or(20))
+        .map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+pub fn git_get_file_at_commit(
+    workspace_id: String,
+    relative_path: String,
+    commit_hash: Option<String>,
+    state: State<'_, AppState>,
+) -> Result<String, String> {
+    let reg = state.workspaces.lock();
+    let ws = reg.get(&workspace_id).ok_or_else(|| "workspace not found".to_string())?;
+    md_studio_core::git::GitProvider::get_file_at_commit(&ws.root, &relative_path, commit_hash.as_deref())
+        .map_err(|e| e.to_string())
+}
+
 
 #[tauri::command]
 pub fn search_workspace(

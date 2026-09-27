@@ -1,0 +1,30 @@
+task_id: MD-V04-026
+title: "Local History / Time Machine: snapshots deduplicados SHA-256 e restore seguro"
+status: in_progress
+assigned_to: agent-impl
+deliverables:
+  - path: src-tauri/crates/md-studio-core/src/history.rs
+    description: "HistoryStore com layout .mdstudio/history/v1, SHA-256 objects, manifests por documento, membership validation e guard snapshot pre-restore"
+  - path: src-tauri/crates/md-studio-core/src/persistence.rs
+    description: "atomic_save_with_previous retornando estado anterior sem custo de I/O adicional"
+  - path: src-tauri/src/commands/mod.rs
+    description: "Integração do histórico em save_document (zero impacto em caso de falha secundária), list_history_entries, get_history_snapshot e restore_history_entry"
+  - path: src/services/historyDiff.ts
+    description: "Motor determinístico de line diff LCS com hunks e contexto de 3 linhas"
+  - path: src/components/history/LocalHistoryPanel.tsx
+    description: "Timeline do documento, diff viewer, cópia de trecho e diálogo de restauração segura bloqueado em dirty"
+  - path: src/styles/local-history.css
+    description: "Estilos visuais da timeline e do diff viewer unificado"
+  - path: tests/history/history-diff.test.ts
+    description: "Testes unitários do motor de diff e formatação"
+acceptance_criteria:
+  - "Snapshots deduplicados por SHA-256 armazenados no metadata store local: ATENDIDO (.mdstudio/history/v1/objects)"
+  - "Timeline temporal navegável com diff de versões e cópia de trecho: ATENDIDO (LocalHistoryPanel.tsx)"
+  - "Restore seguro via atomic_save preservando versão atual antes da sobrescrita: ATENDIDO (guard snapshot mandatório)"
+  - "Zero impacto no salvamento normal do documento em caso de falha de histórico: ATENDIDO (regra #39 tratada com let _ = ...)"
+  - "Preservação da baseline G2 e conformidade estrita com Path Fencing: ATENDIDO (normalize_rel_path e PathFenceViolation)"
+verification:
+  checks:
+    - "pnpm test tests/history/history-diff.test.ts"
+    - "cargo test --manifest-path src-tauri/crates/md-studio-core/Cargo.toml"
+    - "pnpm typecheck"

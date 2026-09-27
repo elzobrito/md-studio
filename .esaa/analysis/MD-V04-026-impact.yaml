@@ -1,0 +1,24 @@
+task_id: MD-V04-026
+impact_summary: "Implementação da Time Machine / Local History com deduplicação SHA-256 no backend Rust e timeline/diff no frontend"
+affected_files:
+  - src-tauri/crates/md-studio-core/src/history.rs
+  - src-tauri/crates/md-studio-core/src/persistence.rs
+  - src-tauri/crates/md-studio-core/src/lib.rs
+  - src-tauri/src/commands/mod.rs
+  - src-tauri/src/lib.rs
+  - src/contracts/types.ts
+  - src/lib/ipc/client.ts
+  - src/services/historyDiff.ts
+  - src/components/history/LocalHistoryPanel.tsx
+  - src/styles/local-history.css
+  - tests/history/history-diff.test.ts
+security_analysis:
+  path_fencing: "HistoryStore impõe validação estrita de caminho com normalize_rel_path, rejeitando escapes ('..', '/', ':')."
+  membership_validation: "get_snapshot e restore_entry validam que o hash pertence ao manifest do documento correspondente."
+  integrity_verification: "Leitura de objects confere SHA-256 antes de retornar ou restaurar conteúdo."
+  guard_snapshot: "Restore aborta sem alterar o documento se a versão atual não puder ser preservada no histórico."
+  save_resilience: "Falhas de histórico durante save_document são isoladas e nunca impedem a persistência do arquivo principal."
+verification_evidence:
+  vitest: "8 tests passed in tests/history/history-diff.test.ts"
+  cargo: "58 tests passed in md-studio-core (including 5 dedicated history tests) and 21 integration tests in md-studio"
+  typescript: "tsc -b passed with zero errors"
