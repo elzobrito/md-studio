@@ -1,6 +1,6 @@
 artifact: invariants
 schema_version: 1
-source_commit: bf5d9b485db1dab7eafd89ff1b5a0e23bf9e7e6c
+source_commit: b13ad6b84c2f8eb6e8e16a75365b999142027e76
 generated_at: '2026-09-25T15:18:52-03:00'
 summary:
   total: 11
@@ -63,7 +63,7 @@ invariants:
       com caminho malicioso (fence testado só na função resolve_within e nos fences
       auxiliares).
     evidence:
-    - src-tauri/src/commands/mod.rs:117
+    - src-tauri/src/commands/mod.rs:118
     method: observed
   trace_task: TRACE-011
 - id: INV-FS-ONLY-VIA-RUST
@@ -258,7 +258,7 @@ invariants:
   - FN-SPAWN-WATCHER
   enforced_by:
   - src-tauri/src/watcher/mod.rs:66
-  - src-tauri/src/commands/mod.rs:128
+  - src-tauri/src/commands/mod.rs:129
   verified_by:
   - TST-RS-INTERNAL-SAVE-SUPPRESSION-FLOW
   coverage: partial
@@ -267,7 +267,7 @@ invariants:
   - description: Teste cobre WatcherHub isolado; a chamada register_internal_save
       dentro de save_document e o descarte em spawn_watcher não têm teste de integração.
     evidence:
-    - src-tauri/src/commands/mod.rs:128
+    - src-tauri/src/commands/mod.rs:129
     method: observed
   trace_task: TRACE-011
 - id: INV-DRAFT-RETENTION

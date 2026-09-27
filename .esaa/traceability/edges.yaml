@@ -1,6 +1,6 @@
 artifact: edges
 schema_version: 1
-source_commit: bf5d9b485db1dab7eafd89ff1b5a0e23bf9e7e6c
+source_commit: b13ad6b84c2f8eb6e8e16a75365b999142027e76
 generated_at: '2026-09-25T15:18:52-03:00'
 summary:
   total: 909
@@ -29,7 +29,7 @@ edges:
   relation: calls
   evidence:
   - src/lib/ipc/client.ts:91
-  - src-tauri/src/commands/mod.rs:28
+  - src-tauri/src/commands/mod.rs:29
   - src-tauri/src/lib.rs:71
   method: observed
   boundary: ipc
@@ -39,8 +39,8 @@ edges:
   to: IPC-LIST-ENTRIES
   relation: calls
   evidence:
-  - src/lib/ipc/client.ts:93
-  - src-tauri/src/commands/mod.rs:59
+  - src/lib/ipc/client.ts:94
+  - src-tauri/src/commands/mod.rs:60
   - src-tauri/src/lib.rs:72
   method: observed
   boundary: ipc
@@ -51,7 +51,7 @@ edges:
   relation: calls
   evidence:
   - src/lib/ipc/client.ts:97
-  - src-tauri/src/commands/mod.rs:97
+  - src-tauri/src/commands/mod.rs:98
   - src-tauri/src/lib.rs:73
   method: observed
   boundary: ipc
@@ -62,7 +62,7 @@ edges:
   relation: calls
   evidence:
   - src/lib/ipc/client.ts:99
-  - src-tauri/src/commands/mod.rs:117
+  - src-tauri/src/commands/mod.rs:118
   - src-tauri/src/lib.rs:74
   method: observed
   boundary: ipc
@@ -95,7 +95,7 @@ edges:
   relation: calls
   evidence:
   - src/lib/ipc/client.ts:136
-  - src-tauri/src/commands/mod.rs:263
+  - src-tauri/src/commands/mod.rs:264
   - src-tauri/src/lib.rs:77
   method: observed
   boundary: ipc
@@ -646,7 +646,7 @@ edges:
   to: CMP-APP-HEADER
   relation: contains
   evidence:
-  - src/App.tsx:532
+  - src/App.tsx:533
   method: observed
   trace_task: TRACE-005
 - id: SCR-APP|contains|CMP-FILE-EXPLORER
@@ -798,7 +798,7 @@ edges:
   to: HDL-APP-EXPORT-EPUB
   relation: contains
   evidence:
-  - src/App.tsx:168
+  - src/App.tsx:169
   method: observed
   trace_task: TRACE-005
 - id: SCR-APP|contains|HDL-APP-EXPORT-PDF
@@ -1158,7 +1158,7 @@ edges:
   relation: triggers
   evidence:
   - src/components/header/ExportMenu.tsx:57
-  - src/App.tsx:552
+  - src/App.tsx:553
   method: observed
   trace_task: TRACE-005
 - id: SCR-WELCOME|contains|BTN-WELCOME-OPEN-FOLDER
@@ -1631,7 +1631,7 @@ edges:
   to: FN-IPC-INVOKE
   relation: calls
   evidence:
-  - src/lib/ipc/client.ts:93
+  - src/lib/ipc/client.ts:94
   method: observed
   trace_task: TRACE-005
 - id: IPCC-READ-DOCUMENT|calls|FN-IPC-INVOKE
@@ -1783,7 +1783,7 @@ edges:
   to: DTO-RS-WORKSPACE-DESCRIPTOR
   relation: depends_on
   evidence:
-  - src-tauri/src/commands/mod.rs:28
+  - src-tauri/src/commands/mod.rs:29
   method: observed
   trace_task: TRACE-005
 - id: IPC-LIST-ENTRIES|depends_on|DTO-RS-FILE-ENTRY
@@ -2065,7 +2065,7 @@ edges:
   to: FN-WATCHER-REGISTER-INTERNAL-SAVE
   relation: calls
   evidence:
-  - src-tauri/src/commands/mod.rs:128
+  - src-tauri/src/commands/mod.rs:129
   method: observed
   trace_task: TRACE-005
 - id: IPC-SAVE-DOCUMENT|calls|FN-REINDEX-ENGINE-REINDEX-FILE
@@ -2073,7 +2073,7 @@ edges:
   to: FN-REINDEX-ENGINE-REINDEX-FILE
   relation: calls
   evidence:
-  - src-tauri/src/commands/mod.rs:132
+  - src-tauri/src/commands/mod.rs:133
   method: observed
   trace_task: TRACE-005
 - id: IPC-SAVE-DOCUMENT|calls|FN-SAVE-INDEX
@@ -2089,7 +2089,7 @@ edges:
   to: CLS-SAVE-ERROR
   relation: depends_on
   evidence:
-  - src-tauri/src/commands/mod.rs:149
+  - src-tauri/src/commands/mod.rs:150
   method: observed
   trace_task: TRACE-005
 - id: IPC-SAVE-DOCUMENT|reads|CLS-APP-STATE
@@ -2249,7 +2249,7 @@ edges:
   to: FN-REINDEX-ENGINE-NEW
   relation: calls
   evidence:
-  - src-tauri/src/commands/mod.rs:37
+  - src-tauri/src/commands/mod.rs:38
   method: observed
   trace_task: TRACE-005
 - id: IPC-OPEN-WORKSPACE|calls|FN-LOAD-INDEX
@@ -2574,7 +2574,7 @@ edges:
   to: HDL-DOC-OPEN-FILE
   relation: calls
   evidence:
-  - src/App.tsx:220
+  - src/App.tsx:221
   method: observed
   trace_task: TRACE-005
 - id: HDL-APP-OPEN-FILE-WELCOME|calls|HDL-DOC-OPEN-RELATIVE
@@ -2669,7 +2669,7 @@ edges:
   to: PERM-CORE-DEFAULT
   relation: requires
   evidence:
-  - src/lib/ipc/client.ts:38
+  - src/lib/ipc/client.ts:39
   - src-tauri/capabilities/default.json:7
   method: inferred
   confidence: 0.7
@@ -2985,7 +2985,7 @@ edges:
   to: FN-ATOMIC-WRITE-BYTES
   relation: calls
   evidence:
-  - src-tauri/src/commands/mod.rs:224
+  - src-tauri/src/commands/mod.rs:225
   - src-tauri/src/commands/mod.rs:2
   - src-tauri/src/persistence/mod.rs:1
   method: observed
@@ -2995,7 +2995,7 @@ edges:
   to: FILE-EXPORT-HTML
   relation: writes
   evidence:
-  - src-tauri/src/commands/mod.rs:224
+  - src-tauri/src/commands/mod.rs:225
   - src/services/export.ts:12
   method: observed
   trace_task: TRACE-006
@@ -4200,7 +4200,7 @@ edges:
   to: FN-PARSE-WIKI-LINKS
   relation: calls
   evidence:
-  - src-tauri/crates/md-studio-core/src/index/metadata_extractor.rs:64
+  - src-tauri/crates/md-studio-core/src/index/metadata_extractor.rs:65
   method: observed
   trace_task: TRACE-005
 - id: FN-EXTRACT-METADATA-FROM-STR|calls|FN-PARSE-TAGS
@@ -4772,7 +4772,7 @@ edges:
   to: FN-LIST-RECOVERABLE-DRAFTS
   relation: calls
   evidence:
-  - src/App.tsx:83
+  - src/App.tsx:84
   method: observed
   trace_task: TRACE-005
 - id: HDL-APP-DRAFT-RECOVERY-TIMER|writes|CMP-DRAFT-RECOVERY-DIALOG
@@ -4902,7 +4902,7 @@ edges:
   to: STO-EDITOR
   relation: reads
   evidence:
-  - src/App.tsx:108
+  - src/App.tsx:109
   method: observed
   trace_task: TRACE-005
 - id: HDL-APP-START-PRESENTATION|writes|SCR-PRESENTATION
@@ -6717,7 +6717,7 @@ edges:
   to: TST-RS-TEST-INDEX-PERSISTENCE-LIFECYCLE
   relation: covered_by
   evidence:
-  - src-tauri/crates/md-studio-core/src/index/index_persistence.rs:100
+  - src-tauri/crates/md-studio-core/src/index/index_persistence.rs:101
   method: observed
   trace_task: TRACE-010
 - id: FN-CLEAR-INDEX|covered_by|TST-RS-TEST-INDEX-PERSISTENCE-LIFECYCLE
@@ -6749,7 +6749,7 @@ edges:
   to: DTO-RS-DOCUMENT-METADATA
   relation: validates
   evidence:
-  - src-tauri/crates/md-studio-core/src/index/metadata_index.rs:93
+  - src-tauri/crates/md-studio-core/src/index/metadata_index.rs:94
   - src-tauri/crates/md-studio-core/src/index/metadata_index.rs:67
   method: observed
   trace_task: TRACE-010
@@ -7048,7 +7048,7 @@ edges:
   to: TST-RS-RESOLVE-ALL-PRESERVES-ALIAS-AND-SOURCE-LINE
   relation: covered_by
   evidence:
-  - src-tauri/crates/md-studio-core/src/index/wiki_resolve.rs:217
+  - src-tauri/crates/md-studio-core/src/index/wiki_resolve.rs:218
   method: observed
   trace_task: TRACE-010
 - id: REPO-METADATA-INDEX|covered_by|TST-RS-RESOLVE-ALL-PRESERVES-ALIAS-AND-SOURCE-LINE
@@ -7605,7 +7605,7 @@ edges:
   to: DTO-RS-EXPORT-EPUB-REQUEST
   relation: validates
   evidence:
-  - src-tauri/src/commands/mod.rs:388
+  - src-tauri/src/commands/mod.rs:389
   method: observed
   trace_task: TRACE-010
 - id: REPO-WORKSPACE-REGISTRY|covered_by|TST-RS-EXPORT-EPUB-REQUIRES-KNOWN-WORKSPACE-AND-REJECTS-ESCAPE
@@ -7640,7 +7640,7 @@ edges:
   to: TST-RS-EXPORT-EPUB-WRITES-PACKAGE-AND-REFUSES-CLOBBER
   relation: covered_by
   evidence:
-  - src-tauri/src/commands/mod.rs:436
+  - src-tauri/src/commands/mod.rs:437
   method: observed
   trace_task: TRACE-010
 - id: TST-RS-EXPORT-EPUB-WRITES-PACKAGE-AND-REFUSES-CLOBBER|validates|DTO-RS-EXPORT-EPUB-REQUEST

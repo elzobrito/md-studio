@@ -1,7 +1,7 @@
 # TRACE-009 — Abrir arquivo .md pelo seletor. Passos ordenados; via = aresta de edges.yaml que liga o passo de origem (direction reverse = aresta no sentido oposto, ex.: consumes/reads/callback). trigger = início de ramo.
 artifact: open-file
 schema_version: 1
-source_commit: bf5d9b485db1dab7eafd89ff1b5a0e23bf9e7e6c
+source_commit: b13ad6b84c2f8eb6e8e16a75365b999142027e76
 generated_at: '2026-09-24T23:03:41-03:00'
 id: FLOW-OPEN-FILE
 name: Abrir arquivo .md pelo seletor
@@ -57,7 +57,7 @@ steps:
     edge: HDL-APP-OPEN-FILE-WELCOME|calls|HDL-DOC-OPEN-FILE
     direction: forward
     evidence:
-    - src/App.tsx:220
+    - src/App.tsx:221
     method: observed
 - step: 6
   node: HDL-DOC-OPEN-WORKSPACE-PATH
@@ -104,7 +104,7 @@ steps:
     direction: forward
     evidence:
     - src/lib/ipc/client.ts:97
-    - src-tauri/src/commands/mod.rs:97
+    - src-tauri/src/commands/mod.rs:98
     - src-tauri/src/lib.rs:73
     method: observed
 - step: 11

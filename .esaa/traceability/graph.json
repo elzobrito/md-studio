@@ -1,42 +1,42 @@
 {
  "artifact": "graph",
  "schema_version": 1,
- "source_commit": "bf5d9b485db1dab7eafd89ff1b5a0e23bf9e7e6c",
- "generated_at": "2026-09-27T12:20:30-03:00",
+ "source_commit": "b13ad6b84c2f8eb6e8e16a75365b999142027e76",
+ "generated_at": "2026-09-27T14:04:37-03:00",
  "generator": "tools/build_graph.py",
  "inputs": {
-  "repository.yaml": "854a3274ca50e22e4d589ce5204496d9c547927ea7ea02fd6bfc2a0d233c1759",
-  "schema.yaml": "18083993b1ee7d4c7727513102df2432e19a3ef324ffa2b83041345bafb0223c",
-  "modules.yaml": "6c6f2a0822eff7633308c0f57178e5145e98b12a7ae6044c8e6c4b1ff0fe3e34",
-  "entrypoints.yaml": "0001eec54964d15f01f6de8da877346fabfe8817fe747d7b2f698eb8c8880f45",
-  "nodes.yaml": "4e418c356baa8a8cc4f4a9b420ae425162f71b5babed24cc16f66112d851d32e",
-  "edges.yaml": "047274f29b28f4cebc42dc85826e0fd251f782687da24265b1804d8eba5b8867",
-  "contracts.yaml": "7beb8f20c97f665b216f4fda9a6404c4bab0266f94bf947c877e80cf6885b21f",
-  "features.yaml": "2459641c8acd12cb9b794d0265c698ecd5262be6a58899c2770afa1addd0e2c5",
-  "tests.yaml": "c9c7f5df0e19ff620a2c05f305cc98514a6379533f874209e6dc8e121e4ca9a4",
-  "invariants.yaml": "ae7963ca85844132ca63fe80afa7b7c0abc0ceaf316ce008efdb392dd4cb9bf6",
-  "flows/app-boot.yaml": "9c2993a43ddd14e109806d752f5b7d1465c20297ba5d8ed15981e06858988484",
-  "flows/auto-save.yaml": "61e2a835a2c3d0d7ba91c385404264762fe9628dd8a0a9a36cf2915f7340cf24",
-  "flows/backlinks-query.yaml": "bb6bc3129811ef8feff8c07049c787d0599ff97277045125de8b482b8a779741",
-  "flows/close-file.yaml": "b0f8becb080dcd695614447e8e792557cb4dd0268bc3c242ba5827c43640cc26",
-  "flows/conflict-on-save.yaml": "ed28d89a07dd3907f3842111ea8f5032c4ef561693be1640c642dd2ce41f5037",
-  "flows/draft-recovery.yaml": "7a3177aa5d5ffc24e76398b6162ad9e843321eb30f30281147a2e3dd43f4554e",
-  "flows/editor-commands.yaml": "47c4f6bad81317273dd1a987c5749468fed66ad12eef4633a694602f240a7585",
-  "flows/export-epub.yaml": "b76ffea7d863bed7bf9b7e1dc63cd2db66daced0871d1666d6f10ecaa63417c2",
-  "flows/export-html.yaml": "01dfc49ef4eb86c66c7f7932441b0e76ea723ede2606aeb1994594adf237ff57",
-  "flows/export-pdf.yaml": "53ac0abbf3eeb4c3eaaaf22ebab41ed5bdeafeb4ac97f23cc19a8688b5682807",
-  "flows/format-code-block.yaml": "566260ad09d013da4fcfc1ca3e733cf87f5977a77248b26d8a3b1a19a91c97d7",
-  "flows/metadata-refresh.yaml": "074cf008c5ae3d1f5d5695dd95357e99bb9b4e94714b8d2dc531a61943a1c69d",
-  "flows/new-document.yaml": "2e2002cb58f9d966b699971283324ddc03865a2669986039b7356b8082b91e6f",
-  "flows/open-file-from-os.yaml": "9d84823de4cb7f238753d40aa2f123fb7a21e7956b60e9c51323bfc83bd5abe1",
-  "flows/open-file.yaml": "940561ebd72e426eebe287531b562cc6d6179a663a59a605856f2db83615f2b8",
-  "flows/open-workspace.yaml": "f303f31e75f7b44c5381c69a3a0cc766da41b2b98d23277840f260d70f2e4bb2",
-  "flows/presentation.yaml": "aa09b19ee70696931499822f7f582de9527ebfe8eed9aa258cd35cd7e92e74bf",
-  "flows/preview-render.yaml": "c827b36e422e4e56e0007865bdb6b2d83c0214141ef1bd3df897bd35a5c26315",
-  "flows/save-as.yaml": "0857021e604b3deef76d3a91781baf54dfd3da74c58a95af310a0d7b8fc2bcde",
-  "flows/save-document.yaml": "5d769548441c2092a570585fb5281648de141a0e794010ce3eab224c5c1a00da",
-  "flows/wiki-link-resolve.yaml": "e44d2bac51a274274d4cb69d34332f5aa693104644675a08885dabe88ba2f4bc",
-  "flows/workspace-search.yaml": "7882bdba40d8863d15c261902fa3fd4826c8813fda3ccea994ef3320aa769128"
+  "repository.yaml": "85c2b9a1e3ba7db84d64e6f2e01e60c94ea33585ab3fb6edbd014710587bb163",
+  "schema.yaml": "cf36ab739216e163bb879bfcfd287b42e69207cbdd9f6f9ae94de923a6fd19f6",
+  "modules.yaml": "9a942283dc60a41f52dca267e8a6964cf602a0e790d7bd1771f9ae22c4d36279",
+  "entrypoints.yaml": "4ae0c5538c0b9e3dca7365f4dc350ab7bb6cd493dd23e715e8b810366b434a47",
+  "nodes.yaml": "7a97f41b7575f62b157cdb14f06cbb0484b911839b6a595c5b59943c8796f2a6",
+  "edges.yaml": "3679dfc057bdd28df89be7ca8c95ff97b0e163bb99ea96d36945c45682454b05",
+  "contracts.yaml": "e92c5583582dfa69f5d68b41ee9238cb088c58b672d5c729f096d2369efd1a44",
+  "features.yaml": "fa21817afe8a82c00088817bd671e96bc5859daf273bb081f464ec8a40695d2b",
+  "tests.yaml": "e4a6b8509a75beda96d2dbc858b5278c52e3cf9a9f22671c599732bedfa8ea9f",
+  "invariants.yaml": "c2903c6588f2581990d44f1102bba6d08c3fac16d45d8d40caaf39a88c027b21",
+  "flows/app-boot.yaml": "cf291d4d6e49a1eecce11d1450efd10f5adebc6c49861534eb136f50e76d95da",
+  "flows/auto-save.yaml": "7e17843459e49c4b5001d4654faf9ac68df55bc81125b2d4253a039247f070a0",
+  "flows/backlinks-query.yaml": "b2920f963feae3a8007a58cf74c0cf0b3fee536725e5b85d21f1a53c212e8df9",
+  "flows/close-file.yaml": "8734f6b01149b4a02beeb5f178c2967bb0e6ffac21eb1b88bd75f88d388cdcc6",
+  "flows/conflict-on-save.yaml": "6ec53600d55ecf6d9300efdf3a34244991443c940b01aa51725d8e85d26975a5",
+  "flows/draft-recovery.yaml": "70f1fc2c993e10ac92a74f6d84fa1bffa850d5969980dadb8ed8969923a54b12",
+  "flows/editor-commands.yaml": "292151564b3156a24e4c4a205da172fd77c117b8fef1ca3601412340cf77d0b0",
+  "flows/export-epub.yaml": "3b3d3646fe76953a0d3757cdf3e55d5fbe1044860b6cbafaddee667de74936fb",
+  "flows/export-html.yaml": "93897e69e82934f3f33e67c6dfaec845bbea4a0c9b741c332d3dcc8ee0e68cba",
+  "flows/export-pdf.yaml": "613a8af0ad58d58767b06ff21c5f1731ee757956e3a8cb273a4bebdbac0e9a7d",
+  "flows/format-code-block.yaml": "b91b013f410f231903d9e14eb0064ceb14fda2223c0a4fa10f59564d3c83fa40",
+  "flows/metadata-refresh.yaml": "cfc38f87a49e0b66cf58ec2a658ec098d71fffd7f627a00d3030f410337ec02a",
+  "flows/new-document.yaml": "cfd53ebb0d2b4e9e74f08f3cc1435043e416ea90a2d52a23e806609e7c35d780",
+  "flows/open-file-from-os.yaml": "1207eab9845b299b6f53a119cb35882aae685ffdcf29ed6fa94099f3aa4ac0ff",
+  "flows/open-file.yaml": "0c35621b7f9ce79f47cbda8b93ef46f629b1dbc03d945bdd402281466227066a",
+  "flows/open-workspace.yaml": "60724891649c1e46624201741760ae6d5e1dadcf5330beaa371bb02bed210852",
+  "flows/presentation.yaml": "b5d7f374bc56836688b758bf441f9b9a11485f9a20884bfd385f5f7afb30b07d",
+  "flows/preview-render.yaml": "cda057d7fe72d4d2762c3b1ce8e2abcc8b8b335390050500cc6689003a264170",
+  "flows/save-as.yaml": "90f8401e5c324c3808d01d30f5b36fc03f04abd82eb0968fcceb8d9c84525255",
+  "flows/save-document.yaml": "bff8d83f607069bdc4ebab530001c7eac23ff47f3ee9cf92b476841743ea8d87",
+  "flows/wiki-link-resolve.yaml": "3ad9a9ab0ccc4180d7e5e6665e762856463f2b1fb92289844d33ab18001a417c",
+  "flows/workspace-search.yaml": "c82df6808c9cd4f26c5e3294d710f4e48eea5202607ceb7b8b3ab6269a9d4fb7"
  },
  "stats": {
   "nodes": 774,
@@ -147,8 +147,8 @@
     "path": "src/components/FileExplorer.tsx",
     "symbol": "\"onClick={() => void handleOpenFile()}\"",
     "lines": [
-     253,
-     253
+     291,
+     291
     ]
    },
    "alias": "src/components/FileExplorer.tsx#onClick={() => void handleOpenFile()}",
@@ -168,8 +168,8 @@
     "path": "src/components/FileExplorer.tsx",
     "symbol": "\"onClick={() => void handleOpenFolder()}\"",
     "lines": [
-     242,
-     242
+     280,
+     280
     ]
    },
    "alias": "src/components/FileExplorer.tsx#onClick={() => void handleOpenFolder()}",
@@ -968,8 +968,8 @@
     "path": "src/components/FileExplorer.tsx",
     "symbol": "FileExplorer",
     "lines": [
-     56,
-     315
+     58,
+     317
     ]
    },
    "alias": "src/components/FileExplorer.tsx#FileExplorer",
@@ -1339,8 +1339,8 @@
     "path": "src/lib/ipc/client.ts",
     "symbol": "subscribeOpenFile",
     "lines": [
-     306,
-     319
+     412,
+     425
     ]
    },
    "alias": "src/lib/ipc/client.ts#subscribeOpenFile",
@@ -1359,8 +1359,8 @@
     "path": "src/lib/ipc/client.ts",
     "symbol": "subscribeWorkspaceWatch",
     "lines": [
-     323,
-     341
+     429,
+     447
     ]
    },
    "alias": "src/lib/ipc/client.ts#subscribeWorkspaceWatch",
@@ -1746,8 +1746,8 @@
     "path": "src-tauri/src/commands/mod.rs",
     "symbol": "ExportEpubRequest",
     "lines": [
-     230,
-     235
+     391,
+     396
     ]
    },
    "alias": "src-tauri/src/commands/mod.rs#ExportEpubRequest",
@@ -1766,8 +1766,8 @@
     "path": "src-tauri/src/commands/mod.rs",
     "symbol": "ExportHtmlRequest",
     "lines": [
-     207,
-     213
+     368,
+     374
     ]
    },
    "alias": "src-tauri/src/commands/mod.rs#ExportHtmlRequest",
@@ -2106,8 +2106,8 @@
     "path": "src/contracts/types.ts",
     "symbol": "IpcErrorCode",
     "lines": [
-     47,
-     54
+     67,
+     74
     ]
    },
    "alias": "src/contracts/types.ts#IpcErrorCode",
@@ -2166,8 +2166,8 @@
     "path": "src/contracts/types.ts",
     "symbol": "SaveDocumentRequest",
     "lines": [
-     27,
-     32
+     46,
+     51
     ]
    },
    "alias": "src/contracts/types.ts#SaveDocumentRequest",
@@ -2186,8 +2186,8 @@
     "path": "src/contracts/types.ts",
     "symbol": "SaveResult",
     "lines": [
-     34,
-     36
+     54,
+     56
     ]
    },
    "alias": "src/contracts/types.ts#SaveResult",
@@ -2206,8 +2206,8 @@
     "path": "src/contracts/types.ts",
     "symbol": "SearchResult",
     "lines": [
-     38,
-     42
+     58,
+     62
     ]
    },
    "alias": "src/contracts/types.ts#SearchResult",
@@ -2226,8 +2226,8 @@
     "path": "src/contracts/types.ts",
     "symbol": "WatchEvent",
     "lines": [
-     44,
-     45
+     64,
+     65
     ]
    },
    "alias": "src/contracts/types.ts#WatchEvent",
@@ -3725,8 +3725,8 @@
     "path": "src-tauri/crates/md-studio-core/src/persistence.rs",
     "symbol": "\".{}.tmp-{}\"",
     "lines": [
-     50,
-     50
+     72,
+     72
     ]
    },
    "alias": "src-tauri/crates/md-studio-core/src/persistence.rs#.{}.tmp-{}",
@@ -4044,8 +4044,8 @@
     "path": "src-tauri/crates/md-studio-core/src/persistence.rs",
     "symbol": "atomic_save",
     "lines": [
-     36,
-     62
+     49,
+     75
     ]
    },
    "alias": "src-tauri/crates/md-studio-core/src/persistence.rs#atomic_save",
@@ -4064,8 +4064,8 @@
     "path": "src-tauri/crates/md-studio-core/src/persistence.rs",
     "symbol": "atomic_write_bytes",
     "lines": [
-     66,
-     81
+     95,
+     110
     ]
    },
    "alias": "src-tauri/crates/md-studio-core/src/persistence.rs#atomic_write_bytes",
@@ -4184,8 +4184,8 @@
     "path": "src/lib/ipc/client.ts",
     "symbol": "browserInvoke",
     "lines": [
-     232,
-     301
+     330,
+     399
     ]
    },
    "alias": "src/lib/ipc/client.ts#browserInvoke",
@@ -4387,8 +4387,8 @@
     "path": "src/editor/wiki/wiki-completion.ts",
     "symbol": "createWikiCompletionExtensions",
     "lines": [
-     123,
-     189
+     188,
+     254
     ]
    },
    "alias": "src/editor/wiki/wiki-completion.ts#createWikiCompletionExtensions",
@@ -4567,8 +4567,8 @@
     "path": "src-tauri/src/commands/mod.rs",
     "symbol": "export_epub_in",
     "lines": [
-     247,
-     260
+     408,
+     421
     ]
    },
    "alias": "src-tauri/src/commands/mod.rs#export_epub_in",
@@ -5010,8 +5010,8 @@
     "path": "src/lib/ipc/client.ts",
     "symbol": "invoke",
     "lines": [
-     34,
-     40
+     39,
+     45
     ]
    },
    "alias": "src/lib/ipc/client.ts#invoke",
@@ -5070,8 +5070,8 @@
     "path": "src/lib/ipc/client.ts",
     "symbol": "isTauriRuntime",
     "lines": [
-     24,
-     32
+     29,
+     37
     ]
    },
    "alias": "src/lib/ipc/client.ts#isTauriRuntime",
@@ -5746,8 +5746,8 @@
     "path": "src-tauri/src/commands/mod.rs",
     "symbol": "resolve_workspace_root",
     "lines": [
-     237,
-     245
+     398,
+     406
     ]
    },
    "alias": "src-tauri/src/commands/mod.rs#resolve_workspace_root",
@@ -6258,8 +6258,8 @@
     "path": "src/editor/wiki/wiki-completion.ts",
     "symbol": "wikiCandidates",
     "lines": [
-     25,
-     49
+     32,
+     56
     ]
    },
    "alias": "src/editor/wiki/wiki-completion.ts#wikiCandidates",
@@ -6396,13 +6396,13 @@
    "module": "MOD-BACKLINKS",
    "anchor": {
     "path": "src/App.tsx",
-    "symbol": "\"onOpenOccurrence={async (path, line) => {\"",
+    "symbol": "\"onOpenBacklinkOccurrence={async (path, line) => {\"",
     "lines": [
-     758,
-     769
+     787,
+     798
     ]
    },
-   "alias": "src/App.tsx#onOpenOccurrence={async (path, line) => {",
+   "alias": "src/App.tsx#onOpenBacklinkOccurrence={async (path, line) => {",
    "inclusion": [
     "flow"
    ],
@@ -6418,8 +6418,8 @@
     "path": "src/App.tsx",
     "symbol": "App.handleClosePresentation",
     "lines": [
-     123,
-     143
+     147,
+     167
     ]
    },
    "alias": "src/App.tsx#App.handleClosePresentation",
@@ -6438,8 +6438,8 @@
     "path": "src/App.tsx",
     "symbol": "\"invoke(\"close_splash\")\"",
     "lines": [
-     200,
-     200
+     224,
+     224
     ]
    },
    "alias": "src/App.tsx#invoke(\"close_splash\")",
@@ -6458,8 +6458,8 @@
     "path": "src/App.tsx",
     "symbol": "App.cycleRecentFile",
     "lines": [
-     232,
-     249
+     256,
+     273
     ]
    },
    "alias": "src/App.tsx#App.cycleRecentFile",
@@ -6478,8 +6478,8 @@
     "path": "src/App.tsx",
     "symbol": "App.timer",
     "lines": [
-     82,
-     95
+     85,
+     98
     ]
    },
    "alias": "src/App.tsx#App.timer",
@@ -6499,8 +6499,8 @@
     "path": "src/App.tsx",
     "symbol": "App.handleExportEpub",
     "lines": [
-     168,
-     184
+     192,
+     208
     ]
    },
    "alias": "src/App.tsx#App.handleExportEpub",
@@ -6519,8 +6519,8 @@
     "path": "src/App.tsx",
     "symbol": "App.handleExportHtml",
     "lines": [
-     154,
-     166
+     178,
+     190
     ]
    },
    "alias": "src/App.tsx#App.handleExportHtml",
@@ -6539,8 +6539,8 @@
     "path": "src/App.tsx",
     "symbol": "App.handleExportPdf",
     "lines": [
-     186,
-     195
+     210,
+     219
     ]
    },
    "alias": "src/App.tsx#App.handleExportPdf",
@@ -6559,8 +6559,8 @@
     "path": "src/App.tsx",
     "symbol": "App.goToHeading",
     "lines": [
-     504,
-     524
+     528,
+     548
     ]
    },
    "alias": "src/App.tsx#App.goToHeading",
@@ -6579,8 +6579,8 @@
     "path": "src/App.tsx",
     "symbol": "App.handleOpenFileFromWelcome",
     "lines": [
-     216,
-     230
+     240,
+     254
     ]
    },
    "alias": "src/App.tsx#App.handleOpenFileFromWelcome",
@@ -6599,8 +6599,8 @@
     "path": "src/App.tsx",
     "symbol": "App.handleOpenFolderFromWelcome",
     "lines": [
-     204,
-     214
+     228,
+     238
     ]
    },
    "alias": "src/App.tsx#App.handleOpenFolderFromWelcome",
@@ -6619,8 +6619,8 @@
     "path": "src/App.tsx",
     "symbol": "App.handleOpenNewDocument",
     "lines": [
-     99,
-     101
+     102,
+     104
     ]
    },
    "alias": "src/App.tsx#App.handleOpenNewDocument",
@@ -6639,8 +6639,8 @@
     "path": "src/App.tsx",
     "symbol": "App.handleSelectTemplate",
     "lines": [
-     145,
-     152
+     169,
+     176
     ]
    },
    "alias": "src/App.tsx#App.handleSelectTemplate",
@@ -6659,8 +6659,8 @@
     "path": "src/App.tsx",
     "symbol": "App.shortcuts",
     "lines": [
-     251,
-     482
+     275,
+     506
     ]
    },
    "alias": "src/App.tsx#App.shortcuts",
@@ -6679,8 +6679,8 @@
     "path": "src/App.tsx",
     "symbol": "App.handleStartPresentation",
     "lines": [
-     106,
-     121
+     130,
+     145
     ]
    },
    "alias": "src/App.tsx#App.handleStartPresentation",
@@ -7003,8 +7003,8 @@
     "path": "src/components/FileExplorer.tsx",
     "symbol": "FileExplorer.onEntryClick",
     "lines": [
-     191,
-     209
+     229,
+     247
     ]
    },
    "alias": "src/components/FileExplorer.tsx#FileExplorer.onEntryClick",
@@ -7023,8 +7023,8 @@
     "path": "src/components/FileExplorer.tsx",
     "symbol": "FileExplorer.handleOpenFile",
     "lines": [
-     165,
-     189
+     203,
+     227
     ]
    },
    "alias": "src/components/FileExplorer.tsx#FileExplorer.handleOpenFile",
@@ -7043,8 +7043,8 @@
     "path": "src/components/FileExplorer.tsx",
     "symbol": "FileExplorer.handleOpenFolder",
     "lines": [
-     136,
-     163
+     174,
+     201
     ]
    },
    "alias": "src/components/FileExplorer.tsx#FileExplorer.handleOpenFolder",
@@ -7172,8 +7172,8 @@
     "path": "src-tauri/src/commands/mod.rs",
     "symbol": "close_splash",
     "lines": [
-     473,
-     483
+     634,
+     644
     ]
    },
    "alias": "src-tauri/src/commands/mod.rs#close_splash",
@@ -7194,8 +7194,8 @@
     "path": "src-tauri/src/commands/mod.rs",
     "symbol": "export_epub",
     "lines": [
-     263,
-     268
+     408,
+     413
     ]
    },
    "alias": "src-tauri/src/commands/mod.rs#export_epub",
@@ -7216,8 +7216,8 @@
     "path": "src-tauri/src/commands/mod.rs",
     "symbol": "export_html",
     "lines": [
-     216,
-     226
+     377,
+     387
     ]
    },
    "alias": "src-tauri/src/commands/mod.rs#export_html",
@@ -7326,8 +7326,8 @@
     "path": "src-tauri/src/commands/mod.rs",
     "symbol": "get_launch_path",
     "lines": [
-     468,
-     470
+     629,
+     631
     ]
    },
    "alias": "src-tauri/src/commands/mod.rs#get_launch_path",
@@ -7436,8 +7436,8 @@
     "path": "src-tauri/src/commands/mod.rs",
     "symbol": "list_entries",
     "lines": [
-     59,
-     94
+     61,
+     96
     ]
    },
    "alias": "src-tauri/src/commands/mod.rs#list_entries",
@@ -7458,8 +7458,8 @@
     "path": "src-tauri/src/commands/mod.rs",
     "symbol": "open_workspace",
     "lines": [
-     28,
-     56
+     30,
+     58
     ]
    },
    "alias": "src-tauri/src/commands/mod.rs#open_workspace",
@@ -7480,8 +7480,8 @@
     "path": "src-tauri/src/commands/mod.rs",
     "symbol": "read_document",
     "lines": [
-     97,
-     114
+     99,
+     116
     ]
    },
    "alias": "src-tauri/src/commands/mod.rs#read_document",
@@ -7526,8 +7526,8 @@
     "path": "src-tauri/src/commands/mod.rs",
     "symbol": "save_document",
     "lines": [
-     117,
-     160
+     119,
+     162
     ]
    },
    "alias": "src-tauri/src/commands/mod.rs#save_document",
@@ -7548,8 +7548,8 @@
     "path": "src-tauri/src/commands/mod.rs",
     "symbol": "search_workspace",
     "lines": [
-     163,
-     203
+     324,
+     364
     ]
    },
    "alias": "src-tauri/src/commands/mod.rs#search_workspace",
@@ -7638,8 +7638,8 @@
     "path": "src/App.tsx",
     "symbol": "\"close_splash\"",
     "lines": [
-     200,
-     200
+     224,
+     224
     ]
    },
    "alias": "src/App.tsx#close_splash",
@@ -7659,8 +7659,8 @@
     "path": "src/lib/ipc/client.ts",
     "symbol": "ipc.exportEpub",
     "lines": [
-     139,
-     147
+     144,
+     152
     ]
    },
    "alias": "src/lib/ipc/client.ts#ipc.exportEpub",
@@ -7680,8 +7680,8 @@
     "path": "src/lib/ipc/client.ts",
     "symbol": "ipc.exportHtml",
     "lines": [
-     135,
-     138
+     140,
+     143
     ]
    },
    "alias": "src/lib/ipc/client.ts#ipc.exportHtml",
@@ -7785,8 +7785,8 @@
     "path": "src/lib/ipc/client.ts",
     "symbol": "ipc.getLaunchPath",
     "lines": [
-     151,
-     154
+     156,
+     159
     ]
    },
    "alias": "src/lib/ipc/client.ts#ipc.getLaunchPath",
@@ -7890,8 +7890,8 @@
     "path": "src/lib/ipc/client.ts",
     "symbol": "ipc.listEntries",
     "lines": [
-     92,
-     95
+     97,
+     100
     ]
    },
    "alias": "src/lib/ipc/client.ts#ipc.listEntries",
@@ -7911,8 +7911,8 @@
     "path": "src/lib/ipc/client.ts",
     "symbol": "ipc.openWorkspace",
     "lines": [
-     90,
-     91
+     95,
+     96
     ]
    },
    "alias": "src/lib/ipc/client.ts#ipc.openWorkspace",
@@ -7932,8 +7932,8 @@
     "path": "src/lib/ipc/client.ts",
     "symbol": "ipc.readDocument",
     "lines": [
-     96,
-     97
+     101,
+     102
     ]
    },
    "alias": "src/lib/ipc/client.ts#ipc.readDocument",
@@ -7974,8 +7974,8 @@
     "path": "src/lib/ipc/client.ts",
     "symbol": "ipc.saveDocument",
     "lines": [
-     98,
-     114
+     103,
+     119
     ]
    },
    "alias": "src/lib/ipc/client.ts#ipc.saveDocument",
@@ -7995,8 +7995,8 @@
     "path": "src/lib/ipc/client.ts",
     "symbol": "ipc.searchWorkspace",
     "lines": [
-     115,
-     125
+     120,
+     130
     ]
    },
    "alias": "src/lib/ipc/client.ts#ipc.searchWorkspace",
@@ -8016,8 +8016,8 @@
     "path": "src/lib/ipc/client.ts",
     "symbol": "ipc.startWatching",
     "lines": [
-     148,
-     148
+     153,
+     153
     ]
    },
    "alias": "src/lib/ipc/client.ts#ipc.startWatching",
@@ -8037,8 +8037,8 @@
     "path": "src/lib/ipc/client.ts",
     "symbol": "ipc.stopWatching",
     "lines": [
-     149,
-     149
+     154,
+     154
     ]
    },
    "alias": "src/lib/ipc/client.ts#ipc.stopWatching",
@@ -8513,8 +8513,8 @@
     "path": "src/lib/ipc/client.ts",
     "symbol": "confirmOverwrite",
     "lines": [
-     378,
-     390
+     484,
+     496
     ]
    },
    "alias": "src/lib/ipc/client.ts#confirmOverwrite",
@@ -8617,8 +8617,8 @@
     "path": "src/lib/ipc/client.ts",
     "symbol": "pickFolder",
     "lines": [
-     162,
-     183
+     260,
+     281
     ]
    },
    "alias": "src/lib/ipc/client.ts#pickFolder",
@@ -8638,8 +8638,8 @@
     "path": "src/lib/ipc/client.ts",
     "symbol": "pickMarkdownFile",
     "lines": [
-     185,
-     204
+     283,
+     302
     ]
    },
    "alias": "src/lib/ipc/client.ts#pickMarkdownFile",
@@ -8659,8 +8659,8 @@
     "path": "src/lib/ipc/client.ts",
     "symbol": "pickSaveEpubFile",
     "lines": [
-     345,
-     360
+     451,
+     466
     ]
    },
    "alias": "src/lib/ipc/client.ts#pickSaveEpubFile",
@@ -8680,8 +8680,8 @@
     "path": "src/lib/ipc/client.ts",
     "symbol": "pickSaveHtmlFile",
     "lines": [
-     362,
-     376
+     468,
+     482
     ]
    },
    "alias": "src/lib/ipc/client.ts#pickSaveHtmlFile",
@@ -8701,8 +8701,8 @@
     "path": "src/lib/ipc/client.ts",
     "symbol": "pickSaveMarkdownFile",
     "lines": [
-     206,
-     222
+     304,
+     320
     ]
    },
    "alias": "src/lib/ipc/client.ts#pickSaveMarkdownFile",
@@ -8764,8 +8764,8 @@
     "path": "src/App.tsx",
     "symbol": "\"window.print()\"",
     "lines": [
-     194,
-     194
+     218,
+     218
     ]
    },
    "alias": "src/App.tsx#window.print()",
@@ -9178,8 +9178,8 @@
     "path": "src/markdown/plugins/wiki-links.ts",
     "symbol": "rehypeWikiLinks",
     "lines": [
-     18,
-     24
+     26,
+     32
     ]
    },
    "alias": "src/markdown/plugins/wiki-links.ts#rehypeWikiLinks",
@@ -9259,8 +9259,8 @@
     "path": "src/App.tsx",
     "symbol": "\"className={`center mode-${view}`}\"",
     "lines": [
-     635,
-     635
+     684,
+     684
     ]
    },
    "alias": "src/App.tsx#className={`center mode-${view}`}",
@@ -9280,8 +9280,8 @@
     "path": "src/App.tsx",
     "symbol": "App",
     "lines": [
-     54,
-     841
+     57,
+     844
     ]
    },
    "alias": "src/App.tsx#App",
@@ -9361,8 +9361,8 @@
     "path": "src/App.tsx",
     "symbol": "\"description: \"Novo documento\"\"",
     "lines": [
-     354,
-     354
+     378,
+     378
     ]
    },
    "alias": "src/App.tsx#description: \"Novo documento",
@@ -9382,8 +9382,8 @@
     "path": "src/App.tsx",
     "symbol": "\"Abrir arquivo\"",
     "lines": [
-     402,
-     402
+     426,
+     426
     ]
    },
    "alias": "src/App.tsx#Abrir arquivo",
@@ -9424,8 +9424,8 @@
     "path": "src/App.tsx",
     "symbol": "\"Salvar documento\"",
     "lines": [
-     365,
-     365
+     389,
+     389
     ]
    },
    "alias": "src/App.tsx#Salvar documento",
@@ -9445,8 +9445,8 @@
     "path": "src/App.tsx",
     "symbol": "\"Abrir pasta\"",
     "lines": [
-     395,
-     395
+     419,
+     419
     ]
    },
    "alias": "src/App.tsx#Abrir pasta",
@@ -9466,8 +9466,8 @@
     "path": "src/App.tsx",
     "symbol": "\"Salvar como...\"",
     "lines": [
-     377,
-     377
+     401,
+     401
     ]
    },
    "alias": "src/App.tsx#Salvar como...",
@@ -9487,8 +9487,8 @@
     "path": "src/App.tsx",
     "symbol": "\"Fechar arquivo\"",
     "lines": [
-     387,
-     387
+     411,
+     411
     ]
    },
    "alias": "src/App.tsx#Fechar arquivo",
@@ -9572,8 +9572,8 @@
     "path": "src/App.tsx",
     "symbol": "\"Alternar Modo Apresentação\"",
     "lines": [
-     347,
-     347
+     371,
+     371
     ]
    },
    "alias": "src/App.tsx#Alternar Modo Apresentação",
@@ -9593,8 +9593,8 @@
     "path": "src/lib/ipc/client.ts",
     "symbol": "contentHashCache",
     "lines": [
-     230,
-     230
+     328,
+     328
     ]
    },
    "alias": "src/lib/ipc/client.ts#contentHashCache",
@@ -10310,8 +10310,8 @@
     "path": "src-tauri/crates/md-studio-core/src/index/backlink_index.rs",
     "symbol": "discards_self_links_before_public_store",
     "lines": [
-     278,
-     287
+     279,
+     288
     ]
    },
    "alias": "src-tauri/crates/md-studio-core/src/index/backlink_index.rs#discards_self_links_before_public_store",
@@ -10350,8 +10350,8 @@
     "path": "src-tauri/crates/md-studio-core/src/index/backlink_index.rs",
     "symbol": "empty_workspace_has_no_backlinks",
     "lines": [
-     216,
-     229
+     217,
+     230
     ]
    },
    "alias": "src-tauri/crates/md-studio-core/src/index/backlink_index.rs#empty_workspace_has_no_backlinks",
@@ -10390,8 +10390,8 @@
     "path": "src-tauri/src/commands/mod.rs",
     "symbol": "export_epub_refuses_non_absolute_destination",
     "lines": [
-     365,
-     378
+     526,
+     539
     ]
    },
    "alias": "src-tauri/src/commands/mod.rs#export_epub_refuses_non_absolute_destination",
@@ -10410,8 +10410,8 @@
     "path": "src-tauri/src/commands/mod.rs",
     "symbol": "export_epub_request_deserializes_camel_case",
     "lines": [
-     345,
-     362
+     506,
+     523
     ]
    },
    "alias": "src-tauri/src/commands/mod.rs#export_epub_request_deserializes_camel_case",
@@ -10430,8 +10430,8 @@
     "path": "src-tauri/src/commands/mod.rs",
     "symbol": "export_epub_requires_known_workspace_and_rejects_escape",
     "lines": [
-     381,
-     426
+     542,
+     587
     ]
    },
    "alias": "src-tauri/src/commands/mod.rs#export_epub_requires_known_workspace_and_rejects_escape",
@@ -10450,8 +10450,8 @@
     "path": "src-tauri/src/commands/mod.rs",
     "symbol": "export_epub_writes_package_and_refuses_clobber",
     "lines": [
-     429,
-     463
+     590,
+     624
     ]
    },
    "alias": "src-tauri/src/commands/mod.rs#export_epub_writes_package_and_refuses_clobber",
@@ -10470,8 +10470,8 @@
     "path": "src-tauri/src/commands/mod.rs",
     "symbol": "export_overwrite_when_allowed",
     "lines": [
-     307,
-     318
+     468,
+     479
     ]
    },
    "alias": "src-tauri/src/commands/mod.rs#export_overwrite_when_allowed",
@@ -10490,8 +10490,8 @@
     "path": "src-tauri/src/commands/mod.rs",
     "symbol": "export_refuses_overwrite_without_flag",
     "lines": [
-     293,
-     304
+     454,
+     465
     ]
    },
    "alias": "src-tauri/src/commands/mod.rs#export_refuses_overwrite_without_flag",
@@ -10510,8 +10510,8 @@
     "path": "src-tauri/src/commands/mod.rs",
     "symbol": "export_writes_rendered_html_not_pre_stub",
     "lines": [
-     277,
-     290
+     438,
+     451
     ]
    },
    "alias": "src-tauri/src/commands/mod.rs#export_writes_rendered_html_not_pre_stub",
@@ -10670,8 +10670,8 @@
     "path": "src-tauri/crates/md-studio-core/src/index/backlink_index.rs",
     "symbol": "indexes_resolved_only_and_ignores_alias",
     "lines": [
-     232,
-     247
+     233,
+     248
     ]
    },
    "alias": "src-tauri/crates/md-studio-core/src/index/backlink_index.rs#indexes_resolved_only_and_ignores_alias",
@@ -10690,8 +10690,8 @@
     "path": "src-tauri/crates/md-studio-core/src/index/backlink_index.rs",
     "symbol": "indexes_unicode_resolved_targets",
     "lines": [
-     290,
-     303
+     291,
+     304
     ]
    },
    "alias": "src-tauri/crates/md-studio-core/src/index/backlink_index.rs#indexes_unicode_resolved_targets",
@@ -10890,8 +10890,8 @@
     "path": "src-tauri/crates/md-studio-core/src/index/backlink_index.rs",
     "symbol": "remove_source_drops_incoming_edges",
     "lines": [
-     333,
-     346
+     334,
+     347
     ]
    },
    "alias": "src-tauri/crates/md-studio-core/src/index/backlink_index.rs#remove_source_drops_incoming_edges",
@@ -10910,8 +10910,8 @@
     "path": "src-tauri/crates/md-studio-core/src/index/backlink_index.rs",
     "symbol": "replace_source_is_idempotent_and_drops_old_edges",
     "lines": [
-     306,
-     330
+     307,
+     331
     ]
    },
    "alias": "src-tauri/crates/md-studio-core/src/index/backlink_index.rs#replace_source_is_idempotent_and_drops_old_edges",
@@ -10930,8 +10930,8 @@
     "path": "src-tauri/crates/md-studio-core/src/index/wiki_resolve.rs",
     "symbol": "reports_missing_unsafe_and_ambiguous_targets",
     "lines": [
-     194,
-     210
+     195,
+     211
     ]
    },
    "alias": "src-tauri/crates/md-studio-core/src/index/wiki_resolve.rs#reports_missing_unsafe_and_ambiguous_targets",
@@ -10950,8 +10950,8 @@
     "path": "src-tauri/crates/md-studio-core/src/index/wiki_resolve.rs",
     "symbol": "resolve_all_preserves_alias_and_source_line",
     "lines": [
-     213,
-     221
+     214,
+     222
     ]
    },
    "alias": "src-tauri/crates/md-studio-core/src/index/wiki_resolve.rs#resolve_all_preserves_alias_and_source_line",
@@ -10970,8 +10970,8 @@
     "path": "src-tauri/crates/md-studio-core/src/index/wiki_resolve.rs",
     "symbol": "resolves_exact_path_with_or_without_extension",
     "lines": [
-     171,
-     178
+     172,
+     179
     ]
    },
    "alias": "src-tauri/crates/md-studio-core/src/index/wiki_resolve.rs#resolves_exact_path_with_or_without_extension",
@@ -10990,8 +10990,8 @@
     "path": "src-tauri/crates/md-studio-core/src/index/wiki_resolve.rs",
     "symbol": "resolves_stem_and_title_case_insensitively",
     "lines": [
-     181,
-     191
+     182,
+     192
     ]
    },
    "alias": "src-tauri/crates/md-studio-core/src/index/wiki_resolve.rs#resolves_stem_and_title_case_insensitively",
@@ -11050,8 +11050,8 @@
     "path": "src-tauri/crates/md-studio-core/src/index/backlink_index.rs",
     "symbol": "skips_unresolved_ambiguous_and_unsafe_targets",
     "lines": [
-     250,
-     275
+     251,
+     276
     ]
    },
    "alias": "src-tauri/crates/md-studio-core/src/index/backlink_index.rs#skips_unresolved_ambiguous_and_unsafe_targets",
@@ -11070,8 +11070,8 @@
     "path": "src-tauri/crates/md-studio-core/src/index/backlink_index.rs",
     "symbol": "sorts_groups_by_title_ci_then_path_and_occurrences_line_asc",
     "lines": [
-     349,
-     377
+     350,
+     378
     ]
    },
    "alias": "src-tauri/crates/md-studio-core/src/index/backlink_index.rs#sorts_groups_by_title_ci_then_path_and_occurrences_line_asc",
@@ -11090,8 +11090,8 @@
     "path": "src-tauri/crates/md-studio-core/src/index/document_metadata.rs",
     "symbol": "test_document_metadata_serde_camel_case",
     "lines": [
-     52,
-     91
+     62,
+     101
     ]
    },
    "alias": "src-tauri/crates/md-studio-core/src/index/document_metadata.rs#test_document_metadata_serde_camel_case",
@@ -11130,8 +11130,8 @@
     "path": "src-tauri/crates/md-studio-core/src/index/metadata_extractor.rs",
     "symbol": "test_extract_metadata_comprehensive",
     "lines": [
-     311,
-     371
+     332,
+     392
     ]
    },
    "alias": "src-tauri/crates/md-studio-core/src/index/metadata_extractor.rs#test_extract_metadata_comprehensive",
@@ -11390,8 +11390,8 @@
     "path": "src-tauri/crates/md-studio-core/src/index/metadata_index.rs",
     "symbol": "test_metadata_index_operations",
     "lines": [
-     85,
-     115
+     86,
+     116
     ]
    },
    "alias": "src-tauri/crates/md-studio-core/src/index/metadata_index.rs#test_metadata_index_operations",
@@ -11410,8 +11410,8 @@
     "path": "src-tauri/crates/md-studio-core/src/index/metadata_index.rs",
     "symbol": "test_metadata_index_serde_roundtrip",
     "lines": [
-     118,
-     128
+     119,
+     129
     ]
    },
    "alias": "src-tauri/crates/md-studio-core/src/index/metadata_index.rs#test_metadata_index_serde_roundtrip",
@@ -12702,8 +12702,8 @@
     "path": "tests/panel/rightPanelAccordion.test.tsx",
     "symbol": "\"MD-UX-RIGHT-PANEL-001: Right Panel Accordion & UX Parity\"",
     "lines": [
-     12,
-     208
+     13,
+     209
     ]
    },
    "alias": "tests/panel/rightPanelAccordion.test.tsx#MD-UX-RIGHT-PANEL-001: Right Panel Accordion & UX Parity",
@@ -13532,7 +13532,7 @@
    "relation": "triggers",
    "evidence": [
     "src/components/header/ExportMenu.tsx:57",
-    "src/App.tsx:552"
+    "src/App.tsx:553"
    ],
    "method": "observed",
    "source": "edges.yaml",
@@ -14392,7 +14392,7 @@
    "to": "CTR-IPC-LIST-ENTRIES",
    "relation": "depends_on",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:59",
+    "src-tauri/src/commands/mod.rs:60",
     "src/lib/ipc/client.ts:92",
     "src-tauri/src/lib.rs:72"
    ],
@@ -15258,7 +15258,7 @@
     "src-tauri/src/watcher/mod.rs:19",
     "src-tauri/src/watcher/mod.rs:24",
     "src/contracts/types.ts:44",
-    "src/lib/ipc/client.ts:314"
+    "src/lib/ipc/client.ts:315"
    ],
    "method": "derived",
    "source": "contracts.yaml:consumers"
@@ -15407,7 +15407,7 @@
     "src-tauri/src/watcher/mod.rs:19",
     "src-tauri/src/watcher/mod.rs:24",
     "src/contracts/types.ts:44",
-    "src/lib/ipc/client.ts:314"
+    "src/lib/ipc/client.ts:315"
    ],
    "method": "derived",
    "source": "contracts.yaml:producer"
@@ -15494,7 +15494,7 @@
    "to": "IPC-EXPORT-EPUB",
    "relation": "implemented_by",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:263",
+    "src-tauri/src/commands/mod.rs:264",
     "src/lib/ipc/client.ts:130",
     "src-tauri/src/lib.rs:77"
    ],
@@ -15637,7 +15637,7 @@
    "to": "IPC-LIST-ENTRIES",
    "relation": "implemented_by",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:59",
+    "src-tauri/src/commands/mod.rs:60",
     "src/lib/ipc/client.ts:92",
     "src-tauri/src/lib.rs:72"
    ],
@@ -15650,7 +15650,7 @@
    "to": "IPC-OPEN-WORKSPACE",
    "relation": "implemented_by",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:28",
+    "src-tauri/src/commands/mod.rs:29",
     "src/lib/ipc/client.ts:90",
     "src-tauri/src/lib.rs:71"
    ],
@@ -15663,7 +15663,7 @@
    "to": "IPC-READ-DOCUMENT",
    "relation": "implemented_by",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:97",
+    "src-tauri/src/commands/mod.rs:98",
     "src/lib/ipc/client.ts:96",
     "src-tauri/src/lib.rs:73"
    ],
@@ -15689,7 +15689,7 @@
    "to": "IPC-SAVE-DOCUMENT",
    "relation": "implemented_by",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:117",
+    "src-tauri/src/commands/mod.rs:118",
     "src/lib/ipc/client.ts:98",
     "src-tauri/src/lib.rs:74"
    ],
@@ -16047,7 +16047,7 @@
    "to": "CTR-IPC-EXPORT-EPUB",
    "relation": "implements",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:230"
+    "src-tauri/src/commands/mod.rs:391"
    ],
    "method": "derived",
    "source": "contracts.yaml:carriers"
@@ -16058,7 +16058,7 @@
    "to": "CTR-IPC-EXPORT-HTML",
    "relation": "implements",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:207"
+    "src-tauri/src/commands/mod.rs:368"
    ],
    "method": "derived",
    "source": "contracts.yaml:carriers"
@@ -16476,7 +16476,7 @@
    "to": "CTR-IPC-SAVE-DOCUMENT",
    "relation": "implements",
    "evidence": [
-    "src/contracts/types.ts:27"
+    "src/contracts/types.ts:46"
    ],
    "method": "derived",
    "source": "contracts.yaml:carriers"
@@ -16487,7 +16487,7 @@
    "to": "CTR-IPC-SAVE-DOCUMENT",
    "relation": "implements",
    "evidence": [
-    "src/contracts/types.ts:34"
+    "src/contracts/types.ts:54"
    ],
    "method": "derived",
    "source": "contracts.yaml:carriers"
@@ -16498,7 +16498,7 @@
    "to": "CTR-IPC-SEARCH-WORKSPACE",
    "relation": "implements",
    "evidence": [
-    "src/contracts/types.ts:38"
+    "src/contracts/types.ts:58"
    ],
    "method": "derived",
    "source": "contracts.yaml:carriers"
@@ -16509,7 +16509,7 @@
    "to": "CTR-EVT-WORKSPACE-CHANGE",
    "relation": "implements",
    "evidence": [
-    "src/contracts/types.ts:44"
+    "src/contracts/types.ts:64"
    ],
    "method": "derived",
    "source": "contracts.yaml:carriers"
@@ -16829,7 +16829,7 @@
    "to": "IPC-EXPORT-EPUB",
    "relation": "triggers",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:263",
+    "src-tauri/src/commands/mod.rs:264",
     "src-tauri/src/lib.rs:77"
    ],
    "method": "derived",
@@ -16961,7 +16961,7 @@
    "to": "IPC-LIST-ENTRIES",
    "relation": "triggers",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:59",
+    "src-tauri/src/commands/mod.rs:60",
     "src-tauri/src/lib.rs:72"
    ],
    "method": "derived",
@@ -16973,7 +16973,7 @@
    "to": "IPC-OPEN-WORKSPACE",
    "relation": "triggers",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:28",
+    "src-tauri/src/commands/mod.rs:29",
     "src-tauri/src/lib.rs:71"
    ],
    "method": "derived",
@@ -16985,7 +16985,7 @@
    "to": "IPC-READ-DOCUMENT",
    "relation": "triggers",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:97",
+    "src-tauri/src/commands/mod.rs:98",
     "src-tauri/src/lib.rs:73"
    ],
    "method": "derived",
@@ -17009,7 +17009,7 @@
    "to": "IPC-SAVE-DOCUMENT",
    "relation": "triggers",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:117",
+    "src-tauri/src/commands/mod.rs:118",
     "src-tauri/src/lib.rs:74"
    ],
    "method": "derived",
@@ -17366,7 +17366,7 @@
    "to": "SCR-APP",
    "relation": "implemented_by",
    "evidence": [
-    "src/App.tsx:54"
+    "src/App.tsx:57"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by",
@@ -17493,7 +17493,7 @@
    "to": "FLOW-BACKLINKS-QUERY",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:54"
+    "src/App.tsx:57"
    ],
    "method": "derived",
    "source": "flows:features"
@@ -17650,7 +17650,7 @@
    "to": "HDL-APP-BACKLINK-OPEN-OCCURRENCE",
    "relation": "implemented_by",
    "evidence": [
-    "src/App.tsx:758"
+    "src/App.tsx:787"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -18051,7 +18051,7 @@
    "to": "FN-ATOMIC-SAVE",
    "relation": "implemented_by",
    "evidence": [
-    "src-tauri/crates/md-studio-core/src/persistence.rs:36"
+    "src-tauri/crates/md-studio-core/src/persistence.rs:49"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -18132,7 +18132,7 @@
    "to": "FLOW-WIKI-LINK-RESOLVE",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:54"
+    "src/App.tsx:57"
    ],
    "method": "derived",
    "source": "flows:features"
@@ -18344,7 +18344,7 @@
    "to": "HDL-APP-DRAFT-RECOVERY-TIMER",
    "relation": "implemented_by",
    "evidence": [
-    "src/App.tsx:82"
+    "src/App.tsx:85"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by",
@@ -18473,7 +18473,7 @@
    "to": "DTO-RS-EXPORT-EPUB-REQUEST",
    "relation": "implemented_by",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:230"
+    "src-tauri/src/commands/mod.rs:391"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -18539,7 +18539,7 @@
    "to": "FN-EXPORT-EPUB-IN",
    "relation": "implemented_by",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:247"
+    "src-tauri/src/commands/mod.rs:408"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -18594,7 +18594,7 @@
    "to": "FN-RESOLVE-WORKSPACE-ROOT",
    "relation": "implemented_by",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:237"
+    "src-tauri/src/commands/mod.rs:398"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -18605,7 +18605,7 @@
    "to": "HDL-APP-EXPORT-EPUB",
    "relation": "implemented_by",
    "evidence": [
-    "src/App.tsx:168"
+    "src/App.tsx:192"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -18616,7 +18616,7 @@
    "to": "IPC-EXPORT-EPUB",
    "relation": "implemented_by",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:263"
+    "src-tauri/src/commands/mod.rs:408"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -18627,7 +18627,7 @@
    "to": "IPCC-EXPORT-EPUB",
    "relation": "implemented_by",
    "evidence": [
-    "src/lib/ipc/client.ts:139"
+    "src/lib/ipc/client.ts:144"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -18638,7 +18638,7 @@
    "to": "OSI-PICK-SAVE-EPUB",
    "relation": "implemented_by",
    "evidence": [
-    "src/lib/ipc/client.ts:345"
+    "src/lib/ipc/client.ts:451"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -18694,7 +18694,7 @@
    "to": "DTO-RS-EXPORT-HTML-REQUEST",
    "relation": "implemented_by",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:207"
+    "src-tauri/src/commands/mod.rs:368"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -18727,7 +18727,7 @@
    "to": "FN-RESOLVE-WORKSPACE-ROOT",
    "relation": "implemented_by",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:237"
+    "src-tauri/src/commands/mod.rs:398"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -18738,7 +18738,7 @@
    "to": "HDL-APP-EXPORT-HTML",
    "relation": "implemented_by",
    "evidence": [
-    "src/App.tsx:154"
+    "src/App.tsx:178"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -18749,7 +18749,7 @@
    "to": "IPC-EXPORT-HTML",
    "relation": "implemented_by",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:216"
+    "src-tauri/src/commands/mod.rs:377"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -18760,7 +18760,7 @@
    "to": "IPCC-EXPORT-HTML",
    "relation": "implemented_by",
    "evidence": [
-    "src/lib/ipc/client.ts:135"
+    "src/lib/ipc/client.ts:140"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -18771,7 +18771,7 @@
    "to": "OSI-CONFIRM-OVERWRITE",
    "relation": "implemented_by",
    "evidence": [
-    "src/lib/ipc/client.ts:378"
+    "src/lib/ipc/client.ts:484"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -18782,7 +18782,7 @@
    "to": "OSI-PICK-SAVE-HTML",
    "relation": "implemented_by",
    "evidence": [
-    "src/lib/ipc/client.ts:362"
+    "src/lib/ipc/client.ts:468"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -18838,7 +18838,7 @@
    "to": "HDL-APP-EXPORT-PDF",
    "relation": "implemented_by",
    "evidence": [
-    "src/App.tsx:186"
+    "src/App.tsx:210"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -18849,7 +18849,7 @@
    "to": "OSI-WINDOW-PRINT",
    "relation": "implemented_by",
    "evidence": [
-    "src/App.tsx:194"
+    "src/App.tsx:218"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -18946,7 +18946,7 @@
    "to": "HDL-APP-SHORTCUTS",
    "relation": "implemented_by",
    "evidence": [
-    "src/App.tsx:251"
+    "src/App.tsx:275"
    ],
    "method": "derived",
    "source": "features.yaml:entry_nodes",
@@ -18958,7 +18958,7 @@
    "to": "CMP-FILE-EXPLORER",
    "relation": "implemented_by",
    "evidence": [
-    "src/components/FileExplorer.tsx:56"
+    "src/components/FileExplorer.tsx:58"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -18980,7 +18980,7 @@
    "to": "FLOW-PREVIEW-RENDER",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:54"
+    "src/App.tsx:57"
    ],
    "method": "derived",
    "source": "flows:features"
@@ -19060,7 +19060,7 @@
    "to": "SCR-APP",
    "relation": "implemented_by",
    "evidence": [
-    "src/App.tsx:54"
+    "src/App.tsx:57"
    ],
    "method": "derived",
    "source": "features.yaml:entry_nodes",
@@ -19172,7 +19172,7 @@
    "to": "FLOW-PREVIEW-RENDER",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:54"
+    "src/App.tsx:57"
    ],
    "method": "derived",
    "source": "flows:features"
@@ -19219,7 +19219,7 @@
    "to": "FLOW-METADATA-REFRESH",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:54"
+    "src/App.tsx:57"
    ],
    "method": "derived",
    "source": "flows:features"
@@ -19230,7 +19230,7 @@
    "to": "FLOW-OPEN-WORKSPACE",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:395"
+    "src/App.tsx:419"
    ],
    "method": "derived",
    "source": "flows:features"
@@ -19770,7 +19770,7 @@
    "to": "FLOW-OPEN-FILE",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:402"
+    "src/App.tsx:426"
    ],
    "method": "derived",
    "source": "flows:features"
@@ -19792,7 +19792,7 @@
    "to": "BTN-EXPLORER-OPEN-FILE",
    "relation": "implemented_by",
    "evidence": [
-    "src/components/FileExplorer.tsx:253"
+    "src/components/FileExplorer.tsx:291"
    ],
    "method": "derived",
    "source": "features.yaml:entry_nodes",
@@ -19871,7 +19871,7 @@
    "to": "HDL-APP-OPEN-FILE-WELCOME",
    "relation": "implemented_by",
    "evidence": [
-    "src/App.tsx:216"
+    "src/App.tsx:240"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -19904,7 +19904,7 @@
    "to": "HDL-EXPLORER-ENTRY-CLICK",
    "relation": "implemented_by",
    "evidence": [
-    "src/components/FileExplorer.tsx:191"
+    "src/components/FileExplorer.tsx:229"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -19915,7 +19915,7 @@
    "to": "HDL-EXPLORER-OPEN-FILE",
    "relation": "implemented_by",
    "evidence": [
-    "src/components/FileExplorer.tsx:165"
+    "src/components/FileExplorer.tsx:203"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -19926,7 +19926,7 @@
    "to": "IPC-READ-DOCUMENT",
    "relation": "implemented_by",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:97"
+    "src-tauri/src/commands/mod.rs:99"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -19937,7 +19937,7 @@
    "to": "IPCC-READ-DOCUMENT",
    "relation": "implemented_by",
    "evidence": [
-    "src/lib/ipc/client.ts:96"
+    "src/lib/ipc/client.ts:101"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -19948,7 +19948,7 @@
    "to": "OSI-PICK-MARKDOWN-FILE",
    "relation": "implemented_by",
    "evidence": [
-    "src/lib/ipc/client.ts:185"
+    "src/lib/ipc/client.ts:283"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -19959,7 +19959,7 @@
    "to": "SHC-CTRL-O",
    "relation": "implemented_by",
    "evidence": [
-    "src/App.tsx:402"
+    "src/App.tsx:426"
    ],
    "method": "derived",
    "source": "features.yaml:entry_nodes",
@@ -19993,7 +19993,7 @@
    "to": "CNS-SUBSCRIBE-OPEN-FILE",
    "relation": "implemented_by",
    "evidence": [
-    "src/lib/ipc/client.ts:306"
+    "src/lib/ipc/client.ts:412"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -20037,7 +20037,7 @@
    "to": "IPC-GET-LAUNCH-PATH",
    "relation": "implemented_by",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:468"
+    "src-tauri/src/commands/mod.rs:629"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -20048,7 +20048,7 @@
    "to": "IPCC-GET-LAUNCH-PATH",
    "relation": "implemented_by",
    "evidence": [
-    "src/lib/ipc/client.ts:151"
+    "src/lib/ipc/client.ts:156"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -20109,7 +20109,7 @@
    "to": "FLOW-OPEN-WORKSPACE",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:395"
+    "src/App.tsx:419"
    ],
    "method": "derived",
    "source": "flows:features"
@@ -20120,7 +20120,7 @@
    "to": "BTN-EXPLORER-OPEN-FOLDER",
    "relation": "implemented_by",
    "evidence": [
-    "src/components/FileExplorer.tsx:242"
+    "src/components/FileExplorer.tsx:280"
    ],
    "method": "derived",
    "source": "features.yaml:entry_nodes",
@@ -20144,7 +20144,7 @@
    "to": "CMP-FILE-EXPLORER",
    "relation": "implemented_by",
    "evidence": [
-    "src/components/FileExplorer.tsx:56"
+    "src/components/FileExplorer.tsx:58"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -20199,7 +20199,7 @@
    "to": "FN-BROWSER-INVOKE",
    "relation": "implemented_by",
    "evidence": [
-    "src/lib/ipc/client.ts:232"
+    "src/lib/ipc/client.ts:330"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -20276,7 +20276,7 @@
    "to": "HDL-APP-OPEN-FOLDER-WELCOME",
    "relation": "implemented_by",
    "evidence": [
-    "src/App.tsx:204"
+    "src/App.tsx:228"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -20320,7 +20320,7 @@
    "to": "HDL-EXPLORER-ENTRY-CLICK",
    "relation": "implemented_by",
    "evidence": [
-    "src/components/FileExplorer.tsx:191"
+    "src/components/FileExplorer.tsx:229"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -20331,7 +20331,7 @@
    "to": "HDL-EXPLORER-OPEN-FOLDER",
    "relation": "implemented_by",
    "evidence": [
-    "src/components/FileExplorer.tsx:136"
+    "src/components/FileExplorer.tsx:174"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -20342,7 +20342,7 @@
    "to": "IPC-LIST-ENTRIES",
    "relation": "implemented_by",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:59"
+    "src-tauri/src/commands/mod.rs:61"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -20353,7 +20353,7 @@
    "to": "IPC-OPEN-WORKSPACE",
    "relation": "implemented_by",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:28"
+    "src-tauri/src/commands/mod.rs:30"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -20364,7 +20364,7 @@
    "to": "IPCC-LIST-ENTRIES",
    "relation": "implemented_by",
    "evidence": [
-    "src/lib/ipc/client.ts:92"
+    "src/lib/ipc/client.ts:97"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -20375,7 +20375,7 @@
    "to": "IPCC-OPEN-WORKSPACE",
    "relation": "implemented_by",
    "evidence": [
-    "src/lib/ipc/client.ts:90"
+    "src/lib/ipc/client.ts:95"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -20397,7 +20397,7 @@
    "to": "OSI-PICK-FOLDER",
    "relation": "implemented_by",
    "evidence": [
-    "src/lib/ipc/client.ts:162"
+    "src/lib/ipc/client.ts:260"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -20419,7 +20419,7 @@
    "to": "SHC-CTRL-SHIFT-O",
    "relation": "implemented_by",
    "evidence": [
-    "src/App.tsx:395"
+    "src/App.tsx:419"
    ],
    "method": "derived",
    "source": "features.yaml:entry_nodes",
@@ -20431,7 +20431,7 @@
    "to": "FLOW-WIKI-LINK-RESOLVE",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:54"
+    "src/App.tsx:57"
    ],
    "method": "derived",
    "source": "flows:features"
@@ -20503,7 +20503,7 @@
    "to": "HDL-APP-GO-TO-HEADING",
    "relation": "implemented_by",
    "evidence": [
-    "src/App.tsx:504"
+    "src/App.tsx:528"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -20580,7 +20580,7 @@
    "to": "FLOW-PRESENTATION",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:347"
+    "src/App.tsx:371"
    ],
    "method": "derived",
    "source": "flows:features"
@@ -20691,7 +20691,7 @@
    "to": "HDL-APP-CLOSE-PRESENTATION",
    "relation": "implemented_by",
    "evidence": [
-    "src/App.tsx:123"
+    "src/App.tsx:147"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -20702,7 +20702,7 @@
    "to": "HDL-APP-START-PRESENTATION",
    "relation": "implemented_by",
    "evidence": [
-    "src/App.tsx:106"
+    "src/App.tsx:130"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -20724,7 +20724,7 @@
    "to": "SHC-F5",
    "relation": "implemented_by",
    "evidence": [
-    "src/App.tsx:347"
+    "src/App.tsx:371"
    ],
    "method": "derived",
    "source": "features.yaml:entry_nodes",
@@ -20747,7 +20747,7 @@
    "to": "FLOW-PREVIEW-RENDER",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:54"
+    "src/App.tsx:57"
    ],
    "method": "derived",
    "source": "flows:features"
@@ -20849,7 +20849,7 @@
    "to": "HDL-APP-CYCLE-RECENT",
    "relation": "implemented_by",
    "evidence": [
-    "src/App.tsx:232"
+    "src/App.tsx:256"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by",
@@ -20896,7 +20896,7 @@
    "to": "FLOW-PREVIEW-RENDER",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:54"
+    "src/App.tsx:57"
    ],
    "method": "derived",
    "source": "flows:features"
@@ -20973,7 +20973,7 @@
    "to": "FLOW-SAVE-AS",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:377"
+    "src/App.tsx:401"
    ],
    "method": "derived",
    "source": "flows:features"
@@ -20995,7 +20995,7 @@
    "to": "OSI-PICK-SAVE-MARKDOWN",
    "relation": "implemented_by",
    "evidence": [
-    "src/lib/ipc/client.ts:206"
+    "src/lib/ipc/client.ts:304"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -21006,7 +21006,7 @@
    "to": "SHC-CTRL-SHIFT-S",
    "relation": "implemented_by",
    "evidence": [
-    "src/App.tsx:377"
+    "src/App.tsx:401"
    ],
    "method": "derived",
    "source": "features.yaml:entry_nodes",
@@ -21018,7 +21018,7 @@
    "to": "FLOW-SAVE-DOCUMENT",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:365"
+    "src/App.tsx:389"
    ],
    "method": "derived",
    "source": "flows:features"
@@ -21074,7 +21074,7 @@
    "to": "DTO-TS-IPC-ERROR-CODE",
    "relation": "implemented_by",
    "evidence": [
-    "src/contracts/types.ts:47"
+    "src/contracts/types.ts:67"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -21085,7 +21085,7 @@
    "to": "DTO-TS-SAVE-DOCUMENT-REQUEST",
    "relation": "implemented_by",
    "evidence": [
-    "src/contracts/types.ts:27"
+    "src/contracts/types.ts:46"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -21096,7 +21096,7 @@
    "to": "DTO-TS-SAVE-RESULT",
    "relation": "implemented_by",
    "evidence": [
-    "src/contracts/types.ts:34"
+    "src/contracts/types.ts:54"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -21118,7 +21118,7 @@
    "to": "FILE-SAVE-TMP",
    "relation": "implemented_by",
    "evidence": [
-    "src-tauri/crates/md-studio-core/src/persistence.rs:50"
+    "src-tauri/crates/md-studio-core/src/persistence.rs:72"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -21129,7 +21129,7 @@
    "to": "FN-ATOMIC-SAVE",
    "relation": "implemented_by",
    "evidence": [
-    "src-tauri/crates/md-studio-core/src/persistence.rs:36"
+    "src-tauri/crates/md-studio-core/src/persistence.rs:49"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -21140,7 +21140,7 @@
    "to": "FN-ATOMIC-WRITE-BYTES",
    "relation": "implemented_by",
    "evidence": [
-    "src-tauri/crates/md-studio-core/src/persistence.rs:66"
+    "src-tauri/crates/md-studio-core/src/persistence.rs:95"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -21173,7 +21173,7 @@
    "to": "IPC-SAVE-DOCUMENT",
    "relation": "implemented_by",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:117"
+    "src-tauri/src/commands/mod.rs:119"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -21184,7 +21184,7 @@
    "to": "IPCC-SAVE-DOCUMENT",
    "relation": "implemented_by",
    "evidence": [
-    "src/lib/ipc/client.ts:98"
+    "src/lib/ipc/client.ts:103"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -21195,7 +21195,7 @@
    "to": "SHC-CTRL-S",
    "relation": "implemented_by",
    "evidence": [
-    "src/App.tsx:365"
+    "src/App.tsx:389"
    ],
    "method": "derived",
    "source": "features.yaml:entry_nodes",
@@ -21219,7 +21219,7 @@
    "to": "STO-BROWSER-HASH-CACHE",
    "relation": "implemented_by",
    "evidence": [
-    "src/lib/ipc/client.ts:230"
+    "src/lib/ipc/client.ts:328"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -21285,7 +21285,7 @@
    "to": "HDL-APP-SHORTCUTS",
    "relation": "implemented_by",
    "evidence": [
-    "src/App.tsx:251"
+    "src/App.tsx:275"
    ],
    "method": "derived",
    "source": "features.yaml:entry_nodes",
@@ -21341,7 +21341,7 @@
    "to": "FLOW-PREVIEW-RENDER",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:54"
+    "src/App.tsx:57"
    ],
    "method": "derived",
    "source": "flows:features"
@@ -21366,7 +21366,7 @@
    "to": "FLOW-CLOSE-FILE",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:387"
+    "src/App.tsx:411"
    ],
    "method": "derived",
    "source": "flows:features"
@@ -21399,7 +21399,7 @@
    "to": "HDL-APP-SHORTCUTS",
    "relation": "implemented_by",
    "evidence": [
-    "src/App.tsx:251"
+    "src/App.tsx:275"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by",
@@ -21424,7 +21424,7 @@
    "to": "SHC-CTRL-W",
    "relation": "implemented_by",
    "evidence": [
-    "src/App.tsx:387"
+    "src/App.tsx:411"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -21585,7 +21585,7 @@
    "to": "HDL-APP-CLOSE-SPLASH-EFFECT",
    "relation": "implemented_by",
    "evidence": [
-    "src/App.tsx:200"
+    "src/App.tsx:224"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -21596,7 +21596,7 @@
    "to": "IPC-CLOSE-SPLASH",
    "relation": "implemented_by",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:473"
+    "src-tauri/src/commands/mod.rs:634"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -21607,7 +21607,7 @@
    "to": "IPCC-CLOSE-SPLASH",
    "relation": "implemented_by",
    "evidence": [
-    "src/App.tsx:200"
+    "src/App.tsx:224"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -21676,7 +21676,7 @@
    "to": "FLOW-NEW-DOCUMENT",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:354"
+    "src/App.tsx:378"
    ],
    "method": "derived",
    "source": "flows:features"
@@ -21744,7 +21744,7 @@
    "to": "HDL-APP-OPEN-NEW-DOCUMENT",
    "relation": "implemented_by",
    "evidence": [
-    "src/App.tsx:99"
+    "src/App.tsx:102"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -21755,7 +21755,7 @@
    "to": "HDL-APP-SELECT-TEMPLATE",
    "relation": "implemented_by",
    "evidence": [
-    "src/App.tsx:145"
+    "src/App.tsx:169"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -21777,7 +21777,7 @@
    "to": "SHC-CTRL-N",
    "relation": "implemented_by",
    "evidence": [
-    "src/App.tsx:354"
+    "src/App.tsx:378"
    ],
    "method": "derived",
    "source": "features.yaml:entry_nodes",
@@ -21811,7 +21811,7 @@
    "to": "HDL-APP-SHORTCUTS",
    "relation": "implemented_by",
    "evidence": [
-    "src/App.tsx:251"
+    "src/App.tsx:275"
    ],
    "method": "derived",
    "source": "features.yaml:entry_nodes",
@@ -21834,7 +21834,7 @@
    "to": "RTE-VIEW-MODES",
    "relation": "implemented_by",
    "evidence": [
-    "src/App.tsx:635"
+    "src/App.tsx:684"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -21889,7 +21889,7 @@
    "to": "CNS-SUBSCRIBE-WORKSPACE-WATCH",
    "relation": "implemented_by",
    "evidence": [
-    "src/lib/ipc/client.ts:323"
+    "src/lib/ipc/client.ts:429"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -21911,7 +21911,7 @@
    "to": "DTO-TS-WATCH-EVENT",
    "relation": "implemented_by",
    "evidence": [
-    "src/contracts/types.ts:44"
+    "src/contracts/types.ts:64"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -22022,7 +22022,7 @@
    "to": "IPCC-START-WATCHING",
    "relation": "implemented_by",
    "evidence": [
-    "src/lib/ipc/client.ts:148"
+    "src/lib/ipc/client.ts:153"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -22033,7 +22033,7 @@
    "to": "IPCC-STOP-WATCHING",
    "relation": "implemented_by",
    "evidence": [
-    "src/lib/ipc/client.ts:149"
+    "src/lib/ipc/client.ts:154"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -22066,7 +22066,7 @@
    "to": "FN-CREATE-WIKI-COMPLETION-EXTENSIONS",
    "relation": "implemented_by",
    "evidence": [
-    "src/editor/wiki/wiki-completion.ts:123"
+    "src/editor/wiki/wiki-completion.ts:188"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by",
@@ -22080,7 +22080,7 @@
    "to": "FN-WIKI-CANDIDATES",
    "relation": "implemented_by",
    "evidence": [
-    "src/editor/wiki/wiki-completion.ts:25"
+    "src/editor/wiki/wiki-completion.ts:32"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -22091,7 +22091,7 @@
    "to": "FLOW-WIKI-LINK-RESOLVE",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:54"
+    "src/App.tsx:57"
    ],
    "method": "derived",
    "source": "flows:features"
@@ -22237,7 +22237,7 @@
    "to": "PIPE-WIKI-LINKS",
    "relation": "implemented_by",
    "evidence": [
-    "src/markdown/plugins/wiki-links.ts:18"
+    "src/markdown/plugins/wiki-links.ts:26"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -22281,7 +22281,7 @@
    "to": "DTO-TS-SEARCH-RESULT",
    "relation": "implemented_by",
    "evidence": [
-    "src/contracts/types.ts:38"
+    "src/contracts/types.ts:58"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -22292,7 +22292,7 @@
    "to": "IPC-SEARCH-WORKSPACE",
    "relation": "implemented_by",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:163"
+    "src-tauri/src/commands/mod.rs:324"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -22303,7 +22303,7 @@
    "to": "IPCC-SEARCH-WORKSPACE",
    "relation": "implemented_by",
    "evidence": [
-    "src/lib/ipc/client.ts:115"
+    "src/lib/ipc/client.ts:120"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -22384,7 +22384,7 @@
    "to": "HDL-APP-DRAFT-RECOVERY-TIMER",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:82"
+    "src/App.tsx:85"
    ],
    "method": "derived",
    "source": "flows",
@@ -22398,7 +22398,7 @@
    "to": "HDL-APP-SHORTCUTS",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:251"
+    "src/App.tsx:275"
    ],
    "method": "derived",
    "source": "flows",
@@ -22470,7 +22470,7 @@
    "to": "SCR-APP",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:54"
+    "src/App.tsx:57"
    ],
    "method": "derived",
    "source": "flows",
@@ -22556,7 +22556,7 @@
    "to": "FN-WATCHER-REGISTER-INTERNAL-SAVE",
    "relation": "contains",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:128"
+    "src-tauri/src/commands/mod.rs:129"
    ],
    "method": "derived",
    "source": "flows",
@@ -22615,7 +22615,7 @@
    "relation": "contains",
    "evidence": [
     "src/lib/ipc/client.ts:99",
-    "src-tauri/src/commands/mod.rs:117",
+    "src-tauri/src/commands/mod.rs:118",
     "src-tauri/src/lib.rs:74"
    ],
    "method": "derived",
@@ -22843,7 +22843,7 @@
    "to": "SCR-APP",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:54"
+    "src/App.tsx:57"
    ],
    "method": "derived",
    "source": "flows",
@@ -22900,7 +22900,7 @@
    "to": "SHC-CTRL-W",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:387"
+    "src/App.tsx:411"
    ],
    "method": "derived",
    "source": "flows",
@@ -23148,7 +23148,7 @@
    "relation": "contains",
    "evidence": [
     "src/lib/ipc/client.ts:99",
-    "src-tauri/src/commands/mod.rs:117",
+    "src-tauri/src/commands/mod.rs:118",
     "src-tauri/src/lib.rs:74"
    ],
    "method": "derived",
@@ -23321,7 +23321,7 @@
    "to": "FN-LIST-RECOVERABLE-DRAFTS",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:83"
+    "src/App.tsx:84"
    ],
    "method": "derived",
    "source": "flows",
@@ -23377,7 +23377,7 @@
    "to": "HDL-APP-DRAFT-RECOVERY-TIMER",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:82"
+    "src/App.tsx:85"
    ],
    "method": "derived",
    "source": "flows",
@@ -23689,7 +23689,7 @@
    "relation": "contains",
    "evidence": [
     "src/components/header/ExportMenu.tsx:57",
-    "src/App.tsx:552"
+    "src/App.tsx:553"
    ],
    "method": "derived",
    "source": "flows",
@@ -23704,7 +23704,7 @@
    "relation": "contains",
    "evidence": [
     "src/lib/ipc/client.ts:136",
-    "src-tauri/src/commands/mod.rs:263",
+    "src-tauri/src/commands/mod.rs:264",
     "src-tauri/src/lib.rs:77"
    ],
    "method": "derived",
@@ -23803,7 +23803,7 @@
    "to": "FN-ATOMIC-WRITE-BYTES",
    "relation": "contains",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:224",
+    "src-tauri/src/commands/mod.rs:225",
     "src-tauri/src/commands/mod.rs:2",
     "src-tauri/src/persistence/mod.rs:1"
    ],
@@ -24556,7 +24556,7 @@
    "to": "SCR-APP",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:54"
+    "src/App.tsx:57"
    ],
    "method": "derived",
    "source": "flows",
@@ -24687,7 +24687,7 @@
    "to": "SHC-CTRL-N",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:354"
+    "src/App.tsx:378"
    ],
    "method": "derived",
    "source": "flows",
@@ -24834,7 +24834,7 @@
    "relation": "contains",
    "evidence": [
     "src/lib/ipc/client.ts:97",
-    "src-tauri/src/commands/mod.rs:97",
+    "src-tauri/src/commands/mod.rs:98",
     "src-tauri/src/lib.rs:73"
    ],
    "method": "derived",
@@ -24950,7 +24950,7 @@
    "to": "BTN-EXPLORER-OPEN-FILE",
    "relation": "contains",
    "evidence": [
-    "src/components/FileExplorer.tsx:253"
+    "src/components/FileExplorer.tsx:291"
    ],
    "method": "derived",
    "source": "flows",
@@ -25022,7 +25022,7 @@
    "to": "HDL-DOC-OPEN-FILE",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:220"
+    "src/App.tsx:221"
    ],
    "method": "derived",
    "source": "flows",
@@ -25080,7 +25080,7 @@
    "relation": "contains",
    "evidence": [
     "src/lib/ipc/client.ts:97",
-    "src-tauri/src/commands/mod.rs:97",
+    "src-tauri/src/commands/mod.rs:98",
     "src-tauri/src/lib.rs:73"
    ],
    "method": "derived",
@@ -25137,7 +25137,7 @@
    "to": "SHC-CTRL-O",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:402"
+    "src/App.tsx:426"
    ],
    "method": "derived",
    "source": "flows",
@@ -25165,7 +25165,7 @@
    "to": "BTN-EXPLORER-OPEN-FOLDER",
    "relation": "contains",
    "evidence": [
-    "src/components/FileExplorer.tsx:242"
+    "src/components/FileExplorer.tsx:280"
    ],
    "method": "derived",
    "source": "flows",
@@ -25207,7 +25207,7 @@
    "to": "CMP-FILE-EXPLORER",
    "relation": "contains",
    "evidence": [
-    "src/components/FileExplorer.tsx:56"
+    "src/components/FileExplorer.tsx:58"
    ],
    "method": "derived",
    "source": "flows",
@@ -25364,8 +25364,8 @@
    "to": "IPC-LIST-ENTRIES",
    "relation": "contains",
    "evidence": [
-    "src/lib/ipc/client.ts:93",
-    "src-tauri/src/commands/mod.rs:59",
+    "src/lib/ipc/client.ts:94",
+    "src-tauri/src/commands/mod.rs:60",
     "src-tauri/src/lib.rs:72"
    ],
    "method": "derived",
@@ -25381,7 +25381,7 @@
    "relation": "contains",
    "evidence": [
     "src/lib/ipc/client.ts:91",
-    "src-tauri/src/commands/mod.rs:28",
+    "src-tauri/src/commands/mod.rs:29",
     "src-tauri/src/lib.rs:71"
    ],
    "method": "derived",
@@ -25438,7 +25438,7 @@
    "to": "SHC-CTRL-SHIFT-O",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:395"
+    "src/App.tsx:419"
    ],
    "method": "derived",
    "source": "flows",
@@ -25581,7 +25581,7 @@
    "to": "SHC-F5",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:347"
+    "src/App.tsx:371"
    ],
    "method": "derived",
    "source": "flows",
@@ -25889,7 +25889,7 @@
    "to": "SCR-APP",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:54"
+    "src/App.tsx:57"
    ],
    "method": "derived",
    "source": "flows",
@@ -25976,7 +25976,7 @@
    "relation": "contains",
    "evidence": [
     "src/lib/ipc/client.ts:99",
-    "src-tauri/src/commands/mod.rs:117",
+    "src-tauri/src/commands/mod.rs:118",
     "src-tauri/src/lib.rs:74"
    ],
    "method": "derived",
@@ -26019,7 +26019,7 @@
    "to": "SHC-CTRL-SHIFT-S",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:377"
+    "src/App.tsx:401"
    ],
    "method": "derived",
    "source": "flows",
@@ -26133,7 +26133,7 @@
    "to": "FN-REINDEX-ENGINE-REINDEX-FILE",
    "relation": "contains",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:132"
+    "src-tauri/src/commands/mod.rs:133"
    ],
    "method": "derived",
    "source": "flows",
@@ -26175,7 +26175,7 @@
    "to": "FN-WATCHER-REGISTER-INTERNAL-SAVE",
    "relation": "contains",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:128"
+    "src-tauri/src/commands/mod.rs:129"
    ],
    "method": "derived",
    "source": "flows",
@@ -26223,7 +26223,7 @@
    "relation": "contains",
    "evidence": [
     "src/lib/ipc/client.ts:99",
-    "src-tauri/src/commands/mod.rs:117",
+    "src-tauri/src/commands/mod.rs:118",
     "src-tauri/src/lib.rs:74"
    ],
    "method": "derived",
@@ -26252,7 +26252,7 @@
    "to": "SHC-CTRL-S",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:365"
+    "src/App.tsx:389"
    ],
    "method": "derived",
    "source": "flows",
@@ -26539,7 +26539,7 @@
    "to": "SCR-APP",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:54"
+    "src/App.tsx:57"
    ],
    "method": "derived",
    "source": "flows",
@@ -26699,7 +26699,7 @@
    "to": "IPCC-SEARCH-WORKSPACE",
    "relation": "contains",
    "evidence": [
-    "src/lib/ipc/client.ts:115"
+    "src/lib/ipc/client.ts:120"
    ],
    "method": "derived",
    "source": "flows",
@@ -27709,7 +27709,7 @@
    "to": "TST-RS-EXPORT-EPUB-WRITES-PACKAGE-AND-REFUSES-CLOBBER",
    "relation": "covered_by",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:436"
+    "src-tauri/src/commands/mod.rs:437"
    ],
    "method": "observed",
    "source": "edges.yaml",
@@ -27733,7 +27733,7 @@
    "to": "FN-PARSE-WIKI-LINKS",
    "relation": "calls",
    "evidence": [
-    "src-tauri/crates/md-studio-core/src/index/metadata_extractor.rs:64"
+    "src-tauri/crates/md-studio-core/src/index/metadata_extractor.rs:65"
    ],
    "method": "observed",
    "source": "edges.yaml",
@@ -28343,7 +28343,7 @@
    "to": "PERM-CORE-DEFAULT",
    "relation": "requires",
    "evidence": [
-    "src/lib/ipc/client.ts:38",
+    "src/lib/ipc/client.ts:39",
     "src-tauri/capabilities/default.json:7"
    ],
    "method": "inferred",
@@ -29534,7 +29534,7 @@
    "to": "TST-RS-RESOLVE-ALL-PRESERVES-ALIAS-AND-SOURCE-LINE",
    "relation": "covered_by",
    "evidence": [
-    "src-tauri/crates/md-studio-core/src/index/wiki_resolve.rs:217"
+    "src-tauri/crates/md-studio-core/src/index/wiki_resolve.rs:218"
    ],
    "method": "observed",
    "source": "edges.yaml",
@@ -29872,7 +29872,7 @@
    "to": "TST-RS-TEST-INDEX-PERSISTENCE-LIFECYCLE",
    "relation": "covered_by",
    "evidence": [
-    "src-tauri/crates/md-studio-core/src/index/index_persistence.rs:100"
+    "src-tauri/crates/md-studio-core/src/index/index_persistence.rs:101"
    ],
    "method": "observed",
    "source": "edges.yaml",
@@ -30053,7 +30053,7 @@
    "to": "CTR-IPC-LIST-ENTRIES",
    "relation": "depends_on",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:59",
+    "src-tauri/src/commands/mod.rs:60",
     "src/lib/ipc/client.ts:92",
     "src-tauri/src/lib.rs:72"
    ],
@@ -30586,7 +30586,7 @@
    "to": "FN-LIST-RECOVERABLE-DRAFTS",
    "relation": "calls",
    "evidence": [
-    "src/App.tsx:83"
+    "src/App.tsx:84"
    ],
    "method": "observed",
    "source": "edges.yaml",
@@ -30671,7 +30671,7 @@
    "to": "HDL-DOC-OPEN-FILE",
    "relation": "calls",
    "evidence": [
-    "src/App.tsx:220"
+    "src/App.tsx:221"
    ],
    "method": "observed",
    "source": "edges.yaml",
@@ -30876,7 +30876,7 @@
    "to": "STO-EDITOR",
    "relation": "reads",
    "evidence": [
-    "src/App.tsx:108"
+    "src/App.tsx:109"
    ],
    "method": "observed",
    "source": "edges.yaml",
@@ -30951,7 +30951,7 @@
    "to": "CTR-IPC-SAVE-DOCUMENT",
    "relation": "depends_on",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:117",
+    "src-tauri/src/commands/mod.rs:118",
     "src/lib/ipc/client.ts:98",
     "src-tauri/src/lib.rs:74"
    ],
@@ -31086,7 +31086,7 @@
    "to": "CTR-IPC-OPEN-WORKSPACE",
    "relation": "depends_on",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:28",
+    "src-tauri/src/commands/mod.rs:29",
     "src/lib/ipc/client.ts:90",
     "src-tauri/src/lib.rs:71"
    ],
@@ -31172,7 +31172,7 @@
    "to": "CTR-IPC-LIST-ENTRIES",
    "relation": "depends_on",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:59",
+    "src-tauri/src/commands/mod.rs:60",
     "src/lib/ipc/client.ts:92",
     "src-tauri/src/lib.rs:72"
    ],
@@ -31269,7 +31269,7 @@
    "to": "CTR-IPC-OPEN-WORKSPACE",
    "relation": "depends_on",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:28",
+    "src-tauri/src/commands/mod.rs:29",
     "src/lib/ipc/client.ts:90",
     "src-tauri/src/lib.rs:71"
    ],
@@ -31282,7 +31282,7 @@
    "to": "CTR-IPC-READ-DOCUMENT",
    "relation": "depends_on",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:97",
+    "src-tauri/src/commands/mod.rs:98",
     "src/lib/ipc/client.ts:96",
     "src-tauri/src/lib.rs:73"
    ],
@@ -31319,7 +31319,7 @@
    "to": "CTR-IPC-OPEN-WORKSPACE",
    "relation": "depends_on",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:28",
+    "src-tauri/src/commands/mod.rs:29",
     "src/lib/ipc/client.ts:90",
     "src-tauri/src/lib.rs:71"
    ],
@@ -31456,7 +31456,7 @@
    "to": "CTR-IPC-READ-DOCUMENT",
    "relation": "depends_on",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:97",
+    "src-tauri/src/commands/mod.rs:98",
     "src/lib/ipc/client.ts:96",
     "src-tauri/src/lib.rs:73"
    ],
@@ -31469,7 +31469,7 @@
    "to": "CTR-IPC-SAVE-DOCUMENT",
    "relation": "depends_on",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:117",
+    "src-tauri/src/commands/mod.rs:118",
     "src/lib/ipc/client.ts:98",
     "src-tauri/src/lib.rs:74"
    ],
@@ -31694,7 +31694,7 @@
     "src-tauri/src/watcher/mod.rs:19",
     "src-tauri/src/watcher/mod.rs:24",
     "src/contracts/types.ts:44",
-    "src/lib/ipc/client.ts:314"
+    "src/lib/ipc/client.ts:315"
    ],
    "method": "derived",
    "source": "contracts.yaml:consumers"
@@ -32489,7 +32489,7 @@
    "relation": "implemented_by",
    "evidence": [
     "src-tauri/src/watcher/mod.rs:66",
-    "src-tauri/src/commands/mod.rs:128"
+    "src-tauri/src/commands/mod.rs:129"
    ],
    "method": "derived",
    "source": "invariants.yaml:nodes"
@@ -32501,7 +32501,7 @@
    "relation": "implemented_by",
    "evidence": [
     "src-tauri/src/watcher/mod.rs:66",
-    "src-tauri/src/commands/mod.rs:128"
+    "src-tauri/src/commands/mod.rs:129"
    ],
    "method": "derived",
    "source": "invariants.yaml:nodes"
@@ -32513,7 +32513,7 @@
    "relation": "implemented_by",
    "evidence": [
     "src-tauri/src/watcher/mod.rs:66",
-    "src-tauri/src/commands/mod.rs:128"
+    "src-tauri/src/commands/mod.rs:129"
    ],
    "method": "derived",
    "source": "invariants.yaml:nodes"
@@ -32525,7 +32525,7 @@
    "relation": "implemented_by",
    "evidence": [
     "src-tauri/src/watcher/mod.rs:66",
-    "src-tauri/src/commands/mod.rs:128"
+    "src-tauri/src/commands/mod.rs:129"
    ],
    "method": "derived",
    "source": "invariants.yaml:nodes"
@@ -32537,7 +32537,7 @@
    "relation": "implemented_by",
    "evidence": [
     "src-tauri/src/watcher/mod.rs:66",
-    "src-tauri/src/commands/mod.rs:128"
+    "src-tauri/src/commands/mod.rs:129"
    ],
    "method": "derived",
    "source": "invariants.yaml:nodes"
@@ -32621,7 +32621,7 @@
    "to": "FN-ATOMIC-WRITE-BYTES",
    "relation": "calls",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:224",
+    "src-tauri/src/commands/mod.rs:225",
     "src-tauri/src/commands/mod.rs:2",
     "src-tauri/src/persistence/mod.rs:1"
    ],
@@ -32708,7 +32708,7 @@
    "to": "FILE-EXPORT-HTML",
    "relation": "writes",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:224",
+    "src-tauri/src/commands/mod.rs:225",
     "src/services/export.ts:12"
    ],
    "method": "observed",
@@ -33213,7 +33213,7 @@
    "to": "FN-REINDEX-ENGINE-NEW",
    "relation": "calls",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:37"
+    "src-tauri/src/commands/mod.rs:38"
    ],
    "method": "observed",
    "source": "edges.yaml",
@@ -33299,7 +33299,7 @@
    "to": "DTO-RS-WORKSPACE-DESCRIPTOR",
    "relation": "depends_on",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:28"
+    "src-tauri/src/commands/mod.rs:29"
    ],
    "method": "observed",
    "source": "edges.yaml",
@@ -33435,7 +33435,7 @@
    "to": "FN-REINDEX-ENGINE-REINDEX-FILE",
    "relation": "calls",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:132"
+    "src-tauri/src/commands/mod.rs:133"
    ],
    "method": "observed",
    "source": "edges.yaml",
@@ -33459,7 +33459,7 @@
    "to": "FN-WATCHER-REGISTER-INTERNAL-SAVE",
    "relation": "calls",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:128"
+    "src-tauri/src/commands/mod.rs:129"
    ],
    "method": "observed",
    "source": "edges.yaml",
@@ -33495,7 +33495,7 @@
    "to": "CLS-SAVE-ERROR",
    "relation": "depends_on",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:149"
+    "src-tauri/src/commands/mod.rs:150"
    ],
    "method": "observed",
    "source": "edges.yaml",
@@ -33777,7 +33777,7 @@
    "relation": "calls",
    "evidence": [
     "src/lib/ipc/client.ts:136",
-    "src-tauri/src/commands/mod.rs:263",
+    "src-tauri/src/commands/mod.rs:264",
     "src-tauri/src/lib.rs:77"
    ],
    "method": "observed",
@@ -33804,7 +33804,7 @@
    "to": "CTR-IPC-EXPORT-EPUB",
    "relation": "depends_on",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:263",
+    "src-tauri/src/commands/mod.rs:264",
     "src/lib/ipc/client.ts:130",
     "src-tauri/src/lib.rs:77"
    ],
@@ -34210,7 +34210,7 @@
    "to": "FN-IPC-INVOKE",
    "relation": "calls",
    "evidence": [
-    "src/lib/ipc/client.ts:93"
+    "src/lib/ipc/client.ts:94"
    ],
    "method": "observed",
    "source": "edges.yaml",
@@ -34222,8 +34222,8 @@
    "to": "IPC-LIST-ENTRIES",
    "relation": "calls",
    "evidence": [
-    "src/lib/ipc/client.ts:93",
-    "src-tauri/src/commands/mod.rs:59",
+    "src/lib/ipc/client.ts:94",
+    "src-tauri/src/commands/mod.rs:60",
     "src-tauri/src/lib.rs:72"
    ],
    "method": "observed",
@@ -34237,7 +34237,7 @@
    "to": "CTR-IPC-LIST-ENTRIES",
    "relation": "depends_on",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:59",
+    "src-tauri/src/commands/mod.rs:60",
     "src/lib/ipc/client.ts:92",
     "src-tauri/src/lib.rs:72"
    ],
@@ -34263,7 +34263,7 @@
    "relation": "calls",
    "evidence": [
     "src/lib/ipc/client.ts:91",
-    "src-tauri/src/commands/mod.rs:28",
+    "src-tauri/src/commands/mod.rs:29",
     "src-tauri/src/lib.rs:71"
    ],
    "method": "observed",
@@ -34277,7 +34277,7 @@
    "to": "CTR-IPC-OPEN-WORKSPACE",
    "relation": "depends_on",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:28",
+    "src-tauri/src/commands/mod.rs:29",
     "src/lib/ipc/client.ts:90",
     "src-tauri/src/lib.rs:71"
    ],
@@ -34303,7 +34303,7 @@
    "relation": "calls",
    "evidence": [
     "src/lib/ipc/client.ts:97",
-    "src-tauri/src/commands/mod.rs:97",
+    "src-tauri/src/commands/mod.rs:98",
     "src-tauri/src/lib.rs:73"
    ],
    "method": "observed",
@@ -34317,7 +34317,7 @@
    "to": "CTR-IPC-READ-DOCUMENT",
    "relation": "depends_on",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:97",
+    "src-tauri/src/commands/mod.rs:98",
     "src/lib/ipc/client.ts:96",
     "src-tauri/src/lib.rs:73"
    ],
@@ -34371,7 +34371,7 @@
    "relation": "calls",
    "evidence": [
     "src/lib/ipc/client.ts:99",
-    "src-tauri/src/commands/mod.rs:117",
+    "src-tauri/src/commands/mod.rs:118",
     "src-tauri/src/lib.rs:74"
    ],
    "method": "observed",
@@ -34385,7 +34385,7 @@
    "to": "CTR-IPC-SAVE-DOCUMENT",
    "relation": "depends_on",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:117",
+    "src-tauri/src/commands/mod.rs:118",
     "src/lib/ipc/client.ts:98",
     "src-tauri/src/lib.rs:74"
    ],
@@ -34705,7 +34705,7 @@
    "to": "FN-IPC-INVOKE",
    "relation": "contains",
    "evidence": [
-    "src/lib/ipc/client.ts:34"
+    "src/lib/ipc/client.ts:39"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -34716,7 +34716,7 @@
    "to": "FN-IS-TAURI-RUNTIME",
    "relation": "contains",
    "evidence": [
-    "src/lib/ipc/client.ts:24"
+    "src/lib/ipc/client.ts:29"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -34760,7 +34760,7 @@
    "to": "HDL-APP-CLOSE-SPLASH-EFFECT",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:200"
+    "src/App.tsx:224"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -34771,7 +34771,7 @@
    "to": "HDL-APP-SHORTCUTS",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:251"
+    "src/App.tsx:275"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -34793,7 +34793,7 @@
    "to": "IPC-CLOSE-SPLASH",
    "relation": "contains",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:473"
+    "src-tauri/src/commands/mod.rs:634"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -34804,7 +34804,7 @@
    "to": "IPCC-CLOSE-SPLASH",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:200"
+    "src/App.tsx:224"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -34815,7 +34815,7 @@
    "to": "RTE-VIEW-MODES",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:635"
+    "src/App.tsx:684"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -34826,7 +34826,7 @@
    "to": "SCR-APP",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:54"
+    "src/App.tsx:57"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -34859,7 +34859,7 @@
    "to": "SHC-CTRL-W",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:387"
+    "src/App.tsx:411"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -35178,7 +35178,7 @@
    "to": "HDL-APP-BACKLINK-OPEN-OCCURRENCE",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:758"
+    "src/App.tsx:787"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -35233,7 +35233,7 @@
    "to": "TST-RS-DISCARDS-SELF-LINKS-BEFORE-PUBLIC-STORE",
    "relation": "contains",
    "evidence": [
-    "src-tauri/crates/md-studio-core/src/index/backlink_index.rs:278"
+    "src-tauri/crates/md-studio-core/src/index/backlink_index.rs:279"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -35244,7 +35244,7 @@
    "to": "TST-RS-EMPTY-WORKSPACE-HAS-NO-BACKLINKS",
    "relation": "contains",
    "evidence": [
-    "src-tauri/crates/md-studio-core/src/index/backlink_index.rs:216"
+    "src-tauri/crates/md-studio-core/src/index/backlink_index.rs:217"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -35266,7 +35266,7 @@
    "to": "TST-RS-INDEXES-RESOLVED-ONLY-AND-IGNORES-ALIAS",
    "relation": "contains",
    "evidence": [
-    "src-tauri/crates/md-studio-core/src/index/backlink_index.rs:232"
+    "src-tauri/crates/md-studio-core/src/index/backlink_index.rs:233"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -35277,7 +35277,7 @@
    "to": "TST-RS-INDEXES-UNICODE-RESOLVED-TARGETS",
    "relation": "contains",
    "evidence": [
-    "src-tauri/crates/md-studio-core/src/index/backlink_index.rs:290"
+    "src-tauri/crates/md-studio-core/src/index/backlink_index.rs:291"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -35288,7 +35288,7 @@
    "to": "TST-RS-REMOVE-SOURCE-DROPS-INCOMING-EDGES",
    "relation": "contains",
    "evidence": [
-    "src-tauri/crates/md-studio-core/src/index/backlink_index.rs:333"
+    "src-tauri/crates/md-studio-core/src/index/backlink_index.rs:334"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -35299,7 +35299,7 @@
    "to": "TST-RS-REPLACE-SOURCE-IS-IDEMPOTENT-AND-DROPS-OLD-EDGES",
    "relation": "contains",
    "evidence": [
-    "src-tauri/crates/md-studio-core/src/index/backlink_index.rs:306"
+    "src-tauri/crates/md-studio-core/src/index/backlink_index.rs:307"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -35310,7 +35310,7 @@
    "to": "TST-RS-SKIPS-UNRESOLVED-AMBIGUOUS-AND-UNSAFE-TARGETS",
    "relation": "contains",
    "evidence": [
-    "src-tauri/crates/md-studio-core/src/index/backlink_index.rs:250"
+    "src-tauri/crates/md-studio-core/src/index/backlink_index.rs:251"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -35321,7 +35321,7 @@
    "to": "TST-RS-SORTS-GROUPS-BY-TITLE-CI-THEN-PATH-AND-OCCURRENCES-LINE-ASC",
    "relation": "contains",
    "evidence": [
-    "src-tauri/crates/md-studio-core/src/index/backlink_index.rs:349"
+    "src-tauri/crates/md-studio-core/src/index/backlink_index.rs:350"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -35453,7 +35453,7 @@
    "to": "HDL-APP-DRAFT-RECOVERY-TIMER",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:82"
+    "src/App.tsx:85"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -35970,7 +35970,7 @@
    "to": "DTO-RS-EXPORT-EPUB-REQUEST",
    "relation": "contains",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:230"
+    "src-tauri/src/commands/mod.rs:391"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -35981,7 +35981,7 @@
    "to": "DTO-RS-EXPORT-HTML-REQUEST",
    "relation": "contains",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:207"
+    "src-tauri/src/commands/mod.rs:368"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -36058,7 +36058,7 @@
    "to": "FN-EXPORT-EPUB-IN",
    "relation": "contains",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:247"
+    "src-tauri/src/commands/mod.rs:408"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -36113,7 +36113,7 @@
    "to": "FN-RESOLVE-WORKSPACE-ROOT",
    "relation": "contains",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:237"
+    "src-tauri/src/commands/mod.rs:398"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -36124,7 +36124,7 @@
    "to": "HDL-APP-EXPORT-EPUB",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:168"
+    "src/App.tsx:192"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -36135,7 +36135,7 @@
    "to": "HDL-APP-EXPORT-HTML",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:154"
+    "src/App.tsx:178"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -36146,7 +36146,7 @@
    "to": "HDL-APP-EXPORT-PDF",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:186"
+    "src/App.tsx:210"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -36157,7 +36157,7 @@
    "to": "IPC-EXPORT-EPUB",
    "relation": "contains",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:263"
+    "src-tauri/src/commands/mod.rs:408"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -36168,7 +36168,7 @@
    "to": "IPC-EXPORT-HTML",
    "relation": "contains",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:216"
+    "src-tauri/src/commands/mod.rs:377"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -36179,7 +36179,7 @@
    "to": "IPCC-EXPORT-EPUB",
    "relation": "contains",
    "evidence": [
-    "src/lib/ipc/client.ts:139"
+    "src/lib/ipc/client.ts:144"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -36190,7 +36190,7 @@
    "to": "IPCC-EXPORT-HTML",
    "relation": "contains",
    "evidence": [
-    "src/lib/ipc/client.ts:135"
+    "src/lib/ipc/client.ts:140"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -36201,7 +36201,7 @@
    "to": "OSI-CONFIRM-OVERWRITE",
    "relation": "contains",
    "evidence": [
-    "src/lib/ipc/client.ts:378"
+    "src/lib/ipc/client.ts:484"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -36212,7 +36212,7 @@
    "to": "OSI-PICK-SAVE-EPUB",
    "relation": "contains",
    "evidence": [
-    "src/lib/ipc/client.ts:345"
+    "src/lib/ipc/client.ts:451"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -36223,7 +36223,7 @@
    "to": "OSI-PICK-SAVE-HTML",
    "relation": "contains",
    "evidence": [
-    "src/lib/ipc/client.ts:362"
+    "src/lib/ipc/client.ts:468"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -36234,7 +36234,7 @@
    "to": "OSI-WINDOW-PRINT",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:194"
+    "src/App.tsx:218"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -36311,7 +36311,7 @@
    "to": "TST-RS-EXPORT-EPUB-REFUSES-NON-ABSOLUTE-DESTINATION",
    "relation": "contains",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:365"
+    "src-tauri/src/commands/mod.rs:526"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -36322,7 +36322,7 @@
    "to": "TST-RS-EXPORT-EPUB-REQUEST-DESERIALIZES-CAMEL-CASE",
    "relation": "contains",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:345"
+    "src-tauri/src/commands/mod.rs:506"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -36333,7 +36333,7 @@
    "to": "TST-RS-EXPORT-EPUB-REQUIRES-KNOWN-WORKSPACE-AND-REJECTS-ESCAPE",
    "relation": "contains",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:381"
+    "src-tauri/src/commands/mod.rs:542"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -36344,7 +36344,7 @@
    "to": "TST-RS-EXPORT-EPUB-WRITES-PACKAGE-AND-REFUSES-CLOBBER",
    "relation": "contains",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:429"
+    "src-tauri/src/commands/mod.rs:590"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -36355,7 +36355,7 @@
    "to": "TST-RS-EXPORT-OVERWRITE-WHEN-ALLOWED",
    "relation": "contains",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:307"
+    "src-tauri/src/commands/mod.rs:468"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -36366,7 +36366,7 @@
    "to": "TST-RS-EXPORT-REFUSES-OVERWRITE-WITHOUT-FLAG",
    "relation": "contains",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:293"
+    "src-tauri/src/commands/mod.rs:454"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -36377,7 +36377,7 @@
    "to": "TST-RS-EXPORT-WRITES-RENDERED-HTML-NOT-PRE-STUB",
    "relation": "contains",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:277"
+    "src-tauri/src/commands/mod.rs:438"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -37411,7 +37411,7 @@
    "to": "TST-RS-REPORTS-MISSING-UNSAFE-AND-AMBIGUOUS-TARGETS",
    "relation": "contains",
    "evidence": [
-    "src-tauri/crates/md-studio-core/src/index/wiki_resolve.rs:194"
+    "src-tauri/crates/md-studio-core/src/index/wiki_resolve.rs:195"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -37422,7 +37422,7 @@
    "to": "TST-RS-RESOLVE-ALL-PRESERVES-ALIAS-AND-SOURCE-LINE",
    "relation": "contains",
    "evidence": [
-    "src-tauri/crates/md-studio-core/src/index/wiki_resolve.rs:213"
+    "src-tauri/crates/md-studio-core/src/index/wiki_resolve.rs:214"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -37444,7 +37444,7 @@
    "to": "TST-RS-TEST-DOCUMENT-METADATA-SERDE-CAMEL-CASE",
    "relation": "contains",
    "evidence": [
-    "src-tauri/crates/md-studio-core/src/index/document_metadata.rs:52"
+    "src-tauri/crates/md-studio-core/src/index/document_metadata.rs:62"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -37455,7 +37455,7 @@
    "to": "TST-RS-TEST-EXTRACT-METADATA-COMPREHENSIVE",
    "relation": "contains",
    "evidence": [
-    "src-tauri/crates/md-studio-core/src/index/metadata_extractor.rs:311"
+    "src-tauri/crates/md-studio-core/src/index/metadata_extractor.rs:332"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -37488,7 +37488,7 @@
    "to": "TST-RS-TEST-METADATA-INDEX-OPERATIONS",
    "relation": "contains",
    "evidence": [
-    "src-tauri/crates/md-studio-core/src/index/metadata_index.rs:85"
+    "src-tauri/crates/md-studio-core/src/index/metadata_index.rs:86"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -37499,7 +37499,7 @@
    "to": "TST-RS-TEST-METADATA-INDEX-SERDE-ROUNDTRIP",
    "relation": "contains",
    "evidence": [
-    "src-tauri/crates/md-studio-core/src/index/metadata_index.rs:118"
+    "src-tauri/crates/md-studio-core/src/index/metadata_index.rs:119"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -37741,7 +37741,7 @@
    "to": "DTO-TS-IPC-ERROR-CODE",
    "relation": "contains",
    "evidence": [
-    "src/contracts/types.ts:47"
+    "src/contracts/types.ts:67"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -37752,7 +37752,7 @@
    "to": "DTO-TS-SAVE-DOCUMENT-REQUEST",
    "relation": "contains",
    "evidence": [
-    "src/contracts/types.ts:27"
+    "src/contracts/types.ts:46"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -37763,7 +37763,7 @@
    "to": "DTO-TS-SAVE-RESULT",
    "relation": "contains",
    "evidence": [
-    "src/contracts/types.ts:34"
+    "src/contracts/types.ts:54"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -37774,7 +37774,7 @@
    "to": "FILE-SAVE-TMP",
    "relation": "contains",
    "evidence": [
-    "src-tauri/crates/md-studio-core/src/persistence.rs:50"
+    "src-tauri/crates/md-studio-core/src/persistence.rs:72"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -37785,7 +37785,7 @@
    "to": "FN-ATOMIC-SAVE",
    "relation": "contains",
    "evidence": [
-    "src-tauri/crates/md-studio-core/src/persistence.rs:36"
+    "src-tauri/crates/md-studio-core/src/persistence.rs:49"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -37796,7 +37796,7 @@
    "to": "FN-ATOMIC-WRITE-BYTES",
    "relation": "contains",
    "evidence": [
-    "src-tauri/crates/md-studio-core/src/persistence.rs:66"
+    "src-tauri/crates/md-studio-core/src/persistence.rs:95"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -37873,7 +37873,7 @@
    "to": "IPC-SAVE-DOCUMENT",
    "relation": "contains",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:117"
+    "src-tauri/src/commands/mod.rs:119"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -37884,7 +37884,7 @@
    "to": "IPCC-SAVE-DOCUMENT",
    "relation": "contains",
    "evidence": [
-    "src/lib/ipc/client.ts:98"
+    "src/lib/ipc/client.ts:103"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -37895,7 +37895,7 @@
    "to": "OSI-PICK-SAVE-MARKDOWN",
    "relation": "contains",
    "evidence": [
-    "src/lib/ipc/client.ts:206"
+    "src/lib/ipc/client.ts:304"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -37906,7 +37906,7 @@
    "to": "SHC-CTRL-S",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:365"
+    "src/App.tsx:389"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -37917,7 +37917,7 @@
    "to": "SHC-CTRL-SHIFT-S",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:377"
+    "src/App.tsx:401"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -38093,7 +38093,7 @@
    "to": "HDL-APP-CLOSE-PRESENTATION",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:123"
+    "src/App.tsx:147"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -38104,7 +38104,7 @@
    "to": "HDL-APP-START-PRESENTATION",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:106"
+    "src/App.tsx:130"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -38126,7 +38126,7 @@
    "to": "SHC-F5",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:347"
+    "src/App.tsx:371"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -38313,7 +38313,7 @@
    "to": "HDL-APP-GO-TO-HEADING",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:504"
+    "src/App.tsx:528"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -38643,7 +38643,7 @@
    "to": "TST-TS-PANEL-RIGHT-PANEL-ACCORDION",
    "relation": "contains",
    "evidence": [
-    "tests/panel/rightPanelAccordion.test.tsx:12"
+    "tests/panel/rightPanelAccordion.test.tsx:13"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -38720,7 +38720,7 @@
    "to": "DTO-TS-SEARCH-RESULT",
    "relation": "contains",
    "evidence": [
-    "src/contracts/types.ts:38"
+    "src/contracts/types.ts:58"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -38742,7 +38742,7 @@
    "to": "IPC-SEARCH-WORKSPACE",
    "relation": "contains",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:163"
+    "src-tauri/src/commands/mod.rs:324"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -38753,7 +38753,7 @@
    "to": "IPCC-SEARCH-WORKSPACE",
    "relation": "contains",
    "evidence": [
-    "src/lib/ipc/client.ts:115"
+    "src/lib/ipc/client.ts:120"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -39149,7 +39149,7 @@
    "to": "HDL-APP-CYCLE-RECENT",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:232"
+    "src/App.tsx:256"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -39380,7 +39380,7 @@
    "to": "HDL-APP-OPEN-NEW-DOCUMENT",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:99"
+    "src/App.tsx:102"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -39391,7 +39391,7 @@
    "to": "HDL-APP-SELECT-TEMPLATE",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:145"
+    "src/App.tsx:169"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -39413,7 +39413,7 @@
    "to": "SHC-CTRL-N",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:354"
+    "src/App.tsx:378"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -39501,7 +39501,7 @@
    "to": "CNS-SUBSCRIBE-WORKSPACE-WATCH",
    "relation": "contains",
    "evidence": [
-    "src/lib/ipc/client.ts:323"
+    "src/lib/ipc/client.ts:429"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -39523,7 +39523,7 @@
    "to": "DTO-TS-WATCH-EVENT",
    "relation": "contains",
    "evidence": [
-    "src/contracts/types.ts:44"
+    "src/contracts/types.ts:64"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -39644,7 +39644,7 @@
    "to": "IPCC-START-WATCHING",
    "relation": "contains",
    "evidence": [
-    "src/lib/ipc/client.ts:148"
+    "src/lib/ipc/client.ts:153"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -39655,7 +39655,7 @@
    "to": "IPCC-STOP-WATCHING",
    "relation": "contains",
    "evidence": [
-    "src/lib/ipc/client.ts:149"
+    "src/lib/ipc/client.ts:154"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -39776,7 +39776,7 @@
    "to": "FN-CREATE-WIKI-COMPLETION-EXTENSIONS",
    "relation": "contains",
    "evidence": [
-    "src/editor/wiki/wiki-completion.ts:123"
+    "src/editor/wiki/wiki-completion.ts:188"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -39842,7 +39842,7 @@
    "to": "FN-WIKI-CANDIDATES",
    "relation": "contains",
    "evidence": [
-    "src/editor/wiki/wiki-completion.ts:25"
+    "src/editor/wiki/wiki-completion.ts:32"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -39930,7 +39930,7 @@
    "to": "PIPE-WIKI-LINKS",
    "relation": "contains",
    "evidence": [
-    "src/markdown/plugins/wiki-links.ts:18"
+    "src/markdown/plugins/wiki-links.ts:26"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -39941,7 +39941,7 @@
    "to": "TST-RS-RESOLVES-EXACT-PATH-WITH-OR-WITHOUT-EXTENSION",
    "relation": "contains",
    "evidence": [
-    "src-tauri/crates/md-studio-core/src/index/wiki_resolve.rs:171"
+    "src-tauri/crates/md-studio-core/src/index/wiki_resolve.rs:172"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -39952,7 +39952,7 @@
    "to": "TST-RS-RESOLVES-STEM-AND-TITLE-CASE-INSENSITIVELY",
    "relation": "contains",
    "evidence": [
-    "src-tauri/crates/md-studio-core/src/index/wiki_resolve.rs:181"
+    "src-tauri/crates/md-studio-core/src/index/wiki_resolve.rs:182"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -40073,7 +40073,7 @@
    "to": "BTN-EXPLORER-OPEN-FILE",
    "relation": "contains",
    "evidence": [
-    "src/components/FileExplorer.tsx:253"
+    "src/components/FileExplorer.tsx:291"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -40084,7 +40084,7 @@
    "to": "BTN-EXPLORER-OPEN-FOLDER",
    "relation": "contains",
    "evidence": [
-    "src/components/FileExplorer.tsx:242"
+    "src/components/FileExplorer.tsx:280"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -40128,7 +40128,7 @@
    "to": "CMP-FILE-EXPLORER",
    "relation": "contains",
    "evidence": [
-    "src/components/FileExplorer.tsx:56"
+    "src/components/FileExplorer.tsx:58"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -40139,7 +40139,7 @@
    "to": "CNS-SUBSCRIBE-OPEN-FILE",
    "relation": "contains",
    "evidence": [
-    "src/lib/ipc/client.ts:306"
+    "src/lib/ipc/client.ts:412"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -40205,7 +40205,7 @@
    "to": "FN-BROWSER-INVOKE",
    "relation": "contains",
    "evidence": [
-    "src/lib/ipc/client.ts:232"
+    "src/lib/ipc/client.ts:330"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -40348,7 +40348,7 @@
    "to": "HDL-APP-OPEN-FILE-WELCOME",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:216"
+    "src/App.tsx:240"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -40359,7 +40359,7 @@
    "to": "HDL-APP-OPEN-FOLDER-WELCOME",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:204"
+    "src/App.tsx:228"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -40447,7 +40447,7 @@
    "to": "HDL-EXPLORER-ENTRY-CLICK",
    "relation": "contains",
    "evidence": [
-    "src/components/FileExplorer.tsx:191"
+    "src/components/FileExplorer.tsx:229"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -40458,7 +40458,7 @@
    "to": "HDL-EXPLORER-OPEN-FILE",
    "relation": "contains",
    "evidence": [
-    "src/components/FileExplorer.tsx:165"
+    "src/components/FileExplorer.tsx:203"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -40469,7 +40469,7 @@
    "to": "HDL-EXPLORER-OPEN-FOLDER",
    "relation": "contains",
    "evidence": [
-    "src/components/FileExplorer.tsx:136"
+    "src/components/FileExplorer.tsx:174"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -40480,7 +40480,7 @@
    "to": "IPC-GET-LAUNCH-PATH",
    "relation": "contains",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:468"
+    "src-tauri/src/commands/mod.rs:629"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -40491,7 +40491,7 @@
    "to": "IPC-LIST-ENTRIES",
    "relation": "contains",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:59"
+    "src-tauri/src/commands/mod.rs:61"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -40502,7 +40502,7 @@
    "to": "IPC-OPEN-WORKSPACE",
    "relation": "contains",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:28"
+    "src-tauri/src/commands/mod.rs:30"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -40513,7 +40513,7 @@
    "to": "IPC-READ-DOCUMENT",
    "relation": "contains",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:97"
+    "src-tauri/src/commands/mod.rs:99"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -40524,7 +40524,7 @@
    "to": "IPCC-GET-LAUNCH-PATH",
    "relation": "contains",
    "evidence": [
-    "src/lib/ipc/client.ts:151"
+    "src/lib/ipc/client.ts:156"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -40535,7 +40535,7 @@
    "to": "IPCC-LIST-ENTRIES",
    "relation": "contains",
    "evidence": [
-    "src/lib/ipc/client.ts:92"
+    "src/lib/ipc/client.ts:97"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -40546,7 +40546,7 @@
    "to": "IPCC-OPEN-WORKSPACE",
    "relation": "contains",
    "evidence": [
-    "src/lib/ipc/client.ts:90"
+    "src/lib/ipc/client.ts:95"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -40557,7 +40557,7 @@
    "to": "IPCC-READ-DOCUMENT",
    "relation": "contains",
    "evidence": [
-    "src/lib/ipc/client.ts:96"
+    "src/lib/ipc/client.ts:101"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -40590,7 +40590,7 @@
    "to": "OSI-PICK-FOLDER",
    "relation": "contains",
    "evidence": [
-    "src/lib/ipc/client.ts:162"
+    "src/lib/ipc/client.ts:260"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -40601,7 +40601,7 @@
    "to": "OSI-PICK-MARKDOWN-FILE",
    "relation": "contains",
    "evidence": [
-    "src/lib/ipc/client.ts:185"
+    "src/lib/ipc/client.ts:283"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -40623,7 +40623,7 @@
    "to": "SHC-CTRL-O",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:402"
+    "src/App.tsx:426"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -40634,7 +40634,7 @@
    "to": "SHC-CTRL-SHIFT-O",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:395"
+    "src/App.tsx:419"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -40645,7 +40645,7 @@
    "to": "STO-BROWSER-HASH-CACHE",
    "relation": "contains",
    "evidence": [
-    "src/lib/ipc/client.ts:230"
+    "src/lib/ipc/client.ts:328"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -41755,7 +41755,7 @@
    "to": "CMP-APP-HEADER",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:532"
+    "src/App.tsx:533"
    ],
    "method": "observed",
    "source": "edges.yaml",
@@ -42031,7 +42031,7 @@
    "to": "HDL-APP-EXPORT-EPUB",
    "relation": "contains",
    "evidence": [
-    "src/App.tsx:168"
+    "src/App.tsx:169"
    ],
    "method": "observed",
    "source": "edges.yaml",
@@ -43275,7 +43275,7 @@
    "to": "CTR-IPC-EXPORT-EPUB",
    "relation": "depends_on",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:263",
+    "src-tauri/src/commands/mod.rs:264",
     "src/lib/ipc/client.ts:130",
     "src-tauri/src/lib.rs:77"
    ],
@@ -43616,7 +43616,7 @@
    "to": "CTR-IPC-SAVE-DOCUMENT",
    "relation": "depends_on",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:117",
+    "src-tauri/src/commands/mod.rs:118",
     "src/lib/ipc/client.ts:98",
     "src-tauri/src/lib.rs:74"
    ],
@@ -44459,7 +44459,7 @@
    "to": "DTO-RS-EXPORT-EPUB-REQUEST",
    "relation": "validates",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:388"
+    "src-tauri/src/commands/mod.rs:389"
    ],
    "method": "observed",
    "source": "edges.yaml",
@@ -44471,7 +44471,7 @@
    "to": "INV-PATH-FENCE",
    "relation": "verifies",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:381"
+    "src-tauri/src/commands/mod.rs:542"
    ],
    "method": "derived",
    "source": "invariants.yaml:verified_by"
@@ -44519,7 +44519,7 @@
    "to": "INV-EXPORT-NO-SILENT-OVERWRITE",
    "relation": "verifies",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:307"
+    "src-tauri/src/commands/mod.rs:468"
    ],
    "method": "derived",
    "source": "invariants.yaml:verified_by"
@@ -44542,7 +44542,7 @@
    "to": "INV-EXPORT-NO-SILENT-OVERWRITE",
    "relation": "verifies",
    "evidence": [
-    "src-tauri/src/commands/mod.rs:293"
+    "src-tauri/src/commands/mod.rs:454"
    ],
    "method": "derived",
    "source": "invariants.yaml:verified_by"
@@ -44793,7 +44793,7 @@
    "to": "DTO-RS-DOCUMENT-METADATA",
    "relation": "validates",
    "evidence": [
-    "src-tauri/crates/md-studio-core/src/index/metadata_index.rs:93",
+    "src-tauri/crates/md-studio-core/src/index/metadata_index.rs:94",
     "src-tauri/crates/md-studio-core/src/index/metadata_index.rs:67"
    ],
    "method": "observed",

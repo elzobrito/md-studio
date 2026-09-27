@@ -1,7 +1,7 @@
 # TRACE-009 — Auto-save com debounce a partir da edição. Passos ordenados; via = aresta de edges.yaml que liga o passo de origem (direction reverse = aresta no sentido oposto, ex.: consumes/reads/callback). trigger = início de ramo.
 artifact: auto-save
 schema_version: 1
-source_commit: bf5d9b485db1dab7eafd89ff1b5a0e23bf9e7e6c
+source_commit: b13ad6b84c2f8eb6e8e16a75365b999142027e76
 generated_at: '2026-09-24T23:03:40-03:00'
 id: FLOW-AUTO-SAVE
 name: Auto-save com debounce a partir da edição
@@ -98,7 +98,7 @@ steps:
     direction: forward
     evidence:
     - src/lib/ipc/client.ts:99
-    - src-tauri/src/commands/mod.rs:117
+    - src-tauri/src/commands/mod.rs:118
     - src-tauri/src/lib.rs:74
     method: observed
 - step: 10
@@ -109,7 +109,7 @@ steps:
     edge: IPC-SAVE-DOCUMENT|calls|FN-WATCHER-REGISTER-INTERNAL-SAVE
     direction: forward
     evidence:
-    - src-tauri/src/commands/mod.rs:128
+    - src-tauri/src/commands/mod.rs:129
     method: observed
 - step: 11
   node: FN-ATOMIC-SAVE

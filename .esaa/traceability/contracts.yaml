@@ -1,6 +1,6 @@
 artifact: contracts
 schema_version: 1
-source_commit: bf5d9b485db1dab7eafd89ff1b5a0e23bf9e7e6c
+source_commit: b13ad6b84c2f8eb6e8e16a75365b999142027e76
 generated_at: '2026-09-25T15:18:52-03:00'
 summary:
   total: 38
@@ -46,7 +46,7 @@ contracts:
   request: '{path: string}'
   response: WorkspaceDescriptor {id, rootLabel, kind}
   evidence:
-  - src-tauri/src/commands/mod.rs:28
+  - src-tauri/src/commands/mod.rs:29
   - src/lib/ipc/client.ts:90
   - src-tauri/src/lib.rs:71
 - id: CTR-IPC-LIST-ENTRIES
@@ -65,7 +65,7 @@ contracts:
   request: '{workspaceId, relativePath}'
   response: FileEntry[] (não recursivo, ordenado por nome)
   evidence:
-  - src-tauri/src/commands/mod.rs:59
+  - src-tauri/src/commands/mod.rs:60
   - src/lib/ipc/client.ts:92
   - src-tauri/src/lib.rs:72
   divergences:
@@ -87,7 +87,7 @@ contracts:
   response: DocumentSnapshot {workspaceId, relativePath, content, encoding, mtimeMs,
     contentHash(SHA-256), version}
   evidence:
-  - src-tauri/src/commands/mod.rs:97
+  - src-tauri/src/commands/mod.rs:98
   - src/lib/ipc/client.ts:96
   - src-tauri/src/lib.rs:73
 - id: CTR-IPC-SAVE-DOCUMENT
@@ -109,7 +109,7 @@ contracts:
   response: JSON {ok:true, snapshot} | {ok:false, code:'HashMismatch'|'IoError', message};
     erro de cerca de caminho => Err(String) (promise rejeitada)
   evidence:
-  - src-tauri/src/commands/mod.rs:117
+  - src-tauri/src/commands/mod.rs:118
   - src/lib/ipc/client.ts:98
   - src-tauri/src/lib.rs:74
   divergences:
@@ -175,7 +175,7 @@ contracts:
   request: '{req: {workspaceId?, destination(absoluto), overwrite, payload: EpubExportPayload}}'
   response: EpubExportResult | Err('ExportTargetExists'|'workspace required'|OutsideWorkspace...)
   evidence:
-  - src-tauri/src/commands/mod.rs:263
+  - src-tauri/src/commands/mod.rs:264
   - src/lib/ipc/client.ts:130
   - src-tauri/src/lib.rs:77
 - id: CTR-IPC-GET-LAUNCH-PATH
@@ -434,7 +434,7 @@ contracts:
   - src-tauri/src/watcher/mod.rs:19
   - src-tauri/src/watcher/mod.rs:24
   - src/contracts/types.ts:44
-  - src/lib/ipc/client.ts:314
+  - src/lib/ipc/client.ts:315
   divergences:
   - TS WatchEvent não declara workspaceId (campo extra ignorado).
 - id: CTR-EVT-APP-OPEN-FILE

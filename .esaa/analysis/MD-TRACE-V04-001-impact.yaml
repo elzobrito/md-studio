@@ -1,0 +1,20 @@
+task_id: MD-TRACE-V04-001
+impact_summary: "Reconciliação e atualização da baseline do Grafo de Rastreabilidade Semântica de Software (TCG) para a baseline G3 pós-v0.4 com 0 nós stale e status pass no validate.py"
+affected_files:
+  - .esaa/traceability/snapshots/g2-bf5d9b4.json
+  - .esaa/traceability/snapshots/g2-validation.yaml
+  - .esaa/traceability/g3-graph-delta.md
+  - .esaa/traceability/repository.yaml
+  - .esaa/traceability/nodes.yaml
+  - .esaa/traceability/edges.yaml
+  - .esaa/traceability/contracts.yaml
+  - .esaa/traceability/invariants.yaml
+  - .esaa/traceability/entrypoints.yaml
+  - .esaa/traceability/graph.json
+  - .esaa/traceability/validation.yaml
+compatibility_analysis:
+  breaking_changes: []
+  regressions_risk: "Nenhum risco de regressão no código. O TCG é a fonte semântica de rastreabilidade do projeto, agora perfeitamente alinhada com as capacidades da v0.4."
+verification_evidence:
+  validate: "status: pass, critical: 0, warnings: 24 (source_commit_drift: 0, missing_paths_symbols: 0)"
+  build_graph: "build_graph.py completed with 774 nodes and 2618 edges"

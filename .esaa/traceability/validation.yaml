@@ -1,16 +1,16 @@
 # TRACE-013 — Validação dos artefatos de rastreabilidade (gerado por tools/validate.py; não editar à mão).
 artifact: validation
 schema_version: 1
-source_commit: bf5d9b485db1dab7eafd89ff1b5a0e23bf9e7e6c
-head: bf5d9b485db1dab7eafd89ff1b5a0e23bf9e7e6c
-generated_at: '2026-09-27T12:20:33-03:00'
+source_commit: b13ad6b84c2f8eb6e8e16a75365b999142027e76
+head: b13ad6b84c2f8eb6e8e16a75365b999142027e76
+generated_at: '2026-09-27T14:09:26-03:00'
 generator: tools/validate.py
 summary:
   status: pass
   critical_issues: 0
-  warning_issues: 24
+  warning_issues: 25
   checks_with_findings:
-    warning: 3
+    warning: 4
     info: 2
   stats:
     nodes: 554
@@ -159,9 +159,11 @@ checks:
     - FEAT-SPLASH-PACKAGING (1)
   source_commit_drift:
     severity: warning
-    description: Drift entre source_commit (bf5d9b485db1) e HEAD/working tree (âncoras continuam válidas no source_commit)
-    count: 0
-    items: []
+    description: Drift entre source_commit (b13ad6b84c2f) e HEAD/working tree (âncoras continuam válidas no source_commit)
+    count: 1
+    items:
+    - 'working tree modificado: src/components/FileExplorer.tsx — nós stale (âncora não bate no working tree): [''HDL-EXPLORER-OPEN-FOLDER'', ''HDL-EXPLORER-OPEN-FILE'', ''HDL-EXPLORER-ENTRY-CLICK'', ''BTN-EXPLORER-OPEN-FOLDER'',
+      ''BTN-EXPLORER-OPEN-FILE'']; nós com âncora ainda válida: [''CMP-FILE-EXPLORER'']; evidências no arquivo: 26'
   graph_json_stale:
     severity: warning
     description: graph.json desatualizado em relação aos artefatos

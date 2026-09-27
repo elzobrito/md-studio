@@ -7,11 +7,11 @@
     "run": {
       "run_id": "RUN-0001",
       "status": "success",
-      "last_event_seq": 3946,
-      "projection_hash_sha256": "cbdb4504e9a8a2d3b1c3f1e2d55b3d49151d2ad3aec2ca1092bda77e94636df4",
+      "last_event_seq": 3961,
+      "projection_hash_sha256": "3397a6e12f4a2b676f818a91225c1cd89bec0cc02b43703b6cdd5cc7f1b821ef",
       "verify_status": "ok"
     },
-    "updated_at": "2026-09-27T16:59:20Z"
+    "updated_at": "2026-09-27T17:10:06Z"
   },
   "project": {
     "name": "MD Studio",
@@ -12722,7 +12722,7 @@
       "task_kind": "impl",
       "title": "Reconciliação e atualização da baseline do TCG para G3 (pós-v0.4)",
       "description": "Reconciliar o Grafo de Rastreabilidade Semântica de Software (TCG) para a baseline G3 pós-v0.4. Arquivar o snapshot da baseline G2 em snapshots/g2-bf5d9b4.json, catalogar todos os novos nós de código, teste, contratos e features da v0.4, verificar arestas e gerar g3-graph-delta.md com 0 nós stale e status pass no validate.py.",
-      "status": "in_progress",
+      "status": "done",
       "depends_on": [
         "MD-BUILD-LOCAL-009"
       ],
@@ -12744,14 +12744,21 @@
       ],
       "required_review_mode": "functional",
       "assigned_to": "agent-impl",
-      "started_at": "2026-09-27T16:59:20Z"
+      "started_at": "2026-09-27T16:59:20Z",
+      "verification": {
+        "checks": [
+          "python3 .esaa/traceability/tools/build_graph.py",
+          "python3 .esaa/traceability/tools/validate.py"
+        ]
+      },
+      "completed_at": "2026-09-27T17:05:12Z"
     },
     {
       "task_id": "MD-V04-QA-001",
       "task_kind": "qa",
       "title": "QA unificada e Release Gate da v0.4 (Documentation Engineering)",
       "description": "Auditoria final, execução da suíte completa de regressão e validação dos gates da release v0.4: testes unitários (pnpm test 100% pass), typecheck (pnpm typecheck 0 erros), testes Rust (cargo test --locked 100% pass), auditoria de segurança local-first e conformidade com os contratos do produto.",
-      "status": "todo",
+      "status": "done",
       "depends_on": [
         "MD-TRACE-V04-001"
       ],
@@ -12772,14 +12779,22 @@
         "Verificação de segurança local-first (zero CDNs, zero telemetria, Path Fencing preservado)",
         "Rastreabilidade íntegra na baseline G3 com validate.py pass"
       ],
-      "required_review_mode": "release"
+      "required_review_mode": "release",
+      "assigned_to": "agent-qa",
+      "started_at": "2026-09-27T17:05:39Z",
+      "verification": {
+        "checks": [
+          "pnpm test",
+          "pnpm typecheck",
+          "cargo test --workspace --manifest-path src-tauri/Cargo.toml"
+        ]
+      },
+      "completed_at": "2026-09-27T17:10:06Z"
     }
   ],
   "indexes": {
     "by_status": {
-      "done": 325,
-      "in_progress": 1,
-      "todo": 1
+      "done": 327
     },
     "by_kind": {
       "impl": 259,

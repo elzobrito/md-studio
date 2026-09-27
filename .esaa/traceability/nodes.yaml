@@ -1,6 +1,6 @@
 artifact: nodes
 schema_version: 1
-source_commit: bf5d9b485db1dab7eafd89ff1b5a0e23bf9e7e6c
+source_commit: b13ad6b84c2f8eb6e8e16a75365b999142027e76
 generated_at: '2026-09-25T15:18:52-03:00'
 summary:
   total: 516
@@ -37,8 +37,8 @@ nodes:
     path: src/App.tsx
     symbol: App
     lines:
-    - 54
-    - 841
+    - 57
+    - 844
   alias: src/App.tsx#App
   inclusion:
   - entrypoint
@@ -80,8 +80,8 @@ nodes:
     path: src/App.tsx
     symbol: '"className={`center mode-${view}`}"'
     lines:
-    - 635
-    - 635
+    - 684
+    - 684
   alias: src/App.tsx#className={`center mode-${view}`}
   inclusion:
   - flow
@@ -152,8 +152,8 @@ nodes:
     path: src/App.tsx
     symbol: App.shortcuts
     lines:
-    - 251
-    - 482
+    - 275
+    - 506
   alias: src/App.tsx#App.shortcuts
   inclusion:
   - flow
@@ -166,8 +166,8 @@ nodes:
     path: src/App.tsx
     symbol: '"Salvar documento"'
     lines:
-    - 365
-    - 365
+    - 389
+    - 389
   alias: src/App.tsx#Salvar documento
   inclusion:
   - entrypoint
@@ -181,8 +181,8 @@ nodes:
     path: src/App.tsx
     symbol: '"Salvar como..."'
     lines:
-    - 377
-    - 377
+    - 401
+    - 401
   alias: src/App.tsx#Salvar como...
   inclusion:
   - entrypoint
@@ -196,8 +196,8 @@ nodes:
     path: src/App.tsx
     symbol: '"Abrir arquivo"'
     lines:
-    - 402
-    - 402
+    - 426
+    - 426
   alias: src/App.tsx#Abrir arquivo
   inclusion:
   - entrypoint
@@ -211,8 +211,8 @@ nodes:
     path: src/App.tsx
     symbol: '"Abrir pasta"'
     lines:
-    - 395
-    - 395
+    - 419
+    - 419
   alias: src/App.tsx#Abrir pasta
   inclusion:
   - entrypoint
@@ -226,8 +226,8 @@ nodes:
     path: src/App.tsx
     symbol: '"description: "Novo documento""'
     lines:
-    - 354
-    - 354
+    - 378
+    - 378
   alias: 'src/App.tsx#description: "Novo documento'
   inclusion:
   - entrypoint
@@ -241,8 +241,8 @@ nodes:
     path: src/App.tsx
     symbol: '"Fechar arquivo"'
     lines:
-    - 387
-    - 387
+    - 411
+    - 411
   alias: src/App.tsx#Fechar arquivo
   inclusion:
   - entrypoint
@@ -256,8 +256,8 @@ nodes:
     path: src/App.tsx
     symbol: '"Alternar Modo Apresentação"'
     lines:
-    - 347
-    - 347
+    - 371
+    - 371
   alias: src/App.tsx#Alternar Modo Apresentação
   inclusion:
   - entrypoint
@@ -438,8 +438,8 @@ nodes:
     path: src/App.tsx
     symbol: App.handleOpenNewDocument
     lines:
-    - 99
-    - 101
+    - 102
+    - 104
   alias: src/App.tsx#App.handleOpenNewDocument
   inclusion:
   - flow
@@ -452,8 +452,8 @@ nodes:
     path: src/App.tsx
     symbol: App.handleSelectTemplate
     lines:
-    - 145
-    - 152
+    - 169
+    - 176
   alias: src/App.tsx#App.handleSelectTemplate
   inclusion:
   - flow
@@ -466,8 +466,8 @@ nodes:
     path: src/App.tsx
     symbol: App.handleExportHtml
     lines:
-    - 154
-    - 166
+    - 178
+    - 190
   alias: src/App.tsx#App.handleExportHtml
   inclusion:
   - flow
@@ -480,8 +480,8 @@ nodes:
     path: src/App.tsx
     symbol: App.handleExportEpub
     lines:
-    - 168
-    - 184
+    - 192
+    - 208
   alias: src/App.tsx#App.handleExportEpub
   inclusion:
   - flow
@@ -494,8 +494,8 @@ nodes:
     path: src/App.tsx
     symbol: App.handleExportPdf
     lines:
-    - 186
-    - 195
+    - 210
+    - 219
   alias: src/App.tsx#App.handleExportPdf
   inclusion:
   - flow
@@ -508,8 +508,8 @@ nodes:
     path: src/App.tsx
     symbol: App.handleOpenFolderFromWelcome
     lines:
-    - 204
-    - 214
+    - 228
+    - 238
   alias: src/App.tsx#App.handleOpenFolderFromWelcome
   inclusion:
   - flow
@@ -522,8 +522,8 @@ nodes:
     path: src/App.tsx
     symbol: App.handleOpenFileFromWelcome
     lines:
-    - 216
-    - 230
+    - 240
+    - 254
   alias: src/App.tsx#App.handleOpenFileFromWelcome
   inclusion:
   - flow
@@ -536,8 +536,8 @@ nodes:
     path: src/App.tsx
     symbol: App.handleStartPresentation
     lines:
-    - 106
-    - 121
+    - 130
+    - 145
   alias: src/App.tsx#App.handleStartPresentation
   inclusion:
   - flow
@@ -550,8 +550,8 @@ nodes:
     path: src/App.tsx
     symbol: App.handleClosePresentation
     lines:
-    - 123
-    - 143
+    - 147
+    - 167
   alias: src/App.tsx#App.handleClosePresentation
   inclusion:
   - flow
@@ -564,8 +564,8 @@ nodes:
     path: src/App.tsx
     symbol: App.cycleRecentFile
     lines:
-    - 232
-    - 249
+    - 256
+    - 273
   alias: src/App.tsx#App.cycleRecentFile
   inclusion:
   - flow
@@ -578,8 +578,8 @@ nodes:
     path: src/App.tsx
     symbol: App.goToHeading
     lines:
-    - 504
-    - 524
+    - 528
+    - 548
   alias: src/App.tsx#App.goToHeading
   inclusion:
   - flow
@@ -592,8 +592,8 @@ nodes:
     path: src/App.tsx
     symbol: App.timer
     lines:
-    - 82
-    - 95
+    - 85
+    - 98
   alias: src/App.tsx#App.timer
   inclusion:
   - entrypoint
@@ -605,11 +605,11 @@ nodes:
   module: MOD-BACKLINKS
   anchor:
     path: src/App.tsx
-    symbol: '"onOpenOccurrence={async (path, line) => {"'
+    symbol: '"onOpenBacklinkOccurrence={async (path, line) => {"'
     lines:
-    - 758
-    - 769
-  alias: src/App.tsx#onOpenOccurrence={async (path, line) => {
+    - 787
+    - 798
+  alias: src/App.tsx#onOpenBacklinkOccurrence={async (path, line) => {
   inclusion:
   - flow
   trace_task: TRACE-004
@@ -621,8 +621,8 @@ nodes:
     path: src/App.tsx
     symbol: '"invoke("close_splash")"'
     lines:
-    - 200
-    - 200
+    - 224
+    - 224
   alias: src/App.tsx#invoke("close_splash")
   inclusion:
   - flow
@@ -635,8 +635,8 @@ nodes:
     path: src/App.tsx
     symbol: '"close_splash"'
     lines:
-    - 200
-    - 200
+    - 224
+    - 224
   alias: src/App.tsx#close_splash
   inclusion:
   - flow
@@ -799,8 +799,8 @@ nodes:
     path: src/lib/ipc/client.ts
     symbol: subscribeOpenFile
     lines:
-    - 306
-    - 319
+    - 412
+    - 425
   alias: src/lib/ipc/client.ts#subscribeOpenFile
   inclusion:
   - flow
@@ -828,8 +828,8 @@ nodes:
     path: src/lib/ipc/client.ts
     symbol: invoke
     lines:
-    - 34
-    - 40
+    - 39
+    - 45
   alias: src/lib/ipc/client.ts#invoke
   inclusion:
   - flow
@@ -842,8 +842,8 @@ nodes:
     path: src/lib/ipc/client.ts
     symbol: isTauriRuntime
     lines:
-    - 24
-    - 32
+    - 29
+    - 37
   alias: src/lib/ipc/client.ts#isTauriRuntime
   inclusion:
   - flow
@@ -856,8 +856,8 @@ nodes:
     path: src/lib/ipc/client.ts
     symbol: browserInvoke
     lines:
-    - 232
-    - 301
+    - 330
+    - 399
   alias: src/lib/ipc/client.ts#browserInvoke
   inclusion:
   - flow
@@ -870,8 +870,8 @@ nodes:
     path: src/lib/ipc/client.ts
     symbol: ipc.openWorkspace
     lines:
-    - 90
-    - 91
+    - 95
+    - 96
   alias: src/lib/ipc/client.ts#ipc.openWorkspace
   inclusion:
   - flow
@@ -885,8 +885,8 @@ nodes:
     path: src/lib/ipc/client.ts
     symbol: ipc.listEntries
     lines:
-    - 92
-    - 95
+    - 97
+    - 100
   alias: src/lib/ipc/client.ts#ipc.listEntries
   inclusion:
   - flow
@@ -900,8 +900,8 @@ nodes:
     path: src/lib/ipc/client.ts
     symbol: ipc.readDocument
     lines:
-    - 96
-    - 97
+    - 101
+    - 102
   alias: src/lib/ipc/client.ts#ipc.readDocument
   inclusion:
   - flow
@@ -915,8 +915,8 @@ nodes:
     path: src/lib/ipc/client.ts
     symbol: ipc.saveDocument
     lines:
-    - 98
-    - 114
+    - 103
+    - 119
   alias: src/lib/ipc/client.ts#ipc.saveDocument
   inclusion:
   - flow
@@ -930,8 +930,8 @@ nodes:
     path: src/lib/ipc/client.ts
     symbol: ipc.searchWorkspace
     lines:
-    - 115
-    - 125
+    - 120
+    - 130
   alias: src/lib/ipc/client.ts#ipc.searchWorkspace
   inclusion:
   - contract
@@ -945,8 +945,8 @@ nodes:
     path: src/lib/ipc/client.ts
     symbol: ipc.exportHtml
     lines:
-    - 135
-    - 138
+    - 140
+    - 143
   alias: src/lib/ipc/client.ts#ipc.exportHtml
   inclusion:
   - flow
@@ -960,8 +960,8 @@ nodes:
     path: src/lib/ipc/client.ts
     symbol: ipc.exportEpub
     lines:
-    - 139
-    - 147
+    - 144
+    - 152
   alias: src/lib/ipc/client.ts#ipc.exportEpub
   inclusion:
   - flow
@@ -975,8 +975,8 @@ nodes:
     path: src/lib/ipc/client.ts
     symbol: ipc.startWatching
     lines:
-    - 148
-    - 148
+    - 153
+    - 153
   alias: src/lib/ipc/client.ts#ipc.startWatching
   inclusion:
   - flow
@@ -990,8 +990,8 @@ nodes:
     path: src/lib/ipc/client.ts
     symbol: ipc.stopWatching
     lines:
-    - 149
-    - 149
+    - 154
+    - 154
   alias: src/lib/ipc/client.ts#ipc.stopWatching
   inclusion:
   - flow
@@ -1005,8 +1005,8 @@ nodes:
     path: src/lib/ipc/client.ts
     symbol: ipc.getLaunchPath
     lines:
-    - 151
-    - 154
+    - 156
+    - 159
   alias: src/lib/ipc/client.ts#ipc.getLaunchPath
   inclusion:
   - flow
@@ -1170,8 +1170,8 @@ nodes:
     path: src/lib/ipc/client.ts
     symbol: pickFolder
     lines:
-    - 162
-    - 183
+    - 260
+    - 281
   alias: src/lib/ipc/client.ts#pickFolder
   inclusion:
   - entrypoint
@@ -1185,8 +1185,8 @@ nodes:
     path: src/lib/ipc/client.ts
     symbol: pickMarkdownFile
     lines:
-    - 185
-    - 204
+    - 283
+    - 302
   alias: src/lib/ipc/client.ts#pickMarkdownFile
   inclusion:
   - entrypoint
@@ -1200,8 +1200,8 @@ nodes:
     path: src/lib/ipc/client.ts
     symbol: pickSaveMarkdownFile
     lines:
-    - 206
-    - 222
+    - 304
+    - 320
   alias: src/lib/ipc/client.ts#pickSaveMarkdownFile
   inclusion:
   - entrypoint
@@ -1215,8 +1215,8 @@ nodes:
     path: src/lib/ipc/client.ts
     symbol: pickSaveHtmlFile
     lines:
-    - 362
-    - 376
+    - 468
+    - 482
   alias: src/lib/ipc/client.ts#pickSaveHtmlFile
   inclusion:
   - entrypoint
@@ -1230,8 +1230,8 @@ nodes:
     path: src/lib/ipc/client.ts
     symbol: pickSaveEpubFile
     lines:
-    - 345
-    - 360
+    - 451
+    - 466
   alias: src/lib/ipc/client.ts#pickSaveEpubFile
   inclusion:
   - entrypoint
@@ -1245,8 +1245,8 @@ nodes:
     path: src/lib/ipc/client.ts
     symbol: confirmOverwrite
     lines:
-    - 378
-    - 390
+    - 484
+    - 496
   alias: src/lib/ipc/client.ts#confirmOverwrite
   inclusion:
   - entrypoint
@@ -1274,8 +1274,8 @@ nodes:
     path: src/App.tsx
     symbol: '"window.print()"'
     lines:
-    - 194
-    - 194
+    - 218
+    - 218
   alias: src/App.tsx#window.print()
   inclusion:
   - flow
@@ -1288,8 +1288,8 @@ nodes:
     path: src-tauri/src/commands/mod.rs
     symbol: open_workspace
     lines:
-    - 28
-    - 56
+    - 30
+    - 58
   alias: src-tauri/src/commands/mod.rs#open_workspace
   inclusion:
   - entrypoint
@@ -1304,8 +1304,8 @@ nodes:
     path: src-tauri/src/commands/mod.rs
     symbol: list_entries
     lines:
-    - 59
-    - 94
+    - 61
+    - 96
   alias: src-tauri/src/commands/mod.rs#list_entries
   inclusion:
   - entrypoint
@@ -1320,8 +1320,8 @@ nodes:
     path: src-tauri/src/commands/mod.rs
     symbol: read_document
     lines:
-    - 97
-    - 114
+    - 99
+    - 116
   alias: src-tauri/src/commands/mod.rs#read_document
   inclusion:
   - entrypoint
@@ -1336,8 +1336,8 @@ nodes:
     path: src-tauri/src/commands/mod.rs
     symbol: save_document
     lines:
-    - 117
-    - 160
+    - 119
+    - 162
   alias: src-tauri/src/commands/mod.rs#save_document
   inclusion:
   - entrypoint
@@ -1352,8 +1352,8 @@ nodes:
     path: src-tauri/src/commands/mod.rs
     symbol: search_workspace
     lines:
-    - 163
-    - 203
+    - 324
+    - 364
   alias: src-tauri/src/commands/mod.rs#search_workspace
   status: dead_code
   inclusion:
@@ -1370,8 +1370,8 @@ nodes:
     path: src-tauri/src/commands/mod.rs
     symbol: export_html
     lines:
-    - 216
-    - 226
+    - 377
+    - 387
   alias: src-tauri/src/commands/mod.rs#export_html
   inclusion:
   - entrypoint
@@ -1386,8 +1386,8 @@ nodes:
     path: src-tauri/src/commands/mod.rs
     symbol: export_epub
     lines:
-    - 263
-    - 268
+    - 408
+    - 413
   alias: src-tauri/src/commands/mod.rs#export_epub
   inclusion:
   - entrypoint
@@ -1402,8 +1402,8 @@ nodes:
     path: src-tauri/src/commands/mod.rs
     symbol: get_launch_path
     lines:
-    - 468
-    - 470
+    - 629
+    - 631
   alias: src-tauri/src/commands/mod.rs#get_launch_path
   inclusion:
   - entrypoint
@@ -1418,8 +1418,8 @@ nodes:
     path: src-tauri/src/commands/mod.rs
     symbol: close_splash
     lines:
-    - 473
-    - 483
+    - 634
+    - 644
   alias: src-tauri/src/commands/mod.rs#close_splash
   inclusion:
   - entrypoint
@@ -1628,8 +1628,8 @@ nodes:
     path: src-tauri/src/commands/mod.rs
     symbol: resolve_workspace_root
     lines:
-    - 237
-    - 245
+    - 398
+    - 406
   alias: src-tauri/src/commands/mod.rs#resolve_workspace_root
   inclusion:
   - flow
@@ -1642,8 +1642,8 @@ nodes:
     path: src-tauri/src/commands/mod.rs
     symbol: export_epub_in
     lines:
-    - 247
-    - 260
+    - 408
+    - 421
   alias: src-tauri/src/commands/mod.rs#export_epub_in
   inclusion:
   - flow
@@ -1926,8 +1926,8 @@ nodes:
     path: src-tauri/crates/md-studio-core/src/persistence.rs
     symbol: atomic_save
     lines:
-    - 36
-    - 62
+    - 49
+    - 75
   alias: src-tauri/crates/md-studio-core/src/persistence.rs#atomic_save
   inclusion:
   - flow
@@ -1940,8 +1940,8 @@ nodes:
     path: src-tauri/crates/md-studio-core/src/persistence.rs
     symbol: atomic_write_bytes
     lines:
-    - 66
-    - 81
+    - 95
+    - 110
   alias: src-tauri/crates/md-studio-core/src/persistence.rs#atomic_write_bytes
   inclusion:
   - flow
@@ -1968,8 +1968,8 @@ nodes:
     path: src-tauri/crates/md-studio-core/src/persistence.rs
     symbol: '".{}.tmp-{}"'
     lines:
-    - 50
-    - 50
+    - 72
+    - 72
   alias: src-tauri/crates/md-studio-core/src/persistence.rs#.{}.tmp-{}
   inclusion:
   - flow
@@ -2689,8 +2689,8 @@ nodes:
     path: src-tauri/src/commands/mod.rs
     symbol: ExportHtmlRequest
     lines:
-    - 207
-    - 213
+    - 368
+    - 374
   alias: src-tauri/src/commands/mod.rs#ExportHtmlRequest
   inclusion:
   - contract
@@ -2703,8 +2703,8 @@ nodes:
     path: src-tauri/src/commands/mod.rs
     symbol: ExportEpubRequest
     lines:
-    - 230
-    - 235
+    - 391
+    - 396
   alias: src-tauri/src/commands/mod.rs#ExportEpubRequest
   inclusion:
   - contract
@@ -2857,8 +2857,8 @@ nodes:
     path: src/contracts/types.ts
     symbol: SaveDocumentRequest
     lines:
-    - 27
-    - 32
+    - 46
+    - 51
   alias: src/contracts/types.ts#SaveDocumentRequest
   inclusion:
   - contract
@@ -2871,8 +2871,8 @@ nodes:
     path: src/contracts/types.ts
     symbol: SaveResult
     lines:
-    - 34
-    - 36
+    - 54
+    - 56
   alias: src/contracts/types.ts#SaveResult
   inclusion:
   - contract
@@ -2885,8 +2885,8 @@ nodes:
     path: src/contracts/types.ts
     symbol: SearchResult
     lines:
-    - 38
-    - 42
+    - 58
+    - 62
   alias: src/contracts/types.ts#SearchResult
   inclusion:
   - contract
@@ -2899,8 +2899,8 @@ nodes:
     path: src/contracts/types.ts
     symbol: WatchEvent
     lines:
-    - 44
-    - 45
+    - 64
+    - 65
   alias: src/contracts/types.ts#WatchEvent
   inclusion:
   - contract
@@ -2913,8 +2913,8 @@ nodes:
     path: src/contracts/types.ts
     symbol: IpcErrorCode
     lines:
-    - 47
-    - 54
+    - 67
+    - 74
   alias: src/contracts/types.ts#IpcErrorCode
   inclusion:
   - contract
@@ -3240,8 +3240,8 @@ nodes:
     path: src/lib/ipc/client.ts
     symbol: subscribeWorkspaceWatch
     lines:
-    - 323
-    - 341
+    - 429
+    - 447
   alias: src/lib/ipc/client.ts#subscribeWorkspaceWatch
   inclusion:
   - flow
@@ -3700,8 +3700,8 @@ nodes:
     path: src/components/FileExplorer.tsx
     symbol: FileExplorer
     lines:
-    - 56
-    - 315
+    - 58
+    - 317
   alias: src/components/FileExplorer.tsx#FileExplorer
   inclusion:
   - flow
@@ -3714,8 +3714,8 @@ nodes:
     path: src/components/FileExplorer.tsx
     symbol: FileExplorer.handleOpenFolder
     lines:
-    - 136
-    - 163
+    - 174
+    - 201
   alias: src/components/FileExplorer.tsx#FileExplorer.handleOpenFolder
   inclusion:
   - flow
@@ -3728,8 +3728,8 @@ nodes:
     path: src/components/FileExplorer.tsx
     symbol: FileExplorer.handleOpenFile
     lines:
-    - 165
-    - 189
+    - 203
+    - 227
   alias: src/components/FileExplorer.tsx#FileExplorer.handleOpenFile
   inclusion:
   - flow
@@ -3742,8 +3742,8 @@ nodes:
     path: src/components/FileExplorer.tsx
     symbol: FileExplorer.onEntryClick
     lines:
-    - 191
-    - 209
+    - 229
+    - 247
   alias: src/components/FileExplorer.tsx#FileExplorer.onEntryClick
   inclusion:
   - flow
@@ -3756,8 +3756,8 @@ nodes:
     path: src/components/FileExplorer.tsx
     symbol: '"onClick={() => void handleOpenFolder()}"'
     lines:
-    - 242
-    - 242
+    - 280
+    - 280
   alias: src/components/FileExplorer.tsx#onClick={() => void handleOpenFolder()}
   inclusion:
   - entrypoint
@@ -3771,8 +3771,8 @@ nodes:
     path: src/components/FileExplorer.tsx
     symbol: '"onClick={() => void handleOpenFile()}"'
     lines:
-    - 253
-    - 253
+    - 291
+    - 291
   alias: src/components/FileExplorer.tsx#onClick={() => void handleOpenFile()}
   inclusion:
   - entrypoint
@@ -3906,8 +3906,8 @@ nodes:
     path: src/editor/wiki/wiki-completion.ts
     symbol: createWikiCompletionExtensions
     lines:
-    - 123
-    - 189
+    - 188
+    - 254
   alias: src/editor/wiki/wiki-completion.ts#createWikiCompletionExtensions
   inclusion:
   - flow
@@ -3920,8 +3920,8 @@ nodes:
     path: src/editor/wiki/wiki-completion.ts
     symbol: wikiCandidates
     lines:
-    - 25
-    - 49
+    - 32
+    - 56
   alias: src/editor/wiki/wiki-completion.ts#wikiCandidates
   inclusion:
   - flow
@@ -4254,8 +4254,8 @@ nodes:
     path: src/markdown/plugins/wiki-links.ts
     symbol: rehypeWikiLinks
     lines:
-    - 18
-    - 24
+    - 26
+    - 32
   alias: src/markdown/plugins/wiki-links.ts#rehypeWikiLinks
   inclusion:
   - flow
@@ -5086,8 +5086,8 @@ nodes:
     path: src/lib/ipc/client.ts
     symbol: contentHashCache
     lines:
-    - 230
-    - 230
+    - 328
+    - 328
   alias: src/lib/ipc/client.ts#contentHashCache
   inclusion:
   - flow
@@ -6355,8 +6355,8 @@ nodes:
     path: src-tauri/crates/md-studio-core/src/index/backlink_index.rs
     symbol: empty_workspace_has_no_backlinks
     lines:
-    - 216
-    - 229
+    - 217
+    - 230
   alias: src-tauri/crates/md-studio-core/src/index/backlink_index.rs#empty_workspace_has_no_backlinks
   inclusion:
   - test
@@ -6369,8 +6369,8 @@ nodes:
     path: src-tauri/crates/md-studio-core/src/index/backlink_index.rs
     symbol: indexes_resolved_only_and_ignores_alias
     lines:
-    - 232
-    - 247
+    - 233
+    - 248
   alias: src-tauri/crates/md-studio-core/src/index/backlink_index.rs#indexes_resolved_only_and_ignores_alias
   inclusion:
   - test
@@ -6383,8 +6383,8 @@ nodes:
     path: src-tauri/crates/md-studio-core/src/index/backlink_index.rs
     symbol: skips_unresolved_ambiguous_and_unsafe_targets
     lines:
-    - 250
-    - 275
+    - 251
+    - 276
   alias: src-tauri/crates/md-studio-core/src/index/backlink_index.rs#skips_unresolved_ambiguous_and_unsafe_targets
   inclusion:
   - test
@@ -6397,8 +6397,8 @@ nodes:
     path: src-tauri/crates/md-studio-core/src/index/backlink_index.rs
     symbol: discards_self_links_before_public_store
     lines:
-    - 278
-    - 287
+    - 279
+    - 288
   alias: src-tauri/crates/md-studio-core/src/index/backlink_index.rs#discards_self_links_before_public_store
   inclusion:
   - test
@@ -6411,8 +6411,8 @@ nodes:
     path: src-tauri/crates/md-studio-core/src/index/backlink_index.rs
     symbol: indexes_unicode_resolved_targets
     lines:
-    - 290
-    - 303
+    - 291
+    - 304
   alias: src-tauri/crates/md-studio-core/src/index/backlink_index.rs#indexes_unicode_resolved_targets
   inclusion:
   - test
@@ -6425,8 +6425,8 @@ nodes:
     path: src-tauri/crates/md-studio-core/src/index/backlink_index.rs
     symbol: replace_source_is_idempotent_and_drops_old_edges
     lines:
-    - 306
-    - 330
+    - 307
+    - 331
   alias: src-tauri/crates/md-studio-core/src/index/backlink_index.rs#replace_source_is_idempotent_and_drops_old_edges
   inclusion:
   - test
@@ -6439,8 +6439,8 @@ nodes:
     path: src-tauri/crates/md-studio-core/src/index/backlink_index.rs
     symbol: remove_source_drops_incoming_edges
     lines:
-    - 333
-    - 346
+    - 334
+    - 347
   alias: src-tauri/crates/md-studio-core/src/index/backlink_index.rs#remove_source_drops_incoming_edges
   inclusion:
   - test
@@ -6453,8 +6453,8 @@ nodes:
     path: src-tauri/crates/md-studio-core/src/index/backlink_index.rs
     symbol: sorts_groups_by_title_ci_then_path_and_occurrences_line_asc
     lines:
-    - 349
-    - 377
+    - 350
+    - 378
   alias: src-tauri/crates/md-studio-core/src/index/backlink_index.rs#sorts_groups_by_title_ci_then_path_and_occurrences_line_asc
   inclusion:
   - test
@@ -6467,8 +6467,8 @@ nodes:
     path: src-tauri/crates/md-studio-core/src/index/document_metadata.rs
     symbol: test_document_metadata_serde_camel_case
     lines:
-    - 52
-    - 91
+    - 62
+    - 101
   alias: src-tauri/crates/md-studio-core/src/index/document_metadata.rs#test_document_metadata_serde_camel_case
   inclusion:
   - test
@@ -6495,8 +6495,8 @@ nodes:
     path: src-tauri/crates/md-studio-core/src/index/metadata_extractor.rs
     symbol: test_extract_metadata_comprehensive
     lines:
-    - 311
-    - 371
+    - 332
+    - 392
   alias: src-tauri/crates/md-studio-core/src/index/metadata_extractor.rs#test_extract_metadata_comprehensive
   inclusion:
   - test
@@ -6509,8 +6509,8 @@ nodes:
     path: src-tauri/crates/md-studio-core/src/index/metadata_index.rs
     symbol: test_metadata_index_operations
     lines:
-    - 85
-    - 115
+    - 86
+    - 116
   alias: src-tauri/crates/md-studio-core/src/index/metadata_index.rs#test_metadata_index_operations
   inclusion:
   - test
@@ -6523,8 +6523,8 @@ nodes:
     path: src-tauri/crates/md-studio-core/src/index/metadata_index.rs
     symbol: test_metadata_index_serde_roundtrip
     lines:
-    - 118
-    - 128
+    - 119
+    - 129
   alias: src-tauri/crates/md-studio-core/src/index/metadata_index.rs#test_metadata_index_serde_roundtrip
   inclusion:
   - test
@@ -6621,8 +6621,8 @@ nodes:
     path: src-tauri/crates/md-studio-core/src/index/wiki_resolve.rs
     symbol: resolves_exact_path_with_or_without_extension
     lines:
-    - 171
-    - 178
+    - 172
+    - 179
   alias: src-tauri/crates/md-studio-core/src/index/wiki_resolve.rs#resolves_exact_path_with_or_without_extension
   inclusion:
   - test
@@ -6635,8 +6635,8 @@ nodes:
     path: src-tauri/crates/md-studio-core/src/index/wiki_resolve.rs
     symbol: resolves_stem_and_title_case_insensitively
     lines:
-    - 181
-    - 191
+    - 182
+    - 192
   alias: src-tauri/crates/md-studio-core/src/index/wiki_resolve.rs#resolves_stem_and_title_case_insensitively
   inclusion:
   - test
@@ -6649,8 +6649,8 @@ nodes:
     path: src-tauri/crates/md-studio-core/src/index/wiki_resolve.rs
     symbol: reports_missing_unsafe_and_ambiguous_targets
     lines:
-    - 194
-    - 210
+    - 195
+    - 211
   alias: src-tauri/crates/md-studio-core/src/index/wiki_resolve.rs#reports_missing_unsafe_and_ambiguous_targets
   inclusion:
   - test
@@ -6663,8 +6663,8 @@ nodes:
     path: src-tauri/crates/md-studio-core/src/index/wiki_resolve.rs
     symbol: resolve_all_preserves_alias_and_source_line
     lines:
-    - 213
-    - 221
+    - 214
+    - 222
   alias: src-tauri/crates/md-studio-core/src/index/wiki_resolve.rs#resolve_all_preserves_alias_and_source_line
   inclusion:
   - test
@@ -7307,8 +7307,8 @@ nodes:
     path: src-tauri/src/commands/mod.rs
     symbol: export_writes_rendered_html_not_pre_stub
     lines:
-    - 277
-    - 290
+    - 438
+    - 451
   alias: src-tauri/src/commands/mod.rs#export_writes_rendered_html_not_pre_stub
   inclusion:
   - test
@@ -7321,8 +7321,8 @@ nodes:
     path: src-tauri/src/commands/mod.rs
     symbol: export_refuses_overwrite_without_flag
     lines:
-    - 293
-    - 304
+    - 454
+    - 465
   alias: src-tauri/src/commands/mod.rs#export_refuses_overwrite_without_flag
   inclusion:
   - test
@@ -7335,8 +7335,8 @@ nodes:
     path: src-tauri/src/commands/mod.rs
     symbol: export_overwrite_when_allowed
     lines:
-    - 307
-    - 318
+    - 468
+    - 479
   alias: src-tauri/src/commands/mod.rs#export_overwrite_when_allowed
   inclusion:
   - test
@@ -7349,8 +7349,8 @@ nodes:
     path: src-tauri/src/commands/mod.rs
     symbol: export_epub_request_deserializes_camel_case
     lines:
-    - 345
-    - 362
+    - 506
+    - 523
   alias: src-tauri/src/commands/mod.rs#export_epub_request_deserializes_camel_case
   inclusion:
   - test
@@ -7363,8 +7363,8 @@ nodes:
     path: src-tauri/src/commands/mod.rs
     symbol: export_epub_refuses_non_absolute_destination
     lines:
-    - 365
-    - 378
+    - 526
+    - 539
   alias: src-tauri/src/commands/mod.rs#export_epub_refuses_non_absolute_destination
   inclusion:
   - test
@@ -7377,8 +7377,8 @@ nodes:
     path: src-tauri/src/commands/mod.rs
     symbol: export_epub_requires_known_workspace_and_rejects_escape
     lines:
-    - 381
-    - 426
+    - 542
+    - 587
   alias: src-tauri/src/commands/mod.rs#export_epub_requires_known_workspace_and_rejects_escape
   inclusion:
   - test
@@ -7391,8 +7391,8 @@ nodes:
     path: src-tauri/src/commands/mod.rs
     symbol: export_epub_writes_package_and_refuses_clobber
     lines:
-    - 429
-    - 463
+    - 590
+    - 624
   alias: src-tauri/src/commands/mod.rs#export_epub_writes_package_and_refuses_clobber
   inclusion:
   - test
@@ -7907,8 +7907,8 @@ nodes:
     path: tests/panel/rightPanelAccordion.test.tsx
     symbol: '"MD-UX-RIGHT-PANEL-001: Right Panel Accordion & UX Parity"'
     lines:
-    - 12
-    - 208
+    - 13
+    - 209
   alias: 'tests/panel/rightPanelAccordion.test.tsx#MD-UX-RIGHT-PANEL-001: Right Panel
     Accordion & UX Parity'
   inclusion:

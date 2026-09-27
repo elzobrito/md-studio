@@ -91,15 +91,19 @@ export function FileExplorer(props: {
       return;
     }
     let isCancelled = false;
-    ipc.gitGetStatus(props.workspace.id)
-      .then((statuses) => {
-        if (!isCancelled && Array.isArray(statuses)) {
-          setGitStatuses(statuses);
-        }
-      })
-      .catch(() => {
-        if (!isCancelled) setGitStatuses([]);
-      });
+    if (typeof ipc.gitGetStatus === "function") {
+      ipc.gitGetStatus(props.workspace.id)
+        .then((statuses) => {
+          if (!isCancelled && Array.isArray(statuses)) {
+            setGitStatuses(statuses);
+          }
+        })
+        .catch(() => {
+          if (!isCancelled) setGitStatuses([]);
+        });
+    } else {
+      setGitStatuses([]);
+    }
     return () => {
       isCancelled = true;
     };

@@ -1,6 +1,6 @@
 artifact: entrypoints
 schema_version: 1
-source_commit: bf5d9b485db1dab7eafd89ff1b5a0e23bf9e7e6c
+source_commit: b13ad6b84c2f8eb6e8e16a75365b999142027e76
 generated_at: '2026-09-25T15:18:52-03:00'
 summary:
   total: 71
@@ -28,7 +28,7 @@ entrypoints:
   node: IPC-OPEN-WORKSPACE
   name: open_workspace
   evidence:
-  - src-tauri/src/commands/mod.rs:28
+  - src-tauri/src/commands/mod.rs:29
   - src-tauri/src/lib.rs:71
   handler:
     node: IPC-OPEN-WORKSPACE
@@ -49,7 +49,7 @@ entrypoints:
   node: IPC-LIST-ENTRIES
   name: list_entries
   evidence:
-  - src-tauri/src/commands/mod.rs:59
+  - src-tauri/src/commands/mod.rs:60
   - src-tauri/src/lib.rs:72
   handler:
     node: IPC-LIST-ENTRIES
@@ -70,7 +70,7 @@ entrypoints:
   node: IPC-READ-DOCUMENT
   name: read_document
   evidence:
-  - src-tauri/src/commands/mod.rs:97
+  - src-tauri/src/commands/mod.rs:98
   - src-tauri/src/lib.rs:73
   handler:
     node: IPC-READ-DOCUMENT
@@ -90,7 +90,7 @@ entrypoints:
   node: IPC-SAVE-DOCUMENT
   name: save_document
   evidence:
-  - src-tauri/src/commands/mod.rs:117
+  - src-tauri/src/commands/mod.rs:118
   - src-tauri/src/lib.rs:74
   handler:
     node: IPC-SAVE-DOCUMENT
@@ -150,7 +150,7 @@ entrypoints:
   node: IPC-EXPORT-EPUB
   name: export_epub
   evidence:
-  - src-tauri/src/commands/mod.rs:263
+  - src-tauri/src/commands/mod.rs:264
   - src-tauri/src/lib.rs:77
   handler:
     node: IPC-EXPORT-EPUB

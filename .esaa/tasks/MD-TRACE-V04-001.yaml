@@ -1,0 +1,24 @@
+task_id: MD-TRACE-V04-001
+title: "Reconciliação e atualização da baseline do TCG para G3 (pós-v0.4)"
+status: in_progress
+assigned_to: agent-impl
+deliverables:
+  - path: .esaa/traceability/snapshots/g2-bf5d9b4.json
+    description: "Snapshot formal arquivado da baseline G2"
+  - path: .esaa/traceability/snapshots/g2-validation.yaml
+    description: "Relatório de validação arquivado da baseline G2"
+  - path: .esaa/traceability/g3-graph-delta.md
+    description: "Relatório detalhado de delta, re-ancoragens cirúrgicas e proveniência da baseline G3"
+  - path: .esaa/traceability/graph.json
+    description: "Grafo TCG compilado e ancorado no commit G3"
+  - path: .esaa/traceability/nodes.yaml
+    description: "Nós de código re-ancorados com precisão cirúrgica"
+acceptance_criteria:
+  - "Snapshot da baseline G2 arquivado em .esaa/traceability/snapshots/g2-bf5d9b4.json: ATENDIDO"
+  - "Novos nós e testes da v0.4 catalogados e re-ancorados com precisão cirúrgica: ATENDIDO (102 nós re-ancorados, 0 símbolos ausentes)"
+  - "build_graph.py e validate.py com status pass e 0 critical: ATENDIDO (status pass, 0 critical, 24 warnings informativos)"
+  - "Relatório detalhado registrado em .esaa/traceability/g3-graph-delta.md: ATENDIDO"
+verification:
+  checks:
+    - "python3 .esaa/traceability/tools/build_graph.py"
+    - "python3 .esaa/traceability/tools/validate.py"
