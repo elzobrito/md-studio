@@ -1,7 +1,7 @@
 # TRACE-009 — Metadados, tags, estatísticas e reindexação. Passos ordenados; via = aresta de edges.yaml que liga o passo de origem (direction reverse = aresta no sentido oposto, ex.: consumes/reads/callback). trigger = início de ramo.
 artifact: metadata-refresh
 schema_version: 1
-source_commit: b13ad6b84c2f8eb6e8e16a75365b999142027e76
+source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
 generated_at: '2026-09-24T23:03:41-03:00'
 id: FLOW-METADATA-REFRESH
 name: Metadados, tags, estatísticas e reindexação
@@ -217,7 +217,7 @@ steps:
     direction: forward
     evidence:
     - src/components/explorer/WorkspaceHeader.tsx:38
-    - src/components/FileExplorer.tsx:177
+    - src/components/FileExplorer.tsx:267
     method: observed
 - step: 24
   node: IPCC-LIST-ENTRIES

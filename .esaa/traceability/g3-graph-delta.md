@@ -14,7 +14,7 @@ Este documento consolida a reconciliação e atualização da baseline do Grafo 
 A integridade histórica da evidência experimental foi preservada rigorosamente:
 - A baseline **G2** foi arquivada explicitamente em `.esaa/traceability/snapshots/g2-bf5d9b4.json` e `.esaa/traceability/snapshots/g2-validation.yaml`.
 - Todos os arquivos de análise de impacto e tarefas da onda v0.4 (`.esaa/tasks/`, `.esaa/analysis/`) foram versionados.
-- O novo snapshot **G3** ancora-se na revisão git limpa `b13ad6b84c2f8eb6e8e16a75365b999142027e76`.
+- O novo snapshot **G3** ancora-se na revisão git limpa `2e5cce855888b404654002fef1d97ebc0db29cf7` (incluindo homologação do release gate e guard em `FileExplorer.tsx`).
 - A validação oficial via `tools/validate.py` atesta **status: pass, critical: 0, warnings: 24**, eliminando o `source_commit_drift` e restabelecendo 100% da integridade do TCG.
 
 ---
@@ -23,8 +23,8 @@ A integridade histórica da evidência experimental foi preservada rigorosamente
 
 | Dimensão | Baseline G2 (Pós-Hotfixes G2) | Baseline G3 (Reconciliada v0.4) |
 |---|---|---|
-| **source_commit** | `bf5d9b485db1dab7eafd89ff1b5a0e23bf9e7e6c` | `b13ad6b84c2f8eb6e8e16a75365b999142027e76` |
-| **Commit Subject** | `feat(ux): remover fechar do sumario, fazer colapsar secoes recolher o card e recompilar app` | `feat(v0.4): implementa capabilities da onda v0.4 (MD-V04-026..041, MD-BUILD-LOCAL-009)` |
+| **source_commit** | `bf5d9b485db1dab7eafd89ff1b5a0e23bf9e7e6c` | `2e5cce855888b404654002fef1d97ebc0db29cf7` |
+| **Commit Subject** | `feat(ux): remover fechar do sumario, fazer colapsar secoes recolher o card e recompilar app` | `chore(release): homologar release gate e reconciliar baseline G3 do TCG (MD-TRACE-V04-001, MD-V04-QA-001)` |
 | **Preservação de G2** | Snapshot ativo anterior | Snapshot local arquivado em `snapshots/g2-bf5d9b4.json` |
 | **Total de Nós** | 774 | **774** |
 | **Total de Arestas** | 2618 | **2618** |
@@ -90,5 +90,5 @@ Todos os 24 warnings residuais são informativos e previstos pela modelagem can�
 1. `entrypoints_without_flow` (1): `ENT-IPC-RESOLVE-WIKI-LINK`.
 2. `tests_without_mapped_node` (13): Testes legados utilitários da infraestrutura.
 3. `invariants_with_gap` (10): Invariantes arquiteturais com `gap: true` explícito.
-4. `source_commit_drift`: **0** (perfeitamente alinhado com o commit G3 `b13ad6b84c2f8eb6e8e16a75365b999142027e76`).
+4. `source_commit_drift`: **0** (perfeitamente alinhado com o commit G3 `2e5cce855888b404654002fef1d97ebc0db29cf7`).
 5. `graph_json_stale`: **0** (`graph.json` perfeitamente sincronizado com os artefatos YAML).

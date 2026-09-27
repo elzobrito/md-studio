@@ -1,6 +1,6 @@
 artifact: nodes
 schema_version: 1
-source_commit: b13ad6b84c2f8eb6e8e16a75365b999142027e76
+source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
 generated_at: '2026-09-25T15:18:52-03:00'
 summary:
   total: 516
@@ -3701,7 +3701,7 @@ nodes:
     symbol: FileExplorer
     lines:
     - 58
-    - 317
+    - 321
   alias: src/components/FileExplorer.tsx#FileExplorer
   inclusion:
   - flow
@@ -3714,8 +3714,8 @@ nodes:
     path: src/components/FileExplorer.tsx
     symbol: FileExplorer.handleOpenFolder
     lines:
-    - 174
-    - 201
+    - 178
+    - 205
   alias: src/components/FileExplorer.tsx#FileExplorer.handleOpenFolder
   inclusion:
   - flow
@@ -3728,8 +3728,8 @@ nodes:
     path: src/components/FileExplorer.tsx
     symbol: FileExplorer.handleOpenFile
     lines:
-    - 203
-    - 227
+    - 207
+    - 231
   alias: src/components/FileExplorer.tsx#FileExplorer.handleOpenFile
   inclusion:
   - flow
@@ -3742,8 +3742,8 @@ nodes:
     path: src/components/FileExplorer.tsx
     symbol: FileExplorer.onEntryClick
     lines:
-    - 229
-    - 247
+    - 233
+    - 251
   alias: src/components/FileExplorer.tsx#FileExplorer.onEntryClick
   inclusion:
   - flow
@@ -3756,8 +3756,8 @@ nodes:
     path: src/components/FileExplorer.tsx
     symbol: '"onClick={() => void handleOpenFolder()}"'
     lines:
-    - 280
-    - 280
+    - 284
+    - 284
   alias: src/components/FileExplorer.tsx#onClick={() => void handleOpenFolder()}
   inclusion:
   - entrypoint
@@ -3771,8 +3771,8 @@ nodes:
     path: src/components/FileExplorer.tsx
     symbol: '"onClick={() => void handleOpenFile()}"'
     lines:
-    - 291
-    - 291
+    - 295
+    - 295
   alias: src/components/FileExplorer.tsx#onClick={() => void handleOpenFile()}
   inclusion:
   - entrypoint

@@ -1,6 +1,6 @@
 artifact: entrypoints
 schema_version: 1
-source_commit: b13ad6b84c2f8eb6e8e16a75365b999142027e76
+source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
 generated_at: '2026-09-25T15:18:52-03:00'
 summary:
   total: 71

@@ -1,42 +1,42 @@
 {
  "artifact": "graph",
  "schema_version": 1,
- "source_commit": "b13ad6b84c2f8eb6e8e16a75365b999142027e76",
- "generated_at": "2026-09-27T14:04:37-03:00",
+ "source_commit": "2e5cce855888b404654002fef1d97ebc0db29cf7",
+ "generated_at": "2026-09-27T14:44:04-03:00",
  "generator": "tools/build_graph.py",
  "inputs": {
-  "repository.yaml": "85c2b9a1e3ba7db84d64e6f2e01e60c94ea33585ab3fb6edbd014710587bb163",
-  "schema.yaml": "cf36ab739216e163bb879bfcfd287b42e69207cbdd9f6f9ae94de923a6fd19f6",
-  "modules.yaml": "9a942283dc60a41f52dca267e8a6964cf602a0e790d7bd1771f9ae22c4d36279",
-  "entrypoints.yaml": "4ae0c5538c0b9e3dca7365f4dc350ab7bb6cd493dd23e715e8b810366b434a47",
-  "nodes.yaml": "7a97f41b7575f62b157cdb14f06cbb0484b911839b6a595c5b59943c8796f2a6",
-  "edges.yaml": "3679dfc057bdd28df89be7ca8c95ff97b0e163bb99ea96d36945c45682454b05",
-  "contracts.yaml": "e92c5583582dfa69f5d68b41ee9238cb088c58b672d5c729f096d2369efd1a44",
-  "features.yaml": "fa21817afe8a82c00088817bd671e96bc5859daf273bb081f464ec8a40695d2b",
-  "tests.yaml": "e4a6b8509a75beda96d2dbc858b5278c52e3cf9a9f22671c599732bedfa8ea9f",
-  "invariants.yaml": "c2903c6588f2581990d44f1102bba6d08c3fac16d45d8d40caaf39a88c027b21",
-  "flows/app-boot.yaml": "cf291d4d6e49a1eecce11d1450efd10f5adebc6c49861534eb136f50e76d95da",
-  "flows/auto-save.yaml": "7e17843459e49c4b5001d4654faf9ac68df55bc81125b2d4253a039247f070a0",
-  "flows/backlinks-query.yaml": "b2920f963feae3a8007a58cf74c0cf0b3fee536725e5b85d21f1a53c212e8df9",
-  "flows/close-file.yaml": "8734f6b01149b4a02beeb5f178c2967bb0e6ffac21eb1b88bd75f88d388cdcc6",
-  "flows/conflict-on-save.yaml": "6ec53600d55ecf6d9300efdf3a34244991443c940b01aa51725d8e85d26975a5",
-  "flows/draft-recovery.yaml": "70f1fc2c993e10ac92a74f6d84fa1bffa850d5969980dadb8ed8969923a54b12",
-  "flows/editor-commands.yaml": "292151564b3156a24e4c4a205da172fd77c117b8fef1ca3601412340cf77d0b0",
-  "flows/export-epub.yaml": "3b3d3646fe76953a0d3757cdf3e55d5fbe1044860b6cbafaddee667de74936fb",
-  "flows/export-html.yaml": "93897e69e82934f3f33e67c6dfaec845bbea4a0c9b741c332d3dcc8ee0e68cba",
-  "flows/export-pdf.yaml": "613a8af0ad58d58767b06ff21c5f1731ee757956e3a8cb273a4bebdbac0e9a7d",
-  "flows/format-code-block.yaml": "b91b013f410f231903d9e14eb0064ceb14fda2223c0a4fa10f59564d3c83fa40",
-  "flows/metadata-refresh.yaml": "cfc38f87a49e0b66cf58ec2a658ec098d71fffd7f627a00d3030f410337ec02a",
-  "flows/new-document.yaml": "cfd53ebb0d2b4e9e74f08f3cc1435043e416ea90a2d52a23e806609e7c35d780",
-  "flows/open-file-from-os.yaml": "1207eab9845b299b6f53a119cb35882aae685ffdcf29ed6fa94099f3aa4ac0ff",
-  "flows/open-file.yaml": "0c35621b7f9ce79f47cbda8b93ef46f629b1dbc03d945bdd402281466227066a",
-  "flows/open-workspace.yaml": "60724891649c1e46624201741760ae6d5e1dadcf5330beaa371bb02bed210852",
-  "flows/presentation.yaml": "b5d7f374bc56836688b758bf441f9b9a11485f9a20884bfd385f5f7afb30b07d",
-  "flows/preview-render.yaml": "cda057d7fe72d4d2762c3b1ce8e2abcc8b8b335390050500cc6689003a264170",
-  "flows/save-as.yaml": "90f8401e5c324c3808d01d30f5b36fc03f04abd82eb0968fcceb8d9c84525255",
-  "flows/save-document.yaml": "bff8d83f607069bdc4ebab530001c7eac23ff47f3ee9cf92b476841743ea8d87",
-  "flows/wiki-link-resolve.yaml": "3ad9a9ab0ccc4180d7e5e6665e762856463f2b1fb92289844d33ab18001a417c",
-  "flows/workspace-search.yaml": "c82df6808c9cd4f26c5e3294d710f4e48eea5202607ceb7b8b3ab6269a9d4fb7"
+  "repository.yaml": "49d9bf856a27ca914e553dac3e96e55fe0c91ea528da1aa7d151dd0f9de12309",
+  "schema.yaml": "4981571652bdf2a437ed4f7426d8f3c1c362abfbbd94d7507bda3815daec0cc0",
+  "modules.yaml": "f0a6a2ca7614230c8fdf6ee6c5d378211218c48d22ce10ea59a8801c4f1185bd",
+  "entrypoints.yaml": "e627d4851c2f20e58977fd471709408b6134d532e8acb4bde963627c74ed4f8f",
+  "nodes.yaml": "86980ff149f3ee8b35fe8e42bf72e67fd3e1af47f4a14abc3b5689e01cb20cca",
+  "edges.yaml": "5b7d365996a6c947adfe177a0005851c1ddc119d1e3d6909148d4437810796d4",
+  "contracts.yaml": "49ccf46df938c01be67bc697bfda9082c83ae1de5aed0d04eca7ac7886d88cc9",
+  "features.yaml": "b5d19d6d6109b760f06d823d10425879c4ada4e7a3b6f8bb100e132cbbc90f1a",
+  "tests.yaml": "768f6f4a31cb691005eb76a460bd2c3fe9bb4d6d9abbabee4e0b786447ee1f15",
+  "invariants.yaml": "04697b500bb5b6b85739dc3b44151ac87e1dfcdf5823fe1ac1e0570b18bbd519",
+  "flows/app-boot.yaml": "009449860ed9238ea7d2d4968ef995899ec71742c9b3e04bbb5398380f8013f7",
+  "flows/auto-save.yaml": "d65072067e6853c7d74b669707a8396c69e3c9f6a3c95e2f33330a9a1e0340dd",
+  "flows/backlinks-query.yaml": "bdd352ec4fc52e03a55f4e599fa644128014959ab769d0559bd42709fec0ce4b",
+  "flows/close-file.yaml": "3407730dbe97de36a2455cd65173c78516c1ae4c949ade80189c8279a63737da",
+  "flows/conflict-on-save.yaml": "5ff1576678786f3612df826a0a296496646e119679a29ea24b48efa48da4d73f",
+  "flows/draft-recovery.yaml": "58b70966860901b454ffb464b554faaca16580e3a092002ec9a9c2b10c116e30",
+  "flows/editor-commands.yaml": "79a0a4eafd34ddfb308cb6bdf0cb98c98292e3e50f553c2d7e0b0d80e4c37ff8",
+  "flows/export-epub.yaml": "28af500cac04da6ecf33fc95388d92d06fa64824e353291db9992ef4cafe0f6b",
+  "flows/export-html.yaml": "b7e59577010345432845c7c5df32e0bf9175ee66b6de72d8c26d6a288f72f5ff",
+  "flows/export-pdf.yaml": "ea47f26c0eec61cc914ad591608676dc07eea304c7eb89a7f3bc7843a0b4cc6b",
+  "flows/format-code-block.yaml": "4e8cd4e2011066216a9d7b7a988f09e30efbd25ef01fc25713b6f9f32d0cfa7b",
+  "flows/metadata-refresh.yaml": "0c355557cf894eb6354b06b8d3a8886d0effcff37e7a6e59931c4fffba928ff8",
+  "flows/new-document.yaml": "c3326f020348ab9edb68e50b3f6071fa982db8a0d41d79af15a138c14245ab3f",
+  "flows/open-file-from-os.yaml": "bbf847e4c10161ea8f15aef2a1ba8463dd3ab0f1abbebbc48e5d5f89502543f8",
+  "flows/open-file.yaml": "b027a81c824e22e1bb07af2b6597031a2be135daa1d945deac4c95334324f172",
+  "flows/open-workspace.yaml": "f658f930e258a5d52645293c5eefd3c7aad0010be7f6d488a8e2275229674374",
+  "flows/presentation.yaml": "145ce57671815e15802cd1c0aa2d5b687e5b852e798c04a6dd85704a9be3397e",
+  "flows/preview-render.yaml": "aa2036d33c0026eec1865957c1c7e3a84635c184417c2ae3013885a47cb003e0",
+  "flows/save-as.yaml": "3219c64ab3f04c7bbe3a44f7869ffe75a3d444487312381cba1649c2be27d645",
+  "flows/save-document.yaml": "b926ee58c4293488bbf88eb588108b18b6637cb0ec7067b88925bff37b6253f5",
+  "flows/wiki-link-resolve.yaml": "e10f554328fe960311c87457286041ec11cb2546dfe2b4816f05f0a6fccecae1",
+  "flows/workspace-search.yaml": "c80ef88e39a0413e82490cca5fb643e12570c99e3e751dd1ec576927f642b97d"
  },
  "stats": {
   "nodes": 774,
@@ -147,8 +147,8 @@
     "path": "src/components/FileExplorer.tsx",
     "symbol": "\"onClick={() => void handleOpenFile()}\"",
     "lines": [
-     291,
-     291
+     295,
+     295
     ]
    },
    "alias": "src/components/FileExplorer.tsx#onClick={() => void handleOpenFile()}",
@@ -168,8 +168,8 @@
     "path": "src/components/FileExplorer.tsx",
     "symbol": "\"onClick={() => void handleOpenFolder()}\"",
     "lines": [
-     280,
-     280
+     284,
+     284
     ]
    },
    "alias": "src/components/FileExplorer.tsx#onClick={() => void handleOpenFolder()}",
@@ -969,7 +969,7 @@
     "symbol": "FileExplorer",
     "lines": [
      58,
-     317
+     321
     ]
    },
    "alias": "src/components/FileExplorer.tsx#FileExplorer",
@@ -7003,8 +7003,8 @@
     "path": "src/components/FileExplorer.tsx",
     "symbol": "FileExplorer.onEntryClick",
     "lines": [
-     229,
-     247
+     233,
+     251
     ]
    },
    "alias": "src/components/FileExplorer.tsx#FileExplorer.onEntryClick",
@@ -7023,8 +7023,8 @@
     "path": "src/components/FileExplorer.tsx",
     "symbol": "FileExplorer.handleOpenFile",
     "lines": [
-     203,
-     227
+     207,
+     231
     ]
    },
    "alias": "src/components/FileExplorer.tsx#FileExplorer.handleOpenFile",
@@ -7043,8 +7043,8 @@
     "path": "src/components/FileExplorer.tsx",
     "symbol": "FileExplorer.handleOpenFolder",
     "lines": [
-     174,
-     201
+     178,
+     205
     ]
    },
    "alias": "src/components/FileExplorer.tsx#FileExplorer.handleOpenFolder",
@@ -13518,7 +13518,7 @@
    "relation": "triggers",
    "evidence": [
     "src/components/explorer/WorkspaceHeader.tsx:38",
-    "src/components/FileExplorer.tsx:177"
+    "src/components/FileExplorer.tsx:267"
    ],
    "method": "observed",
    "source": "edges.yaml",
@@ -14333,7 +14333,7 @@
    "relation": "contains",
    "evidence": [
     "src/components/FileExplorer.tsx:174",
-    "src/components/FileExplorer.tsx:177"
+    "src/components/FileExplorer.tsx:267"
    ],
    "method": "observed",
    "source": "edges.yaml",
@@ -19792,7 +19792,7 @@
    "to": "BTN-EXPLORER-OPEN-FILE",
    "relation": "implemented_by",
    "evidence": [
-    "src/components/FileExplorer.tsx:291"
+    "src/components/FileExplorer.tsx:295"
    ],
    "method": "derived",
    "source": "features.yaml:entry_nodes",
@@ -19904,7 +19904,7 @@
    "to": "HDL-EXPLORER-ENTRY-CLICK",
    "relation": "implemented_by",
    "evidence": [
-    "src/components/FileExplorer.tsx:229"
+    "src/components/FileExplorer.tsx:233"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -19915,7 +19915,7 @@
    "to": "HDL-EXPLORER-OPEN-FILE",
    "relation": "implemented_by",
    "evidence": [
-    "src/components/FileExplorer.tsx:203"
+    "src/components/FileExplorer.tsx:207"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -20120,7 +20120,7 @@
    "to": "BTN-EXPLORER-OPEN-FOLDER",
    "relation": "implemented_by",
    "evidence": [
-    "src/components/FileExplorer.tsx:280"
+    "src/components/FileExplorer.tsx:284"
    ],
    "method": "derived",
    "source": "features.yaml:entry_nodes",
@@ -20320,7 +20320,7 @@
    "to": "HDL-EXPLORER-ENTRY-CLICK",
    "relation": "implemented_by",
    "evidence": [
-    "src/components/FileExplorer.tsx:229"
+    "src/components/FileExplorer.tsx:233"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -20331,7 +20331,7 @@
    "to": "HDL-EXPLORER-OPEN-FOLDER",
    "relation": "implemented_by",
    "evidence": [
-    "src/components/FileExplorer.tsx:174"
+    "src/components/FileExplorer.tsx:178"
    ],
    "method": "derived",
    "source": "features.yaml:implemented_by"
@@ -24277,7 +24277,7 @@
    "relation": "contains",
    "evidence": [
     "src/components/explorer/WorkspaceHeader.tsx:38",
-    "src/components/FileExplorer.tsx:177"
+    "src/components/FileExplorer.tsx:267"
    ],
    "method": "derived",
    "source": "flows",
@@ -24950,7 +24950,7 @@
    "to": "BTN-EXPLORER-OPEN-FILE",
    "relation": "contains",
    "evidence": [
-    "src/components/FileExplorer.tsx:291"
+    "src/components/FileExplorer.tsx:295"
    ],
    "method": "derived",
    "source": "flows",
@@ -25165,7 +25165,7 @@
    "to": "BTN-EXPLORER-OPEN-FOLDER",
    "relation": "contains",
    "evidence": [
-    "src/components/FileExplorer.tsx:280"
+    "src/components/FileExplorer.tsx:284"
    ],
    "method": "derived",
    "source": "flows",
@@ -31745,7 +31745,7 @@
    "to": "HDL-DOC-OPEN-RELATIVE",
    "relation": "calls",
    "evidence": [
-    "src/components/FileExplorer.tsx:155",
+    "src/components/FileExplorer.tsx:245",
     "src/App.tsx:615"
    ],
    "method": "observed",
@@ -31758,7 +31758,7 @@
    "to": "HDL-DOC-OPEN-FILE",
    "relation": "calls",
    "evidence": [
-    "src/components/FileExplorer.tsx:127",
+    "src/components/FileExplorer.tsx:217",
     "src/App.tsx:623"
    ],
    "method": "observed",
@@ -40073,7 +40073,7 @@
    "to": "BTN-EXPLORER-OPEN-FILE",
    "relation": "contains",
    "evidence": [
-    "src/components/FileExplorer.tsx:291"
+    "src/components/FileExplorer.tsx:295"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -40084,7 +40084,7 @@
    "to": "BTN-EXPLORER-OPEN-FOLDER",
    "relation": "contains",
    "evidence": [
-    "src/components/FileExplorer.tsx:280"
+    "src/components/FileExplorer.tsx:284"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -40447,7 +40447,7 @@
    "to": "HDL-EXPLORER-ENTRY-CLICK",
    "relation": "contains",
    "evidence": [
-    "src/components/FileExplorer.tsx:229"
+    "src/components/FileExplorer.tsx:233"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -40458,7 +40458,7 @@
    "to": "HDL-EXPLORER-OPEN-FILE",
    "relation": "contains",
    "evidence": [
-    "src/components/FileExplorer.tsx:203"
+    "src/components/FileExplorer.tsx:207"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"
@@ -40469,7 +40469,7 @@
    "to": "HDL-EXPLORER-OPEN-FOLDER",
    "relation": "contains",
    "evidence": [
-    "src/components/FileExplorer.tsx:174"
+    "src/components/FileExplorer.tsx:178"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"

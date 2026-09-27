@@ -1,6 +1,6 @@
 artifact: edges
 schema_version: 1
-source_commit: b13ad6b84c2f8eb6e8e16a75365b999142027e76
+source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
 generated_at: '2026-09-25T15:18:52-03:00'
 summary:
   total: 909
@@ -2412,7 +2412,7 @@ edges:
   relation: contains
   evidence:
   - src/components/FileExplorer.tsx:174
-  - src/components/FileExplorer.tsx:177
+  - src/components/FileExplorer.tsx:267
   method: observed
   trace_task: TRACE-005
 - id: CMP-FILE-EXPLORER|calls|FN-USE-FILE-TREE
@@ -2453,7 +2453,7 @@ edges:
   relation: triggers
   evidence:
   - src/components/explorer/WorkspaceHeader.tsx:38
-  - src/components/FileExplorer.tsx:177
+  - src/components/FileExplorer.tsx:267
   method: observed
   notes: Rotulado 'Reindexar workspace' mas aciona reload() da árvore; não chama trigger_reindex.
   trace_task: TRACE-005
@@ -2524,7 +2524,7 @@ edges:
   to: HDL-DOC-OPEN-FILE
   relation: calls
   evidence:
-  - src/components/FileExplorer.tsx:127
+  - src/components/FileExplorer.tsx:217
   - src/App.tsx:623
   method: observed
   trace_task: TRACE-005
@@ -2533,7 +2533,7 @@ edges:
   to: HDL-DOC-OPEN-RELATIVE
   relation: calls
   evidence:
-  - src/components/FileExplorer.tsx:155
+  - src/components/FileExplorer.tsx:245
   - src/App.tsx:615
   method: observed
   trace_task: TRACE-005

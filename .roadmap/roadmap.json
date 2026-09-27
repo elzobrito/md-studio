@@ -7,11 +7,11 @@
     "run": {
       "run_id": "RUN-0001",
       "status": "success",
-      "last_event_seq": 3961,
-      "projection_hash_sha256": "3397a6e12f4a2b676f818a91225c1cd89bec0cc02b43703b6cdd5cc7f1b821ef",
+      "last_event_seq": 3973,
+      "projection_hash_sha256": "231a876dba684a52c56f9d351bd90327a3dfb0e7f2cbb8fcb3b347a4348cddb5",
       "verify_status": "ok"
     },
-    "updated_at": "2026-09-27T17:10:06Z"
+    "updated_at": "2026-09-27T17:44:22Z"
   },
   "project": {
     "name": "MD Studio",
@@ -12790,14 +12790,50 @@
         ]
       },
       "completed_at": "2026-09-27T17:10:06Z"
+    },
+    {
+      "task_id": "MD-TRACE-RECONCILE-003",
+      "task_kind": "impl",
+      "title": "Reconciliação e atualização da baseline do TCG para HEAD 2e5cce8",
+      "description": "Reconciliar e atualizar o Grafo de Rastreabilidade Semântica (TCG) para o commit atual 2e5cce8. Re-ancorar os nós em FileExplorer.tsx após a adição de guard de gitGetStatus, atualizar source_commit em todos os YAMLs e regerar graph.json e validation.yaml com source_commit_drift zerado.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        ".esaa/traceability/**"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "maintenance",
+      "acceptance_criteria": [
+        "source_commit atualizado para 2e5cce855888b404654002fef1d97ebc0db29cf7 em todos os YAMLs do TCG",
+        "Nós em FileExplorer.tsx re-ancorados com precisão após as alterações do commit 2e5cce8",
+        "build_graph.py e validate.py executados com sucesso (status pass, 0 critical, 0 source_commit_drift)",
+        "g3-graph-delta.md atualizado com a reconciliação pós-release gate"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-27T17:41:39Z",
+      "verification": {
+        "checks": [
+          "source_commit atualizado para 2e5cce855888b404654002fef1d97ebc0db29cf7 em todos os YAMLs do TCG",
+          "Nós em FileExplorer.tsx re-ancorados com precisão após as alterações do commit 2e5cce8",
+          "build_graph.py e validate.py executados com sucesso (status pass, 0 critical, 0 source_commit_drift)",
+          "g3-graph-delta.md atualizado com a reconciliação pós-release gate"
+        ]
+      },
+      "completed_at": "2026-09-27T17:44:22Z"
     }
   ],
   "indexes": {
     "by_status": {
-      "done": 327
+      "done": 328
     },
     "by_kind": {
-      "impl": 259,
+      "impl": 260,
       "qa": 39,
       "spec": 29
     }
