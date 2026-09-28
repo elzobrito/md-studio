@@ -7,11 +7,11 @@
     "run": {
       "run_id": "RUN-0001",
       "status": "success",
-      "last_event_seq": 3973,
-      "projection_hash_sha256": "231a876dba684a52c56f9d351bd90327a3dfb0e7f2cbb8fcb3b347a4348cddb5",
+      "last_event_seq": 4616,
+      "projection_hash_sha256": "683c9ae2f8ffd1efc514fefbdd940c71de034291e832c5e50027d5d92b2a47bb",
       "verify_status": "ok"
     },
-    "updated_at": "2026-09-27T17:44:22Z"
+    "updated_at": "2026-09-28T23:35:22Z"
   },
   "project": {
     "name": "MD Studio",
@@ -12826,16 +12826,2043 @@
         ]
       },
       "completed_at": "2026-09-27T17:44:22Z"
+    },
+    {
+      "task_id": "MD-V05-045",
+      "task_kind": "impl",
+      "title": "Import Fidelity Classes: contrato estático de expectativa estrutural por formato",
+      "description": "Implementar os contratos e metadados estáticos de FidelityClass (High para HTML/DOCX/EPUB, Intermediate para PPTX/XLSX, Best Effort para PDF, Unknown para demais) da spec 045-import-fidelity-classes.md. Desacoplar fidelidade estrutural de avaliações subjetivas de qualidade estética ou scores percentuais.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        ".esaa/tasks/MD-V05-045.yaml",
+        "src/**"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Modelo de dados FidelityClass e explicações padronizadas congeladas",
+        "Classificação estática conforme matriz normativa (High, Intermediate, Best Effort, Unknown)",
+        "Exportação de metadados para consumo no Import Hub e Import Preview",
+        "Testes unitários cobrindo todos os formatos suportados e fallbacks"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-27T18:00:21Z",
+      "verification": {
+        "checks": [
+          "pnpm test tests/import/import-fidelity.test.ts",
+          "pnpm typecheck"
+        ]
+      },
+      "completed_at": "2026-09-27T18:02:10Z"
+    },
+    {
+      "task_id": "MD-V05-042",
+      "task_kind": "impl",
+      "title": "Import Hub: registry de DocumentImporter, detecção de formato e lifecycle de importação",
+      "description": "Implementar a infraestrutura central de importação da spec 042-import-hub.md: trait/interface DocumentImporter, registry extensível de provedores, detecção de formato por assinatura/extensão, ImportResult estruturado e lifecycle de job isolado. Garantir que a conversão não altere o arquivo de origem e que nenhuma gravação final ocorra sem confirmação.",
+      "status": "done",
+      "depends_on": [
+        "MD-V05-045"
+      ],
+      "targets": [
+        ".esaa/tasks/MD-V05-042.yaml",
+        "src/**",
+        "src-tauri/**"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Interface DocumentImporter e registry extensível de provedores locais",
+        "Detecção de formato por assinatura binária/magic numbers e fallback para extensão",
+        "Separação estrita: converter != gravar (arquivo original intocado)",
+        "Execução de conversão 100% offline sem chamadas de rede ou serviços externos",
+        "Contrato ImportResult padronizado consumindo FidelityClass"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-27T18:03:04Z",
+      "verification": {
+        "checks": [
+          "pnpm test tests/import/import-hub.test.ts",
+          "pnpm typecheck",
+          "cargo test --manifest-path src-tauri/crates/md-studio-core/Cargo.toml"
+        ]
+      },
+      "completed_at": "2026-09-27T18:07:09Z"
+    },
+    {
+      "task_id": "MD-V05-043",
+      "task_kind": "impl",
+      "title": "MarkItDown Adapter: provedor local de conversão para formatos de escritório e documentos",
+      "description": "Implementar o adapter concreto de MarkItDown conforme spec 043-markitdown-adapter.md, registrado no Import Hub. Suportar DOCX, HTML, EPUB, PPTX, XLS/XLSX, CSV, JSON, XML e PDF (best effort). Execução estritamente local (convert_local / convert_stream), sem URLs remotas, sem OCR em nuvem, sem transcrição e com timeout/cancelamento seguro.",
+      "status": "done",
+      "depends_on": [
+        "MD-V05-042"
+      ],
+      "targets": [
+        ".esaa/tasks/MD-V05-043.yaml",
+        "src/**",
+        "src-tauri/**"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Adapter de MarkItDown registrado no Import Hub cobrindo os formatos autorizados",
+        "Invocação estritamente local de arquivos/streams sem chamadas a URLs ou serviços remotos",
+        "Normalização robusta de Markdown gerado, extração de warnings e graceful degradation",
+        "Tratamento de timeout e isolamento de falhas de conversão sem quebra do app"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-27T18:07:57Z",
+      "verification": {
+        "checks": [
+          "pnpm test tests/import/markitdown-adapter.test.ts",
+          "pnpm typecheck",
+          "cargo check --manifest-path src-tauri/Cargo.toml"
+        ]
+      },
+      "completed_at": "2026-09-27T18:10:24Z"
+    },
+    {
+      "task_id": "MD-V05-044",
+      "task_kind": "impl",
+      "title": "Import Preview: revisão obrigatória de Markdown, warnings, assets e commit seguro",
+      "description": "Implementar a interface e o fluxo de revisão prévia da spec 044-import-preview.md. Renderizar o Markdown gerado em modo read-only estritamente sanitizado (sem links ativos, sem fetch remoto), exibindo contagens estruturais, warnings, FidelityClass e seletor de destino no workspace com verificação de colisão e Path Fencing. Nenhuma gravação ocorre sem confirmação explícita.",
+      "status": "done",
+      "depends_on": [
+        "MD-V05-042",
+        "MD-V05-045"
+      ],
+      "targets": [
+        ".esaa/tasks/MD-V05-044.yaml",
+        "src/**"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Interface de Import Preview exibindo Markdown gerado em modo estritamente read-only",
+        "Exibição de métricas estruturais (headings, parágrafos, tabelas, code blocks) e warnings",
+        "Seletor de destino no workspace com checagem de colisão e aplicação rigorosa de Path Fencing",
+        "Botão de confirmação de commit e descarte completo de temporários em caso de cancelamento"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-27T18:11:01Z",
+      "verification": {
+        "checks": [
+          "pnpm test tests/import/import-preview.test.ts",
+          "pnpm typecheck"
+        ]
+      },
+      "completed_at": "2026-09-27T18:13:33Z"
+    },
+    {
+      "task_id": "MD-V05-046",
+      "task_kind": "impl",
+      "title": "Publishing Engine: abstração unificada de exportação, registry e lifecycle",
+      "description": "Implementar a infraestrutura de publicação técnica da spec 046-publishing-engine.md. Definir a abstração DocumentExporter, registry central de exporters, options configuráveis por formato e lifecycle assíncrono de export job. Desacoplar exporters do DOM do preview e consolidar a entrada única de exportação no shell.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        ".esaa/tasks/MD-V05-046.yaml",
+        "src/**"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Interface DocumentExporter e registry central de exporters implementados",
+        "Lifecycle assíncrono de export job com rastreamento de progresso e cancelamento",
+        "Desacoplamento rigoroso: exportação baseada em AST/snapshot Markdown, independente do DOM de preview",
+        "Entrada unificada no shell conectada ao registry sem botões ad-hoc por formato"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-27T18:14:08Z",
+      "verification": {
+        "checks": [
+          "pnpm test tests/publishing/publishing-engine.test.ts",
+          "pnpm typecheck"
+        ]
+      },
+      "completed_at": "2026-09-27T18:15:58Z"
+    },
+    {
+      "task_id": "MD-V05-049",
+      "task_kind": "impl",
+      "title": "Fallback Editorial: política transversal de degradação legível e warnings estruturados",
+      "description": "Implementar a política transversal de publicação da spec 049-fallback-editorial.md. Assegurar a hierarquia 'máxima fidelidade -> degradação legível -> nunca perda silenciosa'. Introduzir contratos de ExportWarning estruturados e abort seguro pré-escrita quando não houver representação segura alternativa.",
+      "status": "done",
+      "depends_on": [
+        "MD-V05-046"
+      ],
+      "targets": [
+        ".esaa/tasks/MD-V05-049.yaml",
+        "src/**"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Modelo de dados ExportWarning estruturado reportando severidade, nó de origem e mensagem",
+        "Políticas de fallback legível para falhas de render em diagramas, matemática e código",
+        "Abort seguro impedindo escrita parcial/corrompida quando a falha for irrecuperável",
+        "Zero perda silenciosa de conteúdo em qualquer exportador"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-27T18:16:34Z",
+      "verification": {
+        "checks": [
+          "pnpm test tests/publishing/editorial-fallback.test.ts",
+          "pnpm typecheck"
+        ]
+      },
+      "completed_at": "2026-09-27T18:18:14Z"
+    },
+    {
+      "task_id": "MD-V05-047",
+      "task_kind": "impl",
+      "title": "HTML Autocontido: exporter offline single-file com assets e diagramas embutidos",
+      "description": "Implementar o exporter de HTML autocontido da spec 047-html-autocontido.md registrado no Publishing Engine (id=html). Gerar arquivo único (single-file) funcional 100% offline sem CDNs ou fontes remotas. Incorporar CSS, diagramas Mermaid pré-renderizados como SVG estático, KaTeX e imagens locais em base64 com Path Fencing.",
+      "status": "done",
+      "depends_on": [
+        "MD-V05-046",
+        "MD-V05-049"
+      ],
+      "targets": [
+        ".esaa/tasks/MD-V05-047.yaml",
+        "src/**",
+        "src-tauri/**"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Geração de HTML single-file que abre e opera 100% offline sem conexões de rede",
+        "Assets locais embutidos como data URIs com aplicação de Path Fencing",
+        "Diagramas Mermaid renderizados como SVGs estáticos independentes do DOM de preview",
+        "Auditoria estrita de rejeição a CDNs, Google Fonts e scripts externos"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-27T18:19:06Z",
+      "verification": {
+        "checks": [
+          "pnpm test tests/publishing/html-self-contained.test.ts",
+          "pnpm test tests/publishing/publishing-engine.test.ts",
+          "pnpm typecheck"
+        ]
+      },
+      "completed_at": "2026-09-27T18:22:06Z"
+    },
+    {
+      "task_id": "MD-V05-048",
+      "task_kind": "impl",
+      "title": "EPUB 3: integração do gerador de ebooks com o Publishing Engine",
+      "description": "Integrar a infraestrutura existente de EPUB 3 (MD-EPUB-001..007 / INSTRUCAO-EPUB-EXPORT) ao Publishing Engine conforme spec 048-epub-3.md. Padronizar como DocumentExporter (id=epub), consumindo frontmatter tipado (title, author, lang, date), empacotamento atômico em Rust via zip e tratamento de fallback para diagramas e equações.",
+      "status": "done",
+      "depends_on": [
+        "MD-V05-046",
+        "MD-V05-049"
+      ],
+      "targets": [
+        ".esaa/tasks/MD-V05-048.yaml",
+        "src/**",
+        "src-tauri/**"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Integração do exporter EPUB 3 ao registry do Publishing Engine",
+        "Validação estrita de metadados de frontmatter incluindo author e lang",
+        "Empacotamento atômico validado via EpubBuilder Rust e zip seguro",
+        "Aplicação das diretrizes de Fallback Editorial para elementos complexos"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-27T18:22:54Z",
+      "verification": {
+        "checks": [
+          "pnpm test tests/publishing/ tests/export/",
+          "pnpm typecheck"
+        ]
+      },
+      "completed_at": "2026-09-27T18:49:49Z"
+    },
+    {
+      "task_id": "MD-V05-051",
+      "task_kind": "impl",
+      "title": "Mermaid Explorer: catálogo, navegação e ampliação de diagramas no workspace",
+      "description": "Implementar o Mermaid Explorer conforme spec 051-mermaid-explorer.md. Enriquecer o MetadataIndex com registros estruturados de blocos Mermaid (path, linhas, tipo de diagrama, hash). Criar a Activity/painel no Workspace Rail para listar diagramas do documento e do workspace, navegação direta para o source no editor, modal ampliado com zoom/pan e reuso de export SVG/PNG.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        ".esaa/tasks/MD-V05-051.yaml",
+        "src/**",
+        "src-tauri/**"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Extração e indexação de registros de blocos Mermaid no MetadataIndex",
+        "Painel Mermaid Explorer no Workspace Rail com listagem por documento e workspace",
+        "Navegação bidirecional: clique no diagrama posiciona o cursor e rola o editor",
+        "Modal ampliado interativo e exportação consistente em SVG/PNG"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-27T19:01:37Z",
+      "verification": {
+        "checks": [
+          "pnpm test tests/diagrams/mermaid-explorer.test.ts",
+          "pnpm typecheck"
+        ]
+      },
+      "completed_at": "2026-09-27T20:05:54Z"
+    },
+    {
+      "task_id": "MD-V05-052-SPIKE",
+      "task_kind": "spec",
+      "title": "Spike e ADR das Diagram Engines adicionais (Graphviz, WaveDrom e viabilidade D2)",
+      "description": "Executar o spike técnico exigido pela spec 052-diagram-engines-adicionais.md para seleção de bibliotecas WASM/JS locais para Graphviz/DOT e WaveDrom. Avaliar formalmente viabilidade de D2 (licença, bundle size, dependências nativas e offline). Registrar a Architecture Decision Record em docs/spec/ADR-diagram-engines.md.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        ".esaa/tasks/MD-V05-052-SPIKE.yaml",
+        "docs/spec/ADR-diagram-engines.md"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "ADR registrada em docs/spec/ADR-diagram-engines.md com critérios de bundle, segurança e offline",
+        "Seleção de biblioteca local para Graphviz (ex: @hpcc-js/wasm ou viz.js) e WaveDrom",
+        "Decisão formal e fundamentada sobre adoção ou adiamento de D2 baseada em viabilidade",
+        "Garantia de conformidade 100% offline sem download dinâmico em runtime"
+      ],
+      "required_review_mode": "docs",
+      "assigned_to": "agent-spec",
+      "started_at": "2026-09-27T20:06:12Z",
+      "verification": {
+        "checks": [
+          "test -f docs/spec/ADR-diagram-engines.md",
+          "test -f .esaa/tasks/MD-V05-052-SPIKE.yaml"
+        ]
+      },
+      "completed_at": "2026-09-27T20:22:22Z"
+    },
+    {
+      "task_id": "MD-V05-052",
+      "task_kind": "impl",
+      "title": "Diagram Engines: registry local, preview e renderers para Graphviz e WaveDrom",
+      "description": "Implementar o DiagramEngineRegistry e os adapters offline de Graphviz e WaveDrom conforme spec 052-diagram-engines-adicionais.md e ADR aprovada. Estender o pipeline Unified de preview para reconhecer fences dot/graphviz e wavedrom, fornecendo preview com alternância de fonte, zoom e exportação consistente.",
+      "status": "done",
+      "depends_on": [
+        "MD-V05-052-SPIKE"
+      ],
+      "targets": [
+        ".esaa/tasks/MD-V05-052.yaml",
+        "src/**"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "DiagramEngineRegistry extensível com adapters lazy-loaded para Graphviz e WaveDrom",
+        "Renderização offline de blocos fenced dot/graphviz e wavedrom no preview",
+        "Sanitização rigorosa de SVG gerado e preservação do código-fonte em caso de erro",
+        "Zero impacto na inicialização ou no funcionamento do renderer Mermaid canônico"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-27T20:23:30Z",
+      "verification": {
+        "checks": [
+          "pnpm test tests/diagrams/diagram-engine-registry.test.ts",
+          "pnpm test tests/diagrams/mermaid-explorer.test.ts",
+          "pnpm typecheck"
+        ]
+      },
+      "completed_at": "2026-09-27T20:34:41Z"
+    },
+    {
+      "task_id": "MD-BUILD-LOCAL-010",
+      "task_kind": "impl",
+      "title": "Compilação e validação do binário local do MD Studio com capabilities v0.5",
+      "description": "Compilar o binário local do MD Studio com todas as capabilities da v0.5 integradas (Import Hub, Publishing Engine, Mermaid Explorer e Diagram Engines), testando no ambiente desktop Ubuntu (Wayland com compatibilidade X11/dmabuf validada em TST-TS-DESKTOP-LAUNCHER e invariante INV-DESKTOP-LAUNCHER-ENV).",
+      "status": "done",
+      "depends_on": [
+        "MD-V05-043",
+        "MD-V05-044",
+        "MD-V05-047",
+        "MD-V05-048",
+        "MD-V05-051",
+        "MD-V05-052"
+      ],
+      "targets": [
+        ".esaa/tasks/MD-BUILD-LOCAL-010.yaml",
+        "src-tauri/**"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "maintenance",
+      "acceptance_criteria": [
+        "Compilação completa via pnpm build e cargo build sem erros",
+        "Binário local funcional no ambiente desktop Ubuntu",
+        "Preservação da invariante INV-DESKTOP-LAUNCHER-ENV",
+        "Testes automatizados executando com 100% de sucesso"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-27T20:36:39Z",
+      "verification": {
+        "checks": [
+          "pnpm test tests/desktop/desktop-launcher.test.ts",
+          "pnpm build",
+          "cargo build --manifest-path src-tauri/Cargo.toml"
+        ]
+      },
+      "completed_at": "2026-09-27T20:37:18Z"
+    },
+    {
+      "task_id": "MD-TRACE-V05-001",
+      "task_kind": "impl",
+      "title": "Reconciliação e atualização da baseline do TCG para G4 (pós-v0.5)",
+      "description": "Reconciliar o Grafo de Rastreabilidade Semântica de Software (TCG) para a baseline G4 pós-v0.5. Arquivar o snapshot da baseline G3 em snapshots/g3-b13ad6b.json, catalogar todos os novos nós de código, teste, contratos e features da v0.5, verificar arestas e gerar g4-graph-delta.md com 0 nós stale e status pass no validate.py.",
+      "status": "done",
+      "depends_on": [
+        "MD-BUILD-LOCAL-010"
+      ],
+      "targets": [
+        ".esaa/traceability/**"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "maintenance",
+      "acceptance_criteria": [
+        "Snapshot da baseline G3 arquivado em .esaa/traceability/snapshots/g3-b13ad6b.json",
+        "Novos nós e testes da v0.5 catalogados e re-ancorados com precisão cirúrgica",
+        "build_graph.py e validate.py com status pass e 0 critical",
+        "Relatório detalhado registrado em .esaa/traceability/g4-graph-delta.md"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-27T20:37:47Z",
+      "verification": {
+        "checks": [
+          "python3 .esaa/traceability/tools/build_graph.py",
+          "python3 .esaa/traceability/tools/validate.py"
+        ]
+      },
+      "completed_at": "2026-09-27T23:46:33Z"
+    },
+    {
+      "task_id": "MD-V05-QA-001",
+      "task_kind": "qa",
+      "title": "QA unificada e Release Gate da v0.5 (Interoperability, Diagrams & Publishing)",
+      "description": "Auditoria final, execução da suíte completa de regressão e validação dos gates da release v0.5: testes unitários (pnpm test 100% pass), typecheck (pnpm typecheck 0 erros), testes Rust (cargo test 100% pass), auditoria de segurança local-first (zero CDNs, zero telemetria, Path Fencing preservado), verificação do comportamento legado de 050 PDF e conformidade com o TCG baseline G4.",
+      "status": "done",
+      "depends_on": [
+        "MD-TRACE-V05-001"
+      ],
+      "targets": [
+        "docs/qa/v0.5-release-gate.md"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "audit",
+      "acceptance_criteria": [
+        "100% dos testes unitários e de integração TypeScript passando",
+        "100% dos testes Rust passando no workspace",
+        "Typecheck e build de produção sem erros",
+        "Auditoria de segurança local-first e 050 classificado como reserva futura",
+        "Rastreabilidade íntegra na baseline G4 com validate.py pass"
+      ],
+      "required_review_mode": "release",
+      "assigned_to": "agent-qa",
+      "started_at": "2026-09-27T23:46:53Z",
+      "verification": {
+        "checks": [
+          "test -f docs/qa/v0.5-release-gate.md",
+          "pnpm typecheck",
+          "python3 .esaa/traceability/tools/validate.py"
+        ]
+      },
+      "completed_at": "2026-09-27T23:52:15Z"
+    },
+    {
+      "task_id": "MD-HOTFIX-V05-BOOT-001",
+      "task_kind": "impl",
+      "title": "Hotfix forense: correção de regressão de startup desktop (janela vazia / tela em branco)",
+      "description": "Investigar deterministicamente a regressão crítica de startup no desktop Linux onde a janela abre mas a UI React não renderiza. Identificar a causa raiz na fronteira v0.5, corrigir cirurgicamente, implementar smoke test de startup desktop e revalidar a suíte completa.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        ".esaa/tasks/MD-HOTFIX-V05-BOOT-001.yaml",
+        "src/**",
+        "tests/**"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "hotfix",
+      "acceptance_criteria": [
+        "Investigação forense concluída e causa raiz do boot em branco identificada com evidências",
+        "Correção cirúrgica da causa raiz aplicada no código sem degradar features da v0.5",
+        "Desktop Startup Smoke Test aprovado com binário montando a UI React normalmente",
+        "Suíte completa passando: pnpm test, pnpm typecheck, pnpm build, cargo test --workspace",
+        "TCG atualizado e reconciliado com status pass e 0 critical"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-27T23:56:53Z",
+      "verification": {
+        "checks": [
+          "pnpm test: 109 test files passed (109), 628 tests passed (628)",
+          "pnpm typecheck: 0 errors",
+          "pnpm build: clean production bundle",
+          "cargo test --workspace: 21 passed, 0 failed",
+          "bash scripts/desktop-smoke-test.sh: PASS (process healthy, window mapped, WebKit active, 0 crashes)",
+          "TCG validate.py: status pass, critical 0, stale 0"
+        ]
+      },
+      "issue_id": "ISSUE-MD-V05-BLANK-WINDOW-001",
+      "fixes": "ISSUE-MD-V05-BLANK-WINDOW-001",
+      "completed_at": "2026-09-28T01:57:28Z"
+    },
+    {
+      "task_id": "MD-BUILD-LOCAL-011",
+      "task_kind": "impl",
+      "title": "Recompilação e atualização da instalação desktop local (Show Apps)",
+      "description": "Compilar a versão de produção do MD Studio v0.5 com frontend atualizado e runtime Tauri nativo com hotfix, e instalar o binário executável em ~/.local/bin/md-studio para integração direta com o lançador desktop (Show Apps).",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "src-tauri/**",
+        "dist/**",
+        "scripts/**"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "maintenance",
+      "acceptance_criteria": [
+        "Build de produção do frontend (dist/) atualizado e verificado",
+        "Binário de release do Tauri compilado com sucesso em src-tauri/target/release/md-studio",
+        "Binário instalado em ~/.local/bin/md-studio com permissões executáveis",
+        "Desktop Startup Smoke Test executado e aprovado no binário instalado"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-28T09:58:33Z",
+      "verification": {
+        "checks": [
+          "pnpm build: frontend de producao atualizado com sucesso",
+          "cargo build --release: binario de 23MB gerado em src-tauri/target/release/md-studio",
+          "instalacao ~/.local/bin/md-studio: binario atualizado com permissoes executaveis",
+          "bash scripts/desktop-smoke-test.sh release: PASS (processo saudavel, janela mapeada, WebKit ativo, 0 crashes)",
+          "desktop launcher: update-desktop-database executado para ~/.local/share/applications"
+        ]
+      },
+      "completed_at": "2026-09-28T10:02:46Z"
+    },
+    {
+      "task_id": "MD-GUI-053-A",
+      "task_kind": "impl",
+      "title": "053-A — Inventory, Drift, Capability Rebase & TCG Reprojection",
+      "description": "Gate de admissão da onda 053. Inventariar capabilities pós-v0.5 e hotfix, mapear PROTO v6-final para arquitetura-alvo 053-R3 e produção real, construir matriz de migração PROTO->produção, auditar e reconciliar TCG de produção (G4+) eliminando drift e stale, atualizar baseline do TCG e validar integridade sem tocar em código visual.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        ".esaa/**",
+        "docs/**"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "maintenance",
+      "acceptance_criteria": [
+        "Inventário completo das capabilities de produção pós-v0.4, pós-v0.5 e hotfix Linux documentado",
+        "Matriz de migração formal PROTO NODE / SLICE -> PRODUCTION NODE / FLOW / COMPONENT -> MIGRATION ACTION construída",
+        "Auditoria e reconciliação da baseline do TCG de produção (nós, arestas, testes, contratos) com validate.py pass, critical 0 e stale 0",
+        "Nenhum código visual ou de aplicação modificado nesta tarefa (projection < first_code_edit)"
+      ],
+      "required_review_mode": "docs",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-28T10:18:54Z",
+      "verification": {
+        "checks": [
+          "python3 .esaa/traceability/tools/build_graph.py",
+          "python3 .esaa/traceability/tools/validate.py",
+          "pnpm test",
+          "cargo test --manifest-path src-tauri/Cargo.toml",
+          "bash scripts/desktop-smoke-test.sh dev"
+        ]
+      },
+      "completed_at": "2026-09-28T10:29:12Z"
+    },
+    {
+      "task_id": "MD-GUI-053-B",
+      "task_kind": "impl",
+      "title": "053-B — Spike: Content Identity, Dirty State & Save Queue",
+      "description": "Spike arquitetural: provar contentIdentity baseado em hash, undo-to-clean, redo-to-dirty, isolamento de operationGeneration, SaveTicket, uma gravação in-flight e coalescência de auto-save.",
+      "status": "done",
+      "depends_on": [
+        "MD-GUI-053-A"
+      ],
+      "targets": [
+        "src/**",
+        "tests/**",
+        "docs/**"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "contentIdentity derivado de hash determinístico; dirty independe de revision monotônica",
+        "Undo até conteúdo idêntico ao persistido restaura estado clean; Redo reativa dirty",
+        "SaveTicket vincula documentId, generation e target; late write não limpa dirty novo",
+        "Spike suite de testes automatizada validando todos os cenários de concorrência"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-28T10:33:38Z",
+      "verification": {
+        "checks": [
+          "pnpm test tests/runtime/content-identity-save-queue.test.ts",
+          "pnpm typecheck",
+          "pnpm test"
+        ]
+      },
+      "completed_at": "2026-09-28T10:37:36Z"
+    },
+    {
+      "task_id": "MD-GUI-053-C",
+      "task_kind": "impl",
+      "title": "053-C — Spike: Untitled Recovery Store",
+      "description": "Spike arquitetural: provar store privado do app para documentos sem caminho físico (untitled), persistência local, retenção, promotion em Save As e tolerância a falhas sem SQLite.",
+      "status": "done",
+      "depends_on": [
+        "MD-GUI-053-A"
+      ],
+      "targets": [
+        "src/**",
+        "tests/**",
+        "docs/**"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Documentos untitled possuem identidade estável (untitled-N) e armazenamento isolado",
+        "Crash/relaunch recovery restaura conteúdo untitled com timestamps e metadata",
+        "Save As promove o documento para arquivo real e remove do UntitledStore de forma atômica",
+        "Bateria de testes unitários para ciclo de vida completo de untitled"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-28T10:38:10Z",
+      "verification": {
+        "checks": [
+          "pnpm test tests/runtime/untitled-recovery-store.test.ts",
+          "pnpm typecheck",
+          "pnpm test"
+        ]
+      },
+      "completed_at": "2026-09-28T10:40:10Z"
+    },
+    {
+      "task_id": "MD-GUI-053-D",
+      "task_kind": "impl",
+      "title": "053-D — Spike: CodeMirror Multi-document Strategy",
+      "description": "Spike experimental e ADR: comparar estratégias de gerenciamento de EditorView CodeMirror 6 para multi-documentos (Single View + setState, Small View Pool e Recreate-on-Activate) com métricas de latência e memória.",
+      "status": "done",
+      "depends_on": [
+        "MD-GUI-053-A"
+      ],
+      "targets": [
+        "src/**",
+        "tests/**",
+        "docs/**"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Benchmark comparativo das 3 estratégias de EditorView com métricas P50/P95 e pegada de memória",
+        "Preservação de histórico undo/redo, cursor e scroll ao alternar documentos",
+        "ADR formal registrando a estratégia selecionada e diretrizes de implementação para 053-F"
+      ],
+      "required_review_mode": "docs",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-28T10:40:38Z",
+      "verification": {
+        "checks": [
+          "pnpm test tests/runtime/codemirror-multi-doc-strategy.test.ts",
+          "pnpm typecheck",
+          "pnpm test"
+        ]
+      },
+      "completed_at": "2026-09-28T10:43:18Z"
+    },
+    {
+      "task_id": "MD-GUI-053-E",
+      "task_kind": "impl",
+      "title": "053-E — Spike: Workspace Filesystem Reconciliation",
+      "description": "Spike de conciliação do filesystem: utilizar o watcher Rust notify existente para provar debounce, renomeação de arquivo/diretório, deleção externa de arquivo dirty e bursts de eventos tipo Git checkout.",
+      "status": "done",
+      "depends_on": [
+        "MD-GUI-053-A"
+      ],
+      "targets": [
+        "src/**",
+        "src-tauri/**",
+        "tests/**",
+        "docs/**"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Debounce e coalescência de eventos do watcher Rust comprovados em testes",
+        "Reconciliação sem crash para rename de diretório com arquivos abertos e delete de dirty doc",
+        "Supressão de eco confirmada para saves internos e detecção de conflitos externos"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-28T10:43:54Z",
+      "verification": {
+        "checks": [
+          "pnpm test tests/runtime/workspace-fs-reconciler.test.ts",
+          "pnpm typecheck",
+          "pnpm test"
+        ]
+      },
+      "completed_at": "2026-09-28T10:46:37Z"
+    },
+    {
+      "task_id": "MD-GUI-053-F",
+      "task_kind": "impl",
+      "title": "053-F — Multi-document Runtime (DocumentRuntime + OpenDocumentsRuntime)",
+      "description": "Implementação do runtime documental canônico: DocumentRuntime, OpenDocumentsRuntime, documentId, path index, generation, contentIdentity, persisted baseline, SaveQueue, per-document conflict/recovery e isolamento de estado editorial.",
+      "status": "done",
+      "depends_on": [
+        "MD-GUI-053-B",
+        "MD-GUI-053-C",
+        "MD-GUI-053-D",
+        "MD-GUI-053-E"
+      ],
+      "targets": [
+        "src/**",
+        "tests/**"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "OpenDocumentsRuntime e DocumentRuntime isolando estado por documentId",
+        "contentIdentity determinístico com undo-to-clean e redo-to-dirty",
+        "SaveQueue assíncrono com SaveTicket e tolerância a late write",
+        "Suíte completa de testes de integridade do runtime passando 100%"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-28T10:47:13Z",
+      "verification": {
+        "checks": [
+          "OpenDocumentsRuntime e DocumentRuntime isolando estado por documentId",
+          "contentIdentity deterministico com undo-to-clean e redo-to-dirty",
+          "SaveQueue assincrono com SaveTicket e tolerancia a late write",
+          "pnpm test tests/runtime/ 100% pass (34/34 tests)",
+          "pnpm typecheck pass"
+        ]
+      },
+      "completed_at": "2026-09-28T10:51:27Z"
+    },
+    {
+      "task_id": "MD-GUI-053-G",
+      "task_kind": "impl",
+      "title": "053-G — Semantic Pipeline & Bounded Artifact Caches",
+      "description": "Formalização dos artefatos derivados do pipeline semântico (TOC, links, referências, AST), desacoplamento completo do Inspector em relação ao DOM do Preview, guardas de descarte de resultados assíncronos obsoletos e caches LRU limitados com eviction determinística.",
+      "status": "done",
+      "depends_on": [
+        "MD-GUI-053-F"
+      ],
+      "targets": [
+        "src/**",
+        "tests/**"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "DocumentSemanticModel independente do DOM do Preview",
+        "Artefatos semânticos identificados por revision/contentIdentity",
+        "Cache LRU limitado com eviction explícita sem vazamento de memória",
+        "Testes automatizados cobrindo geração e descarte de artefatos obsoletos"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-28T10:52:09Z",
+      "verification": {
+        "checks": [
+          "DocumentSemanticModel independente do DOM do Preview",
+          "Artefatos semanticos identificados por revision/contentIdentity",
+          "Cache LRU limitado com eviction explicita sem vazamento de memoria",
+          "Testes automatizados cobrindo geracao e descarte de artefatos obsoletos (tests/runtime/semantic-pipeline-cache.test.ts 9/9 pass, full runtime 43/43 pass)",
+          "pnpm typecheck pass"
+        ]
+      },
+      "completed_at": "2026-09-28T10:53:43Z"
+    },
+    {
+      "task_id": "MD-GUI-053-H",
+      "task_kind": "impl",
+      "title": "053-H — Design Tokens & Iconography",
+      "description": "Centralização dos tokens de design (background, surface, borders, typography, spacing, radius, z-index), paridade estrita dark/light, registry de ícones locais e padronização dos tamanhos de controles e focus rings.",
+      "status": "done",
+      "depends_on": [
+        "MD-GUI-053-G"
+      ],
+      "targets": [
+        "src/**",
+        "tests/**"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Tokens CSS centralizados cobrindo toda a paleta do novo shell",
+        "Paridade estrita de contraste e cores entre temas claro e escuro",
+        "Registry de ícones locais sem dependências externas ou CDNs",
+        "Testes de consistência de design tokens passando"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-28T10:55:06Z",
+      "verification": {
+        "checks": [
+          "Tokens CSS centralizados cobrindo toda a paleta do novo shell",
+          "Paridade estrita de contraste e cores entre temas claro e escuro",
+          "Registry de icones locais sem dependencias externas ou CDNs",
+          "Testes de consistencia de design tokens passando (tests/runtime/design-tokens-icons.test.ts 6/6 pass, full runtime 49/49 pass)",
+          "pnpm typecheck pass"
+        ]
+      },
+      "completed_at": "2026-09-28T10:57:18Z"
+    },
+    {
+      "task_id": "MD-GUI-053-I",
+      "task_kind": "impl",
+      "title": "053-I — Global AppShell",
+      "description": "Implementação da estrutura visual global do novo shell: GlobalAppBar com título, brand, search trigger e ações; área de trabalho central; posicionamento do inspector direito e posicionamento da StatusBar.",
+      "status": "done",
+      "depends_on": [
+        "MD-GUI-053-H"
+      ],
+      "targets": [
+        "src/**",
+        "tests/**"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Uma única App Bar global no topo da aplicação",
+        "Superfície central flexível recebendo prioridade visual",
+        "Status Bar posicionada de forma estável no rodapé",
+        "Desktop smoke test preservado e passando"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-28T10:59:15Z",
+      "verification": {
+        "checks": [
+          "Uma unica App Bar global no topo da aplicacao",
+          "Superficie central flexivel recebendo prioridade visual",
+          "Status Bar posicionada de forma estavel no rodape",
+          "Desktop smoke test preservado e passando (bash scripts/desktop-smoke-test.sh PASS)",
+          "tests/runtime/global-app-shell.test.ts 4/4 pass, full runtime 53/53 pass",
+          "pnpm typecheck pass"
+        ]
+      },
+      "completed_at": "2026-09-28T11:02:30Z"
+    },
+    {
+      "task_id": "MD-GUI-053-J",
+      "task_kind": "impl",
+      "title": "053-J — Integrated Workspace Sidebar",
+      "description": "Unificação da navegação lateral esquerda: sidebar única integrando FileTree, header com nome do workspace, quick actions, settings e aposentadoria visual da WorkspaceRail separada sem perda de capacidades.",
+      "status": "done",
+      "depends_on": [
+        "MD-GUI-053-I"
+      ],
+      "targets": [
+        "src/**",
+        "tests/**"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Sidebar única à esquerda integrando árvore de arquivos e utilitários",
+        "Nenhuma WorkspaceRail visual separada concorrendo por espaço",
+        "Todas as capabilities da WorkspaceRail preservadas e acessíveis",
+        "Suíte de testes de integração da sidebar passando"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-28T11:03:14Z",
+      "verification": {
+        "checks": [
+          "Sidebar unica a esquerda integrando arvore de arquivos e utilitarios",
+          "Nenhuma WorkspaceRail visual separada concorrendo por espaco",
+          "Todas as capabilities da WorkspaceRail preservadas e acessiveis",
+          "Suite de testes de integracao da sidebar passando (tests/runtime/integrated-sidebar.test.ts 3/3 pass, full runtime 56/56 pass)",
+          "pnpm typecheck pass"
+        ]
+      },
+      "completed_at": "2026-09-28T11:06:18Z"
+    },
+    {
+      "task_id": "MD-GUI-053-K",
+      "task_kind": "impl",
+      "title": "053-K — Workspace Home Semantics",
+      "description": "Semântica e interface do Workspace Home: CTA prioritário 'Abrir Workspace', abertura de pasta como visão do filesystem sem conversão ou formato proprietário, 'Abrir Arquivo', 'Novo Documento', eliminação de auto-open do primeiro .md e representação de readiness do índice.",
+      "status": "done",
+      "depends_on": [
+        "MD-GUI-053-I"
+      ],
+      "targets": [
+        "src/**",
+        "tests/**"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "CTA principal 'Abrir Workspace' com semântica de pasta local-first",
+        "Nenhum primeiro arquivo arbitrário é aberto automaticamente ao abrir workspace",
+        "Abrir Arquivo e Novo Documento permanecem plenamente disponíveis",
+        "Testes de ciclo de vida do Workspace Home passando"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-28T11:07:46Z",
+      "verification": {
+        "checks": [
+          "CTA principal 'Abrir Workspace' com semantica de pasta local-first",
+          "Nenhum primeiro arquivo arbitrario e aberto automaticamente ao abrir workspace",
+          "Abrir Arquivo e Novo Documento permanecem plenamente disponiveis",
+          "Testes de ciclo de vida do Workspace Home passando (tests/runtime/workspace-home-semantics.test.ts 3/3 pass, full runtime 59/59 pass)",
+          "pnpm typecheck pass"
+        ]
+      },
+      "completed_at": "2026-09-28T11:11:32Z"
+    },
+    {
+      "task_id": "MD-GUI-053-L",
+      "task_kind": "impl",
+      "title": "053-L — DocumentTabs & DocumentBar",
+      "description": "Projeção visual de abas sobre o OpenDocumentsRuntime: tabs com detecção de duplicatas por path canônico, dirty badge derivado de hash, troca rápida, fechamento seguro com save guard, reordenação, overflow, navegação por teclado e DocumentBar superior com path e persistência.",
+      "status": "done",
+      "depends_on": [
+        "MD-GUI-053-J",
+        "MD-GUI-053-K"
+      ],
+      "targets": [
+        "src/**",
+        "tests/**"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Múltiplos documentos abertos em abas sincronizadas com OpenDocumentsRuntime",
+        "Mesmo arquivo em disco nunca duplica aba",
+        "Dirty badge indica equivalência com disco; fechar aba dirty aciona save guard",
+        "Suíte de testes de interface de abas passando 100%"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-28T11:12:12Z",
+      "verification": {
+        "checks": [
+          "Múltiplos documentos abertos em abas sincronizadas com OpenDocumentsRuntime",
+          "Mesmo arquivo em disco nunca duplica aba",
+          "Dirty badge indica equivalência com disco; fechar aba dirty aciona save guard",
+          "Suíte de testes de interface de abas passando 100% (tests/runtime/document-tabs-bar.test.ts 3/3 pass, full runtime 62/62 pass)",
+          "pnpm typecheck pass"
+        ]
+      },
+      "completed_at": "2026-09-28T11:16:55Z"
+    },
+    {
+      "task_id": "MD-GUI-053-M",
+      "task_kind": "impl",
+      "title": "053-M — Bidirectional Split Layout",
+      "description": "Implementação do layout bipartido flexível: orientação vertical e horizontal, resizer responsivo, persistência de proporções de divisão, scroll sync contextual e suporte a maximização reversível.",
+      "status": "done",
+      "depends_on": [
+        "MD-GUI-053-L"
+      ],
+      "targets": [
+        "src/**",
+        "tests/**"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Alternância fluida entre split vertical e horizontal",
+        "Redimensionamento com persistência de proporção sem clipping",
+        "Scroll sync preservado entre editor e preview",
+        "Testes de split layout passando 100%"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-28T11:18:00Z",
+      "verification": {
+        "checks": [
+          "Alternância fluida entre split vertical e horizontal via controles no DocumentBar e atalho Alt+O",
+          "Redimensionamento com persistência de proporção sem clipping (localStorage independente por orientação)",
+          "Scroll sync preservado entre editor e preview tanto em vertical quanto horizontal via useScrollSync",
+          "Testes de split layout passando 100% (tests/runtime/split-layout.test.ts 7/7 pass, full runtime 69/69 pass)",
+          "pnpm typecheck pass"
+        ]
+      },
+      "completed_at": "2026-09-28T11:22:33Z"
+    },
+    {
+      "task_id": "MD-GUI-053-N",
+      "task_kind": "impl",
+      "title": "053-N — Preview Surface",
+      "description": "Superfície de preview com toolbar integrada: submodos feature-gated com cardinalidade dinâmica (View, View | HTML, View | HTML | Diff), controle de zoom sem deformação de layout, maximização reversível e integração com Diagram Engines.",
+      "status": "done",
+      "depends_on": [
+        "MD-GUI-053-L"
+      ],
+      "targets": [
+        "src/**",
+        "tests/**"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Toolbar de preview com submodos (Visualização, HTML, Diff) sem slots vazios",
+        "Diff real entre buffer atual e conteúdo gravado em disco (sem algoritmo ingênuo)",
+        "Zoom de preview operando sem vazamento de dimensões no layout externo",
+        "Suíte de testes de preview passando"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-28T11:23:27Z",
+      "verification": {
+        "checks": [
+          "Toolbar de preview com submodos (Visualização, HTML, Diff) sem slots vazios e cardinalidade adaptativa",
+          "Diff real entre buffer atual e conteúdo gravado em disco baseado no algoritmo determinístico LCS de historyDiff.ts",
+          "Zoom de preview operando tipograficamente sem vazamento de dimensões no layout externo via CSS custom properties",
+          "Suíte de testes de preview passando 100% (tests/runtime/preview-surface.test.ts 7/7 pass, full runtime 76/76 pass)",
+          "pnpm typecheck pass"
+        ]
+      },
+      "completed_at": "2026-09-28T11:28:15Z"
+    },
+    {
+      "task_id": "MD-GUI-053-O",
+      "task_kind": "impl",
+      "title": "053-O — Unified Inspector",
+      "description": "Evolução do painel direito para o Inspector unificado: seções contextuais de Sumário (TOC), Links citados, Backlinks, Estatísticas e Diagramas, alimentadas exclusivamente pelo modelo semântico canônico sem dependência do Preview.",
+      "status": "done",
+      "depends_on": [
+        "MD-GUI-053-L"
+      ],
+      "targets": [
+        "src/**",
+        "tests/**"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Inspector unificado contextual à direita alimentado por providers reais",
+        "Sumário (TOC) funcional e reativo a edições sem depender do DOM do Preview",
+        "Seções de Links, Backlinks e Diagramas integradas com navegação bidirecional",
+        "Testes automatizados do Inspector passando 100%"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-28T11:29:33Z",
+      "verification": {
+        "checks": [
+          "Inspector unificado contextual à direita alimentado por providers reais (DocumentOutline, OutgoingLinksPanel, BacklinksPanel, DocumentInspector, WorkspaceHealthPanel)",
+          "Sumário (TOC) funcional e reativo a edições sem depender do DOM do Preview (extração pura sobre AST semântica)",
+          "Seções de Links, Backlinks e Diagramas integradas com navegação bidirecional",
+          "Testes automatizados do Inspector passando 100% (tests/runtime/unified-inspector.test.ts 3/3 pass, full runtime 79/79 pass)",
+          "pnpm typecheck pass"
+        ]
+      },
+      "completed_at": "2026-09-28T11:34:30Z"
+    },
+    {
+      "task_id": "MD-GUI-053-P",
+      "task_kind": "impl",
+      "title": "053-P — Status & Persistence Feedback",
+      "description": "Exposição do estado de persistência por documento (saved, modified, saving, conflicted, missing, error), contadores editoriais na StatusBar e sincronização de metadados em tempo real.",
+      "status": "done",
+      "depends_on": [
+        "MD-GUI-053-L"
+      ],
+      "targets": [
+        "src/**",
+        "tests/**"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Estados de sincronização exibidos com precisão na StatusBar e DocumentBar",
+        "Feedback visual não intrusivo para operações de save assíncrono",
+        "Testes de renderização de status passando 100%"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-28T11:35:36Z",
+      "verification": {
+        "checks": [
+          "Estados de sincronização exibidos com precisão na StatusBar e DocumentBar (saved, modified, saving, unsaved, conflicted, missing, error)",
+          "Feedback visual não intrusivo para operações de save assíncrono com dot colorido, rótulo textual e acessibilidade ARIA",
+          "Testes de renderização de status passando 100% (tests/runtime/status-persistence-feedback.test.ts 10/10 pass, full runtime 89/89 pass)",
+          "pnpm typecheck pass"
+        ]
+      },
+      "completed_at": "2026-09-28T11:38:28Z"
+    },
+    {
+      "task_id": "MD-GUI-053-Q",
+      "task_kind": "impl",
+      "title": "053-Q — Settings, Modals & Toasts",
+      "description": "Adaptação do painel unificado de configurações, modais e notificações toast: ciclo de vida acessível de diálogos com restore de foco e persistência consistente.",
+      "status": "done",
+      "depends_on": [
+        "MD-GUI-053-L"
+      ],
+      "targets": [
+        "src/**",
+        "tests/**"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "SettingsPanel acessível via atalhos e sidebar preservando todas as opções",
+        "Modais com ciclo de vida acessível e gerenciamento estrito de foco",
+        "Toasts em live regions acessíveis sem interceptar cliques",
+        "Testes de modais e settings passando 100%"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-28T11:40:00Z",
+      "verification": {
+        "checks": [
+          "pnpm vitest run tests/runtime/settings-modals-toasts.test.ts",
+          "pnpm typecheck",
+          "pnpm vitest run tests/runtime/"
+        ]
+      },
+      "completed_at": "2026-09-28T11:47:09Z"
+    },
+    {
+      "task_id": "MD-GUI-053-R",
+      "task_kind": "impl",
+      "title": "053-R — Keyboard & Accessibility",
+      "description": "Auditoria e implementação completa de acessibilidade WAI-ARIA: conformidade de teclado para treeview, tablist, modais, menus popup, controles com estado (aria-pressed), accordions, recent files e suporte a prefers-reduced-motion.",
+      "status": "done",
+      "depends_on": [
+        "MD-GUI-053-M",
+        "MD-GUI-053-N",
+        "MD-GUI-053-O",
+        "MD-GUI-053-P",
+        "MD-GUI-053-Q"
+      ],
+      "targets": [
+        "src/**",
+        "tests/**"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Navegação por teclado completa em tabs, árvore, modais e menus",
+        "Atributos WAI-ARIA e live regions anunciando estados corretamente",
+        "Contraste visual aprovado em temas dark e light com foco visível",
+        "Testes de acessibilidade passando 100%"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-28T11:47:31Z",
+      "verification": {
+        "checks": [
+          "pnpm vitest run tests/runtime/accessibility-keyboard.test.ts",
+          "pnpm typecheck",
+          "pnpm vitest run tests/runtime/"
+        ]
+      },
+      "completed_at": "2026-09-28T11:52:32Z"
+    },
+    {
+      "task_id": "MD-GUI-053-S",
+      "task_kind": "impl",
+      "title": "053-S — Responsive Desktop & Performance",
+      "description": "Otimização de desempenho e responsividade desktop: matriz de viewports (incluindo narrow desktop), orçamento de memória multi-abas, benchmark de workspaces grandes (500+ arquivos), digitação sem atrasos e prevenção de reindexação em ações de chrome.",
+      "status": "done",
+      "depends_on": [
+        "MD-GUI-053-R"
+      ],
+      "targets": [
+        "src/**",
+        "tests/**",
+        "docs/**"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Validação em múltiplas resoluções desktop sem overflow ou clipping",
+        "Operações de chrome (resize, toggle sidebar) não disparam reparse de AST",
+        "Consumo de memória estável com múltiplos documentos abertos",
+        "Testes de regressão de performance passando"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-28T11:53:07Z",
+      "verification": {
+        "checks": [
+          "pnpm vitest run tests/runtime/responsive-performance.test.ts",
+          "pnpm typecheck",
+          "pnpm vitest run tests/runtime/"
+        ]
+      },
+      "completed_at": "2026-09-28T11:57:12Z"
+    },
+    {
+      "task_id": "MD-GUI-053-T",
+      "task_kind": "impl",
+      "title": "053-T — Migration Cleanup & Full Regression",
+      "description": "Limpeza final de código legado e regressão completa: remoção de CSS morto, componentes órfãos e chrome redundante após atingir feature parity; execução das suítes completas de testes unitários, testes Rust, smoke tests desktop, pipeline de segurança e homologação final da release.",
+      "status": "done",
+      "depends_on": [
+        "MD-GUI-053-S"
+      ],
+      "targets": [
+        "src/**",
+        "src-tauri/**",
+        "tests/**",
+        "docs/**",
+        ".esaa/**"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "release",
+      "acceptance_criteria": [
+        "Remoção limpa de código, seletores CSS e componentes obsoletos sem quebra de paridade",
+        "Full test pass: Vitest (100%), Cargo (100%), Typecheck (0 erros)",
+        "Desktop Startup Smoke Test aprovado",
+        "Relatório final de QA gerado em docs/qa/053-nova-gui.md"
+      ],
+      "required_review_mode": "release",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-28T11:57:44Z",
+      "verification": {
+        "checks": [
+          "pnpm vitest run",
+          "pnpm typecheck",
+          "cargo test",
+          "bash scripts/desktop-smoke-test.sh"
+        ]
+      },
+      "completed_at": "2026-09-28T12:07:38Z"
+    },
+    {
+      "task_id": "HF-ISSUE-MD-GUI-053-Q-SETTINGS-ARIA-001",
+      "task_kind": "impl",
+      "title": "Hotfix for ISSUE-MD-GUI-053-Q-SETTINGS-ARIA-001",
+      "description": "Apply a minimal hotfix to resolve issue ISSUE-MD-GUI-053-Q-SETTINGS-ARIA-001 without regressing immutable done tasks.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "ISSUE-MD-GUI-053-Q-SETTINGS-ARIA-001"
+      ],
+      "outputs": {
+        "files": [
+          "src/hotfix/HF-ISSUE-MD-GUI-053-Q-SETTINGS-ARIA-001.txt"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "is_hotfix": true,
+      "issue_id": "ISSUE-MD-GUI-053-Q-SETTINGS-ARIA-001",
+      "fixes": "MD-GUI-053-Q",
+      "scope_patch": [
+        "src/components/settings/SettingsPanel.tsx",
+        "tests/settings/settingsPanel.test.tsx"
+      ],
+      "required_verification": [
+        "unit",
+        "regression"
+      ],
+      "baseline_id": "B-000",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-28T11:57:18Z",
+      "verification": {
+        "checks": [
+          "pnpm exec vitest run --maxWorkers=1 tests/settings/ tests/runtime/settings-modals-toasts.test.ts: 4 files, 22/22 tests passed in the current checkout after the governed follow-up update.",
+          "pnpm typecheck: tsc -b --pretty false passed in the current checkout after the governed follow-up update."
+        ]
+      },
+      "completed_at": "2026-09-28T12:27:33Z"
+    },
+    {
+      "task_id": "HF-ISSUE-MD-GUI-HOTFIX-SCOPE-OUTPUT-001",
+      "task_kind": "impl",
+      "title": "Hotfix for ISSUE-MD-GUI-HOTFIX-SCOPE-OUTPUT-001",
+      "description": "Apply a minimal hotfix to resolve issue ISSUE-MD-GUI-HOTFIX-SCOPE-OUTPUT-001 without regressing immutable done tasks.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "ISSUE-MD-GUI-HOTFIX-SCOPE-OUTPUT-001"
+      ],
+      "outputs": {
+        "files": [
+          "src/hotfix/HF-ISSUE-MD-GUI-HOTFIX-SCOPE-OUTPUT-001.txt"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "is_hotfix": true,
+      "issue_id": "ISSUE-MD-GUI-HOTFIX-SCOPE-OUTPUT-001",
+      "fixes": "MD-GUI-053-Q",
+      "scope_patch": [
+        "src/hotfix/",
+        "src/components/settings/SettingsPanel.tsx",
+        "tests/settings/settingsPanel.test.tsx"
+      ],
+      "required_verification": [
+        "unit",
+        "regression"
+      ],
+      "baseline_id": "B-000",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-28T12:18:11Z",
+      "verification": {
+        "checks": [
+          "pnpm exec vitest run --maxWorkers=1 tests/settings/ tests/runtime/settings-modals-toasts.test.ts: 4 files, 22/22 tests passed in a candidate mirror of the current checkout.",
+          "pnpm typecheck: tsc -b --pretty false passed in the candidate mirror."
+        ]
+      },
+      "completed_at": "2026-09-28T12:24:04Z"
+    },
+    {
+      "task_id": "MD-HOTFIX-SPLASH-BOOT",
+      "task_kind": "impl",
+      "title": "Restaurar splashscreen e ciclo de vida do boot no desktop Linux",
+      "description": "Restaurar splashscreen e ciclo de vida do boot no desktop Linux",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "src-tauri/tauri.conf.json",
+        "src-tauri/src/lib.rs"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "hotfix",
+      "acceptance_criteria": [
+        "Janela splashscreen restaurada com url splashscreen.html",
+        "Janela main com visible: false no boot",
+        "Watchdog de seguranca de 6s restaurado em lib.rs",
+        "Binario compilado em release e smoke test aprovado"
+      ],
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-28T12:49:51Z",
+      "verification": {
+        "checks": [
+          "cargo test: 21 passed",
+          "desktop smoke test: PASS",
+          "splashscreen and watchdog restored"
+        ]
+      },
+      "completed_at": "2026-09-28T12:57:49Z"
+    },
+    {
+      "task_id": "MD-HOTFIX-RELEASE-DIST",
+      "task_kind": "impl",
+      "title": "Compilacao e distribuicao da release com validacao visual do launcher",
+      "description": "Compilacao e distribuicao da release com validacao visual do launcher",
+      "status": "done",
+      "depends_on": [
+        "MD-HOTFIX-SPLASH-BOOT"
+      ],
+      "targets": [
+        "src-tauri/Cargo.toml",
+        "scripts/desktop-smoke-test.sh"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "release",
+      "acceptance_criteria": [
+        "Binario compilado em release e copiado para ~/.local/bin/md-studio",
+        "Smoke test de inicializacao desktop PASS",
+        "Ciclo de vida do splashscreen validado"
+      ],
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-28T12:58:04Z",
+      "verification": {
+        "checks": [
+          "binary copied to ~/.local/bin/md-studio",
+          "desktop smoke test PASS",
+          "splashscreen lifecycle validated"
+        ]
+      },
+      "completed_at": "2026-09-28T12:58:32Z"
+    },
+    {
+      "task_id": "MD-MAINT-CLEAN-BUILD-001",
+      "task_kind": "impl",
+      "title": "Limpeza de artefatos de build e cache",
+      "description": "Limpeza completa de artefatos de compilacao dist/ e src-tauri/target/",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "dist/**",
+        "src-tauri/target/**"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "maintenance",
+      "acceptance_criteria": [
+        "Artefatos de build dist e target removidos"
+      ],
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-28T13:45:20Z",
+      "verification": {
+        "checks": [
+          "dist e target removidos: 27.5GiB liberados"
+        ]
+      },
+      "completed_at": "2026-09-28T13:45:51Z"
+    },
+    {
+      "task_id": "MD-HOTFIX-BOOT-SNAP-001",
+      "task_kind": "impl",
+      "title": "Simplificacao de boot direto do Tauri e preparacao do Snap v0.5",
+      "description": "Eliminacao de splashscreen concorrente no Tauri, abertura direta da janela main e preparacao de snapcraft.yaml para v0.5",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "src-tauri/tauri.conf.json",
+        "src-tauri/src/lib.rs",
+        "src-tauri/src/commands/mod.rs",
+        "src/App.tsx",
+        "snap/snapcraft.yaml"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "hotfix",
+      "acceptance_criteria": [
+        "Janela principal do Tauri abre diretamente sem splashscreen intermediario",
+        "Configuracao do snapcraft atualizada para v0.5 com extensao gnome e core24",
+        "Verificacao automatizada de testes e tipos aprovada"
+      ],
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-28T13:58:04Z",
+      "verification": {
+        "checks": [
+          "Tauri boot simplified: direct main window, no splashscreen conflict",
+          "pnpm typecheck: 0 errors",
+          "cargo check: Finished dev profile with 0 errors",
+          "snapcraft.yaml: updated to v0.5.0 with core24 and gnome extension"
+        ]
+      },
+      "completed_at": "2026-09-28T14:06:01Z"
+    },
+    {
+      "task_id": "MD-RELEASE-SNAP-V05-001",
+      "task_kind": "impl",
+      "title": "Compilacao do pacote snap md-studio_0.5.0_amd64.snap",
+      "description": "Compilar o pacote snap md-studio_0.5.0_amd64.snap com snapcraft core24 para teste e instalacao local",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "snap/snapcraft.yaml",
+        "*.snap"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "*.snap"
+      ],
+      "task_type": "release",
+      "acceptance_criteria": [
+        "Compilacao do pacote snap md-studio_0.5.0_amd64.snap concluida com sucesso"
+      ],
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-28T14:17:07Z",
+      "verification": {
+        "checks": [
+          "Pacote snap md-studio_0.5.0_amd64.snap compilado com sucesso (9.3MB, core24, gnome extension)"
+        ]
+      },
+      "completed_at": "2026-09-28T16:34:18Z"
+    },
+    {
+      "task_id": "MD-HOTFIX-WINDOW-URL-001",
+      "task_kind": "impl",
+      "title": "Configuracao explicita de url index.html na janela principal do Tauri",
+      "description": "Definir url: index.html na janela main em tauri.conf.json para corrigir carregamento em branco (about:blank) no WebKitGTK",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "src-tauri/tauri.conf.json"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "hotfix",
+      "acceptance_criteria": [
+        "Janela principal carrega tauri://localhost/index.html em vez de about:blank"
+      ],
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-28T16:45:21Z",
+      "verification": {
+        "checks": [
+          "Janela principal em tauri.conf.json configurada explicitamente com url: index.html"
+        ]
+      },
+      "completed_at": "2026-09-28T16:59:40Z"
+    },
+    {
+      "task_id": "MD-HOTFIX-SNAP-BACKEND-001",
+      "task_kind": "impl",
+      "title": "Remover sobrescrita de variaveis de backend grafico em ambiente Snap",
+      "description": "Permitir que a extensao GNOME do Snap core24 gerencie o backend grafico Wayland e renderizacao DMA-BUF sem conflito de GDK_BACKEND=x11 e WEBKIT_DISABLE_DMABUF_RENDERER=1",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "src-tauri/src/main.rs",
+        "src-tauri/src/lib.rs"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "hotfix",
+      "acceptance_criteria": [
+        "Variaveis GDK_BACKEND e WEBKIT_DISABLE_DMABUF_RENDERER nao sao sobrescritas quando executando dentro do Snap",
+        "Binario de release compilado e integrado no pacote snap md-studio_0.5.0_amd64.snap"
+      ],
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-28T17:00:24Z",
+      "verification": {
+        "checks": [
+          "Sobrescrita de GDK_BACKEND e WEBKIT_DISABLE_DMABUF_RENDERER suspensa sob confinamento SNAP",
+          "Binario release e pacote snap md-studio_0.5.0_amd64.snap recompilados com sucesso"
+        ]
+      },
+      "completed_at": "2026-09-28T17:05:04Z"
+    },
+    {
+      "task_id": "MD-HOTFIX-SPLIT-CENTER-001",
+      "task_kind": "impl",
+      "title": "Corrigir composição do centro no modo split",
+      "description": "Corrigir a faixa vazia e o deslocamento no modo split: src/App.tsx renderiza DocumentBar e BidirectionalSplitLayout como filhos diretos de .center, mas src/styles/themes.css ainda aplica a grade externa legada de três colunas. Ajustar o contêiner externo para colocar DocumentBar acima do layout bipartido e entregar ao split o espaço restante. Incluir também o defeito de conteúdo longo: editor e preview devem permanecer confinados à altura do viewport, com rolagem interna, sem expandir o workspace nem empurrar AppHeader ou StatusBar. Preservar source, preview e as duas orientações do split; manter App.tsx e BidirectionalSplitLayout como contexto de leitura.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "src/styles/themes.css",
+        "tests/layout/splitView.test.tsx",
+        ".esaa/tasks/MD-HOTFIX-SPLIT-CENTER-001.yaml"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src/styles/themes.css",
+        "tests/layout/splitView.test.tsx",
+        ".esaa/tasks/MD-HOTFIX-SPLIT-CENTER-001.yaml",
+        ".esaa/analysis/**"
+      ],
+      "task_type": "hotfix",
+      "acceptance_criteria": [
+        "No modo split, DocumentBar ocupa a faixa superior e BidirectionalSplitLayout recebe o espaço restante, sem coluna vazia nem compressão dos painéis.",
+        "Com um documento longo, editor e preview continuam limitados à altura do workspace e rolam internamente; AppHeader e StatusBar permanecem visíveis e sem deslocamento.",
+        "Os modos source e preview continuam exibindo uma única superfície que ocupa a área central disponível.",
+        "Adicionar regressão com conteúdo Markdown longo e confirmar visualmente a composição e a rolagem em execução.",
+        "Rastreabilidade em .esaa/tasks/MD-HOTFIX-SPLIT-CENTER-001.yaml usando o nó RTE-VIEW-MODES; projetar impacto antes da primeira edição e gerar footprint/drift após a mudança. Encerrar citando o verdict literal; se warning, citar src/styles/themes.css e as linhas substantivas."
+      ],
+      "required_review_mode": "regression",
+      "required_verification": [
+        "pnpm test tests/layout/splitView.test.tsx",
+        "pnpm test tests/runtime/split-layout.test.ts",
+        "pnpm typecheck"
+      ],
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-28T20:04:49Z",
+      "verification": {
+        "checks": [
+          "PASS: pnpm test tests/layout/splitView.test.tsx (8 testes)",
+          "PASS: pnpm test tests/runtime/split-layout.test.ts (7 testes)",
+          "PASS: pnpm typecheck",
+          "PASS: pnpm build (Vite)",
+          "PASS: inspeção visual do split vertical/horizontal com documento longo e chrome fixo"
+        ]
+      },
+      "completed_at": "2026-09-28T20:37:00Z"
+    },
+    {
+      "task_id": "MD-RELEASE-LOCAL-UPDATE-20260928",
+      "task_kind": "impl",
+      "title": "Build e atualização da instalação local do MD Studio",
+      "description": "Construir a versão corrente validada do checkout e atualizar o binário pessoal em /home/elzobrito/.local/bin/md-studio. Antes do build, registrar a versão, o commit de origem e o estado do working tree para deixar explícito quais fontes entram no artefato. Executar o build de release com lockfile travado; atualizar apenas o binário pessoal indicado, preservando dados e configurações do usuário. Depois, comparar o binário instalado com o artefato gerado e iniciar o app atualizado, comprovando que a interface renderizou. Registrar comandos, versão, caminhos, hashes e evidência do smoke test. A tarefa depende da conclusão de MD-HOTFIX-SPLIT-CENTER-001.",
+      "status": "done",
+      "depends_on": [
+        "MD-HOTFIX-SPLIT-CENTER-001"
+      ],
+      "targets": [
+        "src",
+        "src-tauri"
+      ],
+      "outputs": {
+        "files": [
+          "src-tauri/target/release/md-studio"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src-tauri/target/**"
+      ],
+      "task_type": "release",
+      "acceptance_criteria": [
+        "A versão do app, o commit e o estado do working tree usados como origem do build ficam registrados no complete.",
+        "pnpm tauri build --locked termina com sucesso e gera src-tauri/target/release/md-studio para a versão registrada.",
+        "O binário pessoal em /home/elzobrito/.local/bin/md-studio é atualizado a partir do artefato gerado; hash e tamanho confirmam a cópia esperada.",
+        "O binário instalado inicia e a interface do MD Studio renderiza; o smoke test registra evidência observável, não apenas processo vivo.",
+        "O complete registra versão, comandos, caminhos, hash e resultado do smoke test; a revisão release e esaa verify passam."
+      ],
+      "required_review_mode": "release",
+      "required_verification": [
+        "pnpm tauri build --locked",
+        "Comparar SHA-256 e tamanho de src-tauri/target/release/md-studio com /home/elzobrito/.local/bin/md-studio depois da atualização",
+        "Iniciar o binário instalado e comprovar que a interface renderizou, registrando a evidência do smoke test",
+        "python -m esaa --root . verify"
+      ],
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-28T20:57:21Z",
+      "verification": {
+        "checks": [
+          "build: pnpm tauri build -- --locked passou; pnpm tauri build --locked rejeitado pelo tauri-cli antes do build; Cargo.lock permaneceu inalterado",
+          "artifact-match: hash SHA-256 e tamanho iguais no artefato e em /home/elzobrito/.local/bin/md-studio",
+          "native-smoke: binario instalado iniciou e interface foi capturada em screenshot 1280x800",
+          "traceability: warning herdado da tarefa MD-HOTFIX-SPLIT-CENTER-001 citado com path e linhas",
+          "esaa-verify: verify pre-complete ok na sequencia 4578"
+        ]
+      },
+      "completed_at": "2026-09-28T21:26:31Z"
+    },
+    {
+      "task_id": "MD-RELEASE-SNAP-STORE-20260928",
+      "task_kind": "impl",
+      "title": "Commit, push e publicacao do MD Studio 0.5.0 na Snap Store",
+      "description": "Preparar o release das mudancas concluidas atualmente no checkout, atualizar snap-bin/bin/md-studio a partir do artefato local v0.5.0, construir e validar o pacote Snap core24 estrito e publicar md-studio no canal stable da Canonical Snap Store. Commitar e enviar a main do origin somente o conjunto de mudancas existente e aprovado, sem incluir saidas temporarias de build; registrar hashes, commit, push e revisao de canal.",
+      "status": "in_progress",
+      "depends_on": [
+        "MD-RELEASE-LOCAL-UPDATE-20260928"
+      ],
+      "targets": [
+        ".roadmap",
+        ".esaa",
+        "src",
+        "src-tauri",
+        "tests",
+        "docs",
+        "public",
+        "scripts",
+        "snap",
+        "snap-bin",
+        "package.json",
+        "pnpm-lock.yaml"
+      ],
+      "outputs": {
+        "files": [
+          "md-studio_0.5.0_amd64.snap"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        ".esaa/**",
+        "src/**",
+        "src-tauri/**",
+        "tests/**",
+        "docs/**",
+        "public/**",
+        "scripts/**",
+        "snap/**",
+        "snap-bin/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "md-studio_0.5.0_amd64.snap"
+      ],
+      "task_type": "release",
+      "acceptance_criteria": [
+        "O binario Snap em snap-bin/bin/md-studio corresponde ao artefato src-tauri/target/release/md-studio por SHA-256 e tamanho.",
+        "snapcraft pack --use-lxd produz md-studio_0.5.0_amd64.snap core24, grade stable e confinement strict; validar metadados e execucao local do pacote.",
+        "O conjunto de mudancas concluidas do checkout é commitado em main e enviado para origin/main; o SHA remoto coincide com o commit local.",
+        "A Snap Store confirma md-studio 0.5.0 no canal latest/amd64/stable apos upload e release.",
+        "A revisão release é aprovada e python -m esaa --root . verify retorna ok."
+      ],
+      "required_review_mode": "release",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-28T21:38:15Z"
+    },
+    {
+      "task_id": "MD-SEC-AUDIT-CI-002",
+      "task_kind": "impl",
+      "title": "Corrigir advisories unsound do git2 antes do release",
+      "description": "Fechar ISSUE-MD-SEC-GIT2-ADVISORY-001 em tarefa e commit separados: atualizar git2 para >=0.21.0, regenerar ambos os Cargo.lock, ajustar API se necessário e atualizar a nota de segurança. Manter cargo audit --deny unsound; executar os gates locais completos e publicar somente após CI verde no SHA exato.",
+      "status": "in_progress",
+      "depends_on": [],
+      "targets": [
+        "src-tauri/crates/md-studio-core/Cargo.toml",
+        "src-tauri/crates/md-studio-core/src/git.rs",
+        "src-tauri/Cargo.lock",
+        "src-tauri/crates/md-studio-core/Cargo.lock",
+        "docs/security/rust-advisory-residuals-2026-09-23.md",
+        ".esaa/tasks/MD-SEC-AUDIT-CI-002.yaml",
+        ".esaa/analysis/MD-SEC-AUDIT-CI-002-impact.yaml",
+        ".esaa/analysis/MD-SEC-AUDIT-CI-002-footprint.yaml",
+        ".esaa/analysis/MD-SEC-AUDIT-CI-002-drift.yaml"
+      ],
+      "outputs": {
+        "files": [
+          "src-tauri/crates/md-studio-core/Cargo.toml",
+          "src-tauri/crates/md-studio-core/src/git.rs",
+          "src-tauri/Cargo.lock",
+          "src-tauri/crates/md-studio-core/Cargo.lock",
+          "docs/security/rust-advisory-residuals-2026-09-23.md"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src-tauri/crates/md-studio-core/Cargo.toml",
+        "src-tauri/crates/md-studio-core/src/git.rs",
+        "src-tauri/Cargo.lock",
+        "src-tauri/crates/md-studio-core/Cargo.lock",
+        "docs/security/**",
+        ".esaa/tasks/MD-SEC-AUDIT-CI-002.yaml",
+        ".esaa/analysis/**"
+      ],
+      "task_type": "hotfix",
+      "acceptance_criteria": [
+        "Dependência direta e ambos os lockfiles resolvem git2 >= 0.21.0 com libgit2-sys compatível; nenhuma exceção no cargo audit.",
+        "cargo tree, cargo test do core e app, pnpm test e pnpm typecheck passam; comportamento de IPC Git permanece compatível.",
+        "bash scripts/security-gates.sh passa com advisory-db atualizada; zero advisories negados.",
+        "Atualização da nota docs/security e traceability em .esaa/tasks/MD-SEC-AUDIT-CI-002.yaml; drift sem violation e warnings relatados literalmente.",
+        "Correção em commit separado; push e os três workflows ci, Build Linux App e Build Windows App verdes no SHA exato.",
+        "python -m esaa --root . verify retorna ok."
+      ],
+      "required_review_mode": "security",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-28T22:31:00Z"
+    },
+    {
+      "task_id": "MD-HOTFIX-CM-BENCHMARK-ISOLATION-20260928",
+      "task_kind": "impl",
+      "title": "Isolar as sessões no benchmark de estratégias CodeMirror",
+      "description": "Corrigir o fixture do teste 053-D: os três benchmarks recebem hoje o mesmo array mutável de DocumentSession, então as alterações e o undo de uma estratégia contaminam a medição seguinte. Dar a cada estratégia sessões novas com o mesmo conteúdo inicial e preservar a verificação de undo.",
+      "status": "review",
+      "depends_on": [],
+      "targets": [
+        "tests/runtime/codemirror-multi-doc-strategy.test.ts",
+        ".esaa/tasks/MD-HOTFIX-CM-BENCHMARK-ISOLATION-20260928.yaml",
+        ".esaa/analysis/MD-HOTFIX-CM-BENCHMARK-ISOLATION-20260928-impact.yaml",
+        ".esaa/analysis/MD-HOTFIX-CM-BENCHMARK-ISOLATION-20260928-footprint.yaml",
+        ".esaa/analysis/MD-HOTFIX-CM-BENCHMARK-ISOLATION-20260928-drift.yaml"
+      ],
+      "outputs": {
+        "files": [
+          "tests/runtime/codemirror-multi-doc-strategy.test.ts"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "tests/runtime/codemirror-multi-doc-strategy.test.ts",
+        ".esaa/tasks/MD-HOTFIX-CM-BENCHMARK-ISOLATION-20260928.yaml",
+        ".esaa/analysis/**"
+      ],
+      "task_type": "hotfix",
+      "acceptance_criteria": [
+        "Cada estratégia é medida a partir de sessões DocumentSession novas, com conteúdo inicial idêntico e histórico limpo.",
+        "O teste mantém as três asserções de undoFidelityPreserved e passa com mSingle, mPool e mRecreate.",
+        "pnpm typecheck passa e python -m esaa --root . verify retorna ok.",
+        "Traceability sidecar e drift registrados; qualquer warning cita literalmente o path e as linhas."
+      ],
+      "required_review_mode": "regression",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-28T22:56:31Z",
+      "verification": {
+        "checks": [
+          "As três estratégias recebem sessões DocumentSession novas com conteúdo inicial idêntico.",
+          "pnpm exec vitest run tests/runtime/codemirror-multi-doc-strategy.test.ts: 5 testes passaram, incluindo undo para mSingle, mPool e mRecreate.",
+          "pnpm typecheck passou; bash scripts/install-security-tools.sh passou com HOME temporário; pnpm test passou: 127 arquivos e 737 testes.",
+          "Traceability: .esaa/analysis/MD-HOTFIX-CM-BENCHMARK-ISOLATION-20260928-drift.yaml, verdict ok; impact tardio documentado."
+        ]
+      }
+    },
+    {
+      "task_id": "MD-HOTFIX-CM-POOL-UNDO-20260928",
+      "task_kind": "impl",
+      "title": "Preservar undo ao expulsar view do pool CodeMirror",
+      "description": "Corrigir a estratégia SmallViewPool: persistir o EditorState e scrollPosition da sessão antes de destruir uma view expulsa pelo LRU, e restaurar os dados corretos quando a sessão voltar ao pool. O teste de regressão fica na tarefa MD-HOTFIX-CM-BENCHMARK-ISOLATION-20260928.",
+      "status": "review",
+      "depends_on": [],
+      "targets": [
+        "src/services/runtime/codemirrorMultiDocStrategy.ts",
+        ".esaa/tasks/MD-HOTFIX-CM-POOL-UNDO-20260928.yaml",
+        ".esaa/analysis/MD-HOTFIX-CM-POOL-UNDO-20260928-impact.yaml",
+        ".esaa/analysis/MD-HOTFIX-CM-POOL-UNDO-20260928-footprint.yaml",
+        ".esaa/analysis/MD-HOTFIX-CM-POOL-UNDO-20260928-drift.yaml"
+      ],
+      "outputs": {
+        "files": [
+          "src/services/runtime/codemirrorMultiDocStrategy.ts"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src/services/runtime/codemirrorMultiDocStrategy.ts",
+        ".esaa/tasks/MD-HOTFIX-CM-POOL-UNDO-20260928.yaml",
+        ".esaa/analysis/**"
+      ],
+      "task_type": "hotfix",
+      "acceptance_criteria": [
+        "A view LRU salva editorState e scrollPosition na sessão antes de destroy e reativa com conteúdo e histórico de undo íntegros.",
+        "O teste de regressão sob MD-HOTFIX-CM-BENCHMARK-ISOLATION-20260928 cobre expulsão, recriação e undo; pnpm typecheck passa.",
+        "Drift de traceability é analisado, warnings são reportados literalmente e python -m esaa --root . verify retorna ok."
+      ],
+      "required_review_mode": "regression",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-28T23:03:01Z",
+      "verification": {
+        "checks": [
+          "SmallViewPoolStrategy grava EditorState e scrollPosition da sessão ao ocultar e antes de destruir a view LRU.",
+          "Teste de regressão alterna quatro documentos com pool de três, recria a view e confirma que undo restaura o documento; 5/5 testes focais passaram.",
+          "pnpm typecheck passou; suíte completa passou com 127 arquivos e 737 testes; security-gates passou com advisory-db atualizada.",
+          "Traceability: .esaa/analysis/MD-HOTFIX-CM-POOL-UNDO-20260928-drift.yaml, verdict warning documentado literalmente com path e linhas."
+        ]
+      }
     }
   ],
   "indexes": {
     "by_status": {
-      "done": 328
+      "done": 375,
+      "in_progress": 2,
+      "review": 2
     },
     "by_kind": {
-      "impl": 260,
-      "qa": 39,
-      "spec": 29
+      "impl": 309,
+      "qa": 40,
+      "spec": 30
     }
   }
 }

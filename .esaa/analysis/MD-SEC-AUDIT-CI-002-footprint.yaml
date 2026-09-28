@@ -1,0 +1,584 @@
+artifact: task-footprint
+schema_version: 1
+trace_task: TRACE-018
+task_id: MD-SEC-AUDIT-CI-002
+diff:
+  base: 6fbe64ae4b9ee447d7c2de697ba0dd37a6708806
+  head: WORKTREE
+  paths_filter:
+  - src-tauri/crates/md-studio-core/Cargo.toml
+  - src-tauri/crates/md-studio-core/src/git.rs
+  - src-tauri/Cargo.lock
+  - src-tauri/crates/md-studio-core/Cargo.lock
+  - docs/security/rust-advisory-residuals-2026-09-23.md
+  excluded_set: []
+  command: git diff -U0 --no-color --no-ext-diff 6fbe64ae4b9ee447d7c2de697ba0dd37a6708806 -- src-tauri/crates/md-studio-core/Cargo.toml src-tauri/crates/md-studio-core/src/git.rs
+    src-tauri/Cargo.lock src-tauri/crates/md-studio-core/Cargo.lock docs/security/rust-advisory-residuals-2026-09-23.md
+graph_source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+notes: []
+changed_files:
+- path: docs/security/rust-advisory-residuals-2026-09-23.md
+  status: M
+  added: 14
+  removed: 0
+  hunks:
+  - old:
+    - 34
+    - 33
+    new:
+    - 35
+    - 48
+  is_test: false
+  catalogued_nodes_in_file: 0
+- path: src-tauri/Cargo.lock
+  status: M
+  added: 3
+  removed: 4
+  hunks:
+  - old:
+    - 1415
+    - 1415
+    new:
+    - 1415
+    - 1415
+  - old:
+    - 1417
+    - 1417
+    new:
+    - 1417
+    - 1417
+  - old:
+    - 1423
+    - 1423
+    new:
+    - 1422
+    - 1421
+  - old:
+    - 2260
+    - 2260
+    new:
+    - 2259
+    - 2259
+  is_test: false
+  catalogued_nodes_in_file: 0
+- path: src-tauri/crates/md-studio-core/Cargo.lock
+  status: M
+  added: 2
+  removed: 276
+  hunks:
+  - old:
+    - 194
+    - 204
+    new:
+    - 193
+    - 192
+  - old:
+    - 271
+    - 279
+    new:
+    - 259
+    - 258
+  - old:
+    - 327
+    - 327
+    new:
+    - 307
+    - 307
+  - old:
+    - 329
+    - 329
+    new:
+    - 309
+    - 309
+  - old:
+    - 335
+    - 335
+    new:
+    - 314
+    - 313
+  - old:
+    - 393
+    - 496
+    new:
+    - 371
+    - 370
+  - old:
+    - 575
+    - 580
+    new:
+    - 449
+    - 448
+  - old:
+    - 728
+    - 733
+    new:
+    - 596
+    - 595
+  - old:
+    - 785
+    - 793
+    new:
+    - 647
+    - 646
+  - old:
+    - 965
+    - 970
+    new:
+    - 818
+    - 817
+  - old:
+    - 1024
+    - 1034
+    new:
+    - 871
+    - 870
+  - old:
+    - 1096
+    - 1105
+    new:
+    - 932
+    - 931
+  - old:
+    - 1135
+    - 1152
+    new:
+    - 961
+    - 960
+  - old:
+    - 1301
+    - 1306
+    new:
+    - 1109
+    - 1108
+  - old:
+    - 1317
+    - 1393
+    new:
+    - 1119
+    - 1118
+  is_test: false
+  catalogued_nodes_in_file: 0
+- path: src-tauri/crates/md-studio-core/Cargo.toml
+  status: M
+  added: 1
+  removed: 1
+  hunks:
+  - old:
+    - 20
+    - 20
+    new:
+    - 20
+    - 20
+  is_test: false
+  catalogued_nodes_in_file: 1
+- path: src-tauri/crates/md-studio-core/src/git.rs
+  status: M
+  added: 5
+  removed: 5
+  hunks:
+  - old:
+    - 82
+    - 85
+    new:
+    - 82
+    - 82
+  - old:
+    - 247
+    - 247
+    new:
+    - 244
+    - 247
+  is_test: false
+  catalogued_nodes_in_file: 1
+changed_nodes:
+- id: CFG-RS-DEP-GIT2
+  kind: code
+  type: configuration
+  path: src-tauri/crates/md-studio-core/Cargo.toml
+  sides:
+  - old
+  lines_hit: 1
+  attribution: line
+  anchor_resolution:
+    old: exact
+  created_by_change: false
+- id: CLS-GIT-PROVIDER
+  kind: code
+  type: class
+  path: src-tauri/crates/md-studio-core/src/git.rs
+  sides:
+  - old
+  - new
+  lines_hit: 10
+  attribution: line
+  anchor_resolution:
+    old: exact
+    new: relocated
+  created_by_change: false
+enclosing_nodes: []
+uncatalogued:
+- path: docs/security/rust-advisory-residuals-2026-09-23.md
+  is_test: false
+  new_lines:
+  - - 35
+    - 48
+  trivial_lines: 4
+  substantive_lines:
+  - new:38
+  - new:39
+  - new:40
+  - new:41
+  - new:42
+  - new:43
+  - new:45
+  - new:46
+  - new:47
+  - new:48
+- path: src-tauri/Cargo.lock
+  is_test: false
+  old_lines:
+  - - 1415
+    - 1415
+  - - 1417
+    - 1417
+  - - 1423
+    - 1423
+  - - 2260
+    - 2260
+  new_lines:
+  - - 1415
+    - 1415
+  - - 1417
+    - 1417
+  - - 2259
+    - 2259
+  trivial_lines: 0
+  substantive_lines:
+  - old:1415
+  - old:1417
+  - old:1423
+  - old:2260
+  - new:1415
+  - new:1417
+  - new:2259
+- path: src-tauri/crates/md-studio-core/Cargo.lock
+  is_test: false
+  old_lines:
+  - - 194
+    - 204
+  - - 271
+    - 279
+  - - 327
+    - 327
+  - - 329
+    - 329
+  - - 335
+    - 335
+  - - 393
+    - 496
+  - - 575
+    - 580
+  - - 728
+    - 733
+  - - 785
+    - 793
+  - - 965
+    - 970
+  - - 1024
+    - 1034
+  - - 1096
+    - 1105
+  - - 1135
+    - 1152
+  - - 1301
+    - 1306
+  - - 1317
+    - 1393
+  new_lines:
+  - - 307
+    - 307
+  - - 309
+    - 309
+  trivial_lines: 27
+  substantive_lines:
+  - old:194
+  - old:195
+  - old:196
+  - old:197
+  - old:198
+  - old:199
+  - old:200
+  - old:201
+  - old:202
+  - old:203
+  - old:271
+  - old:272
+  - old:273
+  - old:274
+  - old:275
+  - old:276
+  - old:277
+  - old:278
+  - old:327
+  - old:329
+  - old:335
+  - old:393
+  - old:394
+  - old:395
+  - old:396
+  - old:397
+  - old:398
+  - old:399
+  - old:400
+  - old:401
+  - old:402
+  - old:403
+  - old:404
+  - old:405
+  - old:407
+  - old:408
+  - old:409
+  - old:410
+  - old:411
+  - old:412
+  - old:413
+  - old:414
+  - old:415
+  - old:416
+  - old:417
+  - old:418
+  - old:420
+  - old:421
+  - old:422
+  - old:423
+  - old:424
+  - old:425
+  - old:426
+  - old:427
+  - old:428
+  - old:429
+  - old:430
+  - old:431
+  - old:432
+  - old:434
+  - old:435
+  - old:436
+  - old:437
+  - old:438
+  - old:440
+  - old:441
+  - old:442
+  - old:443
+  - old:444
+  - old:445
+  - old:446
+  - old:447
+  - old:448
+  - old:449
+  - old:450
+  - old:451
+  - old:452
+  - old:453
+  - old:455
+  - old:456
+  - old:457
+  - old:458
+  - old:459
+  - old:461
+  - old:462
+  - old:463
+  - old:464
+  - old:465
+  - old:466
+  - old:467
+  - old:468
+  - old:469
+  - old:470
+  - old:471
+  - old:472
+  - old:473
+  - old:474
+  - old:476
+  - old:477
+  - old:478
+  - old:479
+  - old:480
+  - old:481
+  - old:482
+  - old:483
+  - old:484
+  - old:485
+  - old:487
+  - old:488
+  - old:489
+  - old:490
+  - old:491
+  - old:492
+  - old:493
+  - old:494
+  - old:495
+  - old:575
+  - old:576
+  - old:577
+  - old:578
+  - old:579
+  - old:728
+  - old:729
+  - old:730
+  - old:731
+  - old:732
+  - old:785
+  - old:786
+  - old:787
+  - old:788
+  - old:789
+  - old:790
+  - old:791
+  - old:792
+  - old:965
+  - old:966
+  - old:967
+  - old:968
+  - old:969
+  - old:1024
+  - old:1025
+  - old:1026
+  - old:1027
+  - old:1028
+  - old:1029
+  - old:1030
+  - old:1031
+  - old:1032
+  - old:1033
+  - old:1096
+  - old:1097
+  - old:1098
+  - old:1099
+  - old:1100
+  - old:1101
+  - old:1102
+  - old:1103
+  - old:1104
+  - old:1135
+  - old:1136
+  - old:1137
+  - old:1138
+  - old:1139
+  - old:1140
+  - old:1141
+  - old:1142
+  - old:1143
+  - old:1144
+  - old:1145
+  - old:1147
+  - old:1148
+  - old:1149
+  - old:1150
+  - old:1151
+  - old:1301
+  - old:1302
+  - old:1303
+  - old:1304
+  - old:1305
+  - old:1317
+  - old:1318
+  - old:1319
+  - old:1320
+  - old:1321
+  - old:1322
+  - old:1323
+  - old:1324
+  - old:1325
+  - old:1326
+  - old:1328
+  - old:1329
+  - old:1330
+  - old:1331
+  - old:1332
+  - old:1333
+  - old:1334
+  - old:1335
+  - old:1336
+  - old:1337
+  - old:1338
+  - old:1340
+  - old:1341
+  - old:1342
+  - old:1343
+  - old:1344
+  - old:1345
+  - old:1346
+  - old:1347
+  - old:1349
+  - old:1350
+  - old:1351
+  - old:1352
+  - old:1353
+  - old:1354
+  - old:1355
+  - old:1356
+  - old:1357
+  - old:1358
+  - old:1359
+  - old:1361
+  - old:1362
+  - old:1363
+  - old:1364
+  - old:1365
+  - old:1366
+  - old:1367
+  - old:1368
+  - old:1369
+  - old:1370
+  - old:1372
+  - old:1373
+  - old:1374
+  - old:1375
+  - old:1376
+  - old:1377
+  - old:1378
+  - old:1379
+  - old:1380
+  - old:1381
+  - old:1383
+  - old:1384
+  - old:1385
+  - old:1386
+  - old:1387
+  - old:1388
+  - old:1389
+  - old:1390
+  - old:1391
+  - old:1392
+  - new:307
+  - new:309
+- path: src-tauri/crates/md-studio-core/Cargo.toml
+  is_test: false
+  new_lines:
+  - - 20
+    - 20
+  trivial_lines: 0
+  substantive_lines:
+  - new:20
+new_files: []
+new_test_files: []
+contracts_touched: []
+data_touched:
+- id: CLS-GIT-PROVIDER
+  how: definition_changed
+  node: CLS-GIT-PROVIDER
+events_touched: []
+rollup:
+  features: []
+  invariants:
+  - INV-NO-DENIED-DEPENDENCY-ADVISORY
+  flows: []
+stats:
+  files: 5
+  changed_nodes: 2
+  code_nodes: 2
+  test_nodes: 0
+  uncatalogued_files: 4
+  uncatalogued_substantive_lines: 269
+  new_files: 0
+  new_test_files: 0

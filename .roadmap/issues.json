@@ -4,8 +4,8 @@
     "esaa_version": "0.4.x",
     "generated_by": "esaa.project",
     "source_event_store": ".roadmap/activity.jsonl",
-    "last_event_seq": 3973,
-    "updated_at": "2026-09-27T17:44:22Z"
+    "last_event_seq": 4616,
+    "updated_at": "2026-09-28T23:35:22Z"
   },
   "issues": [
     {
@@ -34,6 +34,43 @@
       "timeline": {
         "created_event_seq": 3640,
         "resolved_event_seq": 3647
+      }
+    },
+    {
+      "issue_id": "ISSUE-MD-DESKTOP-FONTCONFIG-GRAY-WINDOW-001",
+      "status": "open",
+      "severity": "high",
+      "title": "Causa real da janela cinza: cache fontconfig corrompido (Victor Mono WOFF sem família) trava o WebProcess do WebKitGTK 2.52.6; hotfix x11/DMABUF de ISSUE-MD-V05-BLANK-WINDOW-001 é sintomático",
+      "baseline_id": null,
+      "affected": {
+        "environment": "Nitro: Ubuntu Wayland, Intel HD 630 + NVIDIA 1050 Ti, WebKit2GTK 4.1 2.52.6; afeta md-studio e tauri-html-lab (qualquer app WebKitGTK do usuário)",
+        "paths": [
+          "src-tauri/src/main.rs",
+          "src-tauri/src/lib.rs",
+          "scripts/desktop-smoke-test.sh"
+        ]
+      },
+      "evidence": {
+        "symptom": "Apps Tauri (md-studio e tauri-html-lab) abriam janela só com a cor de fundo #2C2C2C no Nitro; WebProcess a 100% de CPU antes de carregar a página. Corrige a causa raiz declarada em ISSUE-MD-V05-BLANK-WINDOW-001 (resolvida por MD-HOTFIX-V05-BOOT-001 forçando GDK_BACKEND=x11 e WEBKIT_DISABLE_DMABUF_RENDERER=1 em src-tauri/src/main.rs:10-14 e src-tauri/src/lib.rs:30-34, com smoke test que só checa processo/janela): aquela causa estava errada e a correção é sintomática. A issue antiga NÃO foi reaberta nem reescrita (re-emitir issue.report com o mesmo id sobrescreveria título/evidência; o ESAA não tem evento de reabertura/relação), apenas referenciada aqui.",
+        "repro_steps": [
+          "CAUSA RAIZ (comprovada): em 27/09/2026 15:48 BRT um app com outra versão do fontconfig (provável app Chromium atualizado em 27/09 12:05 — Chrome/Edge/ChatGPT/Claude/Grok Bot; não identificado) gravou *.cache-12 em ~/.cache/fontconfig e 126 symlinks *.cache-9/10/11 apontando para eles; nesse cache as 42 fontes WOFF/WOFF2 do Victor Mono (~/.local/share/fonts/VictorMono/) ficaram sem família (fontwrapper).",
+          "MECANISMO: o WebKitGTK 2.52.6 itera FcPatternGetString(pattern, \"family\", n) até receber FcResultNoId; para fonte sem família recebe FcResultNoMatch e o laço nunca termina -> WebProcess em laço infinito a 100% CPU antes de carregar a página -> janela fica só na cor de fundo. Candidato a bug upstream no WebKitGTK.",
+          "DESCARTADO: GPU/DMABUF/X11 vs Wayland (8 combinações continuaram cinza, incluindo exatamente a correção de MD-HOTFIX-V05-BOOT-001); D-Bus (monitor mostrou todas as chamadas respondidas); 'variáveis de ambiente vazias' (herdadas do processo pai).",
+          "PROVA / CONTROLE: app Python mínimo WebKit2 4.1 com XDG_CACHE_HOME limpo carregou em 85 ms (magenta no screenshot) enquanto o cache original travava. Logs em /tmp/wkgray (casos a_default, b_nodmabuf, c_nodmabuf_x11, d_nocomp, f_swgl, gdb*, busmon) e roteiro /tmp/wkgray/run_case.sh; screenshots em ~/wkgray-prova/01..04.",
+          "CORREÇÃO APLICADA em 28/09 (nível usuário, fora do repo): WOFF/WOFF2 movidos para ~/fontes-web-bak-20260928/; ~/.cache/fontconfig -> ~/.cache/fontconfig.bak-20260928 + fc-cache -f => 0 symlinks, 0 fontes sem família. App mínimo renderiza no caminho padrão (Wayland + DMABUF + Intel) em ~40 ms; md-studio release e o 0.5.0 instalado via lançador abrem com UI completa (0,08–0,10% de pixels cinza).",
+          "IMPACTO NO REPO: o workaround GDK_BACKEND=x11 + WEBKIT_DISABLE_DMABUF_RENDERER=1 em main.rs/lib.rs é desnecessário e degrada (força XWayland e desliga DMABUF); scripts/desktop-smoke-test.sh dá falso positivo (linhas 110-152: passa com processo vivo, janela mapeada e subprocesso WebKit, sem provar carregamento da página). Causa externa ao código, mas o repo carrega workaround e teste enganosos.",
+          "AÇÃO CORRETIVA RECOMENDADA (tarefa futura, NÃO executada): (1) remover as env forçadas de src-tauri/src/main.rs e src-tauri/src/lib.rs (manter só flags de lançador documentadas em INV-DESKTOP-LAUNCHER-ENV se ainda justificadas); (2) trocar o smoke por prova de carregamento/pixels (modelo /tmp/wkgray/run_case.sh: evento de load/log do frontend + screenshot com % de pixels da cor de fundo abaixo de limiar); (3) opcional: diagnóstico no boot (aviso se o WebProcess não carregar em N s); (4) documentar troubleshooting (fc-cache -f, XDG_CACHE_HOME limpo, fontes WOFF em ~/.local/share/fonts); (5) reportar bug upstream no WebKitGTK (laço FcPatternGetString sem FcResultNoMatch)."
+        ]
+      },
+      "resolution": null,
+      "links": {
+        "reported_by_task_id": "MD-HOTFIX-V05-BOOT-001",
+        "fixes_task_id": null,
+        "hotfix_task_id": null
+      },
+      "timeline": {
+        "created_event_seq": 4548,
+        "resolved_event_seq": null
       }
     },
     {
@@ -94,6 +131,215 @@
       }
     },
     {
+      "issue_id": "ISSUE-MD-GUI-053-Q-SETTINGS-ARIA-001",
+      "status": "resolved",
+      "severity": "low",
+      "title": "Settings test assertion disagrees with dialog accessible naming",
+      "baseline_id": null,
+      "affected": {
+        "paths": [
+          "src/components/settings/SettingsPanel.tsx",
+          "tests/settings/settingsPanel.test.tsx"
+        ]
+      },
+      "evidence": {
+        "symptom": "The settings verification command reports 21 of 22 tests passing. The dialog markup names the dialog with aria-labelledby=\"settings-dialog-title\", while the test at line 46 requires an aria-label attribute and receives null. The implementation and test therefore disagree, and the 100% settings test acceptance criterion is not met.",
+        "repro_steps": [
+          "Run pnpm exec vitest run tests/settings/ tests/runtime/settings-modals-toasts.test.ts.",
+          "Observe tests/settings/settingsPanel.test.tsx:46 fail because dialog.getAttribute('aria-label') is null.",
+          "Inspect src/components/settings/SettingsPanel.tsx:296-300 and observe aria-labelledby pointing to the visible dialog heading."
+        ]
+      },
+      "resolution": {
+        "status": "resolved_by_hotfix",
+        "hotfix_task_id": "HF-ISSUE-MD-GUI-053-Q-SETTINGS-ARIA-001",
+        "review_task_id": "HF-ISSUE-MD-GUI-053-Q-SETTINGS-ARIA-001",
+        "checks": [
+          "pnpm exec vitest run --maxWorkers=1 tests/settings/ tests/runtime/settings-modals-toasts.test.ts: 4 files, 22/22 tests passed in the current checkout after the governed follow-up update.",
+          "pnpm typecheck: tsc -b --pretty false passed in the current checkout after the governed follow-up update."
+        ]
+      },
+      "links": {
+        "reported_by_task_id": "MD-GUI-053-Q",
+        "fixes_task_id": null,
+        "hotfix_task_id": "HF-ISSUE-MD-GUI-053-Q-SETTINGS-ARIA-001"
+      },
+      "timeline": {
+        "created_event_seq": 4406,
+        "resolved_event_seq": 4458
+      }
+    },
+    {
+      "issue_id": "ISSUE-MD-GUI-HOTFIX-SCOPE-OUTPUT-001",
+      "status": "resolved",
+      "severity": "medium",
+      "title": "Hotfix generated output is outside its declared scope",
+      "baseline_id": null,
+      "affected": {
+        "paths": [
+          "src/hotfix/HF-ISSUE-MD-GUI-053-Q-SETTINGS-ARIA-001.txt",
+          "src/components/settings/SettingsPanel.tsx",
+          "tests/settings/settingsPanel.test.tsx"
+        ]
+      },
+      "evidence": {
+        "symptom": "The hotfix task declares src/hotfix/HF-ISSUE-MD-GUI-053-Q-SETTINGS-ARIA-001.txt in outputs.files, but its scope_patch permits only SettingsPanel.tsx and settingsPanel.test.tsx. QA returned the task to in_progress because the declared output file is absent. The ESAA validator rejects file_updates outside scope_patch, and task.amend is restricted to todo tasks, so the active task cannot be reconciled through its current declared scope. QA also found the current SettingsPanel SHA differs from the candidate snapshot by an aria-label addition not recorded in the hotfix completion effect.",
+        "repro_steps": [
+          "Run python -m esaa --root /home/elzobrito/desenvolvimento/md-studio dispatch-context HF-ISSUE-MD-GUI-053-Q-SETTINGS-ARIA-001 and compare outputs.files with scope_patch.",
+          "Observe status in_progress after QA request_changes at event seq 4436 and confirm the declared output file is absent.",
+          "Inspect ESAA task.amend validation: it accepts only status todo; inspect hotfix file boundary validation requiring every changed path to match scope_patch."
+        ]
+      },
+      "resolution": {
+        "status": "resolved_by_hotfix",
+        "hotfix_task_id": "HF-ISSUE-MD-GUI-HOTFIX-SCOPE-OUTPUT-001",
+        "review_task_id": "HF-ISSUE-MD-GUI-HOTFIX-SCOPE-OUTPUT-001",
+        "checks": [
+          "pnpm exec vitest run --maxWorkers=1 tests/settings/ tests/runtime/settings-modals-toasts.test.ts: 4 files, 22/22 tests passed in a candidate mirror of the current checkout.",
+          "pnpm typecheck: tsc -b --pretty false passed in the candidate mirror."
+        ]
+      },
+      "links": {
+        "reported_by_task_id": "HF-ISSUE-MD-GUI-053-Q-SETTINGS-ARIA-001",
+        "fixes_task_id": null,
+        "hotfix_task_id": "HF-ISSUE-MD-GUI-HOTFIX-SCOPE-OUTPUT-001"
+      },
+      "timeline": {
+        "created_event_seq": 4437,
+        "resolved_event_seq": 4451
+      }
+    },
+    {
+      "issue_id": "ISSUE-MD-PROC-SECURITY-GATE-PREPUSH-001",
+      "status": "open",
+      "severity": "medium",
+      "title": "Rodar o gate de segurança local antes de todo push: advisories novos e dependências novas quebram o CI",
+      "baseline_id": null,
+      "affected": {
+        "environment": "fluxo de push em main / CI security-gates.yml",
+        "paths": [
+          "scripts/security-gates.sh",
+          "scripts/install-security-tools.sh",
+          ".github/workflows/security-gates.yml",
+          "docs/qa/v0.4-release-gate.md"
+        ]
+      },
+      "evidence": {
+        "symptom": "O CI roda cargo audit (deny unsound) contra a advisory-db atual em todo push; o gate quebrou 2x em 3 dias sem que ninguém rodasse o gate localmente antes do push: 25/09 (time 0.1.45 / rand 0.7.3, advisories publicados após a dependência existir; corrigido em MD-SEC-AUDIT-CI-001) e 27/09 (git2 0.20.4 introduzido por b13ad6b, já unsound desde 17/06/2026, enviado junto com 2e5cce8; o release gate v0.4 foi homologado sem build verde).",
+        "repro_steps": [
+          "25/09: CI vermelho em d6f3159 (commit só de .esaa/) por RUSTSEC-2020-0071 e RUSTSEC-2026-0097 em src-tauri/Cargo.lock (dependências pré-existentes desde 5fe4f4d).",
+          "27/09: CI vermelho em 2e5cce8 (runs 36335999915/36335999933/36335999969, job 108666841445); causa real em b13ad6b, commit anterior do mesmo push, que adicionou git2 0.20.4 (RUSTSEC-2026-0183/0184). Ver ISSUE-MD-SEC-GIT2-ADVISORY-001.",
+          "Diagnóstico inicial atribuiu a falha ao head e a um advisory 'novo'; a verificação do git log da advisory-db e do Cargo.lock por commit refutou isso — daí a regra (5)."
+        ]
+      },
+      "resolution": null,
+      "links": {
+        "reported_by_task_id": "MD-V04-QA-001",
+        "fixes_task_id": null,
+        "hotfix_task_id": null
+      },
+      "timeline": {
+        "created_event_seq": 4028,
+        "resolved_event_seq": null
+      }
+    },
+    {
+      "issue_id": "ISSUE-MD-PROC-WEBVIEW-BLANK-DIAGNOSIS-001",
+      "status": "open",
+      "severity": "medium",
+      "title": "Janela em branco/cinza em WebView: provar carregamento e isolar o ambiente antes de patch em GPU/backend",
+      "baseline_id": null,
+      "affected": {
+        "environment": "diagnóstico de falhas de renderização em apps desktop WebView (Tauri/WebKitGTK)",
+        "paths": [
+          "scripts/desktop-smoke-test.sh",
+          "src-tauri/src/main.rs",
+          "src-tauri/src/lib.rs"
+        ]
+      },
+      "evidence": {
+        "symptom": "MD-HOTFIX-V05-BOOT-001 declarou causa raiz (GPU/DMABUF/Wayland) e fechou ISSUE-MD-V05-BLANK-WINDOW-001 com env vars forçadas no binário e um smoke test que só checa processo/janela; a causa real era um cache fontconfig corrompido na máquina (ISSUE-MD-DESKTOP-FONTCONFIG-GRAY-WINDOW-001), e a correção do hotfix não resolvia (8 combinações de backend continuaram cinza).",
+        "repro_steps": [
+          "Ver ISSUE-MD-DESKTOP-FONTCONFIG-GRAY-WINDOW-001: WebProcess em laço infinito em FcPatternGetString antes de carregar a página; nenhuma combinação GPU/backend alterava o resultado.",
+          "Controle que faltou no hotfix: app WebKit mínimo com XDG_CACHE_HOME limpo carregou em 85 ms — isolaria a máquina como causa antes de qualquer patch no código.",
+          "O smoke scripts/desktop-smoke-test.sh passou (processo/janela/WebKit ativos) com a janela ainda cinza: falso positivo."
+        ]
+      },
+      "resolution": null,
+      "links": {
+        "reported_by_task_id": "MD-HOTFIX-V05-BOOT-001",
+        "fixes_task_id": null,
+        "hotfix_task_id": null
+      },
+      "timeline": {
+        "created_event_seq": 4551,
+        "resolved_event_seq": null
+      }
+    },
+    {
+      "issue_id": "ISSUE-MD-SEC-GIT2-ADVISORY-001",
+      "status": "open",
+      "severity": "high",
+      "title": "CI security gate bloqueado por advisories em git2 0.20.4 (RUSTSEC-2026-0183/0184) introduzido em b13ad6b",
+      "baseline_id": null,
+      "affected": {
+        "environment": "CI GitHub Actions (security-gates.yml, cargo-audit 0.22.2) em main@2e5cce8",
+        "paths": [
+          "src-tauri/crates/md-studio-core/Cargo.toml",
+          "src-tauri/Cargo.lock",
+          "src-tauri/crates/md-studio-core/Cargo.lock",
+          "src-tauri/crates/md-studio-core/src/git.rs"
+        ]
+      },
+      "evidence": {
+        "symptom": "Push de 27/09 14:10 BRT (b13ad6b + 2e5cce8) em main falhou nos 3 workflows: ci run 36335999915, Build Linux App run 36335999933, Build Windows App run 36335999969. Job security/security, passo 'bash scripts/install-security-tools.sh', exit 1 após ~4 min (job 108666841445): cargo-audit v0.22.2, 1271 advisories, src-tauri/Cargo.lock (521 crates): 'error: 2 denied warnings found!' — git2 0.20.4 unsound RUSTSEC-2026-0183 (Potential undefined behavior when calling Remote::list()) e RUSTSEC-2026-0184 (Potential undefined behavior with Signature from a buffer-created BlameHunk). 7 allowed warnings (unmaintained já conhecidos: instant 0.1.13, proc-macro-error 1.0.4, unic-* 0.9.0). Jobs de build skipped: main sem instaladores.",
+        "repro_steps": [
+          "CAUSA RAIZ (verificada): b13ad6b (27/09 14:01 BRT, feat v0.4, MD-V04-039 Git enxuto) adicionou 'git2 = { version = \"0.20\", default-features = false }' em src-tauri/crates/md-studio-core/Cargo.toml:20 e git2 0.20.4 em src-tauri/Cargo.lock:1414-1415 e md-studio-core/Cargo.lock:326-327 (517 -> 521 crates). Foi enviado no mesmo push que 2e5cce8; o CI só roda no head, então a falha aparece em 2e5cce8, que sozinho não toca Cargo.*. c9a515a (12:21 BRT) passou verde porque ainda não tinha git2.",
+          "A hipótese 'advisory novo entrou na base entre os runs' foi REFUTADA: na rustsec/advisory-db os arquivos crates/git2/RUSTSEC-2026-0183.md e -0184.md foram mergeados em 17/06/2026 (~09:55 e ~10:46 BRT; commits 089720f9 e aa90516a); datas dos advisories 12/05 e 13/05/2026; patched = '>= 0.21.0'. git2 0.21.0 publicado no crates.io em 18/05/2026 (max_stable). Ou seja: a dependência entrou já unsound e sem gate de segurança local antes do push.",
+          "Reproduzir: em src-tauri, 'cargo tree -i git2 --locked' => git2 v0.20.4 <- md-studio-core v0.2.3 <- md-studio v0.2.3 (dependência DIRETA de md-studio-core; deps: libgit2-sys 0.18.8+1.9.7). Rodar 'bash scripts/security-gates.sh' (linha 9: cargo audit --file src-tauri/Cargo.lock --deny unsound) com advisory-db atual => 2 denied warnings.",
+          "Uso da API (grep em 2e5cce8): git.rs usa Repository, Status/StatusOptions, DiffOptions, revwalk (Sort::TIME) e Oid::from_str (git.rs:1,13,192,272). NÃO chama Remote::list() nem Blame::blame_buffer/BlameHunk. history.rs não usa git2. A exposição prática é provavelmente nula, mas a política deny unsound é correta e NÃO deve ser afrouxada.",
+          "IMPACTO: main sem artefatos de build (Linux/Windows skipped); release gate v0.4 (MD-V04-QA-001, docs/qa/v0.4-release-gate.md) homologado sem build verde que o sustente. Recorrência do padrão de MD-SEC-AUDIT-CI-001 (25/09: time 0.1.45 RUSTSEC-2020-0071 e rand 0.7.3 RUSTSEC-2026-0097).",
+          "CORREÇÃO PROPOSTA (tarefa separada, padrão MD-SEC-AUDIT-CI-001; ainda não criada, sugerido id MD-SEC-AUDIT-CI-002): (1) cargo tree -i git2 em src-tauri e md-studio-core; (2) há versão corrigida: subir git2 para 0.21 (Cargo.toml de md-studio-core) e atualizar TODOS os Cargo.lock (src-tauri e md-studio-core), ajustando a API de git.rs se necessário; SEM exceção/ignore no cargo audit; (3) rodar localmente bash scripts/security-gates.sh + cargo test (src-tauri e md-studio-core) + pnpm test/typecheck antes do push; (4) pronto = CI verde nos 3 workflows (ci, Build Linux App, Build Windows App) no commit exato enviado, com links dos runs; (5) reabrir/reconfirmar o release gate v0.4 com evidência do build verde. Impacto no TCG: .esaa/analysis/ISSUE-MD-SEC-GIT2-ADVISORY-001-impact.yaml e .esaa/traceability/sec-git2-graph-delta.md."
+        ]
+      },
+      "resolution": null,
+      "links": {
+        "reported_by_task_id": "MD-V04-039",
+        "fixes_task_id": null,
+        "hotfix_task_id": null
+      },
+      "timeline": {
+        "created_event_seq": 4025,
+        "resolved_event_seq": null
+      }
+    },
+    {
+      "issue_id": "ISSUE-MD-TAURI-UPGRADE-UNSCOPED-001",
+      "status": "open",
+      "severity": "medium",
+      "title": "Atualização Tauri v2 e instalações Snap/local sem tarefa elegível",
+      "baseline_id": null,
+      "affected": {},
+      "evidence": {
+        "symptom": "A solicitação de atualizar e fixar a pilha Tauri, alinhar a versão 0.5.0, gerar e instalar o Snap core24 com GNOME e instalar o binário/lançador local não tem tarefa elegível que autorize esse escopo. A tarefa MD-BUILD-LOCAL-010 está done e é imutável.",
+        "repro_steps": [
+          "python -m esaa --root . eligible retorna eligible_count 0.",
+          "python -m esaa --root . state MD-BUILD-LOCAL-010 retorna status done e escopo anterior limitado a src-tauri/** e à compilação local v0.5.",
+          "python -m esaa --root . dispatch-context MD-BUILD-LOCAL-010 retorna expected_action none e allowed_actions issue.report."
+        ]
+      },
+      "resolution": null,
+      "links": {
+        "reported_by_task_id": "MD-BUILD-LOCAL-010",
+        "fixes_task_id": null,
+        "hotfix_task_id": null
+      },
+      "timeline": {
+        "created_event_seq": 4515,
+        "resolved_event_seq": null
+      }
+    },
+    {
       "issue_id": "ISSUE-MD-TRACE-HANDOFF-TIMELINE-001",
       "status": "open",
       "severity": "low",
@@ -122,12 +368,81 @@
         "created_event_seq": 3625,
         "resolved_event_seq": null
       }
+    },
+    {
+      "issue_id": "ISSUE-MD-V05-048-TRACEABILITY-001",
+      "status": "open",
+      "severity": "medium",
+      "title": "MD-V05-048 bloqueada por projeção de rastreabilidade sem autorização declarada",
+      "baseline_id": null,
+      "affected": {
+        "environment": "MD Studio workspace, task MD-V05-048",
+        "paths": [
+          ".esaa/tasks/MD-V05-048.yaml",
+          ".esaa/analysis/MD-V05-048-impact.yaml",
+          ".esaa/analysis/MD-V05-048-footprint.yaml",
+          ".esaa/analysis/MD-V05-048-drift.yaml"
+        ]
+      },
+      "evidence": {
+        "symptom": "Os checks funcionais passaram, mas o drift classificou CFG-FRONTMATTER-SCHEMA como protected/violation porque o impacto declara authorized vazio; o sidecar da tarefa não contém declaração traceability para projetar os nós afetados.",
+        "repro_steps": [
+          "Executar pnpm typecheck: exit 0.",
+          "Executar pnpm test tests/publishing/ tests/export/: 10 arquivos e 58 testes passaram.",
+          "Gerar footprint de MD-V05-048 para os caminhos src/services/publishingEngine.ts, src/markdown/frontmatter.ts e tests/publishing/publishing-engine.test.ts.",
+          "Executar drift.py com MD-V05-048-impact.yaml e MD-V05-048-footprint.yaml: verdict violation; CFG-FRONTMATTER-SCHEMA aparece como protected por security_config; authorized=[] ."
+        ]
+      },
+      "resolution": null,
+      "links": {
+        "reported_by_task_id": "MD-V05-048",
+        "fixes_task_id": null,
+        "hotfix_task_id": null
+      },
+      "timeline": {
+        "created_event_seq": 4088,
+        "resolved_event_seq": null
+      }
+    },
+    {
+      "issue_id": "ISSUE-MD-V05-BLANK-WINDOW-001",
+      "status": "resolved",
+      "severity": "critical",
+      "title": "MD Studio v0.5 abre janela desktop Tauri vazia sem renderizar UI React",
+      "baseline_id": null,
+      "affected": {},
+      "evidence": {
+        "symptom": "A janela Tauri abre no Ubuntu Desktop, mas nenhuma UI React é renderizada na tela (tela em branco/vazia).",
+        "repro_steps": [
+          "Compilar e executar o binário src-tauri/target/debug/md-studio",
+          "Observar que a janela abre sem conteúdo e sem renderização da interface React"
+        ]
+      },
+      "resolution": {
+        "status": "resolved_by_command",
+        "hotfix_task_id": "MD-HOTFIX-V05-BOOT-001"
+      },
+      "links": {
+        "reported_by_task_id": "MD-V05-QA-001",
+        "fixes_task_id": null,
+        "hotfix_task_id": null
+      },
+      "timeline": {
+        "created_event_seq": 4151,
+        "resolved_event_seq": 4166
+      }
     }
   ],
   "indexes": {
     "open_by_baseline": {
       "unknown": [
-        "ISSUE-MD-TRACE-HANDOFF-TIMELINE-001"
+        "ISSUE-MD-DESKTOP-FONTCONFIG-GRAY-WINDOW-001",
+        "ISSUE-MD-PROC-SECURITY-GATE-PREPUSH-001",
+        "ISSUE-MD-PROC-WEBVIEW-BLANK-DIAGNOSIS-001",
+        "ISSUE-MD-SEC-GIT2-ADVISORY-001",
+        "ISSUE-MD-TAURI-UPGRADE-UNSCOPED-001",
+        "ISSUE-MD-TRACE-HANDOFF-TIMELINE-001",
+        "ISSUE-MD-V05-048-TRACEABILITY-001"
       ]
     }
   }

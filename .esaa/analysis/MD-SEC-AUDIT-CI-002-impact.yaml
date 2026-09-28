@@ -1,0 +1,86 @@
+artifact: task-impact
+schema_version: 1
+trace_task: TRACE-017
+task_id: MD-SEC-AUDIT-CI-002
+projected_at: '2026-09-28T20:32:08-03:00'
+projected_before_change: false
+projection_inputs: null
+spec: .esaa/tasks/MD-SEC-AUDIT-CI-002.yaml
+graph_source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+rationale: >-
+  Artefato de impacto ausente no diretório ao retomar o release; projeção reconstruída após a atualização de git2 e marcada como tardia.
+justification:
+  CFG-RS-DEP-GIT2: Atualizar a dependência git2 já catalogada para uma versão corrigida >=0.21.0, removendo os dois advisories unsound sem alterar
+    a política do cargo audit.
+expected_uncatalogued: null
+blast_radius:
+  change_target:
+  - CFG-RS-DEP-GIT2
+  expected_affected:
+  - CLS-GIT-PROVIDER
+  expected_affected_source: declared
+  suggested_expected_affected: []
+  authorized:
+  - CFG-RS-DEP-GIT2
+  - CLS-GIT-PROVIDER
+  potentially_affected: []
+  protected_in_closure: []
+  protected_total: 140
+  protected_declared:
+  - id: CFG-RS-DEP-GIT2
+    reasons:
+    - invariant_member:INV-NO-DENIED-DEPENDENCY-ADVISORY
+    - security_config
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: false
+projected:
+  nodes:
+  - CFG-RS-DEP-GIT2
+  - CLS-GIT-PROVIDER
+  features:
+    direct: []
+    indirect: []
+  flows: []
+  invariants:
+  - id: INV-NO-DENIED-DEPENDENCY-ADVISORY
+    hit_by:
+    - CFG-RS-DEP-GIT2
+    tests: []
+  tests:
+    must_run: []
+    should_run: []
+    may_run: []
+  contracts: []
+  data:
+  - CLS-GIT-PROVIDER
+  events: []
+  entrypoints: []
+  modules:
+  - MOD-SECURITY-POLICY
+  - MOD-WORKSPACE-FS
+closure:
+- id: CFG-RS-DEP-GIT2
+  kind: code
+  type: configuration
+  distance: 0
+  anchor: src-tauri/crates/md-studio-core/Cargo.toml
+  via: null
+  terminal: false
+- id: CLS-GIT-PROVIDER
+  kind: code
+  type: class
+  distance: 1
+  anchor: src-tauri/crates/md-studio-core/src/git.rs
+  via:
+    node: CFG-RS-DEP-GIT2
+    relation: depends_on
+    direction: reverse
+  terminal: false
+hubs: []
+stats:
+  closure_nodes: 2
+  by_distance:
+    '0': 1
+    '1': 1

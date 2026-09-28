@@ -1,0 +1,69 @@
+artifact: task-traceability
+schema_version: 1
+task_id: ISSUE-MD-SEC-GIT2-ADVISORY-001
+note: >-
+  Spec de impacto PROSPECTIVO para a futura tarefa de correção da ISSUE-MD-SEC-GIT2-ADVISORY-001 (sugerido id
+  MD-SEC-AUDIT-CI-002, ainda NÃO criada no ESAA). Fica em .esaa/analysis/ (não em .esaa/tasks/) porque não existe
+  tarefa ainda; ao criar a tarefa, copiar o bloco traceability para .esaa/tasks/<task-id>.yaml (task-integration.md).
+  Escrito em 2026-09-27 ~15:10 BRT sobre a baseline G3 (2e5cce8) + delta sec-git2-graph-delta.md.
+issue_id: ISSUE-MD-SEC-GIT2-ADVISORY-001
+issue_event: EV-00004025
+related_lesson: LES-0005
+recurrence_of: MD-SEC-AUDIT-CI-001
+projected_before_change: true
+projection_inputs:
+  - 'ISSUE-MD-SEC-GIT2-ADVISORY-001 (.roadmap/issues.json)'
+  - 'cargo tree -i git2 --locked (src-tauri e md-studio-core): git2 v0.20.4 <- md-studio-core v0.2.3 <- md-studio v0.2.3 (dependência direta)'
+  - 'rustsec/advisory-db crates/git2/RUSTSEC-2026-0183.md e -0184.md: patched >= 0.21.0'
+  - '.esaa/traceability/graph.json (source_commit 2e5cce8, com delta sec-git2)'
+  - 'impact.py project'
+graph:
+  path: .esaa/traceability/graph.json
+  source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+dependency:
+  crate: git2
+  resolved_version: 0.20.4
+  declared: 'src-tauri/crates/md-studio-core/Cargo.toml:20 (version = "0.20", default-features = false)'
+  lockfiles: ['src-tauri/Cargo.lock:1415', 'src-tauri/crates/md-studio-core/Cargo.lock:327']
+  kind: direct (md-studio-core), transitiva para o app md-studio
+  advisories:
+    - {id: RUSTSEC-2026-0183, informational: unsound, title: 'Potential undefined behavior when calling Remote::list()', date: '2026-05-12', url: 'https://github.com/rust-lang/git2-rs/pull/1250'}
+    - {id: RUSTSEC-2026-0184, informational: unsound, title: 'Potential undefined behavior with Signature from a buffer-created BlameHunk', date: '2026-05-13', url: 'https://github.com/rust-lang/git2-rs/pull/1254'}
+  patched: '>= 0.21.0'
+  fixed_version_available: '0.21.0 (crates.io, 2026-05-18)'
+  api_usage_affected: false
+  api_usage_note: 'git.rs usa Repository, Status/StatusOptions, DiffOptions, revwalk, Oid::from_str; não usa Remote::list() nem Blame::blame_buffer.'
+traceability:
+  targets: [CFG-RS-DEP-GIT2]
+  expected_affected: [CLS-GIT-PROVIDER]
+  protected_extra: []
+  change_policy: {mode: surgical, allow_new_tests: true, allow_new_production_nodes: false}
+  rationale:
+    CFG-RS-DEP-GIT2: 'subir git2 de 0.20 para 0.21 em md-studio-core/Cargo.toml e regenerar src-tauri/Cargo.lock e md-studio-core/Cargo.lock'
+    CLS-GIT-PROVIDER: 'ajuste de API de git2 0.21 (breaking changes da 0.21) em git.rs, se houver; comportamento externo (IPC git_*) não muda'
+  justification: >-
+    Existe versão corrigida, então NÃO cabe exceção/ignore no cargo audit (política deny unsound mantida).
+    Correção é tarefa própria (LES-0005 regra 4), com gate local antes do push (LES-0005 regra 1) e pronto = CI verde
+    nos 3 workflows no commit exato (regra 2).
+  steps:
+    - 'cargo tree -i git2 --locked em src-tauri e src-tauri/crates/md-studio-core'
+    - 'git2 = { version = "0.21", default-features = false } e cargo update -p git2 nos dois lockfiles; conferir libgit2-sys resultante'
+    - 'ajustar git.rs à API 0.21 (compilar md-studio-core e src-tauri)'
+    - 'bash scripts/security-gates.sh (advisory-db atualizada) + cargo test (md-studio-core e src-tauri) + pnpm test + pnpm typecheck'
+    - 'atualizar docs/security/rust-advisory-residuals-2026-09-23.md (ou novo doc datado) com o fechamento'
+    - 'push; pronto = ci, Build Linux App e Build Windows App verdes no commit exato, com links dos runs; reconfirmar release gate v0.4'
+    - 'pós-commit: re-âncora CLS-GIT-PROVIDER/CFG-RS-DEP-GIT2 se as linhas mudarem; INV-NO-DENIED-DEPENDENCY-ADVISORY deixa de estar violada'
+  expected_graph_delta:
+    - 'CFG-RS-DEP-GIT2: notes/versão resolvida 0.21.x; tag denied_by_cargo_audit removida'
+    - 'INV-NO-DENIED-DEPENDENCY-ADVISORY: remover gap de violação (manter gap de verificação por script)'
+    - 'possível re-âncora de CLS-GIT-PROVIDER (git.rs)'
+  expected_uncatalogued:
+    - 'src-tauri/Cargo.lock e src-tauri/crates/md-studio-core/Cargo.lock (lockfiles não são nós)'
+    - 'src-tauri/src/commands/mod.rs:261-318 (IPC git_* ainda não catalogados no G3) — só se a API mudar a assinatura pública, o que não é esperado'
+    - 'docs/security/*.md'
+  known_graph_gaps:
+    - 'Sem FEAT/FLOW/IPC/ENT para MD-V04-039 (Git enxuto) e MD-V04-026 (Local History) na baseline G3: o fechamento não alcança features/fluxos; impacto de UI (gutter, FileHistoryModal, badges Git do FileExplorer) não é projetável pelo grafo.'
+    - 'history.rs não usa git2 (confirmado por grep em 2e5cce8) — fora do impacto.'
+artifacts:
+  impact: .esaa/analysis/ISSUE-MD-SEC-GIT2-ADVISORY-001-impact.yaml
+  graph_delta: .esaa/traceability/sec-git2-graph-delta.md

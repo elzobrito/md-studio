@@ -4,7 +4,7 @@
     "esaa_version": "0.4.x",
     "generated_by": "esaa.project",
     "source_event_store": ".roadmap/activity.jsonl",
-    "updated_at": "2026-09-27T17:44:22Z"
+    "updated_at": "2026-09-28T23:35:22Z"
   },
   "lessons": [
     {
@@ -106,6 +106,55 @@
           "event_id": "EV-00003640"
         }
       ]
+    },
+    {
+      "lesson_id": "LES-0005",
+      "status": "active",
+      "created_at": "2026-09-27T18:02:13Z",
+      "title": "Rodar o gate de segurança local antes de todo push: advisories novos e dependências novas quebram o CI",
+      "mistake": "Pushes em main foram feitos sem rodar localmente o gate de segurança do CI; uma dependência nova (git2 0.20.4) já marcada unsound entrou via b13ad6b e o release gate v0.4 foi declarado homologado sem CI verde no commit enviado. Advisories também mudam sem commit (25/09), e o diagnóstico da falha olhou só o commit head do push.",
+      "rule": "(1) Antes de QUALQUER push em main, inclusive commits só de docs/.esaa/.roadmap e especialmente pushes com vários commits ou que mexam em Cargo.toml/Cargo.lock/package.json, rodar localmente 'bash scripts/security-gates.sh' (mesmo script do CI, cargo-audit 0.22.2) com a advisory-db atualizada; se falhar, NÃO fazer push, abrir issue de segurança separada e reportar ao Elzo. (2) Não declarar entrega ou release gate 'homologado' sem CI verde no commit exato enviado (evidência = links dos runs dos 3 workflows). (3) Nunca destravar o CI rebaixando a política do audit (deny unsound -> warn) nem com --ignore sem análise de uso da API afetada e prazo de revisão registrados no documento de segurança (docs/security/). (4) Correção de advisory é sempre tarefa própria, nunca embutida no commit de outra tarefa. (5) Ao diagnosticar falha de CI, analisar TODOS os commits do push (git log <before>..<after>, diff de Cargo.*/lockfiles), não só o head: o CI roda apenas no último commit e atribui a falha a ele. Prevenção sugerida (PROPOSTA, não aplicada): workflow agendado diário (schedule/cron) rodando só cargo audit na main para avisar antes do próximo push.",
+      "scope": {
+        "task_kinds": [
+          "spec",
+          "impl",
+          "qa"
+        ]
+      },
+      "enforcement": {
+        "mode": "require_step",
+        "applies_to": "verification_gate"
+      },
+      "source_refs": [
+        {
+          "task_id": "MD-V04-QA-001",
+          "event_id": "EV-00004028"
+        }
+      ]
+    },
+    {
+      "lesson_id": "LES-0006",
+      "status": "active",
+      "created_at": "2026-09-28T19:25:12Z",
+      "title": "Janela em branco/cinza em WebView: provar carregamento e isolar o ambiente antes de patch em GPU/backend",
+      "mistake": "A falha de janela vazia foi atribuída a GPU/backend sem provar se a página carregava, sem isolar o ambiente (cache/HOME) e sem controle negativo; o workaround (GDK_BACKEND=x11, WEBKIT_DISABLE_DMABUF_RENDERER=1) foi embutido no binário e validado por um smoke que não verifica conteúdo renderizado.",
+      "rule": "(1) Janela em branco/cinza em WebView (Tauri/WebKitGTK/WebView2): primeiro provar se a página carregou (log de load do frontend, estado do WebProcess/CPU, screenshot com contagem de pixels) antes de mexer em GPU, compositor ou backend (X11/Wayland/DMABUF). (2) Smoke test de desktop só passa com prova de conteúdo renderizado (evento de load + pixels/DOM esperados); processo vivo, janela mapeada e subprocesso WebKit não são evidência de UI. (3) Isolar o ambiente antes de patch no código: rodar com XDG_CACHE_HOME/HOME limpos e um app mínimo do mesmo engine para separar defeito do app de defeito da máquina. (4) Não declarar causa raiz sem reprodução determinística e controle negativo (a correção proposta precisa fazer a falha sumir E o controle sem ela precisa falhar). (5) Variáveis de ambiente de workaround embutidas no binário só com evidência causal, documentadas (motivo, máquina, data) e reversíveis/opt-out; na dúvida, preferir o lançador ou a documentação ao código.",
+      "scope": {
+        "task_kinds": [
+          "impl",
+          "qa"
+        ]
+      },
+      "enforcement": {
+        "mode": "require_step",
+        "applies_to": "verification_gate"
+      },
+      "source_refs": [
+        {
+          "task_id": "MD-HOTFIX-V05-BOOT-001",
+          "event_id": "EV-00004551"
+        }
+      ]
     }
   ],
   "indexes": {
@@ -114,24 +163,33 @@
         "LES-0001",
         "LES-0002",
         "LES-0003",
-        "LES-0004"
+        "LES-0004",
+        "LES-0005",
+        "LES-0006"
       ],
       "qa": [
         "LES-0001",
         "LES-0002",
         "LES-0003",
-        "LES-0004"
+        "LES-0004",
+        "LES-0005",
+        "LES-0006"
       ],
       "spec": [
         "LES-0001",
         "LES-0002",
-        "LES-0003"
+        "LES-0003",
+        "LES-0005"
       ]
     },
     "by_enforcement_applies_to": {
       "output_contract": [
         "LES-0002",
         "LES-0003"
+      ],
+      "verification_gate": [
+        "LES-0005",
+        "LES-0006"
       ],
       "workflow_gate": [
         "LES-0001",

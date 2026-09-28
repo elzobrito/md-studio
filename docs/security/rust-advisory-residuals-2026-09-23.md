@@ -32,3 +32,17 @@ conversor XHTML de `html5ever` 0.25 / `markup5ever` 0.10 /
 `cargo audit --deny unsound --ignore RUSTSEC-2024-0429` no lock do app e
 `cargo audit --deny unsound` no lock do core terminam 0. Os sete avisos
 `unmaintained` desta página continuam permitidos.
+
+## 2026-09-28 — correção de `git2`
+
+`git2` foi atualizado de `0.20.4` para `0.21.0` em
+`src-tauri/crates/md-studio-core/Cargo.toml` e nos dois lockfiles. Isso remove
+`RUSTSEC-2026-0183` e `RUSTSEC-2026-0184` do conjunto de dependências sem
+adicionar exceções ao `cargo audit --deny unsound`. A atualização mudou as
+assinaturas de `StatusesEntry::path()` e `Commit::summary()`; `GitProvider`
+agora propaga os erros de leitura de caminho e resumo usando `GitError`.
+
+Os avisos residuais documentados acima permanecem: a exceção específica para
+`RUSTSEC-2024-0429` e os avisos `unmaintained` já conhecidos. O gate completo
+com a base atualizada e a revisão CI desta correção são registrados na tarefa
+ESAA `MD-SEC-AUDIT-CI-002` antes do release.

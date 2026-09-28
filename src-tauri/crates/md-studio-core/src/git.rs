@@ -79,10 +79,7 @@ impl GitProvider {
 
         for entry in statuses.iter() {
             let status_flags = entry.status();
-            let path = match entry.path() {
-                Some(p) => p.replace('\\', "/"),
-                None => continue,
-            };
+            let path = entry.path()?.replace('\\', "/");
 
             let mut code = "M";
             let mut is_staged = false;
@@ -244,7 +241,10 @@ impl GitProvider {
                 let author = commit.author().name().unwrap_or("Unknown").to_string();
                 let time_sec = commit.time().seconds();
                 let date = format!("{}", time_sec * 1000);
-                let summary = commit.summary().unwrap_or("No commit message").to_string();
+                let summary = commit
+                    .summary()?
+                    .unwrap_or("No commit message")
+                    .to_string();
 
                 history.push(GitCommitSummary {
                     hash: oid.to_string(),

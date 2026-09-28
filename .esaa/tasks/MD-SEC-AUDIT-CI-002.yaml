@@ -1,0 +1,21 @@
+artifact: task-traceability
+schema_version: 1
+task_id: MD-SEC-AUDIT-CI-002
+graph:
+  path: .esaa/traceability/graph.json
+  source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+traceability:
+  targets: [CFG-RS-DEP-GIT2]
+  expected_affected: [CLS-GIT-PROVIDER]
+  protected_extra: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: false
+  justification:
+    CFG-RS-DEP-GIT2: >-
+      Atualizar a dependência git2 já catalogada para uma versão corrigida >=0.21.0, removendo os dois advisories unsound sem alterar a política do cargo audit.
+artifacts:
+  impact: .esaa/analysis/MD-SEC-AUDIT-CI-002-impact.yaml
+  footprint: .esaa/analysis/MD-SEC-AUDIT-CI-002-footprint.yaml
+  drift: .esaa/analysis/MD-SEC-AUDIT-CI-002-drift.yaml

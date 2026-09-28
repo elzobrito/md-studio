@@ -1,0 +1,94 @@
+artifact: task-impact
+schema_version: 1
+trace_task: TRACE-017
+task_id: ISSUE-MD-SEC-GIT2-ADVISORY-001
+projected_at: '2026-09-27T15:04:07-03:00'
+projected_before_change: true
+projection_inputs:
+- ISSUE-MD-SEC-GIT2-ADVISORY-001 (.roadmap/issues.json)
+- 'cargo tree -i git2 --locked (src-tauri e md-studio-core): git2 v0.20.4 <- md-studio-core v0.2.3 <- md-studio v0.2.3 (dependência direta)'
+- 'rustsec/advisory-db crates/git2/RUSTSEC-2026-0183.md e -0184.md: patched >= 0.21.0'
+- .esaa/traceability/graph.json (source_commit 2e5cce8, com delta sec-git2)
+- impact.py project
+spec: .esaa/analysis/ISSUE-MD-SEC-GIT2-ADVISORY-001-traceability.yaml
+graph_source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+rationale:
+  CFG-RS-DEP-GIT2: subir git2 de 0.20 para 0.21 em md-studio-core/Cargo.toml e regenerar src-tauri/Cargo.lock e md-studio-core/Cargo.lock
+  CLS-GIT-PROVIDER: ajuste de API de git2 0.21 (breaking changes da 0.21) em git.rs, se houver; comportamento externo (IPC git_*) não muda
+justification: Existe versão corrigida, então NÃO cabe exceção/ignore no cargo audit (política deny unsound mantida). Correção é tarefa própria
+  (LES-0005 regra 4), com gate local antes do push (LES-0005 regra 1) e pronto = CI verde nos 3 workflows no commit exato (regra 2).
+expected_uncatalogued:
+- src-tauri/Cargo.lock e src-tauri/crates/md-studio-core/Cargo.lock (lockfiles não são nós)
+- src-tauri/src/commands/mod.rs:261-318 (IPC git_* ainda não catalogados no G3) — só se a API mudar a assinatura pública, o que não é esperado
+- docs/security/*.md
+blast_radius:
+  change_target:
+  - CFG-RS-DEP-GIT2
+  expected_affected:
+  - CLS-GIT-PROVIDER
+  expected_affected_source: declared
+  suggested_expected_affected: []
+  authorized:
+  - CFG-RS-DEP-GIT2
+  - CLS-GIT-PROVIDER
+  potentially_affected: []
+  protected_in_closure: []
+  protected_total: 140
+  protected_declared:
+  - id: CFG-RS-DEP-GIT2
+    reasons:
+    - invariant_member:INV-NO-DENIED-DEPENDENCY-ADVISORY
+    - security_config
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: false
+projected:
+  nodes:
+  - CFG-RS-DEP-GIT2
+  - CLS-GIT-PROVIDER
+  features:
+    direct: []
+    indirect: []
+  flows: []
+  invariants:
+  - id: INV-NO-DENIED-DEPENDENCY-ADVISORY
+    hit_by:
+    - CFG-RS-DEP-GIT2
+    tests: []
+  tests:
+    must_run: []
+    should_run: []
+    may_run: []
+  contracts: []
+  data:
+  - CLS-GIT-PROVIDER
+  events: []
+  entrypoints: []
+  modules:
+  - MOD-SECURITY-POLICY
+  - MOD-WORKSPACE-FS
+closure:
+- id: CFG-RS-DEP-GIT2
+  kind: code
+  type: configuration
+  distance: 0
+  anchor: src-tauri/crates/md-studio-core/Cargo.toml
+  via: null
+  terminal: false
+- id: CLS-GIT-PROVIDER
+  kind: code
+  type: class
+  distance: 1
+  anchor: src-tauri/crates/md-studio-core/src/git.rs
+  via:
+    node: CFG-RS-DEP-GIT2
+    relation: depends_on
+    direction: reverse
+  terminal: false
+hubs: []
+stats:
+  closure_nodes: 2
+  by_distance:
+    '0': 1
+    '1': 1
