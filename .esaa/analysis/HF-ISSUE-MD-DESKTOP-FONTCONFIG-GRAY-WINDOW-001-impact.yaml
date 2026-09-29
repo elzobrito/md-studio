@@ -1,0 +1,244 @@
+artifact: task-impact
+schema_version: 1
+trace_task: TRACE-017
+task_id: HF-ISSUE-MD-DESKTOP-FONTCONFIG-GRAY-WINDOW-001
+projected_at: '2026-09-28T22:06:35-03:00'
+projected_before_change: true
+projection_inputs: null
+spec: .esaa/tasks/HF-ISSUE-MD-DESKTOP-FONTCONFIG-GRAY-WINDOW-001.yaml
+graph_source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+rationale: null
+justification:
+  INV-DESKTOP-LAUNCHER-ENV: A alteracao remove apenas overrides do executavel; preserva as flags nos launchers .desktop e executa o teste existente.
+expected_uncatalogued: null
+blast_radius:
+  change_target:
+  - FN-RS-MAIN
+  - FN-RS-RUN
+  expected_affected:
+  - FEAT-SPLASH-PACKAGING
+  - TST-TS-DESKTOP-LAUNCHER
+  expected_affected_source: declared
+  suggested_expected_affected: []
+  authorized:
+  - FEAT-SPLASH-PACKAGING
+  - FN-RS-MAIN
+  - FN-RS-RUN
+  - TST-TS-DESKTOP-LAUNCHER
+  potentially_affected:
+  - CLS-APP-STATE
+  - IPC-GET-LAUNCH-PATH
+  - IPC-START-WATCHING
+  - IPCC-GET-LAUNCH-PATH
+  - IPCC-SAVE-DOCUMENT
+  - IPCC-START-WATCHING
+  protected_in_closure:
+  - id: CTR-IPC-GET-LAUNCH-PATH
+    reasons:
+    - contract_surface
+  - id: CTR-IPC-SAVE-DOCUMENT
+    reasons:
+    - contract_surface
+  - id: CTR-IPC-START-WATCHING
+    reasons:
+    - contract_surface
+  - id: IPC-SAVE-DOCUMENT
+    reasons:
+    - invariant_member:INV-SHA256-CONFLICT
+    - invariant_member:INV-WATCHER-ECHO-SUPPRESSION
+  protected_total: 142
+  protected_declared: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: false
+projected:
+  nodes:
+  - FEAT-SPLASH-PACKAGING
+  - FN-RS-MAIN
+  - FN-RS-RUN
+  - TST-TS-DESKTOP-LAUNCHER
+  features:
+    direct:
+    - FEAT-APP-SCREENS
+    - FEAT-SPLASH-PACKAGING
+    indirect:
+    - FEAT-AUTO-SAVE
+    - FEAT-CONFLICT
+    - FEAT-CREATE-NOTE-FROM-WIKI
+    - FEAT-DRAFT-RECOVERY
+    - FEAT-METADATA-INDEX
+    - FEAT-OPEN-FILE
+    - FEAT-OPEN-FROM-OS
+    - FEAT-OPEN-WORKSPACE
+    - FEAT-OUTGOING-LINKS
+    - FEAT-SAVE
+    - FEAT-SAVE-AS
+    - FEAT-WATCHER
+    - FEAT-WIKI-LINKS
+  flows:
+  - FLOW-APP-BOOT
+  - FLOW-AUTO-SAVE
+  - FLOW-CONFLICT-ON-SAVE
+  - FLOW-OPEN-FILE-FROM-OS
+  - FLOW-OPEN-WORKSPACE
+  - FLOW-SAVE-AS
+  - FLOW-SAVE-DOCUMENT
+  - FLOW-WIKI-LINK-RESOLVE
+  invariants:
+  - id: INV-SHA256-CONFLICT
+    hit_by:
+    - IPC-SAVE-DOCUMENT
+    tests:
+    - TST-RS-DETECTS-CONFLICT
+  - id: INV-WATCHER-ECHO-SUPPRESSION
+    hit_by:
+    - IPC-SAVE-DOCUMENT
+    tests:
+    - TST-RS-INTERNAL-SAVE-SUPPRESSION-FLOW
+  tests:
+    must_run: []
+    should_run:
+    - TST-RS-DETECTS-CONFLICT
+    - TST-RS-INTERNAL-SAVE-SUPPRESSION-FLOW
+    may_run: []
+  contracts:
+  - CTR-IPC-GET-LAUNCH-PATH
+  - CTR-IPC-SAVE-DOCUMENT
+  - CTR-IPC-START-WATCHING
+  data:
+  - CLS-APP-STATE
+  events: []
+  entrypoints:
+  - ENT-FN-RS-MAIN
+  - ENT-IPC-GET-LAUNCH-PATH
+  - ENT-IPC-SAVE-DOCUMENT
+  - ENT-IPC-START-WATCHING
+  modules:
+  - MOD-APP-SHELL
+  - MOD-PERSISTENCE
+  - MOD-WATCHER
+  - MOD-WORKSPACE-FS
+closure:
+- id: FN-RS-MAIN
+  kind: code
+  type: function
+  distance: 0
+  anchor: src-tauri/src/main.rs
+  via: null
+  terminal: false
+- id: FN-RS-RUN
+  kind: code
+  type: function
+  distance: 0
+  anchor: src-tauri/src/lib.rs
+  via: null
+  terminal: false
+- id: CLS-APP-STATE
+  kind: code
+  type: class
+  distance: 1
+  anchor: src-tauri/src/lib.rs
+  via:
+    node: FN-RS-RUN
+    relation: writes
+    direction: forward
+  terminal: false
+- id: IPC-GET-LAUNCH-PATH
+  kind: code
+  type: ipc_command
+  distance: 2
+  anchor: src-tauri/src/commands/mod.rs
+  via:
+    node: CLS-APP-STATE
+    relation: reads
+    direction: reverse
+  terminal: false
+- id: IPC-SAVE-DOCUMENT
+  kind: code
+  type: ipc_command
+  distance: 2
+  anchor: src-tauri/src/commands/mod.rs
+  via:
+    node: CLS-APP-STATE
+    relation: reads
+    direction: reverse
+  terminal: false
+- id: IPC-START-WATCHING
+  kind: code
+  type: ipc_command
+  distance: 2
+  anchor: src-tauri/src/watcher/mod.rs
+  via:
+    node: CLS-APP-STATE
+    relation: reads
+    direction: reverse
+  terminal: false
+- id: CTR-IPC-GET-LAUNCH-PATH
+  kind: contract
+  type: contract
+  distance: 3
+  anchor: null
+  via:
+    node: IPC-GET-LAUNCH-PATH
+    relation: implemented_by
+    direction: reverse
+  terminal: true
+- id: CTR-IPC-SAVE-DOCUMENT
+  kind: contract
+  type: contract
+  distance: 3
+  anchor: null
+  via:
+    node: IPC-SAVE-DOCUMENT
+    relation: implemented_by
+    direction: reverse
+  terminal: true
+- id: CTR-IPC-START-WATCHING
+  kind: contract
+  type: contract
+  distance: 3
+  anchor: null
+  via:
+    node: IPC-START-WATCHING
+    relation: implemented_by
+    direction: reverse
+  terminal: true
+- id: IPCC-GET-LAUNCH-PATH
+  kind: code
+  type: ipc_client
+  distance: 3
+  anchor: src/lib/ipc/client.ts
+  via:
+    node: IPC-GET-LAUNCH-PATH
+    relation: calls
+    direction: reverse
+  terminal: true
+- id: IPCC-SAVE-DOCUMENT
+  kind: code
+  type: ipc_client
+  distance: 3
+  anchor: src/lib/ipc/client.ts
+  via:
+    node: IPC-SAVE-DOCUMENT
+    relation: calls
+    direction: reverse
+  terminal: true
+- id: IPCC-START-WATCHING
+  kind: code
+  type: ipc_client
+  distance: 3
+  anchor: src/lib/ipc/client.ts
+  via:
+    node: IPC-START-WATCHING
+    relation: calls
+    direction: reverse
+  terminal: true
+hubs: []
+stats:
+  closure_nodes: 12
+  by_distance:
+    '0': 2
+    '1': 1
+    '2': 3
+    '3': 6

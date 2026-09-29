@@ -7,11 +7,11 @@
     "run": {
       "run_id": "RUN-0001",
       "status": "success",
-      "last_event_seq": 4616,
-      "projection_hash_sha256": "683c9ae2f8ffd1efc514fefbdd940c71de034291e832c5e50027d5d92b2a47bb",
+      "last_event_seq": 4725,
+      "projection_hash_sha256": "5c270f3e89afe97e0fc944fa6019038e86104611cdafe4f098fbede7b0ffc5e8",
       "verify_status": "ok"
     },
-    "updated_at": "2026-09-28T23:35:22Z"
+    "updated_at": "2026-09-29T02:18:01Z"
   },
   "project": {
     "name": "MD Studio",
@@ -14657,7 +14657,7 @@
       "task_kind": "impl",
       "title": "Commit, push e publicacao do MD Studio 0.5.0 na Snap Store",
       "description": "Preparar o release das mudancas concluidas atualmente no checkout, atualizar snap-bin/bin/md-studio a partir do artefato local v0.5.0, construir e validar o pacote Snap core24 estrito e publicar md-studio no canal stable da Canonical Snap Store. Commitar e enviar a main do origin somente o conjunto de mudancas existente e aprovado, sem incluir saidas temporarias de build; registrar hashes, commit, push e revisao de canal.",
-      "status": "in_progress",
+      "status": "done",
       "depends_on": [
         "MD-RELEASE-LOCAL-UPDATE-20260928"
       ],
@@ -14707,14 +14707,24 @@
       ],
       "required_review_mode": "release",
       "assigned_to": "agent-impl",
-      "started_at": "2026-09-28T21:38:15Z"
+      "started_at": "2026-09-28T21:38:15Z",
+      "verification": {
+        "checks": [
+          "Artefato Snap 0.5.0 corresponde ao binario release; SHA-256 e tamanho registrados; pacote core24 strict stable executado localmente.",
+          "Snap Store confirmou 0.5.0 em latest/amd64/stable, revisao 5.",
+          "origin/main SHA 3ef21d7295359cfd3136e68dd50591ef2cef9dd9; os tres workflows ci, Build Linux App e Build Windows App concluiram success nesse SHA.",
+          "Issue desktop high foi resolvida depois de review regression; seguranca git2 e disposicao governance estao done sem emitir resolucao duplicada da issue security.",
+          "Traceability verdict=warning: snap/snapcraft.yaml linhas 4 e 36-44, sem violation; python -m esaa --root . verify passou."
+        ]
+      },
+      "completed_at": "2026-09-29T02:05:07Z"
     },
     {
       "task_id": "MD-SEC-AUDIT-CI-002",
       "task_kind": "impl",
       "title": "Corrigir advisories unsound do git2 antes do release",
       "description": "Fechar ISSUE-MD-SEC-GIT2-ADVISORY-001 em tarefa e commit separados: atualizar git2 para >=0.21.0, regenerar ambos os Cargo.lock, ajustar API se necessário e atualizar a nota de segurança. Manter cargo audit --deny unsound; executar os gates locais completos e publicar somente após CI verde no SHA exato.",
-      "status": "in_progress",
+      "status": "done",
       "depends_on": [],
       "targets": [
         "src-tauri/crates/md-studio-core/Cargo.toml",
@@ -14759,14 +14769,24 @@
       ],
       "required_review_mode": "security",
       "assigned_to": "agent-impl",
-      "started_at": "2026-09-28T22:31:00Z"
+      "started_at": "2026-09-28T22:31:00Z",
+      "verification": {
+        "checks": [
+          "git2 direta e ambos lockfiles resolvem 0.21.0 ou superior; nenhuma excecao cargo-audit para advisories unsound.",
+          "bash scripts/security-gates.sh e pnpm audit, gitleaks, Semgrep passaram na verificacao registrada da tarefa; sem findings negados ou secretos.",
+          "cargo test core/app, pnpm test 127 arquivos/737 testes e pnpm typecheck passaram na verificacao registrada.",
+          "Os workflows ci, Build Linux App e Build Windows App passaram no SHA exato 3ef21d7295359cfd3136e68dd50591ef2cef9dd9; origin/main coincide com esse SHA.",
+          "MD-GOV-SEC-HOTFIX-ORDER-20260929 esta done e documenta a recuperacao sem alterar o historico; verify ESAA passou no seq 4698."
+        ]
+      },
+      "completed_at": "2026-09-29T01:59:39Z"
     },
     {
       "task_id": "MD-HOTFIX-CM-BENCHMARK-ISOLATION-20260928",
       "task_kind": "impl",
       "title": "Isolar as sessões no benchmark de estratégias CodeMirror",
       "description": "Corrigir o fixture do teste 053-D: os três benchmarks recebem hoje o mesmo array mutável de DocumentSession, então as alterações e o undo de uma estratégia contaminam a medição seguinte. Dar a cada estratégia sessões novas com o mesmo conteúdo inicial e preservar a verificação de undo.",
-      "status": "review",
+      "status": "done",
       "depends_on": [],
       "targets": [
         "tests/runtime/codemirror-multi-doc-strategy.test.ts",
@@ -14805,14 +14825,15 @@
           "pnpm typecheck passou; bash scripts/install-security-tools.sh passou com HOME temporário; pnpm test passou: 127 arquivos e 737 testes.",
           "Traceability: .esaa/analysis/MD-HOTFIX-CM-BENCHMARK-ISOLATION-20260928-drift.yaml, verdict ok; impact tardio documentado."
         ]
-      }
+      },
+      "completed_at": "2026-09-29T00:47:44Z"
     },
     {
       "task_id": "MD-HOTFIX-CM-POOL-UNDO-20260928",
       "task_kind": "impl",
       "title": "Preservar undo ao expulsar view do pool CodeMirror",
       "description": "Corrigir a estratégia SmallViewPool: persistir o EditorState e scrollPosition da sessão antes de destruir uma view expulsa pelo LRU, e restaurar os dados corretos quando a sessão voltar ao pool. O teste de regressão fica na tarefa MD-HOTFIX-CM-BENCHMARK-ISOLATION-20260928.",
-      "status": "review",
+      "status": "done",
       "depends_on": [],
       "targets": [
         "src/services/runtime/codemirrorMultiDocStrategy.ts",
@@ -14850,19 +14871,439 @@
           "pnpm typecheck passou; suíte completa passou com 127 arquivos e 737 testes; security-gates passou com advisory-db atualizada.",
           "Traceability: .esaa/analysis/MD-HOTFIX-CM-POOL-UNDO-20260928-drift.yaml, verdict warning documentado literalmente com path e linhas."
         ]
-      }
+      },
+      "completed_at": "2026-09-29T00:47:46Z"
+    },
+    {
+      "task_id": "HF-ISSUE-MD-DESKTOP-FONTCONFIG-GRAY-WINDOW-001",
+      "task_kind": "impl",
+      "title": "Comprovar renderizacao WebKit no smoke desktop e remover overrides do binario",
+      "description": "Remediar ISSUE-MD-DESKTOP-FONTCONFIG-GRAY-WINDOW-001 sem reabrir MD-HOTFIX-V05-BOOT-001: remover os overrides graficos embutidos no runtime Linux, manter as flags requeridas nos launchers .desktop, e substituir o smoke test por evidencias de carregamento e pixels de um documento Markdown de prova sob cache fontconfig isolado. Registrar a limitacao de que a causa original era externa ao repositorio e as evidencias verificaveis da maquina.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "ISSUE-MD-DESKTOP-FONTCONFIG-GRAY-WINDOW-001"
+      ],
+      "outputs": {
+        "files": [
+          "src-tauri/src/main.rs",
+          "src-tauri/src/lib.rs",
+          "scripts/desktop-smoke-test.sh"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "is_hotfix": true,
+      "issue_id": "ISSUE-MD-DESKTOP-FONTCONFIG-GRAY-WINDOW-001",
+      "fixes": "MD-HOTFIX-V05-BOOT-001",
+      "scope_patch": [
+        "src-tauri/src/",
+        "scripts/",
+        "tests/desktop/",
+        ".esaa/tasks/",
+        ".esaa/analysis/"
+      ],
+      "required_verification": [
+        "bash scripts/desktop-smoke-test.sh release",
+        "pnpm test",
+        "pnpm typecheck",
+        "cargo test --workspace",
+        "pnpm tauri build",
+        "python -m esaa --root . verify"
+      ],
+      "baseline_id": "B-000",
+      "acceptance_criteria": [
+        "O binario nao força GDK_BACKEND nem WEBKIT_DISABLE_DMABUF_RENDERER; os launchers .desktop mantem ambas as flags conforme LES-0004.",
+        "O smoke test isola XDG_CACHE_HOME, abre um Markdown deterministico, exige evento de carregamento e screenshot da janela com pixels de conteudo acima do limiar; processo vivo e janela mapeada isoladamente nao aprovam.",
+        "A interface real do build release renderiza o documento de prova no smoke desktop; logs, dimensoes e medida de pixels ficam registrados.",
+        "Traceability tem sidecar e impacto pre-change, footprint e drift pos-change; verdict e warnings reportados com paths e linhas.",
+        "pnpm test, pnpm typecheck, cargo test --workspace, pnpm tauri build e python -m esaa --root . verify passam."
+      ],
+      "task_type": "hotfix",
+      "required_review_mode": "regression",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-29T00:58:16Z",
+      "superseded_by": [
+        "MD-HOTFIX-DESKTOP-RENDER-BOUNDARY-20260929"
+      ],
+      "verification": {
+        "checks": [
+          "pnpm test 127 arquivos/738 testes, pnpm typecheck, cargo test workspace 21 testes e pnpm tauri build passaram na tarefa sucessora.",
+          "Smoke release capturou 1330x887, 0.13% pixels perto de #2C2C2C, 11280 cores, OCR Render proof; SHA-256 24644165bfdb671e42ee7acf620e3e4cbf93030a800da73e67df10c3865ef6b5.",
+          "PageLoad Finished e inicializacao Tauri confirmados; script valida fontconfig cache isolado e flags iguais ao launcher.",
+          "Sucessora regression aprovada independentemente; python -m esaa --root . verify passou na sequencia 4691."
+        ]
+      },
+      "completed_at": "2026-09-29T01:55:02Z"
+    },
+    {
+      "task_id": "MD-RELEASE-LOCAL-LAUNCHER-ENV-20260929",
+      "task_kind": "impl",
+      "title": "Restabelecer flags nos atalhos locais do MD Studio",
+      "description": "Ajustar os dois atalhos MD Studio existentes em ~/.local/share/applications para chamar o binario local atraves de /usr/bin/env com GDK_BACKEND=x11 e WEBKIT_DISABLE_DMABUF_RENDERER=1. Preservar Hidden/NoDisplay do atalho legado e encaminhar arquivos .md com %F. Registrar hashes, validar formato e executar o teste de launcher no HOME real.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "/home/elzobrito/.local/share/applications/md-studio.desktop",
+        "/home/elzobrito/.local/share/applications/MD Studio.desktop"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "release",
+      "acceptance_criteria": [
+        "Os dois atalhos existentes usam /usr/bin/env com GDK_BACKEND=x11 e WEBKIT_DISABLE_DMABUF_RENDERER=1 e encaminham %F ao binario local.",
+        "O arquivo legado conserva Hidden=true e NoDisplay=true.",
+        "desktop-file-validate passa para ambos e pnpm exec vitest run tests/desktop/desktop-launcher.test.ts passa no HOME real.",
+        "python -m esaa --root . verify retorna ok; complete registra paths, hashes e checks."
+      ],
+      "required_review_mode": "release",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-29T01:25:28Z",
+      "verification": {
+        "checks": [
+          "desktop-file-validate retornou exit 0 para ambos os atalhos.",
+          "pnpm exec vitest run tests/desktop/desktop-launcher.test.ts passou no HOME real: 4/4.",
+          "python -m esaa --root . verify retornou ok."
+        ]
+      },
+      "completed_at": "2026-09-29T01:52:05Z"
+    },
+    {
+      "task_id": "MD-GOV-SEC-HOTFIX-ORDER-20260929",
+      "task_kind": "spec",
+      "title": "Registrar a disposicao da sequencia invertida do hotfix de seguranca",
+      "description": "Revisar e registrar a anomalia de governanca em que EV-00004625 resolveu ISSUE-MD-SEC-GIT2-ADVISORY-001 antes da revisao independente EV-00004634. O event store e append-only; preservar os eventos e a relacao da issue, classificar a quebra como nao conformidade de sequencia, e definir a recuperacao auditavel que permite reavaliar a tarefa tecnica sem fingir que a ordem foi corrigida.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "EV-00004625",
+        "EV-00004634"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "governance",
+      "acceptance_criteria": [
+        "O registro identifica que issue.resolve EV-00004625 antecedeu o review request_changes EV-00004634, contrariando hotfix_protocol.flow.",
+        "A decisao preserva a sequencia append-only e nao reabre nem reescreve a issue; a nao conformidade permanece explicitamente registrada.",
+        "A recuperacao requer nova conclusao tecnica baseada nos gates ja aprovados e revisao security independente; nao emite outro issue.resolve para a mesma resolucao.",
+        "python -m esaa --root . verify retorna ok."
+      ],
+      "required_review_mode": "governance",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-29T01:31:22Z",
+      "verification": {
+        "checks": [
+          "Comparação do event store confirmou EV-4625 issue.resolve antes de EV-4634 review request_changes; nenhuma mutação manual foi feita no event store.",
+          "python -m esaa --root . verify retornou ok após registro da tarefa e do claim."
+        ]
+      },
+      "completed_at": "2026-09-29T01:38:25Z"
+    },
+    {
+      "task_id": "MD-RELEASE-SNAP-STORE-20260929",
+      "task_kind": "impl",
+      "title": "Publicar o hotfix MD Studio 0.5.1 na Snap Store",
+      "description": "Preparar a publicacao corretiva seguinte ao 0.5.0: alinhar as versoes package.json/Cargo/Snap para 0.5.1, reconstruir o binario e o Snap estrito core24, executar security-gates antes de push, commit e enviar a main as alteracoes aprovadas incluindo rastreabilidade, exigir CI verde nos tres workflows no SHA exato e publicar latest/stable na Snap Store. A tarefa depende da revisao e resolucao correta das issues anteriores.",
+      "status": "in_progress",
+      "depends_on": [
+        "HF-ISSUE-MD-DESKTOP-FONTCONFIG-GRAY-WINDOW-001",
+        "MD-SEC-AUDIT-CI-002",
+        "MD-GOV-SEC-HOTFIX-ORDER-20260929",
+        "MD-RELEASE-SNAP-STORE-20260928",
+        "MD-RELEASE-LOCAL-LAUNCHER-ENV-20260929"
+      ],
+      "targets": [
+        "package.json",
+        "pnpm-lock.yaml",
+        "src-tauri/Cargo.toml",
+        "src-tauri/Cargo.lock",
+        "snap/snapcraft.yaml",
+        "snap-bin/bin/md-studio",
+        "src-tauri/src/main.rs",
+        "src-tauri/src/lib.rs",
+        "scripts/desktop-smoke-test.sh",
+        "tests/desktop/desktop-launcher.test.ts",
+        ".esaa/tasks/HF-ISSUE-MD-DESKTOP-FONTCONFIG-GRAY-WINDOW-001.yaml",
+        ".esaa/analysis/HF-ISSUE-MD-DESKTOP-FONTCONFIG-GRAY-WINDOW-001-impact.yaml",
+        ".esaa/analysis/HF-ISSUE-MD-DESKTOP-FONTCONFIG-GRAY-WINDOW-001-footprint.yaml",
+        ".esaa/analysis/HF-ISSUE-MD-DESKTOP-FONTCONFIG-GRAY-WINDOW-001-drift.yaml"
+      ],
+      "outputs": {
+        "files": [
+          "md-studio_0.5.1_amd64.snap"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        ".esaa/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "src-tauri/Cargo.toml",
+        "src-tauri/Cargo.lock",
+        "snap/snapcraft.yaml",
+        "snap-bin/bin/md-studio",
+        "md-studio_0.5.1_amd64.snap"
+      ],
+      "task_type": "release",
+      "acceptance_criteria": [
+        "package.json, Cargo.toml e snapcraft.yaml identificam 0.5.1; build e Snap sao consistentes e o binario Snap corresponde ao build por SHA-256 e tamanho.",
+        "pnpm tauri build e bash scripts/desktop-smoke-test.sh release passam; a imagem e o evento de page load demonstram a interface renderizada.",
+        "bash scripts/security-gates.sh passa localmente antes de push; cargo tests, pnpm test e pnpm typecheck passam.",
+        "A alteracao corrigida e os artefatos TCG sao commitados e enviados a origin/main; ci, Build Linux App e Build Windows App passam no SHA exato publicado.",
+        "Snapcraft produz md-studio_0.5.1_amd64.snap core24 strict stable e Snap Store confirma a revisao em latest/amd64/stable.",
+        "Revisao release aprovada e python -m esaa --root . verify retorna ok."
+      ],
+      "required_review_mode": "release",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-29T02:05:57Z",
+      "superseded_by": [
+        "MD-RELEASE-SNAP-STORE-20260929-TAURI-VERSION"
+      ]
+    },
+    {
+      "task_id": "MD-RELEASE-LOCAL-UPDATE-20260929",
+      "task_kind": "impl",
+      "title": "Atualizar o binario local MD Studio para 0.5.1",
+      "description": "Depois da publicacao e CI do release MD Studio 0.5.1, executar build locked ja aprovado e atualizar somente /home/elzobrito/.local/bin/md-studio. Comparar hash e tamanho do build com o binario instalado, iniciar o app e guardar prova visual do documento de smoke renderizado; preservar os arquivos e dados do usuario.",
+      "status": "todo",
+      "depends_on": [
+        "MD-RELEASE-SNAP-STORE-20260929"
+      ],
+      "targets": [
+        "src-tauri/target/release/md-studio"
+      ],
+      "outputs": {
+        "files": [
+          "src-tauri/target/release/md-studio"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src-tauri/target/**"
+      ],
+      "task_type": "release",
+      "acceptance_criteria": [
+        "pnpm tauri build conclui para versao 0.5.1 e gera src-tauri/target/release/md-studio.",
+        "O binario em /home/elzobrito/.local/bin/md-studio e atualizado a partir do build; SHA-256 e tamanho coincidem.",
+        "O binario instalado inicia e a UI renderiza o documento de prova; evento de page load e screenshot com OCR/pixels comprovam o resultado.",
+        "Complete registra versao, origem, caminhos, hashes, smoke e python -m esaa --root . verify ok."
+      ],
+      "required_review_mode": "release"
+    },
+    {
+      "task_id": "MD-HOTFIX-DESKTOP-RENDER-BOUNDARY-20260929",
+      "task_kind": "impl",
+      "title": "Concluir hotfix desktop com concessao explicita de arquivos",
+      "description": "Sucessora de recuperacao de limite para HF-ISSUE-MD-DESKTOP-FONTCONFIG-GRAY-WINDOW-001. A implementacao e a rastreabilidade ja existem no working tree; esta tarefa concede explicitamente os paths rejeitados no complete original e registra os mesmos efeitos por file_updates. Depois de sua revisao, a tarefa original sera concluida e revisada para preservar o vínculo hotfix da issue.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "src-tauri/src/main.rs",
+        "src-tauri/src/lib.rs",
+        "scripts/desktop-smoke-test.sh",
+        "tests/desktop/desktop-launcher.test.ts",
+        ".esaa/tasks/HF-ISSUE-MD-DESKTOP-FONTCONFIG-GRAY-WINDOW-001.yaml",
+        ".esaa/analysis/HF-ISSUE-MD-DESKTOP-FONTCONFIG-GRAY-WINDOW-001-impact.yaml",
+        ".esaa/analysis/HF-ISSUE-MD-DESKTOP-FONTCONFIG-GRAY-WINDOW-001-footprint.yaml",
+        ".esaa/analysis/HF-ISSUE-MD-DESKTOP-FONTCONFIG-GRAY-WINDOW-001-drift.yaml"
+      ],
+      "outputs": {
+        "files": [
+          "src-tauri/src/main.rs",
+          "src-tauri/src/lib.rs",
+          "scripts/desktop-smoke-test.sh",
+          "tests/desktop/desktop-launcher.test.ts",
+          ".esaa/tasks/HF-ISSUE-MD-DESKTOP-FONTCONFIG-GRAY-WINDOW-001.yaml",
+          ".esaa/analysis/HF-ISSUE-MD-DESKTOP-FONTCONFIG-GRAY-WINDOW-001-impact.yaml",
+          ".esaa/analysis/HF-ISSUE-MD-DESKTOP-FONTCONFIG-GRAY-WINDOW-001-footprint.yaml",
+          ".esaa/analysis/HF-ISSUE-MD-DESKTOP-FONTCONFIG-GRAY-WINDOW-001-drift.yaml"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src-tauri/src/main.rs",
+        "src-tauri/src/lib.rs",
+        "scripts/desktop-smoke-test.sh",
+        "tests/desktop/desktop-launcher.test.ts",
+        ".esaa/tasks/HF-ISSUE-MD-DESKTOP-FONTCONFIG-GRAY-WINDOW-001.yaml",
+        ".esaa/analysis/HF-ISSUE-MD-DESKTOP-FONTCONFIG-GRAY-WINDOW-001-impact.yaml",
+        ".esaa/analysis/HF-ISSUE-MD-DESKTOP-FONTCONFIG-GRAY-WINDOW-001-footprint.yaml",
+        ".esaa/analysis/HF-ISSUE-MD-DESKTOP-FONTCONFIG-GRAY-WINDOW-001-drift.yaml"
+      ],
+      "task_type": "hotfix",
+      "acceptance_criteria": [
+        "Os arquivos Rust, smoke, teste e TCG são aplicados e registrados em file_updates sob boundary_grant explícito.",
+        "Traceability verdict=warning é citado literalmente com scripts/desktop-smoke-test.sh e suas linhas substantivas; nenhum violation.",
+        "pnpm test, pnpm typecheck, cargo test --workspace, pnpm tauri build, smoke visual e python -m esaa --root . verify passam."
+      ],
+      "required_review_mode": "regression",
+      "supersedes": [
+        "HF-ISSUE-MD-DESKTOP-FONTCONFIG-GRAY-WINDOW-001"
+      ],
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-29T01:45:24Z",
+      "verification": {
+        "checks": [
+          "pnpm test passou: 127 arquivos, 738 testes.",
+          "pnpm typecheck passou.",
+          "cargo test --workspace --locked --manifest-path src-tauri/Cargo.toml passou: 21 testes.",
+          "pnpm tauri build passou; gerou binario release e bundles Linux.",
+          "bash scripts/desktop-smoke-test.sh release passou com page-load, janela, analise de pixels e OCR do documento de prova; screenshot e hash registrados nas notas.",
+          "bash -n scripts/desktop-smoke-test.sh, git diff --check e rustfmt scoped passaram.",
+          "python -m esaa --root . verify passou antes do complete."
+        ]
+      },
+      "completed_at": "2026-09-29T01:51:58Z"
+    },
+    {
+      "task_id": "MD-RELEASE-SNAP-STORE-20260929-TAURI-VERSION",
+      "task_kind": "impl",
+      "title": "Publicar MD Studio 0.5.1 com versao Tauri alinhada",
+      "description": "Sucessora de limite para MD-RELEASE-SNAP-STORE-20260929, criada antes de editar porque src-tauri/tauri.conf.json tambem contém a versao efetiva do bundle e nao estava no boundary_grant original. Alinhar package.json, Cargo.toml/lock, tauri.conf.json e Snap a 0.5.1; executar build, smoke, gates, commit/push, CI exato e publicacao stable.",
+      "status": "in_progress",
+      "depends_on": [
+        "HF-ISSUE-MD-DESKTOP-FONTCONFIG-GRAY-WINDOW-001",
+        "MD-SEC-AUDIT-CI-002",
+        "MD-GOV-SEC-HOTFIX-ORDER-20260929",
+        "MD-RELEASE-SNAP-STORE-20260928",
+        "MD-RELEASE-LOCAL-LAUNCHER-ENV-20260929"
+      ],
+      "targets": [
+        "package.json",
+        "pnpm-lock.yaml",
+        "src-tauri/Cargo.toml",
+        "src-tauri/Cargo.lock",
+        "src-tauri/tauri.conf.json",
+        "snap/snapcraft.yaml",
+        "snap-bin/bin/md-studio",
+        ".esaa/tasks/HF-ISSUE-MD-DESKTOP-FONTCONFIG-GRAY-WINDOW-001.yaml",
+        ".esaa/analysis/HF-ISSUE-MD-DESKTOP-FONTCONFIG-GRAY-WINDOW-001-impact.yaml",
+        ".esaa/analysis/HF-ISSUE-MD-DESKTOP-FONTCONFIG-GRAY-WINDOW-001-footprint.yaml",
+        ".esaa/analysis/HF-ISSUE-MD-DESKTOP-FONTCONFIG-GRAY-WINDOW-001-drift.yaml"
+      ],
+      "outputs": {
+        "files": [
+          "md-studio_0.5.1_amd64.snap"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        ".esaa/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "src-tauri/Cargo.toml",
+        "src-tauri/Cargo.lock",
+        "src-tauri/tauri.conf.json",
+        "snap/snapcraft.yaml",
+        "snap-bin/bin/md-studio",
+        "md-studio_0.5.1_amd64.snap"
+      ],
+      "task_type": "release",
+      "acceptance_criteria": [
+        "package.json, src-tauri/Cargo.toml, src-tauri/tauri.conf.json e snapcraft.yaml identificam 0.5.1; Cargo.lock resolve o pacote md-studio 0.5.1.",
+        "pnpm tauri build e smoke desktop provam binario release 0.5.1 com renderizacao real; Snap core24 strict stable corresponde ao binario por SHA-256 e tamanho.",
+        "security-gates, cargo tests, pnpm tests/typecheck passam antes do push; origin/main e os 3 workflows ficam verdes no SHA exato.",
+        "Snap Store confirma 0.5.1 em latest/amd64/stable; rastreabilidade existente e warnings sao citados; QA release aprova e verify retorna ok."
+      ],
+      "required_review_mode": "release",
+      "supersedes": [
+        "MD-RELEASE-SNAP-STORE-20260929"
+      ],
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-29T02:09:07Z",
+      "superseded_by": [
+        "MD-RELEASE-SNAP-STORE-20260929-SMOKE-GATE"
+      ]
+    },
+    {
+      "task_id": "MD-RELEASE-SNAP-STORE-20260929-SMOKE-GATE",
+      "task_kind": "impl",
+      "title": "Publicar MD Studio 0.5.1 com smoke que aguarda renderizacao",
+      "description": "Sucessora de limite para MD-RELEASE-SNAP-STORE-20260929-TAURI-VERSION. O build 0.5.1 carregou a pagina, mas o smoke capturou em 2 s antes do paint; a captura manual apos 12 s mostrou o marcador. Preservar os alinhamentos de versao ja feitos e adicionar concessao explicita para ajustar scripts/desktop-smoke-test.sh com polling OCR limitado ate o conteudo aparecer, antes de build final, gates, push, CI e publicacao.",
+      "status": "in_progress",
+      "depends_on": [
+        "HF-ISSUE-MD-DESKTOP-FONTCONFIG-GRAY-WINDOW-001",
+        "MD-SEC-AUDIT-CI-002",
+        "MD-GOV-SEC-HOTFIX-ORDER-20260929",
+        "MD-RELEASE-SNAP-STORE-20260928",
+        "MD-RELEASE-LOCAL-LAUNCHER-ENV-20260929"
+      ],
+      "targets": [
+        "package.json",
+        "pnpm-lock.yaml",
+        "src-tauri/Cargo.toml",
+        "src-tauri/Cargo.lock",
+        "src-tauri/tauri.conf.json",
+        "snap/snapcraft.yaml",
+        "snap-bin/bin/md-studio",
+        "scripts/desktop-smoke-test.sh",
+        ".esaa/tasks/HF-ISSUE-MD-DESKTOP-FONTCONFIG-GRAY-WINDOW-001.yaml",
+        ".esaa/analysis/HF-ISSUE-MD-DESKTOP-FONTCONFIG-GRAY-WINDOW-001-impact.yaml",
+        ".esaa/analysis/HF-ISSUE-MD-DESKTOP-FONTCONFIG-GRAY-WINDOW-001-footprint.yaml",
+        ".esaa/analysis/HF-ISSUE-MD-DESKTOP-FONTCONFIG-GRAY-WINDOW-001-drift.yaml"
+      ],
+      "outputs": {
+        "files": [
+          "md-studio_0.5.1_amd64.snap"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        ".esaa/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "src-tauri/Cargo.toml",
+        "src-tauri/Cargo.lock",
+        "src-tauri/tauri.conf.json",
+        "snap/snapcraft.yaml",
+        "snap-bin/bin/md-studio",
+        "scripts/desktop-smoke-test.sh",
+        "md-studio_0.5.1_amd64.snap"
+      ],
+      "task_type": "release",
+      "acceptance_criteria": [
+        "package.json, src-tauri/Cargo.toml, tauri.conf.json e snapcraft.yaml identificam 0.5.1; Cargo.lock resolve md-studio 0.5.1.",
+        "Smoke aguarda por tempo limitado o OCR do conteudo renderizado apos page load e passa com screenshot verificavel; falha se o marcador nao aparecer dentro do prazo.",
+        "Build release e Snap core24 strict stable correspondem por hash e tamanho; security-gates, Rust tests, pnpm test e typecheck passam.",
+        "Commit/push e os 3 workflows passam no SHA exato; Snap Store confirma 0.5.1 latest/amd64/stable; revisão release e verify aprovam."
+      ],
+      "required_review_mode": "release",
+      "supersedes": [
+        "MD-RELEASE-SNAP-STORE-20260929-TAURI-VERSION"
+      ],
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-29T02:18:01Z"
     }
   ],
   "indexes": {
     "by_status": {
-      "done": 375,
-      "in_progress": 2,
-      "review": 2
+      "done": 383,
+      "in_progress": 3,
+      "todo": 1
     },
     "by_kind": {
-      "impl": 309,
+      "impl": 316,
       "qa": 40,
-      "spec": 30
+      "spec": 31
     }
   }
 }

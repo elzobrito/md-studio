@@ -4,8 +4,8 @@
     "esaa_version": "0.4.x",
     "generated_by": "esaa.project",
     "source_event_store": ".roadmap/activity.jsonl",
-    "last_event_seq": 4616,
-    "updated_at": "2026-09-28T23:35:22Z"
+    "last_event_seq": 4725,
+    "updated_at": "2026-09-29T02:18:01Z"
   },
   "issues": [
     {
@@ -38,7 +38,7 @@
     },
     {
       "issue_id": "ISSUE-MD-DESKTOP-FONTCONFIG-GRAY-WINDOW-001",
-      "status": "open",
+      "status": "resolved",
       "severity": "high",
       "title": "Causa real da janela cinza: cache fontconfig corrompido (Victor Mono WOFF sem família) trava o WebProcess do WebKitGTK 2.52.6; hotfix x11/DMABUF de ISSUE-MD-V05-BLANK-WINDOW-001 é sintomático",
       "baseline_id": null,
@@ -62,15 +62,25 @@
           "AÇÃO CORRETIVA RECOMENDADA (tarefa futura, NÃO executada): (1) remover as env forçadas de src-tauri/src/main.rs e src-tauri/src/lib.rs (manter só flags de lançador documentadas em INV-DESKTOP-LAUNCHER-ENV se ainda justificadas); (2) trocar o smoke por prova de carregamento/pixels (modelo /tmp/wkgray/run_case.sh: evento de load/log do frontend + screenshot com % de pixels da cor de fundo abaixo de limiar); (3) opcional: diagnóstico no boot (aviso se o WebProcess não carregar em N s); (4) documentar troubleshooting (fc-cache -f, XDG_CACHE_HOME limpo, fontes WOFF em ~/.local/share/fonts); (5) reportar bug upstream no WebKitGTK (laço FcPatternGetString sem FcResultNoMatch)."
         ]
       },
-      "resolution": null,
+      "resolution": {
+        "status": "resolved_by_hotfix",
+        "hotfix_task_id": "HF-ISSUE-MD-DESKTOP-FONTCONFIG-GRAY-WINDOW-001",
+        "review_task_id": "HF-ISSUE-MD-DESKTOP-FONTCONFIG-GRAY-WINDOW-001",
+        "checks": [
+          "pnpm test 127 arquivos/738 testes, pnpm typecheck, cargo test workspace 21 testes e pnpm tauri build passaram na tarefa sucessora.",
+          "Smoke release capturou 1330x887, 0.13% pixels perto de #2C2C2C, 11280 cores, OCR Render proof; SHA-256 24644165bfdb671e42ee7acf620e3e4cbf93030a800da73e67df10c3865ef6b5.",
+          "PageLoad Finished e inicializacao Tauri confirmados; script valida fontconfig cache isolado e flags iguais ao launcher.",
+          "Sucessora regression aprovada independentemente; python -m esaa --root . verify passou na sequencia 4691."
+        ]
+      },
       "links": {
         "reported_by_task_id": "MD-HOTFIX-V05-BOOT-001",
         "fixes_task_id": null,
-        "hotfix_task_id": null
+        "hotfix_task_id": "HF-ISSUE-MD-DESKTOP-FONTCONFIG-GRAY-WINDOW-001"
       },
       "timeline": {
         "created_event_seq": 4548,
-        "resolved_event_seq": null
+        "resolved_event_seq": 4696
       }
     },
     {
@@ -278,7 +288,7 @@
     },
     {
       "issue_id": "ISSUE-MD-SEC-GIT2-ADVISORY-001",
-      "status": "open",
+      "status": "resolved",
       "severity": "high",
       "title": "CI security gate bloqueado por advisories em git2 0.20.4 (RUSTSEC-2026-0183/0184) introduzido em b13ad6b",
       "baseline_id": null,
@@ -302,7 +312,10 @@
           "CORREÇÃO PROPOSTA (tarefa separada, padrão MD-SEC-AUDIT-CI-001; ainda não criada, sugerido id MD-SEC-AUDIT-CI-002): (1) cargo tree -i git2 em src-tauri e md-studio-core; (2) há versão corrigida: subir git2 para 0.21 (Cargo.toml de md-studio-core) e atualizar TODOS os Cargo.lock (src-tauri e md-studio-core), ajustando a API de git.rs se necessário; SEM exceção/ignore no cargo audit; (3) rodar localmente bash scripts/security-gates.sh + cargo test (src-tauri e md-studio-core) + pnpm test/typecheck antes do push; (4) pronto = CI verde nos 3 workflows (ci, Build Linux App, Build Windows App) no commit exato enviado, com links dos runs; (5) reabrir/reconfirmar o release gate v0.4 com evidência do build verde. Impacto no TCG: .esaa/analysis/ISSUE-MD-SEC-GIT2-ADVISORY-001-impact.yaml e .esaa/traceability/sec-git2-graph-delta.md."
         ]
       },
-      "resolution": null,
+      "resolution": {
+        "status": "resolved_by_command",
+        "hotfix_task_id": "MD-SEC-AUDIT-CI-002"
+      },
       "links": {
         "reported_by_task_id": "MD-V04-039",
         "fixes_task_id": null,
@@ -310,7 +323,7 @@
       },
       "timeline": {
         "created_event_seq": 4025,
-        "resolved_event_seq": null
+        "resolved_event_seq": 4625
       }
     },
     {
@@ -436,10 +449,8 @@
   "indexes": {
     "open_by_baseline": {
       "unknown": [
-        "ISSUE-MD-DESKTOP-FONTCONFIG-GRAY-WINDOW-001",
         "ISSUE-MD-PROC-SECURITY-GATE-PREPUSH-001",
         "ISSUE-MD-PROC-WEBVIEW-BLANK-DIAGNOSIS-001",
-        "ISSUE-MD-SEC-GIT2-ADVISORY-001",
         "ISSUE-MD-TAURI-UPGRADE-UNSCOPED-001",
         "ISSUE-MD-TRACE-HANDOFF-TIMELINE-001",
         "ISSUE-MD-V05-048-TRACEABILITY-001"

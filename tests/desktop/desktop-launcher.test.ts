@@ -30,6 +30,20 @@ describe("INV-DESKTOP-LAUNCHER-ENV: Linux Desktop Launchers", () => {
     expect(execLine).toContain("%F");
   });
 
+  it("keeps graphics backend overrides in launchers instead of the Rust runtime", () => {
+    const mainRsPath = path.resolve(__dirname, "../../src-tauri/src/main.rs");
+    const appRsPath = path.resolve(__dirname, "../../src-tauri/src/lib.rs");
+    const runtimeSources = [mainRsPath, appRsPath].map((sourcePath) =>
+      fs.readFileSync(sourcePath, "utf-8")
+    );
+
+    for (const source of runtimeSources) {
+      expect(source).not.toMatch(
+        /set_var\s*\(\s*"(?:GDK_BACKEND|WEBKIT_DISABLE_DMABUF_RENDERER)"/
+      );
+    }
+  });
+
   it("verifies that user-local md-studio.desktop maintains GDK_BACKEND=x11 for Wayland controls fix", () => {
     if (fs.existsSync(userDesktopPath)) {
       const content = fs.readFileSync(userDesktopPath, "utf-8");

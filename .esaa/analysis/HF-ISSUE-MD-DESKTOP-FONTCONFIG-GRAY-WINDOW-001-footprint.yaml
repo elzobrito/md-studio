@@ -1,0 +1,631 @@
+artifact: task-footprint
+schema_version: 1
+trace_task: TRACE-018
+task_id: HF-ISSUE-MD-DESKTOP-FONTCONFIG-GRAY-WINDOW-001
+diff:
+  base: 3ef21d7295359cfd3136e68dd50591ef2cef9dd9
+  head: WORKTREE
+  paths_filter:
+  - src-tauri/src/main.rs
+  - src-tauri/src/lib.rs
+  - scripts/desktop-smoke-test.sh
+  - tests/desktop/desktop-launcher.test.ts
+  excluded_set: []
+  command: git diff -U0 --no-color --no-ext-diff 3ef21d7295359cfd3136e68dd50591ef2cef9dd9 -- src-tauri/src/main.rs src-tauri/src/lib.rs scripts/desktop-smoke-test.sh
+    tests/desktop/desktop-launcher.test.ts
+graph_source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+notes: []
+changed_files:
+- path: scripts/desktop-smoke-test.sh
+  status: M
+  added: 130
+  removed: 101
+  hunks:
+  - old:
+    - 5
+    - 6
+    new:
+    - 5
+    - 8
+  - old:
+    - 11
+    - 11
+    new:
+    - 12
+    - 11
+  - old:
+    - 14
+    - 14
+    new:
+    - 15
+    - 44
+  - old:
+    - 17
+    - 19
+    new:
+    - 47
+    - 52
+  - old:
+    - 20
+    - 19
+    new:
+    - 54
+    - 56
+  - old:
+    - 23
+    - 23
+    new:
+    - 59
+    - 59
+  - old:
+    - 25
+    - 26
+    new:
+    - 61
+    - 61
+  - old:
+    - 28
+    - 27
+    new:
+    - 64
+    - 65
+  - old:
+    - 30
+    - 30
+    new:
+    - 67
+    - 72
+  - old:
+    - 32
+    - 32
+    new:
+    - 73
+    - 72
+  - old:
+    - 34
+    - 34
+    new:
+    - 75
+    - 75
+  - old:
+    - 38
+    - 38
+    new:
+    - 78
+    - 77
+  - old:
+    - 40
+    - 41
+    new:
+    - 79
+    - 78
+  - old:
+    - 44
+    - 46
+    new:
+    - 82
+    - 84
+  - old:
+    - 50
+    - 51
+    new:
+    - 88
+    - 89
+  - old:
+    - 54
+    - 53
+    new:
+    - 93
+    - 93
+  - old:
+    - 56
+    - 59
+    new:
+    - 95
+    - 96
+  - old:
+    - 61
+    - 61
+    new:
+    - 98
+    - 98
+  - old:
+    - 63
+    - 65
+    new:
+    - 100
+    - 101
+  - old:
+    - 67
+    - 68
+    new:
+    - 103
+    - 105
+  - old:
+    - 71
+    - 87
+    new:
+    - 108
+    - 110
+  - old:
+    - 89
+    - 101
+    new:
+    - 111
+    - 110
+  - old:
+    - 103
+    - 107
+    new:
+    - 113
+    - 114
+  - old:
+    - 109
+    - 114
+    new:
+    - 116
+    - 117
+  - old:
+    - 116
+    - 122
+    new:
+    - 119
+    - 120
+  - old:
+    - 123
+    - 122
+    new:
+    - 122
+    - 122
+  - old:
+    - 125
+    - 127
+    new:
+    - 124
+    - 124
+  - old:
+    - 130
+    - 132
+    new:
+    - 127
+    - 127
+  - old:
+    - 135
+    - 139
+    new:
+    - 130
+    - 173
+  - old:
+    - 140
+    - 139
+    new:
+    - 175
+    - 175
+  - old:
+    - 142
+    - 150
+    new:
+    - 177
+    - 180
+  - old:
+    - 152
+    - 153
+    new:
+    - 182
+    - 182
+  is_test: false
+  catalogued_nodes_in_file: 0
+- path: src-tauri/src/lib.rs
+  status: M
+  added: 12
+  removed: 16
+  hunks:
+  - old:
+    - 24
+    - 38
+    new:
+    - 23
+    - 22
+  - old:
+    - 51
+    - 50
+    new:
+    - 37
+    - 44
+  - old:
+    - 70
+    - 70
+    new:
+    - 63
+    - 66
+  is_test: false
+  catalogued_nodes_in_file: 7
+- path: src-tauri/src/main.rs
+  status: M
+  added: 0
+  removed: 14
+  hunks:
+  - old:
+    - 4
+    - 17
+    new:
+    - 3
+    - 2
+  is_test: false
+  catalogued_nodes_in_file: 1
+- path: tests/desktop/desktop-launcher.test.ts
+  status: M
+  added: 14
+  removed: 0
+  hunks:
+  - old:
+    - 32
+    - 31
+    new:
+    - 33
+    - 46
+  is_test: true
+  catalogued_nodes_in_file: 1
+changed_nodes:
+- id: FN-RS-RUN
+  kind: code
+  type: function
+  path: src-tauri/src/lib.rs
+  sides:
+  - old
+  - new
+  lines_hit: 28
+  attribution: line
+  anchor_resolution:
+    old: relocated
+    new: relocated
+  created_by_change: false
+- id: FN-RS-MAIN
+  kind: code
+  type: function
+  path: src-tauri/src/main.rs
+  sides:
+  - old
+  lines_hit: 14
+  attribution: line
+  anchor_resolution:
+    old: relocated
+  created_by_change: false
+- id: TST-TS-DESKTOP-LAUNCHER
+  kind: test
+  type: test
+  path: tests/desktop/desktop-launcher.test.ts
+  sides:
+  - new
+  lines_hit: 14
+  attribution: line
+  anchor_resolution:
+    old: exact
+    new: relocated
+  created_by_change: false
+enclosing_nodes: []
+uncatalogued:
+- path: scripts/desktop-smoke-test.sh
+  is_test: false
+  old_lines:
+  - - 5
+    - 6
+  - - 11
+    - 11
+  - - 14
+    - 14
+  - - 17
+    - 19
+  - - 23
+    - 23
+  - - 25
+    - 26
+  - - 30
+    - 30
+  - - 32
+    - 32
+  - - 34
+    - 34
+  - - 38
+    - 38
+  - - 40
+    - 41
+  - - 44
+    - 46
+  - - 50
+    - 51
+  - - 56
+    - 59
+  - - 61
+    - 61
+  - - 63
+    - 65
+  - - 67
+    - 68
+  - - 71
+    - 87
+  - - 89
+    - 101
+  - - 103
+    - 107
+  - - 109
+    - 114
+  - - 116
+    - 122
+  - - 125
+    - 127
+  - - 130
+    - 132
+  - - 135
+    - 139
+  - - 142
+    - 150
+  - - 152
+    - 153
+  new_lines:
+  - - 5
+    - 8
+  - - 15
+    - 44
+  - - 47
+    - 52
+  - - 54
+    - 56
+  - - 59
+    - 59
+  - - 61
+    - 61
+  - - 64
+    - 65
+  - - 67
+    - 72
+  - - 75
+    - 75
+  - - 82
+    - 84
+  - - 88
+    - 89
+  - - 93
+    - 93
+  - - 95
+    - 96
+  - - 98
+    - 98
+  - - 100
+    - 101
+  - - 103
+    - 105
+  - - 108
+    - 110
+  - - 113
+    - 114
+  - - 116
+    - 117
+  - - 119
+    - 120
+  - - 122
+    - 122
+  - - 124
+    - 124
+  - - 127
+    - 127
+  - - 130
+    - 173
+  - - 175
+    - 175
+  - - 177
+    - 180
+  - - 182
+    - 182
+  trivial_lines: 44
+  substantive_lines:
+  - old:14
+  - old:18
+  - old:19
+  - old:23
+  - old:25
+  - old:26
+  - old:30
+  - old:34
+  - old:40
+  - old:44
+  - old:45
+  - old:46
+  - old:50
+  - old:51
+  - old:56
+  - old:57
+  - old:58
+  - old:59
+  - old:61
+  - old:64
+  - old:65
+  - old:67
+  - old:68
+  - old:71
+  - old:72
+  - old:73
+  - old:74
+  - old:75
+  - old:76
+  - old:77
+  - old:78
+  - old:79
+  - old:80
+  - old:81
+  - old:84
+  - old:85
+  - old:86
+  - old:87
+  - old:89
+  - old:91
+  - old:93
+  - old:95
+  - old:96
+  - old:97
+  - old:98
+  - old:99
+  - old:100
+  - old:101
+  - old:104
+  - old:105
+  - old:106
+  - old:107
+  - old:110
+  - old:111
+  - old:112
+  - old:113
+  - old:114
+  - old:118
+  - old:119
+  - old:120
+  - old:121
+  - old:122
+  - old:126
+  - old:127
+  - old:131
+  - old:132
+  - old:136
+  - old:137
+  - old:138
+  - old:139
+  - old:142
+  - old:143
+  - old:144
+  - old:145
+  - old:146
+  - old:149
+  - old:152
+  - old:153
+  - new:15
+  - new:16
+  - new:17
+  - new:18
+  - new:19
+  - new:21
+  - new:22
+  - new:23
+  - new:24
+  - new:25
+  - new:26
+  - new:27
+  - new:28
+  - new:29
+  - new:30
+  - new:31
+  - new:32
+  - new:34
+  - new:35
+  - new:36
+  - new:37
+  - new:38
+  - new:39
+  - new:40
+  - new:41
+  - new:42
+  - new:44
+  - new:48
+  - new:49
+  - new:50
+  - new:51
+  - new:52
+  - new:55
+  - new:56
+  - new:59
+  - new:61
+  - new:64
+  - new:65
+  - new:67
+  - new:68
+  - new:69
+  - new:70
+  - new:71
+  - new:72
+  - new:75
+  - new:82
+  - new:83
+  - new:84
+  - new:88
+  - new:89
+  - new:93
+  - new:95
+  - new:98
+  - new:100
+  - new:101
+  - new:103
+  - new:104
+  - new:105
+  - new:108
+  - new:109
+  - new:110
+  - new:113
+  - new:114
+  - new:116
+  - new:117
+  - new:119
+  - new:120
+  - new:122
+  - new:124
+  - new:127
+  - new:130
+  - new:131
+  - new:132
+  - new:134
+  - new:135
+  - new:138
+  - new:140
+  - new:142
+  - new:143
+  - new:144
+  - new:145
+  - new:146
+  - new:150
+  - new:151
+  - new:152
+  - new:153
+  - new:154
+  - new:155
+  - new:156
+  - new:157
+  - new:159
+  - new:160
+  - new:161
+  - new:163
+  - new:164
+  - new:165
+  - new:166
+  - new:167
+  - new:168
+  - new:169
+  - new:171
+  - new:172
+  - new:173
+  - new:175
+  - new:177
+  - new:178
+  - new:179
+  - new:180
+  - new:182
+new_files: []
+new_test_files: []
+contracts_touched: []
+data_touched:
+- id: CLS-APP-STATE
+  how: written_by_changed
+  node: FN-RS-RUN
+events_touched: []
+rollup:
+  features:
+  - FEAT-SPLASH-PACKAGING
+  invariants: []
+  flows:
+  - FLOW-APP-BOOT
+stats:
+  files: 4
+  changed_nodes: 3
+  code_nodes: 2
+  test_nodes: 1
+  uncatalogued_files: 1
+  uncatalogued_substantive_lines: 187
+  new_files: 0
+  new_test_files: 0

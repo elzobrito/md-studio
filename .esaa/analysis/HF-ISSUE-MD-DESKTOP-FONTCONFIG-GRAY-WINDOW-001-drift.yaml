@@ -1,0 +1,272 @@
+artifact: task-drift
+schema_version: 1
+trace_task: TRACE-019
+task_id: HF-ISSUE-MD-DESKTOP-FONTCONFIG-GRAY-WINDOW-001
+inputs:
+  impact: .esaa/analysis/HF-ISSUE-MD-DESKTOP-FONTCONFIG-GRAY-WINDOW-001-impact.yaml
+  footprint: .esaa/analysis/HF-ISSUE-MD-DESKTOP-FONTCONFIG-GRAY-WINDOW-001-footprint.yaml
+  graph_source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+notes: []
+rule: authorized = change_target ∪ expected_affected; ok ∈ authorized; violation ∈ protected; warning ∈ potentially_affected | out_of_closure
+  | uncatalogued substantive
+authorized:
+- FEAT-SPLASH-PACKAGING
+- FN-RS-MAIN
+- FN-RS-RUN
+- TST-TS-DESKTOP-LAUNCHER
+observed:
+- FN-RS-MAIN
+- FN-RS-RUN
+- TST-TS-DESKTOP-LAUNCHER
+classification:
+- id: FN-RS-RUN
+  category: authorized
+  severity: ok
+  reasons: []
+- id: FN-RS-MAIN
+  category: authorized
+  severity: ok
+  reasons: []
+- id: TST-TS-DESKTOP-LAUNCHER
+  category: authorized
+  severity: ok
+  reasons: []
+drift: []
+other_findings:
+- path: scripts/desktop-smoke-test.sh
+  category: uncatalogued_change
+  severity: warning
+  lines:
+  - old:14
+  - old:18
+  - old:19
+  - old:23
+  - old:25
+  - old:26
+  - old:30
+  - old:34
+  - old:40
+  - old:44
+  - old:45
+  - old:46
+  - old:50
+  - old:51
+  - old:56
+  - old:57
+  - old:58
+  - old:59
+  - old:61
+  - old:64
+  - old:65
+  - old:67
+  - old:68
+  - old:71
+  - old:72
+  - old:73
+  - old:74
+  - old:75
+  - old:76
+  - old:77
+  - old:78
+  - old:79
+  - old:80
+  - old:81
+  - old:84
+  - old:85
+  - old:86
+  - old:87
+  - old:89
+  - old:91
+  - old:93
+  - old:95
+  - old:96
+  - old:97
+  - old:98
+  - old:99
+  - old:100
+  - old:101
+  - old:104
+  - old:105
+  - old:106
+  - old:107
+  - old:110
+  - old:111
+  - old:112
+  - old:113
+  - old:114
+  - old:118
+  - old:119
+  - old:120
+  - old:121
+  - old:122
+  - old:126
+  - old:127
+  - old:131
+  - old:132
+  - old:136
+  - old:137
+  - old:138
+  - old:139
+  - old:142
+  - old:143
+  - old:144
+  - old:145
+  - old:146
+  - old:149
+  - old:152
+  - old:153
+  - new:15
+  - new:16
+  - new:17
+  - new:18
+  - new:19
+  - new:21
+  - new:22
+  - new:23
+  - new:24
+  - new:25
+  - new:26
+  - new:27
+  - new:28
+  - new:29
+  - new:30
+  - new:31
+  - new:32
+  - new:34
+  - new:35
+  - new:36
+  - new:37
+  - new:38
+  - new:39
+  - new:40
+  - new:41
+  - new:42
+  - new:44
+  - new:48
+  - new:49
+  - new:50
+  - new:51
+  - new:52
+  - new:55
+  - new:56
+  - new:59
+  - new:61
+  - new:64
+  - new:65
+  - new:67
+  - new:68
+  - new:69
+  - new:70
+  - new:71
+  - new:72
+  - new:75
+  - new:82
+  - new:83
+  - new:84
+  - new:88
+  - new:89
+  - new:93
+  - new:95
+  - new:98
+  - new:100
+  - new:101
+  - new:103
+  - new:104
+  - new:105
+  - new:108
+  - new:109
+  - new:110
+  - new:113
+  - new:114
+  - new:116
+  - new:117
+  - new:119
+  - new:120
+  - new:122
+  - new:124
+  - new:127
+  - new:130
+  - new:131
+  - new:132
+  - new:134
+  - new:135
+  - new:138
+  - new:140
+  - new:142
+  - new:143
+  - new:144
+  - new:145
+  - new:146
+  - new:150
+  - new:151
+  - new:152
+  - new:153
+  - new:154
+  - new:155
+  - new:156
+  - new:157
+  - new:159
+  - new:160
+  - new:161
+  - new:163
+  - new:164
+  - new:165
+  - new:166
+  - new:167
+  - new:168
+  - new:169
+  - new:171
+  - new:172
+  - new:173
+  - new:175
+  - new:177
+  - new:178
+  - new:179
+  - new:180
+  - new:182
+not_touched:
+- FEAT-SPLASH-PACKAGING
+verdict: warning
+metrics:
+  nodes:
+    tp: 3
+    authorized: 4
+    observed: 3
+    precision: 0.75
+    recall: 1.0
+    closure_recall: 1.0
+  code_nodes_only:
+    tp: 2
+    authorized: 2
+    observed: 2
+    precision: 1.0
+    recall: 1.0
+  features:
+    projected_direct:
+    - FEAT-APP-SCREENS
+    - FEAT-SPLASH-PACKAGING
+    projected_all: 15
+    observed:
+    - FEAT-SPLASH-PACKAGING
+    observed_in_projected_direct:
+    - FEAT-SPLASH-PACKAGING
+    observed_missing_from_projection: []
+    precision_direct: 0.5
+    recall_all: 1.0
+  invariants:
+    projected:
+    - INV-SHA256-CONFLICT
+    - INV-WATCHER-ECHO-SUPPRESSION
+    observed: []
+    missing_from_projection: []
+  tests:
+    projected_must_run: []
+    changed_test_nodes:
+    - TST-TS-DESKTOP-LAUNCHER
+    new_test_files: []
+  contracts_touched: []
+  data_touched:
+  - id: CLS-APP-STATE
+    how: written_by_changed
+    node: FN-RS-RUN
+  events_touched: []

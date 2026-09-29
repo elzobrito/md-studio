@@ -1,0 +1,21 @@
+artifact: task-traceability
+schema_version: 1
+task_id: HF-ISSUE-MD-DESKTOP-FONTCONFIG-GRAY-WINDOW-001
+title: "Comprovar renderizacao WebKit no smoke desktop e remover overrides do binario"
+graph:
+  path: .esaa/traceability/graph.json
+  source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+traceability:
+  targets: [FN-RS-MAIN, FN-RS-RUN]
+  expected_affected: [FEAT-SPLASH-PACKAGING, TST-TS-DESKTOP-LAUNCHER]
+  protected_extra: [INV-DESKTOP-LAUNCHER-ENV]
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: false
+  justification:
+    INV-DESKTOP-LAUNCHER-ENV: "A alteracao remove apenas overrides do executavel; preserva as flags nos launchers .desktop e executa o teste existente."
+artifacts:
+  impact: .esaa/analysis/HF-ISSUE-MD-DESKTOP-FONTCONFIG-GRAY-WINDOW-001-impact.yaml
+  footprint: .esaa/analysis/HF-ISSUE-MD-DESKTOP-FONTCONFIG-GRAY-WINDOW-001-footprint.yaml
+  drift: .esaa/analysis/HF-ISSUE-MD-DESKTOP-FONTCONFIG-GRAY-WINDOW-001-drift.yaml
