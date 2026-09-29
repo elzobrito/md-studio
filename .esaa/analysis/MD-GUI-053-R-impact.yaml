@@ -1,0 +1,37 @@
+task_id: MD-GUI-053-R
+impact_summary: "Consolidação e auditoria de acessibilidade WAI-ARIA no MD Studio R3: foco visível consistente (:focus-visible) com anéis de foco em temas dark/light (WCAG 2.4.7 Focus Visible), padronização de prefers-reduced-motion eliminando transições/animações sob preferência de sistema (WCAG 2.3.3 Animation from Interactions), e verificação de semântica ARIA para tabs, menus, modais, statusbar e árvore de arquivos."
+affected_files:
+  - src/styles/design-tokens.css
+  - src/styles/app-shell.css
+  - tests/runtime/accessibility-keyboard.test.ts
+  - docs/spec/053-R-keyboard-accessibility.md
+  - .esaa/tasks/MD-GUI-053-R.yaml
+  - .esaa/analysis/MD-GUI-053-R-impact.yaml
+security_analysis:
+  accessibility_standards: "Conformidade integral com WCAG 2.1 Nível AA (1.4.3 Contraste Mínimo, 1.4.11 Contraste Não-Textual, 2.1.1 Teclado, 2.4.7 Foco Visível, 2.3.3 Animação a Partir de Interações), garantindo ergonomia para leitores de tela e navegação sem mouse."
+verification_evidence:
+  vitest: "tests/runtime/accessibility-keyboard.test.ts cobrindo foco visível, tokens de contraste, aria roles essenciais e media queries de movimento reduzido"
+  typecheck: "pnpm typecheck com 0 erros"
+blast_radius:
+  authorized:
+    - src/styles/**
+    - tests/runtime/**
+    - docs/spec/**
+    - .esaa/**
+  potentially_affected: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: true
+closure: []
+projected:
+  features:
+    direct: []
+    indirect: []
+  invariants:
+    - INV-FOCUS-VISIBLE
+    - INV-REDUCED-MOTION
+  tests:
+    must_run:
+      - pnpm test tests/runtime/accessibility-keyboard.test.ts
+      - pnpm typecheck

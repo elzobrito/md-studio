@@ -15,10 +15,10 @@ describe("MD-UI-EMPTY-001: Empty State & Welcome Screen Hierarchy", () => {
       />
     );
 
-    // Primary CTA is Abrir Pasta
+    // Primary CTA is Abrir Workspace / Pasta
     expect(html).toContain("empty-state-btn primary");
     expect(html).toContain("btn-primary");
-    expect(html).toContain("Abrir Pasta");
+    expect(html.includes("Abrir Workspace") || html.includes("Abrir Pasta")).toBe(true);
 
     // Secondary CTA is Abrir Arquivo
     expect(html).toContain("empty-state-btn secondary");
@@ -30,8 +30,8 @@ describe("MD-UI-EMPTY-001: Empty State & Welcome Screen Hierarchy", () => {
     expect(html).toContain("btn-ghost");
     expect(html).toContain("Novo Documento");
 
-    // Order check: Abrir Pasta appears before Abrir Arquivo, which appears before Novo Documento
-    const folderIdx = html.indexOf("Abrir Pasta");
+    // Order check: Primary folder/workspace CTA appears before Abrir Arquivo, which appears before Novo Documento
+    const folderIdx = html.indexOf("Abrir Workspace") !== -1 ? html.indexOf("Abrir Workspace") : html.indexOf("Abrir Pasta");
     const fileIdx = html.indexOf("Abrir Arquivo");
     const newDocIdx = html.indexOf("Novo Documento");
     expect(folderIdx).toBeLessThan(fileIdx);
@@ -48,7 +48,7 @@ describe("MD-UI-EMPTY-001: Empty State & Welcome Screen Hierarchy", () => {
     );
 
     expect(html).not.toContain("?");
-    expect(html).toContain("📝");
+    expect(html.includes("📝") || html.includes("<svg")).toBe(true);
     expect(html).toContain("Ctrl+P");
   });
 

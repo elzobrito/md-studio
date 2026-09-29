@@ -5,6 +5,7 @@ import type { ResolvedWikiLink, DocumentMetadata } from "../types/metadata";
 import { formatCode } from "../services/formatter";
 import { replaceFencedCodeBlock } from "../markdown/fencedCode";
 import { MermaidBlock } from "./MermaidBlock";
+import { DiagramBlock } from "./DiagramBlock";
 import { scrollToHeading, resolveRelativeLink, openExternalUrl } from "../services/navigation";
 import { groupAdjacentCodeTabs } from "../markdown/codeBlockMetadata";
 import { findSourcePositionFromElement } from "../markdown/sourceMap";
@@ -517,11 +518,12 @@ export function MarkdownViewer(props: {
       container.dataset.mounted = "true";
 
       const code = container.dataset.mermaidCode || container.textContent || "";
+      const language = container.dataset.diagramLanguage || "mermaid";
       if (!code.trim()) return;
 
       container.innerHTML = "";
       const reactRoot = createRoot(container);
-      reactRoot.render(<MermaidBlock source={code} />);
+      reactRoot.render(<DiagramBlock language={language} source={code} />);
       mountedRoots.push(reactRoot);
     });
 

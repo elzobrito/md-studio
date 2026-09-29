@@ -1,0 +1,25 @@
+task_id: MD-V05-052
+title: "Diagram Engines: registry local, preview e renderers para Graphviz e WaveDrom"
+status: in_progress
+assigned_to: agent-impl
+task_kind: impl
+task_type: feature
+targets:
+  - .esaa/tasks/MD-V05-052.yaml
+  - src/services/diagramEngineRegistry.ts
+  - src/components/DiagramBlock.tsx
+  - src/markdown/processor.ts
+  - src/components/MarkdownViewer.tsx
+  - tests/diagrams/diagram-engine-registry.test.ts
+dependencies:
+  - MD-V05-052-SPIKE
+acceptance_criteria:
+  - "DiagramEngineRegistry extensível com adapters lazy-loaded para Graphviz e WaveDrom"
+  - "Renderização offline de blocos fenced dot/graphviz e wavedrom no preview"
+  - "Sanitização rigorosa de SVG gerado e preservação do código-fonte em caso de erro"
+  - "Zero impacto na inicialização ou no funcionamento do renderer Mermaid canônico"
+verification:
+  checks:
+    - "pnpm test tests/diagrams/diagram-engine-registry.test.ts"
+    - "pnpm test tests/diagrams/mermaid-explorer.test.ts"
+    - "pnpm typecheck"

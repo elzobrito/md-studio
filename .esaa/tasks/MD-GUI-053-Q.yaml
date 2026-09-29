@@ -1,0 +1,25 @@
+task_id: MD-GUI-053-Q
+title: "053-Q — Settings, Modals & Toasts"
+status: completed
+assigned_to: agent-impl
+task_kind: impl
+task_type: feature
+targets:
+  - src/components/settings/SettingsPanel.tsx
+  - src/components/toast/ToastContext.tsx
+  - src/styles/toast.css
+  - src/App.tsx
+  - tests/runtime/settings-modals-toasts.test.ts
+  - docs/spec/053-Q-settings-modals-toasts.md
+  - .esaa/tasks/MD-GUI-053-Q.yaml
+  - .esaa/analysis/MD-GUI-053-Q-impact.yaml
+acceptance_criteria:
+  - "SettingsPanel acessível via atalhos e sidebar preservando todas as opções"
+  - "Modais com ciclo de vida acessível e gerenciamento estrito de foco"
+  - "Toasts em live regions acessíveis sem interceptar cliques"
+  - "Testes de modais e settings passando 100%"
+verification:
+  checks:
+    - "pnpm test tests/runtime/settings-modals-toasts.test.ts"
+    - "pnpm typecheck"
+    - "pnpm test"

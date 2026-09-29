@@ -1,0 +1,141 @@
+artifact: task-footprint
+schema_version: 1
+trace_task: TRACE-018
+task_id: MD-V05-043
+diff:
+  base: 6fbe64ae4b9ee447d7c2de697ba0dd37a6708806
+  head: WORKTREE
+  paths_filter:
+  - src-tauri/scripts/markitdown_bridge.py
+  - src-tauri/src/commands/importer.rs
+  - src-tauri/src/commands/mod.rs
+  - src-tauri/src/lib.rs
+  - src/services/markitdownAdapter.ts
+  - tests/import/markitdown-adapter.test.ts
+  excluded_set: []
+  command: git diff -U0 --no-color --no-ext-diff 6fbe64ae4b9ee447d7c2de697ba0dd37a6708806 -- src-tauri/scripts/markitdown_bridge.py src-tauri/src/commands/importer.rs
+    src-tauri/src/commands/mod.rs src-tauri/src/lib.rs src/services/markitdownAdapter.ts tests/import/markitdown-adapter.test.ts
+graph_source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+notes: []
+changed_files:
+- path: src-tauri/scripts/markitdown_bridge.py
+  status: A
+  added: 120
+  removed: 0
+  hunks:
+  - old:
+    - 0
+    - -1
+    new:
+    - 1
+    - 120
+  is_test: false
+  catalogued_nodes_in_file: 0
+- path: src-tauri/src/commands/importer.rs
+  status: A
+  added: 137
+  removed: 0
+  hunks:
+  - old:
+    - 0
+    - -1
+    new:
+    - 1
+    - 137
+  is_test: false
+  catalogued_nodes_in_file: 0
+- path: src-tauri/src/commands/mod.rs
+  status: M
+  added: 1
+  removed: 0
+  hunks:
+  - old:
+    - 23
+    - 22
+    new:
+    - 24
+    - 24
+  is_test: false
+  catalogued_nodes_in_file: 21
+- path: src-tauri/src/lib.rs
+  status: M
+  added: 3
+  removed: 0
+  hunks:
+  - old:
+    - 97
+    - 96
+    new:
+    - 98
+    - 100
+  is_test: false
+  catalogued_nodes_in_file: 7
+- path: src/services/markitdownAdapter.ts
+  status: A
+  added: 141
+  removed: 0
+  hunks:
+  - old:
+    - 0
+    - -1
+    new:
+    - 1
+    - 141
+  is_test: false
+  catalogued_nodes_in_file: 0
+- path: tests/import/markitdown-adapter.test.ts
+  status: A
+  added: 120
+  removed: 0
+  hunks:
+  - old:
+    - 0
+    - -1
+    new:
+    - 1
+    - 120
+  is_test: true
+  catalogued_nodes_in_file: 0
+changed_nodes: []
+enclosing_nodes: []
+uncatalogued:
+- path: src-tauri/src/commands/mod.rs
+  is_test: false
+  new_lines:
+  - - 24
+    - 24
+  trivial_lines: 0
+  substantive_lines:
+  - new:24
+- path: src-tauri/src/lib.rs
+  is_test: false
+  new_lines:
+  - - 98
+    - 100
+  trivial_lines: 0
+  substantive_lines:
+  - new:98
+  - new:99
+  - new:100
+new_files:
+- src-tauri/scripts/markitdown_bridge.py
+- src-tauri/src/commands/importer.rs
+- src/services/markitdownAdapter.ts
+new_test_files:
+- tests/import/markitdown-adapter.test.ts
+contracts_touched: []
+data_touched: []
+events_touched: []
+rollup:
+  features: []
+  invariants: []
+  flows: []
+stats:
+  files: 6
+  changed_nodes: 0
+  code_nodes: 0
+  test_nodes: 0
+  uncatalogued_files: 2
+  uncatalogued_substantive_lines: 4
+  new_files: 3
+  new_test_files: 1

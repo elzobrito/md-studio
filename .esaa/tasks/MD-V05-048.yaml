@@ -1,0 +1,21 @@
+task_id: MD-V05-048
+title: "EPUB 3: integração do gerador de ebooks com o Publishing Engine"
+status: in_progress
+assigned_to: agent-impl
+task_kind: impl
+task_type: feature
+targets:
+  - .esaa/tasks/MD-V05-048.yaml
+  - src/services/publishingEngine.ts
+  - src/markdown/frontmatter.ts
+  - tests/publishing/publishing-engine.test.ts
+  - tests/export/epubProcessor.test.ts
+  - tests/export/exportEpubService.test.ts
+dependencies:
+  - MD-V05-046
+  - MD-V05-049
+acceptance_criteria:
+  - "Integração do exporter EPUB 3 ao registry do Publishing Engine (id=epub, extension=epub)"
+  - "Validação estrita de metadados de frontmatter incluindo author e lang"
+  - "Empacotamento atômico validado via EpubBuilder Rust e zip seguro sob Path Fencing"
+  - "Aplicação das diretrizes de Fallback Editorial para elementos complexos"

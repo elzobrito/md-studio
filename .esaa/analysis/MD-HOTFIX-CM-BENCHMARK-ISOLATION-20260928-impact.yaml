@@ -1,0 +1,60 @@
+artifact: task-impact
+schema_version: 1
+trace_task: TRACE-017
+task_id: MD-HOTFIX-CM-BENCHMARK-ISOLATION-20260928
+projected_at: '2026-09-28T20:07:34-03:00'
+projected_before_change: false
+projection_inputs: null
+spec: .esaa/tasks/MD-HOTFIX-CM-BENCHMARK-ISOLATION-20260928.yaml
+graph_source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+rationale:
+  MOD-EDITOR: O benchmark mede a fidelidade de undo ao alternar documentos no editor; cada estratégia deve receber o mesmo estado inicial.
+justification: null
+expected_uncatalogued:
+- tests/runtime/codemirror-multi-doc-strategy.test.ts
+blast_radius:
+  change_target:
+  - MOD-EDITOR
+  expected_affected: []
+  expected_affected_source: declared
+  suggested_expected_affected: []
+  authorized:
+  - MOD-EDITOR
+  potentially_affected: []
+  protected_in_closure: []
+  protected_total: 141
+  protected_declared: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: false
+projected:
+  nodes:
+  - MOD-EDITOR
+  features:
+    direct: []
+    indirect: []
+  flows: []
+  invariants: []
+  tests:
+    must_run: []
+    should_run: []
+    may_run: []
+  contracts: []
+  data: []
+  events: []
+  entrypoints: []
+  modules: []
+closure:
+- id: MOD-EDITOR
+  kind: module
+  type: module
+  distance: 0
+  anchor: null
+  via: null
+  terminal: false
+hubs: []
+stats:
+  closure_nodes: 1
+  by_distance:
+    '0': 1

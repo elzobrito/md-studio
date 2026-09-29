@@ -1,0 +1,23 @@
+task_id: MD-GUI-053-S
+title: "053-S — Responsive Desktop & Performance"
+status: completed
+assigned_to: agent-impl
+task_kind: impl
+task_type: feature
+targets:
+  - src/styles/app-shell.css
+  - src/styles/design-tokens.css
+  - tests/runtime/responsive-performance.test.ts
+  - docs/spec/053-S-responsive-performance.md
+  - .esaa/tasks/MD-GUI-053-S.yaml
+  - .esaa/analysis/MD-GUI-053-S-impact.yaml
+acceptance_criteria:
+  - "Validação em múltiplas resoluções desktop sem overflow ou clipping"
+  - "Operações de chrome (resize, toggle sidebar) não disparam reparse de AST"
+  - "Consumo de memória estável com múltiplos documentos abertos"
+  - "Testes de regressão de performance passando"
+verification:
+  checks:
+    - "pnpm test tests/runtime/responsive-performance.test.ts"
+    - "pnpm typecheck"
+    - "pnpm test"

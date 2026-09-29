@@ -1,0 +1,41 @@
+task_id: MD-GUI-053-O
+impact_summary: "Evolução da superfície contextual do painel lateral direito para o UnifiedInspector unificado e modular: seções em acordeão para Sumário (TOC), Links citados (Outgoing links), Backlinks (Incoming links), Referências e Diagramas, e Estatísticas/Tags, alimentadas exclusivamente pelos provedores semânticos reais (DocumentOutline, metadataIndex, knowledgeGraph, buildDocumentInspection) sem nenhuma leitura ou dependência do DOM renderizado do Preview."
+affected_files:
+  - src/components/inspector/UnifiedInspector.tsx
+  - src/components/layout/UnifiedRightPanel.tsx
+  - src/styles/unified-inspector.css
+  - src/App.tsx
+  - tests/runtime/unified-inspector.test.ts
+  - docs/spec/053-O-unified-inspector.md
+  - .esaa/tasks/MD-GUI-053-O.yaml
+  - .esaa/analysis/MD-GUI-053-O-impact.yaml
+security_analysis:
+  decoupled_semantic_source: "O Inspector obtém todos os nós, cabeçalhos e links diretamente da AST semântica e do modelo canônico em memória, evitando vulnerabilidades de injeção ou race conditions vinculadas ao DOM do Preview."
+verification_evidence:
+  vitest: "tests/runtime/unified-inspector.test.ts validando renderização de seções, accordions acessíveis com aria-expanded, isolamento de DOM e atualização de TOC ao editar conteúdo"
+  typecheck: "pnpm typecheck com 0 erros"
+blast_radius:
+  authorized:
+    - src/components/inspector/**
+    - src/components/layout/**
+    - src/styles/**
+    - src/App.tsx
+    - tests/runtime/**
+    - docs/spec/**
+    - .esaa/**
+  potentially_affected: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: true
+closure: []
+projected:
+  features:
+    direct: []
+    indirect: []
+  invariants:
+    - INV-PATH-FENCE
+  tests:
+    must_run:
+      - pnpm test tests/runtime/unified-inspector.test.ts
+      - pnpm typecheck

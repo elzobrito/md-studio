@@ -1,0 +1,41 @@
+task_id: MD-GUI-053-J
+impact_summary: "Implementação da Sidebar única integrada (IntegratedWorkspaceSidebar) consolidando navegação de arquivos (FileTree), utilitários (TODO Explorer, Recentes), cabeçalho do workspace e ações rápidas, aposentando visualmente a WorkspaceRail de 48px sem descontinuar nenhuma funcionalidade."
+affected_files:
+  - src/components/workspace/IntegratedWorkspaceSidebar.tsx
+  - src/styles/integrated-sidebar.css
+  - src/styles/themes.css
+  - src/App.tsx
+  - tests/runtime/integrated-sidebar.test.ts
+  - docs/spec/053-J-integrated-workspace-sidebar.md
+  - .esaa/tasks/MD-GUI-053-J.yaml
+  - .esaa/analysis/MD-GUI-053-J-impact.yaml
+security_analysis:
+  path_fencing_preservation: "A navegação de arquivos e links internos na nova sidebar integrada preserva estritamente o Path Fencing existente em useFileTree e IPC."
+  zero_capability_loss: "Todas as funcionalidades da antiga WorkspaceRail (Explorador e TODO Explorer) permanecem disponíveis via abas unificadas na sidebar."
+verification_evidence:
+  vitest: "tests/runtime/integrated-sidebar.test.ts cobrindo renderização da sidebar única, alternância entre Arquivos e Tarefas, cabeçalho e ações rápidas"
+  typecheck: "pnpm typecheck com 0 erros"
+blast_radius:
+  authorized:
+    - src/components/workspace/**
+    - src/styles/**
+    - src/App.tsx
+    - tests/runtime/**
+    - docs/spec/**
+    - .esaa/**
+  potentially_affected: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: true
+closure: []
+projected:
+  features:
+    direct: []
+    indirect: []
+  invariants:
+    - INV-PATH-FENCE
+  tests:
+    must_run:
+      - pnpm test tests/runtime/integrated-sidebar.test.ts
+      - pnpm typecheck

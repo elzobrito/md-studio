@@ -1,0 +1,28 @@
+task_id: MD-V05-049
+impact_summary: "Implementação da política transversal de Fallback Editorial (editorialFallback.ts) com hierarquia de fidelidade, registro de handlers por nodeType, warnings estruturados e abort seguro pré-escrita"
+affected_files:
+  - src/contracts/publishingTypes.ts
+  - src/services/editorialFallback.ts
+  - tests/publishing/editorial-fallback.test.ts
+security_analysis:
+  never_silent_loss: "Proibição estrita de supressão silenciosa de conteúdo com erro; todo elemento não renderizável gera fallback legível ou abort."
+  stale_prevention: "Diagramas ou matemática com erro não exibem cache visual de versão anterior do source."
+  abort_safety: "Em caso de falha irrecuperável sem fallback seguro, o pipeline aborta antes de qualquer modificação no sistema de arquivos, preservando o destino."
+verification_evidence:
+  vitest: "Testes unitários em tests/publishing/editorial-fallback.test.ts cobrindo mermaid, math, code, imagens ausentes, distinção entre adaptação e fallback, e abort seguro"
+  typescript: "pnpm typecheck"
+blast_radius:
+  authorized: []
+  potentially_affected: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: true
+closure: []
+projected:
+  features:
+    direct: []
+    indirect: []
+  invariants: []
+  tests:
+    must_run: []

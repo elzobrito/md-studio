@@ -1,4 +1,11 @@
-export type SaveStatus = 'saved' | 'modified' | 'saving' | 'error';
+export type SaveStatus =
+  | 'saved'
+  | 'modified'
+  | 'saving'
+  | 'unsaved'
+  | 'conflicted'
+  | 'missing'
+  | 'error';
 
 export interface EditorStateModel {
   saveStatus: SaveStatus;

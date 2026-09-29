@@ -1,0 +1,24 @@
+task_id: MD-GUI-053-A
+title: "053-A — Inventory, Drift, Capability Rebase & TCG Reprojection"
+status: in_progress
+assigned_to: agent-impl
+task_kind: impl
+task_type: maintenance
+targets:
+  - docs/qa/053-A-inventory-drift-rebase.md
+  - .esaa/tasks/MD-GUI-053-A.yaml
+  - .esaa/analysis/MD-GUI-053-A-impact.yaml
+  - .esaa/analysis/MD-GUI-053-A-drift.yaml
+  - .esaa/traceability/g4-plus-053a-delta.md
+acceptance_criteria:
+  - "Inventário completo das capabilities de produção pós-v0.4, pós-v0.5 e hotfix Linux documentado"
+  - "Matriz de migração formal PROTO NODE / SLICE -> PRODUCTION NODE / FLOW / COMPONENT -> MIGRATION ACTION construída"
+  - "Auditoria e reconciliação da baseline do TCG de produção (nós, arestas, testes, contratos) com validate.py pass, critical 0 e stale 0"
+  - "Nenhum código visual ou de aplicação modificado nesta tarefa (projection < first_code_edit)"
+verification:
+  checks:
+    - "python3 .esaa/traceability/tools/build_graph.py"
+    - "python3 .esaa/traceability/tools/validate.py"
+    - "pnpm test"
+    - "cargo test --manifest-path src-tauri/Cargo.toml"
+    - "bash scripts/desktop-smoke-test.sh dev"

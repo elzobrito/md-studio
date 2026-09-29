@@ -44,6 +44,10 @@ describe("MD-UI-010: Settings refinado (SettingsPanel)", () => {
     expect(dialog).not.toBeNull();
     expect(dialog?.getAttribute("aria-modal")).toBe("true");
     expect(dialog?.getAttribute("aria-label")).toBe("Configurações");
+    const dialogTitleId = dialog?.getAttribute("aria-labelledby");
+    expect(dialogTitleId).toBe("settings-dialog-title");
+    const dialogTitle = dialogTitleId ? container.querySelector(`#${dialogTitleId}`) : null;
+    expect(dialogTitle?.textContent).toContain("Configurações");
 
     // Header has vector SVG icon and title
     const headerTitle = container.querySelector(".settings-modal-title");
@@ -54,7 +58,7 @@ describe("MD-UI-010: Settings refinado (SettingsPanel)", () => {
     // Close button has vector icon
     const closeBtn = container.querySelector<HTMLButtonElement>(".settings-modal-close-btn");
     expect(closeBtn).not.toBeNull();
-    expect(closeBtn?.getAttribute("aria-label")).toBe("Fechar");
+    expect(closeBtn?.getAttribute("aria-label")).toBe("Fechar configurações");
     expect(closeBtn?.querySelector("svg")).not.toBeNull();
 
     // Tablist

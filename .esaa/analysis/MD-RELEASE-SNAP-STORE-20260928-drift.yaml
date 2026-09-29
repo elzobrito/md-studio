@@ -1,0 +1,93 @@
+artifact: task-drift
+schema_version: 1
+trace_task: TRACE-019
+task_id: MD-RELEASE-SNAP-STORE-20260928
+inputs:
+  impact: .esaa/analysis/MD-RELEASE-SNAP-STORE-20260928-impact.yaml
+  footprint: .esaa/analysis/MD-RELEASE-SNAP-STORE-20260928-footprint.yaml
+  graph_source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+notes: []
+rule: authorized = change_target ∪ expected_affected; ok ∈ authorized; violation ∈ protected; warning ∈ potentially_affected | out_of_closure
+  | uncatalogued substantive
+authorized:
+- MOD-PACKAGING
+observed: []
+classification: []
+drift: []
+other_findings:
+- path: snap/snapcraft.yaml
+  category: uncatalogued_change
+  severity: warning
+  lines:
+  - old:4
+  - old:39
+  - old:40
+  - old:41
+  - old:42
+  - old:43
+  - old:44
+  - old:45
+  - old:46
+  - old:47
+  - old:48
+  - old:49
+  - old:50
+  - old:51
+  - old:52
+  - old:53
+  - old:54
+  - old:56
+  - old:57
+  - old:58
+  - old:59
+  - old:60
+  - old:61
+  - old:62
+  - old:63
+  - old:64
+  - old:65
+  - old:67
+  - old:70
+  - old:71
+  - new:4
+  - new:36
+  - new:37
+  - new:38
+  - new:42
+  - new:43
+not_touched:
+- MOD-PACKAGING
+verdict: warning
+metrics:
+  nodes:
+    tp: 0
+    authorized: 1
+    observed: 0
+    precision: 0.0
+    recall: null
+    closure_recall: null
+  code_nodes_only:
+    tp: 0
+    authorized: 0
+    observed: 0
+    precision: null
+    recall: null
+  features:
+    projected_direct: []
+    projected_all: 0
+    observed: []
+    observed_in_projected_direct: []
+    observed_missing_from_projection: []
+    precision_direct: null
+    recall_all: null
+  invariants:
+    projected: []
+    observed: []
+    missing_from_projection: []
+  tests:
+    projected_must_run: []
+    changed_test_nodes: []
+    new_test_files: []
+  contracts_touched: []
+  data_touched: []
+  events_touched: []

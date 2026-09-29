@@ -1,0 +1,23 @@
+task_id: MD-GUI-053-B
+title: "053-B — Spike: Content Identity, Dirty State & Save Queue"
+status: in_progress
+assigned_to: agent-impl
+task_kind: impl
+task_type: feature
+targets:
+  - src/services/runtime/contentIdentity.ts
+  - src/services/runtime/saveQueue.ts
+  - tests/runtime/content-identity-save-queue.test.ts
+  - docs/spec/053-B-spike-content-identity.md
+  - .esaa/tasks/MD-GUI-053-B.yaml
+  - .esaa/analysis/MD-GUI-053-B-impact.yaml
+acceptance_criteria:
+  - "contentIdentity derivado de hash determinístico; dirty independe de revision monotônica"
+  - "Undo até conteúdo idêntico ao persistido restaura estado clean; Redo reativa dirty"
+  - "SaveTicket vincula documentId, generation e target; late write não limpa dirty novo"
+  - "Spike suite de testes automatizada validando todos os cenários de concorrência"
+verification:
+  checks:
+    - "pnpm test tests/runtime/content-identity-save-queue.test.ts"
+    - "pnpm typecheck"
+    - "pnpm test"

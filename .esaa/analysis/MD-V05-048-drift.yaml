@@ -1,0 +1,74 @@
+artifact: task-drift
+schema_version: 1
+trace_task: TRACE-019
+task_id: MD-V05-048
+inputs:
+  impact: .esaa/analysis/MD-V05-048-impact.yaml
+  footprint: .esaa/analysis/MD-V05-048-footprint.yaml
+  graph_source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+notes: []
+rule: authorized = change_target ∪ expected_affected; ok ∈ authorized; violation ∈ protected; warning ∈ potentially_affected | out_of_closure
+  | uncatalogued substantive
+authorized: []
+observed:
+- CFG-FRONTMATTER-SCHEMA
+classification:
+- id: CFG-FRONTMATTER-SCHEMA
+  category: protected
+  severity: violation
+  reasons:
+  - security_config
+drift:
+- id: CFG-FRONTMATTER-SCHEMA
+  category: protected
+  severity: violation
+  reasons:
+  - security_config
+other_findings:
+- path: src/services/publishingEngine.ts
+  category: new_production_file
+  severity: info
+- path: tests/publishing/publishing-engine.test.ts
+  category: new_test_file
+  severity: info
+not_touched: []
+verdict: violation
+metrics:
+  nodes:
+    tp: 0
+    authorized: 0
+    observed: 1
+    precision: null
+    recall: 0.0
+    closure_recall: 0.0
+  code_nodes_only:
+    tp: 0
+    authorized: 0
+    observed: 1
+    precision: null
+    recall: 0.0
+  features:
+    projected_direct: []
+    projected_all: 0
+    observed:
+    - FEAT-FRONTMATTER
+    observed_in_projected_direct: []
+    observed_missing_from_projection:
+    - FEAT-FRONTMATTER
+    precision_direct: null
+    recall_all: 0.0
+  invariants:
+    projected: []
+    observed: []
+    missing_from_projection: []
+  tests:
+    projected_must_run: []
+    changed_test_nodes: []
+    new_test_files:
+    - tests/publishing/publishing-engine.test.ts
+  contracts_touched:
+  - id: CTR-FRONTMATTER-SCHEMA
+    how: producer
+    node: CFG-FRONTMATTER-SCHEMA
+  data_touched: []
+  events_touched: []

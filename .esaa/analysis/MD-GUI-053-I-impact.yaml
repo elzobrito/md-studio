@@ -1,0 +1,43 @@
+task_id: MD-GUI-053-I
+impact_summary: "Implementação da arquitetura visual global do novo shell (GlobalAppBar e AppShell) no MD Studio, integrando os design tokens R3, a barra de navegação global com search trigger, alternadores de painéis (Sidebar e Inspector) e posicionamento estável da StatusBar no rodapé, preservando as variáveis críticas de ambiente de desktop WebKitGTK/Linux."
+affected_files:
+  - src/components/shell/GlobalAppBar.tsx
+  - src/components/shell/AppShell.tsx
+  - src/styles/app-shell.css
+  - src/styles/themes.css
+  - src/App.tsx
+  - tests/runtime/global-app-shell.test.ts
+  - docs/spec/053-I-global-app-shell.md
+  - .esaa/tasks/MD-GUI-053-I.yaml
+  - .esaa/analysis/MD-GUI-053-I-impact.yaml
+security_analysis:
+  desktop_runtime_protection: "Preservação estrita das flags de startup WebKitGTK/Linux (GDK_BACKEND=x11, WEBKIT_DISABLE_DMABUF_RENDERER=1) e teste de integridade via desktop-smoke-test.sh."
+  no_unsafe_dom: "Layout reativo puro em React 19 / CSS Flexbox sem injeção de HTML arbitrário."
+verification_evidence:
+  vitest: "tests/runtime/global-app-shell.test.ts validando renderização da GlobalAppBar, gatilhos de busca, toggles e estrutura de 3 colunas flexíveis"
+  typecheck: "pnpm typecheck com 0 erros"
+  desktop_smoke: "bash scripts/desktop-smoke-test.sh validando boot limpo sem crash de WebKitGTK"
+blast_radius:
+  authorized:
+    - src/components/shell/**
+    - src/styles/**
+    - src/App.tsx
+    - tests/runtime/**
+    - docs/spec/**
+    - .esaa/**
+  potentially_affected: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: true
+closure: []
+projected:
+  features:
+    direct: []
+    indirect: []
+  invariants:
+    - INV-PATH-FENCE
+  tests:
+    must_run:
+      - pnpm test tests/runtime/global-app-shell.test.ts
+      - pnpm typecheck

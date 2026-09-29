@@ -1,0 +1,38 @@
+task_id: MD-GUI-053-C
+impact_summary: "Spike arquitetural 053-C: implementação e validação do Untitled Recovery Store (armazenamento privado do app para documentos sem caminho físico em disco, ciclo de vida de rascunhos, restauração pós-crash, promoção de Save As e tolerância a falhas de persistência sem dependência de SQLite)."
+affected_files:
+  - src/services/runtime/untitledStore.ts
+  - tests/runtime/untitled-recovery-store.test.ts
+  - docs/spec/053-C-spike-untitled-recovery.md
+  - .esaa/tasks/MD-GUI-053-C.yaml
+  - .esaa/analysis/MD-GUI-053-C-impact.yaml
+security_analysis:
+  private_storage_isolation: "Rascunhos de untitled residem exclusivamente no domínio privado da aplicação (prefixo isolado de storage), nunca criando arquivos temporários visíveis no workspace sem autorização do usuário."
+  no_sqlite_dependency: "Conforme R3, a recuperação de untitled é implementada sem acoplamento a banco de dados SQLite."
+  path_fencing_on_promote: "Na promoção via Save As, o caminho final de destino é submetido à validação de Path Fencing do workspace."
+verification_evidence:
+  vitest: "tests/runtime/untitled-recovery-store.test.ts cobrindo criação, snapshot recovery, promoção Save As, cleanup e storage failure"
+  typecheck: "pnpm typecheck com 0 erros"
+blast_radius:
+  authorized:
+    - src/services/runtime/**
+    - tests/runtime/**
+    - docs/spec/**
+    - .esaa/**
+  potentially_affected: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: true
+closure: []
+projected:
+  features:
+    direct: []
+    indirect: []
+  invariants:
+    - INV-PATH-FENCE
+    - INV-DRAFT-RETENTION
+  tests:
+    must_run:
+      - pnpm test tests/runtime/untitled-recovery-store.test.ts
+      - pnpm typecheck

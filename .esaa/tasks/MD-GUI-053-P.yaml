@@ -1,0 +1,25 @@
+task_id: MD-GUI-053-P
+title: "053-P — Status & Persistence Feedback"
+status: in_progress
+assigned_to: agent-impl
+task_kind: impl
+task_type: feature
+targets:
+  - src/components/statusbar/StatusBar.tsx
+  - src/components/statusbar/SaveStatus.tsx
+  - src/state/editor.ts
+  - src/styles/statusbar.css
+  - src/App.tsx
+  - tests/runtime/status-persistence-feedback.test.ts
+  - docs/spec/053-P-status-persistence-feedback.md
+  - .esaa/tasks/MD-GUI-053-P.yaml
+  - .esaa/analysis/MD-GUI-053-P-impact.yaml
+acceptance_criteria:
+  - "Estados de sincronização exibidos com precisão na StatusBar e DocumentBar"
+  - "Feedback visual não intrusivo para operações de save assíncrono"
+  - "Testes de renderização de status passando 100%"
+verification:
+  checks:
+    - "pnpm test tests/runtime/status-persistence-feedback.test.ts"
+    - "pnpm typecheck"
+    - "pnpm test"

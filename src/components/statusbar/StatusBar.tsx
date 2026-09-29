@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import type { ViewMode } from "../../state/session";
+import type { SaveStatus } from "../../state/editor";
 import { uiStore } from "../../state/ui";
 import { CursorPosition } from "./CursorPosition";
 import { WordCount } from "./WordCount";
@@ -10,7 +11,10 @@ interface Props {
   viewMode: ViewMode;
   content?: string;
   encoding?: string;
+  lineEnding?: string;
   fileName?: string;
+  saveStatus?: SaveStatus;
+  errorMessage?: string;
   syncScroll?: boolean;
   onToggleSyncScroll?: () => void;
   onGoToLine?: () => void;
@@ -28,7 +32,10 @@ export function StatusBar({
   viewMode,
   content,
   encoding = "UTF-8",
+  lineEnding = "LF",
   fileName,
+  saveStatus,
+  errorMessage,
   syncScroll,
   onToggleSyncScroll,
   onGoToLine,
@@ -53,6 +60,8 @@ export function StatusBar({
     }
   };
 
+  const lineCount = content !== undefined && content.length > 0 ? content.split(/\r?\n/).length : 0;
+
   return (
     <footer className="status-bar" role="status" aria-label="Barra de status">
       <div className="status-bar-left">
@@ -63,6 +72,16 @@ export function StatusBar({
           │
         </span>
         <CursorPosition onClick={onGoToLine} />
+        {content !== undefined && (
+          <>
+            <span className="status-bar-separator" aria-hidden="true">
+              │
+            </span>
+            <span className="status-bar-item line-count" title="Total de linhas no documento">
+              {lineCount} {lineCount === 1 ? "linha" : "linhas"}
+            </span>
+          </>
+        )}
         <span className="status-bar-separator" aria-hidden="true">
           │
         </span>
@@ -76,7 +95,7 @@ export function StatusBar({
               type="button"
               className={`status-bar-btn ${syncScroll ? "active" : ""}`}
               onClick={onToggleSyncScroll}
-              title="Sincronização de scroll (Ctrl+Shift+S)"
+              title="Sincronização de scroll (Alt+S)"
             >
               ⇄ Sync {syncScroll ? "ON" : "OFF"}
             </button>
@@ -91,7 +110,17 @@ export function StatusBar({
         <span className="status-bar-separator" aria-hidden="true">
           │
         </span>
-        <SaveStatusBadge fileName={fileName} />
+        <span className="status-bar-item line-ending-label" title="Finalizador de linha">
+          {lineEnding}
+        </span>
+        <span className="status-bar-separator" aria-hidden="true">
+          │
+        </span>
+        <SaveStatusBadge
+          fileName={fileName}
+          status={saveStatus}
+          errorMessage={errorMessage}
+        />
         {!isRightOpen && (
           <>
             <span className="status-bar-separator" aria-hidden="true">
@@ -101,10 +130,10 @@ export function StatusBar({
               type="button"
               className="status-bar-btn status-bar-summary-btn"
               onClick={handleOpenRight}
-              title="Abrir sumário e preferências (Ctrl+Shift+\)"
-              aria-label="Abrir sumário"
+              title="Abrir inspetor (Ctrl+J)"
+              aria-label="Abrir inspetor"
             >
-              [sumário]
+              [inspetor]
             </button>
           </>
         )}

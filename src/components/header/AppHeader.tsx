@@ -4,7 +4,7 @@ import { useSaveStatus } from "../../hooks/useSaveStatus";
 import { ViewModeToggle } from "./ViewModeToggle";
 import { SaveButton } from "./SaveButton";
 import { ExportMenu } from "./ExportMenu";
-import { PanelControls } from "./PanelControls";
+import { GlobalAppBar } from "../shell/GlobalAppBar";
 import "../../styles/header.css";
 
 interface Props {
@@ -26,6 +26,9 @@ interface Props {
   onOpenSettings?: () => void;
   onOpenShortcuts?: () => void;
   onStartPresentation?: () => void;
+  onNavigateHome?: () => void;
+  onToggleTheme?: () => void;
+  currentTheme?: "light" | "dark" | "auto";
   breadcrumb?: ReactNode;
 }
 
@@ -46,106 +49,61 @@ export function AppHeader({
   onNewDocument,
   onOpenSearch,
   onOpenSettings,
-  onOpenShortcuts,
   onStartPresentation,
+  onNavigateHome,
+  onToggleTheme,
+  currentTheme = "dark",
   breadcrumb,
 }: Props) {
   const { status, errorMessage } = useSaveStatus(fileName);
 
+  const extraDocumentActions = (
+    <div className="app-header-doc-actions" style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+      <ViewModeToggle current={viewMode} onChange={onViewModeChange} />
+      {onStartPresentation && (
+        <button
+          type="button"
+          className="appbar-btn"
+          onClick={onStartPresentation}
+          title="Modo Apresentação (F5)"
+          aria-label="Modo Apresentação"
+        >
+          <span style={{ fontSize: "14px" }}>📽️</span>
+        </button>
+      )}
+      <SaveButton
+        status={status}
+        onSave={onSave}
+        disabled={!canSave}
+        errorMessage={errorMessage}
+      />
+      {(onExportHtml || onExportPdf || onExportEpub) && (
+        <ExportMenu
+          disabled={canExport !== undefined ? !canExport : !canSave}
+          onExportHtml={onExportHtml}
+          onExportPdf={onExportPdf}
+          onExportEpub={onExportEpub}
+        />
+      )}
+    </div>
+  );
+
   return (
-    <header className="app-header" role="banner">
-      <div className="app-toolbar">
-        <div className="app-toolbar-left">
-          <button
-            type="button"
-            className="toolbar-action-btn"
-            onClick={onToggleLeft}
-            title={leftOpen ? "Ocultar arquivos (Ctrl+\\)" : "Mostrar arquivos (Ctrl+\\)"}
-            aria-label="Alternar painel esquerdo"
-          >
-            ≡
-          </button>
-          <ViewModeToggle current={viewMode} onChange={onViewModeChange} />
-        </div>
-
-        <div className="app-toolbar-right">
-          {onNewDocument && (
-            <button
-              type="button"
-              className="toolbar-action-btn"
-              onClick={onNewDocument}
-              title="Novo documento Markdown (Ctrl+N)"
-              aria-label="Novo documento"
-            >
-              ➕
-            </button>
-          )}
-
-          {onOpenSearch && (
-            <button
-              type="button"
-              className="toolbar-action-btn"
-              onClick={onOpenSearch}
-              title="Busca rápida de arquivos (Ctrl+P)"
-              aria-label="Busca rápida"
-            >
-              🔍
-            </button>
-          )}
-
-          {onOpenSettings && (
-            <button
-              type="button"
-              className="toolbar-action-btn"
-              onClick={onOpenSettings}
-              title="Configurações (Ctrl+,)"
-              aria-label="Configurações"
-            >
-              ⚙
-            </button>
-          )}
-
-          <button
-            type="button"
-            className={`toolbar-action-btn${rightOpen ? " is-active" : ""}`}
-            onClick={onToggleRight}
-            title={rightOpen ? "Ocultar sumário (Ctrl+Shift+\\)" : "Mostrar sumário (Ctrl+Shift+\\)"}
-            aria-label="Alternar sumário"
-            aria-pressed={rightOpen}
-          >
-            ≡
-          </button>
-
-          {onStartPresentation && (
-            <button
-              type="button"
-              className="toolbar-action-btn"
-              onClick={onStartPresentation}
-              title="Modo Apresentação (F5)"
-              aria-label="Modo Apresentação"
-            >
-              📽️
-            </button>
-          )}
-
-          <SaveButton
-            status={status}
-            onSave={onSave}
-            disabled={!canSave}
-            errorMessage={errorMessage}
-          />
-          {(onExportHtml || onExportPdf || onExportEpub) && (
-            <ExportMenu
-              disabled={canExport !== undefined ? !canExport : !canSave}
-              onExportHtml={onExportHtml}
-              onExportPdf={onExportPdf}
-              onExportEpub={onExportEpub}
-            />
-          )}
-        </div>
-      </div>
-
+    <div className="app-header-container">
+      <GlobalAppBar
+        sidebarOpen={leftOpen}
+        onToggleSidebar={onToggleLeft}
+        inspectorOpen={rightOpen}
+        onToggleInspector={onToggleRight}
+        onNavigateHome={onNavigateHome ?? (() => {})}
+        onOpenSearch={onOpenSearch ?? (() => {})}
+        onToggleTheme={onToggleTheme ?? (() => {})}
+        currentTheme={currentTheme}
+        onOpenSettings={onOpenSettings ?? (() => {})}
+        onNewDocument={onNewDocument}
+        extraActions={extraDocumentActions}
+      />
       {breadcrumb && <div className="app-header-breadcrumb">{breadcrumb}</div>}
-    </header>
+    </div>
   );
 }

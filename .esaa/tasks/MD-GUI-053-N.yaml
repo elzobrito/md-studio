@@ -1,0 +1,27 @@
+task_id: MD-GUI-053-N
+title: "053-N — Preview Surface"
+status: in_progress
+assigned_to: agent-impl
+task_kind: impl
+task_type: feature
+targets:
+  - src/components/preview/PreviewSurface.tsx
+  - src/components/preview/PreviewSubToolbar.tsx
+  - src/components/preview/PreviewDiffView.tsx
+  - src/styles/preview-surface.css
+  - src/components/MarkdownViewer.tsx
+  - src/App.tsx
+  - tests/runtime/preview-surface.test.ts
+  - docs/spec/053-N-preview-surface.md
+  - .esaa/tasks/MD-GUI-053-N.yaml
+  - .esaa/analysis/MD-GUI-053-N-impact.yaml
+acceptance_criteria:
+  - "Toolbar de preview com submodos (Visualização, HTML, Diff) sem slots vazios"
+  - "Diff real entre buffer atual e conteúdo gravado em disco (sem algoritmo ingênuo)"
+  - "Zoom de preview operando sem vazamento de dimensões no layout externo"
+  - "Suíte de testes de preview passando"
+verification:
+  checks:
+    - "pnpm test tests/runtime/preview-surface.test.ts"
+    - "pnpm typecheck"
+    - "pnpm test"

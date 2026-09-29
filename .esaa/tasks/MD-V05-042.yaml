@@ -1,0 +1,28 @@
+task_id: MD-V05-042
+title: "Import Hub: registry de DocumentImporter, detecção de formato e lifecycle de importação"
+status: in_progress
+assigned_to: agent-impl
+deliverables:
+  - path: src-tauri/crates/md-studio-core/src/importer.rs
+    description: "Contratos Rust de DocumentImporter, ImporterRegistry, detecção por magic numbers/extensão, commit_import protegido por Path Fencing"
+  - path: src-tauri/crates/md-studio-core/src/lib.rs
+    description: "Re-exportação dos contratos de importação do core"
+  - path: src/contracts/types.ts
+    description: "Contratos de Import Hub (ImportResult, ImportSourceDescriptor, ImportAssetDescriptor, ImportWarning, ImporterCapability, ImportJobPhase)"
+  - path: src/services/importHub.ts
+    description: "ImportHubService com ImporterRegistry, validador de destino com Path Fencing, sanitizador de nomes e lifecycle de job"
+  - path: src/lib/ipc/client.ts
+    description: "pickImportFile com filtros para todos os formatos suportados pelo ecossistema"
+  - path: tests/import/import-hub.test.ts
+    description: "Suíte de testes unitários cobrindo registry, detecção, preflight de destino, path fencing e lifecycle"
+acceptance_criteria:
+  - "Interface DocumentImporter e registry extensível de provedores locais: ATENDIDO (DocumentImporter, ImporterRegistry)"
+  - "Detecção de formato por assinatura binária/magic numbers e fallback para extensão: ATENDIDO (detect_format_from_bytes_and_ext)"
+  - "Separação estrita: converter != gravar (arquivo original intocado): ATENDIDO (conversão gera ImportResult em memória)"
+  - "Execução de conversão 100% offline sem chamadas de rede ou serviços externos: ATENDIDO (execução estritamente local)"
+  - "Contrato ImportResult padronizado consumindo FidelityClass: ATENDIDO (ImportResult.fidelity via spec 045)"
+verification:
+  checks:
+    - "pnpm test tests/import/import-hub.test.ts"
+    - "cargo test --manifest-path src-tauri/crates/md-studio-core/Cargo.toml"
+    - "pnpm typecheck"

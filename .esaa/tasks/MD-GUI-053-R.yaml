@@ -1,0 +1,24 @@
+task_id: MD-GUI-053-R
+title: "053-R — Keyboard & Accessibility"
+status: completed
+assigned_to: agent-impl
+task_kind: impl
+task_type: feature
+targets:
+  - src/styles/design-tokens.css
+  - src/styles/app-shell.css
+  - tests/runtime/accessibility-keyboard.test.ts
+  - docs/spec/053-R-keyboard-accessibility.md
+  - .esaa/tasks/MD-GUI-053-R.yaml
+  - .esaa/analysis/MD-GUI-053-R-impact.yaml
+acceptance_criteria:
+  - "Navegação por teclado completa em tabs, árvore, modais e menus"
+  - "Atributos WAI-ARIA e live regions anunciando estados corretamente"
+  - "Contraste visual aprovado em temas dark e light com foco visível"
+  - "Suporte a prefers-reduced-motion desativando animações quando requisitado"
+  - "Testes de acessibilidade passando 100%"
+verification:
+  checks:
+    - "pnpm test tests/runtime/accessibility-keyboard.test.ts"
+    - "pnpm typecheck"
+    - "pnpm test"

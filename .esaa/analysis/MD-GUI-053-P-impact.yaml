@@ -1,0 +1,43 @@
+task_id: MD-GUI-053-P
+impact_summary: "Expansão dos estados de persistência do editor (saved, modified, saving, unsaved, conflicted, missing, error) com feedback visual acessível na StatusBar e DocumentBar, contadores editoriais em tempo real (linhas, palavras, caracteres, encoding, line ending), e feedback de sincronização contextual sem bloqueio de interface."
+affected_files:
+  - src/components/statusbar/StatusBar.tsx
+  - src/components/statusbar/SaveStatus.tsx
+  - src/state/editor.ts
+  - src/styles/statusbar.css
+  - src/App.tsx
+  - tests/runtime/status-persistence-feedback.test.ts
+  - docs/spec/053-P-status-persistence-feedback.md
+  - .esaa/tasks/MD-GUI-053-P.yaml
+  - .esaa/analysis/MD-GUI-053-P-impact.yaml
+security_analysis:
+  accessibility_and_state: "Indicadores de persistência usam texto e atributos ARIA além de cores (WCAG 1.4.1 Use of Color), prevenindo que erros ou conflitos passem despercebidos por usuários com deficiência visual."
+verification_evidence:
+  vitest: "tests/runtime/status-persistence-feedback.test.ts validando cada estado de persistência, contadores editoriais e conformidade acessível"
+  typecheck: "pnpm typecheck com 0 erros"
+blast_radius:
+  authorized:
+    - src/components/statusbar/**
+    - src/state/**
+    - src/styles/**
+    - src/App.tsx
+    - tests/runtime/**
+    - docs/spec/**
+    - .esaa/**
+  potentially_affected: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: true
+closure: []
+projected:
+  features:
+    direct: []
+    indirect: []
+  invariants:
+    - INV-ATOMIC-SAVE
+    - INV-SHA256-CONFLICT
+  tests:
+    must_run:
+      - pnpm test tests/runtime/status-persistence-feedback.test.ts
+      - pnpm typecheck

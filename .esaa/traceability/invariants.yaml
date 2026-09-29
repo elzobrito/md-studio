@@ -3,16 +3,17 @@ schema_version: 1
 source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
 generated_at: '2026-09-25T15:18:52-03:00'
 summary:
-  total: 11
+  total: 12
   by_coverage:
     partial: 7
-    none: 3
+    none: 4
     full: 1
   without_tests:
   - INV-FS-ONLY-VIA-RUST
   - INV-REMOTE-RESOURCES-BLOCKED
   - INV-OFFLINE-NO-TELEMETRY
   - INV-DESKTOP-LAUNCHER-ENV
+  - INV-NO-DENIED-DEPENDENCY-ADVISORY
   with_gap:
   - INV-PATH-FENCE
   - INV-FS-ONLY-VIA-RUST
@@ -24,6 +25,7 @@ summary:
   - INV-EXPORT-NO-SILENT-OVERWRITE
   - INV-OFFLINE-NO-TELEMETRY
   - INV-DESKTOP-LAUNCHER-ENV
+  - INV-NO-DENIED-DEPENDENCY-ADVISORY
 invariants:
 - id: INV-PATH-FENCE
   name: 'Path fence: todo acesso a arquivo fica dentro da raiz do workspace'
@@ -374,3 +376,39 @@ invariants:
     - src-tauri/linux/md-studio.desktop:9
     method: observed
   trace_task: MD-HOTFIX-DESKTOP-003
+- id: INV-NO-DENIED-DEPENDENCY-ADVISORY
+  name: Nenhuma dependência com advisory negado pelo cargo audit entra na main
+  statement: Nenhum crate resolvido em src-tauri/Cargo.lock ou src-tauri/crates/md-studio-core/Cargo.lock
+    pode ter advisory RustSec negado pela política do gate (cargo audit --deny unsound; vulnerabilidades
+    sempre negadas). Verificação = scripts/security-gates.sh (local antes de todo push e no CI via security-gates.yml).
+    Exceções só com análise de uso e prazo de revisão no documento de segurança; nunca rebaixar deny para
+    warn.
+  features: []
+  nodes:
+  - CFG-RS-DEP-GIT2
+  enforced_by:
+  - scripts/security-gates.sh:9
+  - scripts/security-gates.sh:10
+  - .github/workflows/security-gates.yml:29
+  - .github/workflows/ci.yml:7
+  - .github/workflows/build-linux.yml:18
+  - .github/workflows/build-windows.yml:18
+  verified_by: []
+  coverage: none
+  gap: true
+  gaps:
+  - description: 'VIOLADA no source_commit G3 (2e5cce8): git2 0.20.4 (RUSTSEC-2026-0183/0184, unsound)
+      está nos dois Cargo.lock; CI vermelho nos 3 workflows (runs 36335999915/36335999933/36335999969).
+      Correção proposta: subir git2 para >= 0.21.0 (tarefa separada, ver ISSUE-MD-SEC-GIT2-ADVISORY-001).'
+    evidence:
+    - src-tauri/Cargo.lock:1415
+    - src-tauri/crates/md-studio-core/Cargo.lock:327
+    - src-tauri/crates/md-studio-core/Cargo.toml:20
+    method: observed
+  - description: Verificação é um script de CI (scripts/security-gates.sh), não um teste catalogado em
+      tests.yaml; por isso verified_by vazio e coverage none. O gate depende da advisory-db do momento
+      da execução (advisories novos quebram o gate sem commit).
+    evidence:
+    - scripts/security-gates.sh:9
+    method: observed
+  trace_task: ISSUE-MD-SEC-GIT2-ADVISORY-001

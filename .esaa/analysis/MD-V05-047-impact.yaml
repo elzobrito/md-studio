@@ -1,0 +1,28 @@
+task_id: MD-V05-047
+impact_summary: "Implementação do exporter HTML Autocontido (htmlSelfContainedExporter.ts) gerando artefato single-file 100% offline, com CSS embutido, diagramas Mermaid estáticos, KaTeX e imagens locais em Base64 sob Path Fencing"
+affected_files:
+  - src/services/htmlSelfContainedExporter.ts
+  - src/services/publishingEngine.ts
+  - tests/publishing/html-self-contained.test.ts
+security_analysis:
+  zero_network_audit: "Auditoria estrita rejeitando links para CDNs externas, Google Fonts ou scripts remotos."
+  path_fencing_assets: "Imagens locais são lidas estritamente sob Path Fencing antes de conversão para data URI em Base64."
+  offline_self_contained: "O arquivo final contém todo o CSS, tipografia e gráficos necessários para renderização estática offline."
+verification_evidence:
+  vitest: "Testes unitários em tests/publishing/html-self-contained.test.ts validando single-file, ausência de CDNs, SVG estático e preservação de KaTeX/Shiki"
+  typescript: "pnpm typecheck"
+blast_radius:
+  authorized: []
+  potentially_affected: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: true
+closure: []
+projected:
+  features:
+    direct: []
+    indirect: []
+  invariants: []
+  tests:
+    must_run: []

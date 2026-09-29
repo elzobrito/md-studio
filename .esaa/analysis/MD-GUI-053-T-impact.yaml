@@ -1,0 +1,36 @@
+task_id: MD-GUI-053-T
+impact_summary: "Encerramento e homologação da onda 053 — Nova GUI R3: verificação integral de paridade funcional com a baseline do protótipo v6-final, validação completa de regressão em TypeScript, Rust e testes de integração, execução do smoke test desktop Linux com variáveis de proteção WebKitGTK/X11 preservadas, e geração do relatório executivo de entrega da versão."
+affected_files:
+  - docs/qa/053-nova-gui.md
+  - .esaa/tasks/MD-GUI-053-T.yaml
+  - .esaa/analysis/MD-GUI-053-T-impact.yaml
+security_analysis:
+  release_gate_and_stability: "Verificação rigorosa de que as proteções de runtime desktop Linux (GDK_BACKEND=x11, WEBKIT_DISABLE_DMABUF_RENDERER=1) permanecem intactas no launcher, que os orçamentos de memória e integridade de persistência (INV-ATOMIC-SAVE, INV-SHA256-CONFLICT) estão operacionais e que nenhuma dependência insegura foi introduzida."
+verification_evidence:
+  vitest: "Suíte completa de Vitest passando 100%"
+  cargo: "Suíte completa de testes Rust do backend passando 100%"
+  typecheck: "pnpm typecheck com 0 erros"
+  desktop_smoke: "scripts/desktop-smoke-test.sh executado com sucesso"
+blast_radius:
+  authorized:
+    - docs/qa/**
+    - .esaa/**
+  potentially_affected: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: true
+closure: []
+projected:
+  features:
+    direct: []
+    indirect: []
+  invariants:
+    - INV-RELEASE-GATE
+    - INV-DESKTOP-SMOKE-PASS
+  tests:
+    must_run:
+      - pnpm vitest run
+      - pnpm typecheck
+      - cargo test
+      - bash scripts/desktop-smoke-test.sh

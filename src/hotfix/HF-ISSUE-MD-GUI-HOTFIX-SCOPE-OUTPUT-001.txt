@@ -1,0 +1,10 @@
+Reconciliação do escopo de saída do hotfix
+
+Issue: ISSUE-MD-GUI-HOTFIX-SCOPE-OUTPUT-001
+Tarefa: HF-ISSUE-MD-GUI-HOTFIX-SCOPE-OUTPUT-001
+
+O hotfix de acompanhamento inclui src/hotfix/ no scope_patch, que contém este registro e o artefato da correção de SettingsPanel. O estado atual de SettingsPanel.tsx e o teste atualizado foram registrados por file_updates nesta conclusão para reconciliar a mudança concorrente observada durante a revisão.
+
+Verificações executadas no checkout:
+- pnpm exec vitest run --maxWorkers=1 tests/settings/ tests/runtime/settings-modals-toasts.test.ts — 4 arquivos, 22 testes aprovados.
+- pnpm typecheck — aprovado.

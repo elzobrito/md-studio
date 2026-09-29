@@ -1,0 +1,22 @@
+task_id: MD-GUI-053-C
+title: "053-C — Spike: Untitled Recovery Store"
+status: in_progress
+assigned_to: agent-impl
+task_kind: impl
+task_type: feature
+targets:
+  - src/services/runtime/untitledStore.ts
+  - tests/runtime/untitled-recovery-store.test.ts
+  - docs/spec/053-C-spike-untitled-recovery.md
+  - .esaa/tasks/MD-GUI-053-C.yaml
+  - .esaa/analysis/MD-GUI-053-C-impact.yaml
+acceptance_criteria:
+  - "Documentos untitled possuem identidade estável (untitled-N) e armazenamento isolado"
+  - "Crash/relaunch recovery restaura conteúdo untitled com timestamps e metadata"
+  - "Save As promove o documento para arquivo real e remove do UntitledStore de forma atômica"
+  - "Bateria de testes unitários para ciclo de vida completo de untitled"
+verification:
+  checks:
+    - "pnpm test tests/runtime/untitled-recovery-store.test.ts"
+    - "pnpm typecheck"
+    - "pnpm test"

@@ -1,0 +1,34 @@
+task_id: MD-V05-042
+impact_summary: "Implementação da infraestrutura central do Import Hub (DocumentImporter, ImporterRegistry, detecção de formato, lifecycle de job e commit seguro com Path Fencing)"
+affected_files:
+  - src-tauri/crates/md-studio-core/src/importer.rs
+  - src-tauri/crates/md-studio-core/src/lib.rs
+  - src/contracts/types.ts
+  - src/services/importHub.ts
+  - src/lib/ipc/client.ts
+  - tests/import/import-hub.test.ts
+security_analysis:
+  two_zone_model: "Separação estrita entre zona de leitura externa (somente leitura pontual do arquivo selecionado) e zona de destino no workspace."
+  path_fencing: "O destino do Markdown e de qualquer asset extraído é validado rigorosamente sob a raiz do workspace, rejeitando traversals ('..'), caminhos absolutos ou escapes."
+  no_mutation_of_source: "O arquivo original de origem nunca é modificado, movido ou excluído."
+  no_network: "Toda a operação de importação é 100% offline e local; nenhuma URL remota ou LLM externa é invocada."
+  atomic_commit: "Gravação final utiliza atomic save e preflight de colisões sem sobrescrita silenciosa."
+verification_evidence:
+  vitest: "Testes unitários em tests/import/import-hub.test.ts cobrindo registry, detecção, lifecycle e path fencing"
+  cargo: "cargo test --manifest-path src-tauri/crates/md-studio-core/Cargo.toml"
+  typescript: "pnpm typecheck"
+blast_radius:
+  authorized: []
+  potentially_affected: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: true
+closure: []
+projected:
+  features:
+    direct: []
+    indirect: []
+  invariants: []
+  tests:
+    must_run: []

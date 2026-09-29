@@ -1,0 +1,105 @@
+/**
+ * MD Studio R3 — Canonical Design Tokens
+ * Normative reference: 053-nova-gui-R3.md (Tasks 053-H, 053-I, 053-J, 053-L, 053-M, 053-O)
+ */
+
+:root {
+  /* Layout Dimensions */
+  --appbar-height: 40px;
+  --tabs-height: 38px;
+  --docbar-height: 36px;
+  --statusbar-height: 28px;
+
+  --sidebar-min-width: 200px;
+  --sidebar-default-width: 260px;
+  --sidebar-max-width: 480px;
+
+  --inspector-min-width: 220px;
+  --inspector-default-width: 280px;
+  --inspector-max-width: 500px;
+
+  /* Hit targets & controls */
+  --control-height-sm: 24px;
+  --control-height-md: 28px;
+  --control-height-lg: 32px;
+  --hit-target-comfortable: 32px;
+  --resizer-hitbox: 8px;
+
+  /* Border Radii */
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-full: 9999px;
+
+  /* Z-Index Hierarchy */
+  --z-base: 0;
+  --z-surface: 10;
+  --z-resizer: 20;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-modal-backdrop: 500;
+  --z-modal: 510;
+  --z-toast: 1000;
+  --z-tooltip: 1100;
+
+  /* Typography */
+  --font-ui: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+
+  --font-size-xs: 11px;
+  --font-size-sm: 12px;
+  --font-size-base: 13px;
+  --font-size-md: 14px;
+  --font-size-lg: 16px;
+  --font-size-xl: 18px;
+  --font-size-2xl: 22px;
+}
+
+/* Global focus visibility & high-contrast keyboard navigation */
+:focus-visible {
+  outline: 2px solid var(--color-focus, #3b82f6);
+  outline-offset: 2px;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[role="button"]:focus-visible,
+[role="tab"]:focus-visible,
+[role="menuitem"]:focus-visible,
+[role="treeitem"]:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--color-focus, #3b82f6);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+}
+
+/* Accessibility: WCAG 2.3.3 prefers-reduced-motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Base button and clickable resets */
+.btn-reset {
+  appearance: none;
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}

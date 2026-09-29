@@ -1,8 +1,48 @@
+/* ==========================================================================
+   Split View & Bidirectional Layout Styles
+   ========================================================================== */
+
+.split-layout {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.split-layout.is-vertical {
+  flex-direction: row;
+}
+
+.split-layout.is-horizontal {
+  flex-direction: column;
+}
+
+.split-layout-pane {
+  min-height: 0;
+  min-width: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.split-layout-pane.is-full {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+}
+
+/* ==========================================================================
+   Split Divider (Vertical & Horizontal)
+   ========================================================================== */
+
 .split-divider {
   position: relative;
-  width: 8px;
   background-color: var(--border);
-  cursor: col-resize;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -10,7 +50,19 @@
   touch-action: none;
   z-index: 10;
   transition: background-color 0.15s ease;
+  flex-shrink: 0;
+}
+
+.split-divider.is-vertical {
+  width: 8px;
   height: 100%;
+  cursor: col-resize;
+}
+
+.split-divider.is-horizontal {
+  height: 8px;
+  width: 100%;
+  cursor: row-resize;
 }
 
 .split-divider:hover,
@@ -23,7 +75,8 @@
   outline-offset: 1px;
 }
 
-.split-divider-line {
+/* Internal Guide Lines */
+.split-divider.is-vertical .split-divider-line {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -32,10 +85,20 @@
   background: transparent;
 }
 
-.split-divider-handle {
+.split-divider.is-horizontal .split-divider-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 3px;
+  height: 2px;
+  background: transparent;
+}
+
+/* Central Handle Pill */
+.split-divider.is-vertical .split-divider-handle {
   width: 14px;
   height: 28px;
-  background: var(--bg-secondary);
+  background: var(--bg-secondary, #252538);
   border: 1px solid var(--border);
   border-radius: 4px;
   display: flex;
@@ -49,12 +112,31 @@
   z-index: 11;
 }
 
+.split-divider.is-horizontal .split-divider-handle {
+  width: 28px;
+  height: 14px;
+  background: var(--bg-secondary, #252538);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  line-height: 1;
+  color: var(--text-secondary);
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  transition: all 0.15s ease;
+  z-index: 11;
+}
+
 .split-divider:hover .split-divider-handle,
 .split-divider.is-dragging .split-divider-handle {
   border-color: var(--color-accent);
   color: var(--color-accent);
 }
 
+/* Preset Menu Popup */
 .split-preset-menu {
   position: absolute;
   top: calc(50% + 20px);
@@ -70,6 +152,13 @@
   flex-direction: column;
   gap: 2px;
   min-width: 150px;
+}
+
+.split-divider.is-horizontal .split-preset-menu {
+  top: auto;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .split-preset-btn {
@@ -101,4 +190,42 @@
 .split-preset-hint {
   font-size: 10px;
   color: var(--text-muted);
+}
+
+/* ==========================================================================
+   Split Orientation Controls (Toolbar)
+   ========================================================================== */
+
+.split-orientation-controls {
+  display: inline-flex;
+  align-items: center;
+  background: var(--bg-primary, #181825);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 2px;
+  gap: 2px;
+}
+
+.split-orientation-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px 6px;
+  border: none;
+  background: transparent;
+  border-radius: 4px;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.12s ease;
+}
+
+.split-orientation-btn:hover {
+  color: var(--text-primary);
+  background: var(--color-hover, rgba(255, 255, 255, 0.08));
+}
+
+.split-orientation-btn.active {
+  color: var(--text-primary);
+  background: var(--bg-surface, #252538);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }

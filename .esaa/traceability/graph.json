@@ -2,19 +2,19 @@
  "artifact": "graph",
  "schema_version": 1,
  "source_commit": "2e5cce855888b404654002fef1d97ebc0db29cf7",
- "generated_at": "2026-09-27T14:44:04-03:00",
+ "generated_at": "2026-09-28T07:28:15-03:00",
  "generator": "tools/build_graph.py",
  "inputs": {
   "repository.yaml": "49d9bf856a27ca914e553dac3e96e55fe0c91ea528da1aa7d151dd0f9de12309",
   "schema.yaml": "4981571652bdf2a437ed4f7426d8f3c1c362abfbbd94d7507bda3815daec0cc0",
   "modules.yaml": "f0a6a2ca7614230c8fdf6ee6c5d378211218c48d22ce10ea59a8801c4f1185bd",
   "entrypoints.yaml": "e627d4851c2f20e58977fd471709408b6134d532e8acb4bde963627c74ed4f8f",
-  "nodes.yaml": "86980ff149f3ee8b35fe8e42bf72e67fd3e1af47f4a14abc3b5689e01cb20cca",
-  "edges.yaml": "5b7d365996a6c947adfe177a0005851c1ddc119d1e3d6909148d4437810796d4",
+  "nodes.yaml": "74086b0e4b31a676c049086f40e1bb31d8565250ee5d98adb056aaf567134995",
+  "edges.yaml": "33cf3eb9ed19edf32ff97a142b0682c0da0ef2235e6ade70ce9eb5409ed19b6b",
   "contracts.yaml": "49ccf46df938c01be67bc697bfda9082c83ae1de5aed0d04eca7ac7886d88cc9",
   "features.yaml": "b5d19d6d6109b760f06d823d10425879c4ada4e7a3b6f8bb100e132cbbc90f1a",
   "tests.yaml": "768f6f4a31cb691005eb76a460bd2c3fe9bb4d6d9abbabee4e0b786447ee1f15",
-  "invariants.yaml": "04697b500bb5b6b85739dc3b44151ac87e1dfcdf5823fe1ac1e0570b18bbd519",
+  "invariants.yaml": "01912971b713ea4cb7c1b7f1c27c4dcb3550b9f2c48c43548c1dc48013ba8e13",
   "flows/app-boot.yaml": "009449860ed9238ea7d2d4968ef995899ec71742c9b3e04bbb5398380f8013f7",
   "flows/auto-save.yaml": "d65072067e6853c7d74b669707a8396c69e3c9f6a3c95e2f33330a9a1e0340dd",
   "flows/backlinks-query.yaml": "bdd352ec4fc52e03a55f4e599fa644128014959ab769d0559bd42709fec0ce4b",
@@ -39,15 +39,15 @@
   "flows/workspace-search.yaml": "c80ef88e39a0413e82490cca5fb643e12570c99e3e751dd1ec576927f642b97d"
  },
  "stats": {
-  "nodes": 774,
-  "edges": 2618,
+  "nodes": 777,
+  "edges": 2622,
   "nodes_by_kind": {
-   "code": 387,
+   "code": 389,
    "contract": 38,
    "entrypoint": 71,
    "feature": 59,
    "flow": 22,
-   "invariant": 11,
+   "invariant": 12,
    "module": 19,
    "test": 167
   },
@@ -55,10 +55,10 @@
    "calls": 285,
    "configured_by": 30,
    "consumes": 2,
-   "contains": 1046,
+   "contains": 1048,
    "covered_by": 277,
-   "depends_on": 139,
-   "implemented_by": 507,
+   "depends_on": 140,
+   "implemented_by": 508,
    "implements": 67,
    "publishes": 2,
    "reads": 40,
@@ -69,9 +69,9 @@
    "writes": 40
   },
   "edges_by_method": {
-   "derived": 1657,
+   "derived": 1660,
    "inferred": 19,
-   "observed": 942
+   "observed": 943
   }
  },
  "nodes": [
@@ -578,6 +578,34 @@
    "kind": "code"
   },
   {
+   "id": "CFG-RS-DEP-GIT2",
+   "type": "configuration",
+   "name": "Dependência externa git2 (crate Rust) de md-studio-core",
+   "module": "MOD-SECURITY-POLICY",
+   "anchor": {
+    "path": "src-tauri/crates/md-studio-core/Cargo.toml",
+    "symbol": "git2",
+    "lines": [
+     20,
+     20
+    ]
+   },
+   "alias": "src-tauri/crates/md-studio-core/Cargo.toml#git2",
+   "tags": [
+    "external_dependency",
+    "rust_crate",
+    "security",
+    "rustsec_advisory",
+    "denied_by_cargo_audit"
+   ],
+   "inclusion": [
+    "invariant"
+   ],
+   "notes": "Modelada como configuration (schema.yaml não tem tipo de dependência externa; ver sec-git2-graph-delta.md). Declaração: git2 = { version = \"0.20\", default-features = false }. Resolvida para git2 0.20.4 em src-tauri/Cargo.lock:1415 e src-tauri/crates/md-studio-core/Cargo.lock:327 (libgit2-sys 0.18.8+1.9.7). Advisories (unsound, negados por --deny unsound): RUSTSEC-2026-0183 (Remote::list() com ponteiro nulo) e RUSTSEC-2026-0184 (Signature de BlameHunk via blame_buffer). patched >= 0.21.0 (git2 0.21.0 no crates.io desde 2026-05-18). Introduzida em b13ad6b (MD-V04-039).",
+   "trace_task": "ISSUE-MD-SEC-GIT2-ADVISORY-001",
+   "kind": "code"
+  },
+  {
    "id": "CFG-SANITIZE-SCHEMA",
    "type": "configuration",
    "name": "mdStudioSanitizeSchema",
@@ -697,6 +725,31 @@
     "flow"
    ],
    "trace_task": "TRACE-004",
+   "kind": "code"
+  },
+  {
+   "id": "CLS-GIT-PROVIDER",
+   "type": "class",
+   "name": "GitProvider (Git enxuto: status, diff gutter, histórico, arquivo em commit)",
+   "module": "MOD-WORKSPACE-FS",
+   "anchor": {
+    "path": "src-tauri/crates/md-studio-core/src/git.rs",
+    "symbol": "GitProvider",
+    "lines": [
+     46,
+     287
+    ]
+   },
+   "alias": "src-tauri/crates/md-studio-core/src/git.rs#GitProvider",
+   "tags": [
+    "security",
+    "v0.4"
+   ],
+   "inclusion": [
+    "invariant"
+   ],
+   "notes": "Único consumidor de git2 no repo (git.rs:1). Usa Repository, Status/StatusOptions, DiffOptions, revwalk/Sort::TIME e Oid::from_str; NÃO usa Remote::list() nem Blame::blame_buffer. Módulo provisório MOD-WORKSPACE-FS (não há MOD-GIT); chamadores IPC git_* em src-tauri/src/commands/mod.rs:261-318 ainda não catalogados (lacuna G3).",
+   "trace_task": "ISSUE-MD-SEC-GIT2-ADVISORY-001",
    "kind": "code"
   },
   {
@@ -7112,6 +7165,14 @@
    "kind": "invariant",
    "type": "invariant",
    "name": "Acesso ao sistema de arquivos só via comandos Rust",
+   "coverage": "none",
+   "gap": true
+  },
+  {
+   "id": "INV-NO-DENIED-DEPENDENCY-ADVISORY",
+   "kind": "invariant",
+   "type": "invariant",
+   "name": "Nenhuma dependência com advisory negado pelo cargo audit entra na main",
    "coverage": "none",
    "gap": true
   },
@@ -13762,6 +13823,23 @@
    "method": "observed",
    "source": "edges.yaml",
    "trace_task": "TRACE-005"
+  },
+  {
+   "id": "CLS-GIT-PROVIDER|depends_on|CFG-RS-DEP-GIT2",
+   "from": "CLS-GIT-PROVIDER",
+   "to": "CFG-RS-DEP-GIT2",
+   "relation": "depends_on",
+   "evidence": [
+    "src-tauri/crates/md-studio-core/src/git.rs:1",
+    "src-tauri/crates/md-studio-core/src/git.rs:13",
+    "src-tauri/crates/md-studio-core/src/git.rs:192",
+    "src-tauri/crates/md-studio-core/src/git.rs:272",
+    "src-tauri/crates/md-studio-core/Cargo.toml:20"
+   ],
+   "method": "observed",
+   "source": "edges.yaml",
+   "notes": "use git2::{...} + GitError::Git2(git2::Error) + git2::Sort::TIME + git2::Oid::from_str.",
+   "trace_task": "ISSUE-MD-SEC-GIT2-ADVISORY-001"
   },
   {
    "id": "CLS-LOCAL-SPELL-CHECKER|covered_by|TST-TS-SPELL-CHECKER",
@@ -32154,6 +32232,22 @@
    "source": "invariants.yaml:nodes"
   },
   {
+   "id": "INV-NO-DENIED-DEPENDENCY-ADVISORY|implemented_by|CFG-RS-DEP-GIT2",
+   "from": "INV-NO-DENIED-DEPENDENCY-ADVISORY",
+   "to": "CFG-RS-DEP-GIT2",
+   "relation": "implemented_by",
+   "evidence": [
+    "scripts/security-gates.sh:9",
+    "scripts/security-gates.sh:10",
+    ".github/workflows/security-gates.yml:29",
+    ".github/workflows/ci.yml:7",
+    ".github/workflows/build-linux.yml:18",
+    ".github/workflows/build-windows.yml:18"
+   ],
+   "method": "derived",
+   "source": "invariants.yaml:nodes"
+  },
+  {
    "id": "INV-OFFLINE-NO-TELEMETRY|implemented_by|CFG-TAURI-CSP",
    "from": "INV-OFFLINE-NO-TELEMETRY",
    "to": "CFG-TAURI-CSP",
@@ -38814,6 +38908,17 @@
    "source": "nodes.yaml:module"
   },
   {
+   "id": "MOD-SECURITY-POLICY|contains|CFG-RS-DEP-GIT2",
+   "from": "MOD-SECURITY-POLICY",
+   "to": "CFG-RS-DEP-GIT2",
+   "relation": "contains",
+   "evidence": [
+    "src-tauri/crates/md-studio-core/Cargo.toml:20"
+   ],
+   "method": "derived",
+   "source": "nodes.yaml:module"
+  },
+  {
    "id": "MOD-SECURITY-POLICY|contains|CFG-SANITIZE-SCHEMA",
    "from": "MOD-SECURITY-POLICY",
    "to": "CFG-SANITIZE-SCHEMA",
@@ -40107,6 +40212,17 @@
    "relation": "contains",
    "evidence": [
     "src/components/empty/WelcomeScreen.tsx:30"
+   ],
+   "method": "derived",
+   "source": "nodes.yaml:module"
+  },
+  {
+   "id": "MOD-WORKSPACE-FS|contains|CLS-GIT-PROVIDER",
+   "from": "MOD-WORKSPACE-FS",
+   "to": "CLS-GIT-PROVIDER",
+   "relation": "contains",
+   "evidence": [
+    "src-tauri/crates/md-studio-core/src/git.rs:46"
    ],
    "method": "derived",
    "source": "nodes.yaml:module"

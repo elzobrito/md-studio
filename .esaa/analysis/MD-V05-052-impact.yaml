@@ -1,0 +1,30 @@
+task_id: MD-V05-052
+impact_summary: "Implementação do DiagramEngineRegistry e adapters offline para Graphviz e WaveDrom com lazy-loading e suporte no pipeline Unified de preview"
+affected_files:
+  - src/services/diagramEngineRegistry.ts
+  - src/components/DiagramBlock.tsx
+  - src/markdown/processor.ts
+  - src/components/MarkdownViewer.tsx
+  - tests/diagrams/diagram-engine-registry.test.ts
+security_analysis:
+  zero_network_audit: "Todas as engines operam estritamente offline no cliente (WASM local para Graphviz, JS puro para WaveDrom)."
+  svg_sanitized: "SVGs gerados são sanitizáveis e contidos em contêineres isolados."
+  no_execution: "Engines não executam JavaScript arbitrário; entradas são parseadas estruturadamente (DOT para Graphviz, JSON para WaveDrom)."
+verification_evidence:
+  vitest: "Testes unitários em tests/diagrams/diagram-engine-registry.test.ts"
+  typescript: "pnpm typecheck"
+blast_radius:
+  authorized: []
+  potentially_affected: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: true
+closure: []
+projected:
+  features:
+    direct: []
+    indirect: []
+  invariants: []
+  tests:
+    must_run: []

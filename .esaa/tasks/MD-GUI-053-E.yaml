@@ -1,0 +1,21 @@
+task_id: MD-GUI-053-E
+title: "053-E — Spike: Workspace Filesystem Reconciliation"
+status: in_progress
+assigned_to: agent-impl
+task_kind: impl
+task_type: feature
+targets:
+  - src/services/runtime/workspaceFsReconciler.ts
+  - tests/runtime/workspace-fs-reconciler.test.ts
+  - docs/spec/053-E-spike-fs-reconciliation.md
+  - .esaa/tasks/MD-GUI-053-E.yaml
+  - .esaa/analysis/MD-GUI-053-E-impact.yaml
+acceptance_criteria:
+  - "Debounce e coalescência de eventos do watcher Rust comprovados em testes"
+  - "Reconciliação sem crash para rename de diretório com arquivos abertos e delete de dirty doc"
+  - "Supressão de eco confirmada para saves internos e detecção de conflitos externos"
+verification:
+  checks:
+    - "pnpm test tests/runtime/workspace-fs-reconciler.test.ts"
+    - "pnpm typecheck"
+    - "pnpm test"

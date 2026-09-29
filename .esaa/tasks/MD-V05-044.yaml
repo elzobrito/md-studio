@@ -1,0 +1,22 @@
+task_id: MD-V05-044
+title: "Import Preview: revisão obrigatória de Markdown, warnings, assets e commit seguro"
+status: in_progress
+assigned_to: agent-impl
+deliverables:
+  - path: src/services/importPreview.ts
+    description: "Modelo ImportPreviewModel derivado de ImportResult com cálculo determinístico de contagens estruturais (headings, tables, code blocks, paragraphs, assets)"
+  - path: src/components/import/ImportPreviewModal.tsx
+    description: "Modal de revisão de importação com visualização formatada read-only e Markdown bruto, badges de fidelidade, avisos e editor de destino seguro"
+  - path: src/styles/import-preview.css
+    description: "Estilos visuais completos para o modal de revisão, badges de fidelidade e métricas estruturais"
+  - path: tests/import/import-preview.test.ts
+    description: "Suíte de testes unitários validando contagens estruturais, projeção de modelo e proteção contra escapes de destino"
+acceptance_criteria:
+  - "Interface de Import Preview exibindo Markdown gerado em modo estritamente read-only: ATENDIDO (ImportPreviewModal.tsx)"
+  - "Exibição de métricas estruturais (headings, parágrafos, tabelas, code blocks) e warnings: ATENDIDO (derivePreviewCounts)"
+  - "Seletor de destino no workspace com checagem de colisão e aplicação rigorosa de Path Fencing: ATENDIDO (validateRelativeDestination)"
+  - "Botão de confirmação de commit e descarte completo de temporários em caso de cancelamento: ATENDIDO (handleCommit e onCancel)"
+verification:
+  checks:
+    - "pnpm test tests/import/import-preview.test.ts"
+    - "pnpm typecheck"

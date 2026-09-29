@@ -1,0 +1,44 @@
+task_id: MD-GUI-053-L
+impact_summary: "Implementação da interface visual de abas documentais (DocumentTabs) e da barra de ferramentas contextual do documento (DocumentBar), projetando o OpenDocumentsRuntime em tabs com prevenção de duplicatas, dirty badge derivado de hash SHA-256, save-before-close guard, navegação por teclado e integração com os modos de exibição (Markdown, Formatado, Dividida)."
+affected_files:
+  - src/components/tabs/DocumentTabs.tsx
+  - src/components/tabs/DocumentBar.tsx
+  - src/styles/document-tabs.css
+  - src/styles/themes.css
+  - src/App.tsx
+  - tests/runtime/document-tabs-bar.test.ts
+  - docs/spec/053-L-document-tabs-bar.md
+  - .esaa/tasks/MD-GUI-053-L.yaml
+  - .esaa/analysis/MD-GUI-053-L-impact.yaml
+security_analysis:
+  safe_close_guard: "Fechamento de abas com modificações não salvas (dirty) bloqueia o descarte imediato e aciona diálogo modal de confirmação (Salvar / Descartar / Cancelar), prevenindo perda de dados."
+  canonical_deduplication: "Abertura de arquivos verifica canonicalPath indexado no OpenDocumentsRuntime, ativando a aba existente em vez de instanciar abas paralelas concorrentes."
+verification_evidence:
+  vitest: "tests/runtime/document-tabs-bar.test.ts validando projeção de abas, dirty badge, seleção ativa, fechamento com guard e alternância de modos"
+  typecheck: "pnpm typecheck com 0 erros"
+blast_radius:
+  authorized:
+    - src/components/tabs/**
+    - src/styles/**
+    - src/App.tsx
+    - tests/runtime/**
+    - docs/spec/**
+    - .esaa/**
+  potentially_affected: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: true
+closure: []
+projected:
+  features:
+    direct: []
+    indirect: []
+  invariants:
+    - INV-ATOMIC-SAVE
+    - INV-SHA256-CONFLICT
+    - INV-PATH-FENCE
+  tests:
+    must_run:
+      - pnpm test tests/runtime/document-tabs-bar.test.ts
+      - pnpm typecheck

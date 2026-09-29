@@ -1,0 +1,307 @@
+/* ==========================================================================
+   Preview Surface & Sub-Toolbar Styles
+   ========================================================================== */
+
+.preview-surface {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-surface, #1e1e2e);
+}
+
+/* Sub-toolbar */
+.preview-sub-toolbar {
+  height: 34px;
+  min-height: 34px;
+  background: var(--panel, #181825);
+  border-bottom: 1px solid var(--border);
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+  user-select: none;
+  z-index: 5;
+}
+
+.preview-submode-group {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  background: var(--bg-primary, #11111b);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 2px;
+}
+
+.preview-submode-btn {
+  padding: 3px 8px;
+  font-size: 11px;
+  border: none;
+  background: transparent;
+  border-radius: 3px;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.12s ease;
+  font-weight: 500;
+}
+
+.preview-submode-btn:hover {
+  color: var(--text-primary);
+  background: var(--color-hover, rgba(255, 255, 255, 0.08));
+}
+
+.preview-submode-btn.active {
+  background: var(--color-accent, #3b82f6);
+  color: #ffffff;
+  font-weight: 600;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.preview-toolbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  position: relative;
+}
+
+/* Zoom Dropdown */
+.preview-zoom-container {
+  position: relative;
+}
+
+.preview-zoom-trigger {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border: 1px solid var(--border);
+  background: var(--bg-surface, #1e1e2e);
+  color: var(--text-primary);
+  border-radius: 4px;
+  font-size: 11px;
+  font-family: var(--font-mono, monospace);
+  cursor: pointer;
+  transition: all 0.12s ease;
+}
+
+.preview-zoom-trigger:hover {
+  border-color: var(--color-accent);
+}
+
+.preview-zoom-menu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 4px);
+  background: var(--panel, #181825);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 4px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 100px;
+}
+
+.preview-zoom-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 8px;
+  border: none;
+  background: transparent;
+  border-radius: 4px;
+  color: var(--text-primary);
+  font-size: 11px;
+  font-family: var(--font-mono, monospace);
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 0.12s ease;
+}
+
+.preview-zoom-item:hover {
+  background: var(--color-hover, rgba(255, 255, 255, 0.08));
+}
+
+.preview-zoom-item.active {
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+/* Action button (maximize) */
+.preview-action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border: 1px solid var(--border);
+  background: var(--bg-surface, #1e1e2e);
+  color: var(--text-muted);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.12s ease;
+}
+
+.preview-action-btn:hover {
+  color: var(--text-primary);
+  border-color: var(--color-accent);
+  background: var(--color-hover);
+}
+
+.preview-action-btn.active {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+/* Canvas viewport with layout-safe zoom */
+.preview-surface-canvas {
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.preview-surface-canvas[data-zoom] {
+  font-size: calc(1rem * var(--preview-zoom, 1));
+}
+
+/* HTML Source Submode View */
+.preview-html-view {
+  flex: 1;
+  overflow: auto;
+  padding: 16px;
+  background: var(--bg-surface, #1e1e2e);
+  color: var(--text-primary);
+  font-family: var(--font-mono, monospace);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.preview-html-view pre {
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.preview-html-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* Diff Submode View */
+.preview-diff-view {
+  flex: 1;
+  overflow: auto;
+  padding: 16px;
+  background: var(--bg-surface, #1e1e2e);
+  color: var(--text-primary);
+  font-family: var(--font-mono, monospace);
+  font-size: 12px;
+}
+
+.preview-diff-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+  font-size: 11px;
+}
+
+.preview-diff-stats {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.diff-badge-added {
+  color: #10b981;
+  font-weight: 600;
+}
+
+.diff-badge-removed {
+  color: #ef4444;
+  font-weight: 600;
+}
+
+.preview-diff-empty {
+  padding: 32px 16px;
+  text-align: center;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.diff-hunk-box {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  margin-bottom: 16px;
+  overflow: hidden;
+  background: var(--bg-primary, #181825);
+}
+
+.diff-hunk-title {
+  background: var(--panel, #12121a);
+  padding: 4px 10px;
+  font-size: 11px;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+}
+
+.diff-line-row {
+  display: flex;
+  line-height: 1.5;
+  padding: 1px 8px;
+}
+
+.diff-line-row.added {
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+}
+
+.diff-line-row.removed {
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+}
+
+.diff-line-row.context {
+  color: var(--text-secondary);
+}
+
+.diff-line-num {
+  width: 40px;
+  user-select: none;
+  opacity: 0.6;
+  text-align: right;
+  padding-right: 12px;
+}
+
+.diff-line-marker {
+  width: 16px;
+  user-select: none;
+  font-weight: bold;
+}
+
+.diff-line-text {
+  flex: 1;
+  white-space: pre-wrap;
+  word-break: break-all;
+}

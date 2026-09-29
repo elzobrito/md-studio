@@ -1,0 +1,32 @@
+task_id: MD-V05-043
+impact_summary: "Implementação do MarkItDownAdapter com execução estritamente local (convert_local/convert_stream), timeout seguro, sem plugins remotos ou OCR LLM, cobrindo DOCX, HTML, EPUB, PPTX, XLS/XLSX, CSV, JSON, XML e PDF"
+affected_files:
+  - src-tauri/src/commands/importer.rs
+  - src-tauri/src/commands/mod.rs
+  - src-tauri/src/lib.rs
+  - src/services/markitdownAdapter.ts
+  - src/services/importHub.ts
+  - tests/import/markitdown-adapter.test.ts
+security_analysis:
+  local_only_invocation: "Utilização exclusiva de convert_local/convert_stream; métodos de URL remota, YouTube, Azure e cloud OCR expressamente bloqueados."
+  no_user_code_execution: "Nenhum script arbitrário do documento é executado; execução controlada de processo allowlisted com argv estruturado e sem shell expansion."
+  timeout_and_isolation: "Conversão isolada com timeout; falha ou corrupção do documento original não causa crash na aplicação."
+verification_evidence:
+  vitest: "Testes unitários em tests/import/markitdown-adapter.test.ts cobrindo allowlist de formatos, normalização e tratamento de erros"
+  cargo: "cargo test --manifest-path src-tauri/crates/md-studio-core/Cargo.toml"
+  typescript: "pnpm typecheck"
+blast_radius:
+  authorized: []
+  potentially_affected: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: true
+closure: []
+projected:
+  features:
+    direct: []
+    indirect: []
+  invariants: []
+  tests:
+    must_run: []

@@ -1,0 +1,21 @@
+task_id: MD-V05-047
+title: "HTML Autocontido: exporter offline single-file com assets e diagramas embutidos"
+status: in_progress
+assigned_to: agent-impl
+deliverables:
+  - path: src/services/htmlSelfContainedExporter.ts
+    description: "Pipeline HTML autocontido com CSS editorial embutido, pré-renderização estática de Mermaid SVG, KaTeX, auditoria offline e bloqueio de CDNs"
+  - path: src/services/publishingEngine.ts
+    description: "HtmlDocumentExporter conectado ao pipeline autocontido com suporte a destino em memória, download ou arquivo nativo"
+  - path: tests/publishing/html-self-contained.test.ts
+    description: "Suíte de testes unitários validando integridade offline, bloqueio de imagens remotas e pré-renderização estática"
+acceptance_criteria:
+  - "Geração de HTML single-file que abre e opera 100% offline sem conexões de rede: ATENDIDO (buildSelfContainedHtml e auditSelfContainedHtml)"
+  - "Assets locais embutidos como data URIs com aplicação de Path Fencing: ATENDIDO (sanitizeAndEmbedImages)"
+  - "Diagramas Mermaid renderizados como SVGs estáticos independentes do DOM de preview: ATENDIDO (preRenderMermaidBlocks)"
+  - "Auditoria estrita de rejeição a CDNs, Google Fonts e scripts externos: ATENDIDO (auditSelfContainedHtml)"
+verification:
+  checks:
+    - "pnpm test tests/publishing/html-self-contained.test.ts"
+    - "pnpm test tests/publishing/publishing-engine.test.ts"
+    - "pnpm typecheck"

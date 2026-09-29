@@ -301,6 +301,27 @@ export async function pickMarkdownFile(): Promise<PickFolderResult> {
   return { ok: true, source: "demo", pathOrLabel: `${demo.label}/README.md` };
 }
 
+export async function pickImportFile(): Promise<PickFolderResult> {
+  if (isTauriRuntime()) {
+    const { open } = await import("@tauri-apps/plugin-dialog");
+    const selected = await open({
+      multiple: false,
+      title: "Importar documento externo para Markdown",
+      filters: [
+        {
+          name: "Documentos Suportados",
+          extensions: ["docx", "html", "htm", "epub", "pptx", "xlsx", "pdf", "csv", "json", "xml"],
+        },
+        { name: "Todos os Arquivos", extensions: ["*"] },
+      ],
+    });
+    if (typeof selected !== "string") return { ok: false, reason: "cancel" };
+    return { ok: true, source: "tauri", pathOrLabel: selected };
+  }
+
+  return { ok: false, reason: "unsupported" };
+}
+
 export async function pickSaveMarkdownFile(defaultName: string = "documento.md"): Promise<string | null> {
   if (isTauriRuntime()) {
     const { save } = await import("@tauri-apps/plugin-dialog");

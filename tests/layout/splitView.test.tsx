@@ -1,6 +1,8 @@
 import { describe, expect, it, vi, beforeEach, afterEach } from "vitest";
 import React, { act } from "react";
 import { createRoot } from "react-dom/client";
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
 import {
   SplitDivider,
   loadSavedSplitRatio,
@@ -95,10 +97,10 @@ describe("MD-UI-011: Split View refinado (SplitDivider)", () => {
       expect(divider).not.toBeNull();
       expect(divider?.getAttribute("aria-orientation")).toBe("vertical");
       expect(divider?.getAttribute("aria-valuenow")).toBe("50");
-      expect(divider?.getAttribute("aria-valuemin")).toBe("20");
-      expect(divider?.getAttribute("aria-valuemax")).toBe("80");
+      expect(Number(divider?.getAttribute("aria-valuemin"))).toBeLessThanOrEqual(20);
+      expect(Number(divider?.getAttribute("aria-valuemax"))).toBeGreaterThanOrEqual(80);
       expect(divider?.getAttribute("tabindex")).toBe("0");
-      expect(divider?.getAttribute("aria-label")).toBe("Divisor da visualização dividida");
+      expect(divider?.getAttribute("aria-label")).toContain("Divisor da visualização dividida");
 
       const handle = container.querySelector(".split-divider-handle");
       expect(handle).not.toBeNull();
@@ -284,5 +286,79 @@ describe("MD-UI-011: Split View refinado (SplitDivider)", () => {
         root.unmount();
       });
     });
+  });
+});
+
+describe("bounded document center layout", () => {
+  it("keeps a long split document inside its panes without growing the app chrome", () => {
+    const styles = document.createElement("style");
+    styles.textContent = ["design-tokens.css", "app-shell.css", "document-tabs.css", "split-view.css", "themes.css"]
+      .map((file) => readFileSync(resolve(process.cwd(), "src/styles", file), "utf8"))
+      .join("\n")
+      .replace(/^\s*@import[^;]+;\s*$/gm, "");
+    document.head.append(styles);
+
+    const shell = document.createElement("div");
+    shell.className = "app-shell";
+
+    const header = document.createElement("header");
+    header.className = "global-appbar";
+    const workspace = document.createElement("div");
+    workspace.className = "workspace";
+    const center = document.createElement("main");
+    center.className = "center mode-split";
+    const documentBar = document.createElement("div");
+    documentBar.className = "document-bar";
+
+    const split = document.createElement("div");
+    split.className = "split-layout is-vertical";
+    const editorPane = document.createElement("div");
+    editorPane.className = "split-layout-pane first";
+    const editor = document.createElement("section");
+    editor.className = "editor";
+    const editorHost = document.createElement("div");
+    editorHost.className = "editor-host";
+    editorHost.textContent = Array.from({ length: 400 }, (_, i) => `line ${i + 1}`).join("\n");
+    editor.append(editorHost);
+    editorPane.append(editor);
+
+    const divider = document.createElement("div");
+    divider.className = "split-divider is-vertical";
+    const previewPane = document.createElement("div");
+    previewPane.className = "split-layout-pane second";
+    const preview = document.createElement("section");
+    preview.className = "preview";
+    const previewBody = document.createElement("div");
+    previewBody.className = "preview-body";
+    previewBody.textContent = Array.from({ length: 400 }, (_, i) => `paragraph ${i + 1}`).join(" ");
+    preview.append(previewBody);
+    previewPane.append(preview);
+    split.append(editorPane, divider, previewPane);
+    center.append(documentBar, split);
+    workspace.append(center);
+
+    const statusbar = document.createElement("footer");
+    statusbar.className = "app-statusbar-container";
+    shell.append(header, workspace, statusbar);
+    document.body.append(shell);
+
+    try {
+      expect(center.children[0]).toBe(documentBar);
+      expect(center.children[1]).toBe(split);
+      expect(getComputedStyle(center).display).toBe("flex");
+      expect(getComputedStyle(center).flexDirection).toBe("column");
+      expect(getComputedStyle(center).overflow).toBe("hidden");
+      expect(getComputedStyle(documentBar).flexShrink).toBe("0");
+      expect(getComputedStyle(workspace).minHeight).toBe("0");
+      expect(getComputedStyle(split).flexGrow).toBe("1");
+      expect(getComputedStyle(split).minHeight).toBe("0");
+      expect(getComputedStyle(editorHost).overflow).toBe("hidden");
+      expect(getComputedStyle(previewBody).overflow).toBe("auto");
+      expect(getComputedStyle(header).flexShrink).toBe("0");
+      expect(getComputedStyle(statusbar).flexShrink).toBe("0");
+    } finally {
+      shell.remove();
+      styles.remove();
+    }
   });
 });

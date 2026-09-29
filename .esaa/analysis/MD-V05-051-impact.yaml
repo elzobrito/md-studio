@@ -1,0 +1,30 @@
+task_id: MD-V05-051
+impact_summary: "Implementação do Mermaid Explorer: serviço de indexação de blocos Mermaid (DiagramIndexRecord), painel no Workspace Rail (activity 'diagrams'), navegação para source, modal ampliado com zoom/pan, e reuso do renderer/export existente"
+affected_files:
+  - src/services/mermaidExplorer.ts
+  - src/components/diagrams/MermaidExplorerPanel.tsx
+  - src/components/diagrams/MermaidExpandedModal.tsx
+  - src/styles/mermaid-explorer.css
+  - tests/diagrams/mermaid-explorer.test.ts
+security_analysis:
+  zero_network_audit: "Indexação puramente local de blocos Mermaid, sem telemetria ou chamadas remotas."
+  svg_sanitized: "Visualização ampliada reutiliza o renderer Mermaid existente com securityLevel strict."
+  no_execution: "Explorer não executa código externo, não interpreta diagrams como scripts."
+verification_evidence:
+  vitest: "Testes unitários em tests/diagrams/mermaid-explorer.test.ts validando indexação, status, listagem e navegação"
+  typescript: "pnpm typecheck"
+blast_radius:
+  authorized: []
+  potentially_affected: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: true
+closure: []
+projected:
+  features:
+    direct: []
+    indirect: []
+  invariants: []
+  tests:
+    must_run: []

@@ -1,0 +1,25 @@
+task_id: MD-GUI-053-K
+title: "053-K — Workspace Home Semantics"
+status: in_progress
+assigned_to: agent-impl
+task_kind: impl
+task_type: feature
+targets:
+  - src/components/home/WorkspaceHome.tsx
+  - src/components/empty/WelcomeScreen.tsx
+  - src/state/documentState.ts
+  - src/App.tsx
+  - tests/runtime/workspace-home-semantics.test.ts
+  - docs/spec/053-K-workspace-home-semantics.md
+  - .esaa/tasks/MD-GUI-053-K.yaml
+  - .esaa/analysis/MD-GUI-053-K-impact.yaml
+acceptance_criteria:
+  - "CTA principal 'Abrir Workspace' com semântica de pasta local-first"
+  - "Nenhum primeiro arquivo arbitrário é aberto automaticamente ao abrir workspace"
+  - "Abrir Arquivo e Novo Documento permanecem plenamente disponíveis"
+  - "Testes de ciclo de vida do Workspace Home passando"
+verification:
+  checks:
+    - "pnpm test tests/runtime/workspace-home-semantics.test.ts"
+    - "pnpm typecheck"
+    - "pnpm test"

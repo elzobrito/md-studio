@@ -1,0 +1,38 @@
+task_id: MD-GUI-053-G
+impact_summary: "Implementação do pipeline semântico assíncrono (SemanticPipeline) e caches de artefatos com limites estritos (ArtifactCache), garantindo desacoplamento do Inspector em relação ao DOM do Preview, guardas contra resultados obsoletos (stale-result rejection com base em generation/contentIdentity) e política determinística de eviction LRU para prevenir memory leaks."
+affected_files:
+  - src/services/runtime/semanticModel.ts
+  - src/services/runtime/artifactCache.ts
+  - src/services/runtime/semanticPipeline.ts
+  - tests/runtime/semantic-pipeline-cache.test.ts
+  - docs/spec/053-G-semantic-pipeline-caches.md
+  - .esaa/tasks/MD-GUI-053-G.yaml
+  - .esaa/analysis/MD-GUI-053-G-impact.yaml
+security_analysis:
+  bounded_memory_budget: "Caches de artefatos impõem limites rígidos de maxEntries e maxEstimatedBytes, expurgando entradas menos recentemente usadas (LRU) e desalocando árvores pesadas."
+  stale_rejection_guard: "Resultados assíncronos do processador semântico e do preview verificam generation e contentIdentity antes de atualizar o runtime, impedindo corrupção de estado visual por latências variáveis."
+verification_evidence:
+  vitest: "tests/runtime/semantic-pipeline-cache.test.ts cobrindo extração semântica independente de DOM, cache LRU bounded, eviction por peso e descarte de stale results"
+  typecheck: "pnpm typecheck com 0 erros"
+blast_radius:
+  authorized:
+    - src/services/runtime/**
+    - tests/runtime/**
+    - docs/spec/**
+    - .esaa/**
+  potentially_affected: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: true
+closure: []
+projected:
+  features:
+    direct: []
+    indirect: []
+  invariants:
+    - INV-PATH-FENCE
+  tests:
+    must_run:
+      - pnpm test tests/runtime/semantic-pipeline-cache.test.ts
+      - pnpm typecheck

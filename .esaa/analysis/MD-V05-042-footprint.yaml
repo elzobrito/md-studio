@@ -1,0 +1,252 @@
+artifact: task-footprint
+schema_version: 1
+trace_task: TRACE-018
+task_id: MD-V05-042
+diff:
+  base: 6fbe64ae4b9ee447d7c2de697ba0dd37a6708806
+  head: WORKTREE
+  paths_filter:
+  - src-tauri/crates/md-studio-core/src/importer.rs
+  - src-tauri/crates/md-studio-core/src/lib.rs
+  - src/contracts/types.ts
+  - src/services/importHub.ts
+  - src/lib/ipc/client.ts
+  - tests/import/import-hub.test.ts
+  excluded_set: []
+  command: git diff -U0 --no-color --no-ext-diff 6fbe64ae4b9ee447d7c2de697ba0dd37a6708806 -- src-tauri/crates/md-studio-core/src/importer.rs src-tauri/crates/md-studio-core/src/lib.rs
+    src/contracts/types.ts src/services/importHub.ts src/lib/ipc/client.ts tests/import/import-hub.test.ts
+graph_source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+notes: []
+changed_files:
+- path: src-tauri/crates/md-studio-core/src/importer.rs
+  status: A
+  added: 353
+  removed: 0
+  hunks:
+  - old:
+    - 0
+    - -1
+    new:
+    - 1
+    - 353
+  is_test: false
+  catalogued_nodes_in_file: 0
+- path: src-tauri/crates/md-studio-core/src/lib.rs
+  status: M
+  added: 7
+  removed: 0
+  hunks:
+  - old:
+    - 6
+    - 5
+    new:
+    - 7
+    - 7
+  - old:
+    - 32
+    - 31
+    new:
+    - 34
+    - 39
+  is_test: false
+  catalogued_nodes_in_file: 0
+- path: src/contracts/types.ts
+  status: M
+  added: 94
+  removed: 0
+  hunks:
+  - old:
+    - 97
+    - 96
+    new:
+    - 98
+    - 191
+  is_test: false
+  catalogued_nodes_in_file: 8
+- path: src/lib/ipc/client.ts
+  status: M
+  added: 21
+  removed: 0
+  hunks:
+  - old:
+    - 303
+    - 302
+    new:
+    - 304
+    - 324
+  is_test: false
+  catalogued_nodes_in_file: 22
+- path: src/services/importHub.ts
+  status: A
+  added: 320
+  removed: 0
+  hunks:
+  - old:
+    - 0
+    - -1
+    new:
+    - 1
+    - 320
+  is_test: false
+  catalogued_nodes_in_file: 0
+- path: tests/import/import-hub.test.ts
+  status: A
+  added: 200
+  removed: 0
+  hunks:
+  - old:
+    - 0
+    - -1
+    new:
+    - 1
+    - 200
+  is_test: true
+  catalogued_nodes_in_file: 0
+changed_nodes: []
+enclosing_nodes: []
+uncatalogued:
+- path: src-tauri/crates/md-studio-core/src/lib.rs
+  is_test: false
+  new_lines:
+  - - 7
+    - 7
+  - - 34
+    - 39
+  trivial_lines: 1
+  substantive_lines:
+  - new:7
+  - new:34
+  - new:35
+  - new:36
+  - new:37
+  - new:39
+- path: src/contracts/types.ts
+  is_test: false
+  new_lines:
+  - - 98
+    - 191
+  trivial_lines: 18
+  substantive_lines:
+  - new:104
+  - new:105
+  - new:106
+  - new:107
+  - new:108
+  - new:109
+  - new:110
+  - new:111
+  - new:112
+  - new:113
+  - new:114
+  - new:116
+  - new:117
+  - new:118
+  - new:119
+  - new:121
+  - new:122
+  - new:123
+  - new:124
+  - new:125
+  - new:126
+  - new:127
+  - new:129
+  - new:130
+  - new:131
+  - new:132
+  - new:133
+  - new:134
+  - new:135
+  - new:137
+  - new:138
+  - new:139
+  - new:140
+  - new:141
+  - new:142
+  - new:144
+  - new:145
+  - new:147
+  - new:148
+  - new:149
+  - new:150
+  - new:151
+  - new:152
+  - new:153
+  - new:154
+  - new:156
+  - new:157
+  - new:158
+  - new:159
+  - new:160
+  - new:161
+  - new:163
+  - new:164
+  - new:165
+  - new:166
+  - new:167
+  - new:168
+  - new:170
+  - new:171
+  - new:172
+  - new:173
+  - new:174
+  - new:176
+  - new:177
+  - new:178
+  - new:180
+  - new:181
+  - new:182
+  - new:183
+  - new:184
+  - new:185
+  - new:186
+  - new:187
+  - new:188
+  - new:189
+  - new:190
+- path: src/lib/ipc/client.ts
+  is_test: false
+  new_lines:
+  - - 304
+    - 324
+  trivial_lines: 2
+  substantive_lines:
+  - new:304
+  - new:305
+  - new:306
+  - new:307
+  - new:308
+  - new:309
+  - new:310
+  - new:311
+  - new:312
+  - new:313
+  - new:314
+  - new:315
+  - new:316
+  - new:317
+  - new:318
+  - new:319
+  - new:320
+  - new:322
+  - new:323
+new_files:
+- src-tauri/crates/md-studio-core/src/importer.rs
+- src/services/importHub.ts
+new_test_files:
+- tests/import/import-hub.test.ts
+contracts_touched: []
+data_touched: []
+events_touched: []
+rollup:
+  features: []
+  invariants: []
+  flows: []
+stats:
+  files: 6
+  changed_nodes: 0
+  code_nodes: 0
+  test_nodes: 0
+  uncatalogued_files: 3
+  uncatalogued_substantive_lines: 101
+  new_files: 2
+  new_test_files: 1

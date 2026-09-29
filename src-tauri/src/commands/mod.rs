@@ -21,6 +21,7 @@ pub struct SaveDocumentRequest {
 
 pub mod metadata;
 pub mod formatter;
+pub mod importer;
 
 fn map_ws_err(e: WorkspaceError) -> String {
     e.to_string()
@@ -633,13 +634,9 @@ pub fn get_launch_path(state: State<'_, AppState>) -> Option<String> {
 #[tauri::command]
 pub async fn close_splash(app: tauri::AppHandle) -> Result<(), String> {
     use tauri::Manager;
-    if let Some(splash) = app.get_webview_window("splashscreen") {
-        let _ = splash.close();
-    }
     if let Some(main) = app.get_webview_window("main") {
         let _ = main.show();
         let _ = main.set_focus();
     }
     Ok(())
 }
-

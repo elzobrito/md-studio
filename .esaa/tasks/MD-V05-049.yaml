@@ -1,0 +1,20 @@
+task_id: MD-V05-049
+title: "Fallback Editorial: política transversal de degradação legível e warnings estruturados"
+status: in_progress
+assigned_to: agent-impl
+deliverables:
+  - path: src/services/editorialFallback.ts
+    description: "FallbackPolicyRegistry e handlers padrão para diagramas Mermaid, fórmulas matemáticas, imagens ausentes, blocos de código e adaptações de links"
+  - path: src/contracts/publishingTypes.ts
+    description: "Tipos de ExportEditorialWarning, RenderOutcome, FallbackKind e SourceLocation"
+  - path: tests/publishing/editorial-fallback.test.ts
+    description: "Suíte de testes unitários validando a hierarquia máxima fidelidade -> degradação legível -> nunca perda silenciosa"
+acceptance_criteria:
+  - "Modelo de dados ExportWarning estruturado reportando severidade, nó de origem e mensagem: ATENDIDO (ExportEditorialWarning)"
+  - "Políticas de fallback legível para falhas de render em diagramas, matemática e código: ATENDIDO (MermaidFallbackHandler, MathFallbackHandler, CodeBlockFallbackHandler, ImageFallbackHandler)"
+  - "Abort seguro impedindo escrita parcial/corrompida quando a falha for irrecuperável: ATENDIDO (status fatal em RenderOutcome)"
+  - "Zero perda silenciosa de conteúdo em qualquer exportador: ATENDIDO (preservação integral de código fonte em caso de falha)"
+verification:
+  checks:
+    - "pnpm test tests/publishing/editorial-fallback.test.ts"
+    - "pnpm typecheck"

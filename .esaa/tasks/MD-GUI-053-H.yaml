@@ -1,0 +1,26 @@
+task_id: MD-GUI-053-H
+title: "053-H — Design Tokens & Iconography"
+status: in_progress
+assigned_to: agent-impl
+task_kind: impl
+task_type: feature
+targets:
+  - src/styles/design-tokens.css
+  - src/styles/themes/light.css
+  - src/styles/themes/dark.css
+  - src/styles/themes.css
+  - src/components/icons/index.tsx
+  - tests/runtime/design-tokens-icons.test.ts
+  - docs/spec/053-H-design-tokens-iconography.md
+  - .esaa/tasks/MD-GUI-053-H.yaml
+  - .esaa/analysis/MD-GUI-053-H-impact.yaml
+acceptance_criteria:
+  - "Tokens CSS centralizados cobrindo toda a paleta do novo shell"
+  - "Paridade estrita de contraste e cores entre temas claro e escuro"
+  - "Registry de ícones locais sem dependências externas ou CDNs"
+  - "Testes de consistência de design tokens passando"
+verification:
+  checks:
+    - "pnpm test tests/runtime/design-tokens-icons.test.ts"
+    - "pnpm typecheck"
+    - "pnpm test"

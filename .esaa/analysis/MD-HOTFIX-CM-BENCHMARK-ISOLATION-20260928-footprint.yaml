@@ -1,0 +1,49 @@
+artifact: task-footprint
+schema_version: 1
+trace_task: TRACE-018
+task_id: MD-HOTFIX-CM-BENCHMARK-ISOLATION-20260928
+diff:
+  base: 6fbe64ae4b9ee447d7c2de697ba0dd37a6708806
+  head: WORKTREE
+  paths_filter:
+  - tests/runtime/codemirror-multi-doc-strategy.test.ts
+  excluded_set: []
+  command: git diff -U0 --no-color --no-ext-diff 6fbe64ae4b9ee447d7c2de697ba0dd37a6708806 -- tests/runtime/codemirror-multi-doc-strategy.test.ts
+graph_source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+notes: []
+changed_files:
+- path: tests/runtime/codemirror-multi-doc-strategy.test.ts
+  status: A
+  added: 188
+  removed: 0
+  hunks:
+  - old:
+    - 0
+    - -1
+    new:
+    - 1
+    - 188
+  is_test: true
+  catalogued_nodes_in_file: 0
+changed_nodes: []
+enclosing_nodes: []
+uncatalogued: []
+new_files: []
+new_test_files:
+- tests/runtime/codemirror-multi-doc-strategy.test.ts
+contracts_touched: []
+data_touched: []
+events_touched: []
+rollup:
+  features: []
+  invariants: []
+  flows: []
+stats:
+  files: 1
+  changed_nodes: 0
+  code_nodes: 0
+  test_nodes: 0
+  uncatalogued_files: 0
+  uncatalogued_substantive_lines: 0
+  new_files: 0
+  new_test_files: 1

@@ -1,0 +1,145 @@
+artifact: task-drift
+schema_version: 1
+trace_task: TRACE-019
+task_id: MD-V05-044
+inputs:
+  impact: .esaa/analysis/MD-V05-044-impact.yaml
+  footprint: .esaa/analysis/MD-V05-044-footprint.yaml
+  graph_source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+notes: []
+rule: authorized = change_target ∪ expected_affected; ok ∈ authorized; violation ∈ protected; warning ∈ potentially_affected | out_of_closure
+  | uncatalogued substantive
+authorized: []
+observed: []
+classification: []
+drift: []
+other_findings:
+- path: src/contracts/types.ts
+  category: uncatalogued_change
+  severity: warning
+  lines:
+  - new:103
+  - new:105
+  - new:106
+  - new:107
+  - new:108
+  - new:109
+  - new:110
+  - new:111
+  - new:112
+  - new:113
+  - new:114
+  - new:115
+  - new:117
+  - new:118
+  - new:119
+  - new:120
+  - new:122
+  - new:123
+  - new:124
+  - new:125
+  - new:126
+  - new:127
+  - new:128
+  - new:130
+  - new:131
+  - new:132
+  - new:133
+  - new:134
+  - new:135
+  - new:136
+  - new:138
+  - new:139
+  - new:140
+  - new:141
+  - new:142
+  - new:143
+  - new:145
+  - new:146
+  - new:148
+  - new:149
+  - new:150
+  - new:151
+  - new:152
+  - new:153
+  - new:154
+  - new:155
+  - new:157
+  - new:158
+  - new:159
+  - new:160
+  - new:161
+  - new:162
+  - new:164
+  - new:165
+  - new:166
+  - new:167
+  - new:168
+  - new:169
+  - new:171
+  - new:172
+  - new:173
+  - new:174
+  - new:175
+  - new:177
+  - new:178
+  - new:179
+  - new:181
+  - new:182
+  - new:183
+  - new:184
+  - new:185
+  - new:186
+  - new:187
+  - new:188
+  - new:189
+  - new:190
+  - new:191
+- path: src/components/import/ImportPreviewModal.tsx
+  category: new_production_file
+  severity: info
+- path: src/services/importPreview.ts
+  category: new_production_file
+  severity: info
+- path: src/styles/import-preview.css
+  category: new_production_file
+  severity: info
+- path: tests/import/import-preview.test.ts
+  category: new_test_file
+  severity: info
+not_touched: []
+verdict: warning
+metrics:
+  nodes:
+    tp: 0
+    authorized: 0
+    observed: 0
+    precision: null
+    recall: null
+    closure_recall: null
+  code_nodes_only:
+    tp: 0
+    authorized: 0
+    observed: 0
+    precision: null
+    recall: null
+  features:
+    projected_direct: []
+    projected_all: 0
+    observed: []
+    observed_in_projected_direct: []
+    observed_missing_from_projection: []
+    precision_direct: null
+    recall_all: null
+  invariants:
+    projected: []
+    observed: []
+    missing_from_projection: []
+  tests:
+    projected_must_run: []
+    changed_test_nodes: []
+    new_test_files:
+    - tests/import/import-preview.test.ts
+  contracts_touched: []
+  data_touched: []
+  events_touched: []

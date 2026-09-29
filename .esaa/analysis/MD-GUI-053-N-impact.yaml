@@ -1,0 +1,44 @@
+task_id: MD-GUI-053-N
+impact_summary: "Implementação da superfície contextual de Preview (PreviewSurface) com toolbar integrada, submodos feature-gated com cardinalidade adaptativa (Visualização, HTML gerado, Diff vs salvo), visualizador de diff real baseado em LCS/Myers (sem algoritmo ingênuo posicional), controle de zoom tipográfico imune a quebra de layout/geometria, e maximização reversível de visualização."
+affected_files:
+  - src/components/preview/PreviewSurface.tsx
+  - src/components/preview/PreviewSubToolbar.tsx
+  - src/components/preview/PreviewDiffView.tsx
+  - src/styles/preview-surface.css
+  - src/components/MarkdownViewer.tsx
+  - src/App.tsx
+  - tests/runtime/preview-surface.test.ts
+  - docs/spec/053-N-preview-surface.md
+  - .esaa/tasks/MD-GUI-053-N.yaml
+  - .esaa/analysis/MD-GUI-053-N-impact.yaml
+security_analysis:
+  sanitized_preview: "Submodo HTML e preview normal respeitam sanitização rigorosa via pipeline Unified/Rehype, tratando source como texto puro sem injeção de HTML arbitrário."
+  diff_lcs_integrity: "Algoritmo de diff LCS/Myers opera sobre sequências de linhas sem dependência posicional cega, evitando desvios ou estouro de pilha em documentos extensos."
+verification_evidence:
+  vitest: "tests/runtime/preview-surface.test.ts cobrindo submodos (view, html, diff), cálculo de diff com inserções/deleções/preservações, controle de zoom seguro e maximização reversível"
+  typecheck: "pnpm typecheck com 0 erros"
+blast_radius:
+  authorized:
+    - src/components/preview/**
+    - src/styles/**
+    - src/components/MarkdownViewer.tsx
+    - src/App.tsx
+    - tests/runtime/**
+    - docs/spec/**
+    - .esaa/**
+  potentially_affected: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: true
+closure: []
+projected:
+  features:
+    direct: []
+    indirect: []
+  invariants:
+    - INV-PATH-FENCE
+  tests:
+    must_run:
+      - pnpm test tests/runtime/preview-surface.test.ts
+      - pnpm typecheck

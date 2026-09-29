@@ -172,26 +172,15 @@ export function useDocumentState() {
   const openFolder = useCallback(
     async (absolutePath: string) => {
       const ws = await openWorkspacePath(absolutePath);
-      try {
-        const entries = await ipc.listEntries(ws.id, "");
-        const firstMd = entries.find((e) => e.kind === "file" && /\.md$/i.test(e.name));
-        if (firstMd) {
-          await openRelative(firstMd.relativePath, ws);
-        } else {
-          setRelativePath("");
-          setSnapshot(null);
-          setContentState(
-            `# ${ws.rootLabel}\n\nPasta aberta. **Entre nas subpastas** na lista (ícone 📂) e abra o \`.md\`.\n`,
-          );
-          setDirty(false);
-          setDiagnostics([`Workspace: ${ws.rootLabel}`, "Navegue pelas pastas à esquerda"]);
-        }
-      } catch {
-        /* list optional */
-      }
+      setRelativePath("");
+      setSnapshot(null);
+      setContentState("");
+      setDirty(false);
+      setDiagnostics([`Workspace ativo: ${ws.rootLabel}`]);
+      setStatus("ready");
       return ws;
     },
-    [openWorkspacePath, openRelative],
+    [openWorkspacePath],
   );
 
   const openFile = useCallback(
@@ -484,6 +473,7 @@ export function useDocumentState() {
     diagnostics,
     relativePath,
     status,
+    savedContent: snapshot?.content,
     openRelative,
     openFolder,
     openFile,

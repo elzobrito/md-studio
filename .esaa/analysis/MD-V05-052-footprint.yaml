@@ -1,0 +1,43 @@
+artifact: task-footprint
+schema_version: 1
+trace_task: TRACE-018
+task_id: MD-V05-052
+diff:
+  base: 6fbe64ae4b9ee447d7c2de697ba0dd37a6708806
+  head: WORKTREE
+  paths_filter:
+  - src/services/diagramEngineRegistry.ts
+  - src/components/DiagramBlock.tsx
+  - src/markdown/processor.ts
+  - src/components/MarkdownViewer.tsx
+  - src/markdown/sanitize.ts
+  - src/types/wavedrom.d.ts
+  - tests/diagrams/diagram-engine-registry.test.ts
+  excluded_set: []
+graph_source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+notes: []
+changed_nodes: []
+enclosing_nodes: []
+uncatalogued: []
+new_files:
+- src/services/diagramEngineRegistry.ts
+- src/components/DiagramBlock.tsx
+- src/types/wavedrom.d.ts
+new_test_files:
+- tests/diagrams/diagram-engine-registry.test.ts
+contracts_touched: []
+data_touched: []
+events_touched: []
+rollup:
+  features: []
+  invariants: []
+  flows: []
+stats:
+  files: 7
+  changed_nodes: 0
+  code_nodes: 0
+  test_nodes: 0
+  uncatalogued_files: 0
+  uncatalogued_substantive_lines: 0
+  new_files: 3
+  new_test_files: 1

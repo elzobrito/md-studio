@@ -1,0 +1,80 @@
+artifact: task-footprint
+schema_version: 1
+trace_task: TRACE-018
+task_id: MD-V05-049
+diff:
+  base: 6fbe64ae4b9ee447d7c2de697ba0dd37a6708806
+  head: WORKTREE
+  paths_filter:
+  - src/contracts/publishingTypes.ts
+  - src/services/editorialFallback.ts
+  - tests/publishing/editorial-fallback.test.ts
+  excluded_set: []
+  command: git diff -U0 --no-color --no-ext-diff 6fbe64ae4b9ee447d7c2de697ba0dd37a6708806 -- src/contracts/publishingTypes.ts src/services/editorialFallback.ts
+    tests/publishing/editorial-fallback.test.ts
+graph_source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+notes: []
+changed_files:
+- path: src/contracts/publishingTypes.ts
+  status: A
+  added: 136
+  removed: 0
+  hunks:
+  - old:
+    - 0
+    - -1
+    new:
+    - 1
+    - 136
+  is_test: false
+  catalogued_nodes_in_file: 0
+- path: src/services/editorialFallback.ts
+  status: A
+  added: 201
+  removed: 0
+  hunks:
+  - old:
+    - 0
+    - -1
+    new:
+    - 1
+    - 201
+  is_test: false
+  catalogued_nodes_in_file: 0
+- path: tests/publishing/editorial-fallback.test.ts
+  status: A
+  added: 136
+  removed: 0
+  hunks:
+  - old:
+    - 0
+    - -1
+    new:
+    - 1
+    - 136
+  is_test: true
+  catalogued_nodes_in_file: 0
+changed_nodes: []
+enclosing_nodes: []
+uncatalogued: []
+new_files:
+- src/contracts/publishingTypes.ts
+- src/services/editorialFallback.ts
+new_test_files:
+- tests/publishing/editorial-fallback.test.ts
+contracts_touched: []
+data_touched: []
+events_touched: []
+rollup:
+  features: []
+  invariants: []
+  flows: []
+stats:
+  files: 3
+  changed_nodes: 0
+  code_nodes: 0
+  test_nodes: 0
+  uncatalogued_files: 0
+  uncatalogued_substantive_lines: 0
+  new_files: 2
+  new_test_files: 1

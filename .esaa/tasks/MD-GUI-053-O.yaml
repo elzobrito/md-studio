@@ -1,0 +1,25 @@
+task_id: MD-GUI-053-O
+title: "053-O — Unified Inspector"
+status: in_progress
+assigned_to: agent-impl
+task_kind: impl
+task_type: feature
+targets:
+  - src/components/inspector/UnifiedInspector.tsx
+  - src/components/layout/UnifiedRightPanel.tsx
+  - src/styles/unified-inspector.css
+  - src/App.tsx
+  - tests/runtime/unified-inspector.test.ts
+  - docs/spec/053-O-unified-inspector.md
+  - .esaa/tasks/MD-GUI-053-O.yaml
+  - .esaa/analysis/MD-GUI-053-O-impact.yaml
+acceptance_criteria:
+  - "Inspector unificado contextual à direita alimentado por providers reais"
+  - "Sumário (TOC) funcional e reativo a edições sem depender do DOM do Preview"
+  - "Seções de Links, Backlinks e Diagramas integradas com navega\u00e7\u00e3o bidirecional"
+  - "Testes automatizados do Inspector passando 100%"
+verification:
+  checks:
+    - "pnpm test tests/runtime/unified-inspector.test.ts"
+    - "pnpm typecheck"
+    - "pnpm test"

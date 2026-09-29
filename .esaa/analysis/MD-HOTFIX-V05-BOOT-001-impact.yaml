@@ -1,0 +1,36 @@
+task_id: MD-HOTFIX-V05-BOOT-001
+impact_summary: "Hotfix forense para eliminação da tela branca / regressão de boot no desktop Tauri da release v0.5"
+affected_files:
+  - src/**
+  - src-tauri/**
+  - scripts/**
+  - tests/**
+security_analysis:
+  zero_network_audit: "Garantir que nenhum import estático ou recurso introduzido viole o confinamento local-first"
+  desktop_runtime: "Preservar integridade do WebKitGTK e IPC Tauri em ambiente Ubuntu Wayland/X11"
+verification_evidence:
+  vitest: "pnpm test"
+  typescript: "pnpm typecheck"
+  cargo: "cargo test --workspace"
+  smoke: "Desktop Startup Smoke Test"
+blast_radius:
+  authorized:
+    - src/**
+    - src-tauri/**
+    - scripts/**
+    - tests/**
+  potentially_affected: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: true
+closure: []
+projected:
+  features:
+    direct: []
+    indirect: []
+  invariants:
+    - INV-DESKTOP-LAUNCHER-ENV
+  tests:
+    must_run:
+      - tests/desktop/desktop-launcher.test.ts

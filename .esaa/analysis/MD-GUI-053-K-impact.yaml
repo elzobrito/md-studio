@@ -1,0 +1,42 @@
+task_id: MD-GUI-053-K
+impact_summary: "Implementação da semântica de Workspace Home (superfície WorkspaceHome): renomeação normativa de 'Abrir Pasta' para 'Abrir Workspace' (CTA primário local-first), preservação de 'Abrir Arquivo' e 'Novo Documento', eliminação definitiva da abertura arbitrária do primeiro arquivo markdown ao abrir pasta, e exibição do estado de prontidão e monitoramento do workspace."
+affected_files:
+  - src/components/home/WorkspaceHome.tsx
+  - src/components/empty/WelcomeScreen.tsx
+  - src/state/documentState.ts
+  - src/App.tsx
+  - tests/runtime/workspace-home-semantics.test.ts
+  - docs/spec/053-K-workspace-home-semantics.md
+  - .esaa/tasks/MD-GUI-053-K.yaml
+  - .esaa/analysis/MD-GUI-053-K-impact.yaml
+security_analysis:
+  local_first_semantics: "Workspace é apenas uma visão sobre o sistema de arquivos local; nenhum arquivo proprietário, vault ou container é criado."
+  no_unexpected_file_load: "Eliminação da leitura automática do primeiro .md impede execuções ou carregamentos acidentais de arquivos não solicitados pelo usuário."
+verification_evidence:
+  vitest: "tests/runtime/workspace-home-semantics.test.ts validando CTA 'Abrir Workspace', ausência de auto-open arbitrário e ciclo de vida de WorkspaceHome"
+  typecheck: "pnpm typecheck com 0 erros"
+blast_radius:
+  authorized:
+    - src/components/home/**
+    - src/components/empty/**
+    - src/state/**
+    - src/App.tsx
+    - tests/runtime/**
+    - docs/spec/**
+    - .esaa/**
+  potentially_affected: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: true
+closure: []
+projected:
+  features:
+    direct: []
+    indirect: []
+  invariants:
+    - INV-PATH-FENCE
+  tests:
+    must_run:
+      - pnpm test tests/runtime/workspace-home-semantics.test.ts
+      - pnpm typecheck

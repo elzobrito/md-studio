@@ -1,0 +1,21 @@
+artifact: task-traceability
+schema_version: 1
+task_id: MD-HOTFIX-CM-POOL-UNDO-20260928
+graph:
+  path: .esaa/traceability/graph.json
+  source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+traceability:
+  targets: [MOD-EDITOR]
+  expected_affected: []
+  protected_extra: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: false
+  justification: {}
+  expected_uncatalogued:
+    - src/services/runtime/codemirrorMultiDocStrategy.ts
+artifacts:
+  impact: .esaa/analysis/MD-HOTFIX-CM-POOL-UNDO-20260928-impact.yaml
+  footprint: .esaa/analysis/MD-HOTFIX-CM-POOL-UNDO-20260928-footprint.yaml
+  drift: .esaa/analysis/MD-HOTFIX-CM-POOL-UNDO-20260928-drift.yaml

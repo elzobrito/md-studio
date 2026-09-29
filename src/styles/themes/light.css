@@ -72,4 +72,24 @@
 
   --shadow-sm: 0 1px 2px rgb(76 79 105 / 6%);
   --shadow-md: 0 8px 24px rgb(76 79 105 / 8%);
+
+  /* MD Studio R3 Canonical Palette (Light) */
+  --color-bg: #f8fafc;
+  --color-surface: #ffffff;
+  --color-sidebar: #f8f9fa;
+  --color-border: #e2e8f0;
+  --color-border-subtle: #edf2f7;
+  --color-text: #1e293b;
+  --color-muted: #64748b;
+  --color-card: #f1f5f9;
+  --color-card-inner: #ffffff;
+  --color-hover: #edf2f7;
+  --color-active-bg: #e0e7ff;
+  --color-active-border: #3b82f6;
+  --color-accent: #2563eb;
+  --color-accent-hover: #1d4ed8;
+  --color-focus: #3b82f6;
+  --color-danger: #ef4444;
+  --color-warning: #f59e0b;
+  --color-success: #10b981;
 }

@@ -1,0 +1,142 @@
+/**
+ * MD Studio R3 — DocumentTabs & DocumentBar
+ * Normative reference: 053-nova-gui-R3.md (Tasks 053-L, PARTE VIII, PARTE IX)
+ */
+
+.document-bar {
+  height: var(--docbar-height);
+  min-height: var(--docbar-height);
+  border-bottom: 1px solid var(--color-border);
+  background-color: var(--color-card);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  overflow: hidden;
+  user-select: none;
+  z-index: var(--z-surface);
+}
+
+.document-tabs-wrapper {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  align-items: stretch;
+  overflow: hidden;
+  min-width: 0;
+}
+
+.document-tabs-track {
+  display: flex;
+  align-items: stretch;
+  overflow-x: auto;
+  overflow-y: hidden;
+  height: 100%;
+  scrollbar-width: none; /* Firefox */
+}
+
+.document-tabs-track::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+
+.doc-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 10px;
+  height: 100%;
+  min-width: 100px;
+  max-width: 220px;
+  border-right: 1px solid var(--color-border);
+  background-color: var(--color-card);
+  color: var(--color-muted);
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.12s ease;
+  position: relative;
+  outline: none;
+}
+
+.doc-tab:hover {
+  background-color: var(--color-hover);
+  color: var(--color-text);
+}
+
+.doc-tab.is-active {
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  font-weight: 500;
+  border-bottom: 2px solid var(--color-accent);
+}
+
+.doc-tab:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: -2px;
+}
+
+.doc-tab-label {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.doc-tab-dirty-badge {
+  width: 7px;
+  height: 7px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-accent);
+  flex-shrink: 0;
+}
+
+.doc-tab-close-btn {
+  width: 18px;
+  height: 18px;
+  border-radius: var(--radius-sm);
+  border: none;
+  background: transparent;
+  color: var(--color-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+  transition: background-color 0.12s ease, color 0.12s ease;
+}
+
+.doc-tab-close-btn:hover {
+  background-color: var(--color-hover);
+  color: var(--color-text);
+}
+
+.doc-tab-new-btn {
+  height: 100%;
+  padding: 0 10px;
+  border: none;
+  border-right: 1px solid var(--color-border);
+  background: transparent;
+  color: var(--color-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.12s ease, color 0.12s ease;
+}
+
+.doc-tab-new-btn:hover {
+  background-color: var(--color-hover);
+  color: var(--color-text);
+}
+
+/* Actions in DocumentBar */
+.document-bar-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 8px;
+  flex-shrink: 0;
+  height: 100%;
+  background-color: var(--color-card);
+  border-left: 1px solid var(--color-border);
+}

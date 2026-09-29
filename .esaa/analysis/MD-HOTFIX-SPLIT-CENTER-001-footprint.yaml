@@ -1,0 +1,248 @@
+artifact: task-footprint
+schema_version: 1
+trace_task: TRACE-018
+task_id: MD-HOTFIX-SPLIT-CENTER-001
+diff:
+  base: 6fbe64ae4b9ee447d7c2de697ba0dd37a6708806
+  head: WORKTREE
+  paths_filter:
+  - src/styles/themes.css
+  - tests/layout/splitView.test.tsx
+  excluded_set: []
+  command: git diff -U0 --no-color --no-ext-diff 6fbe64ae4b9ee447d7c2de697ba0dd37a6708806 -- src/styles/themes.css tests/layout/splitView.test.tsx
+graph_source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+notes:
+- 'Working tree already contained unrelated changes in these two files before this hotfix: themes.css imports for the ongoing v0.5 shell, and
+  splitView test accessibility expectations. Those changes are preserved; this task adds only bounded .center flex sizing and the long-document
+  regression fixture.'
+changed_files:
+- path: src/styles/themes.css
+  status: M
+  added: 13
+  removed: 16
+  hunks:
+  - old:
+    - 0
+    - -1
+    new:
+    - 1
+    - 4
+  - old:
+    - 4
+    - 3
+    new:
+    - 9
+    - 9
+  - old:
+    - 257
+    - 257
+    new:
+    - 262
+    - 263
+  - old:
+    - 259
+    - 258
+    new:
+    - 266
+    - 266
+  - old:
+    - 263
+    - 272
+    new:
+    - 270
+    - 274
+  - old:
+    - 276
+    - 280
+    new:
+    - 277
+    - 276
+  is_test: false
+  catalogued_nodes_in_file: 0
+- path: tests/layout/splitView.test.tsx
+  status: M
+  added: 79
+  removed: 3
+  hunks:
+  - old:
+    - 3
+    - 2
+    new:
+    - 4
+    - 5
+  - old:
+    - 98
+    - 99
+    new:
+    - 100
+    - 101
+  - old:
+    - 101
+    - 101
+    new:
+    - 103
+    - 103
+  - old:
+    - 288
+    - 287
+    new:
+    - 291
+    - 364
+  is_test: true
+  catalogued_nodes_in_file: 1
+changed_nodes:
+- id: TST-TS-LAYOUT-SPLITVIEW
+  kind: test
+  type: test
+  path: tests/layout/splitView.test.tsx
+  sides:
+  - old
+  - new
+  lines_hit: 6
+  attribution: line
+  anchor_resolution:
+    old: exact
+    new: relocated
+  created_by_change: false
+enclosing_nodes: []
+uncatalogued:
+- path: src/styles/themes.css
+  is_test: false
+  old_lines:
+  - - 257
+    - 257
+  - - 263
+    - 272
+  - - 276
+    - 280
+  new_lines:
+  - - 1
+    - 4
+  - - 9
+    - 9
+  - - 262
+    - 263
+  - - 266
+    - 266
+  - - 270
+    - 274
+  trivial_lines: 5
+  substantive_lines:
+  - old:257
+  - old:264
+  - old:265
+  - old:266
+  - old:267
+  - old:269
+  - old:270
+  - old:271
+  - old:272
+  - old:276
+  - old:277
+  - old:278
+  - old:279
+  - new:1
+  - new:2
+  - new:3
+  - new:4
+  - new:262
+  - new:263
+  - new:266
+  - new:271
+  - new:272
+  - new:273
+  - new:274
+- path: tests/layout/splitView.test.tsx
+  is_test: true
+  new_lines:
+  - - 4
+    - 5
+  - - 291
+    - 364
+  trivial_lines: 9
+  substantive_lines:
+  - new:292
+  - new:293
+  - new:294
+  - new:295
+  - new:296
+  - new:297
+  - new:298
+  - new:299
+  - new:301
+  - new:302
+  - new:304
+  - new:305
+  - new:306
+  - new:307
+  - new:308
+  - new:309
+  - new:310
+  - new:311
+  - new:313
+  - new:314
+  - new:315
+  - new:316
+  - new:317
+  - new:318
+  - new:319
+  - new:320
+  - new:321
+  - new:322
+  - new:323
+  - new:325
+  - new:326
+  - new:327
+  - new:328
+  - new:329
+  - new:330
+  - new:331
+  - new:332
+  - new:333
+  - new:334
+  - new:335
+  - new:336
+  - new:337
+  - new:338
+  - new:340
+  - new:341
+  - new:342
+  - new:343
+  - new:345
+  - new:346
+  - new:347
+  - new:348
+  - new:349
+  - new:350
+  - new:351
+  - new:352
+  - new:353
+  - new:354
+  - new:355
+  - new:356
+  - new:357
+  - new:358
+  - new:359
+  - new:360
+  - new:361
+  - new:362
+  - new:363
+  - new:364
+new_files: []
+new_test_files: []
+contracts_touched: []
+data_touched: []
+events_touched: []
+rollup:
+  features: []
+  invariants: []
+  flows: []
+stats:
+  files: 2
+  changed_nodes: 1
+  code_nodes: 0
+  test_nodes: 1
+  uncatalogued_files: 2
+  uncatalogued_substantive_lines: 91
+  new_files: 0
+  new_test_files: 0

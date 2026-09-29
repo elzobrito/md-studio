@@ -1,0 +1,56 @@
+artifact: task-drift
+schema_version: 1
+trace_task: TRACE-019
+task_id: MD-HOTFIX-CM-POOL-UNDO-20260928
+inputs:
+  impact: .esaa/analysis/MD-HOTFIX-CM-POOL-UNDO-20260928-impact.yaml
+  footprint: .esaa/analysis/MD-HOTFIX-CM-POOL-UNDO-20260928-footprint.yaml
+  graph_source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+notes: []
+rule: authorized = change_target ∪ expected_affected; ok ∈ authorized; violation ∈ protected; warning ∈ potentially_affected | out_of_closure
+  | uncatalogued substantive
+authorized:
+- MOD-EDITOR
+observed: []
+classification: []
+drift: []
+other_findings:
+- path: src/services/runtime/codemirrorMultiDocStrategy.ts
+  category: new_production_file
+  severity: warning
+not_touched:
+- MOD-EDITOR
+verdict: warning
+metrics:
+  nodes:
+    tp: 0
+    authorized: 1
+    observed: 0
+    precision: 0.0
+    recall: null
+    closure_recall: null
+  code_nodes_only:
+    tp: 0
+    authorized: 0
+    observed: 0
+    precision: null
+    recall: null
+  features:
+    projected_direct: []
+    projected_all: 0
+    observed: []
+    observed_in_projected_direct: []
+    observed_missing_from_projection: []
+    precision_direct: null
+    recall_all: null
+  invariants:
+    projected: []
+    observed: []
+    missing_from_projection: []
+  tests:
+    projected_must_run: []
+    changed_test_nodes: []
+    new_test_files: []
+  contracts_touched: []
+  data_touched: []
+  events_touched: []

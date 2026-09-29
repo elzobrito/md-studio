@@ -1,0 +1,23 @@
+task_id: MD-GUI-053-F
+title: "053-F — Multi-document Runtime (DocumentRuntime + OpenDocumentsRuntime)"
+status: in_progress
+assigned_to: agent-impl
+task_kind: impl
+task_type: feature
+targets:
+  - src/services/runtime/documentRuntime.ts
+  - src/services/runtime/openDocumentsRuntime.ts
+  - tests/runtime/open-documents-runtime.test.ts
+  - docs/spec/053-F-document-runtime-architecture.md
+  - .esaa/tasks/MD-GUI-053-F.yaml
+  - .esaa/analysis/MD-GUI-053-F-impact.yaml
+acceptance_criteria:
+  - "OpenDocumentsRuntime e DocumentRuntime isolando estado por documentId"
+  - "contentIdentity determinístico com undo-to-clean e redo-to-dirty"
+  - "SaveQueue assíncrono com SaveTicket e tolerância a late write"
+  - "Suíte completa de testes de integridade do runtime passando 100%"
+verification:
+  checks:
+    - "pnpm test tests/runtime/open-documents-runtime.test.ts"
+    - "pnpm typecheck"
+    - "pnpm test"

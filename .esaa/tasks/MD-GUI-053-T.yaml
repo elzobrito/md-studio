@@ -1,0 +1,21 @@
+task_id: MD-GUI-053-T
+title: "053-T — Migration Cleanup & Full Regression"
+status: completed
+assigned_to: agent-impl
+task_kind: impl
+task_type: release
+targets:
+  - docs/qa/053-nova-gui.md
+  - .esaa/tasks/MD-GUI-053-T.yaml
+  - .esaa/analysis/MD-GUI-053-T-impact.yaml
+acceptance_criteria:
+  - "Remoção limpa de código, seletores CSS e componentes obsoletos sem quebra de paridade"
+  - "Full test pass: Vitest (100%), Cargo (100%), Typecheck (0 erros)"
+  - "Desktop Startup Smoke Test aprovado"
+  - "Relatório final de QA gerado em docs/qa/053-nova-gui.md"
+verification:
+  checks:
+    - "pnpm vitest run"
+    - "pnpm typecheck"
+    - "cargo test"
+    - "bash scripts/desktop-smoke-test.sh"

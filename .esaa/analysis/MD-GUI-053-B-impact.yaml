@@ -1,0 +1,39 @@
+task_id: MD-GUI-053-B
+impact_summary: "Spike arquitetural 053-B: implementação e comprovação do modelo de identidade de conteúdo (contentIdentity), desacoplamento de dirty em relação à geração de operações, e fila de salvamento assíncrona com SaveTicket, one-write-in-flight e prevenção de sobrescrita de dirty por late ACK."
+affected_files:
+  - src/services/runtime/contentIdentity.ts
+  - src/services/runtime/saveQueue.ts
+  - tests/runtime/content-identity-save-queue.test.ts
+  - docs/spec/053-B-spike-content-identity.md
+  - .esaa/tasks/MD-GUI-053-B.yaml
+  - .esaa/analysis/MD-GUI-053-B-impact.yaml
+security_analysis:
+  hash_safety: "Geração de hash local SHA-256 (ou FNV-1a para buffers ultrarrápidos com fallback SHA-256 criptográfico para baseline persistida) estritamente local e determinística."
+  atomic_save_integration: "O modelo de SaveTicket é plenamente compatível com o contrato de gravação atômica existente (INV-ATOMIC-SAVE) e verificação de expectedDiskHash (INV-SHA256-CONFLICT)."
+  no_mutation_of_other_docs: "Operações de save em documento A nunca alteram ou afetam estado de documento B."
+verification_evidence:
+  vitest: "tests/runtime/content-identity-save-queue.test.ts cobrindo undo-to-clean, redo-to-dirty, late-write races e coalescing"
+  typecheck: "pnpm typecheck com 0 erros"
+blast_radius:
+  authorized:
+    - src/services/runtime/**
+    - tests/runtime/**
+    - docs/spec/**
+    - .esaa/**
+  potentially_affected: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: true
+closure: []
+projected:
+  features:
+    direct: []
+    indirect: []
+  invariants:
+    - INV-ATOMIC-SAVE
+    - INV-SHA256-CONFLICT
+  tests:
+    must_run:
+      - pnpm test tests/runtime/content-identity-save-queue.test.ts
+      - pnpm typecheck

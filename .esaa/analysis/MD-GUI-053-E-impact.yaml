@@ -1,0 +1,37 @@
+task_id: MD-GUI-053-E
+impact_summary: "Spike arquitetural 053-E: implementação e testes do WorkspaceFsReconciler conectado ao watcher Rust existente (notify + debounce + internal-save echo suppression), cobrindo renomeações de arquivo e diretório, deleção externa de documentos clean e dirty (missing state) e absorção de rajadas de eventos (bursts)."
+affected_files:
+  - src/services/runtime/workspaceFsReconciler.ts
+  - tests/runtime/workspace-fs-reconciler.test.ts
+  - docs/spec/053-E-spike-fs-reconciliation.md
+  - .esaa/tasks/MD-GUI-053-E.yaml
+  - .esaa/analysis/MD-GUI-053-E-impact.yaml
+security_analysis:
+  path_fencing_events: "Todos os eventos de filesystem recebidos do watcher Rust são normalizados e confinados estritamente dentro da raiz do workspace."
+  dirty_protection: "Um arquivo aberto com modificações não salvas (dirty) NUNCA é descartado ou sobrescrito silenciosamente por eventos externos de delete ou rename."
+verification_evidence:
+  vitest: "tests/runtime/workspace-fs-reconciler.test.ts cobrindo supressão de eco, rename de pasta, delete de dirty/clean e burst coalescing"
+  typecheck: "pnpm typecheck com 0 erros"
+blast_radius:
+  authorized:
+    - src/services/runtime/**
+    - tests/runtime/**
+    - docs/spec/**
+    - .esaa/**
+  potentially_affected: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: true
+closure: []
+projected:
+  features:
+    direct: []
+    indirect: []
+  invariants:
+    - INV-PATH-FENCE
+    - INV-WATCHER-ECHO-SUPPRESSION
+  tests:
+    must_run:
+      - pnpm test tests/runtime/workspace-fs-reconciler.test.ts
+      - pnpm typecheck

@@ -1,0 +1,35 @@
+task_id: MD-GUI-053-D
+impact_summary: "Spike experimental e ADR 053-D: avaliação e benchmark comparativo entre estratégias de CodeMirror 6 EditorView para tabs multi-documento (Single View + setState vs Small View Pool vs Recreate-on-Activate), com métricas empíricas de latência P50/P95, memória, DOM nodes e preservação de undo/redo/cursor/scroll."
+affected_files:
+  - src/services/runtime/codemirrorMultiDocStrategy.ts
+  - tests/runtime/codemirror-multi-doc-strategy.test.ts
+  - docs/spec/ADR-053-D-codemirror-multi-document.md
+  - .esaa/tasks/MD-GUI-053-D.yaml
+  - .esaa/analysis/MD-GUI-053-D-impact.yaml
+security_analysis:
+  dom_isolation: "A alternância de documentos não vaza seletores, ouvintes de evento ou referências de documentos inativos."
+  no_unsafe_eval: "Todas as extensões e estados de CodeMirror utilizam a API oficial @codemirror/state sem eval ou innerHTML."
+verification_evidence:
+  vitest: "tests/runtime/codemirror-multi-doc-strategy.test.ts medindo P50/P95, estabilidade de undo/redo e isolamento de cursor"
+  typecheck: "pnpm typecheck com 0 erros"
+blast_radius:
+  authorized:
+    - src/services/runtime/**
+    - tests/runtime/**
+    - docs/spec/**
+    - .esaa/**
+  potentially_affected: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: true
+closure: []
+projected:
+  features:
+    direct: []
+    indirect: []
+  invariants: []
+  tests:
+    must_run:
+      - pnpm test tests/runtime/codemirror-multi-doc-strategy.test.ts
+      - pnpm typecheck

@@ -1,0 +1,15 @@
+task_id: MD-V05-052-SPIKE
+title: "Spike e ADR das Diagram Engines adicionais (Graphviz, WaveDrom e viabilidade D2)"
+status: in_progress
+assigned_to: agent-spec
+task_kind: spec
+task_type: feature
+targets:
+  - .esaa/tasks/MD-V05-052-SPIKE.yaml
+  - docs/spec/ADR-diagram-engines.md
+dependencies: []
+acceptance_criteria:
+  - "ADR registrada em docs/spec/ADR-diagram-engines.md com critérios de bundle, segurança e offline"
+  - "Seleção de biblioteca local para Graphviz (@hpcc-js/wasm-graphviz) e WaveDrom (wavedrom)"
+  - "Decisão formal e fundamentada sobre adiamento de D2 baseada em viabilidade (bundle > budget)"
+  - "Garantia de conformidade 100% offline sem download dinâmico em runtime"

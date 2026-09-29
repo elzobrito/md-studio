@@ -8104,3 +8104,16 @@ edges:
   - src/App.tsx:770
   method: observed
   trace_task: MD-TRACE-G2-001
+- id: CLS-GIT-PROVIDER|depends_on|CFG-RS-DEP-GIT2
+  from: CLS-GIT-PROVIDER
+  to: CFG-RS-DEP-GIT2
+  relation: depends_on
+  evidence:
+  - src-tauri/crates/md-studio-core/src/git.rs:1
+  - src-tauri/crates/md-studio-core/src/git.rs:13
+  - src-tauri/crates/md-studio-core/src/git.rs:192
+  - src-tauri/crates/md-studio-core/src/git.rs:272
+  - src-tauri/crates/md-studio-core/Cargo.toml:20
+  method: observed
+  notes: use git2::{...} + GitError::Git2(git2::Error) + git2::Sort::TIME + git2::Oid::from_str.
+  trace_task: ISSUE-MD-SEC-GIT2-ADVISORY-001

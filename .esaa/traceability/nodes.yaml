@@ -7957,3 +7957,50 @@ nodes:
   inclusion:
   - flow
   trace_task: MD-TRACE-G2-001
+- id: CFG-RS-DEP-GIT2
+  type: configuration
+  name: Dependência externa git2 (crate Rust) de md-studio-core
+  module: MOD-SECURITY-POLICY
+  anchor:
+    path: src-tauri/crates/md-studio-core/Cargo.toml
+    symbol: git2
+    lines:
+    - 20
+    - 20
+  alias: src-tauri/crates/md-studio-core/Cargo.toml#git2
+  tags:
+  - external_dependency
+  - rust_crate
+  - security
+  - rustsec_advisory
+  - denied_by_cargo_audit
+  inclusion:
+  - invariant
+  notes: 'Modelada como configuration (schema.yaml não tem tipo de dependência externa; ver sec-git2-graph-delta.md).
+    Declaração: git2 = { version = "0.20", default-features = false }. Resolvida para git2 0.20.4 em src-tauri/Cargo.lock:1415
+    e src-tauri/crates/md-studio-core/Cargo.lock:327 (libgit2-sys 0.18.8+1.9.7). Advisories (unsound,
+    negados por --deny unsound): RUSTSEC-2026-0183 (Remote::list() com ponteiro nulo) e RUSTSEC-2026-0184
+    (Signature de BlameHunk via blame_buffer). patched >= 0.21.0 (git2 0.21.0 no crates.io desde 2026-05-18).
+    Introduzida em b13ad6b (MD-V04-039).'
+  trace_task: ISSUE-MD-SEC-GIT2-ADVISORY-001
+- id: CLS-GIT-PROVIDER
+  type: class
+  name: 'GitProvider (Git enxuto: status, diff gutter, histórico, arquivo em commit)'
+  module: MOD-WORKSPACE-FS
+  anchor:
+    path: src-tauri/crates/md-studio-core/src/git.rs
+    symbol: GitProvider
+    lines:
+    - 46
+    - 287
+  alias: src-tauri/crates/md-studio-core/src/git.rs#GitProvider
+  tags:
+  - security
+  - v0.4
+  inclusion:
+  - invariant
+  notes: Único consumidor de git2 no repo (git.rs:1). Usa Repository, Status/StatusOptions, DiffOptions,
+    revwalk/Sort::TIME e Oid::from_str; NÃO usa Remote::list() nem Blame::blame_buffer. Módulo provisório
+    MOD-WORKSPACE-FS (não há MOD-GIT); chamadores IPC git_* em src-tauri/src/commands/mod.rs:261-318 ainda
+    não catalogados (lacuna G3).
+  trace_task: ISSUE-MD-SEC-GIT2-ADVISORY-001

@@ -1,0 +1,10 @@
+task_id: MD-GUI-053-A
+artifact: task-drift
+schema_version: 1
+source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+head_commit: 6fbe64ae4b9ee447d7c2de697ba0dd37a6708806
+drift_analysis:
+  git_status: "HEAD é 6fbe64a. Apenas arquivos de governança ESAA e TCG foram modificados no commit 6fbe64a; código fonte de src/ e src-tauri/ é idêntico a 2e5cce8."
+  working_tree: "Working tree preservada com as implementações das ondas v0.5 e do hotfix desktop. Nenhuma alteração não governada foi introduzida."
+  tcg_rebase: "TCG do protótipo (v6-final) mapeado para arquitetura real de produção. Drift estrutural catalogado em docs/qa/053-A-inventory-drift-rebase.md."
+  stale_nodes_status: "0 stale nodes em artefatos normativos; 0 critical issues em validate.py."

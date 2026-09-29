@@ -72,7 +72,28 @@
 
   --shadow-sm: 0 1px 2px rgb(0 0 0 / 40%);
   --shadow-md: 0 12px 32px rgb(0 0 0 / 35%);
+
+  /* MD Studio R3 Canonical Palette (Dark) */
+  --color-bg: #0b0f17;
+  --color-surface: #111722;
+  --color-sidebar: #0d121c;
+  --color-border: #1f293d;
+  --color-border-subtle: #162032;
+  --color-text: #e2e8f0;
+  --color-muted: #8896ab;
+  --color-card: #141c2b;
+  --color-card-inner: #162032;
+  --color-hover: #1a2436;
+  --color-active-bg: #1c2c4c;
+  --color-active-border: #60a5fa;
+  --color-accent: #60a5fa;
+  --color-accent-hover: #93c5fd;
+  --color-focus: #60a5fa;
+  --color-danger: #f87171;
+  --color-warning: #fbbf24;
+  --color-success: #34d399;
 }
+
 
 @media (prefers-color-scheme: dark) {
   .theme-auto {

@@ -1,7 +1,7 @@
 name: md-studio
 title: MD Studio
 base: core24 # Base Ubuntu 24.04 LTS
-version: "0.2.3"
+version: "0.5.0"
 summary: Editor Markdown local para documentação técnica e engenharia no Linux
 description: |
   O MD Studio é um editor Markdown local-first, leve e 100% offline para Linux, construído com Tauri 2 (Rust) e React 19 / TypeScript.
@@ -33,39 +33,11 @@ apps:
       - home # Leitura/escrita na home do usuário (~/)
       - removable-media # Permite abrir e salvar arquivos em pendrives (/media, /mnt)
       - network # Para downloads de dependências/assets externos (se aplicável)
+    environment:
+      GDK_BACKEND: x11
+      WEBKIT_DISABLE_DMABUF_RENDERER: "1"
 
 parts:
   md-studio:
-    plugin: nil
-    source: .
-    build-packages:
-      - git
-      - libwebkit2gtk-4.1-dev
-      - build-essential
-      - curl
-      - wget
-      - libssl-dev
-      - libgtk-3-dev
-      - libayatana-appindicator3-dev
-      - librsvg2-dev
-      - pkg-config
-      - xz-utils
-      - python3-venv
-    override-build: |
-      # Always rebuild and scan this source; an existing dist/ is not trusted.
-      curl -fsSL https://nodejs.org/dist/v22.14.0/node-v22.14.0-linux-x64.tar.xz | tar -xJ -C /usr/local --strip-components=1
-      curl -fsSL https://go.dev/dl/go1.23.8.linux-amd64.tar.gz | tar -xz -C /usr/local
-      export PATH="/usr/local/go/bin:$PATH"
-      corepack enable
-      corepack prepare pnpm@9.15.4 --activate
-      pnpm install --frozen-lockfile --config.confirmModulesPurge=false
-      curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain 1.96.1
-      . "$HOME/.cargo/env"
-      bash scripts/install-security-tools.sh
-      pnpm build
-
-      cargo build --release --locked --manifest-path src-tauri/Cargo.toml
-
-      # 4. Instalar o executável no snap
-      mkdir -p "$SNAPCRAFT_PART_INSTALL/bin"
-      cp src-tauri/target/release/md-studio "$SNAPCRAFT_PART_INSTALL/bin/"
+    plugin: dump
+    source: snap-bin

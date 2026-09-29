@@ -1,0 +1,27 @@
+task_id: MD-V05-043
+title: "MarkItDown Adapter: provedor local de conversão para formatos de escritório e documentos"
+status: in_progress
+assigned_to: agent-impl
+deliverables:
+  - path: src-tauri/scripts/markitdown_bridge.py
+    description: "Script bridge Python estritamente local (convert_local), zero chamadas de rede, sem plugins de terceiros ou LLM OCR"
+  - path: src-tauri/src/commands/importer.rs
+    description: "Comandos Tauri import_check_capabilities, import_convert_source e import_commit_document"
+  - path: src-tauri/src/commands/mod.rs
+    description: "Módulo commands::importer declarado"
+  - path: src-tauri/src/lib.rs
+    description: "Comandos registrados no handler Tauri"
+  - path: src/services/markitdownAdapter.ts
+    description: "MarkItDownDocumentImporter registrado no Import Hub cobrindo DOCX, HTML, EPUB, PPTX, XLS, XLSX, CSV, JSON, XML e PDF"
+  - path: tests/import/markitdown-adapter.test.ts
+    description: "Suíte de testes unitários cobrindo allowlist de formatos, fidelidade e bloqueio de URLs remotas"
+acceptance_criteria:
+  - "Adapter de MarkItDown registrado no Import Hub cobrindo os formatos autorizados: ATENDIDO (MARKITDOWN_ALLOWED_FORMATS e importHub.register)"
+  - "Invocação estritamente local de arquivos/streams sem chamadas a URLs ou serviços remotos: ATENDIDO (bloqueio regex de protocolo e convert_local)"
+  - "Normalização robusta de Markdown gerado, extração de warnings e graceful degradation: ATENDIDO (EMPTY_OUTPUT e normalização)"
+  - "Tratamento de timeout e isolamento de falhas de conversão sem quebra do app: ATENDIDO (isolamento em processo separado com captura de erros)"
+verification:
+  checks:
+    - "pnpm test tests/import/markitdown-adapter.test.ts"
+    - "pnpm typecheck"
+    - "cargo check --manifest-path src-tauri/Cargo.toml"

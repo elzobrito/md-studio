@@ -79,6 +79,8 @@ export const mdStudioSanitizeSchema = {
       "dataMermaidCode",
       "data-mermaid-id",
       "dataMermaidId",
+      "data-diagram-language",
+      "dataDiagramLanguage",
     ],
     section: ["className", "class", "role", "aria-label"],
     img: [...(defaultSchema.attributes?.img ?? []), ["src"], ["alt"], ["title"], ["loading"]],

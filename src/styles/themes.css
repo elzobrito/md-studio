@@ -1,6 +1,11 @@
+@import "./design-tokens.css";
+@import "./app-shell.css";
+@import "./integrated-sidebar.css";
+@import "./document-tabs.css";
 @import "./themes/light.css";
 @import "./themes/dark.css";
 @import "./syntax.css";
+
 
 :root {
   color-scheme: light dark;
@@ -254,30 +259,22 @@ select {
 }
 
 .center {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   min-width: 0;
   min-height: 0;
+  overflow: hidden;
   background: var(--bg);
 }
 
-/* Side-by-side when split — full height each column */
-.center.mode-split {
-  grid-template-columns: minmax(280px, var(--split-source-ratio, 50%)) auto minmax(280px, 1fr);
-  grid-template-rows: 1fr;
-}
-
-.center.mode-source,
-.center.mode-preview {
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr;
+/* Keep the active surface within the space left below the document toolbar. */
+.center > :not(.document-bar) {
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 0;
 }
 
 @media (max-width: 900px) {
-  .center.mode-split {
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr;
-  }
-
   .workspace,
   .workspace.left-collapsed,
   .workspace.right-collapsed,

@@ -1,0 +1,10 @@
+Hotfix de acessibilidade do painel de configurações
+
+Issue: ISSUE-MD-GUI-053-Q-SETTINGS-ARIA-001
+Tarefa original: MD-GUI-053-Q
+
+A correção alinha o teste de SettingsPanel ao diálogo implementado. O teste verifica o aria-label "Configurações", a relação aria-labelledby com o título visível #settings-dialog-title e o aria-label "Fechar configurações" do botão de fechar.
+
+Verificações executadas no checkout:
+- pnpm exec vitest run --maxWorkers=1 tests/settings/ tests/runtime/settings-modals-toasts.test.ts — 4 arquivos, 22 testes aprovados.
+- pnpm typecheck — aprovado.

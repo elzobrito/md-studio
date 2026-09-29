@@ -1,0 +1,42 @@
+task_id: MD-GUI-053-Q
+impact_summary: "Adaptação do painel unificado de configurações (SettingsPanel) com gerenciamento de foco (focus trap em Tab/Shift+Tab, restore do elemento ativo anterior ao fechar), ciclo de vida acessível com atributos ARIA (role='dialog', aria-modal='true', aria-labelledby), e infraestrutura unificada de toasts flutuantes não-bloqueantes com live region acessível (role='status', aria-live='polite', pointer-events: none)."
+affected_files:
+  - src/components/settings/SettingsPanel.tsx
+  - src/components/toast/ToastContext.tsx
+  - src/styles/toast.css
+  - src/App.tsx
+  - tests/runtime/settings-modals-toasts.test.ts
+  - docs/spec/053-Q-settings-modals-toasts.md
+  - .esaa/tasks/MD-GUI-053-Q.yaml
+  - .esaa/analysis/MD-GUI-053-Q-impact.yaml
+security_analysis:
+  accessibility_and_modals: "Conformidade estrita com o WAI-ARIA Modal Dialog Pattern prevenindo perda de foco e retenção de cliques, com restauração segura do elemento ativo precedente ao fechamento e toasts desacoplados que não interceptam eventos de ponteiro no canvas."
+verification_evidence:
+  vitest: "tests/runtime/settings-modals-toasts.test.ts cobrindo ciclo de vida de modais, trap e restore de foco, live region de toasts e auto-dismiss"
+  typecheck: "pnpm typecheck com 0 erros"
+blast_radius:
+  authorized:
+    - src/components/settings/**
+    - src/components/toast/**
+    - src/styles/**
+    - src/App.tsx
+    - tests/runtime/**
+    - docs/spec/**
+    - .esaa/**
+  potentially_affected: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: true
+closure: []
+projected:
+  features:
+    direct: []
+    indirect: []
+  invariants:
+    - INV-FOCUS-TRAP-MODAL
+    - INV-TOAST-NON-BLOCKING
+  tests:
+    must_run:
+      - pnpm test tests/runtime/settings-modals-toasts.test.ts
+      - pnpm typecheck

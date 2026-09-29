@@ -1,0 +1,27 @@
+task_id: MD-V05-045
+impact_summary: "Contrato estático e metadados de FidelityClass (High, Intermediate, Best Effort, Unknown) para Import Hub e Import Preview conforme spec 045"
+affected_files:
+  - src/services/importFidelity.ts
+  - tests/import/import-fidelity.test.ts
+security_analysis:
+  static_contract: "Fidelidade desacoplada de avaliação subjetiva ou IA/LLM; mapeamento determinístico por provider/formato."
+  zero_network: "Nenhum endpoint ou rede externa consultada para resolver fidelidade."
+  safety_fallback: "Formatos sem classificação prévia ou provider não registrado caem em 'unknown' sem falha fatal."
+verification_evidence:
+  vitest: "Testes unitários em tests/import/import-fidelity.test.ts cobrindo matriz de formatos, fallbacks e labels"
+  typescript: "pnpm typecheck"
+blast_radius:
+  authorized: []
+  potentially_affected: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: true
+closure: []
+projected:
+  features:
+    direct: []
+    indirect: []
+  invariants: []
+  tests:
+    must_run: []

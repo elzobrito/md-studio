@@ -1,6 +1,6 @@
 {
   "name": "md-studio",
-  "version": "0.2.3",
+  "version": "0.5.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -9,6 +9,7 @@
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
+    "test:smoke": "bash scripts/desktop-smoke-test.sh",
     "tauri": "tauri",
     "typecheck": "tsc -b --pretty false"
   },
@@ -19,6 +20,7 @@
     "@codemirror/search": "6.5.10",
     "@codemirror/state": "6.5.2",
     "@codemirror/view": "6.36.4",
+    "@hpcc-js/wasm-graphviz": "1.29.1",
     "@panzoom/panzoom": "^4.6.2",
     "@shikijs/rehype": "^4.4.3",
     "@tauri-apps/api": "2.4.0",
@@ -44,6 +46,7 @@
     "reveal.js": "^6.0.2",
     "shiki": "^4.4.3",
     "unified": "11.0.5",
+    "wavedrom": "3.7.0",
     "yaml": "2.8.3",
     "zod": "3.24.2"
   },

@@ -1,0 +1,39 @@
+task_id: MD-GUI-053-F
+impact_summary: "Implementação do core multi-documento de produção (DocumentRuntime e OpenDocumentsRuntime), integrando os resultados dos 4 spikes normativos: contentIdentity e SaveQueue (053-B), UntitledStore (053-C), estratégia Single View + setState (053-D) e WorkspaceFsReconciler (053-E)."
+affected_files:
+  - src/services/runtime/documentRuntime.ts
+  - src/services/runtime/openDocumentsRuntime.ts
+  - tests/runtime/open-documents-runtime.test.ts
+  - docs/spec/053-F-document-runtime-architecture.md
+  - .esaa/tasks/MD-GUI-053-F.yaml
+  - .esaa/analysis/MD-GUI-053-F-impact.yaml
+security_analysis:
+  path_deduplication: "Path index normalizado impede abertura duplicada de abas para o mesmo arquivo em disco, eliminando risco de race conditions em saves paralelos."
+  isolated_document_scope: "Operações de edição, undo, redo, save e descarte em um documentId são estritamente isoladas e não causam vazamento em documentos adjacentes."
+verification_evidence:
+  vitest: "tests/runtime/open-documents-runtime.test.ts cobrindo ciclo de vida multi-documento, deduplicação, switch de abas, dirty guards e fechamento seguro"
+  typecheck: "pnpm typecheck com 0 erros"
+blast_radius:
+  authorized:
+    - src/services/runtime/**
+    - tests/runtime/**
+    - docs/spec/**
+    - .esaa/**
+  potentially_affected: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: true
+closure: []
+projected:
+  features:
+    direct: []
+    indirect: []
+  invariants:
+    - INV-ATOMIC-SAVE
+    - INV-SHA256-CONFLICT
+    - INV-PATH-FENCE
+  tests:
+    must_run:
+      - pnpm test tests/runtime/open-documents-runtime.test.ts
+      - pnpm typecheck

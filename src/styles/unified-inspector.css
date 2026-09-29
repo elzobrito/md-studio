@@ -1,0 +1,142 @@
+/* ==========================================================================
+   Unified Inspector Styles
+   ========================================================================== */
+
+.unified-inspector {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  background: var(--bg-sidebar, #181825);
+  color: var(--text-primary);
+  font-size: 12px;
+  overflow: hidden;
+}
+
+.unified-inspector-header {
+  height: 38px;
+  min-height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  border-bottom: 1px solid var(--border);
+  background: var(--panel, #181825);
+  font-weight: 600;
+  user-select: none;
+}
+
+.unified-inspector-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text-primary);
+}
+
+.unified-inspector-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.inspector-icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.12s ease;
+}
+
+.inspector-icon-btn:hover {
+  color: var(--text-primary);
+  background: var(--color-hover, rgba(255, 255, 255, 0.08));
+}
+
+.unified-inspector-scroll {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Accordion Section Card */
+.inspector-accordion-section {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-surface, #1e1e2e);
+  overflow: hidden;
+  transition: border-color 0.15s ease;
+}
+
+.inspector-accordion-section:focus-within {
+  border-color: var(--color-accent);
+}
+
+.inspector-accordion-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 12px;
+  cursor: pointer;
+  text-align: left;
+  user-select: none;
+  transition: background-color 0.12s ease;
+}
+
+.inspector-accordion-header:hover {
+  background: var(--color-hover, rgba(255, 255, 255, 0.04));
+}
+
+.inspector-section-title-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.inspector-badge-count {
+  font-size: 10px;
+  padding: 1px 6px;
+  border-radius: 10px;
+  background: var(--bg-primary, #11111b);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-family: var(--font-mono, monospace);
+}
+
+.inspector-chevron {
+  font-size: 10px;
+  color: var(--text-muted);
+  transition: transform 0.15s ease;
+}
+
+.inspector-chevron.open {
+  transform: rotate(90deg);
+}
+
+.inspector-accordion-body {
+  padding: 8px 12px 12px 12px;
+  border-top: 1px solid var(--border);
+  font-size: 11px;
+}
+
+.inspector-empty-state {
+  color: var(--text-muted);
+  font-style: italic;
+  padding: 6px 0;
+}

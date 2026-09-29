@@ -210,18 +210,54 @@ export const SETTINGS_TABS: { id: TabId; label: string; icon: ReactNode }[] = [
 export function SettingsPanel({ isOpen, onClose, onOpenShortcuts }: Props) {
   const [activeTab, setActiveTab] = useState<TabId>("appearance");
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const modalRef = useRef<HTMLDivElement>(null);
+  const previousActiveElementRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     if (!isOpen) return;
 
+    // Capture previous active element to restore focus when closing
+    previousActiveElementRef.current = document.activeElement as HTMLElement | null;
+
+    // Focus close button on mount
+    const timer = setTimeout(() => {
+      const closeBtn = modalRef.current?.querySelector<HTMLButtonElement>(".settings-modal-close-btn");
+      closeBtn?.focus();
+    }, 50);
+
     function handleKeyDown(e: globalThis.KeyboardEvent) {
       if (e.key === "Escape") {
+        e.preventDefault();
         onClose();
+        return;
+      }
+
+      // Accessible Focus Trap within modal
+      if (e.key === "Tab" && modalRef.current) {
+        const focusable = modalRef.current.querySelectorAll<HTMLElement>(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        if (focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
       }
     }
 
     window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("keydown", handleKeyDown);
+      // Restore focus to previous trigger
+      previousActiveElementRef.current?.focus();
+    };
   }, [isOpen, onClose]);
 
   const handleTabKeyDown = (e: KeyboardEvent<HTMLButtonElement>, index: number) => {
@@ -258,10 +294,11 @@ export function SettingsPanel({ isOpen, onClose, onOpenShortcuts }: Props) {
       role="dialog"
       aria-modal="true"
       aria-label="Configurações"
+      aria-labelledby="settings-dialog-title"
     >
-      <div className="settings-modal">
+      <div className="settings-modal" ref={modalRef}>
         <div className="settings-modal-header">
-          <h2 className="settings-modal-title">
+          <h2 id="settings-dialog-title" className="settings-modal-title">
             <span className="settings-header-icon" aria-hidden="true">
               <SettingsIcon />
             </span>
@@ -271,7 +308,7 @@ export function SettingsPanel({ isOpen, onClose, onOpenShortcuts }: Props) {
             type="button"
             className="settings-modal-close-btn"
             onClick={onClose}
-            aria-label="Fechar"
+            aria-label="Fechar configurações"
             title="Fechar (Esc)"
           >
             <CloseIcon />

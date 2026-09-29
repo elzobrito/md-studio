@@ -4,6 +4,7 @@ pub mod export;
 pub mod git;
 pub mod graph;
 pub mod history;
+pub mod importer;
 pub mod index;
 pub mod launch;
 pub mod parser;
@@ -29,6 +30,12 @@ pub use git::{FileDiffGutter, GitCommitSummary, GitError, GitFileStatus, GitProv
 pub use history::{
     DocumentHistoryManifest, DocumentRestoredSnapshot, HistoryEntry, HistoryError, HistorySnapshot,
     HistoryStore,
+};
+pub use importer::{
+    commit_import, detect_format_from_bytes_and_ext, get_fidelity_descriptor, DocumentImporter,
+    FidelityClass, FidelityDescriptor, ImportAssetDescriptor, ImportError, ImportFormatCapability,
+    ImporterCapability, ImporterRegistry, ImportResult, ImportSourceDescriptor, ImportWarning,
+    SupportDecision,
 };
 pub use index::{
     clear_index, extract_metadata, extract_metadata_from_str, index_path, load_index, save_index,

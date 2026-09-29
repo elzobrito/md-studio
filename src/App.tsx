@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { FileExplorer } from "./components/FileExplorer";
 import { MarkdownEditor } from "./components/MarkdownEditor";
 import { MarkdownViewer } from "./components/MarkdownViewer";
+import { PreviewSurface } from "./components/preview/PreviewSurface";
 import { DocumentOutline } from "./components/DocumentOutline";
 import { Settings } from "./components/Settings";
 import { useDocumentState } from "./state/documentState";
@@ -9,6 +10,7 @@ import { useSession, type ViewMode } from "./state/session";
 import { isTauriRuntime, pickFolder, pickMarkdownFile } from "./lib/ipc";
 import { scrollToHeading } from "./services/navigation";
 import { WelcomeScreen } from "./components/empty/WelcomeScreen";
+import { WorkspaceHome } from "./components/home/WorkspaceHome";
 import { ConflictDialog } from "./components/ConflictDialog";
 import { exportActiveDocumentHtml } from "./services/exportHtml";
 import { exportActiveDocumentEpub } from "./services/exportEpub";
@@ -16,8 +18,17 @@ import { EmptyState } from "./components/empty/EmptyState";
 import { CommandPalette } from "./components/command/CommandPalette";
 import { ResizablePanel } from "./components/layout/ResizablePanel";
 import { useResizablePanel } from "./hooks/useResizablePanel";
-import { SplitDivider, loadSavedSplitRatio } from "./components/layout/SplitDivider";
+import { BidirectionalSplitLayout } from "./components/layout/BidirectionalSplitLayout";
+import {
+  SplitDivider,
+  loadSavedSplitRatio,
+  loadSavedSplitOrientation,
+  saveSplitOrientation,
+  type SplitOrientation,
+} from "./components/layout/SplitDivider";
 import { WorkspaceRail, type WorkspaceActivityId } from "./components/workspace/WorkspaceRail";
+import { IntegratedWorkspaceSidebar } from "./components/workspace/IntegratedWorkspaceSidebar";
+import { DocumentBar } from "./components/tabs/DocumentBar";
 import { TodoExplorer } from "./components/todo/TodoExplorer";
 import { extractAnnotations, type Annotation } from "./services/todoExplorer";
 import { PanelControls } from "./components/header/PanelControls";
@@ -46,6 +57,7 @@ import type { Template } from "./templates";
 import { PresentationMode } from "./presentation/PresentationMode";
 import { capturePreviousUiState } from "./presentation/presentation-session";
 import type { PreviousUiState } from "./presentation/types";
+import { ToastProvider } from "./components/toast/ToastContext";
 import "./styles/print.css";
 
 const VIEW_OPTIONS: { id: ViewMode; label: string; title: string }[] = [
@@ -76,8 +88,16 @@ export function App() {
   const announcedDrafts = useRef(new Set(recoveryDrafts.filter((draft) => draft.expiringSoon).map((draft) => `${draft.key}:${draft.expired ? "expired" : "warning"}`)));
   const [unresolvedWikiTarget, setUnresolvedWikiTarget] = useState<string | null>(null);
   const scrollSync = useScrollSync({ enabled: view === "split" && settings.splitScrollSync });
-  const [splitRatio, setSplitRatio] = useState<number>(() => loadSavedSplitRatio());
+  const [splitOrientation, setSplitOrientation] = useState<SplitOrientation>(() => loadSavedSplitOrientation());
+  const [splitRatio, setSplitRatio] = useState<number>(() => loadSavedSplitRatio(loadSavedSplitOrientation()));
+  const [previewMaximized, setPreviewMaximized] = useState(false);
   const centerRef = useRef<HTMLElement | null>(null);
+
+  const handleSplitOrientationChange = (nextOrientation: SplitOrientation) => {
+    setSplitOrientation(nextOrientation);
+    saveSplitOrientation(nextOrientation);
+    setSplitRatio(loadSavedSplitRatio(nextOrientation));
+  };
 
   const hasActiveDocument = Boolean(isWriting || doc.relativePath);
 
@@ -323,6 +343,15 @@ export function App() {
         category: "Visualização",
       },
       {
+        key: "o",
+        alt: true,
+        action: () => {
+          handleSplitOrientationChange(splitOrientation === "vertical" ? "horizontal" : "vertical");
+        },
+        description: "Alternar orientação da visualização dividida (vertical/horizontal)",
+        category: "Visualização",
+      },
+      {
         key: "b",
         ctrl: true,
         action: () => session.toggleLeft(),
@@ -551,8 +580,8 @@ export function App() {
   const rightCollapsed = !session.rightOpen;
 
   return (
-    <>
-    <div className={`app theme-${settings.theme}`} role="application" aria-label="MD Studio">
+    <ToastProvider>
+    <div className={`app app-shell theme-${settings.theme}`} role="application" aria-label="MD Studio">
       <AppHeader
         viewMode={view}
         onViewModeChange={session.setViewMode}
@@ -585,6 +614,19 @@ export function App() {
         onStartPresentation={hasActiveDocument ? handleStartPresentation : undefined}
         onOpenSettings={() => setSettingsOpen(true)}
         onOpenShortcuts={() => setShortcutsModalOpen(true)}
+        onOpenSearch={() => {
+          window.dispatchEvent(
+            new KeyboardEvent("keydown", { key: "p", ctrlKey: true, bubbles: true })
+          );
+        }}
+        onNavigateHome={() => {
+          setIsWriting(false);
+          void doc.closeFile();
+        }}
+        onToggleTheme={() => {
+          settings.setTheme(settings.theme === "dark" ? "light" : "dark");
+        }}
+        currentTheme={settings.theme}
         breadcrumb={
           doc.workspace && doc.relativePath ? (
             <Breadcrumb
@@ -599,6 +641,7 @@ export function App() {
         }
       />
 
+
       <div
         className={[
           "workspace",
@@ -610,7 +653,7 @@ export function App() {
           .join(" ")}
         style={
           {
-            "--left-width": `${leftPanel.width + 48}px`,
+            "--left-width": `${leftPanel.width}px`,
             "--right-width": `${rightPanel.width}px`,
           } as React.CSSProperties
         }
@@ -618,18 +661,6 @@ export function App() {
         <div
           className={`workspace-sidebar-container${leftCollapsed ? " is-collapsed" : ""}`}
         >
-          <WorkspaceRail
-            activeActivity={workspaceActivity}
-            isPanelOpen={!leftCollapsed}
-            onToggleActivity={(id) => {
-              if (id === workspaceActivity) {
-                session.setLeftOpen(leftCollapsed);
-              } else {
-                setWorkspaceActivity(id);
-                session.setLeftOpen(true);
-              }
-            }}
-          />
           {!leftCollapsed && (
             <ResizablePanel
               side="left"
@@ -638,43 +669,54 @@ export function App() {
               isResizing={leftPanel.isResizing}
               aria-label="Workspace"
             >
-              {workspaceActivity === "todo" ? (
-                <TodoExplorer
-                  annotations={allAnnotations}
-                  activePath={doc.relativePath}
-                  onNavigate={async (path, line, col) => {
-                    if (path !== doc.relativePath) {
-                      const opened = await doc.openRelative(path);
-                      if (opened) {
-                        setIsWriting(true);
-                        window.setTimeout(() => {
-                          editorStore.goToLine(line, col);
-                        }, 100);
+              <IntegratedWorkspaceSidebar
+                workspaceLabel={doc.workspace?.rootLabel}
+                activeTab={workspaceActivity === "todo" ? "todos" : "files"}
+                onTabChange={(tab) => setWorkspaceActivity(tab === "todos" ? "todo" : "explorer")}
+                onOpenFolder={() => void handleOpenFolderFromWelcome()}
+                onOpenFile={() => void handleOpenFileFromWelcome()}
+                onNewDocument={handleOpenNewDocument}
+                onCloseSidebar={() => session.setLeftOpen(false)}
+                todoCount={allAnnotations.length}
+              >
+                {workspaceActivity === "todo" ? (
+                  <TodoExplorer
+                    annotations={allAnnotations}
+                    activePath={doc.relativePath}
+                    onNavigate={async (path, line, col) => {
+                      if (path !== doc.relativePath) {
+                        const opened = await doc.openRelative(path);
+                        if (opened) {
+                          setIsWriting(true);
+                          window.setTimeout(() => {
+                            editorStore.goToLine(line, col);
+                          }, 100);
+                        }
+                      } else {
+                        editorStore.goToLine(line, col);
                       }
-                    } else {
-                      editorStore.goToLine(line, col);
-                    }
-                  }}
-                />
-              ) : (
-                <FileExplorer
-                  workspace={doc.workspace}
-                  onOpenRelative={(path) => {
-                    void doc.openRelative(path);
-                    setIsWriting(true);
-                  }}
-                  onOpenRecent={(path) => {
-                    void doc.openRecent(path);
-                    setIsWriting(true);
-                  }}
-                  onOpenFolder={doc.openFolder}
-                  onOpenFile={doc.openFile}
-                  onWorkspaceReady={doc.onWorkspaceReady}
-                  query={query}
-                  onQuery={setQuery}
-                  activePath={doc.relativePath}
-                />
-              )}
+                    }}
+                  />
+                ) : (
+                  <FileExplorer
+                    workspace={doc.workspace}
+                    onOpenRelative={(path) => {
+                      void doc.openRelative(path);
+                      setIsWriting(true);
+                    }}
+                    onOpenRecent={(path) => {
+                      void doc.openRecent(path);
+                      setIsWriting(true);
+                    }}
+                    onOpenFolder={doc.openFolder}
+                    onOpenFile={doc.openFile}
+                    onWorkspaceReady={doc.onWorkspaceReady}
+                    query={query}
+                    onQuery={setQuery}
+                    activePath={doc.relativePath}
+                  />
+                )}
+              </IntegratedWorkspaceSidebar>
             </ResizablePanel>
           )}
         </div>
@@ -689,62 +731,130 @@ export function App() {
           }
         >
           {!isWriting && !doc.relativePath ? (
-            !doc.workspace ? (
-              <WelcomeScreen
-                onOpenFolder={() => void handleOpenFolderFromWelcome()}
-                onOpenFile={() => void handleOpenFileFromWelcome()}
-                onOpenRecent={(path) => {
-                  void doc.openRecent(path);
-                  setIsWriting(true);
-                }}
-                onNewDocument={handleOpenNewDocument}
-              />
-            ) : (
-              <EmptyState
-                onQuickSwitch={() => {
-                  window.dispatchEvent(
-                    new KeyboardEvent("keydown", { key: "p", ctrlKey: true, bubbles: true })
-                  );
-                }}
-                onNewDocument={handleOpenNewDocument}
-              />
-            )
+            <WorkspaceHome
+              workspace={doc.workspace}
+              onOpenFolder={() => void handleOpenFolderFromWelcome()}
+              onOpenFile={() => void handleOpenFileFromWelcome()}
+              onOpenRecent={(path) => {
+                void doc.openRecent(path);
+                setIsWriting(true);
+              }}
+              onNewDocument={handleOpenNewDocument}
+              onQuickSwitch={() => {
+                window.dispatchEvent(
+                  new KeyboardEvent("keydown", { key: "p", ctrlKey: true, bubbles: true })
+                );
+              }}
+            />
           ) : (
             <>
-              {view !== "preview" && (
-                <MarkdownEditor
-                  value={doc.content}
-                  dirty={doc.dirty}
-                  onChange={doc.setContent}
-                  onSave={doc.save}
-                  onScroller={scrollSync.setEditorScroller}
-                  wikiDocuments={metadata.allDocs}
-                />
-              )}
-              {view === "split" && (
-                <SplitDivider
+              <DocumentBar
+                tabs={[
+                  {
+                    documentId: doc.relativePath || "untitled",
+                    canonicalPath: doc.relativePath || null,
+                    displayName: doc.relativePath ? doc.relativePath.split("/").pop()! : "sem-titulo.md",
+                    dirty: doc.dirty,
+                    saveStatus: doc.dirty ? "modified" : "saved",
+                    active: true,
+                  },
+                ]}
+                activeDocumentId={doc.relativePath || "untitled"}
+                onSelectTab={() => {}}
+                onCloseTab={() => {
+                  if (doc.dirty) {
+                    if (window.confirm("Você possui alterações não salvas. Deseja fechar e descartar?")) {
+                      setIsWriting(false);
+                      void doc.closeFile();
+                    }
+                  } else {
+                    setIsWriting(false);
+                    void doc.closeFile();
+                  }
+                }}
+                onNewTab={handleOpenNewDocument}
+                viewMode={view}
+                onViewModeChange={session.setViewMode}
+                splitOrientation={splitOrientation}
+                onChangeSplitOrientation={handleSplitOrientationChange}
+                onSave={() => void doc.save()}
+                canSave={hasActiveDocument}
+                saveStatus={doc.dirty ? "modified" : "saved"}
+                onExportHtml={() => void handleExportHtml()}
+                onExportPdf={handleExportPdf}
+                onExportEpub={handleExportEpub}
+                onStartPresentation={handleStartPresentation}
+              />
+              {view === "split" ? (
+                <BidirectionalSplitLayout
+                  orientation={splitOrientation}
                   ratio={splitRatio}
                   onChangeRatio={setSplitRatio}
-                  onReset={() => setSplitRatio(0.5)}
-                  containerRef={centerRef}
+                  onResetRatio={() => setSplitRatio(0.5)}
+                  maximizedPane={previewMaximized ? "second" : "none"}
+                  firstPane={
+                    <MarkdownEditor
+                      value={doc.content}
+                      dirty={doc.dirty}
+                      onChange={doc.setContent}
+                      onSave={doc.save}
+                      onScroller={scrollSync.setEditorScroller}
+                      wikiDocuments={metadata.allDocs}
+                    />
+                  }
+                  secondPane={
+                    <PreviewSurface
+                      content={doc.content}
+                      savedContent={doc.savedContent}
+                      relativePath={doc.relativePath}
+                      wikiLinks={metadata.resolvedWikiLinks}
+                      onOpenRelative={async (path) => {
+                        const opened = await doc.openRelative(path);
+                        if (opened) setIsWriting(true);
+                      }}
+                      onUnresolvedWiki={setUnresolvedWikiTarget}
+                      onRoot={(el) => {
+                        onPreviewRoot(el);
+                        scrollSync.setPreviewScroller(el);
+                      }}
+                      onChangeContent={doc.setContent}
+                      isMaximized={previewMaximized}
+                      onToggleMaximize={() => setPreviewMaximized((prev) => !prev)}
+                    />
+                  }
                 />
-              )}
-              {view !== "source" && (
-                <MarkdownViewer
-                  content={doc.content}
-                  relativePath={doc.relativePath}
-                  wikiLinks={metadata.resolvedWikiLinks}
-                  onOpenRelative={async (path) => {
-                    const opened = await doc.openRelative(path);
-                    if (opened) setIsWriting(true);
-                  }}
-                  onUnresolvedWiki={setUnresolvedWikiTarget}
-                  onRoot={(el) => {
-                    onPreviewRoot(el);
-                    scrollSync.setPreviewScroller(el);
-                  }}
-                  onChangeContent={doc.setContent}
-                />
+              ) : (
+                <div style={{ flex: 1, display: "flex", minHeight: 0, position: "relative", width: "100%", height: "calc(100% - var(--docbar-height))" }}>
+                  {view === "source" && (
+                    <MarkdownEditor
+                      value={doc.content}
+                      dirty={doc.dirty}
+                      onChange={doc.setContent}
+                      onSave={doc.save}
+                      onScroller={scrollSync.setEditorScroller}
+                      wikiDocuments={metadata.allDocs}
+                    />
+                  )}
+                  {view === "preview" && (
+                    <PreviewSurface
+                      content={doc.content}
+                      savedContent={doc.savedContent}
+                      relativePath={doc.relativePath}
+                      wikiLinks={metadata.resolvedWikiLinks}
+                      onOpenRelative={async (path) => {
+                        const opened = await doc.openRelative(path);
+                        if (opened) setIsWriting(true);
+                      }}
+                      onUnresolvedWiki={setUnresolvedWikiTarget}
+                      onRoot={(el) => {
+                        onPreviewRoot(el);
+                        scrollSync.setPreviewScroller(el);
+                      }}
+                      onChangeContent={doc.setContent}
+                      isMaximized={false}
+                    />
+                  )}
+                </div>
               )}
             </>
           )}
@@ -808,6 +918,15 @@ export function App() {
         viewMode={view}
         content={doc.content}
         fileName={doc.relativePath ? doc.relativePath.split("/").pop() : undefined}
+        saveStatus={
+          doc.conflictPath
+            ? "conflicted"
+            : !doc.relativePath && !doc.savedContent
+            ? "unsaved"
+            : doc.dirty
+            ? "modified"
+            : "saved"
+        }
         syncScroll={scrollSync.syncEnabled}
         onToggleSyncScroll={() => settings.setSplitScrollSync(!settings.splitScrollSync)}
         onGoToLine={() => setGoToLineOpen(true)}
@@ -881,6 +1000,6 @@ export function App() {
         relativePath={doc.conflictPath ?? ""}
         onChoose={(c) => { void doc.resolveConflict(c); }}
       />
-    </>
+    </ToastProvider>
   );
 }

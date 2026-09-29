@@ -1,0 +1,24 @@
+task_id: MD-GUI-053-J
+title: "053-J — Integrated Workspace Sidebar"
+status: in_progress
+assigned_to: agent-impl
+task_kind: impl
+task_type: feature
+targets:
+  - src/components/workspace/IntegratedWorkspaceSidebar.tsx
+  - src/styles/integrated-sidebar.css
+  - src/App.tsx
+  - tests/runtime/integrated-sidebar.test.ts
+  - docs/spec/053-J-integrated-workspace-sidebar.md
+  - .esaa/tasks/MD-GUI-053-J.yaml
+  - .esaa/analysis/MD-GUI-053-J-impact.yaml
+acceptance_criteria:
+  - "Sidebar única à esquerda integrando árvore de arquivos e utilitários"
+  - "Nenhuma WorkspaceRail visual separada concorrendo por espaço"
+  - "Todas as capabilities da WorkspaceRail preservadas e acessíveis"
+  - "Suíte de testes de integração da sidebar passando"
+verification:
+  checks:
+    - "pnpm test tests/runtime/integrated-sidebar.test.ts"
+    - "pnpm typecheck"
+    - "pnpm test"

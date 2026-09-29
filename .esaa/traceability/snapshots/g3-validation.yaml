@@ -1,0 +1,193 @@
+# TRACE-013 — Validação dos artefatos de rastreabilidade (gerado por tools/validate.py; não editar à mão).
+artifact: validation
+schema_version: 1
+source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+head: 6fbe64ae4b9ee447d7c2de697ba0dd37a6708806
+generated_at: '2026-09-27T17:38:05-03:00'
+generator: tools/validate.py
+summary:
+  status: pass
+  critical_issues: 0
+  warning_issues: 35
+  checks_with_findings:
+    warning: 5
+    info: 2
+  stats:
+    nodes: 556
+    edges: 962
+    modules: 19
+    entrypoints: 71
+    contracts: 38
+    features: 59
+    flows: 22
+    tests: 167
+    invariants: 12
+    evidence_refs_checked: 2077
+checks:
+  missing_artifacts:
+    severity: critical
+    description: Artefatos obrigatórios ausentes
+    count: 0
+    items: []
+  source_commit_mismatch:
+    severity: critical
+    description: source_commit divergente entre artefatos
+    count: 0
+    items: []
+  duplicate_ids:
+    severity: critical
+    description: Ids duplicados (nós, módulos, entrypoints, contratos, features, fluxos, invariantes, arestas)
+    count: 0
+    items: []
+  duplicate_anchors:
+    severity: warning
+    description: Nós distintos com âncora idêntica (path+symbol+lines)
+    count: 0
+    items: []
+  unstable_ids:
+    severity: critical
+    description: Ids fora do padrão, com prefixo errado ou derivados de linha/hash
+    count: 0
+    items: []
+  broken_refs:
+    severity: critical
+    description: Referências a ids inexistentes em qualquer artefato
+    count: 0
+    items: []
+  missing_paths_symbols:
+    severity: critical
+    description: Âncoras com path inexistente ou símbolo ausente na linha inicial (no source_commit)
+    count: 0
+    items: []
+  anchor_out_of_range:
+    severity: critical
+    description: Âncoras com intervalo de linhas fora do arquivo
+    count: 0
+    items: []
+  edges_without_evidence_or_method:
+    severity: critical
+    description: Arestas sem evidence/method, inferred sem confidence, relação inválida ou IPC sem evidência dos 3 lados
+    count: 0
+    items: []
+  invalid_evidence_lines:
+    severity: critical
+    description: Evidências path:line inexistentes ou em linha vazia no source_commit (2077 verificadas)
+    count: 0
+    items: []
+  invariant_without_test_or_gap:
+    severity: critical
+    description: 'Invariantes sem verified_by e sem gap: true'
+    count: 0
+    items: []
+  entrypoints_without_flow:
+    severity: warning
+    description: Entrypoints cujo nó não aparece em nenhum fluxo
+    count: 1
+    items:
+    - ENT-IPC-RESOLVE-WIKI-LINK (IPC-RESOLVE-WIKI-LINK)
+  orphan_services:
+    severity: warning
+    description: Unidades de código sem nenhuma aresta de entrada (nem entrypoint) e sem status dead_code/test_only
+    count: 1
+    items:
+    - CLS-GIT-PROVIDER (class, src-tauri/crates/md-studio-core/src/git.rs)
+  known_dead_or_test_only:
+    severity: info
+    description: Unidades marcadas dead_code/test_only sem aresta de entrada (achados já documentados)
+    count: 5
+    items:
+    - FN-FENCE-RELATIVE (test_only)
+    - FN-CLEAR-INDEX (test_only)
+    - CMP-CODE-BLOCK (test_only)
+    - CLS-PRESENTATION-SESSION-MANAGER (test_only)
+    - FN-MARKDOWN-HINT-EXTENSION (dead_code)
+  contracts_without_consumer:
+    severity: warning
+    description: Contratos sem consumidor (lista vazia ou sem consumidor real no produto)
+    count: 0
+    items: []
+  tests_without_mapped_node:
+    severity: warning
+    description: Testes que não cobrem nenhum nó modelado (exercitam unidades não modeladas)
+    count: 13
+    items:
+    - TST-TS-EDITOR-CURSOR
+    - TST-TS-EDITOR-GUTTER
+    - TST-TS-EDITOR-TABLE
+    - TST-TS-HELP-CHEATSHEET
+    - TST-TS-MARKDOWN-CODE-CODE
+    - TST-TS-MARKDOWN-CORE-NAVIGATION-NAVIGATION-OUTLINE
+    - TST-TS-MARKDOWN-FORMATTING
+    - TST-TS-MARKDOWN-MATH-MATH-MATH
+    - TST-TS-MARKDOWN-MATH-MATH-UNTRUSTED-KATEX-INPUT
+    - TST-TS-UI-BUTTON
+    - TST-TS-UX-BREADCRUMB
+    - TST-TS-WORKSPACE-WORKSPACERAIL
+    - TST-RS-NAV-AND-NCX-INCLUDE-H1-H2-ONLY
+  invariants_with_gap:
+    severity: warning
+    description: 'Invariantes com cobertura parcial ou sem teste (gap: true)'
+    count: 11
+    items:
+    - INV-PATH-FENCE (partial)
+    - INV-FS-ONLY-VIA-RUST (none)
+    - INV-ATOMIC-SAVE (partial)
+    - INV-SHA256-CONFLICT (partial)
+    - INV-SANITIZE-PREVIEW-EXPORT (partial)
+    - INV-REMOTE-RESOURCES-BLOCKED (none)
+    - INV-WATCHER-ECHO-SUPPRESSION (partial)
+    - INV-EXPORT-NO-SILENT-OVERWRITE (partial)
+    - INV-OFFLINE-NO-TELEMETRY (none)
+    - INV-DESKTOP-LAUNCHER-ENV (partial)
+    - INV-NO-DENIED-DEPENDENCY-ADVISORY (none)
+  features_with_divergences:
+    severity: info
+    description: Features com divergência doc x código registrada
+    count: 14
+    items:
+    - FEAT-FORMATTING-TOOLBAR (1)
+    - FEAT-SMART-PASTE (2)
+    - FEAT-CONTEXTUAL-HINTS (2)
+    - FEAT-WIKI-LINKS (1)
+    - FEAT-RECENT-FILES (1)
+    - FEAT-SAVE (1)
+    - FEAT-CONFLICT (2)
+    - FEAT-EXPORT-HTML (1)
+    - FEAT-VIEW-MODES (1)
+    - FEAT-PRESENTATION (1)
+    - FEAT-METADATA-INDEX (2)
+    - FEAT-SANITIZE (1)
+    - FEAT-OFFLINE-PRIVACY (2)
+    - FEAT-SPLASH-PACKAGING (1)
+  source_commit_drift:
+    severity: warning
+    description: Drift entre source_commit (2e5cce855888) e HEAD/working tree (âncoras continuam válidas no source_commit)
+    count: 9
+    items:
+    - 'HEAD 6fbe64ae4b9e != source_commit 2e5cce855888; 40 arquivo(s) alterado(s); nós possivelmente stale: []'
+    - 'working tree modificado: src-tauri/src/commands/mod.rs — nós stale (âncora não bate no working tree): [''IPC-OPEN-WORKSPACE'', ''IPC-LIST-ENTRIES'', ''IPC-READ-DOCUMENT'', ''IPC-SAVE-DOCUMENT'',
+      ''IPC-SEARCH-WORKSPACE'', ''IPC-EXPORT-HTML'', ''IPC-EXPORT-EPUB'', ''IPC-GET-LAUNCH-PATH'', ''IPC-CLOSE-SPLASH'', ''FN-RESOLVE-WORKSPACE-ROOT'', ''FN-EXPORT-EPUB-IN'', ''DTO-RS-EXPORT-HTML-REQUEST'',
+      ''DTO-RS-EXPORT-EPUB-REQUEST'', ''TST-RS-EXPORT-WRITES-RENDERED-HTML-NOT-PRE-STUB'', ''TST-RS-EXPORT-REFUSES-OVERWRITE-WITHOUT-FLAG'', ''TST-RS-EXPORT-OVERWRITE-WHEN-ALLOWED'', ''TST-RS-EXPORT-EPUB-REQUEST-DESERIALIZES-CAMEL-CASE'',
+      ''TST-RS-EXPORT-EPUB-REFUSES-NON-ABSOLUTE-DESTINATION'', ''TST-RS-EXPORT-EPUB-REQUIRES-KNOWN-WORKSPACE-AND-REJECTS-ESCAPE'', ''TST-RS-EXPORT-EPUB-WRITES-PACKAGE-AND-REFUSES-CLOBBER'']; nós com âncora
+      ainda válida: [''DTO-RS-SAVE-DOCUMENT-REQUEST'']; evidências no arquivo: 147'
+    - 'working tree modificado: src-tauri/src/lib.rs — nós stale (âncora não bate no working tree): []; nós com âncora ainda válida: [''FN-RS-RUN'', ''CLS-APP-STATE'', ''CFG-GENERATE-HANDLER'', ''OSI-SPLASH-AUTOCLOSE'',
+      ''OSI-SINGLE-INSTANCE'', ''OSI-LAUNCH-ARGV'', ''TEV-APP-OPEN-FILE'']; evidências no arquivo: 162'
+    - 'working tree modificado: src/components/MarkdownViewer.tsx — nós stale (âncora não bate no working tree): [''CMP-MARKDOWN-VIEWER'', ''HDL-VIEWER-ON-CLICK'', ''BTN-PREVIEW-FORMAT-CODE'']; nós com
+      âncora ainda válida: []; evidências no arquivo: 29'
+    - 'working tree modificado: src/contracts/types.ts — nós stale (âncora não bate no working tree): []; nós com âncora ainda válida: [''DTO-TS-WORKSPACE-DESCRIPTOR'', ''DTO-TS-FILE-ENTRY'', ''DTO-TS-DOCUMENT-SNAPSHOT'',
+      ''DTO-TS-SAVE-DOCUMENT-REQUEST'', ''DTO-TS-SAVE-RESULT'', ''DTO-TS-SEARCH-RESULT'', ''DTO-TS-WATCH-EVENT'', ''DTO-TS-IPC-ERROR-CODE'']; evidências no arquivo: 9'
+    - 'working tree modificado: src/lib/ipc/client.ts — nós stale (âncora não bate no working tree): [''CNS-SUBSCRIBE-OPEN-FILE'', ''FN-BROWSER-INVOKE'', ''OSI-PICK-SAVE-MARKDOWN'', ''OSI-PICK-SAVE-HTML'',
+      ''OSI-PICK-SAVE-EPUB'', ''OSI-CONFIRM-OVERWRITE'', ''CNS-SUBSCRIBE-WORKSPACE-WATCH'', ''STO-BROWSER-HASH-CACHE'']; nós com âncora ainda válida: [''FN-IPC-INVOKE'', ''FN-IS-TAURI-RUNTIME'', ''IPCC-OPEN-WORKSPACE'',
+      ''IPCC-LIST-ENTRIES'', ''IPCC-READ-DOCUMENT'', ''IPCC-SAVE-DOCUMENT'', ''IPCC-SEARCH-WORKSPACE'', ''IPCC-EXPORT-HTML'', ''IPCC-EXPORT-EPUB'', ''IPCC-START-WATCHING'', ''IPCC-STOP-WATCHING'', ''IPCC-GET-LAUNCH-PATH'',
+      ''OSI-PICK-FOLDER'', ''OSI-PICK-MARKDOWN-FILE'']; evidências no arquivo: 75'
+    - 'working tree modificado: src/markdown/frontmatter.ts — nós stale (âncora não bate no working tree): [''PIPE-FRONTMATTER'']; nós com âncora ainda válida: [''CFG-FRONTMATTER-SCHEMA'']; evidências no
+      arquivo: 3'
+    - 'working tree modificado: src/markdown/processor.ts — nós stale (âncora não bate no working tree): [''PIPE-HAST-TO-HTML'']; nós com âncora ainda válida: [''SVC-PROCESS-MARKDOWN'', ''PIPE-REMARK-GFM'',
+      ''PIPE-REMARK-MATH'', ''PIPE-REMARK-REHYPE'', ''PIPE-REHYPE-RAW'', ''PIPE-HEADING-IDS'', ''PIPE-MERMAID-BLOCKS'', ''PIPE-KATEX'']; evidências no arquivo: 41'
+    - 'working tree modificado: src/markdown/sanitize.ts — nós stale (âncora não bate no working tree): [''PIPE-SANITIZE'']; nós com âncora ainda válida: [''PIPE-STRIP-MARKDOWN-STYLES'', ''PIPE-RESTRICT-RENDERER-STYLES'',
+      ''CFG-SANITIZE-SCHEMA'']; evidências no arquivo: 4'
+  graph_json_stale:
+    severity: warning
+    description: graph.json desatualizado em relação aos artefatos
+    count: 0
+    items: []

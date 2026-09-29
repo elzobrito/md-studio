@@ -1,0 +1,64 @@
+artifact: task-footprint
+schema_version: 1
+trace_task: TRACE-018
+task_id: MD-V05-045
+diff:
+  base: 6fbe64ae4b9ee447d7c2de697ba0dd37a6708806
+  head: WORKTREE
+  paths_filter:
+  - src/services/importFidelity.ts
+  - tests/import/import-fidelity.test.ts
+  excluded_set: []
+  command: git diff -U0 --no-color --no-ext-diff 6fbe64ae4b9ee447d7c2de697ba0dd37a6708806 -- src/services/importFidelity.ts tests/import/import-fidelity.test.ts
+graph_source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+notes: []
+changed_files:
+- path: src/services/importFidelity.ts
+  status: A
+  added: 101
+  removed: 0
+  hunks:
+  - old:
+    - 0
+    - -1
+    new:
+    - 1
+    - 101
+  is_test: false
+  catalogued_nodes_in_file: 0
+- path: tests/import/import-fidelity.test.ts
+  status: A
+  added: 72
+  removed: 0
+  hunks:
+  - old:
+    - 0
+    - -1
+    new:
+    - 1
+    - 72
+  is_test: true
+  catalogued_nodes_in_file: 0
+changed_nodes: []
+enclosing_nodes: []
+uncatalogued: []
+new_files:
+- src/services/importFidelity.ts
+new_test_files:
+- tests/import/import-fidelity.test.ts
+contracts_touched: []
+data_touched: []
+events_touched: []
+rollup:
+  features: []
+  invariants: []
+  flows: []
+stats:
+  files: 2
+  changed_nodes: 0
+  code_nodes: 0
+  test_nodes: 0
+  uncatalogued_files: 0
+  uncatalogued_substantive_lines: 0
+  new_files: 1
+  new_test_files: 1

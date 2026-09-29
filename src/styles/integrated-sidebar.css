@@ -1,0 +1,162 @@
+/**
+ * MD Studio R3 — Integrated Workspace Sidebar
+ * Normative reference: 053-nova-gui-R3.md (Tasks 053-J, PARTE VI)
+ */
+
+.integrated-sidebar {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  background-color: var(--color-sidebar);
+  color: var(--color-text);
+  overflow: hidden;
+  font-size: 13px;
+  user-select: none;
+}
+
+/* Header */
+.sidebar-header {
+  height: 38px;
+  padding: 0 10px;
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  background-color: var(--color-surface);
+}
+
+.sidebar-workspace-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  font-size: 12px;
+  color: var(--color-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sidebar-collapse-btn {
+  background: transparent;
+  border: none;
+  padding: 4px;
+  border-radius: var(--radius-sm);
+  color: var(--color-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar-collapse-btn:hover {
+  background-color: var(--color-hover);
+  color: var(--color-text);
+}
+
+/* Quick Actions */
+.sidebar-quick-actions {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background-color: var(--color-card);
+  flex-shrink: 0;
+}
+
+.sidebar-action-btn-primary {
+  width: 100%;
+  height: 28px;
+  border-radius: var(--radius-md);
+  border: none;
+  background-color: var(--color-accent);
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: opacity 0.12s ease;
+}
+
+.sidebar-action-btn-primary:hover {
+  opacity: 0.9;
+}
+
+.sidebar-action-btn-secondary {
+  width: 100%;
+  height: 26px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  font-size: 11px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: background-color 0.12s ease;
+}
+
+.sidebar-action-btn-secondary:hover {
+  background-color: var(--color-hover);
+}
+
+/* Navigation Tabs (Arquivos | Tarefas) */
+.sidebar-tabs {
+  display: flex;
+  align-items: center;
+  padding: 4px 8px;
+  border-bottom: 1px solid var(--color-border);
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.sidebar-tab-btn {
+  flex: 1;
+  height: 24px;
+  border-radius: var(--radius-sm);
+  border: none;
+  background: transparent;
+  color: var(--color-muted);
+  font-size: 11px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  cursor: pointer;
+  transition: all 0.12s ease;
+}
+
+.sidebar-tab-btn:hover {
+  background-color: var(--color-hover);
+  color: var(--color-text);
+}
+
+.sidebar-tab-btn.is-active {
+  background-color: var(--color-active-bg);
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+/* Content Area */
+.sidebar-content-area {
+  flex: 1;
+  overflow: auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-content-area > * {
+  flex: 1;
+  min-height: 0;
+}

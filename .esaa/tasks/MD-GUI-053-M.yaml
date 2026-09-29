@@ -1,0 +1,25 @@
+task_id: MD-GUI-053-M
+title: "053-M — Bidirectional Split Layout"
+status: in_progress
+assigned_to: agent-impl
+task_kind: impl
+task_type: feature
+targets:
+  - src/components/layout/SplitDivider.tsx
+  - src/components/layout/BidirectionalSplitLayout.tsx
+  - src/styles/split-view.css
+  - src/App.tsx
+  - tests/runtime/split-layout.test.ts
+  - docs/spec/053-M-bidirectional-split-layout.md
+  - .esaa/tasks/MD-GUI-053-M.yaml
+  - .esaa/analysis/MD-GUI-053-M-impact.yaml
+acceptance_criteria:
+  - "Alternância fluida entre split vertical e horizontal"
+  - "Redimensionamento com persistência de proporção sem clipping"
+  - "Scroll sync preservado entre editor e preview"
+  - "Testes de split layout passando 100%"
+verification:
+  checks:
+    - "pnpm test tests/runtime/split-layout.test.ts"
+    - "pnpm typecheck"
+    - "pnpm test"

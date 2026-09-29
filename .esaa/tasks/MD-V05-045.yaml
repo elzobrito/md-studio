@@ -1,0 +1,18 @@
+task_id: MD-V05-045
+title: "Import Fidelity Classes: contrato estático de expectativa estrutural por formato"
+status: in_progress
+assigned_to: agent-impl
+deliverables:
+  - path: src/services/importFidelity.ts
+    description: "Contrato estático e metadados de FidelityClass (High para HTML/DOCX/EPUB, Intermediate para PPTX/XLSX, Best Effort para PDF, Unknown para lacunas normativas e não registrados)"
+  - path: tests/import/import-fidelity.test.ts
+    description: "Suíte de testes unitários cobrindo todos os formatos suportados, normalização, descritores, fallbacks e integridade de copy"
+acceptance_criteria:
+  - "Modelo de dados FidelityClass e explicações padronizadas congeladas: ATENDIDO (FidelityClass, FidelityDescriptor, FIDELITY_LABELS, FIDELITY_EXPLANATIONS)"
+  - "Classificação estática conforme matriz normativa (High, Intermediate, Best Effort, Unknown): ATENDIDO (CANONICAL_FORMAT_MAP)"
+  - "Exportação de metadados para consumo no Import Hub e Import Preview: ATENDIDO (getFidelityDescriptor, normalizeFormatId)"
+  - "Testes unitários cobrindo todos os formatos suportados e fallbacks: ATENDIDO (tests/import/import-fidelity.test.ts)"
+verification:
+  checks:
+    - "pnpm test tests/import/import-fidelity.test.ts"
+    - "pnpm typecheck"

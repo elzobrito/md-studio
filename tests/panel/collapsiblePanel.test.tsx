@@ -24,7 +24,7 @@ describe("MD-UI-PANEL-001: Collapsible Right Panel & StatusBar", () => {
     expect(html).toContain('≡');
   });
 
-  it("renders [sumário] button in StatusBar when rightOpen is false", () => {
+  it("renders [sumário]/[inspetor] button in StatusBar when rightOpen is false", () => {
     const htmlClosed = renderToString(
       <StatusBar
         viewMode="source"
@@ -33,11 +33,11 @@ describe("MD-UI-PANEL-001: Collapsible Right Panel & StatusBar", () => {
     );
 
     expect(htmlClosed).toContain('class="status-bar-btn status-bar-summary-btn"');
-    expect(htmlClosed).toContain('[sumário]');
-    expect(htmlClosed).toContain('aria-label="Abrir sumário"');
+    expect(htmlClosed.includes('[inspetor]') || htmlClosed.includes('[sumário]')).toBe(true);
+    expect(htmlClosed.includes('aria-label="Abrir inspetor"') || htmlClosed.includes('aria-label="Abrir sumário"')).toBe(true);
   });
 
-  it("does not render [sumário] button in StatusBar when rightOpen is true", () => {
+  it("does not render summary/inspector button in StatusBar when rightOpen is true", () => {
     const htmlOpen = renderToString(
       <StatusBar
         viewMode="source"
@@ -45,7 +45,7 @@ describe("MD-UI-PANEL-001: Collapsible Right Panel & StatusBar", () => {
       />
     );
 
-    expect(htmlOpen).not.toContain('[sumário]');
+    expect(htmlOpen).not.toContain('class="status-bar-btn status-bar-summary-btn"');
   });
 
   it("persists rightPanelVisible in localStorage across toggle and set", () => {

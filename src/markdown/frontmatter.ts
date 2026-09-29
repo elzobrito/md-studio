@@ -7,6 +7,8 @@ export const FrontmatterSchema = z
     description: z.string().optional(),
     tags: z.array(z.string()).optional(),
     date: z.union([z.string(), z.date()]).optional(),
+    author: z.string().optional(),
+    lang: z.string().optional(),
   })
   .passthrough();
 

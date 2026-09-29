@@ -95,3 +95,98 @@ export interface GitCommitSummary {
   summary: string;
 }
 
+// -------------------------------------------------------------
+// Import Hub (Spec 042 & 045) Contracts
+// -------------------------------------------------------------
+
+import type { FidelityDescriptor } from "../services/importFidelity";
+export type { FidelityDescriptor };
+
+export type ImportFormatId =
+  | "docx"
+  | "html"
+  | "epub"
+  | "pptx"
+  | "xlsx"
+  | "pdf"
+  | "csv"
+  | "json"
+  | "xml"
+  | string;
+
+export type SupportDecision =
+  | { status: "supported"; confidence: "exact" | "likely" }
+  | { status: "unsupported" }
+  | { status: "unavailable"; reason: string };
+
+export interface ImportSourceDescriptor {
+  sourceId: string;
+  displayName: string;
+  extension?: string;
+  sizeBytes: number;
+  formatHint?: string;
+}
+
+export interface ImportAssetDescriptor {
+  id: string;
+  suggestedName: string;
+  mediaType?: string;
+  byteLength: number;
+  role?: "image" | "media" | "attachment" | "unknown";
+}
+
+export interface ImportWarning {
+  code: string;
+  message: string;
+  scope?: "document" | "asset" | "metadata" | "structure";
+  assetId?: string;
+}
+
+export type ImportMetadataValue = string | number | boolean | null | readonly string[];
+export type ImportMetadata = Readonly<Record<string, ImportMetadataValue>>;
+
+export interface ImportResult {
+  markdown: string;
+  title?: string;
+  assets: ImportAssetDescriptor[];
+  metadata?: ImportMetadata;
+  warnings: ImportWarning[];
+  fidelity: FidelityDescriptor;
+}
+
+export interface ImportFormatCapability {
+  formatId: string;
+  extensions: readonly string[];
+  mediaTypes?: readonly string[];
+  available: boolean;
+}
+
+export interface ImporterCapability {
+  id: string;
+  available: boolean;
+  formats: ImportFormatCapability[];
+  runtime?: "native" | "embedded" | "wasm" | "external-local";
+}
+
+export interface ImportDestination {
+  workspaceId: WorkspaceId;
+  relativeMarkdownPath: string;
+  assetDirectory?: string;
+}
+
+export type ImportCommitResult =
+  | { ok: true; relativePath: string; fullPath?: string }
+  | { ok: false; code: "DestinationExists" | "OutsideWorkspace" | "CommitFailed" | string; message: string };
+
+export type ImportJobPhase =
+  | "idle"
+  | "selecting"
+  | "validating"
+  | "converting"
+  | "ready"
+  | "reviewing"
+  | "committing"
+  | "completed"
+  | "cancelled"
+  | "failed";
+

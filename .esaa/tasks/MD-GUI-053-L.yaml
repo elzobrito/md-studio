@@ -1,0 +1,25 @@
+task_id: MD-GUI-053-L
+title: "053-L — DocumentTabs & DocumentBar"
+status: in_progress
+assigned_to: agent-impl
+task_kind: impl
+task_type: feature
+targets:
+  - src/components/tabs/DocumentTabs.tsx
+  - src/components/tabs/DocumentBar.tsx
+  - src/styles/document-tabs.css
+  - src/App.tsx
+  - tests/runtime/document-tabs-bar.test.ts
+  - docs/spec/053-L-document-tabs-bar.md
+  - .esaa/tasks/MD-GUI-053-L.yaml
+  - .esaa/analysis/MD-GUI-053-L-impact.yaml
+acceptance_criteria:
+  - "Múltiplos documentos abertos em abas sincronizadas com OpenDocumentsRuntime"
+  - "Mesmo arquivo em disco nunca duplica aba"
+  - "Dirty badge indica equivalência com disco; fechar aba dirty aciona save guard"
+  - "Suíte de testes de interface de abas passando 100%"
+verification:
+  checks:
+    - "pnpm test tests/runtime/document-tabs-bar.test.ts"
+    - "pnpm typecheck"
+    - "pnpm test"

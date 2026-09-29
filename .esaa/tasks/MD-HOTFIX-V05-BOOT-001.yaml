@@ -1,0 +1,24 @@
+task_id: MD-HOTFIX-V05-BOOT-001
+title: "Hotfix forense: correção de regressão de startup desktop (janela vazia / tela em branco)"
+status: in_progress
+assigned_to: agent-impl
+task_kind: impl
+task_type: hotfix
+targets:
+  - .esaa/tasks/MD-HOTFIX-V05-BOOT-001.yaml
+  - src/**
+  - src-tauri/**
+  - scripts/**
+  - tests/**
+acceptance_criteria:
+  - "Investigação forense concluída e causa raiz do boot em branco identificada com evidências"
+  - "Correção cirúrgica da causa raiz aplicada no código sem degradar features da v0.5"
+  - "Desktop Startup Smoke Test aprovado com binário montando a UI React normalmente"
+  - "Suíte completa passando: pnpm test, pnpm typecheck, pnpm build, cargo test --workspace"
+  - "TCG atualizado e reconciliado com status pass e 0 critical"
+verification:
+  checks:
+    - "pnpm typecheck"
+    - "pnpm test"
+    - "cargo test --workspace"
+    - "bash scripts/desktop-smoke-test.sh"

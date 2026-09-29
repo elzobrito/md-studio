@@ -65,6 +65,19 @@
   color: var(--color-accent);
 }
 
+.save-status-badge.status-unsaved {
+  color: var(--text-muted);
+}
+
+.save-status-badge.status-conflicted {
+  color: #f59e0b;
+  font-weight: 600;
+}
+
+.save-status-badge.status-missing {
+  color: var(--color-error);
+}
+
 .save-status-badge.status-error {
   color: var(--color-error);
 }

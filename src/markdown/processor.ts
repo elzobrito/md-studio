@@ -120,11 +120,20 @@ function rehypeHeadingIds(this: any) {
   };
 }
 
-/** Intercept code blocks with language "mermaid" and transform them into interactive diagram containers */
+/** Intercept code blocks with diagram languages (mermaid, dot, graphviz, wavedrom) and transform them into interactive diagram containers */
 function rehypeMermaidBlocks() {
   return (tree: any) => {
     visitPreElements(tree);
   };
+}
+
+function detectDiagramLanguage(classNames: string[]): string | null {
+  for (const cls of classNames) {
+    if (cls === "language-mermaid" || cls === "mermaid") return "mermaid";
+    if (cls === "language-dot" || cls === "dot" || cls === "language-graphviz" || cls === "graphviz") return "graphviz";
+    if (cls === "language-wavedrom" || cls === "wavedrom") return "wavedrom";
+  }
+  return null;
 }
 
 function visitPreElements(node: any): void {
@@ -138,18 +147,22 @@ function visitPreElements(node: any): void {
           const classNames = Array.isArray(codeNode.properties?.className)
             ? codeNode.properties.className
             : [codeNode.properties?.className || ""];
-          const isMermaid = classNames.some((cls: string) =>
-            cls === "language-mermaid" || cls === "mermaid"
-          );
+          const diagramLang = detectDiagramLanguage(classNames);
 
-          if (isMermaid) {
+          if (diagramLang) {
             const rawCode = extractTextValue(codeNode).trim();
+            const classNamesList =
+              diagramLang === "mermaid"
+                ? ["mermaid-diagram-container"]
+                : ["mermaid-diagram-container", `diagram-language-${diagramLang}`];
+
             node.children[i] = {
               type: "element",
               tagName: "div",
               properties: {
-                className: ["mermaid-diagram-container"],
+                className: classNamesList,
                 dataMermaidCode: rawCode,
+                dataDiagramLanguage: diagramLang,
               },
               children: [
                 {

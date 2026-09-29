@@ -1,0 +1,38 @@
+task_id: MD-GUI-053-A
+impact_summary: "Gate de admissão da Onda 053: inventário de capabilities pós-v0.5, rebase da baseline TCG G4+, matriz formal PROTO->produção e formalização dos spikes de runtime."
+affected_files:
+  - docs/qa/053-A-inventory-drift-rebase.md
+  - .esaa/tasks/MD-GUI-053-A.yaml
+  - .esaa/analysis/MD-GUI-053-A-impact.yaml
+  - .esaa/analysis/MD-GUI-053-A-drift.yaml
+  - .esaa/traceability/g4-plus-053a-delta.md
+security_analysis:
+  read_only_gate: "A tarefa 053-A não altera arquivos de produção, runtime, IPC ou UI."
+  protected_area_integrity: "Garantia formal de preservação da protected area de inicialização desktop Linux (INV-DESKTOP-LAUNCHER-ENV)."
+  offline_integrity: "Todo o inventário e validação é estritamente local e determinístico."
+verification_evidence:
+  vitest: "109 arquivos de teste e 628 testes passando (100%)"
+  cargo: "21 testes de unidade passando em src-tauri (100%)"
+  desktop_smoke: "scripts/desktop-smoke-test.sh executado com status PASS"
+  validate: "python3 .esaa/traceability/tools/validate.py atesta integridade dos artefatos"
+blast_radius:
+  authorized:
+    - docs/**
+    - .esaa/**
+  potentially_affected: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: false
+    allow_new_production_nodes: false
+closure: []
+projected:
+  features:
+    direct: []
+    indirect: []
+  invariants:
+    - INV-DESKTOP-LAUNCHER-ENV
+  tests:
+    must_run:
+      - pnpm test
+      - cargo test --manifest-path src-tauri/Cargo.toml
+      - bash scripts/desktop-smoke-test.sh dev

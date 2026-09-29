@@ -1,0 +1,26 @@
+task_id: MD-GUI-053-I
+title: "053-I — Global AppShell"
+status: in_progress
+assigned_to: agent-impl
+task_kind: impl
+task_type: feature
+targets:
+  - src/components/shell/GlobalAppBar.tsx
+  - src/components/shell/AppShell.tsx
+  - src/styles/app-shell.css
+  - src/App.tsx
+  - tests/runtime/global-app-shell.test.ts
+  - docs/spec/053-I-global-app-shell.md
+  - .esaa/tasks/MD-GUI-053-I.yaml
+  - .esaa/analysis/MD-GUI-053-I-impact.yaml
+acceptance_criteria:
+  - "Uma única App Bar global no topo da aplicação"
+  - "Superfície central flexível recebendo prioridade visual"
+  - "Status Bar posicionada de forma estável no rodapé"
+  - "Desktop smoke test preservado e passando"
+verification:
+  checks:
+    - "pnpm test tests/runtime/global-app-shell.test.ts"
+    - "pnpm typecheck"
+    - "bash scripts/desktop-smoke-test.sh"
+    - "pnpm test"

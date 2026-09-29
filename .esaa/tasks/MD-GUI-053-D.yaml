@@ -1,0 +1,21 @@
+task_id: MD-GUI-053-D
+title: "053-D — Spike: CodeMirror Multi-document Strategy"
+status: in_progress
+assigned_to: agent-impl
+task_kind: impl
+task_type: feature
+targets:
+  - src/services/runtime/codemirrorMultiDocStrategy.ts
+  - tests/runtime/codemirror-multi-doc-strategy.test.ts
+  - docs/spec/ADR-053-D-codemirror-multi-document.md
+  - .esaa/tasks/MD-GUI-053-D.yaml
+  - .esaa/analysis/MD-GUI-053-D-impact.yaml
+acceptance_criteria:
+  - "Benchmark comparativo das 3 estratégias de EditorView com métricas P50/P95 e pegada de memória"
+  - "Preservação de histórico undo/redo, cursor e scroll ao alternar documentos"
+  - "ADR formal registrando a estratégia selecionada e diretrizes de implementação para 053-F"
+verification:
+  checks:
+    - "pnpm test tests/runtime/codemirror-multi-doc-strategy.test.ts"
+    - "pnpm typecheck"
+    - "pnpm test"

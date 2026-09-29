@@ -1,0 +1,29 @@
+task_id: MD-V05-044
+impact_summary: "Implementação da interface e modelo de Import Preview (ImportPreviewModal, importPreview.ts, import-preview.css) com revisão obrigatória, contagens estruturais, warnings, exibição de FidelityClass e commit seguro sob Path Fencing"
+affected_files:
+  - src/services/importPreview.ts
+  - src/components/import/ImportPreviewModal.tsx
+  - src/styles/import-preview.css
+  - tests/import/import-preview.test.ts
+security_analysis:
+  read_only_preview: "Visualizador opera em modo puramente read-only; links externos desativados, sem requisições remotas (network-free)."
+  no_write_before_confirm: "Nenhuma modificação ou gravação é efetuada no workspace ou em disco antes da confirmação explícita do usuário."
+  path_fencing_validation: "Destino relativo validado contra escape do workspace e colisões com arquivos existentes."
+verification_evidence:
+  vitest: "Testes unitários em tests/import/import-preview.test.ts validando derivação de contagens, modelo, sanitização e bloqueio de commit inválido"
+  typescript: "pnpm typecheck"
+blast_radius:
+  authorized: []
+  potentially_affected: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: true
+closure: []
+projected:
+  features:
+    direct: []
+    indirect: []
+  invariants: []
+  tests:
+    must_run: []

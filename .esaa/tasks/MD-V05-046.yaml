@@ -1,0 +1,20 @@
+task_id: MD-V05-046
+title: "Publishing Engine: abstração unificada de exportação, registry e lifecycle"
+status: in_progress
+assigned_to: agent-impl
+deliverables:
+  - path: src/contracts/publishingTypes.ts
+    description: "Contratos de publicação técnica (ExporterCapability, ExportSourceSnapshot, ExportDestination, ExportRequest, ExportResult, ExportWarning, ExportJobPhase)"
+  - path: src/services/publishingEngine.ts
+    description: "PublishingEngineService com ExporterRegistry unificado, HtmlDocumentExporter e LegacyPrintPdfExporter desacoplados de DOM de preview"
+  - path: tests/publishing/publishing-engine.test.ts
+    description: "Suíte de testes unitários cobrindo registry, capabilities, options, ciclo de vida e exportação em memória"
+acceptance_criteria:
+  - "Interface DocumentExporter e registry central de exporters implementados: ATENDIDO (DocumentExporter e ExporterRegistry)"
+  - "Lifecycle assíncrono de export job com rastreamento de progresso e cancelamento: ATENDIDO (PublishingEngineService com cancelJob e phases)"
+  - "Desacoplamento rigoroso: exportação baseada em AST/snapshot Markdown, independente do DOM de preview: ATENDIDO (ExportSourceSnapshot)"
+  - "Entrada unificada no shell conectada ao registry sem botões ad-hoc por formato: ATENDIDO (PublishingEngine expõe capabilities universais)"
+verification:
+  checks:
+    - "pnpm test tests/publishing/publishing-engine.test.ts"
+    - "pnpm typecheck"

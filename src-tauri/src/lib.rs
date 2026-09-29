@@ -21,6 +21,21 @@ pub struct AppState {
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
+    #[cfg(target_os = "linux")]
+    {
+        // Inside Snap, the GNOME extension (core24/gnome-46-2404) manages
+        // graphics backends, Mesa, and WebKitGTK variables automatically.
+        // Never override them when running under SNAP confinement.
+        if std::env::var("SNAP").is_err() {
+            if std::env::var("GDK_BACKEND").map(|v| v.is_empty()).unwrap_or(true) {
+                std::env::set_var("GDK_BACKEND", "x11");
+            }
+            if std::env::var("WEBKIT_DISABLE_DMABUF_RENDERER").map(|v| v.is_empty()).unwrap_or(true) {
+                std::env::set_var("WEBKIT_DISABLE_DMABUF_RENDERER", "1");
+            }
+        }
+    }
+
     let launch_path = md_studio_core::first_existing_markdown_path(std::env::args().skip(1))
         .map(|p| p.to_string_lossy().into_owned());
 
@@ -40,9 +55,6 @@ pub fn run() {
                 let path_str = path.to_string_lossy().into_owned();
                 let _ = app.emit("app://open-file", serde_json::json!({ "path": path_str }));
             }
-            if let Some(splash) = app.get_webview_window("splashscreen") {
-                let _ = splash.close();
-            }
             if let Some(w) = app.get_webview_window("main") {
                 let _ = w.unminimize();
                 let _ = w.show();
@@ -54,17 +66,9 @@ pub fn run() {
         .manage(state)
         .setup(|app| {
             use tauri::Manager;
-            let handle = app.handle().clone();
-            std::thread::spawn(move || {
-                std::thread::sleep(std::time::Duration::from_secs(6));
-                if let Some(splash) = handle.get_webview_window("splashscreen") {
-                    let _ = splash.close();
-                }
-                if let Some(main) = handle.get_webview_window("main") {
-                    let _ = main.show();
-                    let _ = main.set_focus();
-                }
-            });
+            if let Some(main) = app.get_webview_window("main") {
+                eprintln!("[TAURI_SETUP] main window initialized successfully, url={:?}", main.url());
+            }
             Ok(())
         })
         .invoke_handler(tauri::generate_handler![
@@ -95,6 +99,9 @@ pub fn run() {
             commands::git_get_file_diff,
             commands::git_get_file_history,
             commands::git_get_file_at_commit,
+            commands::importer::import_check_capabilities,
+            commands::importer::import_convert_source,
+            commands::importer::import_commit_document,
             watcher::start_watching,
             watcher::stop_watching,
         ])

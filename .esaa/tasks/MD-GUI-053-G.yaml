@@ -1,0 +1,24 @@
+task_id: MD-GUI-053-G
+title: "053-G — Semantic Pipeline & Bounded Artifact Caches"
+status: in_progress
+assigned_to: agent-impl
+task_kind: impl
+task_type: feature
+targets:
+  - src/services/runtime/semanticModel.ts
+  - src/services/runtime/artifactCache.ts
+  - src/services/runtime/semanticPipeline.ts
+  - tests/runtime/semantic-pipeline-cache.test.ts
+  - docs/spec/053-G-semantic-pipeline-caches.md
+  - .esaa/tasks/MD-GUI-053-G.yaml
+  - .esaa/analysis/MD-GUI-053-G-impact.yaml
+acceptance_criteria:
+  - "DocumentSemanticModel independente do DOM do Preview"
+  - "Artefatos semânticos identificados por revision/contentIdentity"
+  - "Cache LRU limitado com eviction explícita sem vazamento de memória"
+  - "Testes automatizados cobrindo geração e descarte de artefatos obsoletos"
+verification:
+  checks:
+    - "pnpm test tests/runtime/semantic-pipeline-cache.test.ts"
+    - "pnpm typecheck"
+    - "pnpm test"

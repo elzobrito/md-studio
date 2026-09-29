@@ -1,0 +1,27 @@
+artifact: task-traceability
+schema_version: 1
+task_id: MD-HOTFIX-SPLIT-CENTER-001
+written_at: '2026-09-28'
+projected_before_change: true
+projection_inputs:
+  - 'ESAA task MD-HOTFIX-SPLIT-CENTER-001'
+  - 'Observed composition: DocumentBar and BidirectionalSplitLayout are direct children of .center'
+  - '.esaa/traceability/graph.json (source_commit 2e5cce855888b404654002fef1d97ebc0db29cf7)'
+graph:
+  path: .esaa/traceability/graph.json
+  source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+traceability:
+  targets: [RTE-VIEW-MODES]
+  expected_affected: [SCR-APP, TST-TS-LAYOUT-SPLITVIEW]
+  protected_extra: []
+  change_policy: {mode: surgical, allow_new_tests: true, allow_new_production_nodes: false}
+  rationale:
+    RTE-VIEW-MODES: 'corrigir a contenção externa que distribui barra e superfície nos modos source, preview e split'
+    SCR-APP: 'a tela principal mantém header e status bar enquanto os painéis limitam o conteúdo longo à própria área rolável'
+    TST-TS-LAYOUT-SPLITVIEW: 'cobrir a composição e a contenção de conteúdo extenso no layout dividido'
+  expected_uncatalogued:
+    - 'src/styles/themes.css (arquivo CSS sem nós próprios no grafo AST; warning deve permanecer explícito no drift)'
+artifacts:
+  impact: .esaa/analysis/MD-HOTFIX-SPLIT-CENTER-001-impact.yaml
+  footprint: .esaa/analysis/MD-HOTFIX-SPLIT-CENTER-001-footprint.yaml
+  drift: .esaa/analysis/MD-HOTFIX-SPLIT-CENTER-001-drift.yaml

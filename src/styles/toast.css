@@ -1,0 +1,98 @@
+/* ==========================================================================
+   Toast Notification Styles
+   ========================================================================== */
+
+.toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: var(--z-toast, 1000);
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 8px;
+  pointer-events: none;
+  max-width: 380px;
+  width: calc(100% - 48px);
+}
+
+.toast-card {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  background: var(--bg-surface, #1e1e2e);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  color: var(--text-primary);
+  font-size: 12px;
+  line-height: 1.4;
+  animation: toast-slide-in 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+@keyframes toast-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.toast-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+}
+
+.toast-icon {
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.toast-message {
+  word-break: break-word;
+}
+
+.toast-card.is-info {
+  border-left: 3px solid var(--color-accent, #3b82f6);
+}
+
+.toast-card.is-success {
+  border-left: 3px solid #10b981;
+}
+
+.toast-card.is-warning {
+  border-left: 3px solid #f59e0b;
+}
+
+.toast-card.is-error {
+  border-left: 3px solid #ef4444;
+}
+
+.toast-close-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.12s ease;
+  flex-shrink: 0;
+}
+
+.toast-close-btn:hover {
+  color: var(--text-primary);
+  background: var(--color-hover, rgba(255, 255, 255, 0.08));
+}

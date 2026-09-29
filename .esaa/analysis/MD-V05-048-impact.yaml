@@ -1,0 +1,28 @@
+task_id: MD-V05-048
+impact_summary: "Integração do exporter EPUB 3 (id=epub) ao Publishing Engine (publishingEngine.ts), tipagem de author e lang no FrontmatterSchema e garantia de execução offline com empacotamento atômico Rust sob Path Fencing"
+affected_files:
+  - src/services/publishingEngine.ts
+  - src/markdown/frontmatter.ts
+  - tests/publishing/publishing-engine.test.ts
+security_analysis:
+  zero_network_audit: "Geração de EPUB 100% offline, local-first sem chamadas remotas ou telemetria."
+  path_fencing_assets: "Imagens locais empacotadas no EPUB são validadas pelo Rust backend sob Path Fencing estrito."
+  metadata_sanitization: "Validação tipada de author, lang, title e date contra injeções ou paths relativos inseguros."
+verification_evidence:
+  vitest: "Testes unitários em tests/publishing/publishing-engine.test.ts validando canExport, registry e adapter EPUB 3"
+  typescript: "pnpm typecheck"
+blast_radius:
+  authorized: []
+  potentially_affected: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: true
+closure: []
+projected:
+  features:
+    direct: []
+    indirect: []
+  invariants: []
+  tests:
+    must_run: []

@@ -1,0 +1,38 @@
+task_id: MD-GUI-053-S
+impact_summary: "Otimização de responsividade e performance desktop: suporte a viewports desktop compactas (min-width: 768px, layout flex com min-width: 0 prevenindo clipping e overflow indesejado), preservação estrita do isolamento entre operações de chrome (resize de split, toggle de sidebar, alternância de tabs) e o pipeline semântico de AST (protegido por chaves SHA256 e cache LRU com limite de 12 itens), assegurando digitação a 60fps e orçamentos de memória estáveis."
+affected_files:
+  - src/styles/app-shell.css
+  - src/styles/design-tokens.css
+  - tests/runtime/responsive-performance.test.ts
+  - docs/spec/053-S-responsive-performance.md
+  - .esaa/tasks/MD-GUI-053-S.yaml
+  - .esaa/analysis/MD-GUI-053-S-impact.yaml
+security_analysis:
+  resource_exhaustion_and_clipping: "Mitigação de consumo descontrolado de heap por retenção de ASTs e render trees através de limites LRU rigorosos (12 instâncias), e contenção visual via CSS overflow: hidden e flex-shrink adequados em todos os eixos de layout."
+verification_evidence:
+  vitest: "tests/runtime/responsive-performance.test.ts validando estabilidade de renderização em diferentes resoluções, invariante de não-reindexação em chrome resize, e disciplina de caches limitados"
+  typecheck: "pnpm typecheck com 0 erros"
+blast_radius:
+  authorized:
+    - src/styles/**
+    - tests/runtime/**
+    - docs/spec/**
+    - .esaa/**
+  potentially_affected: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: true
+closure: []
+projected:
+  features:
+    direct: []
+    indirect: []
+  invariants:
+    - INV-CHROME-NO-REPARSE
+    - INV-BOUNDED-CACHE-LRU
+    - INV-RESPONSIVE-NO-OVERFLOW
+  tests:
+    must_run:
+      - pnpm test tests/runtime/responsive-performance.test.ts
+      - pnpm typecheck

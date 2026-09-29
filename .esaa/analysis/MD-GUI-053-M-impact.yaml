@@ -1,0 +1,43 @@
+task_id: MD-GUI-053-M
+impact_summary: "Implementação do layout bipartido bidirecional flexível (Bidirectional Split Layout): suporte a orientações vertical (lado a lado) e horizontal (topo/base), controle de orientação integrado na toolbar ou no splitter, persistência independente das proporções por orientação no localStorage, resizer suave com hitbox acessível e teclado, preservação do scroll sync e desacoplamento de clipping."
+affected_files:
+  - src/components/layout/SplitDivider.tsx
+  - src/components/layout/BidirectionalSplitLayout.tsx
+  - src/styles/split-view.css
+  - src/components/tabs/DocumentBar.tsx
+  - src/App.tsx
+  - tests/runtime/split-layout.test.ts
+  - docs/spec/053-M-bidirectional-split-layout.md
+  - .esaa/tasks/MD-GUI-053-M.yaml
+  - .esaa/analysis/MD-GUI-053-M-impact.yaml
+security_analysis:
+  safe_resize_bounds: "Limites mínimos estritos (minSourcePx/minPreviewPx ou 20%-80%) para prevenir colapso total acidental de qualquer um dos painéis durante o arraste."
+  isolated_scroll_sync: "Sincronização bidirecional de scroll proporcional sem loops infinitos de feedback de eventos entre editor CodeMirror e preview Unified/HTML."
+verification_evidence:
+  vitest: "tests/runtime/split-layout.test.ts testando orientação vertical e horizontal, redimensionamento, persistência de proporções e preservação de acessibilidade de separator"
+  typecheck: "pnpm typecheck com 0 erros"
+blast_radius:
+  authorized:
+    - src/components/layout/**
+    - src/components/tabs/**
+    - src/styles/**
+    - src/App.tsx
+    - tests/runtime/**
+    - docs/spec/**
+    - .esaa/**
+  potentially_affected: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: true
+closure: []
+projected:
+  features:
+    direct: []
+    indirect: []
+  invariants:
+    - INV-PATH-FENCE
+  tests:
+    must_run:
+      - pnpm test tests/runtime/split-layout.test.ts
+      - pnpm typecheck

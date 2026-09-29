@@ -1,0 +1,19 @@
+task_id: MD-V05-051
+title: "Mermaid Explorer: catálogo, navegação e ampliação de diagramas no workspace"
+status: in_progress
+assigned_to: agent-impl
+task_kind: impl
+task_type: feature
+targets:
+  - .esaa/tasks/MD-V05-051.yaml
+  - src/services/mermaidExplorer.ts
+  - src/components/diagrams/MermaidExplorerPanel.tsx
+  - src/components/diagrams/MermaidExpandedModal.tsx
+  - src/styles/mermaid-explorer.css
+  - tests/diagrams/mermaid-explorer.test.ts
+dependencies: []
+acceptance_criteria:
+  - "Extração e indexação de registros de blocos Mermaid no MetadataIndex"
+  - "Painel Mermaid Explorer no Workspace Rail com listagem por documento e workspace"
+  - "Navegação bidirecional: clique no diagrama posiciona o cursor e rola o editor"
+  - "Modal ampliado interativo e exportação consistente em SVG/PNG"

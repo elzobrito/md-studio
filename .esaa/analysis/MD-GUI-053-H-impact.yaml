@@ -1,0 +1,41 @@
+task_id: MD-GUI-053-H
+impact_summary: "Centralização e formalização dos design tokens do MD Studio R3 (tokens de cor, superfícies, sidebar, inspector, bordas, foco, dimensões de controles, raios e z-index) e criação do Icon Registry local nativo em SVG para substituir emojis e garantir ausência total de dependências remotas ou CDNs."
+affected_files:
+  - src/styles/design-tokens.css
+  - src/styles/themes/light.css
+  - src/styles/themes/dark.css
+  - src/styles/themes.css
+  - src/components/icons/index.tsx
+  - tests/runtime/design-tokens-icons.test.ts
+  - docs/spec/053-H-design-tokens-iconography.md
+  - .esaa/tasks/MD-GUI-053-H.yaml
+  - .esaa/analysis/MD-GUI-053-H-impact.yaml
+security_analysis:
+  zero_remote_assets: "Todos os ícones são componentes SVG locais inline, eliminando vetores de ataque via CDN externa, webfonts remotas ou injeção de scripts."
+  contrast_parity: "Garante acessibilidade e conformidade WCAG de contraste visual em ambos os modos claro e escuro."
+verification_evidence:
+  vitest: "tests/runtime/design-tokens-icons.test.ts validando presença dos tokens obrigatórios, paridade dark/light e integridade do registry de ícones locais"
+  typecheck: "pnpm typecheck com 0 erros"
+blast_radius:
+  authorized:
+    - src/styles/**
+    - src/components/icons/**
+    - tests/runtime/**
+    - docs/spec/**
+    - .esaa/**
+  potentially_affected: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: true
+closure: []
+projected:
+  features:
+    direct: []
+    indirect: []
+  invariants:
+    - INV-PATH-FENCE
+  tests:
+    must_run:
+      - pnpm test tests/runtime/design-tokens-icons.test.ts
+      - pnpm typecheck

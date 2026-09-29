@@ -4,6 +4,7 @@ import { OutgoingLinksPanel } from "../wiki/OutgoingLinksPanel";
 import { BacklinksPanel } from "../wiki/BacklinksPanel";
 import { Settings } from "../Settings";
 import { DocumentInspector } from "../inspector/DocumentInspector";
+import { UnifiedInspector } from "../inspector/UnifiedInspector";
 import { WorkspaceHealthPanel } from "../health/WorkspaceHealthPanel";
 import { buildDocumentInspection } from "../../services/documentInspector";
 import { aggregateWorkspaceHealth } from "../../services/workspaceHealth";
@@ -162,84 +163,89 @@ export const UnifiedRightPanel: React.FC<UnifiedRightPanelProps> = ({
 
       {/* Panel Body */}
       <div className={`unified-panel-body ${isAccordion ? "accordion-mode" : ""}`}>
-        {/* Sumário */}
-        {(isAccordion || activeTab === "outline") && (
-          <DocumentOutline
+        {isAccordion ? (
+          <UnifiedInspector
             content={content}
-            onNavigate={onNavigateHeading}
+            activeDocumentPath={activeDocumentPath}
+            onNavigateHeading={onNavigateHeading}
+            outgoingLinks={outgoingLinks}
+            onOpenOutgoingLink={onOpenOutgoingLink}
+            onUnresolvedWikiTarget={onUnresolvedWikiTarget}
+            backlinkResult={backlinkResult}
+            backlinksLoading={backlinksLoading}
+            backlinksError={backlinksError}
+            onRetryBacklinks={onRetryBacklinks}
+            onOpenBacklinkOccurrence={onOpenBacklinkOccurrence}
+            snapshot={snapshot}
+            onNavigateLine={onNavigateLine}
+            onOpenDocument={onOpenDocument}
             onClose={onClose}
           />
-        )}
-
-        {/* Links */}
-        {(isAccordion || activeTab === "links") && (
-          <OutgoingLinksPanel
-            links={outgoingLinks}
-            onOpen={onOpenOutgoingLink}
-            onUnresolved={onUnresolvedWikiTarget}
-          />
-        )}
-
-        {/* Backlinks */}
-        {(isAccordion || activeTab === "backlinks") && (
-          <BacklinksPanel
-            result={backlinkResult}
-            loading={backlinksLoading}
-            error={backlinksError}
-            onRetry={onRetryBacklinks}
-            onOpenOccurrence={onOpenBacklinkOccurrence}
-          />
-        )}
-
-        {/* Document Inspector (Lazy Mounted) */}
-        {(isAccordion || activeTab === "inspector" || mountedTabs.has("inspector")) && (
-          <div style={{ display: isAccordion || activeTab === "inspector" ? "block" : "none" }}>
-            {inspection ? (
-              <DocumentInspector
-                inspection={inspection}
-                onNavigateLine={onNavigateLine}
-                onOpenRelative={onOpenDocument}
-              />
-            ) : (
-              <div style={{ padding: 16, color: "#888", fontSize: 12 }}>
-                Inspetor aguardando abertura de documento no workspace.
-              </div>
-            )}
-          </div>
-        )}
-
-        {/* Workspace Health (Lazy Mounted) */}
-        {(isAccordion || activeTab === "health" || mountedTabs.has("health")) && (
-          <div style={{ display: isAccordion || activeTab === "health" ? "block" : "none" }}>
-            {healthReport ? (
-              <WorkspaceHealthPanel
-                report={healthReport}
-                onNavigate={(path, line) => {
-                  if (path) onOpenDocument?.(path);
-                  if (line) onNavigateLine?.(line);
-                }}
-              />
-            ) : (
-              <div style={{ padding: 16, color: "#888", fontSize: 12 }}>
-                Aguardando análise de integridade do workspace.
-              </div>
-            )}
-          </div>
-        )}
-
-        {/* Opções e Diagnósticos no modo acordeão */}
-        {isAccordion && (
+        ) : (
           <>
-            <Settings session={session} />
-            {diagnostics.length > 0 && (
-              <section className="card" aria-label="Diagnósticos">
-                <h2>Diagnósticos</h2>
-                <ul className="diag-list">
-                  {diagnostics.map((d, i) => (
-                    <li key={i}>{d}</li>
-                  ))}
-                </ul>
-              </section>
+            {/* Sumário */}
+            {activeTab === "outline" && (
+              <DocumentOutline
+                content={content}
+                onNavigate={onNavigateHeading}
+                onClose={onClose}
+              />
+            )}
+
+            {/* Links */}
+            {activeTab === "links" && (
+              <OutgoingLinksPanel
+                links={outgoingLinks}
+                onOpen={onOpenOutgoingLink}
+                onUnresolved={onUnresolvedWikiTarget}
+              />
+            )}
+
+            {/* Backlinks */}
+            {activeTab === "backlinks" && (
+              <BacklinksPanel
+                result={backlinkResult}
+                loading={backlinksLoading}
+                error={backlinksError}
+                onRetry={onRetryBacklinks}
+                onOpenOccurrence={onOpenBacklinkOccurrence}
+              />
+            )}
+
+            {/* Document Inspector (Lazy Mounted) */}
+            {(activeTab === "inspector" || mountedTabs.has("inspector")) && (
+              <div style={{ display: activeTab === "inspector" ? "block" : "none" }}>
+                {inspection ? (
+                  <DocumentInspector
+                    inspection={inspection}
+                    onNavigateLine={onNavigateLine}
+                    onOpenRelative={onOpenDocument}
+                  />
+                ) : (
+                  <div style={{ padding: 16, color: "#888", fontSize: 12 }}>
+                    Inspetor aguardando abertura de documento no workspace.
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Workspace Health (Lazy Mounted) */}
+            {(activeTab === "health" || mountedTabs.has("health")) && (
+              <div style={{ display: activeTab === "health" ? "block" : "none" }}>
+                {healthReport ? (
+                  <WorkspaceHealthPanel
+                    report={healthReport}
+                    onNavigate={(path, line) => {
+                      if (path) onOpenDocument?.(path);
+                      if (line) onNavigateLine?.(line);
+                    }}
+                  />
+                ) : (
+                  <div style={{ padding: 16, color: "#888", fontSize: 12 }}>
+                    Aguardando análise de integridade do workspace.
+                  </div>
+                )}
+              </div>
             )}
           </>
         )}

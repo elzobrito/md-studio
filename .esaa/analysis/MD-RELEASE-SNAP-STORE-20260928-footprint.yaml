@@ -1,0 +1,112 @@
+artifact: task-footprint
+schema_version: 1
+trace_task: TRACE-018
+task_id: MD-RELEASE-SNAP-STORE-20260928
+diff:
+  base: 6fbe64ae4b9ee447d7c2de697ba0dd37a6708806
+  head: WORKTREE
+  paths_filter:
+  - snap/snapcraft.yaml
+  excluded_set: []
+  command: git diff -U0 --no-color --no-ext-diff 6fbe64ae4b9ee447d7c2de697ba0dd37a6708806 -- snap/snapcraft.yaml
+graph_source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+notes: []
+changed_files:
+- path: snap/snapcraft.yaml
+  status: M
+  added: 6
+  removed: 34
+  hunks:
+  - old:
+    - 4
+    - 4
+    new:
+    - 4
+    - 4
+  - old:
+    - 35
+    - 34
+    new:
+    - 36
+    - 38
+  - old:
+    - 39
+    - 71
+    new:
+    - 42
+    - 43
+  is_test: false
+  catalogued_nodes_in_file: 0
+changed_nodes: []
+enclosing_nodes: []
+uncatalogued:
+- path: snap/snapcraft.yaml
+  is_test: false
+  old_lines:
+  - - 4
+    - 4
+  - - 39
+    - 71
+  new_lines:
+  - - 4
+    - 4
+  - - 36
+    - 38
+  - - 42
+    - 43
+  trivial_lines: 4
+  substantive_lines:
+  - old:4
+  - old:39
+  - old:40
+  - old:41
+  - old:42
+  - old:43
+  - old:44
+  - old:45
+  - old:46
+  - old:47
+  - old:48
+  - old:49
+  - old:50
+  - old:51
+  - old:52
+  - old:53
+  - old:54
+  - old:56
+  - old:57
+  - old:58
+  - old:59
+  - old:60
+  - old:61
+  - old:62
+  - old:63
+  - old:64
+  - old:65
+  - old:67
+  - old:70
+  - old:71
+  - new:4
+  - new:36
+  - new:37
+  - new:38
+  - new:42
+  - new:43
+new_files: []
+new_test_files: []
+contracts_touched: []
+data_touched: []
+events_touched: []
+rollup:
+  features: []
+  invariants: []
+  flows: []
+stats:
+  files: 1
+  changed_nodes: 0
+  code_nodes: 0
+  test_nodes: 0
+  uncatalogued_files: 1
+  uncatalogued_substantive_lines: 36
+  new_files: 0
+  new_test_files: 0

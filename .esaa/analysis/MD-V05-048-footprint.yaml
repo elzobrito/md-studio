@@ -1,0 +1,95 @@
+artifact: task-footprint
+schema_version: 1
+trace_task: TRACE-018
+task_id: MD-V05-048
+diff:
+  base: 6fbe64ae4b9ee447d7c2de697ba0dd37a6708806
+  head: WORKTREE
+  paths_filter:
+  - src/services/publishingEngine.ts
+  - src/markdown/frontmatter.ts
+  - tests/publishing/publishing-engine.test.ts
+  excluded_set: []
+  command: git diff -U0 --no-color --no-ext-diff 6fbe64ae4b9ee447d7c2de697ba0dd37a6708806 -- src/services/publishingEngine.ts src/markdown/frontmatter.ts
+    tests/publishing/publishing-engine.test.ts
+graph_source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+notes: []
+changed_files:
+- path: src/markdown/frontmatter.ts
+  status: M
+  added: 2
+  removed: 0
+  hunks:
+  - old:
+    - 9
+    - 8
+    new:
+    - 10
+    - 11
+  is_test: false
+  catalogued_nodes_in_file: 2
+- path: src/services/publishingEngine.ts
+  status: A
+  added: 424
+  removed: 0
+  hunks:
+  - old:
+    - 0
+    - -1
+    new:
+    - 1
+    - 424
+  is_test: false
+  catalogued_nodes_in_file: 0
+- path: tests/publishing/publishing-engine.test.ts
+  status: A
+  added: 189
+  removed: 0
+  hunks:
+  - old:
+    - 0
+    - -1
+    new:
+    - 1
+    - 189
+  is_test: true
+  catalogued_nodes_in_file: 0
+changed_nodes:
+- id: CFG-FRONTMATTER-SCHEMA
+  kind: code
+  type: configuration
+  path: src/markdown/frontmatter.ts
+  sides:
+  - new
+  lines_hit: 2
+  attribution: line
+  anchor_resolution:
+    old: exact
+    new: relocated
+  created_by_change: false
+enclosing_nodes: []
+uncatalogued: []
+new_files:
+- src/services/publishingEngine.ts
+new_test_files:
+- tests/publishing/publishing-engine.test.ts
+contracts_touched:
+- id: CTR-FRONTMATTER-SCHEMA
+  how: producer
+  node: CFG-FRONTMATTER-SCHEMA
+data_touched: []
+events_touched: []
+rollup:
+  features:
+  - FEAT-FRONTMATTER
+  invariants: []
+  flows: []
+stats:
+  files: 3
+  changed_nodes: 1
+  code_nodes: 1
+  test_nodes: 0
+  uncatalogued_files: 0
+  uncatalogued_substantive_lines: 0
+  new_files: 1
+  new_test_files: 1

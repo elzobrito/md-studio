@@ -1,0 +1,193 @@
+artifact: task-footprint
+schema_version: 1
+trace_task: TRACE-018
+task_id: MD-V05-044
+diff:
+  base: 6fbe64ae4b9ee447d7c2de697ba0dd37a6708806
+  head: WORKTREE
+  paths_filter:
+  - src/services/importPreview.ts
+  - src/components/import/ImportPreviewModal.tsx
+  - src/styles/import-preview.css
+  - tests/import/import-preview.test.ts
+  - src/contracts/types.ts
+  excluded_set: []
+  command: git diff -U0 --no-color --no-ext-diff 6fbe64ae4b9ee447d7c2de697ba0dd37a6708806 -- src/services/importPreview.ts src/components/import/ImportPreviewModal.tsx
+    src/styles/import-preview.css tests/import/import-preview.test.ts src/contracts/types.ts
+graph_source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+notes: []
+changed_files:
+- path: src/components/import/ImportPreviewModal.tsx
+  status: A
+  added: 175
+  removed: 0
+  hunks:
+  - old:
+    - 0
+    - -1
+    new:
+    - 1
+    - 175
+  is_test: false
+  catalogued_nodes_in_file: 0
+- path: src/contracts/types.ts
+  status: M
+  added: 95
+  removed: 0
+  hunks:
+  - old:
+    - 97
+    - 96
+    new:
+    - 98
+    - 192
+  is_test: false
+  catalogued_nodes_in_file: 8
+- path: src/services/importPreview.ts
+  status: A
+  added: 160
+  removed: 0
+  hunks:
+  - old:
+    - 0
+    - -1
+    new:
+    - 1
+    - 160
+  is_test: false
+  catalogued_nodes_in_file: 0
+- path: src/styles/import-preview.css
+  status: A
+  added: 249
+  removed: 0
+  hunks:
+  - old:
+    - 0
+    - -1
+    new:
+    - 1
+    - 249
+  is_test: false
+  catalogued_nodes_in_file: 0
+- path: tests/import/import-preview.test.ts
+  status: A
+  added: 106
+  removed: 0
+  hunks:
+  - old:
+    - 0
+    - -1
+    new:
+    - 1
+    - 106
+  is_test: true
+  catalogued_nodes_in_file: 0
+changed_nodes: []
+enclosing_nodes: []
+uncatalogued:
+- path: src/contracts/types.ts
+  is_test: false
+  new_lines:
+  - - 98
+    - 192
+  trivial_lines: 18
+  substantive_lines:
+  - new:103
+  - new:105
+  - new:106
+  - new:107
+  - new:108
+  - new:109
+  - new:110
+  - new:111
+  - new:112
+  - new:113
+  - new:114
+  - new:115
+  - new:117
+  - new:118
+  - new:119
+  - new:120
+  - new:122
+  - new:123
+  - new:124
+  - new:125
+  - new:126
+  - new:127
+  - new:128
+  - new:130
+  - new:131
+  - new:132
+  - new:133
+  - new:134
+  - new:135
+  - new:136
+  - new:138
+  - new:139
+  - new:140
+  - new:141
+  - new:142
+  - new:143
+  - new:145
+  - new:146
+  - new:148
+  - new:149
+  - new:150
+  - new:151
+  - new:152
+  - new:153
+  - new:154
+  - new:155
+  - new:157
+  - new:158
+  - new:159
+  - new:160
+  - new:161
+  - new:162
+  - new:164
+  - new:165
+  - new:166
+  - new:167
+  - new:168
+  - new:169
+  - new:171
+  - new:172
+  - new:173
+  - new:174
+  - new:175
+  - new:177
+  - new:178
+  - new:179
+  - new:181
+  - new:182
+  - new:183
+  - new:184
+  - new:185
+  - new:186
+  - new:187
+  - new:188
+  - new:189
+  - new:190
+  - new:191
+new_files:
+- src/components/import/ImportPreviewModal.tsx
+- src/services/importPreview.ts
+- src/styles/import-preview.css
+new_test_files:
+- tests/import/import-preview.test.ts
+contracts_touched: []
+data_touched: []
+events_touched: []
+rollup:
+  features: []
+  invariants: []
+  flows: []
+stats:
+  files: 5
+  changed_nodes: 0
+  code_nodes: 0
+  test_nodes: 0
+  uncatalogued_files: 1
+  uncatalogued_substantive_lines: 77
+  new_files: 3
+  new_test_files: 1
