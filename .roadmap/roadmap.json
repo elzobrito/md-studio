@@ -7,11 +7,11 @@
     "run": {
       "run_id": "RUN-0001",
       "status": "success",
-      "last_event_seq": 4725,
-      "projection_hash_sha256": "5c270f3e89afe97e0fc944fa6019038e86104611cdafe4f098fbede7b0ffc5e8",
+      "last_event_seq": 4765,
+      "projection_hash_sha256": "70be70ae8246841ec44a263e6318ff787207fa8d12191783a8cf576c29bf6cdb",
       "verify_status": "ok"
     },
-    "updated_at": "2026-09-29T02:18:01Z"
+    "updated_at": "2026-09-29T03:17:26Z"
   },
   "project": {
     "name": "MD Studio",
@@ -15013,7 +15013,7 @@
       "task_kind": "impl",
       "title": "Publicar o hotfix MD Studio 0.5.1 na Snap Store",
       "description": "Preparar a publicacao corretiva seguinte ao 0.5.0: alinhar as versoes package.json/Cargo/Snap para 0.5.1, reconstruir o binario e o Snap estrito core24, executar security-gates antes de push, commit e enviar a main as alteracoes aprovadas incluindo rastreabilidade, exigir CI verde nos tres workflows no SHA exato e publicar latest/stable na Snap Store. A tarefa depende da revisao e resolucao correta das issues anteriores.",
-      "status": "in_progress",
+      "status": "done",
       "depends_on": [
         "HF-ISSUE-MD-DESKTOP-FONTCONFIG-GRAY-WINDOW-001",
         "MD-SEC-AUDIT-CI-002",
@@ -15069,14 +15069,25 @@
       "started_at": "2026-09-29T02:05:57Z",
       "superseded_by": [
         "MD-RELEASE-SNAP-STORE-20260929-TAURI-VERSION"
-      ]
+      ],
+      "verification": {
+        "checks": [
+          "Sucessora concluida e QA release aprovada: MD-RELEASE-SNAP-STORE-20260929-SMOKE-GATE; verify passou no seq 4732.",
+          "Versoes package.json, Cargo.toml/Cargo.lock, tauri.conf.json e Snap sao 0.5.1.",
+          "pnpm tauri build, desktop smoke renderizado, testes Rust (21), pnpm tests (738), typecheck e security-gates passaram; sete warnings permitidos em cargo audit, zero advisories negadas.",
+          "Commit/push em origin/main e os tres workflows ci/Linux/Windows passaram no SHA exato ee1df280296c928fffb4a823c9ec023058c06994.",
+          "Snap Store confirma 0.5.1 na revisao 6 de latest/amd64/stable; artefato e binario conferidos por hash/tamanho.",
+          "Traceability verdicts warning citados com paths e linhas substantivas; sem violacao."
+        ]
+      },
+      "completed_at": "2026-09-29T03:07:31Z"
     },
     {
       "task_id": "MD-RELEASE-LOCAL-UPDATE-20260929",
       "task_kind": "impl",
       "title": "Atualizar o binario local MD Studio para 0.5.1",
       "description": "Depois da publicacao e CI do release MD Studio 0.5.1, executar build locked ja aprovado e atualizar somente /home/elzobrito/.local/bin/md-studio. Comparar hash e tamanho do build com o binario instalado, iniciar o app e guardar prova visual do documento de smoke renderizado; preservar os arquivos e dados do usuario.",
-      "status": "todo",
+      "status": "done",
       "depends_on": [
         "MD-RELEASE-SNAP-STORE-20260929"
       ],
@@ -15101,7 +15112,19 @@
         "O binario instalado inicia e a UI renderiza o documento de prova; evento de page load e screenshot com OCR/pixels comprovam o resultado.",
         "Complete registra versao, origem, caminhos, hashes, smoke e python -m esaa --root . verify ok."
       ],
-      "required_review_mode": "release"
+      "required_review_mode": "release",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-29T03:08:02Z",
+      "verification": {
+        "checks": [
+          "pnpm tauri build concluiu com exit code 0 para MD Studio 0.5.1.",
+          "SHA-256 e tamanho do binário de build e de /home/elzobrito/.local/bin/md-studio coincidem: 9cde5f47cd8ac62cf2813882252e99be94844a91f00c8ccd0ac71fd36378d722, 23737672 bytes.",
+          "Binário instalado iniciou; log confirma inicialização Tauri e evento WebKit page load Finished.",
+          "Screenshot/OCR e inspeção visual confirmam documento longo renderizado no modo dividido, com header e footer visíveis; screenshot 1330x887 e 13287 cores.",
+          "python -m esaa --root . verify retornou ok antes do complete (last_event_seq 4759)."
+        ]
+      },
+      "completed_at": "2026-09-29T03:17:26Z"
     },
     {
       "task_id": "MD-HOTFIX-DESKTOP-RENDER-BOUNDARY-20260929",
@@ -15175,7 +15198,7 @@
       "task_kind": "impl",
       "title": "Publicar MD Studio 0.5.1 com versao Tauri alinhada",
       "description": "Sucessora de limite para MD-RELEASE-SNAP-STORE-20260929, criada antes de editar porque src-tauri/tauri.conf.json tambem contém a versao efetiva do bundle e nao estava no boundary_grant original. Alinhar package.json, Cargo.toml/lock, tauri.conf.json e Snap a 0.5.1; executar build, smoke, gates, commit/push, CI exato e publicacao stable.",
-      "status": "in_progress",
+      "status": "done",
       "depends_on": [
         "HF-ISSUE-MD-DESKTOP-FONTCONFIG-GRAY-WINDOW-001",
         "MD-SEC-AUDIT-CI-002",
@@ -15230,14 +15253,25 @@
       "started_at": "2026-09-29T02:09:07Z",
       "superseded_by": [
         "MD-RELEASE-SNAP-STORE-20260929-SMOKE-GATE"
-      ]
+      ],
+      "verification": {
+        "checks": [
+          "Sucessora concluida e QA release aprovada: MD-RELEASE-SNAP-STORE-20260929-SMOKE-GATE; verify passou no seq 4732.",
+          "Versoes package.json, Cargo.toml/Cargo.lock, tauri.conf.json e Snap sao 0.5.1.",
+          "pnpm tauri build, desktop smoke renderizado, testes Rust (21), pnpm tests (738), typecheck e security-gates passaram; sete warnings permitidos em cargo audit, zero advisories negadas.",
+          "Commit/push em origin/main e os tres workflows ci/Linux/Windows passaram no SHA exato ee1df280296c928fffb4a823c9ec023058c06994.",
+          "Snap Store confirma 0.5.1 na revisao 6 de latest/amd64/stable; artefato e binario conferidos por hash/tamanho.",
+          "Traceability verdicts warning citados com paths e linhas substantivas; sem violacao."
+        ]
+      },
+      "completed_at": "2026-09-29T03:06:22Z"
     },
     {
       "task_id": "MD-RELEASE-SNAP-STORE-20260929-SMOKE-GATE",
       "task_kind": "impl",
       "title": "Publicar MD Studio 0.5.1 com smoke que aguarda renderizacao",
       "description": "Sucessora de limite para MD-RELEASE-SNAP-STORE-20260929-TAURI-VERSION. O build 0.5.1 carregou a pagina, mas o smoke capturou em 2 s antes do paint; a captura manual apos 12 s mostrou o marcador. Preservar os alinhamentos de versao ja feitos e adicionar concessao explicita para ajustar scripts/desktop-smoke-test.sh com polling OCR limitado ate o conteudo aparecer, antes de build final, gates, push, CI e publicacao.",
-      "status": "in_progress",
+      "status": "done",
       "depends_on": [
         "HF-ISSUE-MD-DESKTOP-FONTCONFIG-GRAY-WINDOW-001",
         "MD-SEC-AUDIT-CI-002",
@@ -15291,17 +15325,65 @@
         "MD-RELEASE-SNAP-STORE-20260929-TAURI-VERSION"
       ],
       "assigned_to": "agent-impl",
-      "started_at": "2026-09-29T02:18:01Z"
+      "started_at": "2026-09-29T02:18:01Z",
+      "verification": {
+        "checks": [
+          "pnpm tauri build: PASS; binario release 0.5.1 gerado e versionamento alinhado em package.json, Cargo.toml/Cargo.lock, tauri.conf.json e snapcraft.yaml.",
+          "bash scripts/desktop-smoke-test.sh release: PASS; page-load, OCR do marcador renderizado e analise de pixels aprovados; screenshot hash registrado nas notas.",
+          "Teste visual com documento longo no modo dividido: PASS; 121 secoes e 10334 palavras; screenshot confirma editor/preview rolaveis sem deslocar header/footer.",
+          "bash scripts/install-security-tools.sh: PASS; pnpm audit sem vulnerabilidades conhecidas, cargo audit sem advisories negadas, gitleaks sem segredos, semgrep 0 findings, typecheck e 738 testes Vitest aprovados.",
+          "cargo test --workspace --locked --manifest-path src-tauri/Cargo.toml: PASS; 21 testes aprovados.",
+          "Snapcraft pack --use-lxd: PASS; pacote core24 strict stable 0.5.1 corresponde ao binario por SHA-256 e tamanho.",
+          "Commit ee1df280296c928fffb4a823c9ec023058c06994 pushed para origin/main; ci, Build Linux App e Build Windows App SUCCESS no SHA exato.",
+          "snapcraft upload --release latest/stable: PASS; Snap Store confirmou revisao 6 em latest/amd64/stable.",
+          "Traceability verdicts warning copiados para notes com paths e linhas substantivas; nenhum warning tratado como sucesso limpo."
+        ]
+      },
+      "completed_at": "2026-09-29T03:02:20Z"
+    },
+    {
+      "task_id": "MD-REPAIR-DESKTOP-SMOKE-MODE-20260929",
+      "task_kind": "impl",
+      "title": "Restaurar bit executável do smoke desktop",
+      "description": "A aplicação file_updates da tarefa MD-RELEASE-SNAP-STORE-20260929-SMOKE-GATE deixou a cópia local de scripts/desktop-smoke-test.sh em modo 664; o commit publicado mantém 100755. Restaurar o modo no checkout local sem alterar conteúdo e confirmar que não há diff do script.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "scripts/desktop-smoke-test.sh"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "scripts/desktop-smoke-test.sh"
+      ],
+      "task_type": "maintenance",
+      "acceptance_criteria": [
+        "scripts/desktop-smoke-test.sh volta ao modo 100755 e seu conteúdo permanece idêntico ao HEAD.",
+        "git status não mostra diff no script; nenhuma alteração do conteúdo é commitada ou enviada."
+      ],
+      "required_review_mode": "regression",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-29T03:04:09Z",
+      "verification": {
+        "checks": [
+          "stat confirma modo 755 (Git 100755).",
+          "SHA-256 do arquivo de trabalho coincide com git show HEAD:scripts/desktop-smoke-test.sh.",
+          "git status e git diff --check não mostram alteração do script."
+        ]
+      },
+      "completed_at": "2026-09-29T03:05:08Z"
     }
   ],
   "indexes": {
     "by_status": {
-      "done": 383,
-      "in_progress": 3,
-      "todo": 1
+      "done": 388
     },
     "by_kind": {
-      "impl": 316,
+      "impl": 317,
       "qa": 40,
       "spec": 31
     }
