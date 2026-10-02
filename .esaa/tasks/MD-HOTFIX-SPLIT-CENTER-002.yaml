@@ -1,0 +1,25 @@
+artifact: task-traceability
+schema_version: 1
+task_id: MD-HOTFIX-SPLIT-CENTER-002
+graph:
+  path: .esaa/traceability/graph.json
+  source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+traceability:
+  targets:
+    - RTE-VIEW-MODES
+  expected_affected:
+    - SCR-APP
+    - TST-TS-LAYOUT-SPLITVIEW
+  protected_extra: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: false
+  justification:
+    RTE-VIEW-MODES: "A correção alinha o limite vertical dos painéis empilhados ao breakpoint que reorganiza os modos de visualização."
+    SCR-APP: "A área central mantém altura utilizável entre 901 e 960 px, com o chrome fixo e rolagem nas superfícies internas."
+    TST-TS-LAYOUT-SPLITVIEW: "A regressão valida que o limite max-height dos painéis está no breakpoint responsivo ativo."
+artifacts:
+  impact: .esaa/analysis/MD-HOTFIX-SPLIT-CENTER-002-impact.yaml
+  footprint: .esaa/analysis/MD-HOTFIX-SPLIT-CENTER-002-footprint.yaml
+  drift: .esaa/analysis/MD-HOTFIX-SPLIT-CENTER-002-drift.yaml

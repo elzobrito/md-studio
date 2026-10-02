@@ -1,0 +1,100 @@
+artifact: task-impact
+schema_version: 1
+trace_task: TRACE-017
+task_id: MD-HOTFIX-SPLIT-CENTER-002
+projected_at: '2026-09-29T02:27:49-03:00'
+projected_before_change: true
+projection_inputs: null
+spec: .esaa/tasks/MD-HOTFIX-SPLIT-CENTER-002.yaml
+graph_source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+rationale: null
+justification:
+  RTE-VIEW-MODES: A correção alinha o limite vertical dos painéis empilhados ao breakpoint que reorganiza os modos de visualização.
+  SCR-APP: A área central mantém altura utilizável entre 901 e 960 px, com o chrome fixo e rolagem nas superfícies internas.
+  TST-TS-LAYOUT-SPLITVIEW: A regressão valida que o limite max-height dos painéis está no breakpoint responsivo ativo.
+expected_uncatalogued: null
+blast_radius:
+  change_target:
+  - RTE-VIEW-MODES
+  expected_affected:
+  - SCR-APP
+  - TST-TS-LAYOUT-SPLITVIEW
+  expected_affected_source: declared
+  suggested_expected_affected:
+  - SCR-APP
+  authorized:
+  - RTE-VIEW-MODES
+  - SCR-APP
+  - TST-TS-LAYOUT-SPLITVIEW
+  potentially_affected: []
+  protected_in_closure: []
+  protected_total: 141
+  protected_declared: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: false
+projected:
+  nodes:
+  - RTE-VIEW-MODES
+  - SCR-APP
+  - TST-TS-LAYOUT-SPLITVIEW
+  features:
+    direct:
+    - FEAT-VIEW-MODES
+    indirect:
+    - FEAT-APP-SCREENS
+    - FEAT-BACKLINKS
+    - FEAT-CREATE-NOTE-FROM-WIKI
+    - FEAT-KATEX
+    - FEAT-LAYOUT-PANELS
+    - FEAT-MERMAID
+    - FEAT-METADATA-INDEX
+    - FEAT-OUTGOING-LINKS
+    - FEAT-PREVIEW
+    - FEAT-SANITIZE
+    - FEAT-SHIKI
+    - FEAT-SPLASH-PACKAGING
+    - FEAT-WIKI-LINKS
+  flows:
+  - FLOW-APP-BOOT
+  - FLOW-BACKLINKS-QUERY
+  - FLOW-METADATA-REFRESH
+  - FLOW-PREVIEW-RENDER
+  - FLOW-WIKI-LINK-RESOLVE
+  invariants: []
+  tests:
+    must_run: []
+    should_run: []
+    may_run: []
+  contracts: []
+  data: []
+  events: []
+  entrypoints:
+  - ENT-SCR-APP
+  modules:
+  - MOD-APP-SHELL
+closure:
+- id: RTE-VIEW-MODES
+  kind: code
+  type: route
+  distance: 0
+  anchor: src/App.tsx
+  via: null
+  terminal: false
+- id: SCR-APP
+  kind: code
+  type: screen
+  distance: 1
+  anchor: src/App.tsx
+  via:
+    node: RTE-VIEW-MODES
+    relation: contains
+    direction: reverse
+  terminal: false
+hubs: []
+stats:
+  closure_nodes: 2
+  by_distance:
+    '0': 1
+    '1': 1

@@ -1,0 +1,108 @@
+artifact: task-impact
+schema_version: 1
+trace_task: TRACE-017
+task_id: MD-UX-DOCBAR-DEDUP-001
+projected_at: '2026-09-29T01:57:31-03:00'
+projected_before_change: true
+projection_inputs: null
+spec: .esaa/tasks/MD-UX-DOCBAR-DEDUP-001.yaml
+graph_source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+rationale: null
+justification:
+  CMP-APP-HEADER: O cabeçalho continua sendo o único proprietário visual das ações globais do documento.
+  BTN-HEADER-PRESENTATION: A ação global de apresentação precisa permanecer visível uma única vez no cabeçalho.
+  CMP-SAVE-BUTTON: A ação global de salvar precisa permanecer no cabeçalho após a remoção da cópia contextual.
+  CMP-EXPORT-MENU: O menu global de exportação precisa permanecer no cabeçalho após a remoção da cópia contextual.
+expected_uncatalogued: null
+blast_radius:
+  change_target:
+  - RTE-VIEW-MODES
+  expected_affected:
+  - BTN-HEADER-PRESENTATION
+  - CMP-APP-HEADER
+  - CMP-EXPORT-MENU
+  - CMP-SAVE-BUTTON
+  expected_affected_source: declared
+  suggested_expected_affected:
+  - SCR-APP
+  authorized:
+  - BTN-HEADER-PRESENTATION
+  - CMP-APP-HEADER
+  - CMP-EXPORT-MENU
+  - CMP-SAVE-BUTTON
+  - RTE-VIEW-MODES
+  potentially_affected:
+  - SCR-APP
+  protected_in_closure: []
+  protected_total: 141
+  protected_declared: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: false
+projected:
+  nodes:
+  - BTN-HEADER-PRESENTATION
+  - CMP-APP-HEADER
+  - CMP-EXPORT-MENU
+  - CMP-SAVE-BUTTON
+  - RTE-VIEW-MODES
+  features:
+    direct:
+    - FEAT-VIEW-MODES
+    indirect:
+    - FEAT-APP-SCREENS
+    - FEAT-BACKLINKS
+    - FEAT-CREATE-NOTE-FROM-WIKI
+    - FEAT-KATEX
+    - FEAT-LAYOUT-PANELS
+    - FEAT-MERMAID
+    - FEAT-METADATA-INDEX
+    - FEAT-OUTGOING-LINKS
+    - FEAT-PREVIEW
+    - FEAT-SANITIZE
+    - FEAT-SHIKI
+    - FEAT-SPLASH-PACKAGING
+    - FEAT-WIKI-LINKS
+  flows:
+  - FLOW-APP-BOOT
+  - FLOW-BACKLINKS-QUERY
+  - FLOW-METADATA-REFRESH
+  - FLOW-PREVIEW-RENDER
+  - FLOW-WIKI-LINK-RESOLVE
+  invariants: []
+  tests:
+    must_run: []
+    should_run: []
+    may_run: []
+  contracts: []
+  data: []
+  events: []
+  entrypoints:
+  - ENT-SCR-APP
+  modules:
+  - MOD-APP-SHELL
+closure:
+- id: RTE-VIEW-MODES
+  kind: code
+  type: route
+  distance: 0
+  anchor: src/App.tsx
+  via: null
+  terminal: false
+- id: SCR-APP
+  kind: code
+  type: screen
+  distance: 1
+  anchor: src/App.tsx
+  via:
+    node: RTE-VIEW-MODES
+    relation: contains
+    direction: reverse
+  terminal: false
+hubs: []
+stats:
+  closure_nodes: 2
+  by_distance:
+    '0': 1
+    '1': 1

@@ -1,0 +1,103 @@
+artifact: task-impact
+schema_version: 1
+trace_task: TRACE-017
+task_id: MD-POST051-GIT-CONSOLIDATE-001
+projected_at: '2026-10-01T21:50:04-03:00'
+projected_before_change: true
+projection_inputs:
+- docs/qa/post051/MD-POST051-GIT-AUDIT-001.md
+- docs/qa/post051/MD-POST051-REGRESSION-001.md
+- .esaa/traceability/graph.json
+spec: .esaa/tasks/MD-POST051-GIT-CONSOLIDATE-001.yaml
+graph_source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+rationale:
+  CMP-APP-HEADER: O commit guarda a barra única de ações. Esta tarefa não edita o componente de novo; empacota o diff já auditado.
+justification: null
+expected_uncatalogued: null
+blast_radius:
+  change_target:
+  - CMP-APP-HEADER
+  expected_affected: []
+  expected_affected_source: declared
+  suggested_expected_affected:
+  - SCR-APP
+  - TST-TS-EDITOR-SINGLESAVE
+  - TST-TS-EXPORT-EXPORT-PDF
+  - TST-TS-HEADER-EXPORTMENU
+  - TST-TS-HEADER-TOPBAR
+  authorized:
+  - CMP-APP-HEADER
+  potentially_affected:
+  - SCR-APP
+  protected_in_closure: []
+  protected_total: 141
+  protected_declared: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: false
+projected:
+  nodes:
+  - CMP-APP-HEADER
+  features:
+    direct:
+    - FEAT-APP-SCREENS
+    indirect:
+    - FEAT-BACKLINKS
+    - FEAT-CREATE-NOTE-FROM-WIKI
+    - FEAT-KATEX
+    - FEAT-LAYOUT-PANELS
+    - FEAT-MERMAID
+    - FEAT-METADATA-INDEX
+    - FEAT-OUTGOING-LINKS
+    - FEAT-PREVIEW
+    - FEAT-SANITIZE
+    - FEAT-SHIKI
+    - FEAT-SPLASH-PACKAGING
+    - FEAT-WIKI-LINKS
+  flows:
+  - FLOW-APP-BOOT
+  - FLOW-BACKLINKS-QUERY
+  - FLOW-METADATA-REFRESH
+  - FLOW-PREVIEW-RENDER
+  - FLOW-WIKI-LINK-RESOLVE
+  invariants: []
+  tests:
+    must_run:
+    - TST-TS-EDITOR-SINGLESAVE
+    - TST-TS-EXPORT-EXPORT-PDF
+    - TST-TS-HEADER-EXPORTMENU
+    - TST-TS-HEADER-TOPBAR
+    should_run: []
+    may_run: []
+  contracts: []
+  data: []
+  events: []
+  entrypoints:
+  - ENT-SCR-APP
+  modules:
+  - MOD-APP-SHELL
+closure:
+- id: CMP-APP-HEADER
+  kind: code
+  type: component
+  distance: 0
+  anchor: src/components/header/AppHeader.tsx
+  via: null
+  terminal: false
+- id: SCR-APP
+  kind: code
+  type: screen
+  distance: 1
+  anchor: src/App.tsx
+  via:
+    node: CMP-APP-HEADER
+    relation: contains
+    direction: reverse
+  terminal: false
+hubs: []
+stats:
+  closure_nodes: 2
+  by_distance:
+    '0': 1
+    '1': 1

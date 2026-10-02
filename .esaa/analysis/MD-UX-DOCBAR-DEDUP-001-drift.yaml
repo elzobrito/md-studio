@@ -1,0 +1,294 @@
+artifact: task-drift
+schema_version: 1
+trace_task: TRACE-019
+task_id: MD-UX-DOCBAR-DEDUP-001
+inputs:
+  impact: .esaa/analysis/MD-UX-DOCBAR-DEDUP-001-impact.yaml
+  footprint: .esaa/analysis/MD-UX-DOCBAR-DEDUP-001-footprint.yaml
+  graph_source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+notes:
+- Confirmar o impacto autorizado e identificar divergências de rastreabilidade antes da conclusão.
+rule: authorized = change_target ∪ expected_affected; ok ∈ authorized; violation ∈ protected; warning ∈ potentially_affected | out_of_closure
+  | uncatalogued substantive
+authorized:
+- BTN-HEADER-PRESENTATION
+- CMP-APP-HEADER
+- CMP-EXPORT-MENU
+- CMP-SAVE-BUTTON
+- RTE-VIEW-MODES
+observed:
+- SCR-APP
+classification:
+- id: SCR-APP
+  category: potentially_affected
+  severity: warning
+  reasons: []
+drift:
+- id: SCR-APP
+  category: potentially_affected
+  severity: warning
+  reasons: []
+other_findings:
+- path: src/components/tabs/DocumentBar.tsx
+  category: uncatalogued_change
+  severity: warning
+  lines:
+  - old:18
+  - old:21
+  - old:22
+  - old:23
+  - old:24
+  - old:25
+  - old:26
+  - old:27
+  - old:28
+  - old:50
+  - old:69
+  - old:70
+  - old:71
+  - old:73
+  - old:75
+  - old:76
+  - old:77
+  - old:78
+  - old:79
+  - old:80
+  - old:81
+  - old:82
+  - old:83
+  - old:84
+  - old:85
+  - old:86
+  - old:87
+  - old:88
+  - old:89
+  - old:90
+  - old:91
+  - old:92
+  - old:93
+  - old:94
+  - old:95
+  - old:96
+  - old:97
+  - old:99
+  - old:100
+  - old:101
+  - old:102
+  - old:104
+  - old:105
+  - old:106
+  - old:107
+  - old:108
+  - old:109
+  - old:110
+  - old:111
+  - old:112
+  - old:113
+  - old:114
+  - old:116
+  - old:117
+  - old:118
+  - old:119
+  - old:120
+  - old:121
+  - old:123
+  - old:124
+  - old:125
+  - old:126
+  - old:127
+  - old:128
+  - old:129
+  - old:130
+  - old:131
+  - new:46
+  - new:47
+  - new:48
+  - new:50
+  - new:51
+  - new:52
+  - new:53
+  - new:54
+  - new:56
+  - new:57
+  - new:58
+  - new:59
+  - new:60
+  - new:61
+  - new:62
+  - new:63
+  - new:64
+  - new:65
+  - new:66
+  - new:67
+  - new:68
+  - new:69
+  - new:70
+  - new:71
+  - new:72
+  - new:73
+  - new:74
+  - new:75
+  - new:76
+  - new:77
+  - new:78
+  - new:79
+- path: tests/runtime/accessibility-keyboard.test.ts
+  category: uncatalogued_change
+  severity: info
+  lines:
+  - old:75
+  - old:76
+  - old:77
+  - new:82
+  - new:83
+  - new:84
+- path: tests/runtime/document-tabs-bar.test.ts
+  category: uncatalogued_change
+  severity: info
+  lines:
+  - old:72
+  - old:90
+  - old:91
+  - old:92
+  - old:93
+  - old:94
+  - old:101
+  - old:102
+  - new:75
+  - new:76
+  - new:77
+  - new:78
+  - new:80
+  - new:82
+  - new:83
+  - new:84
+  - new:85
+  - new:86
+  - new:87
+  - new:88
+  - new:89
+  - new:90
+  - new:91
+  - new:92
+  - new:93
+  - new:94
+  - new:95
+  - new:96
+  - new:97
+  - new:98
+  - new:99
+  - new:100
+  - new:101
+  - new:102
+  - new:103
+  - new:104
+  - new:105
+  - new:106
+  - new:107
+  - new:108
+  - new:109
+  - new:110
+  - new:111
+  - new:112
+  - new:114
+  - new:115
+  - new:116
+  - new:117
+  - new:118
+  - new:119
+  - new:120
+  - new:121
+  - new:122
+  - new:123
+  - new:124
+  - new:125
+  - new:126
+  - new:128
+  - new:129
+  - new:130
+  - new:131
+  - new:132
+  - new:134
+  - new:135
+  - new:136
+  - new:137
+  - new:138
+  - new:139
+  - new:140
+  - new:141
+  - new:142
+  - new:143
+  - new:145
+  - new:146
+  - new:147
+  - new:148
+  - new:149
+  - new:150
+  - new:151
+  - new:153
+  - new:154
+  - new:155
+  - new:156
+  - new:157
+  - new:158
+  - new:159
+  - new:160
+  - new:161
+  - new:162
+  - new:163
+  - new:165
+  - new:183
+  - new:190
+  - new:191
+  - new:192
+  - new:193
+  - new:194
+not_touched:
+- BTN-HEADER-PRESENTATION
+- CMP-APP-HEADER
+- CMP-EXPORT-MENU
+- CMP-SAVE-BUTTON
+- RTE-VIEW-MODES
+verdict: warning
+metrics:
+  nodes:
+    tp: 0
+    authorized: 5
+    observed: 1
+    precision: 0.0
+    recall: 0.0
+    closure_recall: 1.0
+  code_nodes_only:
+    tp: 0
+    authorized: 5
+    observed: 1
+    precision: 0.0
+    recall: 0.0
+  features:
+    projected_direct:
+    - FEAT-VIEW-MODES
+    projected_all: 14
+    observed:
+    - FEAT-APP-SCREENS
+    - FEAT-LAYOUT-PANELS
+    observed_in_projected_direct: []
+    observed_missing_from_projection: []
+    precision_direct: 0.0
+    recall_all: 1.0
+  invariants:
+    projected: []
+    observed: []
+    missing_from_projection: []
+  tests:
+    projected_must_run: []
+    changed_test_nodes: []
+    new_test_files: []
+  contracts_touched:
+  - id: CTR-LSK-SESSION
+    how: consumer
+    node: SCR-APP
+  data_touched:
+  - id: LSK-SPLIT-RATIO
+    how: read_by_changed
+    node: SCR-APP
+  events_touched: []

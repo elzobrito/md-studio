@@ -1,0 +1,95 @@
+artifact: task-impact
+schema_version: 1
+trace_task: TRACE-017
+task_id: MD-HOTFIX-LONG-DOCUMENT-CHROME-001
+projected_at: '2026-09-29T09:56:37-03:00'
+projected_before_change: true
+projection_inputs: null
+spec: .esaa/tasks/MD-HOTFIX-LONG-DOCUMENT-CHROME-001.yaml
+graph_source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+rationale: null
+justification:
+  SCR-APP: A correção limita a linha central do shell à altura disponível e impede que documentos extensos desloquem o chrome da aplicação.
+  CMP-APP-HEADER: O header deve permanecer ancorado no topo enquanto editor e preview rolam internamente.
+  RTE-VIEW-MODES: A contenção vertical precisa valer nos modos Markdown, Formatado e Dividida.
+  TST-TS-LAYOUT-SPLITVIEW: A regressão do layout dividido continua cobrindo a contenção dos painéis.
+  TST-TS-PANEL-COLLAPSIBLEPANEL: A barra de status deve permanecer no rodapé com painéis laterais abertos ou recolhidos.
+expected_uncatalogued: null
+blast_radius:
+  change_target:
+  - SCR-APP
+  expected_affected:
+  - CMP-APP-HEADER
+  - RTE-VIEW-MODES
+  - TST-TS-LAYOUT-SPLITVIEW
+  - TST-TS-PANEL-COLLAPSIBLEPANEL
+  expected_affected_source: declared
+  suggested_expected_affected: []
+  authorized:
+  - CMP-APP-HEADER
+  - RTE-VIEW-MODES
+  - SCR-APP
+  - TST-TS-LAYOUT-SPLITVIEW
+  - TST-TS-PANEL-COLLAPSIBLEPANEL
+  potentially_affected: []
+  protected_in_closure: []
+  protected_total: 141
+  protected_declared: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: false
+projected:
+  nodes:
+  - CMP-APP-HEADER
+  - RTE-VIEW-MODES
+  - SCR-APP
+  - TST-TS-LAYOUT-SPLITVIEW
+  - TST-TS-PANEL-COLLAPSIBLEPANEL
+  features:
+    direct:
+    - FEAT-APP-SCREENS
+    - FEAT-BACKLINKS
+    - FEAT-CREATE-NOTE-FROM-WIKI
+    - FEAT-KATEX
+    - FEAT-LAYOUT-PANELS
+    - FEAT-MERMAID
+    - FEAT-METADATA-INDEX
+    - FEAT-OUTGOING-LINKS
+    - FEAT-PREVIEW
+    - FEAT-SANITIZE
+    - FEAT-SHIKI
+    - FEAT-SPLASH-PACKAGING
+    - FEAT-WIKI-LINKS
+    indirect: []
+  flows:
+  - FLOW-APP-BOOT
+  - FLOW-BACKLINKS-QUERY
+  - FLOW-METADATA-REFRESH
+  - FLOW-PREVIEW-RENDER
+  - FLOW-WIKI-LINK-RESOLVE
+  invariants: []
+  tests:
+    must_run: []
+    should_run: []
+    may_run: []
+  contracts: []
+  data: []
+  events: []
+  entrypoints:
+  - ENT-SCR-APP
+  modules:
+  - MOD-APP-SHELL
+closure:
+- id: SCR-APP
+  kind: code
+  type: screen
+  distance: 0
+  anchor: src/App.tsx
+  via: null
+  terminal: false
+hubs: []
+stats:
+  closure_nodes: 1
+  by_distance:
+    '0': 1

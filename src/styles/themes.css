@@ -175,8 +175,10 @@ select {
 .workspace {
   display: grid;
   grid-template-columns: var(--left-width, 288px) minmax(0, 1fr) var(--right-width, 240px);
-  flex: 1;
+  flex: 1 1 0;
   min-height: 0;
+  height: 100%;
+  overflow: hidden;
   transition: grid-template-columns 0.15s ease;
 }
 
@@ -263,6 +265,7 @@ select {
   flex-direction: column;
   min-width: 0;
   min-height: 0;
+  height: 100%;
   overflow: hidden;
   background: var(--bg);
 }
@@ -272,22 +275,7 @@ select {
   flex: 1 1 0;
   min-width: 0;
   min-height: 0;
-}
-
-@media (max-width: 900px) {
-  .workspace,
-  .workspace.left-collapsed,
-  .workspace.right-collapsed,
-  .workspace.left-collapsed.right-collapsed {
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: auto 1fr auto;
-  }
-
-  .panel.left,
-  .panel.right,
-  .panel.rail {
-    max-height: 28vh;
-  }
+  height: 100%;
 }
 
 /* Buttons */
@@ -622,7 +610,7 @@ select {
 
 /* Controlled reading measure in formatted preview mode (Spec 005) */
 .center.mode-preview .preview-body {
-  max-width: var(--preview-reading-width, 920px);
+  max-width: 100%;
   margin-left: auto;
   margin-right: auto;
   padding-left: clamp(1.25rem, 3vw, 2.5rem);
@@ -845,6 +833,12 @@ select {
   .workspace {
     grid-template-columns: 1fr;
     grid-template-rows: auto 1fr auto;
+  }
+  .workspace-sidebar-container,
+  .panel.left,
+  .panel.right,
+  .panel.rail {
+    max-height: 28vh;
   }
   .panel.right {
     border-left: 0;

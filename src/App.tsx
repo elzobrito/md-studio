@@ -102,6 +102,13 @@ export function App() {
   const hasActiveDocument = Boolean(isWriting || doc.relativePath);
 
   useEffect(() => {
+    if (centerRef.current) {
+      centerRef.current.scrollTop = 0;
+    }
+    window.scrollTo(0, 0);
+  }, [doc.relativePath, isWriting]);
+
+  useEffect(() => {
     const timer = window.setInterval(() => {
       const pending = listRecoverableDrafts().filter((draft) => draft.legacy || draft.browserSession || draft.expiringSoon);
       const newlyDue = pending.some((draft) => {
@@ -239,10 +246,13 @@ export function App() {
   }, [hasActiveDocument, session, view]);
 
   useEffect(() => {
-    // Dismiss Tauri splashscreen once the React UI is mounted
-    import("@tauri-apps/api/core")
-      .then(({ invoke }) => invoke("close_splash"))
-      .catch(() => {});
+    // Dismiss Tauri splashscreen once the React UI is mounted and rendered to avoid blank flash
+    const frameId = requestAnimationFrame(() => {
+      import("@tauri-apps/api/core")
+        .then(({ invoke }) => invoke("close_splash"))
+        .catch(() => {});
+    });
+    return () => cancelAnimationFrame(frameId);
   }, []);
 
   const handleOpenFolderFromWelcome = useCallback(async () => {
@@ -774,16 +784,8 @@ export function App() {
                 }}
                 onNewTab={handleOpenNewDocument}
                 viewMode={view}
-                onViewModeChange={session.setViewMode}
                 splitOrientation={splitOrientation}
                 onChangeSplitOrientation={handleSplitOrientationChange}
-                onSave={() => void doc.save()}
-                canSave={hasActiveDocument}
-                saveStatus={doc.dirty ? "modified" : "saved"}
-                onExportHtml={() => void handleExportHtml()}
-                onExportPdf={handleExportPdf}
-                onExportEpub={handleExportEpub}
-                onStartPresentation={handleStartPresentation}
               />
               {view === "split" ? (
                 <BidirectionalSplitLayout
@@ -824,7 +826,7 @@ export function App() {
                   }
                 />
               ) : (
-                <div style={{ flex: 1, display: "flex", minHeight: 0, position: "relative", width: "100%", height: "calc(100% - var(--docbar-height))" }}>
+                <div style={{ flex: "1 1 0", display: "flex", flexDirection: "column", minHeight: 0, minWidth: 0, position: "relative", width: "100%", height: "100%" }}>
                   {view === "source" && (
                     <MarkdownEditor
                       value={doc.content}

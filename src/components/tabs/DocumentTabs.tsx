@@ -92,17 +92,6 @@ export function DocumentTabs({
           );
         })}
 
-        {onNewTab && (
-          <button
-            type="button"
-            className="doc-tab-new-btn"
-            onClick={onNewTab}
-            title="Nova aba (Ctrl+N)"
-            aria-label="Nova aba"
-          >
-            <PlusIcon size={14} />
-          </button>
-        )}
       </div>
     </div>
   );

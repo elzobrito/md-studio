@@ -1,0 +1,66 @@
+artifact: task-impact
+schema_version: 1
+trace_task: TRACE-017
+task_id: MD-POST051-REGRESSION-001
+projected_at: '2026-10-01T21:40:52-03:00'
+projected_before_change: true
+projection_inputs:
+- docs/qa/post051/MD-POST051-GIT-AUDIT-001.md
+- .esaa/traceability/graph.json
+spec: .esaa/tasks/MD-POST051-REGRESSION-001.yaml
+graph_source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+rationale:
+  TST-TS-LAYOUT-SPLITVIEW: A regressão executa a suíte que cobre a vista Dividida. Esta tarefa não edita o teste.
+  TST-TS-SETTINGS-SETTINGSPANEL: A suíte também cobre o painel onde a largura de leitura é escolhida. Esta tarefa não edita o teste.
+justification: null
+expected_uncatalogued: null
+blast_radius:
+  change_target:
+  - TST-TS-LAYOUT-SPLITVIEW
+  expected_affected:
+  - TST-TS-SETTINGS-SETTINGSPANEL
+  expected_affected_source: declared
+  suggested_expected_affected: []
+  authorized:
+  - TST-TS-LAYOUT-SPLITVIEW
+  - TST-TS-SETTINGS-SETTINGSPANEL
+  potentially_affected: []
+  protected_in_closure: []
+  protected_total: 141
+  protected_declared: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: false
+projected:
+  nodes:
+  - TST-TS-LAYOUT-SPLITVIEW
+  - TST-TS-SETTINGS-SETTINGSPANEL
+  features:
+    direct: []
+    indirect: []
+  flows: []
+  invariants: []
+  tests:
+    must_run: []
+    should_run: []
+    may_run: []
+  contracts: []
+  data: []
+  events: []
+  entrypoints: []
+  modules:
+  - MOD-SETTINGS-SESSION
+closure:
+- id: TST-TS-LAYOUT-SPLITVIEW
+  kind: test
+  type: test
+  distance: 0
+  anchor: tests/layout/splitView.test.tsx
+  via: null
+  terminal: false
+hubs: []
+stats:
+  closure_nodes: 1
+  by_distance:
+    '0': 1

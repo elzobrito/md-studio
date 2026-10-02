@@ -1,0 +1,109 @@
+artifact: task-footprint
+schema_version: 1
+trace_task: TRACE-018
+task_id: MD-HOTFIX-SPLIT-CENTER-002
+diff:
+  base: 6dfd99840a9a87f79bc6eb8acf089bdeca374190
+  head: WORKTREE
+  paths_filter:
+  - src/styles/themes.css
+  - tests/layout/splitView.test.tsx
+  excluded_set: []
+  command: git diff -U0 --no-color --no-ext-diff 6dfd99840a9a87f79bc6eb8acf089bdeca374190 -- src/styles/themes.css tests/layout/splitView.test.tsx
+graph_source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+notes:
+- Alinhado o limite de altura dos painéis empilhados ao breakpoint responsivo já existente e incluída regressão CSS.
+changed_files:
+- path: src/styles/themes.css
+  status: M
+  added: 5
+  removed: 16
+  hunks:
+  - old:
+    - 277
+    - 292
+    new:
+    - 276
+    - 275
+  - old:
+    - 848
+    - 847
+    new:
+    - 833
+    - 837
+  is_test: false
+  catalogued_nodes_in_file: 0
+- path: tests/layout/splitView.test.tsx
+  status: M
+  added: 13
+  removed: 0
+  hunks:
+  - old:
+    - 292
+    - 291
+    new:
+    - 293
+    - 305
+  is_test: true
+  catalogued_nodes_in_file: 1
+changed_nodes:
+- id: TST-TS-LAYOUT-SPLITVIEW
+  kind: test
+  type: test
+  path: tests/layout/splitView.test.tsx
+  sides: []
+  lines_hit: 0
+  attribution: file_level
+  anchor_resolution:
+    old: relocated
+    new: relocated
+  created_by_change: false
+enclosing_nodes: []
+uncatalogued:
+- path: src/styles/themes.css
+  is_test: false
+  old_lines:
+  - - 277
+    - 292
+  new_lines:
+  - - 833
+    - 837
+  trivial_lines: 2
+  substantive_lines:
+  - old:277
+  - old:278
+  - old:279
+  - old:280
+  - old:281
+  - old:282
+  - old:283
+  - old:284
+  - old:286
+  - old:287
+  - old:288
+  - old:289
+  - old:290
+  - old:291
+  - new:833
+  - new:834
+  - new:835
+  - new:836
+  - new:837
+new_files: []
+new_test_files: []
+contracts_touched: []
+data_touched: []
+events_touched: []
+rollup:
+  features: []
+  invariants: []
+  flows: []
+stats:
+  files: 2
+  changed_nodes: 1
+  code_nodes: 0
+  test_nodes: 1
+  uncatalogued_files: 1
+  uncatalogued_substantive_lines: 19
+  new_files: 0
+  new_test_files: 0

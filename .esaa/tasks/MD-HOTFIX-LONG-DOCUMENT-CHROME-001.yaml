@@ -1,0 +1,29 @@
+artifact: task-traceability
+schema_version: 1
+task_id: MD-HOTFIX-LONG-DOCUMENT-CHROME-001
+graph:
+  path: .esaa/traceability/graph.json
+  source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+traceability:
+  targets:
+    - SCR-APP
+  expected_affected:
+    - CMP-APP-HEADER
+    - RTE-VIEW-MODES
+    - TST-TS-LAYOUT-SPLITVIEW
+    - TST-TS-PANEL-COLLAPSIBLEPANEL
+  protected_extra: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: false
+  justification:
+    SCR-APP: "A correção limita a linha central do shell à altura disponível e impede que documentos extensos desloquem o chrome da aplicação."
+    CMP-APP-HEADER: "O header deve permanecer ancorado no topo enquanto editor e preview rolam internamente."
+    RTE-VIEW-MODES: "A contenção vertical precisa valer nos modos Markdown, Formatado e Dividida."
+    TST-TS-LAYOUT-SPLITVIEW: "A regressão do layout dividido continua cobrindo a contenção dos painéis."
+    TST-TS-PANEL-COLLAPSIBLEPANEL: "A barra de status deve permanecer no rodapé com painéis laterais abertos ou recolhidos."
+artifacts:
+  impact: .esaa/analysis/MD-HOTFIX-LONG-DOCUMENT-CHROME-001-impact.yaml
+  footprint: .esaa/analysis/MD-HOTFIX-LONG-DOCUMENT-CHROME-001-footprint.yaml
+  drift: .esaa/analysis/MD-HOTFIX-LONG-DOCUMENT-CHROME-001-drift.yaml

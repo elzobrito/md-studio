@@ -1,0 +1,67 @@
+artifact: task-drift
+schema_version: 1
+trace_task: TRACE-019
+task_id: MD-POST051-GIT-AUDIT-001
+inputs:
+  impact: .esaa/analysis/MD-POST051-GIT-AUDIT-001-impact.yaml
+  footprint: .esaa/analysis/MD-POST051-GIT-AUDIT-001-footprint.yaml
+  graph_source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+notes: []
+rule: authorized = change_target ∪ expected_affected; ok ∈ authorized; violation ∈ protected; warning ∈ potentially_affected | out_of_closure
+  | uncatalogued substantive
+authorized:
+- CMP-APP-HEADER
+observed: []
+classification: []
+drift: []
+other_findings:
+- path: .esaa/analysis/MD-POST051-GIT-AUDIT-001-impact.yaml
+  category: new_production_file
+  severity: warning
+- path: .esaa/tasks/MD-POST051-GIT-AUDIT-001.yaml
+  category: new_production_file
+  severity: warning
+- path: docs/qa/post051/MD-POST051-GIT-AUDIT-001.md
+  category: new_production_file
+  severity: warning
+not_touched:
+- CMP-APP-HEADER
+verdict: warning
+metrics:
+  nodes:
+    tp: 0
+    authorized: 1
+    observed: 0
+    precision: 0.0
+    recall: null
+    closure_recall: null
+  code_nodes_only:
+    tp: 0
+    authorized: 1
+    observed: 0
+    precision: 0.0
+    recall: null
+  features:
+    projected_direct:
+    - FEAT-APP-SCREENS
+    projected_all: 13
+    observed: []
+    observed_in_projected_direct: []
+    observed_missing_from_projection: []
+    precision_direct: 0.0
+    recall_all: null
+  invariants:
+    projected: []
+    observed: []
+    missing_from_projection: []
+  tests:
+    projected_must_run:
+    - TST-TS-EDITOR-SINGLESAVE
+    - TST-TS-EXPORT-EXPORT-PDF
+    - TST-TS-HEADER-EXPORTMENU
+    - TST-TS-HEADER-TOPBAR
+    changed_test_nodes: []
+    new_test_files: []
+  contracts_touched: []
+  data_touched: []
+  events_touched: []

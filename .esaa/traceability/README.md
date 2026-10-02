@@ -4,7 +4,7 @@ Grafo de rastreabilidade semântica do md-studio: liga **features → entrypoint
 comandos IPC Rust → persistência/eventos → contratos → testes → invariantes**, com evidência verificável
 no código. É um artefato de governança ESAA (roadmap `TRACE-*`), sem alteração de código da aplicação.
 
-- `source_commit`: `8eb7b6e18a672b94199397f1cc0d0ec7def6609c` (v0.2.3 + fix MD-BUG-CONFLICT-RELOAD-001; grafo gerado em 5fe4f4d e re-ancorado pelo graph-delta)
+- `source_commit`: `2e5cce855888b404654002fef1d97ebc0db29cf7` (baseline G3/G4 herdada; validada contra o HEAD `6dfd99840a9a` em 2026-09-29; ver [relatório de reconciliação](tcg-reconciliation-20260929.md)).
 - Contrato completo: [`schema.yaml`](schema.yaml)
 
 ## Artefatos
@@ -51,3 +51,7 @@ python .esaa/traceability/tools/validate.py         # -> validation.yaml (exit 1
 
 `ipc_command`, `ipc_client`, `tauri_event`, `file_persisted`, `local_storage_key`, `store`, `shortcut`,
 `pipeline_stage`, `os_integration`, `dto` — justificativas em `schema.yaml`.
+
+## Estado da baseline em 2026-09-29
+
+A validação atual registra `pass`, 0 problemas críticos e 27 warnings. O `source_commit` segue em `2e5cce855888b404654002fef1d97ebc0db29cf7`; as âncoras estão válidas nesse commit, mas há drift até o HEAD `6dfd99840a9a87f79bc6eb8acf089bdeca374190`. Não trate `pass` como ausência de warnings nem como confirmação de cobertura dos arquivos adicionados depois da baseline. Consulte o [relatório de reconciliação](tcg-reconciliation-20260929.md) para os 139 nós potencialmente stale, os 80 arquivos novos sem âncora e a decisão de manter a baseline até a reancoragem semântica.

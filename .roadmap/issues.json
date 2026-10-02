@@ -4,8 +4,8 @@
     "esaa_version": "0.4.x",
     "generated_by": "esaa.project",
     "source_event_store": ".roadmap/activity.jsonl",
-    "last_event_seq": 4765,
-    "updated_at": "2026-09-29T03:17:26Z"
+    "last_event_seq": 4961,
+    "updated_at": "2026-10-02T00:49:25Z"
   },
   "issues": [
     {
@@ -221,7 +221,7 @@
     },
     {
       "issue_id": "ISSUE-MD-PROC-SECURITY-GATE-PREPUSH-001",
-      "status": "open",
+      "status": "resolved",
       "severity": "medium",
       "title": "Rodar o gate de segurança local antes de todo push: advisories novos e dependências novas quebram o CI",
       "baseline_id": null,
@@ -242,7 +242,10 @@
           "Diagnóstico inicial atribuiu a falha ao head e a um advisory 'novo'; a verificação do git log da advisory-db e do Cargo.lock por commit refutou isso — daí a regra (5)."
         ]
       },
-      "resolution": null,
+      "resolution": {
+        "status": "resolved_by_command",
+        "hotfix_task_id": "MD-SEC-AUDIT-CI-002"
+      },
       "links": {
         "reported_by_task_id": "MD-V04-QA-001",
         "fixes_task_id": null,
@@ -250,12 +253,12 @@
       },
       "timeline": {
         "created_event_seq": 4028,
-        "resolved_event_seq": null
+        "resolved_event_seq": 4885
       }
     },
     {
       "issue_id": "ISSUE-MD-PROC-WEBVIEW-BLANK-DIAGNOSIS-001",
-      "status": "open",
+      "status": "resolved",
       "severity": "medium",
       "title": "Janela em branco/cinza em WebView: provar carregamento e isolar o ambiente antes de patch em GPU/backend",
       "baseline_id": null,
@@ -275,7 +278,10 @@
           "O smoke scripts/desktop-smoke-test.sh passou (processo/janela/WebKit ativos) com a janela ainda cinza: falso positivo."
         ]
       },
-      "resolution": null,
+      "resolution": {
+        "status": "resolved_by_command",
+        "hotfix_task_id": "HF-ISSUE-MD-DESKTOP-FONTCONFIG-GRAY-WINDOW-001"
+      },
       "links": {
         "reported_by_task_id": "MD-HOTFIX-V05-BOOT-001",
         "fixes_task_id": null,
@@ -283,7 +289,7 @@
       },
       "timeline": {
         "created_event_seq": 4551,
-        "resolved_event_seq": null
+        "resolved_event_seq": 4888
       }
     },
     {
@@ -327,8 +333,37 @@
       }
     },
     {
+      "issue_id": "ISSUE-MD-SPLIT-CENTER-904PX-001",
+      "status": "resolved",
+      "severity": "medium",
+      "title": "Área central colapsa na faixa responsiva de 901 a 960 px",
+      "baseline_id": null,
+      "affected": {},
+      "evidence": {
+        "symptom": "Em viewport 904x900, as media queries empilham os painéis laterais em três linhas, mas o limite de altura deles só vale até 900 px; a linha central .center recebe altura 0 e editor/preview desaparecem.",
+        "repro_steps": [
+          "Abrir o MD Studio em viewport 904x900 px com conteúdo aberto e as barras laterais esquerda e direita expandidas.",
+          "Inspecionar .workspace: media query max-width 960px ativa o empilhamento, enquanto max-height 28vh dos painéis não se aplica acima de max-width 900px.",
+          "Observar as grid rows em execução: aproximadamente 515px, 0px e 293px; o conteúdo central não fica visível."
+        ]
+      },
+      "resolution": {
+        "status": "resolved_by_command",
+        "hotfix_task_id": "MD-HOTFIX-SPLIT-CENTER-002"
+      },
+      "links": {
+        "reported_by_task_id": "MD-HOTFIX-SPLIT-CENTER-001",
+        "fixes_task_id": null,
+        "hotfix_task_id": null
+      },
+      "timeline": {
+        "created_event_seq": 4792,
+        "resolved_event_seq": 4876
+      }
+    },
+    {
       "issue_id": "ISSUE-MD-TAURI-UPGRADE-UNSCOPED-001",
-      "status": "open",
+      "status": "resolved",
       "severity": "medium",
       "title": "Atualização Tauri v2 e instalações Snap/local sem tarefa elegível",
       "baseline_id": null,
@@ -341,7 +376,10 @@
           "python -m esaa --root . dispatch-context MD-BUILD-LOCAL-010 retorna expected_action none e allowed_actions issue.report."
         ]
       },
-      "resolution": null,
+      "resolution": {
+        "status": "resolved_by_command",
+        "hotfix_task_id": "MD-RELEASE-SNAP-STORE-20260928"
+      },
       "links": {
         "reported_by_task_id": "MD-BUILD-LOCAL-010",
         "fixes_task_id": null,
@@ -349,12 +387,12 @@
       },
       "timeline": {
         "created_event_seq": 4515,
-        "resolved_event_seq": null
+        "resolved_event_seq": 4882
       }
     },
     {
       "issue_id": "ISSUE-MD-TRACE-HANDOFF-TIMELINE-001",
-      "status": "open",
+      "status": "resolved",
       "severity": "low",
       "title": "Corrigir horário de geração do drift no relatório de handoff",
       "baseline_id": null,
@@ -371,20 +409,28 @@
           "O relatório `.esaa/traceability/case-MD-SPLIT-SCROLL-001-handoff.md` deve ser interpretado com a hora correta de geração: 18:29:48Z."
         ]
       },
-      "resolution": null,
+      "resolution": {
+        "status": "resolved_by_hotfix",
+        "hotfix_task_id": "HF-ISSUE-MD-TRACE-HANDOFF-TIMELINE-001",
+        "review_task_id": "HF-ISSUE-MD-TRACE-HANDOFF-TIMELINE-001",
+        "checks": [
+          "Linha do tempo ajustada em case-MD-SPLIT-SCROLL-001-handoff.md: drift em 18:29:48Z e inspeção em 18:30:36Z",
+          "Inspeção de diff e integridade do relatório de handoff validada"
+        ]
+      },
       "links": {
         "reported_by_task_id": "MD-TRACE-HANDOFF-SCROLL-001",
         "fixes_task_id": null,
-        "hotfix_task_id": null
+        "hotfix_task_id": "HF-ISSUE-MD-TRACE-HANDOFF-TIMELINE-001"
       },
       "timeline": {
         "created_event_seq": 3625,
-        "resolved_event_seq": null
+        "resolved_event_seq": 4873
       }
     },
     {
       "issue_id": "ISSUE-MD-V05-048-TRACEABILITY-001",
-      "status": "open",
+      "status": "resolved",
       "severity": "medium",
       "title": "MD-V05-048 bloqueada por projeção de rastreabilidade sem autorização declarada",
       "baseline_id": null,
@@ -406,7 +452,10 @@
           "Executar drift.py com MD-V05-048-impact.yaml e MD-V05-048-footprint.yaml: verdict violation; CFG-FRONTMATTER-SCHEMA aparece como protected por security_config; authorized=[] ."
         ]
       },
-      "resolution": null,
+      "resolution": {
+        "status": "resolved_by_command",
+        "hotfix_task_id": "MD-V05-048"
+      },
       "links": {
         "reported_by_task_id": "MD-V05-048",
         "fixes_task_id": null,
@@ -414,7 +463,7 @@
       },
       "timeline": {
         "created_event_seq": 4088,
-        "resolved_event_seq": null
+        "resolved_event_seq": 4879
       }
     },
     {
@@ -447,14 +496,6 @@
     }
   ],
   "indexes": {
-    "open_by_baseline": {
-      "unknown": [
-        "ISSUE-MD-PROC-SECURITY-GATE-PREPUSH-001",
-        "ISSUE-MD-PROC-WEBVIEW-BLANK-DIAGNOSIS-001",
-        "ISSUE-MD-TAURI-UPGRADE-UNSCOPED-001",
-        "ISSUE-MD-TRACE-HANDOFF-TIMELINE-001",
-        "ISSUE-MD-V05-048-TRACEABILITY-001"
-      ]
-    }
+    "open_by_baseline": {}
   }
 }

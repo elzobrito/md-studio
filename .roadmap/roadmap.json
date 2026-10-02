@@ -7,11 +7,11 @@
     "run": {
       "run_id": "RUN-0001",
       "status": "success",
-      "last_event_seq": 4765,
-      "projection_hash_sha256": "70be70ae8246841ec44a263e6318ff787207fa8d12191783a8cf576c29bf6cdb",
+      "last_event_seq": 4961,
+      "projection_hash_sha256": "8cabb7262cbc1089ea4c4f0b2ad68001dc77cdfb39901a7248ccc8b83ccbbd00",
       "verify_status": "ok"
     },
-    "updated_at": "2026-09-29T03:17:26Z"
+    "updated_at": "2026-10-02T00:49:25Z"
   },
   "project": {
     "name": "MD Studio",
@@ -15376,15 +15376,746 @@
         ]
       },
       "completed_at": "2026-09-29T03:05:08Z"
+    },
+    {
+      "task_id": "MD-UX-DOCBAR-DEDUP-001",
+      "task_kind": "impl",
+      "title": "Remover a barra de ações duplicada do documento",
+      "description": "Na captura enviada, no modo Formatado, a DocumentBar repete ações já disponíveis no AppHeader: alternância Markdown/Formatado/Dividida, modo apresentação, Salvar e Exportar. Remover da DocumentBar apenas essas ações duplicadas; manter abas do documento e controles exclusivos de orientação da visualização dividida. Preservar a barra própria do preview (Visualização, HTML gerado, Diff vs salvo e zoom) e os controles globais do AppHeader.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        ".esaa/tasks/MD-UX-DOCBAR-DEDUP-001.yaml",
+        "src/components/tabs/DocumentBar.tsx",
+        "src/App.tsx",
+        "src/styles/document-tabs.css",
+        "tests/runtime/document-tabs-bar.test.ts",
+        "tests/runtime/accessibility-keyboard.test.ts"
+      ],
+      "outputs": {
+        "files": [
+          "src/components/tabs/DocumentBar.tsx",
+          "src/App.tsx",
+          "src/styles/document-tabs.css",
+          "tests/runtime/document-tabs-bar.test.ts",
+          "tests/runtime/accessibility-keyboard.test.ts"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        ".esaa/tasks/MD-UX-DOCBAR-DEDUP-001.yaml",
+        ".esaa/analysis/**",
+        "src/components/tabs/DocumentBar.tsx",
+        "src/App.tsx",
+        "src/styles/document-tabs.css",
+        "tests/runtime/document-tabs-bar.test.ts",
+        "tests/runtime/accessibility-keyboard.test.ts"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Os controles Markdown/Formatado/Dividida, apresentação, Salvar e Exportar aparecem uma única vez no AppHeader nos modos source, preview e split; a DocumentBar deixa de repetir esses itens.",
+        "As abas do documento e os controles exclusivos de orientação dividida continuam disponíveis; a barra própria do preview e seus controles permanecem intactos.",
+        "Testes confirmam a ausência de duplicatas e a manutenção das ações globais; a verificação funcional cobre os três modos e registra evidência visual da tela corrigida.",
+        "Traceability: criar .esaa/tasks/MD-UX-DOCBAR-DEDUP-001.yaml, projetar impacto antes da alteração e fechar com footprint/drift sem violation; registrar literalmente qualquer verdict warning com path e linhas."
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-29T04:52:48Z",
+      "verification": {
+        "checks": [
+          "pnpm typecheck — passou.",
+          "pnpm exec vitest run tests/runtime/document-tabs-bar.test.ts tests/runtime/accessibility-keyboard.test.ts — 2 arquivos e 13 testes passaram.",
+          "git diff --check — passou.",
+          "Verificação funcional/DOM e captura visual no navegador desktop, viewport 1854x943, nos modos Markdown, Formatado e Dividida; ações globais únicas no AppHeader e ausentes na DocumentBar.",
+          "Leitura de .esaa/analysis/MD-UX-DOCBAR-DEDUP-001-drift.yaml: verdict: warning; paths e linhas substantivas registrados nas notes."
+        ]
+      },
+      "completed_at": "2026-09-29T05:25:36Z"
+    },
+    {
+      "task_id": "MD-TCG-RECONCILE-20260929",
+      "task_kind": "impl",
+      "title": "Verificar e atualizar a baseline do TCG para o HEAD atual",
+      "description": "Auditar e reconciliar o TCG do MD Studio após a release 0.5.1. Evidência observada na criação: .esaa/traceability/graph.json e validation.yaml registram source_commit 2e5cce855888b404654002fef1d97ebc0db29cf7; validation.yaml registra head 6fbe64ae4b9ee447d7c2de697ba0dd37a6708806, status pass, 0 critical issues e 37 warnings; o HEAD do checkout é 6dfd99840a9a87f79bc6eb8acf089bdeca374190. Conferir a diferença contra o histórico real antes de atualizar; auditar nodes, anchors, relations, tests, contracts, features, flows e invariants; preservar snapshot prévio; atualizar apenas os artefatos do TCG; regenerar graph/validation e produzir relatório de reconciliação. Não alterar código nem testes do produto.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        ".esaa/traceability/**"
+      ],
+      "outputs": {
+        "files": [
+          ".esaa/traceability/graph.json",
+          ".esaa/traceability/validation.yaml",
+          ".esaa/traceability/README.md",
+          ".esaa/traceability/snapshots/pre-reconcile-20260929.json",
+          ".esaa/traceability/tcg-reconciliation-20260929.md"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        ".esaa/traceability/**"
+      ],
+      "task_type": "governance",
+      "acceptance_criteria": [
+        "A auditoria compara as âncoras e a cobertura do TCG com o histórico desde source_commit e o HEAD alvo; o snapshot anterior é preservado antes da atualização.",
+        "Os artefatos atuais ficam coerentes com o source_commit escolhido; build_graph.py e validate.py são executados, sem critical issues, referências quebradas ou âncoras stale não explicadas.",
+        "O relatório documenta alterações, nós/arestas/testes/contratos/features afetados e todas as warnings remanescentes com causa e decisão; status pass não é apresentado como ausência de warnings.",
+        "Nenhum arquivo de código ou teste do produto é alterado; a revisão governance confere consistência e evidências dos artefatos TCG."
+      ],
+      "required_review_mode": "governance",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-29T04:18:44Z",
+      "verification": {
+        "checks": [
+          "build_graph.py: sucesso, source_commit coerente, 777 nós e 2622 arestas",
+          "validate.py: pass, 0 critical, 27 warnings; todas classificadas no relatório",
+          "Snapshot anterior preservado e hash conferido",
+          "Nenhum código ou teste do produto alterado"
+        ]
+      },
+      "completed_at": "2026-09-29T04:55:27Z"
+    },
+    {
+      "task_id": "MD-HOTFIX-SPLIT-CENTER-002",
+      "task_kind": "impl",
+      "title": "Manter a área central visível entre 901 e 960 px",
+      "description": "Corrigir ISSUE-MD-SPLIT-CENTER-904PX-001. Em 904x900, as media queries empilham as barras laterais até 960 px, mas o limite de altura delas só está ativo até 900 px; as barras consomem a altura e .center colapsa para 0. Aplicar o limite responsivo na mesma faixa que empilha as barras e preservar espaço utilizável para editor/preview.",
+      "status": "done",
+      "depends_on": [
+        "MD-HOTFIX-SPLIT-CENTER-001"
+      ],
+      "targets": [
+        "src/styles/themes.css",
+        "tests/layout/splitView.test.tsx",
+        ".esaa/tasks/MD-HOTFIX-SPLIT-CENTER-002.yaml"
+      ],
+      "outputs": {
+        "files": [
+          "src/styles/themes.css",
+          "tests/layout/splitView.test.tsx"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src/styles/themes.css",
+        "tests/layout/splitView.test.tsx",
+        ".esaa/tasks/MD-HOTFIX-SPLIT-CENTER-002.yaml",
+        ".esaa/analysis/**"
+      ],
+      "task_type": "hotfix",
+      "acceptance_criteria": [
+        "Em viewport 901–960 px, as barras laterais empilhadas têm altura máxima definida e a área central permanece visível, com editor/preview rolando internamente.",
+        "O header e o status footer permanecem fixos; modos Markdown, Formatado e Dividida seguem utilizáveis na faixa responsiva e em largura acima de 960 px.",
+        "Adicionar regressão que garante que o limite max-height dos painéis esteja no mesmo breakpoint de empilhamento e realizar checagem visual com documento longo em 904×900 e 961×900.",
+        "Rastreabilidade: criar .esaa/tasks/MD-HOTFIX-SPLIT-CENTER-002.yaml, projetar impacto antes da alteração, fechar footprint/drift sem violation e registrar literalmente qualquer warning com path e linhas substantivas."
+      ],
+      "required_review_mode": "regression",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-29T05:27:20Z",
+      "verification": {
+        "checks": [
+          "pnpm test tests/layout/splitView.test.tsx — 1 arquivo, 9 testes passaram.",
+          "pnpm typecheck — passou.",
+          "git diff --check — passou.",
+          "Playwright visual em 904x900 e 961x900, modos Markdown/Formatado/Dividida, com 520 linhas simuladas: header top=0, status bottom=900, body/document sem overflow, rolagem interna ativa e console sem erros.",
+          "Leitura de .esaa/analysis/MD-HOTFIX-SPLIT-CENTER-002-drift.yaml: verdict: warning; src/styles/themes.css old 277-284/286-291, new 833-837; sem violation."
+        ]
+      },
+      "completed_at": "2026-09-29T12:55:54Z"
+    },
+    {
+      "task_id": "MD-HOTFIX-LONG-DOCUMENT-CHROME-001",
+      "task_kind": "impl",
+      "title": "Manter título e barra de status fixos em documentos longos",
+      "description": "Corrigir a quebra vertical do shell ao abrir arquivos Markdown extensos. Com documentos grandes, o conteúdo expande a área de trabalho: a barra de status aparece no meio da janela e a barra de título/header some da área visível. Investigar a cadeia de altura e overflow do shell e manter a rolagem no editor e na pré-visualização.",
+      "status": "done",
+      "depends_on": [
+        "MD-HOTFIX-SPLIT-CENTER-002"
+      ],
+      "targets": [
+        "src/styles/app-shell.css",
+        "src/styles/themes.css",
+        "tests/layout/largeDocumentChrome.test.tsx",
+        ".esaa/tasks/MD-HOTFIX-LONG-DOCUMENT-CHROME-001.yaml"
+      ],
+      "outputs": {
+        "files": [
+          "src/styles/app-shell.css",
+          "src/styles/themes.css",
+          "tests/layout/largeDocumentChrome.test.tsx"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src/styles/app-shell.css",
+        "src/styles/themes.css",
+        "tests/layout/largeDocumentChrome.test.tsx",
+        ".esaa/tasks/MD-HOTFIX-LONG-DOCUMENT-CHROME-001.yaml",
+        ".esaa/analysis/**"
+      ],
+      "task_type": "hotfix",
+      "acceptance_criteria": [
+        "Ao abrir um .md extenso (mínimo 500 linhas) nos modos Markdown, Formatado e Dividida, o título/header permanece visível no topo e a barra de status permanece no rodapé da janela.",
+        "O tamanho do documento não expande o shell nem desloca o chrome; a rolagem vertical fica restrita às superfícies de editor e pré-visualização, sem rolagem da janela principal.",
+        "Adicionar regressão para documento longo e realizar inspeção visual nos viewports 1920x1080 e 1280x720, nos três modos de visualização.",
+        "Rastreabilidade: criar .esaa/tasks/MD-HOTFIX-LONG-DOCUMENT-CHROME-001.yaml e projetar o impacto antes de alterar código; fechar footprint/drift sem violation e registrar literalmente cada warning com path e linhas substantivas."
+      ],
+      "required_review_mode": "regression",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-29T12:56:02Z",
+      "verification": {
+        "checks": [
+          "pnpm test — 128 arquivos e 745 testes passaram.",
+          "pnpm build — produção compilada; apenas warnings preexistentes de chunk/eval em dependências.",
+          "pnpm typecheck — passou.",
+          "git diff --check — passou.",
+          "Playwright visual: 1920x1080 e 1280x720, Markdown/Formatado/Dividida, 520 linhas simuladas; body/document limitados ao viewport, header top=0, status no limite inferior com flex-shrink=0, rolagem interna ativa e zero erros de console.",
+          "Controle responsivo 904x900 passou nos três modos com linhas 252px 304.609px 252px e center visível.",
+          "Leitura de .esaa/analysis/MD-HOTFIX-LONG-DOCUMENT-CHROME-001-drift.yaml: verdict: warning; src/styles/app-shell.css new 19-24, 26-28, 199-201; novo teste info; sem violation."
+        ]
+      },
+      "completed_at": "2026-09-29T13:04:18Z"
+    },
+    {
+      "task_id": "MD-REBUILD-CSS-20260929T142728Z",
+      "task_kind": "impl",
+      "title": "Rebuild local do MD Studio para teste de CSS",
+      "description": "Executar rebuild completo do MD Studio após alterações visuais/CSS: validar dependências, TypeScript, testes, build Vite, testes/build Rust, gerar novo Snap, validar SHA-256 e metadata, reinstalar o pacote local e iniciar a aplicação para inspeção visual. A tarefa governa build, empacotamento e estado operacional; não autoriza novas alterações de código durante a execução.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [],
+      "outputs": {
+        "files": [
+          "Build frontend dist/",
+          "Build Rust release",
+          "Snap local md-studio da versão declarada em package.json",
+          "Instalação local atualizada para inspeção visual"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "dist/**",
+        "node_modules/**",
+        "src-tauri/target/**",
+        "parts/**",
+        "prime/**",
+        "stage/**",
+        ".snapcraft/**",
+        "*.snap"
+      ],
+      "task_type": "release",
+      "acceptance_criteria": [
+        "Dependências resolvidas com pnpm install --frozen-lockfile",
+        "Typecheck concluído sem erro",
+        "Testes frontend concluídos sem erro",
+        "Build Vite concluído e dist/ gerado",
+        "Testes Rust/Tauri concluídos sem erro",
+        "Build Rust release concluído sem erro",
+        "Snap reconstruído e metadata validada",
+        "SHA-256 do Snap registrado",
+        "Snap local instalado ou atualizado com sucesso",
+        "Aplicação iniciada para inspeção visual"
+      ],
+      "required_review_mode": "release",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-29T14:27:31Z",
+      "verification": {
+        "checks": [
+          "Rebuild executado até o gate de testes frontend",
+          "pnpm test detectou falha em tests/runtime/document-tabs-bar.test.ts",
+          "Snap não foi gerado nem instalado após a falha"
+        ]
+      },
+      "completed_at": "2026-09-29T15:17:40Z"
+    },
+    {
+      "task_id": "MD-REBUILD-CSS-20260929T153724Z",
+      "task_kind": "impl",
+      "title": "Rebuild local do MD Studio para teste de CSS",
+      "description": "Executar rebuild completo do MD Studio após alterações visuais/CSS: validar dependências, TypeScript, testes, build Vite, testes/build Rust, gerar novo Snap, validar SHA-256 e metadata, reinstalar o pacote local e iniciar a aplicação para inspeção visual. A tarefa governa build, empacotamento e estado operacional; não autoriza novas alterações de código durante a execução.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [],
+      "outputs": {
+        "files": [
+          "Build frontend dist/",
+          "Build Rust release",
+          "Snap local md-studio da versão declarada em package.json",
+          "Instalação local atualizada para inspeção visual"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "dist/**",
+        "node_modules/**",
+        "src-tauri/target/**",
+        "parts/**",
+        "prime/**",
+        "stage/**",
+        ".snapcraft/**",
+        "*.snap"
+      ],
+      "task_type": "release",
+      "acceptance_criteria": [
+        "Dependências resolvidas com pnpm install --frozen-lockfile",
+        "Typecheck concluído sem erro",
+        "Testes frontend concluídos sem erro",
+        "Build Vite concluído e dist/ gerado",
+        "Testes Rust/Tauri concluídos sem erro",
+        "Build Rust release concluído sem erro",
+        "Snap reconstruído e metadata validada",
+        "SHA-256 do Snap registrado",
+        "Snap local instalado ou atualizado com sucesso",
+        "Aplicação iniciada para inspeção visual"
+      ],
+      "required_review_mode": "release",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-29T15:37:27Z",
+      "verification": {
+        "checks": [
+          "pnpm install --frozen-lockfile: pass",
+          "pnpm typecheck: pass",
+          "pnpm test: 128 files / 745 tests passed",
+          "pnpm build: pass",
+          "dist/: generated",
+          "cargo test --workspace: pass",
+          "cargo build --release: pass",
+          "snapcraft: pass",
+          "snap metadata extraction: pass",
+          "snap local install: pass",
+          "snap run invoked for visual inspection: pass"
+        ]
+      },
+      "completed_at": "2026-09-29T15:51:46Z"
+    },
+    {
+      "task_id": "MD-HOTFIX-WORKSPACE-CONTAINMENT-001",
+      "task_kind": "impl",
+      "title": "Hotfix de containment do workspace do MD Studio",
+      "description": "Registrar e revalidar a correção mínima de layout que adiciona overflow:hidden à regra .workspace para impedir que editor/preview e painéis pintem fora da faixa central, preservando o header global no topo e a status bar no rodapé. A alteração CSS foi identificada e aplicada durante diagnóstico interativo antes desta task; esta task registra esse fato explicitamente e governa a revalidação, revisão e fechamento sem reescrever o histórico.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [],
+      "outputs": {
+        "files": [
+          "src/styles/themes.css com containment explícito da .workspace"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src/styles/themes.css"
+      ],
+      "task_type": "hotfix",
+      "acceptance_criteria": [
+        ".workspace contém overflow:hidden",
+        "Header global permanece no topo em Vite/browser",
+        "Status bar permanece no rodapé em Vite/browser",
+        "Layout permanece correto em Tauri/WebKitGTK",
+        "pnpm typecheck concluído sem erro",
+        "pnpm test concluído com 128 arquivos e 745 testes passando"
+      ],
+      "required_review_mode": "regression",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-29T16:42:09Z",
+      "verification": {
+        "checks": [
+          "src/styles/themes.css: .workspace contém overflow:hidden",
+          "Validação visual Vite/browser: header no topo, workspace contido, status bar no rodapé",
+          "Validação visual Tauri/WebKitGTK: layout preservado",
+          "pnpm typecheck: pass",
+          "pnpm test: 128 files / 745 tests passed"
+        ]
+      },
+      "completed_at": "2026-09-29T16:43:48Z"
+    },
+    {
+      "task_id": "HF-ISSUE-MD-TRACE-HANDOFF-TIMELINE-001",
+      "task_kind": "impl",
+      "title": "Hotfix for ISSUE-MD-TRACE-HANDOFF-TIMELINE-001",
+      "description": "Apply a minimal hotfix to resolve issue ISSUE-MD-TRACE-HANDOFF-TIMELINE-001 without regressing immutable done tasks.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "ISSUE-MD-TRACE-HANDOFF-TIMELINE-001"
+      ],
+      "outputs": {
+        "files": [
+          "src/hotfix/HF-ISSUE-MD-TRACE-HANDOFF-TIMELINE-001.txt"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "is_hotfix": true,
+      "issue_id": "ISSUE-MD-TRACE-HANDOFF-TIMELINE-001",
+      "fixes": "MD-TRACE-HANDOFF-SCROLL-001",
+      "scope_patch": [
+        ".esaa/traceability/case-MD-SPLIT-SCROLL-001-handoff.md"
+      ],
+      "required_verification": [
+        "unit",
+        "regression"
+      ],
+      "baseline_id": "B-000",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-30T17:32:32Z",
+      "verification": {
+        "checks": [
+          "Linha do tempo ajustada em case-MD-SPLIT-SCROLL-001-handoff.md: drift em 18:29:48Z e inspeção em 18:30:36Z",
+          "Inspeção de diff e integridade do relatório de handoff validada"
+        ]
+      },
+      "completed_at": "2026-09-30T17:33:11Z"
+    },
+    {
+      "task_id": "MD-CLEAN-INSTALL-LOCAL-20260930",
+      "task_kind": "impl",
+      "title": "Limpeza de versões legadas e compilação/instalação da nova versão do MD Studio",
+      "description": "Limpar instalações antigas e artefatos em cache do MD Studio na máquina do usuário, compilar a nova versão frontend e backend Tauri em modo release incorporando todas as alterações recentes, instalar o novo executável em ~/.local/bin/md-studio e atualizar o lançador desktop.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "dist/**",
+        "src-tauri/target/**"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "dist/**",
+        "src-tauri/target/**"
+      ],
+      "task_type": "maintenance",
+      "acceptance_criteria": [
+        "Limpeza de binários antigos e caches legados em ~/.local/bin e ~/.cache",
+        "Compilação frontend e backend release concluída sem erros",
+        "Instalação do novo executável em ~/.local/bin/md-studio com permissões adequadas",
+        "Lançador desktop atualizado e verificado com flags de ambiente obrigatórias"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-30T17:44:12Z",
+      "verification": {
+        "checks": [
+          "Limpeza de binários legados e caches antigos em ~/.local/bin/md-studio.bak e ~/.cache/md-studio-build-20260928",
+          "Compilação frontend pnpm build e backend release src-tauri/target/release/md-studio concluída com sucesso",
+          "Instalação do novo executável em ~/.local/bin/md-studio com SHA-256 8b4fabce1396ef3490717ad280e259e5100a00190add8e95c4d4f5e2fda08b82",
+          "Lançador desktop e ícones atualizados; validação com tests/desktop/desktop-launcher.test.ts (4/4 testes passando)"
+        ]
+      },
+      "completed_at": "2026-09-30T17:48:16Z"
+    },
+    {
+      "task_id": "MD-HOTFIX-LAYOUT-DISPLACEMENT-001",
+      "task_kind": "impl",
+      "title": "Correção de deslocamento e visibilidade do editor e layout central",
+      "description": "Corrigir a contenção de overflow e dimensionamento flex/grid da área central e painéis para garantir que ao abrir qualquer arquivo no MD Studio a barra de documentos e o editor Markdown sejam exibidos sem deslocamento fora da janela.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [],
+      "outputs": {
+        "files": [
+          "src/styles/layout.css com overflow e scroll contidos no painel",
+          "src/styles/themes.css e app-shell.css com dimensionamento correto de .center e .workspace",
+          "src/App.tsx com estilos e contenção robusta da área central"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src/**",
+        "tests/**",
+        "dist/**",
+        "src-tauri/target/**"
+      ],
+      "task_type": "hotfix",
+      "acceptance_criteria": [
+        "DocumentBar e MarkdownEditor renderizam visíveis ao abrir arquivo",
+        "scrollIntoView no painel lateral não desloca a janela ou container central",
+        "pnpm typecheck concluído com sucesso",
+        "pnpm test concluído com 100% dos testes passando"
+      ],
+      "required_review_mode": "regression",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-30T18:25:21Z",
+      "verification": {
+        "checks": [
+          "src/components/explorer/FileTree.tsx: scroll localizado ao container interno sem scrollIntoView global",
+          "src/styles/layout.css: .resizable-panel e .resizable-panel-content com overflow contido",
+          "src/styles/themes.css e app-shell.css: .workspace e .center com height: 100% e contenção explícita",
+          "Validação visual com WebKitGTK e perfil de usuário: editor, abas, barra de ferramentas e status bar renderizados e contidos",
+          "pnpm typecheck: pass",
+          "pnpm test: 129 arquivos / 747 testes passando"
+        ]
+      },
+      "completed_at": "2026-09-30T18:52:01Z"
+    },
+    {
+      "task_id": "MD-UX-SPLASHSCREEN-RESTORE-001",
+      "task_kind": "impl",
+      "title": "Restaurar splashscreen no startup do MD Studio",
+      "description": "Restaurar a splashscreen nativa do MD Studio durante a inicialização da aplicação Tauri, utilizando o splashscreen.html já existente no repositório. A splash deve ser exibida imediatamente durante o bootstrap e permanecer visível somente até que a janela principal tenha efetivamente carregado o frontend e esteja pronta para interação. O fechamento deve ocorrer mediante sinal explícito de readiness da aplicação principal após o frontend ter inicializado, sem flash de janela vazia e com timeout defensivo de fail-safe.",
+      "status": "done",
+      "depends_on": [
+        "MD-HOTFIX-LAYOUT-DISPLACEMENT-001"
+      ],
+      "targets": [
+        "splashscreen.html",
+        "src-tauri/tauri.conf.json",
+        "src-tauri/src/main.rs",
+        "src-tauri/src/lib.rs",
+        "src/App.tsx",
+        "tests/**"
+      ],
+      "outputs": {
+        "files": [
+          "Splashscreen nativa restaurada com sincronização frontend ready e testes automatizados"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "splashscreen.html",
+        "src-tauri/tauri.conf.json",
+        "src-tauri/src/main.rs",
+        "src-tauri/src/lib.rs",
+        "src-tauri/src/**",
+        "src/App.tsx",
+        "tests/**",
+        "dist/**",
+        "src-tauri/target/**"
+      ],
+      "task_type": "maintenance",
+      "acceptance_criteria": [
+        "A splashscreen é exibida imediatamente ao iniciar o MD Studio.",
+        "A janela principal permanece oculta enquanto o frontend ainda não estiver pronto.",
+        "O fechamento da splash depende de um sinal explícito de frontend ready, e não exclusivamente de um timeout.",
+        "O sinal de readiness ocorre somente após a aplicação React ter inicializado e o shell principal estar montado.",
+        "Após o readiness, a janela principal é exibida e recebe foco antes da splash ser fechada.",
+        "A splash não permanece aberta após a janela principal estar pronta.",
+        "Não ocorre flash da janela principal vazia, cinza ou parcialmente montada antes da UI estar disponível.",
+        "splashscreen.html permanece autocontido e não depende de recursos externos ou rede.",
+        "A splash funciona em execução development e release.",
+        "A splash funciona no ambiente Linux Wayland atualmente homologado.",
+        "Nenhuma alteração força GDK_BACKEND=x11.",
+        "Nenhuma alteração força WEBKIT_DISABLE_DMABUF_RENDERER=1.",
+        "O comportamento atual de startup da janela principal permanece funcional caso a splash falhe.",
+        "Existe timeout defensivo apenas como fail-safe, nunca como mecanismo normal de readiness.",
+        "Falha ou timeout de inicialização gera log diagnóstico explícito em vez de encerrar silenciosamente a splash.",
+        "Os testes existentes continuam passando.",
+        "São adicionados testes específicos para o ciclo splash -> frontend ready -> main window.",
+        "pnpm typecheck passa sem erros.",
+        "pnpm test passa integralmente.",
+        "cargo test --workspace passa integralmente.",
+        "build release Tauri é concluído com sucesso."
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-09-30T18:57:33Z",
+      "verification": {
+        "checks": [
+          "pnpm typecheck",
+          "pnpm test",
+          "cargo test --workspace",
+          "cargo build --release",
+          "pnpm tauri build"
+        ]
+      },
+      "completed_at": "2026-09-30T19:21:32Z"
+    },
+    {
+      "task_id": "MD-POST051-GIT-AUDIT-001",
+      "task_kind": "qa",
+      "title": "Auditar o diff pós-0.5.1 e mapear cada caminho a uma entrega done",
+      "description": "Consolidação pós-0.5.1, tarefa 1 de 4. Inventariar todo o diff tracked e untracked de main em 6dfd998 sem alterar código de produto, sem commit e sem push. Classificar cada caminho como entrega de uma tarefa histórica done, projeção ESAA que acompanha essa entrega, ou exclusão justificada. Preservar as 399 tarefas done. A versão publicada permanece 0.5.1. Registrar o hunk de max-width do preview formatado. Sidecar de rastreabilidade antes do relatório. Não marcar done sem o mapa.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        ".esaa/tasks/MD-POST051-GIT-AUDIT-001.yaml"
+      ],
+      "outputs": {
+        "files": [
+          "docs/qa/post051/MD-POST051-GIT-AUDIT-001.md",
+          ".esaa/tasks/MD-POST051-GIT-AUDIT-001.yaml",
+          ".esaa/analysis/MD-POST051-GIT-AUDIT-001-impact.yaml"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "docs/qa/post051/**",
+        ".esaa/tasks/MD-POST051-GIT-AUDIT-001.yaml",
+        ".esaa/analysis/**"
+      ],
+      "task_type": "audit",
+      "acceptance_criteria": [
+        "Cada caminho modificado ou não rastreado está mapeado a uma tarefa done ou excluído com motivo",
+        "As 399 tarefas históricas permanecem done e a versão permanece 0.5.1",
+        "traceability: ver .esaa/tasks/MD-POST051-GIT-AUDIT-001.yaml; drift sem violation",
+        "Verify: md_post051_git_audit_001_pass"
+      ],
+      "required_review_mode": "governance",
+      "assigned_to": "agent-qa",
+      "started_at": "2026-10-02T00:38:25Z",
+      "verification": {
+        "checks": [
+          "md_post051_git_audit_001_pass: mapa em docs/qa/post051/MD-POST051-GIT-AUDIT-001.md; 399 históricas done; versão 0.5.1; sem push"
+        ]
+      },
+      "completed_at": "2026-10-02T00:40:20Z"
+    },
+    {
+      "task_id": "MD-POST051-REGRESSION-001",
+      "task_kind": "qa",
+      "title": "Regressão pós-0.5.1: testes, build e smoke funcional",
+      "description": "Consolidação pós-0.5.1, tarefa 2 de 4. Depende da auditoria. Executar pnpm typecheck, pnpm test, pnpm build e cargo test do workspace Tauri a partir do repositório md-studio. Smoke funcional cobre a barra de documento sem ações duplicadas, a contenção do chrome em documento longo, a vista Dividida e o fechamento da splash. Não alterar a versão, não fazer push e não corrigir produto nesta tarefa: falha de teste é bloqueio documentado. Sidecar antes de qualquer escrita.",
+      "status": "done",
+      "depends_on": [
+        "MD-POST051-GIT-AUDIT-001"
+      ],
+      "targets": [
+        ".esaa/tasks/MD-POST051-REGRESSION-001.yaml"
+      ],
+      "outputs": {
+        "files": [
+          "docs/qa/post051/MD-POST051-REGRESSION-001.md",
+          ".esaa/tasks/MD-POST051-REGRESSION-001.yaml"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "docs/qa/post051/**",
+        ".esaa/tasks/MD-POST051-REGRESSION-001.yaml",
+        ".esaa/analysis/**"
+      ],
+      "task_type": "audit",
+      "acceptance_criteria": [
+        "typecheck, suíte pnpm, build de produção e cargo test do workspace têm evidência de saída",
+        "Smoke funcional da barra, do chrome longo, da vista Dividida e da splash está registrado",
+        "traceability: ver .esaa/tasks/MD-POST051-REGRESSION-001.yaml; drift sem violation",
+        "Verify: md_post051_regression_001_pass"
+      ],
+      "required_review_mode": "regression",
+      "assigned_to": "agent-qa",
+      "started_at": "2026-10-02T00:40:31Z",
+      "verification": {
+        "checks": [
+          "md_post051_regression_001_pass: typecheck 0; vitest 130 arquivos/757 testes; build 20.93s; cargo md_studio_lib 21 e md-studio-core 80; smoke vitest 43",
+          "desktop release inconcluso: page load ok, failsafe 8s, import travou; debug apontou para localhost:1420"
+        ]
+      },
+      "completed_at": "2026-10-02T00:48:51Z"
+    },
+    {
+      "task_id": "MD-POST051-GIT-CONSOLIDATE-001",
+      "task_kind": "impl",
+      "title": "Commit local de consolidação pós-0.5.1, sem push e sem mudança de versão",
+      "description": "Consolidação pós-0.5.1, tarefa 3 de 4. Depende da regressão verde. Criar um commit local em main contendo somente caminhos aprovados pela auditoria, inclusive as projeções .roadmap já gravadas pelo Orchestrator. Não executar git push. Não alterar product version, tag ou tauri.conf version: permanece 0.5.1. Não incluir scripts/rebuild-test.sh nem scripts/rebuild-test-fixed.sh. Não incluir .mdstudio/ nem .roadmap/staging/. Não descartar trabalho alheio. O boundary desta tarefa cobre o recibo e o código; o event store continua sendo escrito só pelo Orchestrator.",
+      "status": "in_progress",
+      "depends_on": [
+        "MD-POST051-REGRESSION-001"
+      ],
+      "targets": [
+        ".esaa/tasks/MD-POST051-GIT-CONSOLIDATE-001.yaml"
+      ],
+      "outputs": {
+        "files": [
+          "docs/qa/post051/MD-POST051-GIT-CONSOLIDATE-001.md",
+          ".esaa/tasks/MD-POST051-GIT-CONSOLIDATE-001.yaml"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "docs/qa/post051/**",
+        ".esaa/tasks/MD-POST051-GIT-CONSOLIDATE-001.yaml",
+        ".esaa/analysis/**",
+        ".esaa/traceability/**",
+        "src/**",
+        "src-tauri/**",
+        "tests/**"
+      ],
+      "task_type": "release",
+      "acceptance_criteria": [
+        "Existe um commit local novo cujo diff não muda a versão 0.5.1 e não inclui os scripts de rebuild excluídos",
+        "Nenhum push é feito; origin/main permanece no commit anterior",
+        "traceability: ver .esaa/tasks/MD-POST051-GIT-CONSOLIDATE-001.yaml; drift sem violation",
+        "Verify: md_post051_git_consolidate_001_pass"
+      ],
+      "required_review_mode": "release",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-10-02T00:49:25Z"
+    },
+    {
+      "task_id": "MD-POST051-CLOSEOUT-001",
+      "task_kind": "qa",
+      "title": "Fechar o baseline pós-0.5.1 e preparar a referência TCG",
+      "description": "Consolidação pós-0.5.1, tarefa 4 de 4. Depende do commit local. Rodar esaa verify. Conferir que as tarefas históricas continuam done e que a versão permanece 0.5.1. Registrar o SHA novo, o source_commit atual do grafo e o drift entre eles, sem reancorar o grafo nesta tarefa e sem editar graph.json à mão. A referência prepara a próxima reconciliação TCG; não a executa. Não fazer push.",
+      "status": "todo",
+      "depends_on": [
+        "MD-POST051-GIT-CONSOLIDATE-001"
+      ],
+      "targets": [
+        ".esaa/tasks/MD-POST051-CLOSEOUT-001.yaml"
+      ],
+      "outputs": {
+        "files": [
+          "docs/qa/post051/MD-POST051-CLOSEOUT-001.md",
+          ".esaa/traceability/post051-baseline-reference.md",
+          ".esaa/tasks/MD-POST051-CLOSEOUT-001.yaml"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "docs/qa/post051/**",
+        ".esaa/tasks/MD-POST051-CLOSEOUT-001.yaml",
+        ".esaa/analysis/**",
+        ".esaa/traceability/post051-baseline-reference.md"
+      ],
+      "task_type": "governance",
+      "acceptance_criteria": [
+        "esaa verify passa depois do commit e as 399 tarefas históricas seguem done",
+        "A referência TCG cita o SHA do commit de consolidação e o source_commit do grafo, sem reancorar",
+        "traceability: ver .esaa/tasks/MD-POST051-CLOSEOUT-001.yaml; drift sem violation",
+        "Verify: md_post051_closeout_001_pass"
+      ],
+      "required_review_mode": "governance"
     }
   ],
   "indexes": {
     "by_status": {
-      "done": 388
+      "done": 401,
+      "in_progress": 1,
+      "todo": 1
     },
     "by_kind": {
-      "impl": 317,
-      "qa": 40,
+      "impl": 329,
+      "qa": 43,
       "spec": 31
     }
   }

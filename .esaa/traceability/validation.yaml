@@ -2,13 +2,13 @@
 artifact: validation
 schema_version: 1
 source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
-head: 6fbe64ae4b9ee447d7c2de697ba0dd37a6708806
-generated_at: '2026-09-28T07:28:18-03:00'
+head: 6dfd99840a9a87f79bc6eb8acf089bdeca374190
+generated_at: '2026-09-29T01:47:39-03:00'
 generator: tools/validate.py
 summary:
   status: pass
   critical_issues: 0
-  warning_issues: 37
+  warning_issues: 27
   checks_with_findings:
     warning: 5
     info: 2
@@ -162,33 +162,27 @@ checks:
   source_commit_drift:
     severity: warning
     description: Drift entre source_commit (2e5cce855888) e HEAD/working tree (âncoras continuam válidas no source_commit)
-    count: 11
+    count: 1
     items:
-    - 'HEAD 6fbe64ae4b9e != source_commit 2e5cce855888; 40 arquivo(s) alterado(s); nós possivelmente stale: []'
-    - 'working tree modificado: src-tauri/src/commands/mod.rs — nós stale (âncora não bate no working tree): [''IPC-OPEN-WORKSPACE'', ''IPC-LIST-ENTRIES'', ''IPC-READ-DOCUMENT'', ''IPC-SAVE-DOCUMENT'',
-      ''IPC-SEARCH-WORKSPACE'', ''IPC-EXPORT-HTML'', ''IPC-EXPORT-EPUB'', ''IPC-GET-LAUNCH-PATH'', ''IPC-CLOSE-SPLASH'', ''FN-RESOLVE-WORKSPACE-ROOT'', ''FN-EXPORT-EPUB-IN'', ''DTO-RS-EXPORT-HTML-REQUEST'',
-      ''DTO-RS-EXPORT-EPUB-REQUEST'', ''TST-RS-EXPORT-WRITES-RENDERED-HTML-NOT-PRE-STUB'', ''TST-RS-EXPORT-REFUSES-OVERWRITE-WITHOUT-FLAG'', ''TST-RS-EXPORT-OVERWRITE-WHEN-ALLOWED'', ''TST-RS-EXPORT-EPUB-REQUEST-DESERIALIZES-CAMEL-CASE'',
-      ''TST-RS-EXPORT-EPUB-REFUSES-NON-ABSOLUTE-DESTINATION'', ''TST-RS-EXPORT-EPUB-REQUIRES-KNOWN-WORKSPACE-AND-REJECTS-ESCAPE'', ''TST-RS-EXPORT-EPUB-WRITES-PACKAGE-AND-REFUSES-CLOBBER'']; nós com âncora
-      ainda válida: [''DTO-RS-SAVE-DOCUMENT-REQUEST'']; evidências no arquivo: 147'
-    - 'working tree modificado: src-tauri/src/lib.rs — nós stale (âncora não bate no working tree): [''CFG-GENERATE-HANDLER'', ''OSI-SPLASH-AUTOCLOSE'', ''OSI-SINGLE-INSTANCE'', ''OSI-LAUNCH-ARGV'', ''TEV-APP-OPEN-FILE''];
-      nós com âncora ainda válida: [''FN-RS-RUN'', ''CLS-APP-STATE'']; evidências no arquivo: 162'
-    - 'working tree modificado: src-tauri/src/main.rs — nós stale (âncora não bate no working tree): []; nós com âncora ainda válida: [''FN-RS-MAIN'']; evidências no arquivo: 3'
-    - 'working tree modificado: src-tauri/tauri.conf.json — nós stale (âncora não bate no working tree): [''OSI-FILE-ASSOCIATIONS'', ''CFG-TAURI-CSP'']; nós com âncora ainda válida: []; evidências no arquivo:
-      10'
-    - 'working tree modificado: src/components/MarkdownViewer.tsx — nós stale (âncora não bate no working tree): [''CMP-MARKDOWN-VIEWER'', ''HDL-VIEWER-ON-CLICK'', ''BTN-PREVIEW-FORMAT-CODE'']; nós com
-      âncora ainda válida: []; evidências no arquivo: 29'
-    - 'working tree modificado: src/contracts/types.ts — nós stale (âncora não bate no working tree): []; nós com âncora ainda válida: [''DTO-TS-WORKSPACE-DESCRIPTOR'', ''DTO-TS-FILE-ENTRY'', ''DTO-TS-DOCUMENT-SNAPSHOT'',
-      ''DTO-TS-SAVE-DOCUMENT-REQUEST'', ''DTO-TS-SAVE-RESULT'', ''DTO-TS-SEARCH-RESULT'', ''DTO-TS-WATCH-EVENT'', ''DTO-TS-IPC-ERROR-CODE'']; evidências no arquivo: 9'
-    - 'working tree modificado: src/lib/ipc/client.ts — nós stale (âncora não bate no working tree): [''CNS-SUBSCRIBE-OPEN-FILE'', ''FN-BROWSER-INVOKE'', ''OSI-PICK-SAVE-MARKDOWN'', ''OSI-PICK-SAVE-HTML'',
-      ''OSI-PICK-SAVE-EPUB'', ''OSI-CONFIRM-OVERWRITE'', ''CNS-SUBSCRIBE-WORKSPACE-WATCH'', ''STO-BROWSER-HASH-CACHE'']; nós com âncora ainda válida: [''FN-IPC-INVOKE'', ''FN-IS-TAURI-RUNTIME'', ''IPCC-OPEN-WORKSPACE'',
-      ''IPCC-LIST-ENTRIES'', ''IPCC-READ-DOCUMENT'', ''IPCC-SAVE-DOCUMENT'', ''IPCC-SEARCH-WORKSPACE'', ''IPCC-EXPORT-HTML'', ''IPCC-EXPORT-EPUB'', ''IPCC-START-WATCHING'', ''IPCC-STOP-WATCHING'', ''IPCC-GET-LAUNCH-PATH'',
-      ''OSI-PICK-FOLDER'', ''OSI-PICK-MARKDOWN-FILE'']; evidências no arquivo: 75'
-    - 'working tree modificado: src/markdown/frontmatter.ts — nós stale (âncora não bate no working tree): [''PIPE-FRONTMATTER'']; nós com âncora ainda válida: [''CFG-FRONTMATTER-SCHEMA'']; evidências no
-      arquivo: 3'
-    - 'working tree modificado: src/markdown/processor.ts — nós stale (âncora não bate no working tree): [''PIPE-HAST-TO-HTML'']; nós com âncora ainda válida: [''SVC-PROCESS-MARKDOWN'', ''PIPE-REMARK-GFM'',
-      ''PIPE-REMARK-MATH'', ''PIPE-REMARK-REHYPE'', ''PIPE-REHYPE-RAW'', ''PIPE-HEADING-IDS'', ''PIPE-MERMAID-BLOCKS'', ''PIPE-KATEX'']; evidências no arquivo: 41'
-    - 'working tree modificado: src/markdown/sanitize.ts — nós stale (âncora não bate no working tree): [''PIPE-SANITIZE'']; nós com âncora ainda válida: [''PIPE-STRIP-MARKDOWN-STYLES'', ''PIPE-RESTRICT-RENDERER-STYLES'',
-      ''CFG-SANITIZE-SCHEMA'']; evidências no arquivo: 4'
+    - 'HEAD 6dfd99840a9a != source_commit 2e5cce855888; 303 arquivo(s) alterado(s); nós possivelmente stale: [''BTN-HEADER-NEW-DOCUMENT'', ''BTN-HEADER-PRESENTATION'', ''BTN-HEADER-QUICK-SEARCH'', ''BTN-PREVIEW-FORMAT-CODE'',
+      ''BTN-WELCOME-NEW-DOCUMENT'', ''BTN-WELCOME-OPEN-FILE'', ''BTN-WELCOME-OPEN-FOLDER'', ''CFG-FRONTMATTER-SCHEMA'', ''CFG-GENERATE-HANDLER'', ''CFG-RS-DEP-GIT2'', ''CFG-SANITIZE-SCHEMA'', ''CFG-TAURI-CSP'',
+      ''CLS-APP-STATE'', ''CLS-GIT-PROVIDER'', ''CMP-APP-HEADER'', ''CMP-MARKDOWN-VIEWER'', ''CMP-SETTINGS-PANEL'', ''CMP-SPLIT-DIVIDER'', ''CNS-SUBSCRIBE-OPEN-FILE'', ''CNS-SUBSCRIBE-WORKSPACE-WATCH'',
+      ''DTO-RS-EXPORT-EPUB-REQUEST'', ''DTO-RS-EXPORT-HTML-REQUEST'', ''DTO-RS-SAVE-DOCUMENT-REQUEST'', ''DTO-TS-DOCUMENT-SNAPSHOT'', ''DTO-TS-FILE-ENTRY'', ''DTO-TS-IPC-ERROR-CODE'', ''DTO-TS-SAVE-DOCUMENT-REQUEST'',
+      ''DTO-TS-SAVE-RESULT'', ''DTO-TS-SEARCH-RESULT'', ''DTO-TS-WATCH-EVENT'', ''DTO-TS-WORKSPACE-DESCRIPTOR'', ''FN-BROWSER-INVOKE'', ''FN-DRAFT-ROOT'', ''FN-EXPORT-EPUB-IN'', ''FN-IPC-INVOKE'', ''FN-IS-TAURI-RUNTIME'',
+      ''FN-RESOLVE-WORKSPACE-ROOT'', ''FN-RS-RUN'', ''HDL-APP-BACKLINK-OPEN-OCCURRENCE'', ''HDL-APP-CLOSE-PRESENTATION'', ''HDL-APP-CLOSE-SPLASH-EFFECT'', ''HDL-APP-CYCLE-RECENT'', ''HDL-APP-DRAFT-RECOVERY-TIMER'',
+      ''HDL-APP-EXPORT-EPUB'', ''HDL-APP-EXPORT-HTML'', ''HDL-APP-EXPORT-PDF'', ''HDL-APP-GO-TO-HEADING'', ''HDL-APP-OPEN-FILE-WELCOME'', ''HDL-APP-OPEN-FOLDER-WELCOME'', ''HDL-APP-OPEN-NEW-DOCUMENT'',
+      ''HDL-APP-SELECT-TEMPLATE'', ''HDL-APP-SHORTCUTS'', ''HDL-APP-START-PRESENTATION'', ''HDL-DOC-CLOSE-FILE'', ''HDL-DOC-LAUNCH-EFFECT'', ''HDL-DOC-NEW-DOCUMENT'', ''HDL-DOC-ON-WORKSPACE-READY'', ''HDL-DOC-OPEN-FILE'',
+      ''HDL-DOC-OPEN-FOLDER'', ''HDL-DOC-OPEN-RECENT'', ''HDL-DOC-OPEN-RELATIVE'', ''HDL-DOC-OPEN-WORKSPACE-PATH'', ''HDL-DOC-RESOLVE-CONFLICT'', ''HDL-DOC-SAVE'', ''HDL-DOC-SAVE-AS'', ''HDL-DOC-SET-CONTENT'',
+      ''HDL-DOC-WATCH-EFFECT'', ''HDL-VIEWER-ON-CLICK'', ''IPC-CLOSE-SPLASH'', ''IPC-EXPORT-EPUB'', ''IPC-EXPORT-HTML'', ''IPC-GET-LAUNCH-PATH'', ''IPC-LIST-ENTRIES'', ''IPC-OPEN-WORKSPACE'', ''IPC-READ-DOCUMENT'',
+      ''IPC-SAVE-DOCUMENT'', ''IPC-SEARCH-WORKSPACE'', ''IPCC-CLOSE-SPLASH'', ''IPCC-EXPORT-EPUB'', ''IPCC-EXPORT-HTML'', ''IPCC-GET-LAUNCH-PATH'', ''IPCC-LIST-ENTRIES'', ''IPCC-OPEN-WORKSPACE'', ''IPCC-READ-DOCUMENT'',
+      ''IPCC-SAVE-DOCUMENT'', ''IPCC-SEARCH-WORKSPACE'', ''IPCC-START-WATCHING'', ''IPCC-STOP-WATCHING'', ''LSK-SPLIT-RATIO'', ''OSI-CONFIRM-OVERWRITE'', ''OSI-FILE-ASSOCIATIONS'', ''OSI-LAUNCH-ARGV'',
+      ''OSI-PICK-FOLDER'', ''OSI-PICK-MARKDOWN-FILE'', ''OSI-PICK-SAVE-EPUB'', ''OSI-PICK-SAVE-HTML'', ''OSI-PICK-SAVE-MARKDOWN'', ''OSI-SINGLE-INSTANCE'', ''OSI-SPLASH-AUTOCLOSE'', ''OSI-WINDOW-PRINT'',
+      ''PIPE-FRONTMATTER'', ''PIPE-HAST-TO-HTML'', ''PIPE-HEADING-IDS'', ''PIPE-KATEX'', ''PIPE-MERMAID-BLOCKS'', ''PIPE-REHYPE-RAW'', ''PIPE-REMARK-GFM'', ''PIPE-REMARK-MATH'', ''PIPE-REMARK-REHYPE'',
+      ''PIPE-RESTRICT-RENDERER-STYLES'', ''PIPE-SANITIZE'', ''PIPE-STRIP-MARKDOWN-STYLES'', ''RTE-VIEW-MODES'', ''SCR-APP'', ''SCR-WELCOME'', ''SHC-CTRL-N'', ''SHC-CTRL-O'', ''SHC-CTRL-S'', ''SHC-CTRL-SHIFT-O'',
+      ''SHC-CTRL-SHIFT-S'', ''SHC-CTRL-W'', ''SHC-F5'', ''STO-BROWSER-HASH-CACHE'', ''STO-DOCUMENT-STATE'', ''STO-EDITOR'', ''SVC-PROCESS-MARKDOWN'', ''TEV-APP-OPEN-FILE'', ''TST-RS-EXPORT-EPUB-REFUSES-NON-ABSOLUTE-DESTINATION'',
+      ''TST-RS-EXPORT-EPUB-REQUEST-DESERIALIZES-CAMEL-CASE'', ''TST-RS-EXPORT-EPUB-REQUIRES-KNOWN-WORKSPACE-AND-REJECTS-ESCAPE'', ''TST-RS-EXPORT-EPUB-WRITES-PACKAGE-AND-REFUSES-CLOBBER'', ''TST-RS-EXPORT-OVERWRITE-WHEN-ALLOWED'',
+      ''TST-RS-EXPORT-REFUSES-OVERWRITE-WITHOUT-FLAG'', ''TST-RS-EXPORT-WRITES-RENDERED-HTML-NOT-PRE-STUB'', ''TST-TS-DESKTOP-LAUNCHER'', ''TST-TS-EMPTY-EMPTYSTATE'', ''TST-TS-LAYOUT-SPLITVIEW'', ''TST-TS-PANEL-COLLAPSIBLEPANEL'',
+      ''TST-TS-SETTINGS-SETTINGSPANEL'']'
   graph_json_stale:
     severity: warning
     description: graph.json desatualizado em relação aos artefatos

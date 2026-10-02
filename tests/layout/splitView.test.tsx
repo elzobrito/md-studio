@@ -290,6 +290,19 @@ describe("MD-UI-011: Split View refinado (SplitDivider)", () => {
 });
 
 describe("bounded document center layout", () => {
+  it("caps stacked sidebars in the same breakpoint that stacks the workspace", () => {
+    const themesCss = readFileSync(resolve(process.cwd(), "src/styles/themes.css"), "utf8");
+    const responsiveStart = themesCss.indexOf("@media (max-width: 960px)");
+    const reducedMotionStart = themesCss.indexOf("@media (prefers-reduced-motion", responsiveStart);
+    const responsiveRules = themesCss.slice(responsiveStart, reducedMotionStart);
+
+    expect(responsiveStart).toBeGreaterThanOrEqual(0);
+    expect(responsiveRules).toContain("grid-template-rows: auto 1fr auto");
+    expect(responsiveRules).toContain(".panel.left");
+    expect(responsiveRules).toContain("max-height: 28vh");
+    expect(themesCss).not.toContain("@media (max-width: 900px)");
+  });
+
   it("keeps a long split document inside its panes without growing the app chrome", () => {
     const styles = document.createElement("style");
     styles.textContent = ["design-tokens.css", "app-shell.css", "document-tabs.css", "split-view.css", "themes.css"]

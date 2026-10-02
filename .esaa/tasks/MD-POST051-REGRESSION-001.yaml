@@ -1,0 +1,31 @@
+artifact: task-traceability
+schema_version: 1
+task_id: MD-POST051-REGRESSION-001
+written_at: '2026-10-01T21:41:00-03:00'
+projected_before_change: true
+projection_inputs:
+  - docs/qa/post051/MD-POST051-GIT-AUDIT-001.md
+  - .esaa/traceability/graph.json
+graph:
+  path: .esaa/traceability/graph.json
+  source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+traceability:
+  targets:
+    - TST-TS-LAYOUT-SPLITVIEW
+  expected_affected:
+    - TST-TS-SETTINGS-SETTINGSPANEL
+  protected_extra: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: false
+  rationale:
+    TST-TS-LAYOUT-SPLITVIEW: A regressão executa a suíte que cobre a vista Dividida. Esta tarefa não edita o teste.
+    TST-TS-SETTINGS-SETTINGSPANEL: A suíte também cobre o painel onde a largura de leitura é escolhida. Esta tarefa não edita o teste.
+artifacts:
+  impact: .esaa/analysis/MD-POST051-REGRESSION-001-impact.yaml
+  footprint: .esaa/analysis/MD-POST051-REGRESSION-001-footprint.yaml
+  drift: .esaa/analysis/MD-POST051-REGRESSION-001-drift.yaml
+expected_uncatalogued:
+  - docs/qa/post051/MD-POST051-REGRESSION-001.md
+close_rule: O complete copia verdict. warning cita path e linhas. violation bloqueia.

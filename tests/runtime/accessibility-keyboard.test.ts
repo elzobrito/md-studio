@@ -72,9 +72,6 @@ describe("Task 053-R: Keyboard & Accessibility (WAI-ARIA)", () => {
           onSelectTab: () => {},
           onCloseTab: () => {},
           viewMode: "source",
-          onViewModeChange: () => {},
-          onSave: () => {},
-          canSave: true,
         })
       );
 
@@ -82,6 +79,9 @@ describe("Task 053-R: Keyboard & Accessibility (WAI-ARIA)", () => {
       expect(html).toContain('role="tab"');
       expect(html).toContain('aria-selected="true"');
       expect(html).toContain('aria-selected="false"');
+      expect(html).not.toContain('aria-label="Modo de visualização"');
+      expect(html).not.toContain('aria-label="Salvar"');
+      expect(html).not.toContain('aria-label="Exportar"');
     });
 
     it("renders StatusBar with accessible region or status landmarks", () => {

@@ -1,0 +1,28 @@
+artifact: task-traceability
+schema_version: 1
+task_id: MD-UX-DOCBAR-DEDUP-001
+graph:
+  path: .esaa/traceability/graph.json
+  source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+traceability:
+  targets:
+    - RTE-VIEW-MODES
+  expected_affected:
+    - CMP-APP-HEADER
+    - BTN-HEADER-PRESENTATION
+    - CMP-SAVE-BUTTON
+    - CMP-EXPORT-MENU
+  protected_extra: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: false
+  justification:
+    CMP-APP-HEADER: "O cabeçalho continua sendo o único proprietário visual das ações globais do documento."
+    BTN-HEADER-PRESENTATION: "A ação global de apresentação precisa permanecer visível uma única vez no cabeçalho."
+    CMP-SAVE-BUTTON: "A ação global de salvar precisa permanecer no cabeçalho após a remoção da cópia contextual."
+    CMP-EXPORT-MENU: "O menu global de exportação precisa permanecer no cabeçalho após a remoção da cópia contextual."
+artifacts:
+  impact: .esaa/analysis/MD-UX-DOCBAR-DEDUP-001-impact.yaml
+  footprint: .esaa/analysis/MD-UX-DOCBAR-DEDUP-001-footprint.yaml
+  drift: .esaa/analysis/MD-UX-DOCBAR-DEDUP-001-drift.yaml

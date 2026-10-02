@@ -2,7 +2,7 @@
  "artifact": "graph",
  "schema_version": 1,
  "source_commit": "2e5cce855888b404654002fef1d97ebc0db29cf7",
- "generated_at": "2026-09-29T01:47:36-03:00",
+ "generated_at": "2026-09-28T07:28:15-03:00",
  "generator": "tools/build_graph.py",
  "inputs": {
   "repository.yaml": "49d9bf856a27ca914e553dac3e96e55fe0c91ea528da1aa7d151dd0f9de12309",

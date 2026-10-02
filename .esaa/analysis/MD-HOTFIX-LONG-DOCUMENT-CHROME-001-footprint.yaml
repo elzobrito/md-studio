@@ -1,0 +1,91 @@
+artifact: task-footprint
+schema_version: 1
+trace_task: TRACE-018
+task_id: MD-HOTFIX-LONG-DOCUMENT-CHROME-001
+diff:
+  base: 6dfd99840a9a87f79bc6eb8acf089bdeca374190
+  head: WORKTREE
+  paths_filter:
+  - src/styles/app-shell.css
+  - tests/layout/largeDocumentChrome.test.tsx
+  excluded_set: []
+  command: git diff -U0 --no-color --no-ext-diff 6dfd99840a9a87f79bc6eb8acf089bdeca374190 -- src/styles/app-shell.css tests/layout/largeDocumentChrome.test.tsx
+graph_source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+notes:
+- Footprint restrito aos arquivos alterados por este hotfix; themes.css já continha mudança do hotfix dependente antes do claim.
+changed_files:
+- path: src/styles/app-shell.css
+  status: M
+  added: 16
+  removed: 0
+  hunks:
+  - old:
+    - 17
+    - 16
+    new:
+    - 18
+    - 29
+  - old:
+    - 186
+    - 185
+    new:
+    - 199
+    - 202
+  is_test: false
+  catalogued_nodes_in_file: 0
+- path: tests/layout/largeDocumentChrome.test.tsx
+  status: A
+  added: 81
+  removed: 0
+  hunks:
+  - old:
+    - 0
+    - -1
+    new:
+    - 1
+    - 81
+  is_test: true
+  catalogued_nodes_in_file: 0
+changed_nodes: []
+enclosing_nodes: []
+uncatalogued:
+- path: src/styles/app-shell.css
+  is_test: false
+  new_lines:
+  - - 18
+    - 29
+  - - 199
+    - 202
+  trivial_lines: 4
+  substantive_lines:
+  - new:19
+  - new:20
+  - new:21
+  - new:22
+  - new:23
+  - new:24
+  - new:26
+  - new:27
+  - new:28
+  - new:199
+  - new:200
+  - new:201
+new_files: []
+new_test_files:
+- tests/layout/largeDocumentChrome.test.tsx
+contracts_touched: []
+data_touched: []
+events_touched: []
+rollup:
+  features: []
+  invariants: []
+  flows: []
+stats:
+  files: 2
+  changed_nodes: 0
+  code_nodes: 0
+  test_nodes: 0
+  uncatalogued_files: 1
+  uncatalogued_substantive_lines: 12
+  new_files: 0
+  new_test_files: 1

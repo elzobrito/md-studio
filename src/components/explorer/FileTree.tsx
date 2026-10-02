@@ -23,9 +23,16 @@ export function FileTree({ tree, activePath, onToggleFolder, onOpenFile, isLoadi
       typeof CSS !== "undefined" && CSS.escape ? CSS.escape(activePath) : activePath;
     const activeEl = containerRef.current.querySelector(
       `[data-path="${escapePath}"]`,
-    );
-    if (activeEl && typeof activeEl.scrollIntoView === "function") {
-      activeEl.scrollIntoView({ block: "nearest", behavior: "smooth" });
+    ) as HTMLElement | null;
+    if (activeEl && containerRef.current) {
+      const container = containerRef.current;
+      const cRect = container.getBoundingClientRect();
+      const aRect = activeEl.getBoundingClientRect();
+      if (aRect.top < cRect.top) {
+        container.scrollTop -= (cRect.top - aRect.top);
+      } else if (aRect.bottom > cRect.bottom) {
+        container.scrollTop += (aRect.bottom - cRect.bottom);
+      }
     }
   }, [activePath, tree]);
 

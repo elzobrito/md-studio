@@ -48,6 +48,9 @@ pub fn run() {
                 let path_str = path.to_string_lossy().into_owned();
                 let _ = app.emit("app://open-file", serde_json::json!({ "path": path_str }));
             }
+            if let Some(splash) = app.get_webview_window("splashscreen") {
+                let _ = splash.close();
+            }
             if let Some(w) = app.get_webview_window("main") {
                 let _ = w.unminimize();
                 let _ = w.show();
@@ -65,6 +68,41 @@ pub fn run() {
                     main.url()
                 );
             }
+            // Fallback: If splashscreen window failed to initialize, show main window immediately
+            if app.get_webview_window("splashscreen").is_none() {
+                eprintln!(
+                    "[WARN][SPLASH_SETUP] Splashscreen window not found at setup; showing main window immediately"
+                );
+                if let Some(main) = app.get_webview_window("main") {
+                    let _ = main.show();
+                    let _ = main.set_focus();
+                }
+            }
+            // Defensive fail-safe timeout: ensure main window is visible if frontend readiness signal times out
+            let handle = app.handle().clone();
+            std::thread::spawn(move || {
+                std::thread::sleep(std::time::Duration::from_secs(8));
+                if let Some(splash) = handle.get_webview_window("splashscreen") {
+                    if splash.is_visible().unwrap_or(true) {
+                        eprintln!(
+                            "[WARN][SPLASH_FAILSAFE] Frontend readiness signal timed out after 8s; forcing main window visibility"
+                        );
+                        if let Some(main) = handle.get_webview_window("main") {
+                            let _ = main.show();
+                            let _ = main.set_focus();
+                        }
+                        let _ = splash.close();
+                    }
+                } else if let Some(main) = handle.get_webview_window("main") {
+                    if !main.is_visible().unwrap_or(true) {
+                        eprintln!(
+                            "[WARN][SPLASH_FAILSAFE] Splashscreen closed but main window still hidden after 8s; forcing main window visibility"
+                        );
+                        let _ = main.show();
+                        let _ = main.set_focus();
+                    }
+                }
+            });
             Ok(())
         })
         .invoke_handler(tauri::generate_handler![

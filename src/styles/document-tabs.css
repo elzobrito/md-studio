@@ -67,6 +67,7 @@
   color: var(--color-text);
   font-weight: 500;
   border-bottom: 2px solid var(--color-accent);
+  max-width: 100%;
 }
 
 .doc-tab:focus-visible {

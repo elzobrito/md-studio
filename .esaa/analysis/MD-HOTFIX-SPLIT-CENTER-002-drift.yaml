@@ -1,0 +1,87 @@
+artifact: task-drift
+schema_version: 1
+trace_task: TRACE-019
+task_id: MD-HOTFIX-SPLIT-CENTER-002
+inputs:
+  impact: .esaa/analysis/MD-HOTFIX-SPLIT-CENTER-002-impact.yaml
+  footprint: .esaa/analysis/MD-HOTFIX-SPLIT-CENTER-002-footprint.yaml
+  graph_source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+notes:
+- Comparar o footprint do hotfix responsivo com a projeção registrada antes do código.
+rule: authorized = change_target ∪ expected_affected; ok ∈ authorized; violation ∈ protected; warning ∈ potentially_affected | out_of_closure
+  | uncatalogued substantive
+authorized:
+- RTE-VIEW-MODES
+- SCR-APP
+- TST-TS-LAYOUT-SPLITVIEW
+observed:
+- TST-TS-LAYOUT-SPLITVIEW
+classification:
+- id: TST-TS-LAYOUT-SPLITVIEW
+  category: authorized
+  severity: ok
+  reasons: []
+drift: []
+other_findings:
+- path: src/styles/themes.css
+  category: uncatalogued_change
+  severity: warning
+  lines:
+  - old:277
+  - old:278
+  - old:279
+  - old:280
+  - old:281
+  - old:282
+  - old:283
+  - old:284
+  - old:286
+  - old:287
+  - old:288
+  - old:289
+  - old:290
+  - old:291
+  - new:833
+  - new:834
+  - new:835
+  - new:836
+  - new:837
+not_touched:
+- RTE-VIEW-MODES
+- SCR-APP
+verdict: warning
+metrics:
+  nodes:
+    tp: 1
+    authorized: 3
+    observed: 1
+    precision: 0.333
+    recall: 1.0
+    closure_recall: 1.0
+  code_nodes_only:
+    tp: 0
+    authorized: 2
+    observed: 0
+    precision: 0.0
+    recall: null
+  features:
+    projected_direct:
+    - FEAT-VIEW-MODES
+    projected_all: 14
+    observed: []
+    observed_in_projected_direct: []
+    observed_missing_from_projection: []
+    precision_direct: 0.0
+    recall_all: null
+  invariants:
+    projected: []
+    observed: []
+    missing_from_projection: []
+  tests:
+    projected_must_run: []
+    changed_test_nodes:
+    - TST-TS-LAYOUT-SPLITVIEW
+    new_test_files: []
+  contracts_touched: []
+  data_touched: []
+  events_touched: []

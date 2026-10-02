@@ -638,5 +638,8 @@ pub async fn close_splash(app: tauri::AppHandle) -> Result<(), String> {
         let _ = main.show();
         let _ = main.set_focus();
     }
+    if let Some(splash) = app.get_webview_window("splashscreen") {
+        let _ = splash.close();
+    }
     Ok(())
 }
