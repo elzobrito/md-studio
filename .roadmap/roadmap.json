@@ -7,11 +7,11 @@
     "run": {
       "run_id": "RUN-0001",
       "status": "success",
-      "last_event_seq": 5108,
-      "projection_hash_sha256": "58b3c1f58320118324d3a501f5a03ab25b93d3b6d972c518deeebeb4b2040574",
+      "last_event_seq": 5121,
+      "projection_hash_sha256": "872332e53b5ec4c33ae2c0dc699d56d30a79a4bb694bde0a4ee129839ed5e227",
       "verify_status": "ok"
     },
-    "updated_at": "2026-10-05T20:23:28Z"
+    "updated_at": "2026-10-05T21:31:32Z"
   },
   "project": {
     "name": "MD Studio",
@@ -16621,14 +16621,61 @@
         ]
       },
       "completed_at": "2026-10-05T20:23:28Z"
+    },
+    {
+      "task_id": "MD-CI-RUNNER-HOSTED-002",
+      "task_kind": "impl",
+      "title": "Remover security duplicado dos workflows Linux/Windows",
+      "description": "O pin ubuntu-24.04 (MD-CI-RUNNER-HOSTED-001, SHA 0e7ac80) não fez ci/linux/windows passarem: os três workflows ainda chamam security-gates.yml e competem pelo mesmo runner Ubuntu hosted (~15m, job not acquired). ci#84 37369720712, Linux #25 37369720764, Windows #40 37369720773 falharam. Correção: tirar o job security e needs:security de build-linux.yml e build-windows.yml (o gate fica só em ci.yml); Windows começa imediatamente em windows-latest. Não alterar src produto. Não reancorar graph.json.",
+      "status": "done",
+      "depends_on": [
+        "MD-CI-RUNNER-HOSTED-001"
+      ],
+      "targets": [
+        ".github/workflows/build-linux.yml",
+        ".github/workflows/build-windows.yml",
+        ".github/workflows/ci.yml"
+      ],
+      "outputs": {
+        "files": [
+          ".github/workflows/build-linux.yml",
+          ".github/workflows/build-windows.yml",
+          ".github/workflows/ci.yml",
+          "docs/qa/feedback-052/MD-CI-RUNNER-HOSTED-002.md"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        ".github/workflows/**",
+        "docs/qa/**"
+      ],
+      "task_type": "hotfix",
+      "acceptance_criteria": [
+        "build-linux.yml e build-windows.yml não têm job security nem needs: security",
+        "ci.yml continua com security-gates.yml e needs: security no job build",
+        "concurrency group compartilhado md-studio-hosted-github.ref nos três workflows",
+        "Recibo docs/qa/feedback-052/MD-CI-RUNNER-HOSTED-002.md com os run IDs da falha 0e7ac80"
+      ],
+      "required_review_mode": "security",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-10-05T21:30:55Z",
+      "verification": {
+        "checks": [
+          "build-linux.yml e build-windows.yml sem job security e sem needs: security; ci.yml mantém security-gates.yml e needs: security",
+          "concurrency group md-studio-hosted-github.ref em ci.yml, build-linux.yml e build-windows.yml; recibo docs/qa/feedback-052/MD-CI-RUNNER-HOSTED-002.md com run IDs 37369720712/37369720764/37369720773"
+        ]
+      },
+      "completed_at": "2026-10-05T21:31:32Z"
     }
   ],
   "indexes": {
     "by_status": {
-      "done": 413
+      "done": 414
     },
     "by_kind": {
-      "impl": 336,
+      "impl": 337,
       "qa": 45,
       "spec": 32
     }
