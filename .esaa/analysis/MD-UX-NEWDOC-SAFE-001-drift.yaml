@@ -1,0 +1,138 @@
+artifact: task-drift
+schema_version: 1
+trace_task: TRACE-019
+task_id: MD-UX-NEWDOC-SAFE-001
+inputs:
+  impact: .esaa/analysis/MD-UX-NEWDOC-SAFE-001-impact.yaml
+  footprint: .esaa/analysis/MD-UX-NEWDOC-SAFE-001-footprint.yaml
+  graph_source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+notes:
+- GlobalAppBar expected_uncatalogued (FilePlusIcon). Interface NewDocumentModal onSelectTemplate boolean. confirmReplaceOpenDocument ao fim de
+  documentState.ts.
+rule: authorized = change_target ∪ expected_affected; ok ∈ authorized; violation ∈ protected; warning ∈ potentially_affected | out_of_closure
+  | uncatalogued substantive
+authorized:
+- BTN-HEADER-NEW-DOCUMENT
+- CMP-APP-HEADER
+- CMP-NEW-DOCUMENT-MODAL
+- HDL-APP-OPEN-NEW-DOCUMENT
+- HDL-APP-SELECT-TEMPLATE
+- HDL-DOC-NEW-DOCUMENT
+- SCR-APP
+- STO-DOCUMENT-STATE
+- TST-TS-TEMPLATES-NEW-DOCUMENT-MODAL
+- TST-TS-UI-DESIGNSYSTEM
+observed:
+- CMP-NEW-DOCUMENT-MODAL
+- HDL-APP-SELECT-TEMPLATE
+- HDL-DOC-NEW-DOCUMENT
+- STO-DOCUMENT-STATE
+- TST-TS-TEMPLATES-NEW-DOCUMENT-MODAL
+classification:
+- id: HDL-APP-SELECT-TEMPLATE
+  category: authorized
+  severity: ok
+  reasons: []
+- id: CMP-NEW-DOCUMENT-MODAL
+  category: authorized
+  severity: ok
+  reasons: []
+- id: HDL-DOC-NEW-DOCUMENT
+  category: authorized
+  severity: ok
+  reasons: []
+- id: STO-DOCUMENT-STATE
+  category: authorized
+  severity: ok
+  reasons: []
+- id: TST-TS-TEMPLATES-NEW-DOCUMENT-MODAL
+  category: authorized
+  severity: ok
+  reasons: []
+drift: []
+other_findings:
+- path: src/components/editor/NewDocumentModal.tsx
+  category: uncatalogued_change
+  severity: warning
+  lines:
+  - old:11
+  - new:11
+- path: src/components/shell/GlobalAppBar.tsx
+  category: uncatalogued_change
+  severity: warning
+  lines:
+  - old:81
+  - new:81
+- path: src/state/documentState.ts
+  category: uncatalogued_change
+  severity: warning
+  lines:
+  - new:499
+  - new:500
+  - new:502
+  - new:503
+  - new:504
+  - new:505
+  - new:506
+  - new:507
+  - new:508
+- path: tests/runtime/global-app-shell.test.ts
+  category: uncatalogued_change
+  severity: info
+  lines:
+  - new:83
+  - new:84
+not_touched:
+- BTN-HEADER-NEW-DOCUMENT
+- CMP-APP-HEADER
+- HDL-APP-OPEN-NEW-DOCUMENT
+- SCR-APP
+- TST-TS-UI-DESIGNSYSTEM
+verdict: warning
+metrics:
+  nodes:
+    tp: 5
+    authorized: 10
+    observed: 5
+    precision: 0.5
+    recall: 1.0
+    closure_recall: 1.0
+  code_nodes_only:
+    tp: 4
+    authorized: 8
+    observed: 4
+    precision: 0.5
+    recall: 1.0
+  features:
+    projected_direct:
+    - FEAT-TEMPLATES
+    projected_all: 24
+    observed:
+    - FEAT-OPEN-FILE
+    - FEAT-SAVE
+    - FEAT-TEMPLATES
+    observed_in_projected_direct:
+    - FEAT-TEMPLATES
+    observed_missing_from_projection: []
+    precision_direct: 1.0
+    recall_all: 1.0
+  invariants:
+    projected: []
+    observed: []
+    missing_from_projection: []
+  tests:
+    projected_must_run:
+    - TST-TS-TEMPLATES-NEW-DOCUMENT-MODAL
+    - TST-TS-UI-DESIGNSYSTEM
+    changed_test_nodes:
+    - TST-TS-TEMPLATES-NEW-DOCUMENT-MODAL
+    new_test_files: []
+  contracts_touched: []
+  data_touched:
+  - id: STO-EDITOR
+    how: written_by_changed
+    node: HDL-DOC-NEW-DOCUMENT
+  - id: STO-DOCUMENT-STATE
+    how: definition_changed
+    node: STO-DOCUMENT-STATE
+  events_touched: []

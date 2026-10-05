@@ -1,0 +1,142 @@
+artifact: task-drift
+schema_version: 1
+trace_task: TRACE-019
+task_id: MD-UX-MATH-INSERT-001
+inputs:
+  impact: .esaa/analysis/MD-UX-MATH-INSERT-001-impact.yaml
+  footprint: .esaa/analysis/MD-UX-MATH-INSERT-001-footprint.yaml
+  graph_source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+notes:
+- 'allow_new_production_nodes true: math.ts MathInsertPopover. insertMath helper uncatalogued by design.'
+rule: authorized = change_target ∪ expected_affected; ok ∈ authorized; violation ∈ protected; warning ∈ potentially_affected | out_of_closure
+  | uncatalogued substantive
+authorized:
+- CMP-FORMATTING-TOOLBAR
+- CMP-MARKDOWN-EDITOR
+- TST-TS-EDITOR-FORMATTINGTOOLBAR
+observed:
+- CMP-FORMATTING-TOOLBAR
+- TST-TS-EDITOR-FORMATTINGTOOLBAR
+classification:
+- id: CMP-FORMATTING-TOOLBAR
+  category: authorized
+  severity: ok
+  reasons: []
+- id: TST-TS-EDITOR-FORMATTINGTOOLBAR
+  category: authorized
+  severity: ok
+  reasons: []
+drift: []
+other_findings:
+- path: src/styles/formatting-toolbar.css
+  category: uncatalogued_change
+  severity: warning
+  lines:
+  - new:167
+  - new:168
+  - new:169
+  - new:170
+  - new:171
+  - new:172
+  - new:173
+  - new:174
+  - new:175
+  - new:176
+  - new:177
+  - new:178
+  - new:179
+  - new:180
+  - new:181
+  - new:183
+  - new:184
+  - new:185
+  - new:186
+  - new:188
+  - new:189
+  - new:190
+  - new:191
+  - new:192
+  - new:193
+  - new:194
+  - new:195
+  - new:196
+  - new:197
+  - new:199
+  - new:200
+  - new:201
+  - new:202
+  - new:204
+  - new:205
+  - new:206
+  - new:207
+  - new:208
+  - new:210
+  - new:211
+  - new:212
+  - new:213
+  - new:214
+  - new:215
+  - new:216
+  - new:217
+  - new:218
+  - new:220
+  - new:221
+  - new:222
+  - new:223
+  - new:224
+  - new:225
+  - new:226
+  - new:227
+  - new:228
+- path: src/components/editor/MathInsertPopover.tsx
+  category: new_production_file
+  severity: info
+- path: src/editor/formatting/math.ts
+  category: new_production_file
+  severity: info
+- path: tests/editor/insertMath.test.ts
+  category: new_test_file
+  severity: info
+not_touched:
+- CMP-MARKDOWN-EDITOR
+verdict: warning
+metrics:
+  nodes:
+    tp: 2
+    authorized: 3
+    observed: 2
+    precision: 0.667
+    recall: 1.0
+    closure_recall: 1.0
+  code_nodes_only:
+    tp: 1
+    authorized: 2
+    observed: 1
+    precision: 0.5
+    recall: 1.0
+  features:
+    projected_direct:
+    - FEAT-FORMATTING-TOOLBAR
+    - FEAT-SLASH-COMMANDS
+    projected_all: 24
+    observed:
+    - FEAT-FORMATTING-TOOLBAR
+    observed_in_projected_direct:
+    - FEAT-FORMATTING-TOOLBAR
+    observed_missing_from_projection: []
+    precision_direct: 0.5
+    recall_all: 1.0
+  invariants:
+    projected: []
+    observed: []
+    missing_from_projection: []
+  tests:
+    projected_must_run:
+    - TST-TS-EDITOR-FORMATTINGTOOLBAR
+    changed_test_nodes:
+    - TST-TS-EDITOR-FORMATTINGTOOLBAR
+    new_test_files:
+    - tests/editor/insertMath.test.ts
+  contracts_touched: []
+  data_touched: []
+  events_touched: []

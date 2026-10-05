@@ -1,0 +1,89 @@
+artifact: task-drift
+schema_version: 1
+trace_task: TRACE-019
+task_id: MD-UX-KATEX-CSS-001
+inputs:
+  impact: .esaa/analysis/MD-UX-KATEX-CSS-001-impact.yaml
+  footprint: .esaa/analysis/MD-UX-KATEX-CSS-001-footprint.yaml
+  graph_source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+notes:
+- main.tsx expected_uncatalogued; github-math.test.ts allow_new_tests
+rule: authorized = change_target ∪ expected_affected; ok ∈ authorized; violation ∈ protected; warning ∈ potentially_affected | out_of_closure
+  | uncatalogued substantive
+authorized:
+- PIPE-KATEX
+- SVC-PROCESS-MARKDOWN
+- TST-TS-MARKDOWN-CODE-CODE-HIGHLIGHT
+- TST-TS-MARKDOWN-CORE-PROCESSOR
+- TST-TS-MARKDOWN-MATH-MATH-MATH
+- TST-TS-MARKDOWN-MERMAID-MERMAID
+- TST-TS-SECURITY-ADVERSARIAL-MARKDOWN-CSS
+observed: []
+classification: []
+drift: []
+other_findings:
+- path: tests/markdown/math/github-math.test.ts
+  category: new_test_file
+  severity: info
+not_touched:
+- PIPE-KATEX
+- SVC-PROCESS-MARKDOWN
+- TST-TS-MARKDOWN-CODE-CODE-HIGHLIGHT
+- TST-TS-MARKDOWN-CORE-PROCESSOR
+- TST-TS-MARKDOWN-MATH-MATH-MATH
+- TST-TS-MARKDOWN-MERMAID-MERMAID
+- TST-TS-SECURITY-ADVERSARIAL-MARKDOWN-CSS
+verdict: ok
+metrics:
+  nodes:
+    tp: 0
+    authorized: 7
+    observed: 0
+    precision: 0.0
+    recall: null
+    closure_recall: null
+  code_nodes_only:
+    tp: 0
+    authorized: 2
+    observed: 0
+    precision: 0.0
+    recall: null
+  features:
+    projected_direct:
+    - FEAT-CREATE-NOTE-FROM-WIKI
+    - FEAT-EXPORT-HTML
+    - FEAT-KATEX
+    - FEAT-MERMAID
+    - FEAT-OUTGOING-LINKS
+    - FEAT-PRESENTATION
+    - FEAT-PREVIEW
+    - FEAT-SANITIZE
+    - FEAT-SHIKI
+    - FEAT-WIKI-LINKS
+    projected_all: 16
+    observed: []
+    observed_in_projected_direct: []
+    observed_missing_from_projection: []
+    precision_direct: 0.0
+    recall_all: null
+  invariants:
+    projected:
+    - INV-EXPORT-NO-SILENT-OVERWRITE
+    - INV-SANITIZE-PREVIEW-EXPORT
+    observed: []
+    missing_from_projection: []
+  tests:
+    projected_must_run:
+    - TST-TS-EXPORT-EXPORT
+    - TST-TS-EXPORT-MERMAIDCAPTURE
+    - TST-TS-MARKDOWN-CODE-CODE-HIGHLIGHT
+    - TST-TS-MARKDOWN-CORE-PROCESSOR
+    - TST-TS-MARKDOWN-MERMAID-MERMAID
+    - TST-TS-PRESENTATION-PROCESSOR
+    - TST-TS-SECURITY-ADVERSARIAL-MARKDOWN-CSS
+    changed_test_nodes: []
+    new_test_files:
+    - tests/markdown/math/github-math.test.ts
+  contracts_touched: []
+  data_touched: []
+  events_touched: []

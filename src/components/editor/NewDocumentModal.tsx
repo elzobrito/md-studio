@@ -8,7 +8,7 @@ import "../../styles/new-document-modal.css";
 export interface NewDocumentModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSelectTemplate: (template: Template) => void;
+  onSelectTemplate: (template: Template) => boolean | void;
 }
 
 export function NewDocumentModal({
@@ -34,11 +34,24 @@ export function NewDocumentModal({
     return () => clearTimeout(timer);
   }, [isOpen]);
 
+  const applyTemplate = (tpl: Template) => {
+    const result = onSelectTemplate(tpl);
+    if (result !== false) {
+      onClose();
+    }
+  };
+
   const handleConfirm = () => {
     const tpl = TEMPLATES.find((t) => t.id === selectedId) || TEMPLATES[0];
     if (tpl) {
-      onSelectTemplate(tpl);
-      onClose();
+      applyTemplate(tpl);
+    }
+  };
+
+  const handleCreateBlank = () => {
+    const tpl = TEMPLATES.find((t) => t.id === "blank") || TEMPLATES[0];
+    if (tpl) {
+      applyTemplate(tpl);
     }
   };
 
@@ -133,8 +146,6 @@ export function NewDocumentModal({
               isSelected={tpl.id === selectedId}
               onClick={() => {
                 setSelectedId(tpl.id);
-                onSelectTemplate(tpl);
-                onClose();
               }}
             />
           ))}
@@ -144,8 +155,13 @@ export function NewDocumentModal({
           <Button variant="secondary" size="md" onClick={onClose}>
             Cancelar
           </Button>
-          <Button variant="primary" size="md" onClick={handleConfirm}>
-            Criar Documento
+          {selectedId !== "blank" && (
+            <Button variant="secondary" size="md" onClick={handleConfirm}>
+              Usar modelo
+            </Button>
+          )}
+          <Button variant="primary" size="md" onClick={handleCreateBlank}>
+            Criar em branco
           </Button>
         </footer>
       </div>

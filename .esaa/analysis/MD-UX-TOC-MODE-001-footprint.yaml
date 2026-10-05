@@ -1,0 +1,174 @@
+artifact: task-footprint
+schema_version: 1
+trace_task: TRACE-018
+task_id: MD-UX-TOC-MODE-001
+diff:
+  base: b5e2cab8df4c9de9e3b620a094b615403c9cc097
+  head: WORKTREE
+  paths_filter:
+  - src/App.tsx
+  - tests/layout/outline-navigation.test.tsx
+  - tests/components/documentOutline.test.tsx
+  excluded_set: []
+  command: git diff -U0 --no-color --no-ext-diff b5e2cab8df4c9de9e3b620a094b615403c9cc097 -- src/App.tsx tests/layout/outline-navigation.test.tsx
+    tests/components/documentOutline.test.tsx
+graph_source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+notes: []
+changed_files:
+- path: src/App.tsx
+  status: M
+  added: 24
+  removed: 8
+  hunks:
+  - old:
+    - 11
+    - 11
+    new:
+    - 11
+    - 11
+  - old:
+    - 197
+    - 196
+    new:
+    - 198
+    - 200
+  - old:
+    - 200
+    - 199
+    new:
+    - 204
+    - 204
+  - old:
+    - 568
+    - 570
+    new:
+    - 572
+    - 582
+  - old:
+    - 573
+    - 573
+    new:
+    - 585
+    - 590
+  - old:
+    - 577
+    - 577
+    new:
+    - 594
+    - 594
+  - old:
+    - 579
+    - 579
+    new:
+    - 595
+    - 594
+  - old:
+    - 586
+    - 586
+    new:
+    - 602
+    - 602
+  is_test: false
+  catalogued_nodes_in_file: 26
+- path: tests/components/documentOutline.test.tsx
+  status: M
+  added: 25
+  removed: 0
+  hunks:
+  - old:
+    - 114
+    - 113
+    new:
+    - 115
+    - 139
+  is_test: true
+  catalogued_nodes_in_file: 1
+- path: tests/layout/outline-navigation.test.tsx
+  status: A
+  added: 65
+  removed: 0
+  hunks:
+  - old:
+    - 0
+    - -1
+    new:
+    - 1
+    - 65
+  is_test: true
+  catalogued_nodes_in_file: 0
+changed_nodes:
+- id: HDL-APP-GO-TO-HEADING
+  kind: code
+  type: handler
+  path: src/App.tsx
+  sides:
+  - old
+  - new
+  lines_hit: 26
+  attribution: line
+  anchor_resolution:
+    old: relocated
+    new: relocated
+  created_by_change: false
+- id: HDL-APP-SELECT-TEMPLATE
+  kind: code
+  type: handler
+  path: src/App.tsx
+  sides:
+  - new
+  lines_hit: 4
+  attribution: line
+  anchor_resolution:
+    old: relocated
+    new: relocated
+  created_by_change: false
+- id: TST-TS-DOCUMENT-OUTLINE-FILTER
+  kind: test
+  type: test
+  path: tests/components/documentOutline.test.tsx
+  sides:
+  - new
+  lines_hit: 25
+  attribution: line
+  anchor_resolution:
+    old: exact
+    new: relocated
+  created_by_change: false
+enclosing_nodes:
+- id: SCR-APP
+  contains_changed:
+  - HDL-APP-GO-TO-HEADING
+  - HDL-APP-SELECT-TEMPLATE
+uncatalogued:
+- path: src/App.tsx
+  is_test: false
+  old_lines:
+  - - 11
+    - 11
+  new_lines:
+  - - 11
+    - 11
+  trivial_lines: 2
+  substantive_lines: []
+new_files: []
+new_test_files:
+- tests/layout/outline-navigation.test.tsx
+contracts_touched: []
+data_touched: []
+events_touched: []
+rollup:
+  features:
+  - FEAT-OUTLINE
+  - FEAT-TEMPLATES
+  invariants: []
+  flows:
+  - FLOW-NEW-DOCUMENT
+stats:
+  files: 3
+  changed_nodes: 3
+  code_nodes: 2
+  test_nodes: 1
+  uncatalogued_files: 1
+  uncatalogued_substantive_lines: 0
+  new_files: 0
+  new_test_files: 1

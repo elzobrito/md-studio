@@ -3,6 +3,16 @@
 Todas as notas abaixo foram derivadas de tags Git, corpos de GitHub Releases e
 arquivos versionados em `docs/release/`. Entradas não inventadas.
 
+## [0.5.2] — 2026-10-05
+
+Fontes: preparação local `MD-V052-RELEASE-001`; tarefas `MD-UX-KATEX-CSS-001`, `MD-UX-NEWDOC-SAFE-001`, `MD-UX-TOC-MODE-001`, `MD-UX-MATH-INSERT-001`; hotfixes de interface já em `b5e2cab`. Tag GitHub ainda não publicada (fica em `MD-V052-PUBLISH-UA-001`).
+
+- CSS KaTeX no preview: fórmulas GitHub (`$` / `$$`) deixam de aparecer concatenadas.
+- Novo documento: botão FilePlus “Novo documento”; cards só selecionam; primário “Criar em branco”; confirmação se o buffer estiver dirty.
+- Clique no sumário respeita o modo atual (Markdown navega a linha; Formatado/Dividida rolam o preview).
+- Botão Equação na toolbar com sabor GitHub/LaTeX, inline/display e paleta (frac, sqrt, grego, desigualdades).
+- Inclui os hotfixes de interface pós-0.5.1 já consolidados em `b5e2cab` (splash, chrome de documento longo, split center, barra do documento).
+
 ## [0.2.2] — 2026-09-23
 
 Fontes: tag `v0.2.2`, GitHub Release *MD Studio v0.2.2 — Lançamento Global (Linux & Windows)*, commit `c9ac65a`.

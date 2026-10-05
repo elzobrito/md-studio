@@ -112,6 +112,31 @@ describe("Outline hierárquico, filtrável e sincronizado ao heading atual (MD-V
     });
   });
 
+  it("clique no heading entrega slug e line para onNavigate", async () => {
+    const onNavigate = vi.fn();
+    const container = document.createElement("div");
+    document.body.appendChild(container);
+    const root = createRoot(container);
+
+    await act(async () => {
+      root.render(<DocumentOutline content={sampleMarkdown} onNavigate={onNavigate} />);
+    });
+
+    const secao = Array.from(container.querySelectorAll<HTMLElement>(".outline-item")).find(
+      (el) => el.textContent?.includes("Seção 1"),
+    );
+    expect(secao).toBeDefined();
+    await act(async () => {
+      secao?.click();
+    });
+    expect(onNavigate).toHaveBeenCalledWith("secao-1", 3);
+
+    act(() => {
+      root.unmount();
+      document.body.removeChild(container);
+    });
+  });
+
   it("sincroniza o heading ativo com cursorLine", async () => {
     const container = document.createElement("div");
     document.body.appendChild(container);

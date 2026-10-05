@@ -1,0 +1,30 @@
+artifact: task-traceability
+schema_version: 1
+task_id: MD-UX-MATH-INSERT-001
+written_at: '2026-10-05T15:49:00-03:00'
+projected_before_change: true
+graph:
+  path: .esaa/traceability/graph.json
+  source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+traceability:
+  targets:
+    - CMP-FORMATTING-TOOLBAR
+  expected_affected:
+    - CMP-MARKDOWN-EDITOR
+    - TST-TS-EDITOR-FORMATTINGTOOLBAR
+  protected_extra: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: true
+  justification:
+    CMP-FORMATTING-TOOLBAR: "Botão Equação exclusivo e popover de sabor/paleta entram na toolbar existente."
+artifacts:
+  impact: .esaa/analysis/MD-UX-MATH-INSERT-001-impact.yaml
+  footprint: .esaa/analysis/MD-UX-MATH-INSERT-001-footprint.yaml
+  drift: .esaa/analysis/MD-UX-MATH-INSERT-001-drift.yaml
+expected_uncatalogued:
+  - src/editor/formatting/math.ts
+  - src/components/editor/MathInsertPopover.tsx
+  - tests/editor/insertMath.test.ts
+close_rule: O complete copia verdict. warning cita path e linhas. violation bloqueia. Não reancorar graph.json.

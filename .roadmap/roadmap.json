@@ -7,11 +7,11 @@
     "run": {
       "run_id": "RUN-0001",
       "status": "success",
-      "last_event_seq": 4961,
-      "projection_hash_sha256": "8cabb7262cbc1089ea4c4f0b2ad68001dc77cdfb39901a7248ccc8b83ccbbd00",
+      "last_event_seq": 5088,
+      "projection_hash_sha256": "7faf694faeb51a81934fe4f54df971afe931be77630a108fccf33a286b326b88",
       "verify_status": "ok"
     },
-    "updated_at": "2026-10-02T00:49:25Z"
+    "updated_at": "2026-10-05T19:40:15Z"
   },
   "project": {
     "name": "MD Studio",
@@ -16033,7 +16033,7 @@
       "task_kind": "impl",
       "title": "Commit local de consolidação pós-0.5.1, sem push e sem mudança de versão",
       "description": "Consolidação pós-0.5.1, tarefa 3 de 4. Depende da regressão verde. Criar um commit local em main contendo somente caminhos aprovados pela auditoria, inclusive as projeções .roadmap já gravadas pelo Orchestrator. Não executar git push. Não alterar product version, tag ou tauri.conf version: permanece 0.5.1. Não incluir scripts/rebuild-test.sh nem scripts/rebuild-test-fixed.sh. Não incluir .mdstudio/ nem .roadmap/staging/. Não descartar trabalho alheio. O boundary desta tarefa cobre o recibo e o código; o event store continua sendo escrito só pelo Orchestrator.",
-      "status": "in_progress",
+      "status": "done",
       "depends_on": [
         "MD-POST051-REGRESSION-001"
       ],
@@ -16067,14 +16067,21 @@
       ],
       "required_review_mode": "release",
       "assigned_to": "agent-impl",
-      "started_at": "2026-10-02T00:49:25Z"
+      "started_at": "2026-10-02T00:49:25Z",
+      "verification": {
+        "checks": [
+          "md_post051_git_consolidate_001_pass: commit b5e2cab8df4c9de9e3b620a094b615403c9cc097, 53 arquivos, versão 0.5.1 intacta",
+          "origin/main segue 6dfd99840a9a87f79bc6eb8acf089bdeca374190; nenhum push"
+        ]
+      },
+      "completed_at": "2026-10-02T00:50:52Z"
     },
     {
       "task_id": "MD-POST051-CLOSEOUT-001",
       "task_kind": "qa",
       "title": "Fechar o baseline pós-0.5.1 e preparar a referência TCG",
       "description": "Consolidação pós-0.5.1, tarefa 4 de 4. Depende do commit local. Rodar esaa verify. Conferir que as tarefas históricas continuam done e que a versão permanece 0.5.1. Registrar o SHA novo, o source_commit atual do grafo e o drift entre eles, sem reancorar o grafo nesta tarefa e sem editar graph.json à mão. A referência prepara a próxima reconciliação TCG; não a executa. Não fazer push.",
-      "status": "todo",
+      "status": "done",
       "depends_on": [
         "MD-POST051-GIT-CONSOLIDATE-001"
       ],
@@ -16104,19 +16111,470 @@
         "traceability: ver .esaa/tasks/MD-POST051-CLOSEOUT-001.yaml; drift sem violation",
         "Verify: md_post051_closeout_001_pass"
       ],
-      "required_review_mode": "governance"
+      "required_review_mode": "governance",
+      "assigned_to": "agent-qa",
+      "started_at": "2026-10-02T00:51:09Z",
+      "verification": {
+        "checks": [
+          "md_post051_closeout_001_pass: verify ok no evento 4971; 399 históricas done; HEAD b5e2cab; source_commit 2e5cce855888b404654002fef1d97ebc0db29cf7; grafo não reancorado",
+          "referência em .esaa/traceability/post051-baseline-reference.md; origin/main 6dfd998; sem push"
+        ]
+      },
+      "completed_at": "2026-10-02T00:52:23Z"
+    },
+    {
+      "task_id": "MD-UX-FEEDBACK-MAP-001",
+      "task_kind": "spec",
+      "title": "Mapa TCG do feedback 0.5.2 (katex, novo arquivo, sumário, equação)",
+      "description": "Registrar o fechamento de impacto TCG (python .esaa/traceability/tools/impact.py blast) dos quatro clusters do feedback do tester contra o grafo ancorado em 2e5cce855888b404654002fef1d97ebc0db29cf7. Clusters: (1) PIPE-KATEX PIPE-SANITIZE PIPE-REMARK-MATH SVC-PROCESS-MARKDOWN; (2) HDL-APP-OPEN-NEW-DOCUMENT CMP-NEW-DOCUMENT-MODAL HDL-APP-SELECT-TEMPLATE HDL-DOC-NEW-DOCUMENT BTN-HEADER-NEW-DOCUMENT; (3) HDL-APP-GO-TO-HEADING CMP-DOCUMENT-OUTLINE; (4) CMP-FORMATTING-TOOLBAR. PIPE-SANITIZE e SVC-PROCESS-MARKDOWN são protected_declared (INV-SANITIZE-PREVIEW-EXPORT); CFG-SANITIZE-SCHEMA é protected_in_closure e não deve ser editado sem justificativa. HDL-APP-GO-TO-HEADING e o fluxo de novo documento compartilham SCR-APP/App.tsx — TOC serializa depois de NEWDOC. Sem alteração de código de produto nesta tarefa.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "docs/qa/feedback-052/tcg-impact-map.md",
+        ".esaa/analysis/**"
+      ],
+      "outputs": {
+        "files": [
+          "docs/qa/feedback-052/tcg-impact-map.md",
+          ".esaa/analysis/MD-UX-FEEDBACK-MAP-001-katex-blast.yaml",
+          ".esaa/analysis/MD-UX-FEEDBACK-MAP-001-newdoc-blast.yaml",
+          ".esaa/analysis/MD-UX-FEEDBACK-MAP-001-toc-blast.yaml",
+          ".esaa/analysis/MD-UX-FEEDBACK-MAP-001-toolbar-blast.yaml"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "docs/qa/**",
+        ".esaa/analysis/**"
+      ],
+      "task_type": "audit",
+      "acceptance_criteria": [
+        "Mapa cita ids TCG, authorized, protected_in_closure, must_run e a sobreposição App.tsx",
+        "Quatro YAMLs de blast reproduzem impact.py blast dos clusters"
+      ],
+      "required_review_mode": "docs",
+      "assigned_to": "agent-spec",
+      "started_at": "2026-10-05T18:34:14Z",
+      "verification": {
+        "checks": [
+          "impact.py blast dos quatro clusters gerou YAML com authorized/protected/must_run",
+          "docs/qa/feedback-052/tcg-impact-map.md cita DAG, App.tsx overlap e CFG-SANITIZE-SCHEMA protected"
+        ]
+      },
+      "completed_at": "2026-10-05T18:34:56Z"
+    },
+    {
+      "task_id": "MD-UX-KATEX-CSS-001",
+      "task_kind": "impl",
+      "title": "Importar CSS KaTeX no preview GitHub math",
+      "description": "O preview gera HTML KaTeX (remark-math + rehype-katex) mas nenhum entrypoint importa katex/dist/katex.min.css. Sem o CSS, MathML + katex-html + annotation TeX aparecem concatenados — o README FuelControl ($$...$$ na mesma linha e $...$ inline) fica ilegível. Importar o CSS em src/main.tsx. Não editar CFG-SANITIZE-SCHEMA nem PIPE-SANITIZE salvo se teste provar perda visual. Testes com as fórmulas Haversine/velocidade do README. Sidecar TCG: targets PIPE-KATEX SVC-PROCESS-MARKDOWN; testes TST-TS-MARKDOWN-MATH-MATH-MATH TST-TS-MARKDOWN-CORE-PROCESSOR TST-TS-SECURITY-ADVERSARIAL-MARKDOWN-CSS. expected_uncatalogued: src/main.tsx. allow_new_tests true. Ciclo impact/footprint/drift obrigatório. warning no complete com path e linhas.",
+      "status": "done",
+      "depends_on": [
+        "MD-UX-FEEDBACK-MAP-001"
+      ],
+      "targets": [
+        "src/main.tsx",
+        "src/markdown/processor.ts",
+        "tests/markdown/math/**",
+        ".esaa/tasks/MD-UX-KATEX-CSS-001.yaml",
+        ".esaa/analysis/**"
+      ],
+      "outputs": {
+        "files": [
+          "src/main.tsx",
+          "tests/markdown/math/github-math.test.ts",
+          ".esaa/tasks/MD-UX-KATEX-CSS-001.yaml",
+          ".esaa/analysis/MD-UX-KATEX-CSS-001-impact.yaml"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        ".esaa/tasks/MD-UX-KATEX-CSS-001.yaml",
+        ".esaa/analysis/**",
+        "docs/qa/**"
+      ],
+      "task_type": "hotfix",
+      "acceptance_criteria": [
+        "src/main.tsx importa katex/dist/katex.min.css",
+        "processMarkdown das fórmulas GitHub Haversine/velocidade contém class katex e não concatena o TeX cru como texto visível da annotation",
+        "tests/security/adversarial/markdown-css.test.ts e tests/markdown/core/processor.test.ts continuam passando",
+        "traceability: ver .esaa/tasks/MD-UX-KATEX-CSS-001.yaml; drift sem violation"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-10-05T18:35:03Z",
+      "verification": {
+        "checks": [
+          "src/main.tsx importa katex/dist/katex.min.css",
+          "vitest tests/markdown/math/github-math.test.ts math.test.ts tests/markdown/core/processor.test.ts tests/security/adversarial/markdown-css.test.ts: 14 passed",
+          "drift verdict ok; main.tsx L4 uncatalogued trivial; github-math.test.ts new_test_file info"
+        ]
+      },
+      "completed_at": "2026-10-05T18:38:40Z"
+    },
+    {
+      "task_id": "MD-UX-NEWDOC-SAFE-001",
+      "task_kind": "impl",
+      "title": "Novo documento em branco com confirmação se dirty",
+      "description": "O + / Ctrl+N abre o modal de modelos e um clique no card chama newDocument(template) substituindo o buffer sem confirmação e sem aba nova. Tester perdeu contexto achando que + agregava. Comportamento alvo: (1) botão do header usa FilePlusIcon e rótulo/aria/title 'Novo documento (Ctrl+N)' sem metáfora de somar; (2) se o documento atual estiver dirty, confirmar antes de substituir o buffer; (3) atalho e botão abrem o modal com blank pré-selecionado; ação primária 'Criar em branco' aplica o template blank; (4) escolher outro modelo só após confirmação se dirty; (5) newDocument continua limpando relativePath (untitled) e não grava o arquivo aberto. Não implementar multi-aba. Sidecar TCG: targets HDL-APP-OPEN-NEW-DOCUMENT CMP-NEW-DOCUMENT-MODAL HDL-APP-SELECT-TEMPLATE HDL-DOC-NEW-DOCUMENT BTN-HEADER-NEW-DOCUMENT; expected_affected CMP-APP-HEADER SCR-APP STO-DOCUMENT-STATE TST-TS-TEMPLATES-NEW-DOCUMENT-MODAL. GlobalAppBar é expected_uncatalogued se o + morar lá. Ciclo impact/footprint/drift.",
+      "status": "done",
+      "depends_on": [
+        "MD-UX-FEEDBACK-MAP-001"
+      ],
+      "targets": [
+        "src/App.tsx",
+        "src/components/editor/NewDocumentModal.tsx",
+        "src/components/shell/GlobalAppBar.tsx",
+        "src/state/documentState.ts",
+        "tests/templates/**",
+        "tests/header/**",
+        ".esaa/tasks/MD-UX-NEWDOC-SAFE-001.yaml",
+        ".esaa/analysis/**"
+      ],
+      "outputs": {
+        "files": [
+          "src/App.tsx",
+          "src/components/editor/NewDocumentModal.tsx",
+          "src/components/shell/GlobalAppBar.tsx",
+          "src/state/documentState.ts",
+          "tests/templates/new-document-modal.test.tsx",
+          ".esaa/tasks/MD-UX-NEWDOC-SAFE-001.yaml"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        ".esaa/tasks/MD-UX-NEWDOC-SAFE-001.yaml",
+        ".esaa/analysis/**",
+        "docs/qa/**",
+        "src/components/shell/**",
+        "src/components/header/**"
+      ],
+      "task_type": "hotfix",
+      "acceptance_criteria": [
+        "Botão de novo documento não usa PlusIcon solto; title e aria-label dizem Novo documento",
+        "Substituição do buffer com dirty exige confirmação",
+        "Ação primária cria documento em branco (template blank) e deixa relativePath vazio",
+        "tests/templates/new-document-modal.test.tsx cobre blank, confirmação e contratos dos 7 templates",
+        "traceability: ver .esaa/tasks/MD-UX-NEWDOC-SAFE-001.yaml; drift sem violation"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-10-05T18:38:41Z",
+      "verification": {
+        "checks": [
+          "vitest tests/templates/new-document-modal.test.tsx tests/runtime/global-app-shell.test.ts tests/editor/autoSave.test.tsx tests/editor/singleSave.test.tsx: 20 passed",
+          "drift verdict warning; no violation; uncatalogued NewDocumentModal.tsx L11, GlobalAppBar.tsx L81, documentState.ts L499-508; FilePlusIcon expected_uncatalogued"
+        ]
+      },
+      "completed_at": "2026-10-05T18:45:28Z"
+    },
+    {
+      "task_id": "MD-UX-TOC-MODE-001",
+      "task_kind": "impl",
+      "title": "Clique no sumário respeita o modo de vista atual",
+      "description": "goToHeading força viewMode preview quando a vista é source (App.tsx). Tester no Markdown via o sumário e era jogado para Formatado. Alvo: (1) modo Markdown: editorStore.goToLine(line) sem trocar o modo; (2) modo Formatado: scrollToHeading no preview; (3) modo Dividida: as duas navegações sem trocar o modo; (4) se line ausente no Markdown, derivar do outline. Assinatura onNavigateHeading(slug, line?). Sidecar TCG: targets HDL-APP-GO-TO-HEADING CMP-DOCUMENT-OUTLINE; expected_affected SCR-APP TST-TS-DOCUMENT-OUTLINE-FILTER. Não tocar LSK-UI-STATE. Ciclo impact/footprint/drift. Serial com NEWDOC porque ambos editam App.tsx/SCR-APP.",
+      "status": "done",
+      "depends_on": [
+        "MD-UX-NEWDOC-SAFE-001"
+      ],
+      "targets": [
+        "src/App.tsx",
+        "src/components/DocumentOutline.tsx",
+        "tests/layout/**",
+        "tests/components/**",
+        ".esaa/tasks/MD-UX-TOC-MODE-001.yaml",
+        ".esaa/analysis/**"
+      ],
+      "outputs": {
+        "files": [
+          "src/App.tsx",
+          "tests/layout/outline-navigation.test.tsx",
+          ".esaa/tasks/MD-UX-TOC-MODE-001.yaml"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        ".esaa/tasks/MD-UX-TOC-MODE-001.yaml",
+        ".esaa/analysis/**",
+        "docs/qa/**"
+      ],
+      "task_type": "hotfix",
+      "acceptance_criteria": [
+        "Clique no sumário em modo source não chama setViewMode(preview)",
+        "Clique no sumário em modo source navega o editor para a linha do heading",
+        "Clique no sumário em modo preview continua rolando o preview",
+        "Modo split não troca o viewMode",
+        "traceability: ver .esaa/tasks/MD-UX-TOC-MODE-001.yaml; drift sem violation"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-10-05T18:45:46Z",
+      "verification": {
+        "checks": [
+          "vitest tests/layout/outline-navigation.test.tsx tests/components/documentOutline.test.tsx: 8 passed",
+          "drift verdict warning; HDL-APP-SELECT-TEMPLATE residual NEWDOC vs HEAD; LSK-UI-STATE untouched; new_test_file info"
+        ]
+      },
+      "completed_at": "2026-10-05T18:48:30Z"
+    },
+    {
+      "task_id": "MD-UX-MATH-INSERT-001",
+      "task_kind": "impl",
+      "title": "Inserir equação na toolbar (GitHub/LaTeX) com paleta de símbolos",
+      "description": "Tester pediu botão exclusivo para equação com sabor GitHub/genérico/LaTeX e dicionário visual de símbolos. A FormattingToolbar tem + Inserir sem math. Entregar: (1) botão Equação na toolbar; (2) popover com sabor github ($ / $$), latex (\\( \\) / \\[ \\]) e display vs inline; (3) paleta mínima de símbolos (frac, sqrt, sum, int, greek, inequalities) que insere o comando TeX no wrap escolhido; (4) insertMath no editor/formatting, seleção vira corpo da fórmula. Sidecar TCG: targets CMP-FORMATTING-TOOLBAR; expected_affected CMP-MARKDOWN-EDITOR TST-TS-EDITOR-FORMATTINGTOOLBAR. allow_new_production_nodes true para o helper insertMath (nó novo esperado). Ciclo impact/footprint/drift.",
+      "status": "done",
+      "depends_on": [
+        "MD-UX-KATEX-CSS-001"
+      ],
+      "targets": [
+        "src/editor/formatting/**",
+        "src/components/editor/FormattingToolbar.tsx",
+        "tests/editor/**",
+        ".esaa/tasks/MD-UX-MATH-INSERT-001.yaml",
+        ".esaa/analysis/**"
+      ],
+      "outputs": {
+        "files": [
+          "src/editor/formatting/math.ts",
+          "src/components/editor/FormattingToolbar.tsx",
+          "src/components/editor/MathInsertPopover.tsx",
+          "tests/editor/formattingToolbar.test.tsx",
+          "tests/editor/insertMath.test.ts",
+          ".esaa/tasks/MD-UX-MATH-INSERT-001.yaml"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        ".esaa/tasks/MD-UX-MATH-INSERT-001.yaml",
+        ".esaa/analysis/**",
+        "docs/qa/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "Toolbar expõe botão Equação com aria-label Equação",
+        "Sabor github inline envolve seleção com cifrões simples; display com cifrões duplos",
+        "Sabor latex inline usa \\\\( \\\\) e display usa \\\\[ \\\\]",
+        "Paleta insere pelo menos frac, sqrt e um símbolo grego no wrap ativo",
+        "tests/editor/insertMath.test.ts e formattingToolbar.test.tsx cobrem o botão e os wraps",
+        "traceability: ver .esaa/tasks/MD-UX-MATH-INSERT-001.yaml; drift sem violation"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-10-05T18:48:42Z",
+      "verification": {
+        "checks": [
+          "vitest tests/editor/insertMath.test.ts tests/editor/formattingToolbar.test.tsx: 13 passed",
+          "drift verdict warning; CSS formatting-toolbar.css L167-228 uncatalogued; new files info under allow_new_production_nodes"
+        ]
+      },
+      "completed_at": "2026-10-05T18:51:22Z"
+    },
+    {
+      "task_id": "MD-UX-FEEDBACK-QA-001",
+      "task_kind": "qa",
+      "title": "QA de regressão do feedback 0.5.2",
+      "description": "User acceptance interna das quatro entregas: KaTeX visível, novo documento seguro, sumário no modo atual, inserir equação. Rodar typecheck + vitest dos arquivos tocados + adversarial markdown-css. Relatório em docs/qa/feedback-052/MD-UX-FEEDBACK-QA-001.md com evidências de comando. Não editar src/**. Não autoriza release.",
+      "status": "done",
+      "depends_on": [
+        "MD-UX-KATEX-CSS-001",
+        "MD-UX-NEWDOC-SAFE-001",
+        "MD-UX-TOC-MODE-001",
+        "MD-UX-MATH-INSERT-001"
+      ],
+      "targets": [
+        "docs/qa/feedback-052/MD-UX-FEEDBACK-QA-001.md",
+        "tests/desktop"
+      ],
+      "outputs": {
+        "files": [
+          "docs/qa/feedback-052/MD-UX-FEEDBACK-QA-001.md"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "docs/qa/**"
+      ],
+      "task_type": "audit",
+      "acceptance_criteria": [
+        "pnpm typecheck passa",
+        "vitest dos testes de math, templates, outline/layout, formattingToolbar e markdown-css passa",
+        "Relatório lista os quatro ACs de produto com evidência pass/fail",
+        "Nenhum src/** no file_updates"
+      ],
+      "required_review_mode": "regression",
+      "assigned_to": "agent-qa",
+      "started_at": "2026-10-05T18:51:30Z",
+      "verification": {
+        "checks": [
+          "pnpm typecheck exit 0",
+          "vitest 10 files 49 tests pass (math, templates, outline, formattingToolbar, markdown-css)"
+        ]
+      },
+      "completed_at": "2026-10-05T18:52:25Z"
+    },
+    {
+      "task_id": "MD-V052-RELEASE-001",
+      "task_kind": "impl",
+      "title": "Preparar MD Studio 0.5.2: versão, changelog, build e binário local",
+      "description": "Publicar a linha 0.5.2 no workspace: bump package.json, src-tauri/tauri.conf.json, src-tauri/Cargo.toml e snap/snapcraft.yaml para 0.5.2; CHANGELOG [0.5.2] com katex CSS, novo documento seguro, sumário por modo, inserir equação e hotfixes de interface já em b5e2cab. pnpm typecheck, pnpm test, pnpm build, cargo test no src-tauri, pnpm tauri build. Instalar src-tauri/target/release/md-studio em ~/.local/bin/md-studio (chmod +x). Registrar SHA-256 do binário e do .deb/.snap se gerados. Desktop Exec permanece /usr/bin/env WEBKIT_DISABLE_DMABUF_RENDERER=1 ~/.local/bin/md-studio %F. Não forçar GDK_BACKEND=x11. Push/tag GitHub e upload Snap Store ficam para MD-V052-PUBLISH-UA-001 após esta preparação.",
+      "status": "done",
+      "depends_on": [
+        "MD-UX-FEEDBACK-QA-001"
+      ],
+      "targets": [
+        "package.json",
+        "src-tauri/tauri.conf.json",
+        "src-tauri/Cargo.toml",
+        "snap/snapcraft.yaml",
+        "CHANGELOG.md",
+        "docs/release/**"
+      ],
+      "outputs": {
+        "files": [
+          "package.json",
+          "src-tauri/tauri.conf.json",
+          "src-tauri/Cargo.toml",
+          "snap/snapcraft.yaml",
+          "CHANGELOG.md",
+          "docs/release/RELEASE_NOTES_v0.5.2.md",
+          "docs/qa/feedback-052/MD-V052-RELEASE-001.md"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "package.json",
+        "src-tauri/tauri.conf.json",
+        "src-tauri/Cargo.toml",
+        "src-tauri/Cargo.lock",
+        "snap/snapcraft.yaml",
+        "CHANGELOG.md",
+        "docs/release/**",
+        "docs/qa/**",
+        "dist/**",
+        "src-tauri/target/**",
+        "*.snap"
+      ],
+      "task_type": "release",
+      "acceptance_criteria": [
+        "Versão 0.5.2 em package.json, tauri.conf.json, Cargo.toml e snapcraft.yaml",
+        "CHANGELOG [0.5.2] lista as quatro correções do feedback",
+        "pnpm typecheck, pnpm test e pnpm build passam",
+        "~/.local/bin/md-studio é o binário release recém-compilado",
+        "SHA-256 do binário registrado no relatório QA"
+      ],
+      "required_review_mode": "release",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-10-05T18:52:51Z",
+      "verification": {
+        "checks": [
+          "pnpm typecheck exit 0; pnpm test 133 files 774 tests; pnpm build 22.33s",
+          "tauri build 0.5.2; ~/.local/bin/md-studio sha256 3bc1d90049bb2148f4ac1936e4c3f0f82df982da0ebf64fce967b46df8833532 matches src-tauri/target/release/md-studio"
+        ]
+      },
+      "completed_at": "2026-10-05T19:04:26Z"
+    },
+    {
+      "task_id": "MD-V052-PUBLISH-UA-001",
+      "task_kind": "qa",
+      "title": "UA de publicação MD Studio 0.5.2",
+      "description": "User acceptance de publicação da 0.5.2: conferir versão no binário/pacote, checklist das quatro correções no app instalado (~/.local/bin/md-studio), hashes do RELEASE-001, e decidir publicação Git (commit do store ESAA + tag v0.5.2) e Snap Store. Relatório docs/qa/feedback-052/MD-V052-PUBLISH-UA-001.md. Se git push ou snapcraft upload não puderem ser feitos neste runtime, registrar o bloqueio com evidência sem fingir publicação. Não editar src/**.",
+      "status": "done",
+      "depends_on": [
+        "MD-V052-RELEASE-001"
+      ],
+      "targets": [
+        "docs/qa/feedback-052/MD-V052-PUBLISH-UA-001.md"
+      ],
+      "outputs": {
+        "files": [
+          "docs/qa/feedback-052/MD-V052-PUBLISH-UA-001.md"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "docs/qa/**"
+      ],
+      "task_type": "release",
+      "acceptance_criteria": [
+        "Relatório confirma versão 0.5.2 no artefato instalado",
+        "Checklist UA: katex, novo documento, sumário, equação",
+        "Hashes conferidos contra MD-V052-RELEASE-001",
+        "Estado de git tag/push e Snap Store documentado com evidência (feito ou bloqueado)"
+      ],
+      "required_review_mode": "release",
+      "assigned_to": "agent-qa",
+      "started_at": "2026-10-05T19:04:54Z",
+      "verification": {
+        "checks": [
+          "dpkg-deb Version 0.5.2; ~/.local/bin/md-studio sha256 3bc1d90049bb2148f4ac1936e4c3f0f82df982da0ebf64fce967b46df8833532 matches RELEASE-001 src/deb/rpm/AppImage",
+          "dist/assets/index-DL6dgSTP.js contains Criar em branco, katex, Equação, Novo documento, goToLine; index-Cp0AUl3D.css contains katex",
+          "git: HEAD b5e2cab ahead 1 of origin/main 6dfd998; porcelain 62 mixed; no v0.5* tag; gh Latest v0.2.2; snapcraft revisions latest/stable 0.5.1 rev 6; no md-studio_0.5.2 snap. Publication BLOCKED with evidence. No src/** edits."
+        ]
+      },
+      "completed_at": "2026-10-05T19:09:53Z"
+    },
+    {
+      "task_id": "MD-V052-PUBLISH-001",
+      "task_kind": "impl",
+      "title": "Publicar MD Studio 0.5.2 no git e Snap Store",
+      "description": "Commit seletivo da linha 0.5.2 (produto + store ESAA + notas; sem scripts/rebuild-test*), tag v0.5.2, push origin/main, security-gates.sh (LES-0005) e upload Snap Store latest/stable. Depende da UA MD-V052-PUBLISH-UA-001. Não reancorar graph.json. Não editar CFG-SANITIZE-SCHEMA.",
+      "status": "in_progress",
+      "depends_on": [
+        "MD-V052-PUBLISH-UA-001"
+      ],
+      "targets": [
+        "docs/qa/feedback-052/MD-V052-PUBLISH-001.md"
+      ],
+      "outputs": {
+        "files": [
+          "docs/qa/feedback-052/MD-V052-PUBLISH-001.md"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "docs/qa/**",
+        "docs/release/**",
+        "CHANGELOG.md"
+      ],
+      "task_type": "release",
+      "acceptance_criteria": [
+        "bash scripts/security-gates.sh passa localmente antes do push",
+        "Commit na main com a linha 0.5.2, sem scripts/rebuild-test.sh nem rebuild-test-fixed.sh nem esaa-hotfix-workspace-containment.sh",
+        "Tag v0.5.2 criada e enviada a origin junto com main",
+        "Snap 0.5.2 em latest/stable (snapcraft revisions mostra a versão)"
+      ],
+      "required_review_mode": "release",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-10-05T19:40:15Z"
     }
   ],
   "indexes": {
     "by_status": {
-      "done": 401,
-      "in_progress": 1,
-      "todo": 1
+      "done": 411,
+      "in_progress": 1
     },
     "by_kind": {
-      "impl": 329,
-      "qa": 43,
-      "spec": 31
+      "impl": 335,
+      "qa": 45,
+      "spec": 32
     }
   }
 }

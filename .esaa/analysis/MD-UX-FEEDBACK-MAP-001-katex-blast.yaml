@@ -1,0 +1,403 @@
+blast_radius:
+  change_target:
+  - PIPE-KATEX
+  - PIPE-SANITIZE
+  - PIPE-REMARK-MATH
+  - SVC-PROCESS-MARKDOWN
+  expected_affected:
+  - TST-TS-MARKDOWN-CODE-CODE-HIGHLIGHT
+  - TST-TS-MARKDOWN-CORE-PROCESSOR
+  - TST-TS-MARKDOWN-MERMAID-MERMAID
+  - TST-TS-SECURITY-ADVERSARIAL-MARKDOWN-CSS
+  expected_affected_source: derived
+  suggested_expected_affected:
+  - TST-TS-MARKDOWN-CODE-CODE-HIGHLIGHT
+  - TST-TS-MARKDOWN-CORE-PROCESSOR
+  - TST-TS-MARKDOWN-MERMAID-MERMAID
+  - TST-TS-SECURITY-ADVERSARIAL-MARKDOWN-CSS
+  authorized:
+  - PIPE-KATEX
+  - PIPE-REMARK-MATH
+  - PIPE-SANITIZE
+  - SVC-PROCESS-MARKDOWN
+  - TST-TS-MARKDOWN-CODE-CODE-HIGHLIGHT
+  - TST-TS-MARKDOWN-CORE-PROCESSOR
+  - TST-TS-MARKDOWN-MERMAID-MERMAID
+  - TST-TS-SECURITY-ADVERSARIAL-MARKDOWN-CSS
+  potentially_affected:
+  - BTN-EXPORT-PDF
+  - CMP-MARKDOWN-VIEWER
+  - FN-DOWNLOAD-HTML
+  - HDL-APP-EXPORT-HTML
+  - HDL-APP-EXPORT-PDF
+  - PIPE-HAST-TO-HTML
+  - SCR-APP
+  - SCR-PRESENTATION
+  protected_in_closure:
+  - id: CFG-SANITIZE-SCHEMA
+    reasons:
+    - contract_surface:CTR-SANITIZE-POLICY
+    - invariant_member:INV-SANITIZE-PREVIEW-EXPORT
+    - security_config
+  - id: CTR-EXPORT-HTML-DOCUMENT
+    reasons:
+    - contract_surface
+  - id: CTR-SANITIZE-POLICY
+    reasons:
+    - contract_surface
+  - id: IPC-EXPORT-HTML
+    reasons:
+    - invariant_member:INV-EXPORT-NO-SILENT-OVERWRITE
+  - id: SVC-EXPORT-ACTIVE-DOCUMENT-HTML
+    reasons:
+    - invariant_member:INV-EXPORT-NO-SILENT-OVERWRITE
+  - id: SVC-EXPORT-HTML-DOCUMENT
+    reasons:
+    - invariant_member:INV-SANITIZE-PREVIEW-EXPORT
+  - id: SVC-PROCESS-PRESENTATION
+    reasons:
+    - invariant_member:INV-SANITIZE-PREVIEW-EXPORT
+  protected_total: 139
+  protected_declared:
+  - id: PIPE-SANITIZE
+    reasons:
+    - invariant_member:INV-SANITIZE-PREVIEW-EXPORT
+  - id: SVC-PROCESS-MARKDOWN
+    reasons:
+    - invariant_member:INV-SANITIZE-PREVIEW-EXPORT
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+impact:
+  changed:
+  - PIPE-KATEX
+  - PIPE-SANITIZE
+  - PIPE-REMARK-MATH
+  - SVC-PROCESS-MARKDOWN
+  graph_source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+  closure:
+  - id: PIPE-KATEX
+    kind: code
+    type: pipeline_stage
+    distance: 0
+    anchor: src/markdown/processor.ts
+    via: null
+    terminal: false
+  - id: PIPE-REMARK-MATH
+    kind: code
+    type: pipeline_stage
+    distance: 0
+    anchor: src/markdown/processor.ts
+    via: null
+    terminal: false
+  - id: PIPE-SANITIZE
+    kind: code
+    type: pipeline_stage
+    distance: 0
+    anchor: src/markdown/sanitize.ts
+    via: null
+    terminal: false
+  - id: SVC-PROCESS-MARKDOWN
+    kind: code
+    type: service
+    distance: 0
+    anchor: src/markdown/processor.ts
+    via: null
+    terminal: false
+  - id: CMP-MARKDOWN-VIEWER
+    kind: code
+    type: component
+    distance: 1
+    anchor: src/components/MarkdownViewer.tsx
+    via:
+      node: SVC-PROCESS-MARKDOWN
+      relation: calls
+      direction: reverse
+    terminal: false
+  - id: CTR-SANITIZE-POLICY
+    kind: contract
+    type: contract
+    distance: 1
+    anchor: null
+    via:
+      node: PIPE-SANITIZE
+      relation: implemented_by
+      direction: reverse
+    terminal: false
+  - id: PIPE-HAST-TO-HTML
+    kind: code
+    type: pipeline_stage
+    distance: 1
+    anchor: src/markdown/processor.ts
+    via:
+      node: PIPE-SANITIZE
+      relation: depends_on
+      direction: reverse
+    terminal: false
+  - id: SVC-EXPORT-HTML-DOCUMENT
+    kind: code
+    type: service
+    distance: 1
+    anchor: src/services/export.ts
+    via:
+      node: SVC-PROCESS-MARKDOWN
+      relation: calls
+      direction: reverse
+    terminal: false
+  - id: SVC-PROCESS-PRESENTATION
+    kind: code
+    type: service
+    distance: 1
+    anchor: src/presentation/processor.ts
+    via:
+      node: SVC-PROCESS-MARKDOWN
+      relation: calls
+      direction: reverse
+    terminal: false
+  - id: CFG-SANITIZE-SCHEMA
+    kind: code
+    type: configuration
+    distance: 2
+    anchor: src/markdown/sanitize.ts
+    via:
+      node: CTR-SANITIZE-POLICY
+      relation: implements
+      direction: reverse
+    terminal: false
+  - id: CTR-EXPORT-HTML-DOCUMENT
+    kind: contract
+    type: contract
+    distance: 2
+    anchor: null
+    via:
+      node: SVC-EXPORT-HTML-DOCUMENT
+      relation: implemented_by
+      direction: reverse
+    terminal: false
+  - id: HDL-APP-EXPORT-PDF
+    kind: code
+    type: handler
+    distance: 2
+    anchor: src/App.tsx
+    via:
+      node: CMP-MARKDOWN-VIEWER
+      relation: depends_on
+      direction: reverse
+    terminal: false
+  - id: SCR-APP
+    kind: code
+    type: screen
+    distance: 2
+    anchor: src/App.tsx
+    via:
+      node: CMP-MARKDOWN-VIEWER
+      relation: contains
+      direction: reverse
+    terminal: false
+  - id: SCR-PRESENTATION
+    kind: code
+    type: screen
+    distance: 2
+    anchor: src/presentation/PresentationMode.tsx
+    via:
+      node: SVC-PROCESS-PRESENTATION
+      relation: calls
+      direction: reverse
+    terminal: false
+  - id: SVC-EXPORT-ACTIVE-DOCUMENT-HTML
+    kind: code
+    type: service
+    distance: 2
+    anchor: src/services/exportHtml.ts
+    via:
+      node: SVC-EXPORT-HTML-DOCUMENT
+      relation: calls
+      direction: reverse
+    terminal: false
+  - id: BTN-EXPORT-PDF
+    kind: code
+    type: button
+    distance: 3
+    anchor: src/components/header/ExportMenu.tsx
+    via:
+      node: HDL-APP-EXPORT-PDF
+      relation: triggers
+      direction: reverse
+    terminal: true
+  - id: FN-DOWNLOAD-HTML
+    kind: code
+    type: function
+    distance: 3
+    anchor: src/services/exportHtml.ts
+    via:
+      node: CTR-EXPORT-HTML-DOCUMENT
+      relation: depends_on
+      direction: reverse
+    terminal: true
+  - id: HDL-APP-EXPORT-HTML
+    kind: code
+    type: handler
+    distance: 3
+    anchor: src/App.tsx
+    via:
+      node: SVC-EXPORT-ACTIVE-DOCUMENT-HTML
+      relation: calls
+      direction: reverse
+    terminal: true
+  - id: IPC-EXPORT-HTML
+    kind: code
+    type: ipc_command
+    distance: 3
+    anchor: src-tauri/src/commands/mod.rs
+    via:
+      node: CTR-EXPORT-HTML-DOCUMENT
+      relation: depends_on
+      direction: reverse
+    terminal: true
+  hubs: []
+  contracts:
+  - CTR-EXPORT-HTML-DOCUMENT
+  - CTR-SANITIZE-POLICY
+  data: []
+  events: []
+  modules:
+  - MOD-APP-SHELL
+  - MOD-EXPORT
+  - MOD-PRESENTATION
+  - MOD-PREVIEW
+  - MOD-SECURITY-POLICY
+  flows:
+  - id: FLOW-APP-BOOT
+    steps_hit:
+    - SCR-APP
+  - id: FLOW-BACKLINKS-QUERY
+    steps_hit:
+    - SCR-APP
+  - id: FLOW-EXPORT-HTML
+    steps_hit:
+    - FN-DOWNLOAD-HTML
+    - HDL-APP-EXPORT-HTML
+    - IPC-EXPORT-HTML
+    - SVC-EXPORT-ACTIVE-DOCUMENT-HTML
+    - SVC-EXPORT-HTML-DOCUMENT
+    - SVC-PROCESS-MARKDOWN
+  - id: FLOW-EXPORT-PDF
+    steps_hit:
+    - BTN-EXPORT-PDF
+    - HDL-APP-EXPORT-PDF
+  - id: FLOW-METADATA-REFRESH
+    steps_hit:
+    - SCR-APP
+  - id: FLOW-PRESENTATION
+    steps_hit:
+    - SCR-PRESENTATION
+    - SVC-PROCESS-MARKDOWN
+    - SVC-PROCESS-PRESENTATION
+  - id: FLOW-PREVIEW-RENDER
+    steps_hit:
+    - CMP-MARKDOWN-VIEWER
+    - PIPE-HAST-TO-HTML
+    - PIPE-KATEX
+    - PIPE-REMARK-MATH
+    - PIPE-SANITIZE
+    - SCR-APP
+    - SVC-PROCESS-MARKDOWN
+  - id: FLOW-WIKI-LINK-RESOLVE
+    steps_hit:
+    - CMP-MARKDOWN-VIEWER
+    - SCR-APP
+    - SVC-PROCESS-MARKDOWN
+  features:
+    direct:
+    - FEAT-CREATE-NOTE-FROM-WIKI
+    - FEAT-EXPORT-HTML
+    - FEAT-KATEX
+    - FEAT-MERMAID
+    - FEAT-OUTGOING-LINKS
+    - FEAT-PRESENTATION
+    - FEAT-PREVIEW
+    - FEAT-SANITIZE
+    - FEAT-SHIKI
+    - FEAT-WIKI-LINKS
+    indirect:
+    - FEAT-APP-SCREENS
+    - FEAT-BACKLINKS
+    - FEAT-EXPORT-PDF
+    - FEAT-LAYOUT-PANELS
+    - FEAT-METADATA-INDEX
+    - FEAT-SPLASH-PACKAGING
+  invariants:
+  - id: INV-EXPORT-NO-SILENT-OVERWRITE
+    name: Export não sobrescreve sem confirmação
+    hit_by:
+    - IPC-EXPORT-HTML
+    - SVC-EXPORT-ACTIVE-DOCUMENT-HTML
+    min_distance: 2
+    members:
+    - IPC-EXPORT-EPUB
+    - IPC-EXPORT-HTML
+    - OSI-CONFIRM-OVERWRITE
+    - SVC-EXPORT-ACTIVE-DOCUMENT-EPUB
+    - SVC-EXPORT-ACTIVE-DOCUMENT-HTML
+    tests:
+    - TST-RS-EXPORT-OVERWRITE-WHEN-ALLOWED
+    - TST-RS-EXPORT-REFUSES-OVERWRITE-WITHOUT-FLAG
+    - TST-TS-EXPORT-EXPORT-FLOW
+    - TST-TS-EXPORT-EXPORTEPUBSERVICE
+  - id: INV-SANITIZE-PREVIEW-EXPORT
+    name: Sanitização obrigatória no preview, export HTML, apresentação e EPUB
+    hit_by:
+    - CFG-SANITIZE-SCHEMA
+    - PIPE-SANITIZE
+    - SVC-EXPORT-HTML-DOCUMENT
+    - SVC-PROCESS-MARKDOWN
+    - SVC-PROCESS-PRESENTATION
+    min_distance: 0
+    members:
+    - CFG-EPUB-SANITIZE-SCHEMA
+    - CFG-SANITIZE-SCHEMA
+    - FN-PROCESS-EPUB-MARKDOWN
+    - PIPE-REHYPE-RAW
+    - PIPE-RESTRICT-RENDERER-STYLES
+    - PIPE-SANITIZE
+    - PIPE-STRIP-MARKDOWN-STYLES
+    - SVC-EXPORT-HTML-DOCUMENT
+    - SVC-PROCESS-MARKDOWN
+    - SVC-PROCESS-PRESENTATION
+    tests:
+    - TST-TS-EXPORT-EXPORT
+    - TST-TS-EXPORT-MERMAIDCAPTURE
+    - TST-TS-MARKDOWN-CORE-PROCESSOR
+    - TST-TS-PRESENTATION-PROCESSOR
+    - TST-TS-SECURITY-ADVERSARIAL-MARKDOWN-CSS
+  entrypoints:
+  - ENT-BTN-EXPORT-PDF
+  - ENT-IPC-EXPORT-HTML
+  - ENT-SCR-APP
+  tests:
+    must_run:
+    - TST-TS-EXPORT-EXPORT
+    - TST-TS-EXPORT-MERMAIDCAPTURE
+    - TST-TS-MARKDOWN-CODE-CODE-HIGHLIGHT
+    - TST-TS-MARKDOWN-CORE-PROCESSOR
+    - TST-TS-MARKDOWN-MERMAID-MERMAID
+    - TST-TS-PRESENTATION-PROCESSOR
+    - TST-TS-SECURITY-ADVERSARIAL-MARKDOWN-CSS
+    should_run:
+    - TST-RS-EXPORT-OVERWRITE-WHEN-ALLOWED
+    - TST-RS-EXPORT-REFUSES-OVERWRITE-WITHOUT-FLAG
+    - TST-TS-EXPORT-EXPORT-FLOW
+    - TST-TS-EXPORT-EXPORTEPUBSERVICE
+    - TST-TS-PRESENTATION-LIFECYCLE
+    - TST-TS-UI-CODE-FORMATTING-UI
+    may_run:
+    - TST-RS-EXPORT-WRITES-RENDERED-HTML-NOT-PRE-STUB
+    - TST-TS-PRESENTATION-ACCESSIBILITY
+    - TST-TS-PRESENTATION-SESSION
+  stats:
+    closure_nodes: 19
+    by_distance:
+      '0': 4
+      '1': 5
+      '2': 6
+      '3': 4

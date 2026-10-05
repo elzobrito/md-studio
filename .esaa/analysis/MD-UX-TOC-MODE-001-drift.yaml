@@ -1,0 +1,91 @@
+artifact: task-drift
+schema_version: 1
+trace_task: TRACE-019
+task_id: MD-UX-TOC-MODE-001
+inputs:
+  impact: .esaa/analysis/MD-UX-TOC-MODE-001-impact.yaml
+  footprint: .esaa/analysis/MD-UX-TOC-MODE-001-footprint.yaml
+  graph_source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+notes:
+- goToHeading no longer calls setViewMode. LSK-UI-STATE not edited. outline-navigation.test.tsx allow_new_tests.
+rule: authorized = change_target ∪ expected_affected; ok ∈ authorized; violation ∈ protected; warning ∈ potentially_affected | out_of_closure
+  | uncatalogued substantive
+authorized:
+- CMP-DOCUMENT-OUTLINE
+- HDL-APP-GO-TO-HEADING
+- SCR-APP
+- TST-TS-DOCUMENT-OUTLINE-FILTER
+observed:
+- HDL-APP-GO-TO-HEADING
+- HDL-APP-SELECT-TEMPLATE
+- TST-TS-DOCUMENT-OUTLINE-FILTER
+classification:
+- id: HDL-APP-GO-TO-HEADING
+  category: authorized
+  severity: ok
+  reasons: []
+- id: HDL-APP-SELECT-TEMPLATE
+  category: out_of_closure
+  severity: warning
+  reasons: []
+- id: TST-TS-DOCUMENT-OUTLINE-FILTER
+  category: authorized
+  severity: ok
+  reasons: []
+drift:
+- id: HDL-APP-SELECT-TEMPLATE
+  category: out_of_closure
+  severity: warning
+  reasons: []
+other_findings:
+- path: tests/layout/outline-navigation.test.tsx
+  category: new_test_file
+  severity: info
+not_touched:
+- CMP-DOCUMENT-OUTLINE
+- SCR-APP
+verdict: warning
+metrics:
+  nodes:
+    tp: 2
+    authorized: 4
+    observed: 3
+    precision: 0.5
+    recall: 0.667
+    closure_recall: 0.667
+  code_nodes_only:
+    tp: 1
+    authorized: 3
+    observed: 2
+    precision: 0.333
+    recall: 0.5
+  features:
+    projected_direct:
+    - FEAT-OUTLINE
+    - FEAT-OUTLINE-FILTER
+    projected_all: 16
+    observed:
+    - FEAT-OUTLINE
+    - FEAT-TEMPLATES
+    observed_in_projected_direct:
+    - FEAT-OUTLINE
+    observed_missing_from_projection:
+    - FEAT-TEMPLATES
+    precision_direct: 0.5
+    recall_all: 0.5
+  invariants:
+    projected: []
+    observed: []
+    missing_from_projection: []
+  tests:
+    projected_must_run:
+    - TST-TS-DOCUMENT-OUTLINE-FILTER
+    - TST-TS-PANEL-COLLAPSIBLEPANEL
+    - TST-TS-PANEL-RIGHT-PANEL-ACCORDION
+    changed_test_nodes:
+    - TST-TS-DOCUMENT-OUTLINE-FILTER
+    new_test_files:
+    - tests/layout/outline-navigation.test.tsx
+  contracts_touched: []
+  data_touched: []
+  events_touched: []

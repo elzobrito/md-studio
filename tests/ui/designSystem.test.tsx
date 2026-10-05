@@ -51,7 +51,7 @@ describe("MD-UI-BUTTONS-001: Design System Button Migration Hotspots", () => {
     expect(html).toContain("Escrever Novo Documento");
   });
 
-  it("renders NewDocumentModal with Cancelar and Criar Documento Button actions", async () => {
+  it("renders NewDocumentModal with Cancelar and Criar em branco Button actions", async () => {
     const { act } = await import("react");
     const { createRoot } = await import("react-dom/client");
     const container = document.createElement("div");
@@ -69,7 +69,7 @@ describe("MD-UI-BUTTONS-001: Design System Button Migration Hotspots", () => {
     });
 
     expect(document.body.innerHTML).toContain("Cancelar");
-    expect(document.body.innerHTML).toContain("Criar Documento");
+    expect(document.body.innerHTML).toContain("Criar em branco");
     expect(document.body.innerHTML).toContain("btn-secondary");
     expect(document.body.innerHTML).toContain("btn-primary");
 

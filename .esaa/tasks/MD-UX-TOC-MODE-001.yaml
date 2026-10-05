@@ -1,0 +1,30 @@
+artifact: task-traceability
+schema_version: 1
+task_id: MD-UX-TOC-MODE-001
+written_at: '2026-10-05T15:46:00-03:00'
+projected_before_change: true
+graph:
+  path: .esaa/traceability/graph.json
+  source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+traceability:
+  targets:
+    - HDL-APP-GO-TO-HEADING
+    - CMP-DOCUMENT-OUTLINE
+  expected_affected:
+    - SCR-APP
+    - TST-TS-DOCUMENT-OUTLINE-FILTER
+  protected_extra: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: false
+  justification:
+    HDL-APP-GO-TO-HEADING: "O handler deixa de forçar preview; source usa goToLine e preview continua com scrollToHeading."
+    CMP-DOCUMENT-OUTLINE: "O clique já envia a linha do heading; o teste cobre esse contrato."
+artifacts:
+  impact: .esaa/analysis/MD-UX-TOC-MODE-001-impact.yaml
+  footprint: .esaa/analysis/MD-UX-TOC-MODE-001-footprint.yaml
+  drift: .esaa/analysis/MD-UX-TOC-MODE-001-drift.yaml
+expected_uncatalogued:
+  - tests/layout/outline-navigation.test.tsx
+close_rule: O complete copia verdict. warning cita path e linhas. violation bloqueia. Não reancorar graph.json. Não tocar LSK-UI-STATE.

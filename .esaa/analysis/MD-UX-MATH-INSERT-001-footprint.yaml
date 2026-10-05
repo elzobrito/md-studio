@@ -1,0 +1,307 @@
+artifact: task-footprint
+schema_version: 1
+trace_task: TRACE-018
+task_id: MD-UX-MATH-INSERT-001
+diff:
+  base: b5e2cab8df4c9de9e3b620a094b615403c9cc097
+  head: WORKTREE
+  paths_filter:
+  - src/editor/formatting/math.ts
+  - src/editor/formatting/index.ts
+  - src/components/editor/FormattingToolbar.tsx
+  - src/components/editor/MathInsertPopover.tsx
+  - src/styles/formatting-toolbar.css
+  - tests/editor/insertMath.test.ts
+  - tests/editor/formattingToolbar.test.tsx
+  excluded_set: []
+  command: git diff -U0 --no-color --no-ext-diff b5e2cab8df4c9de9e3b620a094b615403c9cc097 -- src/editor/formatting/math.ts src/editor/formatting/index.ts
+    src/components/editor/FormattingToolbar.tsx src/components/editor/MathInsertPopover.tsx src/styles/formatting-toolbar.css tests/editor/insertMath.test.ts
+    tests/editor/formattingToolbar.test.tsx
+graph_source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+notes: []
+changed_files:
+- path: src/components/editor/FormattingToolbar.tsx
+  status: M
+  added: 35
+  removed: 4
+  hunks:
+  - old:
+    - 5
+    - 4
+    new:
+    - 6
+    - 6
+  - old:
+    - 113
+    - 112
+    new:
+    - 115
+    - 115
+  - old:
+    - 114
+    - 113
+    new:
+    - 117
+    - 117
+  - old:
+    - 157
+    - 157
+    new:
+    - 160
+    - 160
+  - old:
+    - 159
+    - 159
+    new:
+    - 162
+    - 162
+  - old:
+    - 161
+    - 160
+    new:
+    - 165
+    - 165
+  - old:
+    - 162
+    - 161
+    new:
+    - 167
+    - 167
+  - old:
+    - 164
+    - 164
+    new:
+    - 169
+    - 169
+  - old:
+    - 167
+    - 166
+    new:
+    - 173
+    - 179
+  - old:
+    - 174
+    - 174
+    new:
+    - 186
+    - 186
+  - old:
+    - 351
+    - 350
+    new:
+    - 364
+    - 382
+  is_test: false
+  catalogued_nodes_in_file: 2
+- path: src/components/editor/MathInsertPopover.tsx
+  status: A
+  added: 110
+  removed: 0
+  hunks:
+  - old:
+    - 0
+    - -1
+    new:
+    - 1
+    - 110
+  is_test: false
+  catalogued_nodes_in_file: 0
+- path: src/editor/formatting/index.ts
+  status: M
+  added: 1
+  removed: 0
+  hunks:
+  - old:
+    - 11
+    - 10
+    new:
+    - 12
+    - 12
+  is_test: false
+  catalogued_nodes_in_file: 0
+- path: src/editor/formatting/math.ts
+  status: A
+  added: 46
+  removed: 0
+  hunks:
+  - old:
+    - 0
+    - -1
+    new:
+    - 1
+    - 46
+  is_test: false
+  catalogued_nodes_in_file: 0
+- path: src/styles/formatting-toolbar.css
+  status: M
+  added: 63
+  removed: 0
+  hunks:
+  - old:
+    - 165
+    - 164
+    new:
+    - 166
+    - 228
+  is_test: false
+  catalogued_nodes_in_file: 0
+- path: tests/editor/formattingToolbar.test.tsx
+  status: M
+  added: 37
+  removed: 0
+  hunks:
+  - old:
+    - 87
+    - 86
+    new:
+    - 88
+    - 91
+  - old:
+    - 250
+    - 249
+    new:
+    - 255
+    - 287
+  is_test: true
+  catalogued_nodes_in_file: 1
+- path: tests/editor/insertMath.test.ts
+  status: A
+  added: 80
+  removed: 0
+  hunks:
+  - old:
+    - 0
+    - -1
+    new:
+    - 1
+    - 80
+  is_test: true
+  catalogued_nodes_in_file: 0
+changed_nodes:
+- id: CMP-FORMATTING-TOOLBAR
+  kind: code
+  type: component
+  path: src/components/editor/FormattingToolbar.tsx
+  sides:
+  - old
+  - new
+  lines_hit: 38
+  attribution: line
+  anchor_resolution:
+    old: exact
+    new: relocated
+  created_by_change: false
+- id: TST-TS-EDITOR-FORMATTINGTOOLBAR
+  kind: test
+  type: test
+  path: tests/editor/formattingToolbar.test.tsx
+  sides:
+  - new
+  lines_hit: 37
+  attribution: line
+  anchor_resolution:
+    old: exact
+    new: relocated
+  created_by_change: false
+enclosing_nodes: []
+uncatalogued:
+- path: src/components/editor/FormattingToolbar.tsx
+  is_test: false
+  new_lines:
+  - - 6
+    - 6
+  trivial_lines: 1
+  substantive_lines: []
+- path: src/editor/formatting/index.ts
+  is_test: false
+  new_lines:
+  - - 12
+    - 12
+  trivial_lines: 1
+  substantive_lines: []
+- path: src/styles/formatting-toolbar.css
+  is_test: false
+  new_lines:
+  - - 166
+    - 228
+  trivial_lines: 7
+  substantive_lines:
+  - new:167
+  - new:168
+  - new:169
+  - new:170
+  - new:171
+  - new:172
+  - new:173
+  - new:174
+  - new:175
+  - new:176
+  - new:177
+  - new:178
+  - new:179
+  - new:180
+  - new:181
+  - new:183
+  - new:184
+  - new:185
+  - new:186
+  - new:188
+  - new:189
+  - new:190
+  - new:191
+  - new:192
+  - new:193
+  - new:194
+  - new:195
+  - new:196
+  - new:197
+  - new:199
+  - new:200
+  - new:201
+  - new:202
+  - new:204
+  - new:205
+  - new:206
+  - new:207
+  - new:208
+  - new:210
+  - new:211
+  - new:212
+  - new:213
+  - new:214
+  - new:215
+  - new:216
+  - new:217
+  - new:218
+  - new:220
+  - new:221
+  - new:222
+  - new:223
+  - new:224
+  - new:225
+  - new:226
+  - new:227
+  - new:228
+new_files:
+- src/components/editor/MathInsertPopover.tsx
+- src/editor/formatting/math.ts
+new_test_files:
+- tests/editor/insertMath.test.ts
+contracts_touched: []
+data_touched: []
+events_touched: []
+rollup:
+  features:
+  - FEAT-FORMATTING-TOOLBAR
+  invariants: []
+  flows:
+  - FLOW-EDITOR-COMMANDS
+stats:
+  files: 7
+  changed_nodes: 2
+  code_nodes: 1
+  test_nodes: 1
+  uncatalogued_files: 3
+  uncatalogued_substantive_lines: 56
+  new_files: 2
+  new_test_files: 1

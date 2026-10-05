@@ -344,11 +344,18 @@ export function useDocumentState() {
   const newDocument = useCallback((initialText: string = "") => {
     clearAutoSaveTimer();
     setRelativePath("");
+    relativePathRef.current = "";
     setSnapshot(null);
+    snapshotRef.current = null;
     setContentState(initialText);
     setDirty(false);
+    dirtyRef.current = false;
     editorStore.setSaveStatus("saved");
   }, [clearAutoSaveTimer]);
+
+  const allowReplaceOpenDocument = useCallback(() => {
+    return confirmReplaceOpenDocument(dirtyRef.current);
+  }, []);
 
   const closeFile = useCallback(() => {
     clearAutoSaveTimer();
@@ -482,8 +489,20 @@ export function useDocumentState() {
     save,
     saveAs,
     newDocument,
+    allowReplaceOpenDocument,
     closeFile,
     conflictPath,
     resolveConflict,
   };
+}
+
+export const NEW_DOCUMENT_UNSAVED_CONFIRM =
+  "Você possui alterações não salvas. Deseja descartá-las e criar um novo documento?";
+
+export function confirmReplaceOpenDocument(
+  isDirty: boolean,
+  confirmFn: (message: string) => boolean = (msg) => window.confirm(msg),
+): boolean {
+  if (!isDirty) return true;
+  return confirmFn(NEW_DOCUMENT_UNSAVED_CONFIRM);
 }

@@ -8,7 +8,7 @@ import { Settings } from "./components/Settings";
 import { useDocumentState } from "./state/documentState";
 import { useSession, type ViewMode } from "./state/session";
 import { isTauriRuntime, pickFolder, pickMarkdownFile } from "./lib/ipc";
-import { scrollToHeading } from "./services/navigation";
+import { extractOutline, scrollToHeading } from "./services/navigation";
 import { WelcomeScreen } from "./components/empty/WelcomeScreen";
 import { WorkspaceHome } from "./components/home/WorkspaceHome";
 import { ConflictDialog } from "./components/ConflictDialog";
@@ -195,9 +195,13 @@ export function App() {
 
   const handleSelectTemplate = useCallback(
     (template: Template) => {
+      if (!doc.allowReplaceOpenDocument()) {
+        return false;
+      }
       doc.newDocument(template.content());
       setIsWriting(true);
       setNewDocModalOpen(false);
+      return true;
     },
     [doc],
   );
@@ -565,25 +569,37 @@ export function App() {
   }, []);
 
   const goToHeading = useCallback(
-    (slug: string) => {
-      const ensurePreview = view === "source";
-      if (ensurePreview) session.setViewMode("preview");
+    (slug: string, line?: number) => {
+      const resolvedLine =
+        line ?? extractOutline(doc.content).find((item) => item.id === slug)?.line;
+
+      if (view !== "preview" && resolvedLine != null) {
+        editorStore.goToLine(resolvedLine);
+      }
+
+      if (view === "source") {
+        return;
+      }
 
       const tryScroll = () => {
-        if (scrollToHeading(slug, previewRoot) || scrollToHeading(slug)) return true;
+        if (
+          scrollToHeading(slug, previewRoot, resolvedLine) ||
+          scrollToHeading(slug, undefined, resolvedLine)
+        ) {
+          return true;
+        }
         return false;
       };
 
-      if (!ensurePreview && tryScroll()) return;
+      if (tryScroll()) return;
 
-      // Wait for mode switch / re-render of preview HTML
       window.setTimeout(() => {
         if (!tryScroll()) {
           window.setTimeout(() => tryScroll(), 200);
         }
       }, 150);
     },
-    [view, session, previewRoot],
+    [view, previewRoot, doc.content],
   );
 
   const leftCollapsed = !session.leftOpen;

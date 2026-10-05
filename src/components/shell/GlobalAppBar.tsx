@@ -6,7 +6,7 @@ import {
   SunIcon,
   MoonIcon,
   SettingsIcon,
-  PlusIcon,
+  FilePlusIcon,
 } from '../icons';
 
 export interface GlobalAppBarProps {
@@ -78,7 +78,7 @@ export function GlobalAppBar({
             title="Novo documento (Ctrl+N)"
             aria-label="Novo documento"
           >
-            <PlusIcon size={18} />
+            <FilePlusIcon size={18} />
           </button>
         )}
       </div>

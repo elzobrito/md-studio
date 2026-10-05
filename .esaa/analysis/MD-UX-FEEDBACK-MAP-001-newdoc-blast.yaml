@@ -1,0 +1,324 @@
+blast_radius:
+  change_target:
+  - HDL-APP-OPEN-NEW-DOCUMENT
+  - CMP-NEW-DOCUMENT-MODAL
+  - HDL-APP-SELECT-TEMPLATE
+  - HDL-DOC-NEW-DOCUMENT
+  - BTN-HEADER-NEW-DOCUMENT
+  expected_affected:
+  - CMP-APP-HEADER
+  - SCR-APP
+  - STO-DOCUMENT-STATE
+  - TST-TS-TEMPLATES-NEW-DOCUMENT-MODAL
+  - TST-TS-UI-DESIGNSYSTEM
+  expected_affected_source: derived
+  suggested_expected_affected:
+  - CMP-APP-HEADER
+  - SCR-APP
+  - STO-DOCUMENT-STATE
+  - TST-TS-TEMPLATES-NEW-DOCUMENT-MODAL
+  - TST-TS-UI-DESIGNSYSTEM
+  authorized:
+  - BTN-HEADER-NEW-DOCUMENT
+  - CMP-APP-HEADER
+  - CMP-NEW-DOCUMENT-MODAL
+  - HDL-APP-OPEN-NEW-DOCUMENT
+  - HDL-APP-SELECT-TEMPLATE
+  - HDL-DOC-NEW-DOCUMENT
+  - SCR-APP
+  - STO-DOCUMENT-STATE
+  - TST-TS-TEMPLATES-NEW-DOCUMENT-MODAL
+  - TST-TS-UI-DESIGNSYSTEM
+  potentially_affected:
+  - BTN-HEADER-PRESENTATION
+  - BTN-WELCOME-NEW-DOCUMENT
+  - HDL-APP-SHORTCUTS
+  - HDL-APP-START-PRESENTATION
+  - SCR-PRESENTATION
+  - SCR-WELCOME
+  - SHC-CTRL-N
+  - SHC-F5
+  - STO-EDITOR
+  protected_in_closure: []
+  protected_total: 141
+  protected_declared: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+impact:
+  changed:
+  - HDL-APP-OPEN-NEW-DOCUMENT
+  - CMP-NEW-DOCUMENT-MODAL
+  - HDL-APP-SELECT-TEMPLATE
+  - HDL-DOC-NEW-DOCUMENT
+  - BTN-HEADER-NEW-DOCUMENT
+  graph_source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+  closure:
+  - id: BTN-HEADER-NEW-DOCUMENT
+    kind: code
+    type: button
+    distance: 0
+    anchor: src/components/header/AppHeader.tsx
+    via: null
+    terminal: false
+  - id: CMP-NEW-DOCUMENT-MODAL
+    kind: code
+    type: component
+    distance: 0
+    anchor: src/components/editor/NewDocumentModal.tsx
+    via: null
+    terminal: false
+  - id: HDL-APP-OPEN-NEW-DOCUMENT
+    kind: code
+    type: handler
+    distance: 0
+    anchor: src/App.tsx
+    via: null
+    terminal: false
+  - id: HDL-APP-SELECT-TEMPLATE
+    kind: code
+    type: handler
+    distance: 0
+    anchor: src/App.tsx
+    via: null
+    terminal: false
+  - id: HDL-DOC-NEW-DOCUMENT
+    kind: code
+    type: handler
+    distance: 0
+    anchor: src/state/documentState.ts
+    via: null
+    terminal: false
+  - id: BTN-WELCOME-NEW-DOCUMENT
+    kind: code
+    type: button
+    distance: 1
+    anchor: src/components/empty/WelcomeScreen.tsx
+    via:
+      node: HDL-APP-OPEN-NEW-DOCUMENT
+      relation: triggers
+      direction: reverse
+    terminal: false
+  - id: CMP-APP-HEADER
+    kind: code
+    type: component
+    distance: 1
+    anchor: src/components/header/AppHeader.tsx
+    via:
+      node: BTN-HEADER-NEW-DOCUMENT
+      relation: contains
+      direction: reverse
+    terminal: false
+  - id: SCR-APP
+    kind: code
+    type: screen
+    distance: 1
+    anchor: src/App.tsx
+    via:
+      node: HDL-APP-OPEN-NEW-DOCUMENT
+      relation: contains
+      direction: reverse
+    terminal: false
+  - id: SHC-CTRL-N
+    kind: code
+    type: shortcut
+    distance: 1
+    anchor: src/App.tsx
+    via:
+      node: HDL-APP-OPEN-NEW-DOCUMENT
+      relation: triggers
+      direction: reverse
+    terminal: false
+  - id: STO-DOCUMENT-STATE
+    kind: code
+    type: store
+    distance: 1
+    anchor: src/state/documentState.ts
+    via:
+      node: HDL-DOC-NEW-DOCUMENT
+      relation: contains
+      direction: reverse
+    terminal: false
+  - id: STO-EDITOR
+    kind: code
+    type: store
+    distance: 1
+    anchor: src/state/editor.ts
+    via:
+      node: HDL-DOC-NEW-DOCUMENT
+      relation: writes
+      direction: forward
+    terminal: false
+  - id: HDL-APP-SHORTCUTS
+    kind: code
+    type: handler
+    distance: 2
+    anchor: src/App.tsx
+    via:
+      node: SHC-CTRL-N
+      relation: contains
+      direction: reverse
+    terminal: false
+  - id: HDL-APP-START-PRESENTATION
+    kind: code
+    type: handler
+    distance: 2
+    anchor: src/App.tsx
+    via:
+      node: STO-EDITOR
+      relation: reads
+      direction: reverse
+    terminal: false
+  - id: SCR-WELCOME
+    kind: code
+    type: screen
+    distance: 2
+    anchor: src/components/empty/WelcomeScreen.tsx
+    via:
+      node: BTN-WELCOME-NEW-DOCUMENT
+      relation: contains
+      direction: reverse
+    terminal: false
+  - id: BTN-HEADER-PRESENTATION
+    kind: code
+    type: button
+    distance: 3
+    anchor: src/components/header/AppHeader.tsx
+    via:
+      node: HDL-APP-START-PRESENTATION
+      relation: triggers
+      direction: reverse
+    terminal: true
+  - id: SCR-PRESENTATION
+    kind: code
+    type: screen
+    distance: 3
+    anchor: src/presentation/PresentationMode.tsx
+    via:
+      node: HDL-APP-START-PRESENTATION
+      relation: writes
+      direction: forward
+    terminal: true
+  - id: SHC-F5
+    kind: code
+    type: shortcut
+    distance: 3
+    anchor: src/App.tsx
+    via:
+      node: HDL-APP-START-PRESENTATION
+      relation: triggers
+      direction: reverse
+    terminal: true
+  hubs: []
+  contracts: []
+  data:
+  - STO-DOCUMENT-STATE
+  - STO-EDITOR
+  events: []
+  modules:
+  - MOD-APP-SHELL
+  - MOD-EDITOR
+  - MOD-PERSISTENCE
+  - MOD-PRESENTATION
+  - MOD-TEMPLATES
+  flows:
+  - id: FLOW-APP-BOOT
+    steps_hit:
+    - HDL-APP-SHORTCUTS
+    - SCR-APP
+  - id: FLOW-BACKLINKS-QUERY
+    steps_hit:
+    - SCR-APP
+    - STO-EDITOR
+  - id: FLOW-CLOSE-FILE
+    steps_hit:
+    - STO-EDITOR
+  - id: FLOW-CONFLICT-ON-SAVE
+    steps_hit:
+    - STO-EDITOR
+  - id: FLOW-METADATA-REFRESH
+    steps_hit:
+    - SCR-APP
+  - id: FLOW-NEW-DOCUMENT
+    steps_hit:
+    - BTN-HEADER-NEW-DOCUMENT
+    - BTN-WELCOME-NEW-DOCUMENT
+    - CMP-NEW-DOCUMENT-MODAL
+    - HDL-APP-OPEN-NEW-DOCUMENT
+    - HDL-APP-SELECT-TEMPLATE
+    - HDL-DOC-NEW-DOCUMENT
+    - SHC-CTRL-N
+    - STO-EDITOR
+  - id: FLOW-PRESENTATION
+    steps_hit:
+    - BTN-HEADER-PRESENTATION
+    - HDL-APP-START-PRESENTATION
+    - SCR-PRESENTATION
+    - SHC-F5
+  - id: FLOW-PREVIEW-RENDER
+    steps_hit:
+    - SCR-APP
+  - id: FLOW-SAVE-DOCUMENT
+    steps_hit:
+    - STO-EDITOR
+  - id: FLOW-WIKI-LINK-RESOLVE
+    steps_hit:
+    - SCR-APP
+  features:
+    direct:
+    - FEAT-TEMPLATES
+    indirect:
+    - FEAT-APP-SCREENS
+    - FEAT-BACKLINKS
+    - FEAT-CONFLICT
+    - FEAT-CREATE-NOTE-FROM-WIKI
+    - FEAT-EDITOR
+    - FEAT-GO-TO-LINE
+    - FEAT-KATEX
+    - FEAT-LAYOUT-PANELS
+    - FEAT-MERMAID
+    - FEAT-METADATA-INDEX
+    - FEAT-OPEN-FILE
+    - FEAT-OUTGOING-LINKS
+    - FEAT-PRESENTATION
+    - FEAT-PREVIEW
+    - FEAT-SANITIZE
+    - FEAT-SAVE
+    - FEAT-SETTINGS
+    - FEAT-SHIKI
+    - FEAT-SHORTCUTS-HELP
+    - FEAT-SPLASH-PACKAGING
+    - FEAT-VIEW-MODES
+    - FEAT-WATCHER
+    - FEAT-WIKI-LINKS
+  invariants: []
+  entrypoints:
+  - ENT-BTN-HEADER-NEW-DOCUMENT
+  - ENT-BTN-HEADER-PRESENTATION
+  - ENT-BTN-WELCOME-NEW-DOCUMENT
+  - ENT-SCR-APP
+  - ENT-SHC-CTRL-N
+  - ENT-SHC-F5
+  tests:
+    must_run:
+    - TST-TS-TEMPLATES-NEW-DOCUMENT-MODAL
+    - TST-TS-UI-DESIGNSYSTEM
+    should_run:
+    - TST-TS-EDITOR-AUTOSAVE
+    - TST-TS-EDITOR-SINGLESAVE
+    - TST-TS-EXPORT-EXPORT-PDF
+    - TST-TS-HEADER-EXPORTMENU
+    - TST-TS-HEADER-TOPBAR
+    - TST-TS-UX-EDITORSTORE
+    - TST-TS-UX-WIREFRAMEFIDELITY
+    may_run:
+    - TST-TS-EMPTY-EMPTYSTATE
+    - TST-TS-PRESENTATION-ACCESSIBILITY
+    - TST-TS-PRESENTATION-SESSION
+  stats:
+    closure_nodes: 17
+    by_distance:
+      '0': 5
+      '1': 6
+      '2': 3
+      '3': 3

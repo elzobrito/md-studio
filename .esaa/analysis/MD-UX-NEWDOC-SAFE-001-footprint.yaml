@@ -1,0 +1,338 @@
+artifact: task-footprint
+schema_version: 1
+trace_task: TRACE-018
+task_id: MD-UX-NEWDOC-SAFE-001
+diff:
+  base: b5e2cab8df4c9de9e3b620a094b615403c9cc097
+  head: WORKTREE
+  paths_filter:
+  - src/App.tsx
+  - src/components/editor/NewDocumentModal.tsx
+  - src/components/shell/GlobalAppBar.tsx
+  - src/state/documentState.ts
+  - tests/templates/new-document-modal.test.tsx
+  - tests/runtime/global-app-shell.test.ts
+  excluded_set: []
+  command: git diff -U0 --no-color --no-ext-diff b5e2cab8df4c9de9e3b620a094b615403c9cc097 -- src/App.tsx src/components/editor/NewDocumentModal.tsx
+    src/components/shell/GlobalAppBar.tsx src/state/documentState.ts tests/templates/new-document-modal.test.tsx tests/runtime/global-app-shell.test.ts
+graph_source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+notes: []
+changed_files:
+- path: src/App.tsx
+  status: M
+  added: 4
+  removed: 0
+  hunks:
+  - old:
+    - 197
+    - 196
+    new:
+    - 198
+    - 200
+  - old:
+    - 200
+    - 199
+    new:
+    - 204
+    - 204
+  is_test: false
+  catalogued_nodes_in_file: 26
+- path: src/components/editor/NewDocumentModal.tsx
+  status: M
+  added: 23
+  removed: 7
+  hunks:
+  - old:
+    - 11
+    - 11
+    new:
+    - 11
+    - 11
+  - old:
+    - 36
+    - 35
+    new:
+    - 37
+    - 43
+  - old:
+    - 40
+    - 41
+    new:
+    - 47
+    - 54
+  - old:
+    - 136
+    - 137
+    new:
+    - 148
+    - 147
+  - old:
+    - 147
+    - 148
+    new:
+    - 158
+    - 164
+  is_test: false
+  catalogued_nodes_in_file: 1
+- path: src/components/shell/GlobalAppBar.tsx
+  status: M
+  added: 2
+  removed: 2
+  hunks:
+  - old:
+    - 9
+    - 9
+    new:
+    - 9
+    - 9
+  - old:
+    - 81
+    - 81
+    new:
+    - 81
+    - 81
+  is_test: false
+  catalogued_nodes_in_file: 0
+- path: src/state/documentState.ts
+  status: M
+  added: 19
+  removed: 0
+  hunks:
+  - old:
+    - 346
+    - 345
+    new:
+    - 347
+    - 347
+  - old:
+    - 347
+    - 346
+    new:
+    - 349
+    - 349
+  - old:
+    - 349
+    - 348
+    new:
+    - 352
+    - 352
+  - old:
+    - 352
+    - 351
+    new:
+    - 356
+    - 359
+  - old:
+    - 484
+    - 483
+    new:
+    - 492
+    - 492
+  - old:
+    - 489
+    - 488
+    new:
+    - 498
+    - 508
+  is_test: false
+  catalogued_nodes_in_file: 16
+- path: tests/runtime/global-app-shell.test.ts
+  status: M
+  added: 2
+  removed: 0
+  hunks:
+  - old:
+    - 82
+    - 81
+    new:
+    - 83
+    - 84
+  is_test: true
+  catalogued_nodes_in_file: 0
+- path: tests/templates/new-document-modal.test.tsx
+  status: M
+  added: 108
+  removed: 1
+  hunks:
+  - old:
+    - 5
+    - 4
+    new:
+    - 6
+    - 9
+  - old:
+    - 85
+    - 85
+    new:
+    - 89
+    - 89
+  - old:
+    - 105
+    - 104
+    new:
+    - 110
+    - 177
+  - old:
+    - 112
+    - 111
+    new:
+    - 185
+    - 219
+  is_test: true
+  catalogued_nodes_in_file: 1
+changed_nodes:
+- id: HDL-APP-SELECT-TEMPLATE
+  kind: code
+  type: handler
+  path: src/App.tsx
+  sides:
+  - new
+  lines_hit: 4
+  attribution: line
+  anchor_resolution:
+    old: relocated
+    new: relocated
+  created_by_change: false
+- id: CMP-NEW-DOCUMENT-MODAL
+  kind: code
+  type: component
+  path: src/components/editor/NewDocumentModal.tsx
+  sides:
+  - old
+  - new
+  lines_hit: 28
+  attribution: line
+  anchor_resolution:
+    old: exact
+    new: relocated
+  created_by_change: false
+- id: HDL-DOC-NEW-DOCUMENT
+  kind: code
+  type: handler
+  path: src/state/documentState.ts
+  sides:
+  - new
+  lines_hit: 3
+  attribution: line
+  anchor_resolution:
+    old: relocated
+    new: relocated
+  created_by_change: false
+- id: STO-DOCUMENT-STATE
+  kind: code
+  type: store
+  path: src/state/documentState.ts
+  sides:
+  - new
+  lines_hit: 5
+  attribution: line
+  anchor_resolution:
+    old: relocated
+    new: relocated
+  created_by_change: false
+- id: TST-TS-TEMPLATES-NEW-DOCUMENT-MODAL
+  kind: test
+  type: test
+  path: tests/templates/new-document-modal.test.tsx
+  sides:
+  - old
+  - new
+  lines_hit: 105
+  attribution: line
+  anchor_resolution:
+    old: exact
+    new: relocated
+  created_by_change: false
+enclosing_nodes:
+- id: SCR-APP
+  contains_changed:
+  - HDL-APP-SELECT-TEMPLATE
+uncatalogued:
+- path: src/components/editor/NewDocumentModal.tsx
+  is_test: false
+  old_lines:
+  - - 11
+    - 11
+  new_lines:
+  - - 11
+    - 11
+  trivial_lines: 0
+  substantive_lines:
+  - old:11
+  - new:11
+- path: src/components/shell/GlobalAppBar.tsx
+  is_test: false
+  old_lines:
+  - - 9
+    - 9
+  - - 81
+    - 81
+  new_lines:
+  - - 9
+    - 9
+  - - 81
+    - 81
+  trivial_lines: 2
+  substantive_lines:
+  - old:81
+  - new:81
+- path: src/state/documentState.ts
+  is_test: false
+  new_lines:
+  - - 498
+    - 508
+  trivial_lines: 2
+  substantive_lines:
+  - new:499
+  - new:500
+  - new:502
+  - new:503
+  - new:504
+  - new:505
+  - new:506
+  - new:507
+  - new:508
+- path: tests/runtime/global-app-shell.test.ts
+  is_test: true
+  new_lines:
+  - - 83
+    - 84
+  trivial_lines: 0
+  substantive_lines:
+  - new:83
+  - new:84
+- path: tests/templates/new-document-modal.test.tsx
+  is_test: true
+  new_lines:
+  - - 6
+    - 9
+  trivial_lines: 4
+  substantive_lines: []
+new_files: []
+new_test_files: []
+contracts_touched: []
+data_touched:
+- id: STO-EDITOR
+  how: written_by_changed
+  node: HDL-DOC-NEW-DOCUMENT
+- id: STO-DOCUMENT-STATE
+  how: definition_changed
+  node: STO-DOCUMENT-STATE
+events_touched: []
+rollup:
+  features:
+  - FEAT-OPEN-FILE
+  - FEAT-SAVE
+  - FEAT-TEMPLATES
+  invariants: []
+  flows:
+  - FLOW-NEW-DOCUMENT
+stats:
+  files: 6
+  changed_nodes: 5
+  code_nodes: 4
+  test_nodes: 1
+  uncatalogued_files: 5
+  uncatalogued_substantive_lines: 15
+  new_files: 0
+  new_test_files: 0

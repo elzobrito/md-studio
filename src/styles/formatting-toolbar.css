@@ -163,3 +163,66 @@
   color: var(--text-muted);
   margin-left: 12px;
 }
+
+.math-insert-popover {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  min-width: 240px;
+  padding: 8px;
+  background: var(--bg-elevated, var(--panel, #1e1e2e));
+  border: 1px solid var(--border, #313244);
+  border-radius: 6px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.math-insert-row {
+  display: flex;
+  gap: 4px;
+}
+
+.math-insert-chip {
+  flex: 1;
+  height: 26px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-primary);
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.math-insert-chip.is-active {
+  background: var(--color-selection, rgba(59, 130, 246, 0.2));
+  border-color: var(--color-accent, #3b82f6);
+}
+
+.math-insert-palette {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+}
+
+.math-insert-symbol {
+  height: 28px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text-primary);
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.math-insert-apply {
+  height: 28px;
+  border-radius: 4px;
+  border: none;
+  background: var(--color-accent, #3b82f6);
+  color: #fff;
+  font-size: 12px;
+  cursor: pointer;
+}

@@ -3,6 +3,10 @@ import { createRoot, type Root } from "react-dom/client";
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { NewDocumentModal } from "../../src/components/editor/NewDocumentModal";
 import { TEMPLATES } from "../../src/templates";
+import {
+  confirmReplaceOpenDocument,
+  NEW_DOCUMENT_UNSAVED_CONFIRM,
+} from "../../src/state/documentState";
 
 // Enable React act environment for clean test output
 (globalThis as any).IS_REACT_ACT_ENVIRONMENT = true;
@@ -82,7 +86,7 @@ describe("MD-UI-009: Novo Documento com Iconografia Consistente (md_ui_009_templ
     });
   });
 
-  it("seleção e confirmação por clique invocam onSelectTemplate", async () => {
+  it("clique no card apenas seleciona e não substitui o buffer", async () => {
     root = createRoot(container);
     await act(async () => {
       root?.render(
@@ -103,11 +107,114 @@ describe("MD-UI-009: Novo Documento com Iconografia Consistente (md_ui_009_templ
       meetingCard?.click();
     });
 
+    expect(meetingCard?.classList.contains("selected")).toBe(true);
+    expect(onSelectTemplateMock).not.toHaveBeenCalled();
+    expect(onCloseMock).not.toHaveBeenCalled();
+    expect(document.body.textContent).toContain("Usar modelo");
+    expect(document.body.textContent).toContain("Criar em branco");
+  });
+
+  it("ação primária cria documento em branco mesmo com outro modelo selecionado", async () => {
+    root = createRoot(container);
+    await act(async () => {
+      root?.render(
+        <NewDocumentModal
+          isOpen={true}
+          onClose={onCloseMock}
+          onSelectTemplate={onSelectTemplateMock}
+        />
+      );
+    });
+
+    const meetingCard = document.querySelector<HTMLButtonElement>(
+      '[data-template-id="meeting"]'
+    );
+    await act(async () => {
+      meetingCard?.click();
+    });
+
+    const buttons = Array.from(document.querySelectorAll("button"));
+    const primary = buttons.find((btn) => btn.textContent === "Criar em branco");
+    expect(primary).toBeDefined();
+
+    await act(async () => {
+      primary?.click();
+    });
+
+    expect(onSelectTemplateMock).toHaveBeenCalledTimes(1);
+    expect(onSelectTemplateMock).toHaveBeenCalledWith(
+      expect.objectContaining({ id: "blank" })
+    );
+    expect(onCloseMock).toHaveBeenCalledTimes(1);
+  });
+
+  it("Usar modelo aplica o template selecionado", async () => {
+    root = createRoot(container);
+    await act(async () => {
+      root?.render(
+        <NewDocumentModal
+          isOpen={true}
+          onClose={onCloseMock}
+          onSelectTemplate={onSelectTemplateMock}
+        />
+      );
+    });
+
+    const meetingCard = document.querySelector<HTMLButtonElement>(
+      '[data-template-id="meeting"]'
+    );
+    await act(async () => {
+      meetingCard?.click();
+    });
+
+    const buttons = Array.from(document.querySelectorAll("button"));
+    const useModel = buttons.find((btn) => btn.textContent === "Usar modelo");
+    expect(useModel).toBeDefined();
+
+    await act(async () => {
+      useModel?.click();
+    });
+
     expect(onSelectTemplateMock).toHaveBeenCalledTimes(1);
     expect(onSelectTemplateMock).toHaveBeenCalledWith(
       expect.objectContaining({ id: "meeting", label: "Reunião" })
     );
     expect(onCloseMock).toHaveBeenCalledTimes(1);
+  });
+
+  it("confirmação dirty recusada mantém o modal aberto", async () => {
+    const gated = vi.fn().mockReturnValue(false);
+    root = createRoot(container);
+    await act(async () => {
+      root?.render(
+        <NewDocumentModal
+          isOpen={true}
+          onClose={onCloseMock}
+          onSelectTemplate={gated}
+        />
+      );
+    });
+
+    const buttons = Array.from(document.querySelectorAll("button"));
+    const primary = buttons.find((btn) => btn.textContent === "Criar em branco");
+    await act(async () => {
+      primary?.click();
+    });
+
+    expect(gated).toHaveBeenCalledWith(expect.objectContaining({ id: "blank" }));
+    expect(onCloseMock).not.toHaveBeenCalled();
+  });
+
+  it("confirmReplaceOpenDocument exige confirmação só quando dirty", () => {
+    const confirmFn = vi.fn().mockReturnValue(true);
+    expect(confirmReplaceOpenDocument(false, confirmFn)).toBe(true);
+    expect(confirmFn).not.toHaveBeenCalled();
+
+    expect(confirmReplaceOpenDocument(true, confirmFn)).toBe(true);
+    expect(confirmFn).toHaveBeenCalledWith(NEW_DOCUMENT_UNSAVED_CONFIRM);
+
+    confirmFn.mockReturnValue(false);
+    expect(confirmReplaceOpenDocument(true, confirmFn)).toBe(false);
   });
 
   it("navegação por teclado com setas direcionais e confirmação com Enter", async () => {

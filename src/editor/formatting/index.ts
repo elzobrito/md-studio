@@ -9,3 +9,4 @@ export { formatCodeBlockAtCursor, formatDocumentOrCodeBlock } from "./formatCode
 export { toggleList, type ListType } from "./list";
 export { insertBlockquote } from "./blockquote";
 export { insertDivider } from "./divider";
+export { insertMath, wrapMathBody, MATH_SYMBOLS, type MathFlavor, type MathMode } from "./math";

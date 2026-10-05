@@ -1,0 +1,30 @@
+artifact: task-traceability
+schema_version: 1
+task_id: MD-POST051-CLOSEOUT-001
+written_at: '2026-10-01T21:51:30-03:00'
+projected_before_change: true
+projection_inputs:
+  - commit b5e2cab8df4c9de9e3b620a094b615403c9cc097
+  - .esaa/traceability/graph.json
+graph:
+  path: .esaa/traceability/graph.json
+  source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+traceability:
+  targets:
+    - CMP-APP-HEADER
+  expected_affected: []
+  protected_extra: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: false
+  rationale:
+    CMP-APP-HEADER: A referência cita o baseline que contém a barra única. Esta tarefa não edita o componente nem o grafo.
+artifacts:
+  impact: .esaa/analysis/MD-POST051-CLOSEOUT-001-impact.yaml
+  footprint: .esaa/analysis/MD-POST051-CLOSEOUT-001-footprint.yaml
+  drift: .esaa/analysis/MD-POST051-CLOSEOUT-001-drift.yaml
+expected_uncatalogued:
+  - docs/qa/post051/MD-POST051-CLOSEOUT-001.md
+  - .esaa/traceability/post051-baseline-reference.md
+close_rule: O complete copia verdict. warning cita path e linhas. violation bloqueia. Não reancorar graph.json.

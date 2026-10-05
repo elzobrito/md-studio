@@ -3,6 +3,7 @@ import type { EditorView } from "@codemirror/view";
 import { ToolbarButton } from "./ToolbarButton";
 import { ToolbarGroup } from "./ToolbarGroup";
 import { NewDocumentModal } from "./NewDocumentModal";
+import { MathInsertPopover } from "./MathInsertPopover";
 import { TableToolbar } from "./TableToolbar";
 import { type Template, findFirstEditablePosition } from "../../templates";
 import { isInTable, insertTable } from "../../editor/table/table-helpers";
@@ -111,7 +112,9 @@ export function FormattingToolbar({ view, className = "" }: FormattingToolbarPro
   const [templateModalOpen, setTemplateModalOpen] = useState(false);
   const [inTable, setInTable] = useState(false);
   const [insertOpen, setInsertOpen] = useState(false);
+  const [mathOpen, setMathOpen] = useState(false);
   const insertContainerRef = useRef<HTMLDivElement>(null);
+  const mathContainerRef = useRef<HTMLDivElement>(null);
   const insertTriggerRef = useRef<HTMLButtonElement>(null);
   const insertItemsRef = useRef<(HTMLButtonElement | null)[]>([]);
 
@@ -154,16 +157,25 @@ export function FormattingToolbar({ view, className = "" }: FormattingToolbarPro
     }
   }, []);
 
-  // Click outside to close insert menu
+  // Click outside to close insert menu and math popover
   useEffect(() => {
-    if (!insertOpen) return;
+    if (!insertOpen && !mathOpen) return;
 
     const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as Node;
       if (
+        insertOpen &&
         insertContainerRef.current &&
-        !insertContainerRef.current.contains(e.target as Node)
+        !insertContainerRef.current.contains(target)
       ) {
         closeInsert(false);
+      }
+      if (
+        mathOpen &&
+        mathContainerRef.current &&
+        !mathContainerRef.current.contains(target)
+      ) {
+        setMathOpen(false);
       }
     };
 
@@ -171,7 +183,7 @@ export function FormattingToolbar({ view, className = "" }: FormattingToolbarPro
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [insertOpen, closeInsert]);
+  }, [insertOpen, mathOpen, closeInsert]);
 
   if (!view) return null;
 
@@ -346,6 +358,25 @@ export function FormattingToolbar({ view, className = "" }: FormattingToolbarPro
           }}
         />
       </ToolbarGroup>
+
+      <div className="toolbar-separator" aria-hidden="true" />
+
+      <div ref={mathContainerRef} className="toolbar-insert-container">
+        <ToolbarButton
+          icon="∑"
+          label="Equação"
+          isActive={mathOpen}
+          onClick={() => {
+            setInsertOpen(false);
+            setMathOpen((prev) => !prev);
+          }}
+        />
+        <MathInsertPopover
+          view={view}
+          isOpen={mathOpen}
+          onClose={() => setMathOpen(false)}
+        />
+      </div>
 
       <div className="toolbar-separator" aria-hidden="true" />
 

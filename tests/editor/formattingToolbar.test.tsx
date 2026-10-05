@@ -85,6 +85,10 @@ describe("MD-UI-008: FormattingToolbar escalável", () => {
     expect(codeBtn).not.toBeNull();
     expect(codeBlockBtn).not.toBeNull();
 
+    const equationBtn = container.querySelector('button[aria-label="Equação"]');
+    expect(equationBtn).not.toBeNull();
+    expect(equationBtn?.textContent).toContain("∑");
+
     // Check "+ Inserir" dropdown trigger
     const insertBtn = container.querySelector<HTMLButtonElement>(".toolbar-insert-btn");
     expect(insertBtn).not.toBeNull();
@@ -243,6 +247,39 @@ describe("MD-UI-008: FormattingToolbar escalável", () => {
       document.dispatchEvent(new MouseEvent("mousedown", { bubbles: true }));
     });
     expect(insertBtn.getAttribute("aria-expanded")).toBe("false");
+
+    act(() => {
+      root.unmount();
+    });
+  });
+
+  it("abre o popover Equação e insere wrap GitHub na seleção", async () => {
+    const root = createRoot(container);
+    await act(async () => {
+      root.render(<FormattingToolbar view={view} />);
+    });
+
+    const equationBtn = container.querySelector<HTMLButtonElement>('button[aria-label="Equação"]')!;
+    await act(async () => {
+      equationBtn.click();
+    });
+
+    const popover = container.querySelector('[aria-label="Inserir equação"]');
+    expect(popover).not.toBeNull();
+    expect(container.querySelector('[aria-label="fração"]')).not.toBeNull();
+    expect(container.querySelector('[aria-label="raiz"]')).not.toBeNull();
+    expect(container.querySelector('[aria-label="alfa"]')).not.toBeNull();
+
+    const apply = Array.from(container.querySelectorAll("button")).find(
+      (btn) => btn.textContent === "Inserir equação",
+    );
+    expect(apply).toBeDefined();
+    await act(async () => {
+      apply?.click();
+    });
+
+    expect(view.state.doc.toString()).toContain("$Hello$");
+    expect(container.querySelector('[aria-label="Inserir equação"]')).toBeNull();
 
     act(() => {
       root.unmount();

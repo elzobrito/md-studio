@@ -1,0 +1,39 @@
+artifact: task-traceability
+schema_version: 1
+task_id: MD-UX-NEWDOC-SAFE-001
+written_at: '2026-10-05T15:39:00-03:00'
+projected_before_change: true
+graph:
+  path: .esaa/traceability/graph.json
+  source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+traceability:
+  targets:
+    - HDL-APP-OPEN-NEW-DOCUMENT
+    - CMP-NEW-DOCUMENT-MODAL
+    - HDL-APP-SELECT-TEMPLATE
+    - HDL-DOC-NEW-DOCUMENT
+    - BTN-HEADER-NEW-DOCUMENT
+  expected_affected:
+    - CMP-APP-HEADER
+    - SCR-APP
+    - STO-DOCUMENT-STATE
+    - TST-TS-TEMPLATES-NEW-DOCUMENT-MODAL
+    - TST-TS-UI-DESIGNSYSTEM
+  protected_extra: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: false
+  justification:
+    HDL-APP-OPEN-NEW-DOCUMENT: "Ctrl+N e o botão do header continuam só abrindo o modal."
+    CMP-NEW-DOCUMENT-MODAL: "Cards passam a selecionar; a ação primária cria em branco."
+    HDL-APP-SELECT-TEMPLATE: "Confirmação dirty vive neste handler antes de newDocument."
+    HDL-DOC-NEW-DOCUMENT: "newDocument segue limpando relativePath; a guarda dirty é no caller."
+    BTN-HEADER-NEW-DOCUMENT: "O controle visual de novo documento deixa de usar PlusIcon solto."
+artifacts:
+  impact: .esaa/analysis/MD-UX-NEWDOC-SAFE-001-impact.yaml
+  footprint: .esaa/analysis/MD-UX-NEWDOC-SAFE-001-footprint.yaml
+  drift: .esaa/analysis/MD-UX-NEWDOC-SAFE-001-drift.yaml
+expected_uncatalogued:
+  - src/components/shell/GlobalAppBar.tsx
+close_rule: O complete copia verdict. warning cita path e linhas. violation bloqueia. Não reancorar graph.json.

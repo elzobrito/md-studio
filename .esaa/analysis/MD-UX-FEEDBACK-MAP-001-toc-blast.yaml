@@ -1,0 +1,159 @@
+blast_radius:
+  change_target:
+  - HDL-APP-GO-TO-HEADING
+  - CMP-DOCUMENT-OUTLINE
+  expected_affected:
+  - SCR-APP
+  - TST-TS-DOCUMENT-OUTLINE-FILTER
+  - TST-TS-PANEL-COLLAPSIBLEPANEL
+  - TST-TS-PANEL-RIGHT-PANEL-ACCORDION
+  expected_affected_source: derived
+  suggested_expected_affected:
+  - SCR-APP
+  - TST-TS-DOCUMENT-OUTLINE-FILTER
+  - TST-TS-PANEL-COLLAPSIBLEPANEL
+  - TST-TS-PANEL-RIGHT-PANEL-ACCORDION
+  authorized:
+  - CMP-DOCUMENT-OUTLINE
+  - HDL-APP-GO-TO-HEADING
+  - SCR-APP
+  - TST-TS-DOCUMENT-OUTLINE-FILTER
+  - TST-TS-PANEL-COLLAPSIBLEPANEL
+  - TST-TS-PANEL-RIGHT-PANEL-ACCORDION
+  potentially_affected:
+  - STO-UI
+  protected_in_closure:
+  - id: CTR-LSK-UI-STATE
+    reasons:
+    - contract_surface
+  - id: LSK-UI-STATE
+    reasons:
+    - contract_surface:CTR-LSK-UI-STATE
+    - persisted_data
+  protected_total: 141
+  protected_declared: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+impact:
+  changed:
+  - HDL-APP-GO-TO-HEADING
+  - CMP-DOCUMENT-OUTLINE
+  graph_source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+  closure:
+  - id: CMP-DOCUMENT-OUTLINE
+    kind: code
+    type: component
+    distance: 0
+    anchor: src/components/DocumentOutline.tsx
+    via: null
+    terminal: false
+  - id: HDL-APP-GO-TO-HEADING
+    kind: code
+    type: handler
+    distance: 0
+    anchor: src/App.tsx
+    via: null
+    terminal: false
+  - id: SCR-APP
+    kind: code
+    type: screen
+    distance: 1
+    anchor: src/App.tsx
+    via:
+      node: HDL-APP-GO-TO-HEADING
+      relation: contains
+      direction: reverse
+    terminal: false
+  - id: STO-UI
+    kind: code
+    type: store
+    distance: 1
+    anchor: src/state/ui.ts
+    via:
+      node: CMP-DOCUMENT-OUTLINE
+      relation: writes
+      direction: forward
+    terminal: false
+  - id: CTR-LSK-UI-STATE
+    kind: contract
+    type: contract
+    distance: 2
+    anchor: null
+    via:
+      node: STO-UI
+      relation: implemented_by
+      direction: reverse
+    terminal: false
+  - id: LSK-UI-STATE
+    kind: code
+    type: local_storage_key
+    distance: 2
+    anchor: src/state/ui.ts
+    via:
+      node: STO-UI
+      relation: writes
+      direction: forward
+    terminal: false
+  hubs: []
+  contracts:
+  - CTR-LSK-UI-STATE
+  data:
+  - LSK-UI-STATE
+  - STO-UI
+  events: []
+  modules:
+  - MOD-APP-SHELL
+  - MOD-PREVIEW
+  - MOD-SETTINGS-SESSION
+  flows:
+  - id: FLOW-APP-BOOT
+    steps_hit:
+    - SCR-APP
+  - id: FLOW-BACKLINKS-QUERY
+    steps_hit:
+    - SCR-APP
+  - id: FLOW-METADATA-REFRESH
+    steps_hit:
+    - SCR-APP
+  - id: FLOW-PREVIEW-RENDER
+    steps_hit:
+    - SCR-APP
+  - id: FLOW-WIKI-LINK-RESOLVE
+    steps_hit:
+    - SCR-APP
+  features:
+    direct:
+    - FEAT-OUTLINE
+    - FEAT-OUTLINE-FILTER
+    indirect:
+    - FEAT-APP-SCREENS
+    - FEAT-BACKLINKS
+    - FEAT-CREATE-NOTE-FROM-WIKI
+    - FEAT-KATEX
+    - FEAT-LAYOUT-PANELS
+    - FEAT-MERMAID
+    - FEAT-METADATA-INDEX
+    - FEAT-OUTGOING-LINKS
+    - FEAT-PREVIEW
+    - FEAT-SANITIZE
+    - FEAT-SETTINGS
+    - FEAT-SHIKI
+    - FEAT-SPLASH-PACKAGING
+    - FEAT-WIKI-LINKS
+  invariants: []
+  entrypoints:
+  - ENT-SCR-APP
+  tests:
+    must_run:
+    - TST-TS-DOCUMENT-OUTLINE-FILTER
+    - TST-TS-PANEL-COLLAPSIBLEPANEL
+    - TST-TS-PANEL-RIGHT-PANEL-ACCORDION
+    should_run: []
+    may_run: []
+  stats:
+    closure_nodes: 6
+    by_distance:
+      '0': 2
+      '1': 2
+      '2': 2

@@ -1,0 +1,70 @@
+artifact: task-footprint
+schema_version: 1
+trace_task: TRACE-018
+task_id: MD-UX-KATEX-CSS-001
+diff:
+  base: b5e2cab8df4c9de9e3b620a094b615403c9cc097
+  head: WORKTREE
+  paths_filter:
+  - src/main.tsx
+  - tests/markdown/math/github-math.test.ts
+  excluded_set: []
+  command: git diff -U0 --no-color --no-ext-diff b5e2cab8df4c9de9e3b620a094b615403c9cc097 -- src/main.tsx tests/markdown/math/github-math.test.ts
+graph_source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+notes: []
+changed_files:
+- path: src/main.tsx
+  status: M
+  added: 1
+  removed: 0
+  hunks:
+  - old:
+    - 3
+    - 2
+    new:
+    - 4
+    - 4
+  is_test: false
+  catalogued_nodes_in_file: 0
+- path: tests/markdown/math/github-math.test.ts
+  status: A
+  added: 44
+  removed: 0
+  hunks:
+  - old:
+    - 0
+    - -1
+    new:
+    - 1
+    - 44
+  is_test: true
+  catalogued_nodes_in_file: 0
+changed_nodes: []
+enclosing_nodes: []
+uncatalogued:
+- path: src/main.tsx
+  is_test: false
+  new_lines:
+  - - 4
+    - 4
+  trivial_lines: 1
+  substantive_lines: []
+new_files: []
+new_test_files:
+- tests/markdown/math/github-math.test.ts
+contracts_touched: []
+data_touched: []
+events_touched: []
+rollup:
+  features: []
+  invariants: []
+  flows: []
+stats:
+  files: 2
+  changed_nodes: 0
+  code_nodes: 0
+  test_nodes: 0
+  uncatalogued_files: 1
+  uncatalogued_substantive_lines: 0
+  new_files: 0
+  new_test_files: 1

@@ -1,0 +1,169 @@
+blast_radius:
+  change_target:
+  - CMP-FORMATTING-TOOLBAR
+  expected_affected:
+  - CMP-MARKDOWN-EDITOR
+  - TST-TS-EDITOR-FORMATTINGTOOLBAR
+  expected_affected_source: derived
+  suggested_expected_affected:
+  - CMP-MARKDOWN-EDITOR
+  - TST-TS-EDITOR-FORMATTINGTOOLBAR
+  authorized:
+  - CMP-FORMATTING-TOOLBAR
+  - CMP-MARKDOWN-EDITOR
+  - TST-TS-EDITOR-FORMATTINGTOOLBAR
+  potentially_affected:
+  - HDL-APP-START-PRESENTATION
+  - SCR-APP
+  - STO-EDITOR
+  protected_in_closure: []
+  protected_total: 141
+  protected_declared: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+impact:
+  changed:
+  - CMP-FORMATTING-TOOLBAR
+  graph_source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+  closure:
+  - id: CMP-FORMATTING-TOOLBAR
+    kind: code
+    type: component
+    distance: 0
+    anchor: src/components/editor/FormattingToolbar.tsx
+    via: null
+    terminal: false
+  - id: CMP-MARKDOWN-EDITOR
+    kind: code
+    type: component
+    distance: 1
+    anchor: src/components/MarkdownEditor.tsx
+    via:
+      node: CMP-FORMATTING-TOOLBAR
+      relation: contains
+      direction: reverse
+    terminal: false
+  - id: SCR-APP
+    kind: code
+    type: screen
+    distance: 2
+    anchor: src/App.tsx
+    via:
+      node: CMP-MARKDOWN-EDITOR
+      relation: contains
+      direction: reverse
+    terminal: false
+  - id: STO-EDITOR
+    kind: code
+    type: store
+    distance: 2
+    anchor: src/state/editor.ts
+    via:
+      node: CMP-MARKDOWN-EDITOR
+      relation: writes
+      direction: forward
+    terminal: false
+  - id: HDL-APP-START-PRESENTATION
+    kind: code
+    type: handler
+    distance: 3
+    anchor: src/App.tsx
+    via:
+      node: STO-EDITOR
+      relation: reads
+      direction: reverse
+    terminal: true
+  hubs: []
+  contracts: []
+  data:
+  - STO-EDITOR
+  events: []
+  modules:
+  - MOD-APP-SHELL
+  - MOD-EDITOR
+  - MOD-PRESENTATION
+  flows:
+  - id: FLOW-APP-BOOT
+    steps_hit:
+    - SCR-APP
+  - id: FLOW-AUTO-SAVE
+    steps_hit:
+    - CMP-MARKDOWN-EDITOR
+  - id: FLOW-BACKLINKS-QUERY
+    steps_hit:
+    - SCR-APP
+    - STO-EDITOR
+  - id: FLOW-CLOSE-FILE
+    steps_hit:
+    - STO-EDITOR
+  - id: FLOW-CONFLICT-ON-SAVE
+    steps_hit:
+    - STO-EDITOR
+  - id: FLOW-EDITOR-COMMANDS
+    steps_hit:
+    - CMP-FORMATTING-TOOLBAR
+    - CMP-MARKDOWN-EDITOR
+  - id: FLOW-METADATA-REFRESH
+    steps_hit:
+    - SCR-APP
+  - id: FLOW-NEW-DOCUMENT
+    steps_hit:
+    - STO-EDITOR
+  - id: FLOW-PRESENTATION
+    steps_hit:
+    - HDL-APP-START-PRESENTATION
+  - id: FLOW-PREVIEW-RENDER
+    steps_hit:
+    - SCR-APP
+  - id: FLOW-SAVE-DOCUMENT
+    steps_hit:
+    - STO-EDITOR
+  - id: FLOW-WIKI-LINK-RESOLVE
+    steps_hit:
+    - SCR-APP
+  features:
+    direct:
+    - FEAT-FORMATTING-TOOLBAR
+    - FEAT-SLASH-COMMANDS
+    indirect:
+    - FEAT-APP-SCREENS
+    - FEAT-AUTO-SAVE
+    - FEAT-BACKLINKS
+    - FEAT-CONFLICT
+    - FEAT-CREATE-NOTE-FROM-WIKI
+    - FEAT-DRAFT-RECOVERY
+    - FEAT-EDITOR
+    - FEAT-KATEX
+    - FEAT-LAYOUT-PANELS
+    - FEAT-MERMAID
+    - FEAT-METADATA-INDEX
+    - FEAT-OUTGOING-LINKS
+    - FEAT-PRESENTATION
+    - FEAT-PREVIEW
+    - FEAT-SANITIZE
+    - FEAT-SAVE
+    - FEAT-SHIKI
+    - FEAT-SHORTCUTS-HELP
+    - FEAT-SPLASH-PACKAGING
+    - FEAT-TEMPLATES
+    - FEAT-WATCHER
+    - FEAT-WIKI-LINKS
+  invariants: []
+  entrypoints:
+  - ENT-SCR-APP
+  tests:
+    must_run:
+    - TST-TS-EDITOR-FORMATTINGTOOLBAR
+    should_run:
+    - TST-TS-EDITOR-SINGLESAVE
+    may_run:
+    - TST-TS-UX-EDITORSTORE
+    - TST-TS-UX-WIREFRAMEFIDELITY
+  stats:
+    closure_nodes: 5
+    by_distance:
+      '0': 1
+      '1': 1
+      '2': 2
+      '3': 1
