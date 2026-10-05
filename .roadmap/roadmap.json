@@ -7,11 +7,11 @@
     "run": {
       "run_id": "RUN-0001",
       "status": "success",
-      "last_event_seq": 5095,
-      "projection_hash_sha256": "e54cbeaefa0a092fe8da253dd04c0765c3134c99764eeea0dfc2e87f7b40b9ab",
+      "last_event_seq": 5108,
+      "projection_hash_sha256": "58b3c1f58320118324d3a501f5a03ab25b93d3b6d972c518deeebeb4b2040574",
       "verify_status": "ok"
     },
-    "updated_at": "2026-10-05T19:54:54Z"
+    "updated_at": "2026-10-05T20:23:28Z"
   },
   "project": {
     "name": "MD Studio",
@@ -16572,14 +16572,63 @@
         ]
       },
       "completed_at": "2026-10-05T19:54:54Z"
+    },
+    {
+      "task_id": "MD-CI-RUNNER-HOSTED-001",
+      "task_kind": "impl",
+      "title": "Corrigir falha de aquisição de runner nos 3 workflows GitHub Actions",
+      "description": "Os workflows ci, Build Linux App e Build Windows App falharam no job security reusable com 'job was not acquired by Runner of type hosted' + Internal server error (~15m), sem executar steps. ci#82 no SHA c6884de passou. Stampede: push main+tag disparou 6 workflows. Corrigir: pin ubuntu-24.04 no reusable e nos jobs Linux; concurrency por workflow+ref; ci.yml só em branches main/PR (tag já tem linux/windows com security). Não alterar src produto.",
+      "status": "done",
+      "depends_on": [
+        "MD-V052-PUBLISH-001"
+      ],
+      "targets": [
+        ".github/workflows/security-gates.yml",
+        ".github/workflows/ci.yml",
+        ".github/workflows/build-linux.yml",
+        ".github/workflows/build-windows.yml"
+      ],
+      "outputs": {
+        "files": [
+          ".github/workflows/security-gates.yml",
+          ".github/workflows/ci.yml",
+          ".github/workflows/build-linux.yml",
+          ".github/workflows/build-windows.yml",
+          "docs/qa/feedback-052/MD-CI-RUNNER-HOSTED-001.md"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        ".github/workflows/**",
+        "docs/qa/**"
+      ],
+      "task_type": "hotfix",
+      "acceptance_criteria": [
+        "security-gates.yml, ci.yml e build-linux.yml usam runs-on ubuntu-24.04",
+        "ci, Build Linux App e Build Windows App têm concurrency group por workflow+ref",
+        "ci.yml dispara em push de main e pull_request, não em tags",
+        "Recibo docs/qa/feedback-052/MD-CI-RUNNER-HOSTED-001.md com os correlation IDs das falhas"
+      ],
+      "required_review_mode": "security",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-10-05T20:22:47Z",
+      "verification": {
+        "checks": [
+          "security-gates.yml, ci.yml, build-linux.yml runs-on ubuntu-24.04; build-windows.yml concurrency present, windows-latest unchanged",
+          "ci.yml on.push.branches main only; concurrency group github.workflow-github.ref on ci, Build Linux App, Build Windows App"
+        ]
+      },
+      "completed_at": "2026-10-05T20:23:28Z"
     }
   ],
   "indexes": {
     "by_status": {
-      "done": 412
+      "done": 413
     },
     "by_kind": {
-      "impl": 335,
+      "impl": 336,
       "qa": 45,
       "spec": 32
     }
