@@ -7,11 +7,11 @@
     "run": {
       "run_id": "RUN-0001",
       "status": "success",
-      "last_event_seq": 5088,
-      "projection_hash_sha256": "7faf694faeb51a81934fe4f54df971afe931be77630a108fccf33a286b326b88",
+      "last_event_seq": 5095,
+      "projection_hash_sha256": "e54cbeaefa0a092fe8da253dd04c0765c3134c99764eeea0dfc2e87f7b40b9ab",
       "verify_status": "ok"
     },
-    "updated_at": "2026-10-05T19:40:15Z"
+    "updated_at": "2026-10-05T19:54:54Z"
   },
   "project": {
     "name": "MD Studio",
@@ -16534,7 +16534,7 @@
       "task_kind": "impl",
       "title": "Publicar MD Studio 0.5.2 no git e Snap Store",
       "description": "Commit seletivo da linha 0.5.2 (produto + store ESAA + notas; sem scripts/rebuild-test*), tag v0.5.2, push origin/main, security-gates.sh (LES-0005) e upload Snap Store latest/stable. Depende da UA MD-V052-PUBLISH-UA-001. Não reancorar graph.json. Não editar CFG-SANITIZE-SCHEMA.",
-      "status": "in_progress",
+      "status": "done",
       "depends_on": [
         "MD-V052-PUBLISH-UA-001"
       ],
@@ -16563,13 +16563,20 @@
       ],
       "required_review_mode": "release",
       "assigned_to": "agent-impl",
-      "started_at": "2026-10-05T19:40:15Z"
+      "started_at": "2026-10-05T19:40:15Z",
+      "verification": {
+        "checks": [
+          "install-security-tools.sh / security-gates.sh exit 0; pnpm test 133 files 774 tests before git push origin main v0.5.2",
+          "git HEAD c6884de365aa44c2d81068d0e0bfa41c56e0b9b1 on origin/main; tag v0.5.2 pushed; scripts/rebuild-test.sh not in commit",
+          "snapcraft status latest/stable version 0.5.2 revision 7; snap sha256 0d6512b98d3896a896562535b2e894d26f23ed386205494ee5a4490991aeca79"
+        ]
+      },
+      "completed_at": "2026-10-05T19:54:54Z"
     }
   ],
   "indexes": {
     "by_status": {
-      "done": 411,
-      "in_progress": 1
+      "done": 412
     },
     "by_kind": {
       "impl": 335,
