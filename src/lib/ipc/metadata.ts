@@ -163,3 +163,26 @@ export const getDoctorDiagnostics = async (
 
   return diags;
 };
+
+export const INDEX_RECONCILED_EVENT = "index:reconciled";
+
+export interface ReconcileReport {
+  added: number;
+  updated: number;
+  removed: number;
+  unchanged: number;
+}
+
+/** Escuta o fim da reconciliação do índice ao abrir o workspace. */
+export const subscribeIndexReconciled = async (
+  handler: (report: ReconcileReport) => void,
+): Promise<() => void> => {
+  if (!isTauri()) return () => {};
+  const { listen } = await import("@tauri-apps/api/event");
+  const unlisten = await listen<ReconcileReport>(INDEX_RECONCILED_EVENT, (event) => {
+    handler(event.payload);
+  });
+  return () => {
+    unlisten();
+  };
+};

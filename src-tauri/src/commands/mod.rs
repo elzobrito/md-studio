@@ -23,12 +23,19 @@ pub mod metadata;
 pub mod formatter;
 pub mod importer;
 
+/// Evento emitido quando o índice persistido termina de reconciliar com o disco.
+pub const INDEX_RECONCILED_EVENT: &str = "index:reconciled";
+
 fn map_ws_err(e: WorkspaceError) -> String {
     e.to_string()
 }
 
 #[tauri::command]
-pub fn open_workspace(path: String, state: State<'_, AppState>) -> Result<WorkspaceDescriptor, String> {
+pub fn open_workspace(
+    path: String,
+    app: tauri::AppHandle,
+    state: State<'_, AppState>,
+) -> Result<WorkspaceDescriptor, String> {
     let mut reg = state.workspaces.lock();
     let ws = reg
         .open(PathBuf::from(path).as_path())
@@ -43,6 +50,23 @@ pub fn open_workspace(path: String, state: State<'_, AppState>) -> Result<Worksp
             *idx = persisted;
         }
         engine.rebuild_backlinks();
+        // O índice persistido pode estar defasado (arquivos criados/editados/
+        // removidos com o app fechado). Reconcilia com o disco em background
+        // para não bloquear a abertura do workspace; persiste só se mudou.
+        let bg = engine.clone();
+        std::thread::spawn(move || match bg.reconcile_with_disk() {
+            Ok(report) => {
+                if report.changed() {
+                    if let Ok(idx) = bg.index.lock() {
+                        let _ = md_studio_core::index::save_index(&idx, &bg.root);
+                    }
+                }
+                // Avisa o frontend para recarregar backlinks/metadados do documento atual.
+                use tauri::Emitter;
+                let _ = app.emit(INDEX_RECONCILED_EVENT, &report);
+            }
+            Err(err) => eprintln!("metadata reconcile skipped: {err}"),
+        });
     } else {
         let _ = engine.full_reindex();
         if let Ok(idx) = engine.index.lock() {

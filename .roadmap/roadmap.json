@@ -7,11 +7,11 @@
     "run": {
       "run_id": "RUN-0001",
       "status": "success",
-      "last_event_seq": 5121,
-      "projection_hash_sha256": "872332e53b5ec4c33ae2c0dc699d56d30a79a4bb694bde0a4ee129839ed5e227",
+      "last_event_seq": 5184,
+      "projection_hash_sha256": "a541b0db6ab7bb8c592437e6e11c9c2ed298d8b80715907a96a40a96dc392c2a",
       "verify_status": "ok"
     },
-    "updated_at": "2026-10-05T21:31:32Z"
+    "updated_at": "2026-10-12T02:25:17Z"
   },
   "project": {
     "name": "MD Studio",
@@ -16668,15 +16668,230 @@
         ]
       },
       "completed_at": "2026-10-05T21:31:32Z"
+    },
+    {
+      "task_id": "MD-UX-TCG-EXPLORER-THREE-001",
+      "task_kind": "impl",
+      "title": "Explorer TCG: render Three.js 2D com interpolação suave",
+      "description": "Trocar o renderer SVG do public/graph_explorer.html por WebGL Three.js ortográfico 2D, mantendo d3-force, filtros, busca, painel de detalhes e snapshot embutido. Vendor three.module.min.js em public/vendor (offline). Animação com lerp entre ticks. Sem CDN. Sem reancorar graph.json.",
+      "status": "review",
+      "depends_on": [],
+      "targets": [
+        "public/graph_explorer.html",
+        "public/graph_explorer.js",
+        "public/vendor/three.module.min.js",
+        "tests/graph-explorer/graph-explorer-three.test.ts",
+        ".esaa/tasks/MD-UX-TCG-EXPLORER-THREE-001.yaml"
+      ],
+      "outputs": {
+        "files": [
+          "public/graph_explorer.html",
+          "public/graph_explorer.js",
+          "public/vendor/three.module.min.js",
+          "public/vendor/THREE-LICENSE.txt",
+          "tests/graph-explorer/graph-explorer-three.test.ts"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "public/**",
+        "public/vendor/**",
+        ".esaa/tasks/MD-UX-TCG-EXPLORER-THREE-001.yaml",
+        ".esaa/analysis/**"
+      ],
+      "task_type": "feature",
+      "acceptance_criteria": [
+        "traceability: ver .esaa/tasks/MD-UX-TCG-EXPLORER-THREE-001.yaml; drift sem violation",
+        "Canvas WebGL Three.js ortográfico 2D substitui o SVG; d3-force permanece o motor de layout",
+        "Posições interpoladas (lerp) a cada frame; pan/zoom/clique/tooltip/filtros/detalhes preservados",
+        "three.module.min.js vendido em public/vendor; zero CDN; página abre em /graph_explorer.html"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-10-07T18:32:12Z",
+      "verification": {
+        "checks": [
+          "pnpm test tests/graph-explorer/graph-explorer-three.test.ts → 3 passed",
+          "browser http://localhost:1420/graph_explorer.html: WebGL canvas 1340x821, 777 nós, 2622 relações, sem SVG, sem erros de console",
+          "filtro PIPE-KATEX: 6/777 nós e 10 relações; clique seleciona FLOW-PREVIEW-RENDER no painel Detalhes; Pausar vira Retomar"
+        ]
+      }
+    },
+    {
+      "task_id": "MD-BUG-BACKLINKS-001",
+      "task_kind": "qa",
+      "title": "Investigar backlinks que não aparecem no MD-Studio",
+      "description": "Nenhum .md aberto mostra backlinks de outros arquivos. Investigação read-only: indexador, parsing de [[wikilinks]] e [t](f.md), normalização de paths, IPC e painel. Correção apenas proposta (patch) aguardando aprovação.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "src/components/wiki/BacklinksPanel.tsx"
+      ],
+      "outputs": {
+        "files": [
+          "~/artifacts/_export/md-studio-backlinks.patch"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "audit",
+      "acceptance_criteria": [
+        "Causa raiz identificada com evidência arquivo:linha",
+        "Reprodução em vault temporário"
+      ],
+      "required_review_mode": "functional",
+      "assigned_to": "agent-qa",
+      "started_at": "2026-10-12T01:57:47Z",
+      "verification": {
+        "checks": [
+          "repro:/tmp/md-backlinks-test vault: [[b]] gera backlink (a.md:3), [b](b.md) (a.md:5) NAO gera",
+          "cargo test md-studio-core: 80 ok (65 lib + integ)",
+          "vitest backlinks/inspector: 5 files, 30 tests ok",
+          "patch em copia temp: 66 lib ok, repro a.md [3,5]; git apply --check OK"
+        ]
+      },
+      "completed_at": "2026-10-12T02:12:07Z"
+    },
+    {
+      "task_id": "MD-BUG-BACKLINKS-002",
+      "task_kind": "impl",
+      "title": "Corrigir backlinks: links Markdown e reconciliação do índice ao abrir workspace",
+      "description": "Aplica patch aprovado por Elzo (MD-BUG-BACKLINKS-001): links Markdown [t](f.md) internos viram backlinks. Ao abrir workspace com index.json persistido, reconcilia com o disco em background (novos/alterados/removidos) e persiste se mudou.",
+      "status": "done",
+      "depends_on": [
+        "MD-BUG-BACKLINKS-001"
+      ],
+      "targets": [
+        "src-tauri/crates/md-studio-core/src/index/backlink_index.rs",
+        "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs",
+        "src-tauri/src/commands/mod.rs"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "task_type": "hotfix",
+      "acceptance_criteria": [
+        "README.md -> docs/release/PACKAGING.md aparece como backlink no workspace real",
+        "Teste de reconciliação ao abrir com índice persistido defasado",
+        "cargo test core e src-tauri, vitest relevante verdes"
+      ],
+      "required_review_mode": "regression",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-10-12T02:04:27Z",
+      "superseded_by": [
+        "MD-BUG-BACKLINKS-003"
+      ],
+      "verification": {
+        "checks": [
+          "substituída por MD-BUG-BACKLINKS-003"
+        ]
+      },
+      "completed_at": "2026-10-12T02:25:17Z"
+    },
+    {
+      "task_id": "MD-BUG-BACKLINKS-003",
+      "task_kind": "impl",
+      "title": "Corrigir backlinks: links Markdown e reconciliação do índice ao abrir workspace",
+      "description": "Substitui MD-BUG-BACKLINKS-002 (faltou boundary_grant para src-tauri; complete rejeitado com BOUNDARY_VIOLATION). Aplica patch aprovado por Elzo (MD-BUG-BACKLINKS-001) e reconcilia index.json persistido com o disco em background ao abrir workspace.",
+      "status": "done",
+      "depends_on": [
+        "MD-BUG-BACKLINKS-001"
+      ],
+      "targets": [
+        "src-tauri/crates/md-studio-core/src/index/backlink_index.rs",
+        "src-tauri/crates/md-studio-core/src/index/mod.rs",
+        "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs",
+        "src-tauri/src/commands/mod.rs"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src-tauri/crates/md-studio-core/**",
+        "src-tauri/src/**"
+      ],
+      "task_type": "hotfix",
+      "acceptance_criteria": [
+        "README.md -> docs/release/PACKAGING.md aparece como backlink no workspace real",
+        "Teste de reconciliação ao abrir com índice persistido defasado",
+        "cargo test core e src-tauri, vitest relevante verdes"
+      ],
+      "required_review_mode": "regression",
+      "supersedes": [
+        "MD-BUG-BACKLINKS-002"
+      ],
+      "assigned_to": "agent-impl",
+      "started_at": "2026-10-12T02:07:26Z",
+      "verification": {
+        "checks": [
+          "cargo test md-studio-core: 67 lib + 15 integ ok (inclui markdown_links_count_as_backlinks e reconcile_on_open_refreshes_stale_persisted_index)",
+          "cargo test src-tauri: 21 ok (compila app)",
+          "vitest backlinks/inspector/painel: 5 files, 30 tests ok",
+          "workspace real: docs/release/PACKAGING.md <- README.md:230, docs/README.md:80, docs/release/README.md:8 apos reconcile (index persistido mostrava linhas defasadas 12/42); reconcile 60ms (added 119, updated 66, removed 0); index.json nao salvo no teste"
+        ]
+      },
+      "completed_at": "2026-10-12T02:12:08Z"
+    },
+    {
+      "task_id": "MD-BUG-BACKLINKS-004",
+      "task_kind": "impl",
+      "title": "Recarregar backlinks na UI após reconciliação do índice ao abrir workspace",
+      "description": "Após reconcile_with_disk em open_workspace, emitir evento Tauri index:reconciled com ReconcileReport; useMetadata escuta e recarrega stats/docs/backlinks do documento atual.",
+      "status": "done",
+      "depends_on": [
+        "MD-BUG-BACKLINKS-001",
+        "MD-BUG-BACKLINKS-003"
+      ],
+      "targets": [
+        "src-tauri/src/commands/mod.rs",
+        "src/lib/ipc/metadata.ts",
+        "src/hooks/useMetadata.ts",
+        "tests/hooks/useMetadata-reconciled.test.tsx"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src-tauri/src/**"
+      ],
+      "task_type": "hotfix",
+      "acceptance_criteria": [
+        "Evento index:reconciled emitido ao fim do reconcile",
+        "useMetadata recarrega backlinks do documento atual ao receber o evento (vitest)"
+      ],
+      "required_review_mode": "regression",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-10-12T02:10:13Z",
+      "verification": {
+        "checks": [
+          "vitest completo: 135 files, 778 tests ok (inclui tests/hooks/useMetadata-reconciled.test.tsx)",
+          "tsc --noEmit ok",
+          "cargo test md-studio-core 82 ok; cargo test src-tauri 21 ok (compila open_workspace com AppHandle + Emitter)"
+        ]
+      },
+      "completed_at": "2026-10-12T02:12:09Z"
     }
   ],
   "indexes": {
     "by_status": {
-      "done": 414
+      "done": 418,
+      "review": 1
     },
     "by_kind": {
-      "impl": 337,
-      "qa": 45,
+      "impl": 341,
+      "qa": 46,
       "spec": 32
     }
   }

@@ -16,6 +16,21 @@ pub struct ReindexReport {
     pub errors: Vec<String>,
 }
 
+#[derive(Debug, Clone, Default, Serialize, Deserialize, PartialEq, Eq)]
+#[serde(rename_all = "camelCase")]
+pub struct ReconcileReport {
+    pub added: usize,
+    pub updated: usize,
+    pub removed: usize,
+    pub unchanged: usize,
+}
+
+impl ReconcileReport {
+    pub fn changed(&self) -> bool {
+        self.added + self.updated + self.removed > 0
+    }
+}
+
 #[derive(Clone)]
 pub struct ReindexEngine {
     pub index: Arc<Mutex<MetadataIndex>>,
@@ -139,6 +154,55 @@ impl ReindexEngine {
             self.rebuild_backlinks_locked(&index);
         }
         Ok(removed)
+    }
+
+    /// Reconcile the in-memory index (e.g. loaded from a persisted index.json)
+    /// with the files currently on disk: adds new documents, refreshes changed
+    /// ones and drops removed ones, then rebuilds backlinks.
+    ///
+    /// The disk scan runs without holding the index lock, so callers can run
+    /// this on a background thread while the UI keeps reading the old snapshot.
+    pub fn reconcile_with_disk(&self) -> Result<ReconcileReport, String> {
+        let scanned = WorkspaceScanner::new(self.root.clone()).scan()?;
+
+        let mut index = self.index.lock().map_err(|e| e.to_string())?;
+        let mut report = ReconcileReport::default();
+        let on_disk: std::collections::HashSet<PathBuf> =
+            scanned.iter().map(|doc| doc.path.clone()).collect();
+
+        let stale: Vec<PathBuf> = index
+            .documents
+            .keys()
+            .filter(|path| !on_disk.contains(*path))
+            .cloned()
+            .collect();
+        for path in stale {
+            index.remove(&path);
+            report.removed += 1;
+        }
+
+        for doc in scanned {
+            match index.get(&doc.path) {
+                None => {
+                    report.added += 1;
+                    index.insert(doc);
+                }
+                Some(existing) if existing != &doc => {
+                    report.updated += 1;
+                    index.insert(doc);
+                }
+                Some(_) => report.unchanged += 1,
+            }
+        }
+
+        if report.changed() {
+            index.indexed_at = SystemTime::now()
+                .duration_since(UNIX_EPOCH)
+                .map(|d| d.as_secs())
+                .unwrap_or(0);
+        }
+        self.rebuild_backlinks_locked(&index);
+        Ok(report)
     }
 
     /// Rebuild the reverse index from the current metadata snapshot.
@@ -368,5 +432,44 @@ mod tests {
         );
         loaded.rebuild_backlinks();
         assert_eq!(counts(&loaded, "a.md"), (2, 2));
+    }
+
+    #[test]
+    fn reconcile_on_open_refreshes_stale_persisted_index() {
+        use crate::index::{load_index, save_index};
+        let temp = TempDir::new().expect("tempdir");
+        let root = temp.path();
+        write(root, "target.md", "# Target\n");
+        write(root, "old.md", "[[target]]\n");
+        write(root, "edited.md", "# Edited\n");
+        let first = ReindexEngine::new(root.to_path_buf());
+        first.full_reindex().expect("full");
+        save_index(&first.index.lock().unwrap(), root).expect("save");
+
+        // Disk changes while the app is closed.
+        fs::remove_file(root.join("old.md")).unwrap();
+        write(root, "edited.md", "# Edited\nVeja [alvo](target.md)\n");
+        write(root, "new.md", "[[target]]\n");
+
+        // Open: load persisted (stale) index, then reconcile.
+        let engine = ReindexEngine::new(root.to_path_buf());
+        *engine.index.lock().unwrap() = load_index(root).unwrap().expect("persisted");
+        engine.rebuild_backlinks();
+        assert_eq!(counts(&engine, "target.md"), (1, 1)); // stale: old.md only
+
+        let report = engine.reconcile_with_disk().expect("reconcile");
+        assert_eq!((report.added, report.updated, report.removed), (1, 1, 1));
+        assert!(report.changed());
+        let result = engine.backlinks_for(Path::new("target.md")).unwrap();
+        let mut sources: Vec<_> = result
+            .groups
+            .iter()
+            .map(|g| g.source_path.to_string_lossy().into_owned())
+            .collect();
+        sources.sort();
+        assert_eq!(sources, vec!["edited.md", "new.md"]);
+
+        let again = engine.reconcile_with_disk().expect("reconcile 2");
+        assert!(!again.changed());
     }
 }

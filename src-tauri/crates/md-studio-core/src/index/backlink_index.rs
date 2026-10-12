@@ -145,7 +145,66 @@ impl BacklinkIndex {
                     line: resolved.line,
                 });
         }
+
+        // Standard Markdown links `[text](path.md)` also count as backlinks.
+        for link in &document.links {
+            if !link.is_internal {
+                continue;
+            }
+            let Some(target_key) = resolve_markdown_link(&source_path, &link.url, index) else {
+                continue;
+            };
+            if target_key == source_key {
+                continue;
+            }
+            self.by_target
+                .entry(target_key.clone())
+                .or_default()
+                .push(Edge {
+                    target: PathBuf::from(&target_key),
+                    source: source_path.clone(),
+                    line: link.line,
+                });
+        }
     }
+}
+
+/// Resolve an internal Markdown link URL relative to the source document,
+/// returning the normalized indexed path when it points at a known document.
+fn resolve_markdown_link(source: &Path, url: &str, index: &MetadataIndex) -> Option<String> {
+    let raw = url.trim().trim_start_matches('<').trim_end_matches('>');
+    let raw = raw.split(['#', '?']).next().unwrap_or("").trim();
+    if raw.is_empty() || raw.contains(':') || raw.starts_with('/') {
+        return None;
+    }
+    let raw = raw.replace("%20", " ").replace('\\', "/");
+    let mut parts: Vec<String> = source
+        .parent()
+        .map(|parent| {
+            normalize_path(parent)
+                .split('/')
+                .filter(|part| !part.is_empty())
+                .map(str::to_owned)
+                .collect()
+        })
+        .unwrap_or_default();
+    for part in raw.split('/') {
+        match part {
+            "" | "." => {}
+            ".." => {
+                parts.pop()?;
+            }
+            other => parts.push(other.to_owned()),
+        }
+    }
+    let joined = parts.join("/");
+    let mut candidates = vec![joined.clone()];
+    if Path::new(&joined).extension().is_none() {
+        candidates.push(format!("{joined}.md"));
+    }
+    candidates
+        .into_iter()
+        .find(|candidate| lookup_document(index, Path::new(candidate)).is_some())
 }
 
 fn normalize_path(path: &Path) -> String {
@@ -344,6 +403,24 @@ mod tests {
                 .occurrence_count,
             0
         );
+    }
+
+    #[test]
+    fn markdown_links_count_as_backlinks() {
+        let mut a = document("a.md", Some("A"), vec![]);
+        a.links = vec![
+            crate::index::document_metadata::Link { text: "b".into(), url: "b.md".into(), is_internal: true, line: 3 },
+            crate::index::document_metadata::Link { text: "d".into(), url: "./sub/d.md#x".into(), is_internal: true, line: 4 },
+            crate::index::document_metadata::Link { text: "ext".into(), url: "https://x/b.md".into(), is_internal: false, line: 5 },
+        ];
+        let mut d = document("sub/d.md", Some("D"), vec![]);
+        d.links = vec![crate::index::document_metadata::Link { text: "b".into(), url: "../b.md".into(), is_internal: true, line: 2 }];
+        let meta = index_with(vec![a, d, document("b.md", Some("B"), vec![])]);
+        let backlinks = rebuilt(&meta);
+        let b = backlinks.backlinks_for(Path::new("b.md"), &meta);
+        assert_eq!(b.document_count, 2);
+        assert_eq!(b.occurrence_count, 2);
+        assert_eq!(backlinks.backlinks_for(Path::new("sub/d.md"), &meta).occurrence_count, 1);
     }
 
     #[test]

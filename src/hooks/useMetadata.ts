@@ -89,6 +89,28 @@ export function useMetadata(currentPath?: string) {
     void refreshAllDocs();
   }, [refreshStats, refreshTags, refreshAllDocs]);
 
+  // Quando o índice persistido termina de reconciliar com o disco (open_workspace),
+  // recarrega estatísticas, documentos e os backlinks do documento atual.
+  useEffect(() => {
+    let disposed = false;
+    let unsubscribe: (() => void) | null = null;
+    void metadataIpc
+      .subscribeIndexReconciled(() => {
+        void refreshStats();
+        void refreshTags();
+        void refreshAllDocs();
+        if (currentPath) void refreshCurrentDoc(currentPath);
+      })
+      .then((un) => {
+        if (disposed) un();
+        else unsubscribe = un;
+      });
+    return () => {
+      disposed = true;
+      unsubscribe?.();
+    };
+  }, [currentPath, refreshStats, refreshTags, refreshAllDocs, refreshCurrentDoc]);
+
   useEffect(() => {
     if (currentPath) {
       void refreshCurrentDoc(currentPath);
