@@ -1,0 +1,185 @@
+artifact: task-drift
+schema_version: 1
+trace_task: TRACE-019
+task_id: HF-ISS-MD-BACKLINKS-RECONCILE-20261013
+inputs:
+  impact: .esaa/analysis/HF-ISS-MD-BACKLINKS-RECONCILE-20261013-impact.yaml
+  footprint: .esaa/analysis/HF-ISS-MD-BACKLINKS-RECONCILE-20261013-footprint.yaml
+  graph_source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+notes: []
+rule: authorized = change_target ∪ expected_affected; ok ∈ authorized; violation ∈ protected; warning ∈ potentially_affected | out_of_closure
+  | uncatalogued substantive
+authorized:
+- FN-REINDEX-ENGINE-REINDEX-FILE
+- FN-WORKSPACE-SCANNER-SCAN
+- SVC-REINDEX-ENGINE
+observed:
+- FN-REINDEX-ENGINE-REINDEX-FILE
+- FN-REINDEX-ENGINE-REMOVE-FILE
+- FN-WORKSPACE-SCANNER-SCAN
+classification:
+- id: FN-REINDEX-ENGINE-REINDEX-FILE
+  category: authorized
+  severity: ok
+  reasons: []
+- id: FN-REINDEX-ENGINE-REMOVE-FILE
+  category: out_of_closure
+  severity: warning
+  reasons: []
+- id: FN-WORKSPACE-SCANNER-SCAN
+  category: authorized
+  severity: ok
+  reasons: []
+drift:
+- id: FN-REINDEX-ENGINE-REMOVE-FILE
+  category: out_of_closure
+  severity: warning
+  reasons: []
+other_findings:
+- path: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs
+  category: uncatalogued_change
+  severity: warning
+  lines:
+  - new:486
+  - new:487
+  - new:493
+  - new:494
+  - new:495
+  - new:496
+  - new:497
+  - new:498
+  - new:499
+  - new:500
+  - new:501
+  - new:502
+  - new:503
+  - new:504
+  - new:505
+  - new:507
+  - new:508
+  - new:509
+  - new:510
+  - new:511
+  - new:512
+  - new:513
+  - new:514
+  - new:515
+  - new:516
+  - new:517
+  - new:519
+  - new:520
+  - new:521
+  - new:522
+  - new:523
+  - new:524
+  - new:525
+  - new:526
+  - new:527
+  - new:528
+  - new:529
+  - new:530
+  - new:531
+  - new:532
+  - new:533
+  - new:534
+  - new:535
+  - new:537
+  - new:538
+  - new:539
+  - new:540
+  - new:541
+  - new:542
+  - new:543
+  - new:544
+  - new:545
+  - new:546
+  - new:547
+- path: src-tauri/crates/md-studio-core/src/index/workspace_scanner.rs
+  category: uncatalogued_change
+  severity: warning
+  lines:
+  - old:23
+  - old:29
+  - old:47
+  - old:55
+  - old:56
+  - old:57
+  - new:24
+  - new:25
+  - new:26
+  - new:27
+  - new:28
+  - new:29
+  - new:30
+  - new:31
+  - new:33
+  - new:36
+  - new:40
+  - new:41
+  - new:42
+  - new:43
+  - new:44
+  - new:45
+  - new:63
+  - new:71
+  - new:72
+  - new:73
+  - new:74
+  - new:75
+  - new:76
+  - new:77
+not_touched:
+- SVC-REINDEX-ENGINE
+verdict: warning
+metrics:
+  nodes:
+    tp: 2
+    authorized: 3
+    observed: 3
+    precision: 0.667
+    recall: 0.667
+    closure_recall: 0.667
+  code_nodes_only:
+    tp: 2
+    authorized: 3
+    observed: 3
+    precision: 0.667
+    recall: 0.667
+  features:
+    projected_direct:
+    - FEAT-METADATA-INDEX
+    - FEAT-SAVE
+    projected_all: 13
+    observed:
+    - FEAT-METADATA-INDEX
+    observed_in_projected_direct:
+    - FEAT-METADATA-INDEX
+    observed_missing_from_projection: []
+    precision_direct: 0.5
+    recall_all: 1.0
+  invariants:
+    projected:
+    - INV-SHA256-CONFLICT
+    - INV-WATCHER-ECHO-SUPPRESSION
+    observed: []
+    missing_from_projection: []
+  tests:
+    projected_must_run:
+    - TST-RS-ADD-AND-REMOVE-LINK-VIA-REINDEX-FILE-UPDATES-BACKLINKS
+    - TST-RS-CREATING-UNRESOLVED-TARGET-THEN-REINDEX-ESTABLISHES-RELATION
+    - TST-RS-REBUILD-MATCHES-INCREMENTAL-AND-LOADED-SNAPSHOT
+    - TST-RS-RETARGET-A-TO-B-AND-MULTI-SAVE-DOES-NOT-DUPLICATE
+    - TST-RS-TEST-REINDEX-ENGINE-WORKFLOW
+    - TST-RS-TEST-SCANNER-EMPTY-WORKSPACE
+    - TST-RS-TEST-SCANNER-WITH-FILES-AND-EXCLUSIONS
+    changed_test_nodes: []
+    new_test_files: []
+  contracts_touched: []
+  data_touched:
+  - id: REPO-METADATA-INDEX
+    how: written_by_changed
+    node: FN-REINDEX-ENGINE-REINDEX-FILE
+  - id: REPO-METADATA-INDEX
+    how: written_by_changed
+    node: FN-REINDEX-ENGINE-REMOVE-FILE
+  events_touched: []

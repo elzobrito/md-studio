@@ -118,10 +118,10 @@ impl ReindexEngine {
             return Err(format!("Arquivo não existe: {}", abs_path.display()));
         }
 
+        // Serialize disk extraction with reconciliation to avoid stale writes.
+        let mut index = self.index.lock().map_err(|e| e.to_string())?;
         let mut metadata = extract_metadata(&abs_path)?;
         metadata.path = rel_path.clone();
-
-        let mut index = self.index.lock().map_err(|e| e.to_string())?;
         index.insert(metadata);
 
         let now = SystemTime::now()
@@ -160,12 +160,20 @@ impl ReindexEngine {
     /// with the files currently on disk: adds new documents, refreshes changed
     /// ones and drops removed ones, then rebuilds backlinks.
     ///
-    /// The disk scan runs without holding the index lock, so callers can run
-    /// this on a background thread while the UI keeps reading the old snapshot.
+    /// Serialize the complete scan and merge with incremental updates. An
+    /// incomplete scan returns an error without mutating the previous index.
     pub fn reconcile_with_disk(&self) -> Result<ReconcileReport, String> {
-        let scanned = WorkspaceScanner::new(self.root.clone()).scan()?;
+        self.reconcile_with_scan(|| {
+            WorkspaceScanner::new(self.root.clone()).scan_for_reconciliation()
+        })
+    }
 
+    fn reconcile_with_scan<F>(&self, scan: F) -> Result<ReconcileReport, String>
+    where
+        F: FnOnce() -> Result<Vec<crate::index::document_metadata::DocumentMetadata>, String>,
+    {
         let mut index = self.index.lock().map_err(|e| e.to_string())?;
+        let scanned = scan()?;
         let mut report = ReconcileReport::default();
         let on_disk: std::collections::HashSet<PathBuf> =
             scanned.iter().map(|doc| doc.path.clone()).collect();
@@ -471,5 +479,69 @@ mod tests {
 
         let again = engine.reconcile_with_disk().expect("reconcile 2");
         assert!(!again.changed());
+    }
+}
+
+
+#[cfg(test)]
+mod reconciliation_safety_tests {
+    use super::*;
+    use std::fs;
+    use std::sync::mpsc;
+    use tempfile::TempDir;
+
+    #[test]
+    fn incomplete_scan_preserves_previous_index_and_backlinks() {
+        let temp = TempDir::new().unwrap();
+        fs::write(temp.path().join("target.md"), "# Target").unwrap();
+        fs::write(temp.path().join("source.md"), "[Target](target.md)").unwrap();
+        let engine = ReindexEngine::new(temp.path().to_path_buf());
+        engine.reconcile_with_disk().unwrap();
+        let before = engine.index.lock().unwrap().documents.clone();
+        fs::write(temp.path().join("source.md"), [0xff, 0xfe]).unwrap();
+        assert!(engine.reconcile_with_disk().is_err());
+        assert_eq!(engine.index.lock().unwrap().documents, before);
+        assert_eq!(engine.backlinks_for(Path::new("target.md")).unwrap().occurrence_count, 1);
+    }
+
+    #[test]
+    fn missing_workspace_does_not_erase_index() {
+        let temp = TempDir::new().unwrap();
+        fs::write(temp.path().join("note.md"), "# Keep").unwrap();
+        let engine = ReindexEngine::new(temp.path().to_path_buf());
+        engine.reconcile_with_disk().unwrap();
+        let before = engine.index.lock().unwrap().documents.clone();
+        fs::remove_dir_all(temp.path()).unwrap();
+        assert!(engine.reconcile_with_disk().is_err());
+        assert_eq!(engine.index.lock().unwrap().documents, before);
+    }
+
+    #[test]
+    fn incremental_update_cannot_be_overwritten_by_inflight_scan() {
+        let temp = TempDir::new().unwrap();
+        let file = temp.path().join("note.md");
+        fs::write(&file, "# Old").unwrap();
+        let engine = ReindexEngine::new(temp.path().to_path_buf());
+        let mut old = extract_metadata(&file).unwrap();
+        old.path = PathBuf::from("note.md");
+        let (started_tx, started_rx) = mpsc::channel();
+        let (resume_tx, resume_rx) = mpsc::channel();
+        let scanning = engine.clone();
+        let scan_thread = std::thread::spawn(move || scanning.reconcile_with_scan(|| {
+            started_tx.send(()).unwrap();
+            resume_rx.recv().unwrap();
+            Ok(vec![old])
+        }));
+        started_rx.recv().unwrap();
+        // A concurrent writer cannot enter while the snapshot is in flight.
+        let locked = engine.index.try_lock().is_err();
+        fs::write(&file, "# New").unwrap();
+        let updating = engine.clone();
+        let update_thread = std::thread::spawn(move || updating.reindex_file(Path::new("note.md")));
+        resume_tx.send(()).unwrap();
+        scan_thread.join().unwrap().unwrap();
+        update_thread.join().unwrap().unwrap();
+        assert!(locked);
+        assert_eq!(engine.index.lock().unwrap().get(&PathBuf::from("note.md")).unwrap().title.as_deref(), Some("New"));
     }
 }

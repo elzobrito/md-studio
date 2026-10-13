@@ -16,17 +16,33 @@ impl WorkspaceScanner {
         if !self.root.exists() || !self.root.is_dir() {
             return Ok(results);
         }
-        self.scan_dir(&self.root, &mut results)?;
+        self.scan_dir(&self.root, &mut results, false)?;
         Ok(results)
     }
 
-    fn scan_dir(&self, dir: &Path, results: &mut Vec<DocumentMetadata>) -> Result<(), String> {
+    /// Reconciliation must never interpret an incomplete scan as deletion.
+    pub fn scan_for_reconciliation(&self) -> Result<Vec<DocumentMetadata>, String> {
+        let mut results = Vec::new();
+        if !self.root.is_dir() {
+            return Err(format!("Workspace indisponível: {}", self.root.display()));
+        }
+        self.scan_dir(&self.root, &mut results, true)?;
+        Ok(results)
+    }
+
+    fn scan_dir(&self, dir: &Path, results: &mut Vec<DocumentMetadata>, strict: bool) -> Result<(), String> {
         let entries = match std::fs::read_dir(dir) {
             Ok(e) => e,
+            Err(err) if strict => return Err(format!("{}: {}", dir.display(), err)),
             Err(_) => return Ok(()), // Falha graciosa em diretórios sem permissão de leitura
         };
 
-        for entry in entries.flatten() {
+        for entry in entries {
+            let entry = match entry {
+                Ok(entry) => entry,
+                Err(err) if strict => return Err(format!("{}: {}", dir.display(), err)),
+                Err(_) => continue,
+            };
             let path = entry.path();
             let file_name = path
                 .file_name()
@@ -44,7 +60,7 @@ impl WorkspaceScanner {
             }
 
             if path.is_dir() {
-                self.scan_dir(&path, results)?;
+                self.scan_dir(&path, results, strict)?;
             } else if path.extension().map(|e| e.eq_ignore_ascii_case("md")).unwrap_or(false) {
                 // Calcular caminho relativo ao root do workspace
                 let relative_path = path
@@ -52,9 +68,13 @@ impl WorkspaceScanner {
                     .map(|p| p.to_path_buf())
                     .unwrap_or_else(|_| path.clone());
 
-                if let Ok(mut metadata) = extract_metadata(&path) {
-                    metadata.path = relative_path;
-                    results.push(metadata);
+                match extract_metadata(&path) {
+                    Ok(mut metadata) => {
+                        metadata.path = relative_path;
+                        results.push(metadata);
+                    }
+                    Err(err) if strict => return Err(format!("{}: {}", path.display(), err)),
+                    Err(_) => {},
                 }
             }
         }

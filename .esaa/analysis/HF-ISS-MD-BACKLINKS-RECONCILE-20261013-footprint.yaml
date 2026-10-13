@@ -1,0 +1,291 @@
+artifact: task-footprint
+schema_version: 1
+trace_task: TRACE-018
+task_id: HF-ISS-MD-BACKLINKS-RECONCILE-20261013
+diff:
+  base: 6611f15c757b244975a833ca1f13d1d8843f8b65
+  head: WORKTREE
+  paths_filter:
+  - src-tauri/crates/md-studio-core/src/index/reindex_engine.rs
+  - src-tauri/crates/md-studio-core/src/index/workspace_scanner.rs
+  excluded_set: []
+  command: git diff -U0 --no-color --no-ext-diff 6611f15c757b244975a833ca1f13d1d8843f8b65 -- src-tauri/crates/md-studio-core/src/index/reindex_engine.rs
+    src-tauri/crates/md-studio-core/src/index/workspace_scanner.rs
+graph_source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+notes: []
+changed_files:
+- path: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs
+  status: M
+  added: 77
+  removed: 5
+  hunks:
+  - old:
+    - 120
+    - 119
+    new:
+    - 121
+    - 122
+  - old:
+    - 123
+    - 124
+    new:
+    - 124
+    - 123
+  - old:
+    - 163
+    - 164
+    new:
+    - 163
+    - 164
+  - old:
+    - 166
+    - 166
+    new:
+    - 166
+    - 169
+  - old:
+    - 167
+    - 166
+    new:
+    - 171
+    - 174
+  - old:
+    - 168
+    - 167
+    new:
+    - 176
+    - 176
+  - old:
+    - 475
+    - 474
+    new:
+    - 484
+    - 547
+  is_test: false
+  catalogued_nodes_in_file: 15
+- path: src-tauri/crates/md-studio-core/src/index/workspace_scanner.rs
+  status: M
+  added: 27
+  removed: 7
+  hunks:
+  - old:
+    - 19
+    - 19
+    new:
+    - 19
+    - 19
+  - old:
+    - 23
+    - 23
+    new:
+    - 23
+    - 33
+  - old:
+    - 25
+    - 24
+    new:
+    - 36
+    - 36
+  - old:
+    - 29
+    - 29
+    new:
+    - 40
+    - 45
+  - old:
+    - 47
+    - 47
+    new:
+    - 63
+    - 63
+  - old:
+    - 55
+    - 57
+    new:
+    - 71
+    - 77
+  is_test: false
+  catalogued_nodes_in_file: 3
+changed_nodes:
+- id: FN-REINDEX-ENGINE-REINDEX-FILE
+  kind: code
+  type: function
+  path: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs
+  sides:
+  - old
+  - new
+  lines_hit: 4
+  attribution: line
+  anchor_resolution:
+    old: relocated
+    new: relocated
+  created_by_change: false
+- id: FN-REINDEX-ENGINE-REMOVE-FILE
+  kind: code
+  type: function
+  path: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs
+  sides:
+  - old
+  - new
+  lines_hit: 14
+  attribution: line
+  anchor_resolution:
+    old: relocated
+    new: relocated
+  created_by_change: false
+- id: FN-WORKSPACE-SCANNER-SCAN
+  kind: code
+  type: function
+  path: src-tauri/crates/md-studio-core/src/index/workspace_scanner.rs
+  sides:
+  - old
+  - new
+  lines_hit: 2
+  attribution: line
+  anchor_resolution:
+    old: exact
+    new: relocated
+  created_by_change: false
+enclosing_nodes: []
+uncatalogued:
+- path: src-tauri/crates/md-studio-core/src/index/reindex_engine.rs
+  is_test: false
+  new_lines:
+  - - 484
+    - 547
+  trivial_lines: 10
+  substantive_lines:
+  - new:486
+  - new:487
+  - new:493
+  - new:494
+  - new:495
+  - new:496
+  - new:497
+  - new:498
+  - new:499
+  - new:500
+  - new:501
+  - new:502
+  - new:503
+  - new:504
+  - new:505
+  - new:507
+  - new:508
+  - new:509
+  - new:510
+  - new:511
+  - new:512
+  - new:513
+  - new:514
+  - new:515
+  - new:516
+  - new:517
+  - new:519
+  - new:520
+  - new:521
+  - new:522
+  - new:523
+  - new:524
+  - new:525
+  - new:526
+  - new:527
+  - new:528
+  - new:529
+  - new:530
+  - new:531
+  - new:532
+  - new:533
+  - new:534
+  - new:535
+  - new:537
+  - new:538
+  - new:539
+  - new:540
+  - new:541
+  - new:542
+  - new:543
+  - new:544
+  - new:545
+  - new:546
+  - new:547
+- path: src-tauri/crates/md-studio-core/src/index/workspace_scanner.rs
+  is_test: false
+  old_lines:
+  - - 23
+    - 23
+  - - 29
+    - 29
+  - - 47
+    - 47
+  - - 55
+    - 57
+  new_lines:
+  - - 23
+    - 33
+  - - 36
+    - 36
+  - - 40
+    - 45
+  - - 63
+    - 63
+  - - 71
+    - 77
+  trivial_lines: 2
+  substantive_lines:
+  - old:23
+  - old:29
+  - old:47
+  - old:55
+  - old:56
+  - old:57
+  - new:24
+  - new:25
+  - new:26
+  - new:27
+  - new:28
+  - new:29
+  - new:30
+  - new:31
+  - new:33
+  - new:36
+  - new:40
+  - new:41
+  - new:42
+  - new:43
+  - new:44
+  - new:45
+  - new:63
+  - new:71
+  - new:72
+  - new:73
+  - new:74
+  - new:75
+  - new:76
+  - new:77
+new_files: []
+new_test_files: []
+contracts_touched: []
+data_touched:
+- id: REPO-METADATA-INDEX
+  how: written_by_changed
+  node: FN-REINDEX-ENGINE-REINDEX-FILE
+- id: REPO-METADATA-INDEX
+  how: written_by_changed
+  node: FN-REINDEX-ENGINE-REMOVE-FILE
+events_touched: []
+rollup:
+  features:
+  - FEAT-METADATA-INDEX
+  invariants: []
+  flows:
+  - FLOW-SAVE-DOCUMENT
+stats:
+  files: 2
+  changed_nodes: 3
+  code_nodes: 3
+  test_nodes: 0
+  uncatalogued_files: 2
+  uncatalogued_substantive_lines: 84
+  new_files: 0
+  new_test_files: 0
