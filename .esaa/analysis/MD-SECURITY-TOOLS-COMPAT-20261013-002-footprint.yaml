@@ -1,0 +1,62 @@
+artifact: task-footprint
+schema_version: 1
+trace_task: TRACE-018
+task_id: MD-SECURITY-TOOLS-COMPAT-20261013-002
+diff:
+  base: 6611f15c757b244975a833ca1f13d1d8843f8b65
+  head: WORKTREE
+  paths_filter:
+  - scripts/install-security-tools.sh
+  excluded_set: []
+  command: git diff -U0 --no-color --no-ext-diff 6611f15c757b244975a833ca1f13d1d8843f8b65 -- scripts/install-security-tools.sh
+graph_source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+notes: []
+changed_files:
+- path: scripts/install-security-tools.sh
+  status: M
+  added: 2
+  removed: 2
+  hunks:
+  - old:
+    - 6
+    - 7
+    new:
+    - 6
+    - 7
+  is_test: false
+  catalogued_nodes_in_file: 0
+changed_nodes: []
+enclosing_nodes: []
+uncatalogued:
+- path: scripts/install-security-tools.sh
+  is_test: false
+  old_lines:
+  - - 6
+    - 7
+  new_lines:
+  - - 6
+    - 7
+  trivial_lines: 0
+  substantive_lines:
+  - old:6
+  - old:7
+  - new:6
+  - new:7
+new_files: []
+new_test_files: []
+contracts_touched: []
+data_touched: []
+events_touched: []
+rollup:
+  features: []
+  invariants: []
+  flows: []
+stats:
+  files: 1
+  changed_nodes: 0
+  code_nodes: 0
+  test_nodes: 0
+  uncatalogued_files: 1
+  uncatalogued_substantive_lines: 4
+  new_files: 0
+  new_test_files: 0

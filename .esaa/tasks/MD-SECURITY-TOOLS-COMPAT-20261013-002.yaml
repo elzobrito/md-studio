@@ -1,0 +1,21 @@
+artifact: task-traceability
+schema_version: 1
+task_id: MD-SECURITY-TOOLS-COMPAT-20261013-002
+projected_before_change: true
+graph:
+  path: .esaa/traceability/graph.json
+  source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+traceability:
+  targets: []
+  expected_affected: []
+  protected_extra: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: true
+expected_uncatalogued:
+- scripts/install-security-tools.sh
+artifacts:
+  impact: .esaa/analysis/MD-SECURITY-TOOLS-COMPAT-20261013-002-impact.yaml
+  footprint: .esaa/analysis/MD-SECURITY-TOOLS-COMPAT-20261013-002-footprint.yaml
+  drift: .esaa/analysis/MD-SECURITY-TOOLS-COMPAT-20261013-002-drift.yaml
