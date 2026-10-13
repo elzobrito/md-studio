@@ -1,0 +1,45 @@
+{
+  "task_id": "MD-INSTALL-BACKLINKS-20261013-001",
+  "source_commit": "6611f15c757b244975a833ca1f13d1d8843f8b65",
+  "installed_path": "/home/elzobrito/.local/bin/md-studio",
+  "installed_sha256": "d28883b7788a86e9dbe1be0ae864e098b2320d5f954835fe3ddbeee45d8b92ba",
+  "compiled_sha256": "d28883b7788a86e9dbe1be0ae864e098b2320d5f954835fe3ddbeee45d8b92ba",
+  "backup": "/home/elzobrito/.cache/md-studio-backlinks-20261013-0z625kdj/md-studio-before",
+  "backup_sha256": "3bc1d90049bb2148f4ac1936e4c3f0f82df982da0ebf64fce967b46df8833532",
+  "launcher": "/home/elzobrito/.local/share/applications/md-studio.desktop",
+  "launcher_command": "/usr/bin/env GDK_BACKEND=x11 WEBKIT_DISABLE_DMABUF_RENDERER=1 /home/elzobrito/.local/bin/md-studio %F",
+  "gnome_should_show": true,
+  "rendered_ui": {
+    "screenshot": "/home/elzobrito/.cache/md-studio-backlinks-20261013-0z625kdj/backlink-render.png",
+    "sha256": "f53ec13ad933220adf32e66191fccc7982dbc7127108dac840cb0e487a5dd05d",
+    "observed": "1 documento · 1 referência, source reference.md line 3; standard Markdown link, reopened persisted workspace",
+    "log": "/home/elzobrito/.cache/md-studio-backlinks-20261013-0z625kdj/backlink-render.log",
+    "environment": "isolated XDG cache/config/data/state; GDK_BACKEND=x11; WEBKIT_DISABLE_DMABUF_RENDERER=1"
+  },
+  "smoke_script_limitation": "Initial generic script chose an unavailable window; manual capture selected main md-studio class and validated rendered content/backlinks. SPLASH_FAILSAFE occurred; frontend content nevertheless rendered.",
+  "source_changes": false,
+  "installed_via": "Atomic binary replacement, authorized operational release; metadata evidence via ESAA file_updates.",
+  "desktop_entry_runtime": {
+    "method": "gtk-launch md-studio; isolated QA data, user desktop entries discoverable",
+    "actual_proc_exe": "/home/elzobrito/.local/bin/md-studio",
+    "screenshot": "/home/elzobrito/.cache/md-studio-backlinks-20261013-0z625kdj/show-apps-window.png",
+    "screenshot_sha256": "b037a1c96b217231d7ef3426991ac1277f8267fbb9fa391b74c6236ccc9d2e48",
+    "backlinks_visible": "1 documento · 1 referência (line 3)",
+    "qa_app_closed": true
+  },
+  "preserved_product_paths": [
+    "public/graph_explorer.html",
+    ".esaa/analysis/MD-UX-TCG-EXPLORER-THREE-001-drift.yaml",
+    ".esaa/analysis/MD-UX-TCG-EXPLORER-THREE-001-footprint.yaml",
+    ".esaa/analysis/MD-UX-TCG-EXPLORER-THREE-001-impact.yaml",
+    ".esaa/tasks/MD-UX-TCG-EXPLORER-THREE-001.yaml",
+    "public/graph_explorer.js",
+    "public/vendor/THREE-LICENSE.txt",
+    "public/vendor/three.module.min.js",
+    "scripts/esaa-hotfix-workspace-containment.sh",
+    "scripts/rebuild-test-fixed.sh",
+    "scripts/rebuild-test.sh",
+    "tests/graph-explorer/graph-explorer-three.test.ts"
+  ],
+  "governance_changes": "Only Orchestrator commands advanced .roadmap during this release operation."
+}

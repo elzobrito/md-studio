@@ -1,0 +1,44 @@
+{
+  "task_id": "MD-BUILD-BACKLINKS-20261013-001",
+  "source_commit": "6611f15c757b244975a833ca1f13d1d8843f8b65",
+  "build_source": "/home/elzobrito/.cache/md-studio-backlinks-20261013-0z625kdj/source",
+  "binary": "/home/elzobrito/.cache/md-studio-backlinks-20261013-0z625kdj/md-studio",
+  "binary_sha256": "d28883b7788a86e9dbe1be0ae864e098b2320d5f954835fe3ddbeee45d8b92ba",
+  "build_command": "pnpm exec tauri build --no-bundle --ci",
+  "tests": [
+    "useMetadata-reconciled: 1 passed",
+    "markdown_links_count_as_backlinks: passed",
+    "reconcile_on_open_refreshes_stale_persisted_index: passed"
+  ],
+  "dirty_source_files_preserved": {
+    ".roadmap/activity.jsonl": "45c87db17f1d5a8c7f547521649d8e49a43a7b0dea9ad32975e7fb4b5910fca6",
+    ".roadmap/issues.json": "cec45fcae7f01d3ea7899ba099a1fa39c1e8c6c0fd56c84b5d1b7ea8d3e4d013",
+    ".roadmap/lessons.json": "a8a1752edf1ae4afcc1b3984eb8affc7d28c5c0d2f3b323485d470f6dfe5aac3",
+    ".roadmap/roadmap.json": "dc0499d849cb256c82f3461f83d4c84b324f380f8d7b9d2a1f737ca25623e1b1",
+    "public/graph_explorer.html": "ec56f047a8e46439e51c2dcb49c939b4accfc96937c2e44309bc4a74fcc93210",
+    ".esaa/analysis/MD-UX-TCG-EXPLORER-THREE-001-drift.yaml": "45494c646b3d40778b77a3fee23c7f718c89649c4c8e103397dab313970ebe00",
+    ".esaa/analysis/MD-UX-TCG-EXPLORER-THREE-001-footprint.yaml": "3a8fc9e182159d8425a65cca7c22336e64f80aeedfa5115b26d066e6a3566a50",
+    ".esaa/analysis/MD-UX-TCG-EXPLORER-THREE-001-impact.yaml": "533eaed6ad0300d372d3d4a57b1875441908cc3e0b1052a7e3b70032f194f5e5",
+    ".esaa/tasks/MD-UX-TCG-EXPLORER-THREE-001.yaml": "82aadae926d1c25012dfd0b06191f3f7978dcc8747f041b9aebbc830940f378b",
+    "public/graph_explorer.js": "18faa8ee0e3f733777a886d4c6206dfc3ef9d9117e2f44094eb8a67bc034f21f",
+    "public/vendor/THREE-LICENSE.txt": "4c40a1ef62450b857c3b2aaf294936304cd552d965fbcd9d32d4c5bcf4ba4454",
+    "public/vendor/three.module.min.js": "08fd7545d13d2c7fb65ab691530a802dafefd638596501854f267d0fb13c39e7",
+    "scripts/esaa-hotfix-workspace-containment.sh": "6ced3f1029024273eeb0c6f51c140fc8b0fb2d4444e4a793a52526e05d81b435",
+    "scripts/rebuild-test-fixed.sh": "56eb7ad28b8c3d00fa9fb28bbe4f1a344a6240a70e98691afad66f62aedaba07",
+    "scripts/rebuild-test.sh": "4094d78f15ae422fc100bca0190ea784e6174a327b41ea89dad78034b33ab76f",
+    "tests/graph-explorer/graph-explorer-three.test.ts": "de41159cde99f3b183ba7bbdc8ee332650901256186c44129105670dff877ff3"
+  },
+  "included_uncommitted_graph_changes": false,
+  "logs": {
+    "build.log": {
+      "path": "/home/elzobrito/.cache/md-studio-backlinks-20261013-0z625kdj/build.log",
+      "sha256": "ea7a9c5a58e7e0096959a3e01d91091426ae165b9047b6c5992f59d3045f364d"
+    },
+    "focused-tests.log": {
+      "path": "/home/elzobrito/.cache/md-studio-backlinks-20261013-0z625kdj/focused-tests.log",
+      "sha256": "3237a51422ee69e923ac7fdcc84f711ae84618a98a44d4619f7ef514105c38d9"
+    }
+  },
+  "warning": "Vite reported chunks over 500 kB; build exited 0",
+  "traceability": "Operational rebuild only; no source patch."
+}

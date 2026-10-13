@@ -4,10 +4,77 @@
     "esaa_version": "0.4.x",
     "generated_by": "esaa.project",
     "source_event_store": ".roadmap/activity.jsonl",
-    "last_event_seq": 5184,
-    "updated_at": "2026-10-12T02:25:17Z"
+    "last_event_seq": 5318,
+    "updated_at": "2026-10-13T19:51:55Z"
   },
   "issues": [
+    {
+      "issue_id": "ISS-MD-BACKLINKS-RECONCILE-20261013",
+      "status": "resolved",
+      "severity": "high",
+      "title": "Reconciliação pode aplicar snapshot obsoleto e apagar metadados em scan parcial",
+      "baseline_id": null,
+      "affected": {
+        "paths": [
+          "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs",
+          "src-tauri/crates/md-studio-core/src/index/workspace_scanner.rs"
+        ]
+      },
+      "evidence": {
+        "symptom": "reconcile_with_disk faz scan antes do lock e remove tudo ausente; scanner ignora erros de leitura/extracao. Snapshot velho pode substituir reindex_file concorrente; arquivo ainda presente mas inválido/deslegível é tratado como removido.",
+        "repro_steps": [
+          "Inspecionar reconcile_with_disk: scan antes de self.index.lock",
+          "Inspecionar WorkspaceScanner::scan_dir: read_dir Err -> Ok; entradas flatten e extract_metadata Err ignoradas",
+          "Indexar .md válido; sobrescrever com bytes inválidos UTF8; reconcile_with_disk remove metadados mesmo com arquivo existente"
+        ]
+      },
+      "resolution": {
+        "status": "resolved_by_command",
+        "hotfix_task_id": "MD-HOTFIX-RECONCILE-20261013-002"
+      },
+      "links": {
+        "reported_by_task_id": "MD-BUG-BACKLINKS-003",
+        "fixes_task_id": null,
+        "hotfix_task_id": "HF-ISS-MD-BACKLINKS-RECONCILE-20261013"
+      },
+      "timeline": {
+        "created_event_seq": 5229,
+        "resolved_event_seq": 5264
+      }
+    },
+    {
+      "issue_id": "ISS-MD-RELEASE-SOURCE-MAP-20261013",
+      "status": "resolved",
+      "severity": "high",
+      "title": "Gate de segurança bloqueia release: source-map-js <1.2.2",
+      "baseline_id": null,
+      "affected": {
+        "paths": [
+          "pnpm-lock.yaml"
+        ],
+        "environment": "gate local do release"
+      },
+      "evidence": {
+        "symptom": "bash scripts/install-security-tools.sh exit 1: pnpm audit informa GHSA-68fv-2mgg-jv7q high em source-map-js 1.2.1. Nenhum push realizado.",
+        "repro_steps": [
+          "pnpm audit --json",
+          "Consultar /tmp/md-release-pnpm-audit.json e /tmp/md-release-security.log"
+        ]
+      },
+      "resolution": {
+        "status": "resolved_by_command",
+        "hotfix_task_id": "MD-SECURITY-SOURCE-MAP-20261013-001"
+      },
+      "links": {
+        "reported_by_task_id": "MD-RELEASE-UPDATED-20261013-001",
+        "fixes_task_id": null,
+        "hotfix_task_id": null
+      },
+      "timeline": {
+        "created_event_seq": 5220,
+        "resolved_event_seq": 5248
+      }
+    },
     {
       "issue_id": "ISSUE-MD-DESKTOP-CONTROLS-REGRESSION",
       "status": "resolved",

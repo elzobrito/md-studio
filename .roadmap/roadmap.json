@@ -7,11 +7,11 @@
     "run": {
       "run_id": "RUN-0001",
       "status": "success",
-      "last_event_seq": 5184,
-      "projection_hash_sha256": "a541b0db6ab7bb8c592437e6e11c9c2ed298d8b80715907a96a40a96dc392c2a",
+      "last_event_seq": 5318,
+      "projection_hash_sha256": "b8f44d6f337d697c5ac5f727aed55ae48fca1c9015a9c0a5eb71a2e12312c018",
       "verify_status": "ok"
     },
-    "updated_at": "2026-10-12T02:25:17Z"
+    "updated_at": "2026-10-13T19:51:55Z"
   },
   "project": {
     "name": "MD Studio",
@@ -16674,7 +16674,7 @@
       "task_kind": "impl",
       "title": "Explorer TCG: render Three.js 2D com interpolação suave",
       "description": "Trocar o renderer SVG do public/graph_explorer.html por WebGL Three.js ortográfico 2D, mantendo d3-force, filtros, busca, painel de detalhes e snapshot embutido. Vendor three.module.min.js em public/vendor (offline). Animação com lerp entre ticks. Sem CDN. Sem reancorar graph.json.",
-      "status": "review",
+      "status": "done",
       "depends_on": [],
       "targets": [
         "public/graph_explorer.html",
@@ -16717,7 +16717,8 @@
           "browser http://localhost:1420/graph_explorer.html: WebGL canvas 1340x821, 777 nós, 2622 relações, sem SVG, sem erros de console",
           "filtro PIPE-KATEX: 6/777 nós e 10 relações; clique seleciona FLOW-PREVIEW-RENDER no painel Detalhes; Pausar vira Retomar"
         ]
-      }
+      },
+      "completed_at": "2026-10-13T19:33:48Z"
     },
     {
       "task_id": "MD-BUG-BACKLINKS-001",
@@ -16882,15 +16883,456 @@
         ]
       },
       "completed_at": "2026-10-12T02:12:09Z"
+    },
+    {
+      "task_id": "MD-BUILD-BACKLINKS-20261013-001",
+      "task_kind": "impl",
+      "title": "Compilar commit corrigido de backlinks em isolamento",
+      "description": "Rebuild do commit 6611f15, sem incorporar alteracoes nao commitadas de Graph Explorer; validar testes focados e bundle/binary release para atualizar Show Apps.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "docs/qa/backlinks-build-20261013.json"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "docs/qa/backlinks-build-20261013.json"
+      ],
+      "task_type": "release",
+      "acceptance_criteria": [
+        "Build release inclui index:reconciled e fontes do commit; testes de backlinks/reconcile passam; checkout preexistente preservado."
+      ],
+      "required_review_mode": "release",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-10-13T18:46:31Z",
+      "verification": {
+        "checks": [
+          "Build release exit 0; binario e bundle frontend contem index:reconciled, source commit 6611f15.",
+          "Vitest useMetadata-reconciled 1 passou; Rust Markdown backlinks e reconcile_on_open passaram.",
+          "Hashes de todas as alteracoes preexistentes preservados; Graph Explorer nao commitado excluido do build."
+        ]
+      },
+      "completed_at": "2026-10-13T18:50:58Z"
+    },
+    {
+      "task_id": "MD-INSTALL-BACKLINKS-20261013-001",
+      "task_kind": "impl",
+      "title": "Atualizar binario iniciado pelo Show Apps",
+      "description": "Instalacao local autorizada pelo usuario em ~/.local/bin/md-studio, backup do executavel anterior, validacao de lancador e renderizacao. Sem alterar fonte ou reinstalar pacote de sistema.",
+      "status": "done",
+      "depends_on": [
+        "MD-BUILD-BACKLINKS-20261013-001"
+      ],
+      "targets": [
+        "/home/elzobrito/.local/bin/md-studio",
+        "docs/qa/backlinks-installed-20261013.json"
+      ],
+      "outputs": {
+        "files": []
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "docs/qa/backlinks-installed-20261013.json"
+      ],
+      "task_type": "release",
+      "acceptance_criteria": [
+        "Binario instalado e o compilado tem SHA256 identico; Show Apps resolve lancador correto com invariantes X11/DMABUF; render smoke real documentado."
+      ],
+      "required_review_mode": "release",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-10-13T18:51:00Z",
+      "verification": {
+        "checks": [
+          "Binario ~/.local/bin/md-studio atualizado atomicamente e SHA256 igual ao release compilado; backup do anterior preservado.",
+          "Gio mostra md-studio.desktop visivel no Show Apps com caminho correto e flags GDK_BACKEND=x11/WEBKIT_DISABLE_DMABUF_RENDERER=1; desktop-file-validate exit 0 (hints de categoria registrados).",
+          "gtk-launch md-studio iniciou /proc/exe instalado; screenshot e OCR mostram render proof e 1 documento/1 referencia para Markdown comum, linha 3, apos reabrir workspace persistido.",
+          "Processos QA com documento temporario/dados XDG isolados fechados; todos os arquivos preexistentes do produto/Graph Explorer preservados por SHA256; .roadmap avancou somente pela CLI."
+        ]
+      },
+      "completed_at": "2026-10-13T19:01:43Z"
+    },
+    {
+      "task_id": "MD-RELEASE-UPDATED-20261013-001",
+      "task_kind": "impl",
+      "title": "Commit, push e release do MD Studio com as atualizações aprovadas",
+      "description": "Auditar e entregar backlinks (commit 6611f15) e Graph Explorer após aceite da revisão, preservando trabalho alheio. Preparar versão, commits, push, CI e release público com pacotes novos e checksums. Validar atualização do aplicativo no Show Apps com prova de UI. Correções funcionais ou de segurança necessárias têm tarefas próprias. Esta criação não executa commit, push ou publicação; instalação local deve respeitar o boundary operacional do contrato e obter tarefa própria se necessário.",
+      "status": "in_progress",
+      "depends_on": [
+        "MD-UX-TCG-EXPLORER-THREE-001",
+        "MD-BUILD-BACKLINKS-20261013-001",
+        "MD-INSTALL-BACKLINKS-20261013-001"
+      ],
+      "targets": [
+        "package.json",
+        "pnpm-lock.yaml",
+        "src-tauri/Cargo.toml",
+        "src-tauri/Cargo.lock",
+        "src-tauri/tauri.conf.json",
+        "public/graph_explorer.html",
+        "public/graph_explorer.js",
+        "public/vendor/**",
+        "tests/graph-explorer/**",
+        "docs/release/**",
+        "docs/qa/backlinks-build-20261013.json",
+        "docs/qa/backlinks-installed-20261013.json",
+        ".esaa/**"
+      ],
+      "outputs": {
+        "files": [
+          "docs/release/MD-RELEASE-UPDATED-20261013-001.md",
+          "docs/release/MD-RELEASE-UPDATED-20261013-001.sha256"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "package.json",
+        "pnpm-lock.yaml",
+        "src-tauri/Cargo.toml",
+        "src-tauri/Cargo.lock",
+        "src-tauri/tauri.conf.json",
+        "docs/release/**",
+        ".esaa/tasks/MD-RELEASE-UPDATED-20261013-001.yaml",
+        ".esaa/analysis/MD-RELEASE-UPDATED-20261013-001-*"
+      ],
+      "task_type": "release",
+      "acceptance_criteria": [
+        "Auditar status, upstream e intervalo completo de commits a enviar; registrar arquivos incluídos/excluídos. Backlinks 6611f15 incluído e Graph Explorer somente após tarefa done/revisão aprovada. Preservar alterações alheias e scripts não classificados; staging explícito, sem force push ou reescrita de tags.",
+        "Ler dispatch-context, contratos e lessons; aplicar rastreabilidade exigida para alterações de código. Triar riscos conhecidos dos backlinks (reconciliação concorrente e scans incompletos), encaminhando bloqueadores a hotfixes próprios antes da publicação.",
+        "Consultar tags/releases remotos e escolher versão inédita; sincronizar manifests/lockfiles aplicáveis e preparar notas das mudanças efetivamente aprovadas e limitações reais.",
+        "Executar checks mínimos do contrato, testes de backlinks Markdown/reconciliação/evento frontend e Graph Explorer, e build Tauri; registrar comandos, resultados e SHA.",
+        "Antes de QUALQUER push em main executar bash scripts/security-gates.sh com advisory-db atualizada e cargo-audit 0.22.2 conforme LES-0005. Falha impede push e exige issue/tarefa de segurança própria; não rebaixar política nem adicionar ignores para liberar release.",
+        "Criar commits rastreáveis, revisar diff staged e todo o intervalo, fazer push ao remoto correto sem sobrescrever trabalho remoto. Exigir CI verde no SHA exato enviado em todos os workflows aplicáveis, com URLs dos runs.",
+        "Publicar tag do SHA aprovado e release com pacotes Linux/Windows previstos nos workflows construídos da nova versão, verificando completude, tamanhos, SHA256, proveniência tag/commit/build e downloads. Preparar gates e notas antes de enviar tag que dispara publicação automática; nunca reutilizar tag para substituir pacotes.",
+        "Atualizar e validar aplicativo local pelo Show Apps respeitando boundary operacional, com backup/rollback e dados preservados. Conferir launcher e executável real, manter flags gráficas necessárias, demonstrar UI renderizada com backlinks de fixture e Graph Explorer atualizado; startup isoladamente não é prova de UI.",
+        "Relatório final com versão/tag, commits enviados, URLs de CI/release, inventário/checksums, testes, evidências de UI e rollback. Complete com evidências, revisão release e esaa verify; explicitar bloqueios e limites de validação de plataforma sem homologação fictícia."
+      ],
+      "required_review_mode": "release",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-10-13T19:33:50Z"
+    },
+    {
+      "task_id": "MD-SECURITY-SOURCE-MAP-20261013-001",
+      "task_kind": "impl",
+      "title": "Atualizar source-map-js vulnerável antes do release",
+      "description": "Correção separada de GHSA-68fv-2mgg-jv7q registrada em ISS-MD-RELEASE-SOURCE-MAP-20261013. Atualizar somente a dependência transitiva source-map-js para versão corrigida permitida pelos ranges existentes, sem afrouxar gate ou adicionar ignores.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "pnpm-lock.yaml",
+        "docs/security/MD-SOURCE-MAP-20261013.md"
+      ],
+      "outputs": {
+        "files": [
+          "pnpm-lock.yaml",
+          "docs/security/MD-SOURCE-MAP-20261013.md"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "pnpm-lock.yaml",
+        "docs/security/MD-SOURCE-MAP-20261013.md"
+      ],
+      "task_type": "maintenance",
+      "acceptance_criteria": [
+        "Lockfile resolve source-map-js >=1.2.2; pnpm audit sem high/critical, instalação frozen e testes passam; sem mudanças em código ou política de auditoria."
+      ],
+      "required_review_mode": "security",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-10-13T19:35:32Z",
+      "verification": {
+        "checks": [
+          "pnpm audit --audit-level high exit 0: quatro low, zero high/critical",
+          "pnpm install --frozen-lockfile e pnpm typecheck passam no candidato",
+          "pnpm test: 135 arquivos, 778 testes passaram no candidato"
+        ]
+      },
+      "completed_at": "2026-10-13T19:39:14Z"
+    },
+    {
+      "task_id": "HF-ISS-MD-BACKLINKS-RECONCILE-20261013",
+      "task_kind": "impl",
+      "title": "Hotfix for ISS-MD-BACKLINKS-RECONCILE-20261013",
+      "description": "Apply a minimal hotfix to resolve issue ISS-MD-BACKLINKS-RECONCILE-20261013 without regressing immutable done tasks.",
+      "status": "in_progress",
+      "depends_on": [],
+      "targets": [
+        "ISS-MD-BACKLINKS-RECONCILE-20261013"
+      ],
+      "outputs": {
+        "files": [
+          "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs",
+          "src-tauri/crates/md-studio-core/src/index/workspace_scanner.rs",
+          ".esaa/tasks/HF-ISS-MD-BACKLINKS-RECONCILE-20261013.yaml",
+          ".esaa/analysis/HF-ISS-MD-BACKLINKS-RECONCILE-20261013-impact.yaml",
+          ".esaa/analysis/HF-ISS-MD-BACKLINKS-RECONCILE-20261013-footprint.yaml",
+          ".esaa/analysis/HF-ISS-MD-BACKLINKS-RECONCILE-20261013-drift.yaml"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "is_hotfix": true,
+      "issue_id": "ISS-MD-BACKLINKS-RECONCILE-20261013",
+      "fixes": "MD-BUG-BACKLINKS-003",
+      "scope_patch": [
+        "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs",
+        "src-tauri/crates/md-studio-core/src/index/workspace_scanner.rs",
+        ".esaa/tasks/",
+        ".esaa/analysis/",
+        "docs/qa/"
+      ],
+      "required_verification": [
+        "unit",
+        "regression"
+      ],
+      "baseline_id": "B-000",
+      "acceptance_criteria": [
+        "Scan incompleto nao altera indice; reconcile e reindex_file serializados pelo lock; regressões de falha de leitura e concorrência passam; drift sem violation."
+      ],
+      "required_review_mode": "regression",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-10-13T19:38:27Z",
+      "superseded_by": [
+        "MD-HOTFIX-RECONCILE-20261013-002"
+      ]
+    },
+    {
+      "task_id": "MD-HOTFIX-RECONCILE-20261013-002",
+      "task_kind": "impl",
+      "title": "Aplicar reconciliação segura com grants explícitos",
+      "description": "Entrega do candidato preparado no hotfix HF-ISS-MD-BACKLINKS-RECONCILE-20261013, cuja conclusão foi rejeitada porque hotfix.create não concede boundary para src-tauri/. Resolve ISS-MD-BACKLINKS-RECONCILE-20261013; não amplia o escopo funcional. Artefatos de rastreabilidade do predecessor preservados, com esta sucessora fornecendo os grants necessários.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs",
+        "src-tauri/crates/md-studio-core/src/index/workspace_scanner.rs"
+      ],
+      "outputs": {
+        "files": [
+          "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs",
+          "src-tauri/crates/md-studio-core/src/index/workspace_scanner.rs",
+          ".esaa/tasks/HF-ISS-MD-BACKLINKS-RECONCILE-20261013.yaml",
+          ".esaa/analysis/HF-ISS-MD-BACKLINKS-RECONCILE-20261013-impact.yaml",
+          ".esaa/analysis/HF-ISS-MD-BACKLINKS-RECONCILE-20261013-footprint.yaml",
+          ".esaa/analysis/HF-ISS-MD-BACKLINKS-RECONCILE-20261013-drift.yaml"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "src-tauri/crates/md-studio-core/src/index/reindex_engine.rs",
+        "src-tauri/crates/md-studio-core/src/index/workspace_scanner.rs",
+        ".esaa/tasks/HF-ISS-MD-BACKLINKS-RECONCILE-20261013.yaml",
+        ".esaa/analysis/HF-ISS-MD-BACKLINKS-RECONCILE-20261013-*"
+      ],
+      "task_type": "hotfix",
+      "acceptance_criteria": [
+        "Suite core e controles negativos passam; índice preservado em scan parcial e atualização concorrente serializada; drift warning literal documentado, sem violation."
+      ],
+      "required_review_mode": "regression",
+      "supersedes": [
+        "HF-ISS-MD-BACKLINKS-RECONCILE-20261013"
+      ],
+      "assigned_to": "agent-impl",
+      "started_at": "2026-10-13T19:42:18Z",
+      "verification": {
+        "checks": [
+          "cargo test --locked --manifest-path src-tauri/crates/md-studio-core/Cargo.toml: suite completa passou no candidato",
+          "Regressões: scan inválido preserva índice/backlinks; root ausente preserva índice; atualização concorrente não é sobrescrita",
+          "Controles negativos independentes: scanner permissivo e lock após scan produzem exit101 nos testes correspondentes",
+          "Drift warning, sem violation; revisão de diff restrita aos dois arquivos de índice"
+        ]
+      },
+      "issue_id": "ISS-MD-BACKLINKS-RECONCILE-20261013",
+      "fixes": "MD-BUG-BACKLINKS-003",
+      "completed_at": "2026-10-13T19:42:45Z"
+    },
+    {
+      "task_id": "MD-RELEASE-PREP-053-20261013-001",
+      "task_kind": "impl",
+      "title": "Preparar manifests e notas do MD Studio 0.5.3",
+      "description": "Preparação governada da versão inédita 0.5.3 antes de commit/tag. Apenas versionamento e notas; publicação permanece na tarefa principal.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "package.json",
+        "src-tauri/Cargo.toml",
+        "src-tauri/Cargo.lock",
+        "src-tauri/tauri.conf.json"
+      ],
+      "outputs": {
+        "files": [
+          "package.json",
+          "src-tauri/Cargo.toml",
+          "src-tauri/Cargo.lock",
+          "src-tauri/tauri.conf.json",
+          "docs/release/RELEASE_NOTES_v0.5.3.md"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "package.json",
+        "src-tauri/Cargo.toml",
+        "src-tauri/Cargo.lock",
+        "src-tauri/tauri.conf.json",
+        "docs/release/RELEASE_NOTES_v0.5.3.md"
+      ],
+      "task_type": "release",
+      "acceptance_criteria": [
+        "Versão app 0.5.3 coerente nos manifests e lock; versão do core preservada; notas descrevem backlinks, Graph Explorer, reconciliação segura e atualização de segurança, sem alegar release publicado."
+      ],
+      "required_review_mode": "release",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-10-13T19:44:01Z",
+      "verification": {
+        "checks": [
+          "JSON manifests válidos versão0.5.3; Cargo.toml/lock app0.5.3 coerentes; core versão preservada",
+          "Notas incluem mudanças entregues e limites; sem alegação antecipada de publicação"
+        ]
+      },
+      "completed_at": "2026-10-13T19:45:48Z"
+    },
+    {
+      "task_id": "MD-SECURITY-TOOLS-COMPAT-20261013-001",
+      "task_kind": "impl",
+      "title": "Fixar dependência compatível do instalador Semgrep",
+      "description": "Gate falha antes do scan: Semgrep1.140.0/MCP1.16.0 importa eval_type_backport, ausente em Pydantic2.14.1 resolvido atualmente. Preparar pin compatível de Pydantic e validar o mesmo gate completo, sem suprimir scans ou política.",
+      "status": "in_progress",
+      "depends_on": [],
+      "targets": [
+        "scripts/install-security-tools.sh",
+        "docs/security/MD-SECURITY-TOOLS-COMPAT-20261013.md"
+      ],
+      "outputs": {
+        "files": [
+          "scripts/install-security-tools.sh",
+          "docs/security/MD-SECURITY-TOOLS-COMPAT-20261013.md"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "scripts/install-security-tools.sh",
+        "docs/security/MD-SECURITY-TOOLS-COMPAT-20261013.md"
+      ],
+      "task_type": "maintenance",
+      "acceptance_criteria": [
+        "Semgrep inicia em instalação limpa com pin explícito compatível; gate completo passa; ferramentas e regras de segurança mantidas."
+      ],
+      "required_review_mode": "security",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-10-13T19:44:49Z",
+      "superseded_by": [
+        "MD-SECURITY-TOOLS-COMPAT-20261013-002"
+      ]
+    },
+    {
+      "task_id": "MD-SECURITY-TOOLS-COMPAT-20261013-002",
+      "task_kind": "impl",
+      "title": "Entregar instalador de segurança compatível e rastreável",
+      "description": "Sucessora com grants de rastreabilidade. Fixar Pydantic2.11.10 para Semgrep1.140.0/MCP1.16.0 e permitir seleção explícita de Python3.11 para execução local alinhada ao CI. Preparar projeção antes da mudança; manter scans e gates completos. Primeiro candidato demonstrou incompatibilidade nativa em Python3.14, sem usar bypass PyO3.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "scripts/install-security-tools.sh",
+        ".esaa/tasks/MD-SECURITY-TOOLS-COMPAT-20261013-002.yaml"
+      ],
+      "outputs": {
+        "files": [
+          "scripts/install-security-tools.sh",
+          "docs/security/MD-SECURITY-TOOLS-COMPAT-20261013.md",
+          ".esaa/tasks/MD-SECURITY-TOOLS-COMPAT-20261013-002.yaml",
+          ".esaa/analysis/MD-SECURITY-TOOLS-COMPAT-20261013-002-impact.yaml",
+          ".esaa/analysis/MD-SECURITY-TOOLS-COMPAT-20261013-002-footprint.yaml",
+          ".esaa/analysis/MD-SECURITY-TOOLS-COMPAT-20261013-002-drift.yaml"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "scripts/install-security-tools.sh",
+        "docs/security/MD-SECURITY-TOOLS-COMPAT-20261013.md",
+        ".esaa/tasks/MD-SECURITY-TOOLS-COMPAT-20261013-002.yaml",
+        ".esaa/analysis/MD-SECURITY-TOOLS-COMPAT-20261013-002-*"
+      ],
+      "task_type": "maintenance",
+      "acceptance_criteria": [
+        "Instalação limpa Python3.11, Semgrep e gate completo passam; nenhuma regra removida; drift warning documentado sem violation."
+      ],
+      "required_review_mode": "security",
+      "supersedes": [
+        "MD-SECURITY-TOOLS-COMPAT-20261013-001"
+      ],
+      "assigned_to": "agent-impl",
+      "started_at": "2026-10-13T19:46:33Z",
+      "verification": {
+        "checks": [
+          "MD_SECURITY_PYTHON=Python3.11 bash candidato: exit0, executa scripts/security-gates.sh completo",
+          "Semgrep107 regras/13128 arquivos, zero findings; gitleaks sem leaks; ambos cargo audit passam",
+          "pnpm audit high exit0, typecheck e778 testes passaram"
+        ]
+      },
+      "completed_at": "2026-10-13T19:51:55Z"
+    },
+    {
+      "task_id": "MD-RELEASE-SNAP-META-053-001",
+      "task_kind": "impl",
+      "title": "Sincronizar metadata Snap com app0.5.3",
+      "description": "Metadata snap/snapcraft.yaml ainda0.5.2; sincronizar somente versão com nova release GitHub0.5.3. Não inclui publicação na Snap Store.",
+      "status": "done",
+      "depends_on": [],
+      "targets": [
+        "snap/snapcraft.yaml"
+      ],
+      "outputs": {
+        "files": [
+          "snap/snapcraft.yaml"
+        ]
+      },
+      "immutability": {
+        "done_is_immutable": true
+      },
+      "boundary_grant": [
+        "snap/snapcraft.yaml"
+      ],
+      "task_type": "release",
+      "acceptance_criteria": [
+        "YAML válido versão0.5.3; restante do manifesto preservado; nenhuma publicação Snap Store."
+      ],
+      "required_review_mode": "release",
+      "assigned_to": "agent-impl",
+      "started_at": "2026-10-13T19:49:08Z",
+      "verification": {
+        "checks": [
+          "YAML parse válido version0.5.3; comparação textual confirma única substituição de version"
+        ]
+      },
+      "completed_at": "2026-10-13T19:49:32Z"
     }
   ],
   "indexes": {
     "by_status": {
-      "done": 418,
-      "review": 1
+      "done": 426,
+      "in_progress": 3
     },
     "by_kind": {
-      "impl": 341,
+      "impl": 351,
       "qa": 46,
       "spec": 32
     }
