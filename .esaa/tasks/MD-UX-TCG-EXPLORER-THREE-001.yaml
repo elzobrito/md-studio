@@ -1,0 +1,32 @@
+artifact: task-traceability
+schema_version: 1
+task_id: MD-UX-TCG-EXPLORER-THREE-001
+written_at: '2026-10-07T15:10:00-03:00'
+projected_before_change: true
+graph:
+  path: .esaa/traceability/graph.json
+  source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+projection_inputs:
+  - "O explorer TCG (public/graph_explorer.html) não tem nós no grafo."
+  - "A tarefa só troca o renderer da página de governança; não toca src/, src-tauri/ nem graph.json."
+traceability:
+  targets: []
+  expected_affected: []
+  protected_extra: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: true
+  rationale: {}
+  justification: {}
+artifacts:
+  impact: .esaa/analysis/MD-UX-TCG-EXPLORER-THREE-001-impact.yaml
+  footprint: .esaa/analysis/MD-UX-TCG-EXPLORER-THREE-001-footprint.yaml
+  drift: .esaa/analysis/MD-UX-TCG-EXPLORER-THREE-001-drift.yaml
+expected_uncatalogued:
+  - public/graph_explorer.html
+  - public/graph_explorer.js
+  - public/vendor/three.module.min.js
+  - public/vendor/THREE-LICENSE.txt
+  - tests/graph-explorer/graph-explorer-three.test.ts
+close_rule: O complete copia verdict. warning cita path e linhas. violation bloqueia. Não reancorar graph.json.

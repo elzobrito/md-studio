@@ -1,0 +1,54 @@
+artifact: task-impact
+schema_version: 1
+trace_task: TRACE-017
+task_id: MD-UX-TCG-EXPLORER-THREE-001
+projected_at: '2026-10-07T15:32:11-03:00'
+projected_before_change: true
+projection_inputs:
+- O explorer TCG (public/graph_explorer.html) não tem nós no grafo.
+- A tarefa só troca o renderer da página de governança; não toca src/, src-tauri/ nem graph.json.
+spec: .esaa/tasks/MD-UX-TCG-EXPLORER-THREE-001.yaml
+graph_source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+rationale: {}
+justification: {}
+expected_uncatalogued:
+  - public/graph_explorer.html
+  - public/graph_explorer.js
+  - public/vendor/three.module.min.js
+  - public/vendor/THREE-LICENSE.txt
+  - tests/graph-explorer/graph-explorer-three.test.ts
+blast_radius:
+  change_target: []
+  expected_affected: []
+  expected_affected_source: declared
+  suggested_expected_affected: []
+  authorized: []
+  potentially_affected: []
+  protected_in_closure: []
+  protected_total: 141
+  protected_declared: []
+  change_policy:
+    mode: surgical
+    allow_new_tests: true
+    allow_new_production_nodes: true
+projected:
+  nodes: []
+  features:
+    direct: []
+    indirect: []
+  flows: []
+  invariants: []
+  tests:
+    must_run: []
+    should_run: []
+    may_run: []
+  contracts: []
+  data: []
+  events: []
+  entrypoints: []
+  modules: []
+closure: []
+hubs: []
+stats:
+  closure_nodes: 0
+  by_distance: {}

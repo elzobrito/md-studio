@@ -1,0 +1,175 @@
+artifact: task-drift
+schema_version: 1
+trace_task: TRACE-019
+task_id: MD-UX-TCG-EXPLORER-THREE-001
+inputs:
+  impact: .esaa/analysis/MD-UX-TCG-EXPLORER-THREE-001-impact.yaml
+  footprint: .esaa/analysis/MD-UX-TCG-EXPLORER-THREE-001-footprint.yaml
+  graph_source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+notes: []
+rule: authorized = change_target ∪ expected_affected; ok ∈ authorized; violation ∈ protected; warning ∈ potentially_affected | out_of_closure
+  | uncatalogued substantive
+authorized: []
+observed: []
+classification: []
+drift: []
+other_findings:
+- path: public/graph_explorer.html
+  category: uncatalogued_change
+  severity: warning
+  lines:
+  - old:13
+  - old:44
+  - old:47
+  - old:54
+  - old:55
+  - old:56
+  - old:57
+  - old:58
+  - old:59
+  - old:60
+  - old:61
+  - old:62
+  - old:63
+  - old:64
+  - old:65
+  - old:66
+  - old:67
+  - old:68
+  - old:69
+  - old:70
+  - old:71
+  - old:72
+  - old:73
+  - old:74
+  - old:75
+  - old:76
+  - old:77
+  - old:78
+  - old:79
+  - old:80
+  - old:81
+  - old:82
+  - old:83
+  - old:84
+  - old:85
+  - old:86
+  - old:87
+  - old:88
+  - old:89
+  - old:90
+  - old:91
+  - old:92
+  - old:93
+  - old:94
+  - old:95
+  - old:96
+  - old:97
+  - old:98
+  - old:99
+  - old:100
+  - old:101
+  - old:102
+  - old:103
+  - old:104
+  - old:105
+  - old:106
+  - old:107
+  - old:108
+  - old:109
+  - old:110
+  - old:111
+  - old:112
+  - old:113
+  - old:114
+  - old:115
+  - old:116
+  - old:117
+  - old:118
+  - old:119
+  - old:120
+  - old:121
+  - old:122
+  - old:123
+  - old:124
+  - old:125
+  - old:126
+  - old:127
+  - old:128
+  - old:129
+  - old:130
+  - old:131
+  - old:132
+  - old:133
+  - old:134
+  - old:135
+  - old:136
+  - old:137
+  - old:138
+  - old:139
+  - old:140
+  - old:141
+  - old:142
+  - old:143
+  - old:144
+  - old:145
+  - old:146
+  - new:13
+  - new:44
+  - new:47
+  - new:48
+  - new:55
+- path: .esaa/analysis/MD-UX-TCG-EXPLORER-THREE-001-impact.yaml
+  category: new_production_file
+  severity: info
+- path: .esaa/tasks/MD-UX-TCG-EXPLORER-THREE-001.yaml
+  category: new_production_file
+  severity: info
+- path: public/graph_explorer.js
+  category: new_production_file
+  severity: info
+- path: public/vendor/THREE-LICENSE.txt
+  category: new_production_file
+  severity: info
+- path: public/vendor/three.module.min.js
+  category: new_production_file
+  severity: info
+- path: tests/graph-explorer/graph-explorer-three.test.ts
+  category: new_test_file
+  severity: info
+not_touched: []
+verdict: warning
+metrics:
+  nodes:
+    tp: 0
+    authorized: 0
+    observed: 0
+    precision: null
+    recall: null
+    closure_recall: null
+  code_nodes_only:
+    tp: 0
+    authorized: 0
+    observed: 0
+    precision: null
+    recall: null
+  features:
+    projected_direct: []
+    projected_all: 0
+    observed: []
+    observed_in_projected_direct: []
+    observed_missing_from_projection: []
+    precision_direct: null
+    recall_all: null
+  invariants:
+    projected: []
+    observed: []
+    missing_from_projection: []
+  tests:
+    projected_must_run: []
+    changed_test_nodes: []
+    new_test_files:
+    - tests/graph-explorer/graph-explorer-three.test.ts
+  contracts_touched: []
+  data_touched: []
+  events_touched: []

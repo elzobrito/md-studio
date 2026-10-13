@@ -1,0 +1,281 @@
+artifact: task-footprint
+schema_version: 1
+trace_task: TRACE-018
+task_id: MD-UX-TCG-EXPLORER-THREE-001
+diff:
+  base: f63a570a5bdcbf5430d5418186077b714a3aa8c8
+  head: WORKTREE
+  paths_filter:
+  - public/graph_explorer.html
+  - public/graph_explorer.js
+  - public/vendor/three.module.min.js
+  - public/vendor/THREE-LICENSE.txt
+  - tests/graph-explorer/graph-explorer-three.test.ts
+  - .esaa/tasks/MD-UX-TCG-EXPLORER-THREE-001.yaml
+  - .esaa/analysis/MD-UX-TCG-EXPLORER-THREE-001-impact.yaml
+  excluded_set: []
+  command: git diff -U0 --no-color --no-ext-diff f63a570a5bdcbf5430d5418186077b714a3aa8c8 -- public/graph_explorer.html public/graph_explorer.js
+    public/vendor/three.module.min.js public/vendor/THREE-LICENSE.txt tests/graph-explorer/graph-explorer-three.test.ts .esaa/tasks/MD-UX-TCG-EXPLORER-THREE-001.yaml
+    .esaa/analysis/MD-UX-TCG-EXPLORER-THREE-001-impact.yaml
+graph_source_commit: 2e5cce855888b404654002fef1d97ebc0db29cf7
+notes: []
+changed_files:
+- path: .esaa/analysis/MD-UX-TCG-EXPLORER-THREE-001-impact.yaml
+  status: A
+  added: 54
+  removed: 0
+  hunks:
+  - old:
+    - 0
+    - -1
+    new:
+    - 1
+    - 54
+  is_test: false
+  catalogued_nodes_in_file: 0
+- path: .esaa/tasks/MD-UX-TCG-EXPLORER-THREE-001.yaml
+  status: A
+  added: 32
+  removed: 0
+  hunks:
+  - old:
+    - 0
+    - -1
+    new:
+    - 1
+    - 32
+  is_test: false
+  catalogued_nodes_in_file: 0
+- path: public/graph_explorer.html
+  status: M
+  added: 5
+  removed: 96
+  hunks:
+  - old:
+    - 13
+    - 13
+    new:
+    - 13
+    - 13
+  - old:
+    - 44
+    - 44
+    new:
+    - 44
+    - 44
+  - old:
+    - 47
+    - 47
+    new:
+    - 47
+    - 48
+  - old:
+    - 54
+    - 146
+    new:
+    - 55
+    - 55
+  is_test: false
+  catalogued_nodes_in_file: 0
+- path: public/graph_explorer.js
+  status: A
+  added: 477
+  removed: 0
+  hunks:
+  - old:
+    - 0
+    - -1
+    new:
+    - 1
+    - 477
+  is_test: false
+  catalogued_nodes_in_file: 0
+- path: public/vendor/THREE-LICENSE.txt
+  status: A
+  added: 21
+  removed: 0
+  hunks:
+  - old:
+    - 0
+    - -1
+    new:
+    - 1
+    - 21
+  is_test: false
+  catalogued_nodes_in_file: 0
+- path: public/vendor/three.module.min.js
+  status: A
+  added: 6
+  removed: 0
+  hunks:
+  - old:
+    - 0
+    - -1
+    new:
+    - 1
+    - 6
+  is_test: false
+  catalogued_nodes_in_file: 0
+- path: tests/graph-explorer/graph-explorer-three.test.ts
+  status: A
+  added: 40
+  removed: 0
+  hunks:
+  - old:
+    - 0
+    - -1
+    new:
+    - 1
+    - 40
+  is_test: true
+  catalogued_nodes_in_file: 0
+changed_nodes: []
+enclosing_nodes: []
+uncatalogued:
+- path: public/graph_explorer.html
+  is_test: false
+  old_lines:
+  - - 13
+    - 13
+  - - 44
+    - 44
+  - - 47
+    - 47
+  - - 54
+    - 146
+  new_lines:
+  - - 13
+    - 13
+  - - 44
+    - 44
+  - - 47
+    - 48
+  - - 55
+    - 55
+  trivial_lines: 0
+  substantive_lines:
+  - old:13
+  - old:44
+  - old:47
+  - old:54
+  - old:55
+  - old:56
+  - old:57
+  - old:58
+  - old:59
+  - old:60
+  - old:61
+  - old:62
+  - old:63
+  - old:64
+  - old:65
+  - old:66
+  - old:67
+  - old:68
+  - old:69
+  - old:70
+  - old:71
+  - old:72
+  - old:73
+  - old:74
+  - old:75
+  - old:76
+  - old:77
+  - old:78
+  - old:79
+  - old:80
+  - old:81
+  - old:82
+  - old:83
+  - old:84
+  - old:85
+  - old:86
+  - old:87
+  - old:88
+  - old:89
+  - old:90
+  - old:91
+  - old:92
+  - old:93
+  - old:94
+  - old:95
+  - old:96
+  - old:97
+  - old:98
+  - old:99
+  - old:100
+  - old:101
+  - old:102
+  - old:103
+  - old:104
+  - old:105
+  - old:106
+  - old:107
+  - old:108
+  - old:109
+  - old:110
+  - old:111
+  - old:112
+  - old:113
+  - old:114
+  - old:115
+  - old:116
+  - old:117
+  - old:118
+  - old:119
+  - old:120
+  - old:121
+  - old:122
+  - old:123
+  - old:124
+  - old:125
+  - old:126
+  - old:127
+  - old:128
+  - old:129
+  - old:130
+  - old:131
+  - old:132
+  - old:133
+  - old:134
+  - old:135
+  - old:136
+  - old:137
+  - old:138
+  - old:139
+  - old:140
+  - old:141
+  - old:142
+  - old:143
+  - old:144
+  - old:145
+  - old:146
+  - new:13
+  - new:44
+  - new:47
+  - new:48
+  - new:55
+new_files:
+- .esaa/analysis/MD-UX-TCG-EXPLORER-THREE-001-impact.yaml
+- .esaa/tasks/MD-UX-TCG-EXPLORER-THREE-001.yaml
+- public/graph_explorer.js
+- public/vendor/THREE-LICENSE.txt
+- public/vendor/three.module.min.js
+new_test_files:
+- tests/graph-explorer/graph-explorer-three.test.ts
+contracts_touched: []
+data_touched: []
+events_touched: []
+rollup:
+  features: []
+  invariants: []
+  flows: []
+stats:
+  files: 7
+  changed_nodes: 0
+  code_nodes: 0
+  test_nodes: 0
+  uncatalogued_files: 1
+  uncatalogued_substantive_lines: 101
+  new_files: 5
+  new_test_files: 1
